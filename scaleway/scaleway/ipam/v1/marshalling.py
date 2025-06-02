@@ -103,6 +103,12 @@ def unmarshal_Source(data: Any) -> Source:
     else:
         args["subnet_id"] = None
 
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
     return Source(**args)
 
 
@@ -234,6 +240,7 @@ def marshal_Source(
                 OneOfPossibility("zonal", request.zonal),
                 OneOfPossibility("private_network_id", request.private_network_id),
                 OneOfPossibility("subnet_id", request.subnet_id),
+                OneOfPossibility("vpc_id", request.vpc_id),
             ]
         ),
     )
