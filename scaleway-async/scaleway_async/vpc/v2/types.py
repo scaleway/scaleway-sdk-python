@@ -316,6 +316,11 @@ class VPC:
     Defines whether the VPC routes traffic between its Private Networks.
     """
 
+    custom_routes_propagation_enabled: bool
+    """
+    Defines whether the VPC advertises custom routes between its Private Networks.
+    """
+
     created_at: Optional[datetime]
     """
     Date the VPC was created.
@@ -505,6 +510,19 @@ class DeleteSubnetsResponse:
 
 @dataclass
 class DeleteVPCRequest:
+    vpc_id: str
+    """
+    VPC ID.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class EnableCustomRoutesPropagationRequest:
     vpc_id: str
     """
     VPC ID.
