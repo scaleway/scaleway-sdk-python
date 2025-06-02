@@ -25,6 +25,7 @@ from .types import (
     ConnectionConnectedUser,
     Connection,
     GetUserConnectionsResponse,
+    InitiateUserConnectionResponse,
     ListAPIKeysResponse,
     ListApplicationsResponse,
     GracePeriod,
@@ -55,7 +56,9 @@ from .types import (
     CreateSSHKeyRequest,
     CreateUserRequestMember,
     CreateUserRequest,
+    JoinUserConnectionRequest,
     RemoveGroupMemberRequest,
+    RemoveUserConnectionRequest,
     SetGroupMembersRequest,
     SetRulesRequest,
     UpdateAPIKeyRequest,
@@ -808,6 +811,23 @@ def unmarshal_GetUserConnectionsResponse(data: Any) -> GetUserConnectionsRespons
     return GetUserConnectionsResponse(**args)
 
 
+def unmarshal_InitiateUserConnectionResponse(
+    data: Any,
+) -> InitiateUserConnectionResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InitiateUserConnectionResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("token", None)
+    if field is not None:
+        args["token"] = field
+
+    return InitiateUserConnectionResponse(**args)
+
+
 def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1492,6 +1512,18 @@ def marshal_CreateUserRequest(
     return output
 
 
+def marshal_JoinUserConnectionRequest(
+    request: JoinUserConnectionRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.token is not None:
+        output["token"] = request.token
+
+    return output
+
+
 def marshal_RemoveGroupMemberRequest(
     request: RemoveGroupMemberRequest,
     defaults: ProfileDefaults,
@@ -1505,6 +1537,18 @@ def marshal_RemoveGroupMemberRequest(
             ]
         ),
     )
+
+    return output
+
+
+def marshal_RemoveUserConnectionRequest(
+    request: RemoveUserConnectionRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.target_user_id is not None:
+        output["target_user_id"] = request.target_user_id
 
     return output
 

@@ -1299,6 +1299,35 @@ class GetUserRequest:
 
 
 @dataclass
+class InitiateUserConnectionRequest:
+    user_id: str
+    """
+    ID of the user that will be added to your connection.
+    """
+
+
+@dataclass
+class InitiateUserConnectionResponse:
+    token: str
+    """
+    Token to be used in JoinUserConnection.
+    """
+
+
+@dataclass
+class JoinUserConnectionRequest:
+    user_id: str
+    """
+    User ID.
+    """
+
+    token: str
+    """
+    A token returned by InitiateUserConnection.
+    """
+
+
+@dataclass
 class ListAPIKeysRequest:
     order_by: Optional[ListAPIKeysRequestOrderBy]
     """
@@ -1942,6 +1971,19 @@ class RemoveGroupMemberRequest:
     user_id: Optional[str]
 
     application_id: Optional[str]
+
+
+@dataclass
+class RemoveUserConnectionRequest:
+    user_id: str
+    """
+    ID of the user you want to manage the connection for.
+    """
+
+    target_user_id: str
+    """
+    ID of the user you want to remove from your connection.
+    """
 
 
 @dataclass

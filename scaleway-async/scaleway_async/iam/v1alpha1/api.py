@@ -42,7 +42,9 @@ from .types import (
     EncodedJWT,
     GetUserConnectionsResponse,
     Group,
+    InitiateUserConnectionResponse,
     JWT,
+    JoinUserConnectionRequest,
     ListAPIKeysResponse,
     ListApplicationsResponse,
     ListGracePeriodsResponse,
@@ -62,6 +64,7 @@ from .types import (
     Policy,
     Quotum,
     RemoveGroupMemberRequest,
+    RemoveUserConnectionRequest,
     Rule,
     RuleSpecs,
     SSHKey,
@@ -93,6 +96,7 @@ from .marshalling import (
     unmarshal_User,
     unmarshal_EncodedJWT,
     unmarshal_GetUserConnectionsResponse,
+    unmarshal_InitiateUserConnectionResponse,
     unmarshal_ListAPIKeysResponse,
     unmarshal_ListApplicationsResponse,
     unmarshal_ListGracePeriodsResponse,
@@ -118,7 +122,9 @@ from .marshalling import (
     marshal_CreatePolicyRequest,
     marshal_CreateSSHKeyRequest,
     marshal_CreateUserRequest,
+    marshal_JoinUserConnectionRequest,
     marshal_RemoveGroupMemberRequest,
+    marshal_RemoveUserConnectionRequest,
     marshal_SetGroupMembersRequest,
     marshal_SetRulesRequest,
     marshal_UpdateAPIKeyRequest,
@@ -897,6 +903,104 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetUserConnectionsResponse(res.json())
+
+    async def initiate_user_connection(
+        self,
+        *,
+        user_id: str,
+    ) -> InitiateUserConnectionResponse:
+        """
+        :param user_id: ID of the user that will be added to your connection.
+        :return: :class:`InitiateUserConnectionResponse <InitiateUserConnectionResponse>`
+
+        Usage:
+        ::
+
+            result = await api.initiate_user_connection(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/initiate-connection",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_InitiateUserConnectionResponse(res.json())
+
+    async def join_user_connection(
+        self,
+        *,
+        user_id: str,
+        token: str,
+    ) -> None:
+        """
+        :param user_id: User ID.
+        :param token: A token returned by InitiateUserConnection.
+
+        Usage:
+        ::
+
+            result = await api.join_user_connection(
+                user_id="example",
+                token="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/join-connection",
+            body=marshal_JoinUserConnectionRequest(
+                JoinUserConnectionRequest(
+                    user_id=user_id,
+                    token=token,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+
+    async def remove_user_connection(
+        self,
+        *,
+        user_id: str,
+        target_user_id: str,
+    ) -> None:
+        """
+        :param user_id: ID of the user you want to manage the connection for.
+        :param target_user_id: ID of the user you want to remove from your connection.
+
+        Usage:
+        ::
+
+            result = await api.remove_user_connection(
+                user_id="example",
+                target_user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/remove-connection",
+            body=marshal_RemoveUserConnectionRequest(
+                RemoveUserConnectionRequest(
+                    user_id=user_id,
+                    target_user_id=target_user_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
 
     async def list_applications(
         self,
