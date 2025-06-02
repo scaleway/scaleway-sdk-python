@@ -101,6 +101,8 @@ class Source:
 
     subnet_id: Optional[str]
 
+    vpc_id: Optional[str]
+
 
 @dataclass
 class CustomResource:
@@ -357,6 +359,8 @@ class ListIPsRequest:
     private_network_id: Optional[str]
 
     subnet_id: Optional[str]
+
+    source_vpc_id: Optional[str]
 
 
 @dataclass
