@@ -245,6 +245,10 @@ def unmarshal_VPC(data: Any) -> VPC:
     if field is not None:
         args["routing_enabled"] = field
 
+    field = data.get("custom_routes_propagation_enabled", None)
+    if field is not None:
+        args["custom_routes_propagation_enabled"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
