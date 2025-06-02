@@ -1450,13 +1450,13 @@ class CockpitV1RegionalAPI(API):
     ) -> ListAlertsResponse:
         """
         List alerts.
-        List preconfigured and/or custom alerts for the specified Project.
+        List preconfigured and/or custom alerts for the specified Project and data source.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project ID to filter for, only alerts from this Project will be returned.
         :param is_enabled: True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
         :param is_preconfigured: True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
         :param state: Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
-        :param data_source_id: If omitted, only alerts from the default scaleway data source will be listed.
+        :param data_source_id: If omitted, only alerts from the default Scaleway metrics data source will be listed.
         :return: :class:`ListAlertsResponse <ListAlertsResponse>`
 
         Usage:
