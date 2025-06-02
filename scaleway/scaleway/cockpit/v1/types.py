@@ -1256,7 +1256,7 @@ class RegionalApiListAlertsRequest:
 
     data_source_id: Optional[str]
     """
-    If omitted, only alerts from the default scaleway data source will be listed.
+    If omitted, only alerts from the default Scaleway metrics data source will be listed.
     """
 
 
