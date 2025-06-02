@@ -20,6 +20,7 @@ from .types import DeleteRouteRequest
 from .types import DeleteSubnetsRequest
 from .types import DeleteSubnetsResponse
 from .types import DeleteVPCRequest
+from .types import EnableCustomRoutesPropagationRequest
 from .types import EnableDHCPRequest
 from .types import EnableRoutingRequest
 from .types import GetAclRequest
@@ -61,6 +62,7 @@ __all__ = [
     "DeleteSubnetsRequest",
     "DeleteSubnetsResponse",
     "DeleteVPCRequest",
+    "EnableCustomRoutesPropagationRequest",
     "EnableDHCPRequest",
     "EnableRoutingRequest",
     "GetAclRequest",

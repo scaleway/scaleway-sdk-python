@@ -68,6 +68,9 @@ from .types import GetSSHKeyRequest
 from .types import GetUserConnectionsRequest
 from .types import GetUserConnectionsResponse
 from .types import GetUserRequest
+from .types import InitiateUserConnectionRequest
+from .types import InitiateUserConnectionResponse
+from .types import JoinUserConnectionRequest
 from .types import ListAPIKeysRequest
 from .types import ListAPIKeysResponse
 from .types import ListApplicationsRequest
@@ -97,6 +100,7 @@ from .types import MFAOTP
 from .types import MigrateOrganizationGuestsRequest
 from .types import OrganizationSecuritySettings
 from .types import RemoveGroupMemberRequest
+from .types import RemoveUserConnectionRequest
 from .types import SetGroupMembersRequest
 from .types import SetRulesRequest
 from .types import SetRulesResponse
@@ -183,6 +187,9 @@ __all__ = [
     "GetUserConnectionsRequest",
     "GetUserConnectionsResponse",
     "GetUserRequest",
+    "InitiateUserConnectionRequest",
+    "InitiateUserConnectionResponse",
+    "JoinUserConnectionRequest",
     "ListAPIKeysRequest",
     "ListAPIKeysResponse",
     "ListApplicationsRequest",
@@ -212,6 +219,7 @@ __all__ = [
     "MigrateOrganizationGuestsRequest",
     "OrganizationSecuritySettings",
     "RemoveGroupMemberRequest",
+    "RemoveUserConnectionRequest",
     "SetGroupMembersRequest",
     "SetRulesRequest",
     "SetRulesResponse",
