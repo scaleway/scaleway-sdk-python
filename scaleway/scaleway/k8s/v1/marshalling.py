@@ -169,6 +169,10 @@ def unmarshal_Pool(data: Any) -> Pool:
     if field is not None:
         args["public_ip_disabled"] = field
 
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -1282,6 +1286,9 @@ def marshal_CreateClusterRequestPoolConfig(
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
 
+    if request.security_group_id is not None:
+        output["security_group_id"] = request.security_group_id
+
     return output
 
 
@@ -1433,6 +1440,9 @@ def marshal_CreatePoolRequest(
 
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
+
+    if request.security_group_id is not None:
+        output["security_group_id"] = request.security_group_id
 
     return output
 

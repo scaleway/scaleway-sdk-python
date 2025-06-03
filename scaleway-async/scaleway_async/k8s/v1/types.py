@@ -433,6 +433,11 @@ class Pool:
     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
     """
 
+    security_group_id: str
+    """
+    Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
+    """
+
     region: ScwRegion
     """
     Cluster region of the pool.
@@ -675,6 +680,11 @@ class CreateClusterRequestPoolConfig:
     root_volume_size: Optional[int]
     """
     System volume disk size.
+    """
+
+    security_group_id: Optional[str]
+    """
+    Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
     """
 
 
@@ -1340,6 +1350,11 @@ class CreatePoolRequest:
     root_volume_size: Optional[int]
     """
     System volume disk size.
+    """
+
+    security_group_id: Optional[str]
+    """
+    Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
     """
 
 
