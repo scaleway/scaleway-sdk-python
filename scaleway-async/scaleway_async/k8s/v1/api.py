@@ -1044,6 +1044,7 @@ class K8SV1API(API):
         zone: Optional[ScwZone] = None,
         root_volume_type: Optional[PoolVolumeType] = None,
         root_volume_size: Optional[int] = None,
+        security_group_id: Optional[str] = None,
     ) -> Pool:
         """
         Create a new Pool in a Cluster.
@@ -1069,6 +1070,7 @@ class K8SV1API(API):
         * `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
         * `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
         :param root_volume_size: System volume disk size.
+        :param security_group_id: Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1112,6 +1114,7 @@ class K8SV1API(API):
                     zone=zone,
                     root_volume_type=root_volume_type,
                     root_volume_size=root_volume_size,
+                    security_group_id=security_group_id,
                 ),
                 self.client,
             ),
