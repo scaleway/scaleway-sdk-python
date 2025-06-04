@@ -1571,8 +1571,8 @@ class CockpitV1RegionalAPI(API):
         Enable preconfigured alert rules.
         Enable alert rules from the list of available preconfigured rules.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id:
-        :param rule_ids:
+        :param project_id: ID of the Project.
+        :param rule_ids: List of IDs of the rules to enable. If empty, enables all preconfigured rules.
         :return: :class:`EnableAlertRulesResponse <EnableAlertRulesResponse>`
 
         Usage:
@@ -1612,8 +1612,8 @@ class CockpitV1RegionalAPI(API):
         Disable preconfigured alert rules.
         Disable alert rules from the list of available preconfigured rules.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id:
-        :param rule_ids:
+        :param project_id: ID of the Project.
+        :param rule_ids: List of IDs of the rules to enable. If empty, disables all preconfigured rules.
         :return: :class:`DisableAlertRulesResponse <DisableAlertRulesResponse>`
 
         Usage:
