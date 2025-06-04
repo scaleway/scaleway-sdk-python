@@ -118,6 +118,7 @@ class FileV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         order_by: Optional[ListFileSystemsRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -129,6 +130,7 @@ class FileV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by project ID.
+        :param organization_id: Filter by organization ID.
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
         :param name: Filter the returned filesystems by their names.
@@ -151,6 +153,8 @@ class FileV1Alpha1API(API):
             params={
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -167,6 +171,7 @@ class FileV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         order_by: Optional[ListFileSystemsRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -178,6 +183,7 @@ class FileV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by project ID.
+        :param organization_id: Filter by organization ID.
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
         :param name: Filter the returned filesystems by their names.
@@ -198,6 +204,7 @@ class FileV1Alpha1API(API):
                 "region": region,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "page": page,
                 "page_size": page_size,
                 "name": name,
