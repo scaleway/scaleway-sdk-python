@@ -131,6 +131,7 @@ class ApplesiliconV1Alpha1API(API):
         *,
         type_: str,
         enable_vpc: bool,
+        public_bandwidth_bps: int,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -142,6 +143,7 @@ class ApplesiliconV1Alpha1API(API):
         Create a new server in the targeted zone, specifying its configuration including name and type.
         :param type_: Create a server of the given type.
         :param enable_vpc: Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
+        :param public_bandwidth_bps: Public bandwidth to configure for this server. This defaults to the minimum bandwidth for this server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Create a server with this given name.
         :param project_id: Create a server in the given project ID.
@@ -155,6 +157,7 @@ class ApplesiliconV1Alpha1API(API):
             result = await api.create_server(
                 type="example",
                 enable_vpc=False,
+                public_bandwidth_bps=1,
             )
         """
 
@@ -167,6 +170,7 @@ class ApplesiliconV1Alpha1API(API):
                 CreateServerRequest(
                     type_=type_,
                     enable_vpc=enable_vpc,
+                    public_bandwidth_bps=public_bandwidth_bps,
                     zone=zone,
                     name=name or random_name(prefix="as"),
                     project_id=project_id,
@@ -455,6 +459,7 @@ class ApplesiliconV1Alpha1API(API):
         schedule_deletion: Optional[bool] = None,
         enable_vpc: Optional[bool] = None,
         commitment_type: Optional[CommitmentTypeValue] = None,
+        public_bandwidth_bps: Optional[int] = None,
     ) -> Server:
         """
         Update a server.
@@ -465,6 +470,7 @@ class ApplesiliconV1Alpha1API(API):
         :param schedule_deletion: Specify whether the server should be flagged for automatic deletion.
         :param enable_vpc: Activate or deactivate Private Network support for this server.
         :param commitment_type: Change commitment. Use 'none' to automatically cancel a renewing commitment.
+        :param public_bandwidth_bps: Public bandwidth to configure for this server. Setting an higher bandwidth incurs additional costs. Supported bandwidth levels depends on server type and can be queried using the `/server-types` endpoint.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -489,6 +495,7 @@ class ApplesiliconV1Alpha1API(API):
                     schedule_deletion=schedule_deletion,
                     enable_vpc=enable_vpc,
                     commitment_type=commitment_type,
+                    public_bandwidth_bps=public_bandwidth_bps,
                 ),
                 self.client,
             ),

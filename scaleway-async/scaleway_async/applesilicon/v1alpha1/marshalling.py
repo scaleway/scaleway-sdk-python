@@ -223,6 +223,10 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
     if field is not None:
         args["public_bandwidth_bps"] = field
 
+    field = data.get("supported_bandwidth", None)
+    if field is not None:
+        args["supported_bandwidth"] = field
+
     return ServerTypeNetwork(**args)
 
 
@@ -399,6 +403,10 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("vpc_status", None)
     if field is not None:
         args["vpc_status"] = field
+
+    field = data.get("public_bandwidth_bps", None)
+    if field is not None:
+        args["public_bandwidth_bps"] = field
 
     field = data.get("commitment", None)
     if field is not None:
@@ -623,6 +631,9 @@ def marshal_CreateServerRequest(
     if request.enable_vpc is not None:
         output["enable_vpc"] = request.enable_vpc
 
+    if request.public_bandwidth_bps is not None:
+        output["public_bandwidth_bps"] = request.public_bandwidth_bps
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -722,5 +733,8 @@ def marshal_UpdateServerRequest(
         output["commitment_type"] = marshal_CommitmentTypeValue(
             request.commitment_type, defaults
         )
+
+    if request.public_bandwidth_bps is not None:
+        output["public_bandwidth_bps"] = request.public_bandwidth_bps
 
     return output
