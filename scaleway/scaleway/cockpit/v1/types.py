@@ -540,12 +540,26 @@ class AlertManager:
 
 @dataclass
 class DisableAlertRulesResponse:
+    """
+    Output returned when alert rules are disabled.
+    """
+
     disabled_rule_ids: List[str]
+    """
+    Only newly disabled rules are listed. Rules that were already disabled are not returned in the output.
+    """
 
 
 @dataclass
 class EnableAlertRulesResponse:
+    """
+    Output returned when alert rules are enabled.
+    """
+
     enabled_rule_ids: List[str]
+    """
+    Only newly enabled rules are listed. Rules that were already enabled are not returned in the output.
+    """
 
 
 @dataclass
@@ -1081,8 +1095,14 @@ class RegionalApiDisableAlertRulesRequest:
     """
 
     project_id: Optional[str]
+    """
+    ID of the Project.
+    """
 
     rule_ids: Optional[List[str]]
+    """
+    List of IDs of the rules to enable. If empty, disables all preconfigured rules.
+    """
 
 
 @dataclass
@@ -1127,8 +1147,14 @@ class RegionalApiEnableAlertRulesRequest:
     """
 
     project_id: Optional[str]
+    """
+    ID of the Project.
+    """
 
     rule_ids: Optional[List[str]]
+    """
+    List of IDs of the rules to enable. If empty, enables all preconfigured rules.
+    """
 
 
 @dataclass
