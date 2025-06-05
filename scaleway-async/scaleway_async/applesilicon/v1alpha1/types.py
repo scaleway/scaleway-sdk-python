@@ -189,6 +189,8 @@ class ServerTypeMemory:
 class ServerTypeNetwork:
     public_bandwidth_bps: int
 
+    supported_bandwidth: List[int]
+
 
 @dataclass
 class Commitment:
@@ -405,6 +407,11 @@ class Server:
     Activation status of optional Private Network feature support for this server.
     """
 
+    public_bandwidth_bps: int
+    """
+    Public bandwidth configured for this server. Expressed in bits per second.
+    """
+
     commitment: Optional[Commitment]
     """
     Commitment scheme applied to this server.
@@ -441,6 +448,11 @@ class CreateServerRequest:
     enable_vpc: bool
     """
     Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
+    """
+
+    public_bandwidth_bps: int
+    """
+    Public bandwidth to configure for this server. This defaults to the minimum bandwidth for this server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
     """
 
     zone: Optional[ScwZone]
@@ -841,4 +853,9 @@ class UpdateServerRequest:
     commitment_type: Optional[CommitmentTypeValue]
     """
     Change commitment. Use 'none' to automatically cancel a renewing commitment.
+    """
+
+    public_bandwidth_bps: Optional[int]
+    """
+    Public bandwidth to configure for this server. Setting an higher bandwidth incurs additional costs. Supported bandwidth levels depends on server type and can be queried using the `/server-types` endpoint.
     """
