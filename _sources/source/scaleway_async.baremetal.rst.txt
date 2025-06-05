@@ -1,0 +1,19 @@
+scaleway\_async.baremetal package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.baremetal.v1
+   scaleway_async.baremetal.v3
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.baremetal
+   :members:
+   :undoc-members:
+   :show-inheritance:
