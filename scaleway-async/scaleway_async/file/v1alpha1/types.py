@@ -285,6 +285,11 @@ class ListFileSystemsRequest:
     Filter by project ID.
     """
 
+    organization_id: Optional[str]
+    """
+    Filter by organization ID.
+    """
+
     page: Optional[int]
     """
     Page number (starting at 1).
