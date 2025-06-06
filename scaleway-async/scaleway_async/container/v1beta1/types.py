@@ -522,6 +522,9 @@ class Container:
     """
 
     private_network_id: Optional[str]
+    """
+    When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
+    """
 
 
 @dataclass
@@ -668,6 +671,10 @@ class Namespace:
     """
 
     vpc_integration_activated: Optional[bool]
+    """
+    When activated, containers in the namespace can be connected to a Private Network.
+Note that activating the VPC integration can only be done when creating a new namespace.
+    """
 
 
 @dataclass
@@ -876,6 +883,11 @@ class CreateContainerRequest:
     """
 
     private_network_id: Optional[str]
+    """
+    When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
+
+Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
+    """
 
     command: Optional[List[str]]
     """
@@ -937,6 +949,9 @@ class CreateDomainRequest:
 @dataclass
 class CreateNamespaceRequest:
     activate_vpc_integration: bool
+    """
+    When activated, containers in the namespace can be connected to a Private Network.
+    """
 
     region: Optional[ScwRegion]
     """
@@ -1533,10 +1548,19 @@ class UpdateContainerRequest:
     """
 
     protocol: Optional[ContainerProtocol]
+    """
+    Protocol the container uses.
+    """
 
     port: Optional[int]
+    """
+    Port the container listens on.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the container.
+    """
 
     http_option: Optional[ContainerHttpOption]
     """
@@ -1574,6 +1598,11 @@ class UpdateContainerRequest:
     """
 
     private_network_id: Optional[str]
+    """
+    When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
+
+Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
+    """
 
     command: Optional[List[str]]
     """
