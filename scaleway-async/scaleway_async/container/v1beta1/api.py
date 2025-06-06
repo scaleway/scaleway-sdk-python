@@ -279,7 +279,7 @@ class ContainerV1Beta1API(API):
         """
         Create a new namespace.
         Create a new namespace in a specified region.
-        :param activate_vpc_integration:
+        :param activate_vpc_integration: When activated, containers in the namespace can be connected to a Private Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the namespace to create.
         :param environment_variables: Environment variables of the namespace to create.
@@ -645,7 +645,9 @@ class ContainerV1Beta1API(API):
         - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
-        :param private_network_id:
+        :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
+
+        Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
@@ -746,9 +748,9 @@ class ContainerV1Beta1API(API):
         :param description: Description of the container.
         :param registry_image: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
         :param max_concurrency: Number of maximum concurrent executions of the container.
-        :param protocol:
-        :param port:
-        :param secret_environment_variables:
+        :param protocol: Protocol the container uses.
+        :param port: Port the container listens on.
+        :param secret_environment_variables: Secret environment variables of the container.
         :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
@@ -760,7 +762,9 @@ class ContainerV1Beta1API(API):
         - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
-        :param private_network_id:
+        :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
+
+        Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
