@@ -617,3 +617,16 @@ class ListTaxesResponse:
     """
     Last consumption update date.
     """
+
+
+@dataclass
+class RedeemCouponRequest:
+    code: str
+    """
+    The code of the coupon to redeem.
+    """
+
+    organization_id: Optional[str]
+    """
+    The Organization ID of the discount.
+    """

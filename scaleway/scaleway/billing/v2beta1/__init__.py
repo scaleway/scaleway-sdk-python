@@ -27,6 +27,7 @@ from .types import ListInvoicesRequest
 from .types import ListInvoicesResponse
 from .types import ListTaxesRequest
 from .types import ListTaxesResponse
+from .types import RedeemCouponRequest
 from .api import BillingV2Beta1API
 
 __all__ = [
@@ -57,5 +58,6 @@ __all__ = [
     "ListInvoicesResponse",
     "ListTaxesRequest",
     "ListTaxesResponse",
+    "RedeemCouponRequest",
     "BillingV2Beta1API",
 ]
