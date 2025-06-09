@@ -31,6 +31,7 @@ from .types import (
     Image,
     PlacementGroup,
     SecurityGroupSummary,
+    ServerFilesystem,
     ServerIp,
     ServerIpv6,
     ServerLocation,
@@ -519,6 +520,25 @@ def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
     return SecurityGroupSummary(**args)
 
 
+def unmarshal_ServerFilesystem(data: Any) -> ServerFilesystem:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerFilesystem' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("filesystem_id", None)
+    if field is not None:
+        args["filesystem_id"] = field
+
+    field = data.get("state", None)
+    if field is not None:
+        args["state"] = field
+
+    return ServerFilesystem(**args)
+
+
 def unmarshal_ServerIp(data: Any) -> ServerIp:
     if not isinstance(data, dict):
         raise TypeError(
@@ -901,6 +921,14 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+
+    field = data.get("filesystems", None)
+    if field is not None:
+        args["filesystems"] = (
+            [unmarshal_ServerFilesystem(v) for v in field]
+            if field is not None
+            else None
+        )
 
     field = data.get("end_of_service", None)
     if field is not None:

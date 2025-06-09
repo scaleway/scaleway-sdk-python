@@ -168,6 +168,16 @@ class ServerAction(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ServerFilesystemState(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATE = "unknown_state"
+    ATTACHING = "attaching"
+    AVAILABLE = "available"
+    DETACHING = "detaching"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ServerIpIpFamily(str, Enum, metaclass=StrEnumMeta):
     INET = "inet"
     INET6 = "inet6"
@@ -566,6 +576,13 @@ class SecurityGroupSummary:
 
 
 @dataclass
+class ServerFilesystem:
+    filesystem_id: str
+
+    state: ServerFilesystemState
+
+
+@dataclass
 class ServerIp:
     id: str
     """
@@ -885,6 +902,11 @@ class Server:
     zone: ScwZone
     """
     Zone in which the Instance is located.
+    """
+
+    filesystems: List[ServerFilesystem]
+    """
+    List of attached filesystems.
     """
 
     end_of_service: bool
