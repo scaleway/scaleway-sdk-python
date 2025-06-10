@@ -7,6 +7,7 @@ from .types import (
     IpState,
     PrivateNICState,
     SecurityGroupState,
+    ServerFilesystemState,
     ServerIpState,
     ServerState,
     SnapshotState,
@@ -38,6 +39,13 @@ SECURITY_GROUP_TRANSIENT_STATUSES: List[SecurityGroupState] = [
 ]
 """
 Lists transient statutes of the enum :class:`SecurityGroupState <SecurityGroupState>`.
+"""
+SERVER_FILESYSTEM_TRANSIENT_STATUSES: List[ServerFilesystemState] = [
+    ServerFilesystemState.ATTACHING,
+    ServerFilesystemState.DETACHING,
+]
+"""
+Lists transient statutes of the enum :class:`ServerFilesystemState <ServerFilesystemState>`.
 """
 SERVER_IP_TRANSIENT_STATUSES: List[ServerIpState] = [
     ServerIpState.PENDING,

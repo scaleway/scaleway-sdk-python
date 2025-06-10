@@ -20,6 +20,8 @@ from .types import SecurityGroupRuleProtocol
 from .types import SecurityGroupState
 from .content import SECURITY_GROUP_TRANSIENT_STATUSES
 from .types import ServerAction
+from .types import ServerFilesystemState
+from .content import SERVER_FILESYSTEM_TRANSIENT_STATUSES
 from .types import ServerIpIpFamily
 from .types import ServerIpProvisioningMode
 from .types import ServerIpState
@@ -48,6 +50,7 @@ from .types import Image
 from .types import PlacementGroup
 from .types import PrivateNIC
 from .types import SecurityGroupSummary
+from .types import ServerFilesystem
 from .types import ServerIp
 from .types import ServerIpv6
 from .types import ServerLocation
@@ -223,6 +226,8 @@ __all__ = [
     "SecurityGroupState",
     "SECURITY_GROUP_TRANSIENT_STATUSES",
     "ServerAction",
+    "ServerFilesystemState",
+    "SERVER_FILESYSTEM_TRANSIENT_STATUSES",
     "ServerIpIpFamily",
     "ServerIpProvisioningMode",
     "ServerIpState",
@@ -251,6 +256,7 @@ __all__ = [
     "PlacementGroup",
     "PrivateNIC",
     "SecurityGroupSummary",
+    "ServerFilesystem",
     "ServerIp",
     "ServerIpv6",
     "ServerLocation",
