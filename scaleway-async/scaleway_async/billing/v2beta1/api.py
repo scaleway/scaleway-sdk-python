@@ -34,6 +34,7 @@ from .types import (
     ListTaxesResponseTax,
 )
 from .marshalling import (
+    unmarshal_Discount,
     unmarshal_Invoice,
     unmarshal_ListConsumptionsResponse,
     unmarshal_ListDiscountsResponse,
@@ -506,3 +507,37 @@ class BillingV2Beta1API(API):
                 "organization_id": organization_id,
             },
         )
+
+    async def redeem_coupon(
+        self,
+        *,
+        code: str,
+        organization_id: Optional[str] = None,
+    ) -> Discount:
+        """
+        Redeem coupon.
+        Redeem a coupon given the related code.
+        :param code: The code of the coupon to redeem.
+        :param organization_id: The Organization ID of the discount.
+        :return: :class:`Discount <Discount>`
+
+        Usage:
+        ::
+
+            result = await api.redeem_coupon(
+                code="example",
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/billing/v2beta1/redeem-coupon",
+            params={
+                "code": code,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Discount(res.json())

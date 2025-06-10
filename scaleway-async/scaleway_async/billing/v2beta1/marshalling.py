@@ -8,17 +8,128 @@ from scaleway_core.bridge import (
     unmarshal_Money,
 )
 from .types import (
-    Invoice,
-    ListConsumptionsResponseConsumption,
-    ListConsumptionsResponse,
     DiscountCoupon,
     DiscountFilter,
     Discount,
+    Invoice,
+    ListConsumptionsResponseConsumption,
+    ListConsumptionsResponse,
     ListDiscountsResponse,
     ListInvoicesResponse,
     ListTaxesResponseTax,
     ListTaxesResponse,
 )
+
+
+def unmarshal_DiscountCoupon(data: Any) -> DiscountCoupon:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DiscountCoupon' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    return DiscountCoupon(**args)
+
+
+def unmarshal_DiscountFilter(data: Any) -> DiscountFilter:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DiscountFilter' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+
+    field = data.get("exclude", None)
+    if field is not None:
+        args["exclude"] = field
+
+    return DiscountFilter(**args)
+
+
+def unmarshal_Discount(data: Any) -> Discount:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Discount' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+
+    field = data.get("value_used", None)
+    if field is not None:
+        args["value_used"] = field
+
+    field = data.get("value_remaining", None)
+    if field is not None:
+        args["value_remaining"] = field
+
+    field = data.get("mode", None)
+    if field is not None:
+        args["mode"] = field
+
+    field = data.get("filters", None)
+    if field is not None:
+        args["filters"] = (
+            [unmarshal_DiscountFilter(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("creation_date", None)
+    if field is not None:
+        args["creation_date"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["creation_date"] = None
+
+    field = data.get("start_date", None)
+    if field is not None:
+        args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
+
+    field = data.get("stop_date", None)
+    if field is not None:
+        args["stop_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stop_date"] = None
+
+    field = data.get("coupon", None)
+    if field is not None:
+        args["coupon"] = unmarshal_DiscountCoupon(field)
+    else:
+        args["coupon"] = None
+
+    return Discount(**args)
 
 
 def unmarshal_Invoice(data: Any) -> Invoice:
@@ -202,117 +313,6 @@ def unmarshal_ListConsumptionsResponse(data: Any) -> ListConsumptionsResponse:
         args["updated_at"] = None
 
     return ListConsumptionsResponse(**args)
-
-
-def unmarshal_DiscountCoupon(data: Any) -> DiscountCoupon:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'DiscountCoupon' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-    else:
-        args["description"] = None
-
-    return DiscountCoupon(**args)
-
-
-def unmarshal_DiscountFilter(data: Any) -> DiscountFilter:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'DiscountFilter' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
-
-    field = data.get("value", None)
-    if field is not None:
-        args["value"] = field
-
-    field = data.get("exclude", None)
-    if field is not None:
-        args["exclude"] = field
-
-    return DiscountFilter(**args)
-
-
-def unmarshal_Discount(data: Any) -> Discount:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Discount' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-
-    field = data.get("value", None)
-    if field is not None:
-        args["value"] = field
-
-    field = data.get("value_used", None)
-    if field is not None:
-        args["value_used"] = field
-
-    field = data.get("value_remaining", None)
-    if field is not None:
-        args["value_remaining"] = field
-
-    field = data.get("mode", None)
-    if field is not None:
-        args["mode"] = field
-
-    field = data.get("filters", None)
-    if field is not None:
-        args["filters"] = (
-            [unmarshal_DiscountFilter(v) for v in field] if field is not None else None
-        )
-
-    field = data.get("creation_date", None)
-    if field is not None:
-        args["creation_date"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["creation_date"] = None
-
-    field = data.get("start_date", None)
-    if field is not None:
-        args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["start_date"] = None
-
-    field = data.get("stop_date", None)
-    if field is not None:
-        args["stop_date"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["stop_date"] = None
-
-    field = data.get("coupon", None)
-    if field is not None:
-        args["coupon"] = unmarshal_DiscountCoupon(field)
-    else:
-        args["coupon"] = None
-
-    return Discount(**args)
 
 
 def unmarshal_ListDiscountsResponse(data: Any) -> ListDiscountsResponse:
