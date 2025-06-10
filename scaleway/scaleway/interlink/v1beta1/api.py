@@ -28,6 +28,7 @@ from .types import (
     CreateLinkRequest,
     CreateRoutingPolicyRequest,
     DedicatedConnection,
+    DetachRoutingPolicyRequest,
     Link,
     ListDedicatedConnectionsResponse,
     ListLinksResponse,
@@ -59,6 +60,7 @@ from .marshalling import (
     marshal_AttachVpcRequest,
     marshal_CreateLinkRequest,
     marshal_CreateRoutingPolicyRequest,
+    marshal_DetachRoutingPolicyRequest,
     marshal_UpdateLinkRequest,
     marshal_UpdateRoutingPolicyRequest,
 )
@@ -1029,12 +1031,14 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
+        routing_policy_id: str,
         region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Detach a routing policy.
         Detach a routing policy from an existing link. Without a routing policy, all routes across the link are blocked by default.
         :param link_id: ID of the link to detach a routing policy from.
+        :param routing_policy_id: ID of the routing policy to be detached.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
 
@@ -1043,6 +1047,7 @@ class InterlinkV1Beta1API(API):
 
             result = api.detach_routing_policy(
                 link_id="example",
+                routing_policy_id="example",
             )
         """
 
@@ -1054,7 +1059,14 @@ class InterlinkV1Beta1API(API):
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/detach-routing-policy",
-            body={},
+            body=marshal_DetachRoutingPolicyRequest(
+                DetachRoutingPolicyRequest(
+                    link_id=link_id,
+                    routing_policy_id=routing_policy_id,
+                    region=region,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)
@@ -1141,6 +1153,7 @@ class InterlinkV1Beta1API(API):
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        ipv6: Optional[bool] = None,
     ) -> ListRoutingPoliciesResponse:
         """
         List routing policies.
@@ -1153,6 +1166,7 @@ class InterlinkV1Beta1API(API):
         :param organization_id: Organization ID to filter for.
         :param name: Routing policy name to filter for.
         :param tags: Tags to filter for.
+        :param ipv6: Filter for the routing policies based on IP prefixes version.
         :return: :class:`ListRoutingPoliciesResponse <ListRoutingPoliciesResponse>`
 
         Usage:
@@ -1169,6 +1183,7 @@ class InterlinkV1Beta1API(API):
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/routing-policies",
             params={
+                "ipv6": ipv6,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -1194,6 +1209,7 @@ class InterlinkV1Beta1API(API):
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        ipv6: Optional[bool] = None,
     ) -> List[RoutingPolicy]:
         """
         List routing policies.
@@ -1206,6 +1222,7 @@ class InterlinkV1Beta1API(API):
         :param organization_id: Organization ID to filter for.
         :param name: Routing policy name to filter for.
         :param tags: Tags to filter for.
+        :param ipv6: Filter for the routing policies based on IP prefixes version.
         :return: :class:`List[RoutingPolicy] <List[RoutingPolicy]>`
 
         Usage:
@@ -1227,6 +1244,7 @@ class InterlinkV1Beta1API(API):
                 "organization_id": organization_id,
                 "name": name,
                 "tags": tags,
+                "ipv6": ipv6,
             },
         )
 
@@ -1270,6 +1288,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         name: str,
+        is_ipv6: bool,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -1280,6 +1299,7 @@ class InterlinkV1Beta1API(API):
         Create a routing policy.
         Create a routing policy. Routing policies allow you to set IP prefix filters to define the incoming route announcements to accept from the peer, and the outgoing routes to announce to the peer.
         :param name: Name of the routing policy.
+        :param is_ipv6: IP prefixes version of the routing policy.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to create the routing policy in.
         :param tags: List of tags to apply to the routing policy.
@@ -1292,6 +1312,7 @@ class InterlinkV1Beta1API(API):
 
             result = api.create_routing_policy(
                 name="example",
+                is_ipv6=False,
             )
         """
 
@@ -1305,6 +1326,7 @@ class InterlinkV1Beta1API(API):
             body=marshal_CreateRoutingPolicyRequest(
                 CreateRoutingPolicyRequest(
                     name=name,
+                    is_ipv6=is_ipv6,
                     region=region,
                     project_id=project_id,
                     tags=tags,

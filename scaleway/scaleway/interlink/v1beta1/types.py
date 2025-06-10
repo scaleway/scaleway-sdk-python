@@ -286,16 +286,6 @@ class Link:
     Defines whether route propagation is enabled or not. To enable or disable route propagation, use the dedicated endpoint.
     """
 
-    vlan: int
-    """
-    VLAN of the link.
-    """
-
-    region: ScwRegion
-    """
-    Region of the link.
-    """
-
     vpc_id: Optional[str]
     """
     ID of the Scaleway VPC attached to the link.
@@ -303,7 +293,7 @@ class Link:
 
     routing_policy_id: Optional[str]
     """
-    ID of the routing policy attached to the link.
+    Deprecated. Use routing_policy_v4_id or routing_policy_v6_id instead.
     """
 
     created_at: Optional[datetime]
@@ -316,6 +306,16 @@ class Link:
     Last modification date of the link.
     """
 
+    vlan: int
+    """
+    VLAN of the link.
+    """
+
+    region: ScwRegion
+    """
+    Region of the link.
+    """
+
     scw_bgp_config: Optional[BgpConfig]
     """
     BGP configuration on Scaleway's side.
@@ -324,6 +324,16 @@ class Link:
     peer_bgp_config: Optional[BgpConfig]
     """
     BGP configuration on peer's side (on-premises or other hosting provider).
+    """
+
+    routing_policy_v4_id: Optional[str]
+    """
+    ID of the routing policy IPv4 attached to the link.
+    """
+
+    routing_policy_v6_id: Optional[str]
+    """
+    ID of the routing policy IPv6 attached to the link.
     """
 
     partner: Optional[PartnerHost]
@@ -449,6 +459,11 @@ class RoutingPolicy:
     IP prefix filters to advertise to the peer (ranges of routes to advertise).
     """
 
+    is_ipv6: bool
+    """
+    IP prefixes version of the routing policy.
+    """
+
     region: ScwRegion
     """
     Region of the routing policy.
@@ -550,6 +565,11 @@ class CreateRoutingPolicyRequest:
     Name of the routing policy.
     """
 
+    is_ipv6: bool
+    """
+    IP prefixes version of the routing policy.
+    """
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -607,6 +627,11 @@ class DetachRoutingPolicyRequest:
     link_id: str
     """
     ID of the link to detach a routing policy from.
+    """
+
+    routing_policy_id: str
+    """
+    ID of the routing policy to be detached.
     """
 
     region: Optional[ScwRegion]
@@ -1043,6 +1068,11 @@ class ListRoutingPoliciesRequest:
     tags: Optional[List[str]]
     """
     Tags to filter for.
+    """
+
+    ipv6: Optional[bool]
+    """
+    Filter for the routing policies based on IP prefixes version.
     """
 
 

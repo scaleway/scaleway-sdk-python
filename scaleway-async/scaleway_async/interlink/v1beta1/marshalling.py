@@ -27,6 +27,7 @@ from .types import (
     AttachVpcRequest,
     CreateLinkRequest,
     CreateRoutingPolicyRequest,
+    DetachRoutingPolicyRequest,
     UpdateLinkRequest,
     UpdateRoutingPolicyRequest,
 )
@@ -272,6 +273,18 @@ def unmarshal_Link(data: Any) -> Link:
     else:
         args["peer_bgp_config"] = None
 
+    field = data.get("routing_policy_v4_id", None)
+    if field is not None:
+        args["routing_policy_v4_id"] = field
+    else:
+        args["routing_policy_v4_id"] = None
+
+    field = data.get("routing_policy_v6_id", None)
+    if field is not None:
+        args["routing_policy_v6_id"] = field
+    else:
+        args["routing_policy_v6_id"] = None
+
     return Link(**args)
 
 
@@ -396,6 +409,10 @@ def unmarshal_RoutingPolicy(data: Any) -> RoutingPolicy:
     field = data.get("prefix_filter_out", None)
     if field is not None:
         args["prefix_filter_out"] = field
+
+    field = data.get("is_ipv6", None)
+    if field is not None:
+        args["is_ipv6"] = field
 
     field = data.get("region", None)
     if field is not None:
@@ -591,6 +608,9 @@ def marshal_CreateRoutingPolicyRequest(
     if request.name is not None:
         output["name"] = request.name
 
+    if request.is_ipv6 is not None:
+        output["is_ipv6"] = request.is_ipv6
+
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
 
@@ -602,6 +622,18 @@ def marshal_CreateRoutingPolicyRequest(
 
     if request.prefix_filter_out is not None:
         output["prefix_filter_out"] = request.prefix_filter_out
+
+    return output
+
+
+def marshal_DetachRoutingPolicyRequest(
+    request: DetachRoutingPolicyRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.routing_policy_id is not None:
+        output["routing_policy_id"] = request.routing_policy_id
 
     return output
 
