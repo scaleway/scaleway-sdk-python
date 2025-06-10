@@ -271,6 +271,7 @@ class FunctionV1Beta1API(API):
     async def create_namespace(
         self,
         *,
+        activate_vpc_integration: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -282,6 +283,7 @@ class FunctionV1Beta1API(API):
         """
         Create a new namespace.
         Create a new namespace in a specified Organization or Project.
+        :param activate_vpc_integration: When activated, functions in the namespace can be connected to a Private Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name:
         :param environment_variables: Environment variables of the namespace.
@@ -294,7 +296,9 @@ class FunctionV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.create_namespace()
+            result = await api.create_namespace(
+                activate_vpc_integration=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -306,6 +310,7 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/namespaces",
             body=marshal_CreateNamespaceRequest(
                 CreateNamespaceRequest(
+                    activate_vpc_integration=activate_vpc_integration,
                     region=region,
                     name=name or random_name(prefix="ns"),
                     environment_variables=environment_variables,
@@ -602,6 +607,7 @@ class FunctionV1Beta1API(API):
         http_option: Optional[FunctionHttpOption] = None,
         sandbox: Optional[FunctionSandbox] = None,
         tags: Optional[List[str]] = None,
+        private_network_id: Optional[str] = None,
     ) -> Function:
         """
         Create a new function.
@@ -624,6 +630,9 @@ class FunctionV1Beta1API(API):
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the function.
         :param tags: Tags of the Serverless Function.
+        :param private_network_id: When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
+
+        Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -659,6 +668,7 @@ class FunctionV1Beta1API(API):
                     http_option=http_option,
                     sandbox=sandbox,
                     tags=tags,
+                    private_network_id=private_network_id,
                 ),
                 self.client,
             ),
@@ -686,6 +696,7 @@ class FunctionV1Beta1API(API):
         http_option: Optional[FunctionHttpOption] = None,
         sandbox: Optional[FunctionSandbox] = None,
         tags: Optional[List[str]] = None,
+        private_network_id: Optional[str] = None,
     ) -> Function:
         """
         Update an existing function.
@@ -708,6 +719,9 @@ class FunctionV1Beta1API(API):
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the function.
         :param tags: Tags of the Serverless Function.
+        :param private_network_id: When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
+
+        Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -744,6 +758,7 @@ class FunctionV1Beta1API(API):
                     http_option=http_option,
                     sandbox=sandbox,
                     tags=tags,
+                    private_network_id=private_network_id,
                 ),
                 self.client,
             ),

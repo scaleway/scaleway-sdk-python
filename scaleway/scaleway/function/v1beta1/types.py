@@ -583,6 +583,11 @@ class Function:
     Last date when the function was successfully deployed and set to ready.
     """
 
+    private_network_id: Optional[str]
+    """
+    When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
+    """
+
 
 @dataclass
 class Namespace:
@@ -621,6 +626,11 @@ class Namespace:
     UUID of the registry namespace.
     """
 
+    error_message: Optional[str]
+    """
+    Error message if the namespace is in "error" state.
+    """
+
     registry_endpoint: str
     """
     Registry endpoint of the namespace.
@@ -641,11 +651,6 @@ class Namespace:
     List of tags applied to the Serverless Function Namespace.
     """
 
-    error_message: Optional[str]
-    """
-    Error message if the namespace is in "error" state.
-    """
-
     description: Optional[str]
     """
     Description of the namespace.
@@ -659,6 +664,12 @@ class Namespace:
     updated_at: Optional[datetime]
     """
     Last update date of the namespace.
+    """
+
+    vpc_integration_activated: Optional[bool]
+    """
+    When activated, functions in the namespace can be connected to a Private Network.
+Note that activating the VPC integration can only be done when creating a new namespace.
     """
 
 
@@ -877,9 +888,21 @@ class CreateFunctionRequest:
     Tags of the Serverless Function.
     """
 
+    private_network_id: Optional[str]
+    """
+    When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
+
+Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
+    """
+
 
 @dataclass
 class CreateNamespaceRequest:
+    activate_vpc_integration: bool
+    """
+    When activated, functions in the namespace can be connected to a Private Network.
+    """
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1575,6 +1598,13 @@ class UpdateFunctionRequest:
     tags: Optional[List[str]]
     """
     Tags of the Serverless Function.
+    """
+
+    private_network_id: Optional[str]
+    """
+    When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
+
+Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
     """
 
 
