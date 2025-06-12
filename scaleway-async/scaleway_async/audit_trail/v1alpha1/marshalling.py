@@ -47,6 +47,12 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
     if field is not None:
         args["email"] = field
 
+    field = data.get("phone_number", None)
+    if field is not None:
+        args["phone_number"] = field
+    else:
+        args["phone_number"] = None
+
     return AccountUserInfo(**args)
 
 

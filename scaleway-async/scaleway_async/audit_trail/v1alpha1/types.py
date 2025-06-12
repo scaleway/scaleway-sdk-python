@@ -58,6 +58,8 @@ class AccountOrganizationInfo:
 class AccountUserInfo:
     email: str
 
+    phone_number: Optional[str]
+
 
 @dataclass
 class KeyManagerKeyInfo:
