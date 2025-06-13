@@ -1,0 +1,45 @@
+scaleway.vpcgw.v2 package
+=========================
+
+Submodules
+----------
+
+scaleway.vpcgw.v2.api module
+----------------------------
+
+.. automodule:: scaleway.vpcgw.v2.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.vpcgw.v2.content module
+--------------------------------
+
+.. automodule:: scaleway.vpcgw.v2.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.vpcgw.v2.marshalling module
+------------------------------------
+
+.. automodule:: scaleway.vpcgw.v2.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.vpcgw.v2.types module
+------------------------------
+
+.. automodule:: scaleway.vpcgw.v2.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.vpcgw.v2
+   :members:
+   :undoc-members:
+   :show-inheritance:

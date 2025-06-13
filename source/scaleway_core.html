@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway_core package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway_core package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-scaleway_core.api">scaleway_core.api module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.api.API"><code class="docutils literal notranslate"><span class="pre">API</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.api.APILogger"><code class="docutils literal notranslate"><span class="pre">APILogger</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.api.APILogger.identifier"><code class="docutils literal notranslate"><span class="pre">APILogger.identifier</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.api.APILogger.log_request"><code class="docutils literal notranslate"><span class="pre">APILogger.log_request()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.api.APILogger.log_response"><code class="docutils literal notranslate"><span class="pre">APILogger.log_response()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.api.APILogger.logger"><code class="docutils literal notranslate"><span class="pre">APILogger.logger</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.api.ScalewayException"><code class="docutils literal notranslate"><span class="pre">ScalewayException</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.api.ScalewayException.response"><code class="docutils literal notranslate"><span class="pre">ScalewayException.response</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.api.ScalewayException.status_code"><code class="docutils literal notranslate"><span class="pre">ScalewayException.status_code</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.api.ValidationError"><code class="docutils literal notranslate"><span class="pre">ValidationError</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.api.ValidationError.errors"><code class="docutils literal notranslate"><span class="pre">ValidationError.errors</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.client">scaleway_core.client module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.client.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.client.Client.from_profile"><code class="docutils literal notranslate"><span class="pre">Client.from_profile()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.client.Client.validate"><code class="docutils literal notranslate"><span class="pre">Client.validate()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.client.Client.validate_credentials"><code class="docutils literal notranslate"><span class="pre">Client.validate_credentials()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.client.Client.validate_settings"><code class="docutils literal notranslate"><span class="pre">Client.validate_settings()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway_core package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway_core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-core-package">
+<h1>scaleway_core package<a class="headerlink" href="#scaleway-core-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scaleway_core.bridge.html">scaleway_core.bridge package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge.decimal">scaleway_core.bridge.decimal module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.decimal.marshal_Decimal"><code class="docutils literal notranslate"><span class="pre">marshal_Decimal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.decimal.unmarshal_Decimal"><code class="docutils literal notranslate"><span class="pre">unmarshal_Decimal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge.money">scaleway_core.bridge.money module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.money.Money"><code class="docutils literal notranslate"><span class="pre">Money</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.money.Money.currency_code"><code class="docutils literal notranslate"><span class="pre">Money.currency_code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.money.Money.nanos"><code class="docutils literal notranslate"><span class="pre">Money.nanos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.money.Money.units"><code class="docutils literal notranslate"><span class="pre">Money.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.money.marshal_Money"><code class="docutils literal notranslate"><span class="pre">marshal_Money()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.money.unmarshal_Money"><code class="docutils literal notranslate"><span class="pre">unmarshal_Money()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge.region">scaleway_core.bridge.region module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge.scwfile">scaleway_core.bridge.scwfile module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.scwfile.ScwFile"><code class="docutils literal notranslate"><span class="pre">ScwFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.scwfile.ScwFile.content"><code class="docutils literal notranslate"><span class="pre">ScwFile.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.scwfile.ScwFile.content_type"><code class="docutils literal notranslate"><span class="pre">ScwFile.content_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.scwfile.ScwFile.name"><code class="docutils literal notranslate"><span class="pre">ScwFile.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.scwfile.marshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">marshal_ScwFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.scwfile.unmarshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">unmarshal_ScwFile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge.serviceinfo">scaleway_core.bridge.serviceinfo module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.serviceinfo.ServiceInfo"><code class="docutils literal notranslate"><span class="pre">ServiceInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.serviceinfo.ServiceInfo.description"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.serviceinfo.ServiceInfo.documentation_url"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.documentation_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.serviceinfo.ServiceInfo.name"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.serviceinfo.ServiceInfo.version"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.serviceinfo.marshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">marshal_ServiceInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.serviceinfo.unmarshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">unmarshal_ServiceInfo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge.timeseries">scaleway_core.bridge.timeseries module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeries"><code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeries.metadata"><code class="docutils literal notranslate"><span class="pre">TimeSeries.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeries.name"><code class="docutils literal notranslate"><span class="pre">TimeSeries.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeries.points"><code class="docutils literal notranslate"><span class="pre">TimeSeries.points</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeriesPoint.timestamp"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeriesPoint.value"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.marshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.marshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeriesPoint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.unmarshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.unmarshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeriesPoint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge.zone">scaleway_core.bridge.zone module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.bridge.html#module-scaleway_core.bridge">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.Money"><code class="docutils literal notranslate"><span class="pre">Money</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.Money.currency_code"><code class="docutils literal notranslate"><span class="pre">Money.currency_code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.Money.nanos"><code class="docutils literal notranslate"><span class="pre">Money.nanos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.Money.units"><code class="docutils literal notranslate"><span class="pre">Money.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ScwFile"><code class="docutils literal notranslate"><span class="pre">ScwFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ScwFile.content"><code class="docutils literal notranslate"><span class="pre">ScwFile.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ScwFile.content_type"><code class="docutils literal notranslate"><span class="pre">ScwFile.content_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ScwFile.name"><code class="docutils literal notranslate"><span class="pre">ScwFile.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ServiceInfo"><code class="docutils literal notranslate"><span class="pre">ServiceInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ServiceInfo.description"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ServiceInfo.documentation_url"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.documentation_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ServiceInfo.name"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.ServiceInfo.version"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.TimeSeries"><code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.TimeSeries.metadata"><code class="docutils literal notranslate"><span class="pre">TimeSeries.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.TimeSeries.name"><code class="docutils literal notranslate"><span class="pre">TimeSeries.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.TimeSeries.points"><code class="docutils literal notranslate"><span class="pre">TimeSeries.points</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.TimeSeriesPoint.timestamp"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.TimeSeriesPoint.value"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.Zone"><code class="docutils literal notranslate"><span class="pre">Zone</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.marshal_Decimal"><code class="docutils literal notranslate"><span class="pre">marshal_Decimal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.marshal_Money"><code class="docutils literal notranslate"><span class="pre">marshal_Money()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.marshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">marshal_ScwFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.marshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">marshal_ServiceInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.marshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.marshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeriesPoint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.unmarshal_Decimal"><code class="docutils literal notranslate"><span class="pre">unmarshal_Decimal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.unmarshal_Money"><code class="docutils literal notranslate"><span class="pre">unmarshal_Money()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.unmarshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">unmarshal_ScwFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.unmarshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">unmarshal_ServiceInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.unmarshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.unmarshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeriesPoint()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway_core.profile.html">scaleway_core.profile package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.profile.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.profile.html#module-scaleway_core.profile.env">scaleway_core.profile.env module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.profile.html#module-scaleway_core.profile.file">scaleway_core.profile.file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.profile.html#module-scaleway_core.profile.profile">scaleway_core.profile.profile module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile"><code class="docutils literal notranslate"><span class="pre">Profile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile.from_config_file"><code class="docutils literal notranslate"><span class="pre">Profile.from_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile.from_config_file_and_env"><code class="docutils literal notranslate"><span class="pre">Profile.from_config_file_and_env()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile.from_env"><code class="docutils literal notranslate"><span class="pre">Profile.from_env()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile.get_default_config_directory"><code class="docutils literal notranslate"><span class="pre">Profile.get_default_config_directory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile.get_default_config_file_path"><code class="docutils literal notranslate"><span class="pre">Profile.get_default_config_file_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile.merge"><code class="docutils literal notranslate"><span class="pre">Profile.merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileConfig"><code class="docutils literal notranslate"><span class="pre">ProfileConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileConfig.access_key"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.access_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileConfig.api_allow_insecure"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.api_allow_insecure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileConfig.api_url"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.api_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileConfig.secret_key"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.secret_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileConfig.user_agent"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.user_agent</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults.default_organization_id"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults.default_page_size"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults.default_project_id"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults.default_region"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults.default_zone"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_zone</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.profile.html#module-scaleway_core.profile">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.Profile"><code class="docutils literal notranslate"><span class="pre">Profile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.Profile.from_config_file"><code class="docutils literal notranslate"><span class="pre">Profile.from_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.Profile.from_config_file_and_env"><code class="docutils literal notranslate"><span class="pre">Profile.from_config_file_and_env()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.Profile.from_env"><code class="docutils literal notranslate"><span class="pre">Profile.from_env()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.Profile.get_default_config_directory"><code class="docutils literal notranslate"><span class="pre">Profile.get_default_config_directory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.Profile.get_default_config_file_path"><code class="docutils literal notranslate"><span class="pre">Profile.get_default_config_file_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.Profile.merge"><code class="docutils literal notranslate"><span class="pre">Profile.merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileConfig"><code class="docutils literal notranslate"><span class="pre">ProfileConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileConfig.access_key"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.access_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileConfig.api_allow_insecure"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.api_allow_insecure</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileConfig.api_url"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.api_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileConfig.secret_key"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.secret_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileConfig.user_agent"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.user_agent</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileDefaults"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileDefaults.default_organization_id"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileDefaults.default_page_size"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileDefaults.default_project_id"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileDefaults.default_region"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.ProfileDefaults.default_zone"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_zone</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway_core.utils.html">scaleway_core.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils.fetch_all_pages">scaleway_core.utils.fetch_all_pages module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.fetch_all_pages.fetch_all_pages"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.fetch_all_pages.fetch_all_pages_async"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages_async()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils.project_or_organization_id">scaleway_core.utils.project_or_organization_id module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.project_or_organization_id.project_or_organization_id"><code class="docutils literal notranslate"><span class="pre">project_or_organization_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils.random_name">scaleway_core.utils.random_name module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.random_name.random_name"><code class="docutils literal notranslate"><span class="pre">random_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils.resolve_one_of">scaleway_core.utils.resolve_one_of module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.resolve_one_of.OneOfPossibility"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.resolve_one_of.OneOfPossibility.default"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.resolve_one_of.OneOfPossibility.param"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.param</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.resolve_one_of.OneOfPossibility.value"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.resolve_one_of.resolve_one_of"><code class="docutils literal notranslate"><span class="pre">resolve_one_of()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils.strenummeta">scaleway_core.utils.strenummeta module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.strenummeta.StrEnumMeta"><code class="docutils literal notranslate"><span class="pre">StrEnumMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils.validate_path_param">scaleway_core.utils.validate_path_param module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.validate_path_param.validate_path_param"><code class="docutils literal notranslate"><span class="pre">validate_path_param()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils.waiter">scaleway_core.utils.waiter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.waiter.WaitForOptions"><code class="docutils literal notranslate"><span class="pre">WaitForOptions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.waiter.WaitForOptions.max_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.max_delay</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.waiter.WaitForOptions.min_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.min_delay</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.waiter.WaitForOptions.stop"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.stop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.waiter.WaitForOptions.timeout"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.timeout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.waiter.wait_for_resource"><code class="docutils literal notranslate"><span class="pre">wait_for_resource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.waiter.wait_for_resource_async"><code class="docutils literal notranslate"><span class="pre">wait_for_resource_async()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.utils.html#module-scaleway_core.utils">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.OneOfPossibility"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.OneOfPossibility.default"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.OneOfPossibility.param"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.param</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.OneOfPossibility.value"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.StrEnumMeta"><code class="docutils literal notranslate"><span class="pre">StrEnumMeta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.WaitForOptions"><code class="docutils literal notranslate"><span class="pre">WaitForOptions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.WaitForOptions.max_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.max_delay</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.WaitForOptions.min_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.min_delay</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.WaitForOptions.stop"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.stop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.WaitForOptions.timeout"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.timeout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.fetch_all_pages"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.fetch_all_pages_async"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.project_or_organization_id"><code class="docutils literal notranslate"><span class="pre">project_or_organization_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.random_name"><code class="docutils literal notranslate"><span class="pre">random_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.resolve_one_of"><code class="docutils literal notranslate"><span class="pre">resolve_one_of()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.validate_path_param"><code class="docutils literal notranslate"><span class="pre">validate_path_param()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.wait_for_resource"><code class="docutils literal notranslate"><span class="pre">wait_for_resource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.utils.html#scaleway_core.utils.wait_for_resource_async"><code class="docutils literal notranslate"><span class="pre">wait_for_resource_async()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway_core.validations.html">scaleway_core.validations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.validations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.validations.html#module-scaleway_core.validations.string_validation">scaleway_core.validations.string_validation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.validations.html#scaleway_core.validations.string_validation.is_access_key"><code class="docutils literal notranslate"><span class="pre">is_access_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.validations.html#scaleway_core.validations.string_validation.is_organization_id"><code class="docutils literal notranslate"><span class="pre">is_organization_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.validations.html#scaleway_core.validations.string_validation.is_project_id"><code class="docutils literal notranslate"><span class="pre">is_project_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.validations.html#scaleway_core.validations.string_validation.is_region"><code class="docutils literal notranslate"><span class="pre">is_region()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.validations.html#scaleway_core.validations.string_validation.is_secret_key"><code class="docutils literal notranslate"><span class="pre">is_secret_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.validations.html#scaleway_core.validations.string_validation.is_url"><code class="docutils literal notranslate"><span class="pre">is_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway_core.validations.html#scaleway_core.validations.string_validation.is_zone"><code class="docutils literal notranslate"><span class="pre">is_zone()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway_core.validations.html#module-scaleway_core.validations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway_core.api">
+<span id="scaleway-core-api-module"></span><h2>scaleway_core.api module<a class="headerlink" href="#module-scaleway_core.api" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.api.API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.api.</span></span><span class="sig-name descname"><span class="pre">API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.api.API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.api.APILogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.api.</span></span><span class="sig-name descname"><span class="pre">APILogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">logging.Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.api.APILogger" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.api.APILogger.identifier">
+<span class="sig-name descname"><span class="pre">identifier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway_core.api.APILogger.identifier" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_core.api.APILogger.log_request">
+<span class="sig-name descname"><span class="pre">log_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway_core.api.APILogger.log_request" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_core.api.APILogger.log_response">
+<span class="sig-name descname"><span class="pre">log_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Response</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway_core.api.APILogger.log_response" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.api.APILogger.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Logger</span></em><a class="headerlink" href="#scaleway_core.api.APILogger.logger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scaleway_core.api.ScalewayException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.api.</span></span><span class="sig-name descname"><span class="pre">ScalewayException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">requests.models.Response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.api.ScalewayException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.api.ScalewayException.response">
+<span class="sig-name descname"><span class="pre">response</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Response</span></em><a class="headerlink" href="#scaleway_core.api.ScalewayException.response" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scaleway_core.api.ScalewayException.status_code">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway_core.api.ScalewayException.status_code" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scaleway_core.api.ValidationError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.api.</span></span><span class="sig-name descname"><span class="pre">ValidationError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">requests.models.Response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.api.ValidationError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#scaleway_core.api.ScalewayException" title="scaleway_core.api.ScalewayException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScalewayException</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.api.ValidationError.errors">
+<span class="sig-name descname"><span class="pre">errors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_core.api.ValidationError.errors" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.client">
+<span id="scaleway-core-client-module"></span><h2>scaleway_core.client module<a class="headerlink" href="#module-scaleway_core.client" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.client.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.client.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://api.scaleway.com'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_allow_insecure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'scaleway-sdk-python/2.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.client.Client" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile" title="scaleway_core.profile.profile.Profile"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_core.client.Client.from_profile">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile" title="scaleway_core.profile.profile.Profile"><span class="pre">Profile</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></span><a class="headerlink" href="#scaleway_core.client.Client.from_profile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_core.client.Client.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#scaleway_core.client.Client.validate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_core.client.Client.validate_credentials">
+<span class="sig-name descname"><span class="pre">validate_credentials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#scaleway_core.client.Client.validate_credentials" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_core.client.Client.validate_settings">
+<span class="sig-name descname"><span class="pre">validate_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#scaleway_core.client.Client.validate_settings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway_core" title="Permalink to this heading"></a></h2>
+<p>Scaleway SDK for Python - Core</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
