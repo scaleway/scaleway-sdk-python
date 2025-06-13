@@ -1238,6 +1238,14 @@ class GetLogRequest:
 
 
 @dataclass
+class GetOrganizationRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+
+@dataclass
 class GetOrganizationSecuritySettingsRequest:
     organization_id: Optional[str]
     """
@@ -1944,6 +1952,24 @@ class MigrateOrganizationGuestsRequest:
 
 
 @dataclass
+class Organization:
+    id: str
+    """
+    ID of the Organization.
+    """
+
+    name: str
+    """
+    Name of the Organization.
+    """
+
+    alias: str
+    """
+    Alias of the Organization.
+    """
+
+
+@dataclass
 class OrganizationSecuritySettings:
     enforce_password_renewal: bool
     """
@@ -1993,6 +2019,19 @@ class SetGroupMembersRequest:
     user_ids: List[str]
 
     application_ids: List[str]
+
+
+@dataclass
+class SetOrganizationAliasRequest:
+    alias: str
+    """
+    Alias of the Organization.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
 
 
 @dataclass
