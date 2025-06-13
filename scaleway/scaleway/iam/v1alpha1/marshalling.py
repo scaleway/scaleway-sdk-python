@@ -42,6 +42,7 @@ from .types import (
     ListSSHKeysResponse,
     ListUsersResponse,
     MFAOTP,
+    Organization,
     OrganizationSecuritySettings,
     SetRulesResponse,
     ValidateUserMFAOTPResponse,
@@ -60,6 +61,7 @@ from .types import (
     RemoveGroupMemberRequest,
     RemoveUserConnectionRequest,
     SetGroupMembersRequest,
+    SetOrganizationAliasRequest,
     SetRulesRequest,
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
@@ -1194,6 +1196,29 @@ def unmarshal_MFAOTP(data: Any) -> MFAOTP:
     return MFAOTP(**args)
 
 
+def unmarshal_Organization(data: Any) -> Organization:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Organization' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("alias", None)
+    if field is not None:
+        args["alias"] = field
+
+    return Organization(**args)
+
+
 def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySettings:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1564,6 +1589,18 @@ def marshal_SetGroupMembersRequest(
 
     if request.application_ids is not None:
         output["application_ids"] = request.application_ids
+
+    return output
+
+
+def marshal_SetOrganizationAliasRequest(
+    request: SetOrganizationAliasRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.alias is not None:
+        output["alias"] = request.alias
 
     return output
 

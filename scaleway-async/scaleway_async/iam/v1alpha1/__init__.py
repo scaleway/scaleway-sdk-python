@@ -61,6 +61,7 @@ from .types import GetApplicationRequest
 from .types import GetGroupRequest
 from .types import GetJWTRequest
 from .types import GetLogRequest
+from .types import GetOrganizationRequest
 from .types import GetOrganizationSecuritySettingsRequest
 from .types import GetPolicyRequest
 from .types import GetQuotumRequest
@@ -98,10 +99,12 @@ from .types import ListUsersResponse
 from .types import LockUserRequest
 from .types import MFAOTP
 from .types import MigrateOrganizationGuestsRequest
+from .types import Organization
 from .types import OrganizationSecuritySettings
 from .types import RemoveGroupMemberRequest
 from .types import RemoveUserConnectionRequest
 from .types import SetGroupMembersRequest
+from .types import SetOrganizationAliasRequest
 from .types import SetRulesRequest
 from .types import SetRulesResponse
 from .types import UnlockUserRequest
@@ -180,6 +183,7 @@ __all__ = [
     "GetGroupRequest",
     "GetJWTRequest",
     "GetLogRequest",
+    "GetOrganizationRequest",
     "GetOrganizationSecuritySettingsRequest",
     "GetPolicyRequest",
     "GetQuotumRequest",
@@ -217,10 +221,12 @@ __all__ = [
     "LockUserRequest",
     "MFAOTP",
     "MigrateOrganizationGuestsRequest",
+    "Organization",
     "OrganizationSecuritySettings",
     "RemoveGroupMemberRequest",
     "RemoveUserConnectionRequest",
     "SetGroupMembersRequest",
+    "SetOrganizationAliasRequest",
     "SetRulesRequest",
     "SetRulesResponse",
     "UnlockUserRequest",

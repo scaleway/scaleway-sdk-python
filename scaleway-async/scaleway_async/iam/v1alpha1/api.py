@@ -59,6 +59,7 @@ from .types import (
     ListUsersResponse,
     Log,
     MFAOTP,
+    Organization,
     OrganizationSecuritySettings,
     PermissionSet,
     Policy,
@@ -69,6 +70,7 @@ from .types import (
     RuleSpecs,
     SSHKey,
     SetGroupMembersRequest,
+    SetOrganizationAliasRequest,
     SetRulesRequest,
     SetRulesResponse,
     UpdateAPIKeyRequest,
@@ -110,6 +112,7 @@ from .marshalling import (
     unmarshal_ListSSHKeysResponse,
     unmarshal_ListUsersResponse,
     unmarshal_MFAOTP,
+    unmarshal_Organization,
     unmarshal_OrganizationSecuritySettings,
     unmarshal_SetRulesResponse,
     unmarshal_ValidateUserMFAOTPResponse,
@@ -126,6 +129,7 @@ from .marshalling import (
     marshal_RemoveGroupMemberRequest,
     marshal_RemoveUserConnectionRequest,
     marshal_SetGroupMembersRequest,
+    marshal_SetOrganizationAliasRequest,
     marshal_SetRulesRequest,
     marshal_UpdateAPIKeyRequest,
     marshal_UpdateApplicationRequest,
@@ -2930,6 +2934,74 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_OrganizationSecuritySettings(res.json())
+
+    async def set_organization_alias(
+        self,
+        *,
+        alias: str,
+        organization_id: Optional[str] = None,
+    ) -> Organization:
+        """
+        Set your Organization's alias.
+        This will fail if an alias has already been defined. Please contact support if you need to change your Organization's alias.
+        :param alias: Alias of the Organization.
+        :param organization_id: ID of the Organization.
+        :return: :class:`Organization <Organization>`
+
+        Usage:
+        ::
+
+            result = await api.set_organization_alias(
+                alias="example",
+            )
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "PUT",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/alias",
+            body=marshal_SetOrganizationAliasRequest(
+                SetOrganizationAliasRequest(
+                    alias=alias,
+                    organization_id=organization_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Organization(res.json())
+
+    async def get_organization(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+    ) -> Organization:
+        """
+        Get your Organization's IAM information.
+        :param organization_id: ID of the Organization.
+        :return: :class:`Organization <Organization>`
+
+        Usage:
+        ::
+
+            result = await api.get_organization()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/organizations/{param_organization_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Organization(res.json())
 
     async def migrate_organization_guests(
         self,
