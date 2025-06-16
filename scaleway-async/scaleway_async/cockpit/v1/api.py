@@ -633,16 +633,13 @@ class CockpitV1RegionalAPI(API):
     ) -> DataSource:
         """
         Create a data source.
-        You must specify the data source type upon creation. Available data source types include:
-          - metrics
-          - logs
-          - traces
+        You must specify the data source name and type (metrics, logs, traces) upon creation.
         The name of the data source will then be used as reference to name the associated Grafana data source.
         :param name: Data source name.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project the data source belongs to.
         :param type_: Data source type.
-        :param retention_days: Default values are 30 days for metrics, 7 days for logs and traces.
+        :param retention_days: Default values are 31 days for metrics, 7 days for logs and traces.
         :return: :class:`DataSource <DataSource>`
 
         Usage:
@@ -717,7 +714,7 @@ class CockpitV1RegionalAPI(API):
     ) -> None:
         """
         Delete a data source.
-        Delete a given data source, specified by the data source ID. Note that deleting a data source is irreversible, and cannot be undone.
+        Delete a given data source. Note that this action will permanently delete this data source and any data associated with it.
         :param data_source_id: ID of the data source to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
@@ -755,14 +752,13 @@ class CockpitV1RegionalAPI(API):
         """
         List data sources.
         Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
-        You can list data sources by Project, type and origin.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of data sources to return per page.
         :param order_by: Sort order for data sources in the response.
         :param project_id: Project ID to filter for, only data sources from this Project will be returned.
-        :param origin: Origin to filter for, only data sources with matching origin will be returned.
-        :param types: Types to filter for, only data sources with matching types will be returned.
+        :param origin: Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
+        :param types: Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
         :return: :class:`ListDataSourcesResponse <ListDataSourcesResponse>`
 
         Usage:
@@ -805,14 +801,13 @@ class CockpitV1RegionalAPI(API):
         """
         List data sources.
         Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
-        You can list data sources by Project, type and origin.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of data sources to return per page.
         :param order_by: Sort order for data sources in the response.
         :param project_id: Project ID to filter for, only data sources from this Project will be returned.
-        :param origin: Origin to filter for, only data sources with matching origin will be returned.
-        :param types: Types to filter for, only data sources with matching types will be returned.
+        :param origin: Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
+        :param types: Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
         :return: :class:`List[DataSource] <List[DataSource]>`
 
         Usage:
@@ -846,11 +841,11 @@ class CockpitV1RegionalAPI(API):
     ) -> DataSource:
         """
         Update a data source.
-        Update a given data source name, specified by the data source ID.
+        Update a given data source attributes (name and/or retention_days).
         :param data_source_id: ID of the data source to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Updated name of the data source.
-        :param retention_days: BETA - Duration for which the data will be retained in the data source.
+        :param retention_days: Duration for which the data will be retained in the data source.
         :return: :class:`DataSource <DataSource>`
 
         Usage:
@@ -892,7 +887,7 @@ class CockpitV1RegionalAPI(API):
     ) -> UsageOverview:
         """
         Get data source usage overview.
-        Retrieve the data source usage overview per type for the specified Project.
+        Retrieve the volume of data ingested for each of your data sources in the specified project and region.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id:
         :param interval:

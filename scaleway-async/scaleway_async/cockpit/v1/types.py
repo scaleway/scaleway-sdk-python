@@ -292,7 +292,7 @@ class DataSource:
 
     retention_days: int
     """
-    BETA - Duration for which the data will be retained in the data source.
+    Duration for which the data will be retained in the data source.
     """
 
     region: ScwRegion
@@ -986,7 +986,7 @@ class RegionalApiCreateDataSourceRequest:
 
     retention_days: Optional[int]
     """
-    Default values are 30 days for metrics, 7 days for logs and traces.
+    Default values are 31 days for metrics, 7 days for logs and traces.
     """
 
 
@@ -1346,12 +1346,12 @@ class RegionalApiListDataSourcesRequest:
 
     origin: Optional[DataSourceOrigin]
     """
-    Origin to filter for, only data sources with matching origin will be returned.
+    Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
     """
 
     types: Optional[List[DataSourceType]]
     """
-    Types to filter for, only data sources with matching types will be returned.
+    Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
     """
 
 
@@ -1456,7 +1456,7 @@ class RegionalApiUpdateDataSourceRequest:
 
     retention_days: Optional[int]
     """
-    BETA - Duration for which the data will be retained in the data source.
+    Duration for which the data will be retained in the data source.
     """
 
 
