@@ -94,6 +94,8 @@ class KubernetesPoolInfo:
 class SecretManagerSecretInfo:
     path: str
 
+    key_id: Optional[str]
+
 
 @dataclass
 class SecretManagerSecretVersionInfo:

@@ -139,6 +139,12 @@ def unmarshal_SecretManagerSecretInfo(data: Any) -> SecretManagerSecretInfo:
     if field is not None:
         args["path"] = field
 
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
     return SecretManagerSecretInfo(**args)
 
 
