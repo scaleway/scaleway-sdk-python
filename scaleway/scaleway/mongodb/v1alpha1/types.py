@@ -186,6 +186,19 @@ class InstanceSetting:
 
 
 @dataclass
+class InstanceSnapshotSchedule:
+    frequency_hours: int
+
+    retention_days: int
+
+    enabled: bool
+
+    next_update: Optional[datetime]
+
+    last_run: Optional[datetime]
+
+
+@dataclass
 class Volume:
     type_: VolumeType
     """
@@ -386,6 +399,11 @@ class Instance:
     created_at: Optional[datetime]
     """
     Creation date (must follow the ISO 8601 format).
+    """
+
+    snapshot_schedule: Optional[InstanceSnapshotSchedule]
+    """
+    Snapshot schedule configuration of the Database Instance.
     """
 
 
