@@ -29,6 +29,7 @@ from .types import ListKeysRequest
 from .types import ListKeysResponse
 from .types import ProtectKeyRequest
 from .types import PublicKey
+from .types import RestoreKeyRequest
 from .types import RotateKeyRequest
 from .types import SignRequest
 from .types import SignResponse
@@ -68,6 +69,7 @@ __all__ = [
     "ListKeysResponse",
     "ProtectKeyRequest",
     "PublicKey",
+    "RestoreKeyRequest",
     "RotateKeyRequest",
     "SignRequest",
     "SignResponse",

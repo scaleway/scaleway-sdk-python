@@ -452,6 +452,7 @@ class KeyManagerV1Alpha1API(API):
     async def list_keys(
         self,
         *,
+        scheduled_for_deletion: bool,
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -465,6 +466,7 @@ class KeyManagerV1Alpha1API(API):
         """
         List keys.
         Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+        :param scheduled_for_deletion: Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
         :param project_id: (Optional) Filter by Project ID.
@@ -479,7 +481,9 @@ class KeyManagerV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_keys()
+            result = await api.list_keys(
+                scheduled_for_deletion=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -497,6 +501,7 @@ class KeyManagerV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "scheduled_for_deletion": scheduled_for_deletion,
                 "tags": tags,
                 "usage": usage,
             },
@@ -508,6 +513,7 @@ class KeyManagerV1Alpha1API(API):
     async def list_keys_all(
         self,
         *,
+        scheduled_for_deletion: bool,
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -521,6 +527,7 @@ class KeyManagerV1Alpha1API(API):
         """
         List keys.
         Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+        :param scheduled_for_deletion: Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
         :param project_id: (Optional) Filter by Project ID.
@@ -535,7 +542,9 @@ class KeyManagerV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_keys_all()
+            result = await api.list_keys_all(
+                scheduled_for_deletion=False,
+            )
         """
 
         return await fetch_all_pages_async(
@@ -543,6 +552,7 @@ class KeyManagerV1Alpha1API(API):
             key="keys",
             fetcher=self.list_keys,
             args={
+                "scheduled_for_deletion": scheduled_for_deletion,
                 "region": region,
                 "organization_id": organization_id,
                 "project_id": project_id,
@@ -876,3 +886,38 @@ class KeyManagerV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def restore_key(
+        self,
+        *,
+        key_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Key:
+        """
+        Restore a key.
+        Restore a key and all its rotations scheduled for deletion specified by the `region` and `key_id` parameters.
+        :param key_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Key <Key>`
+
+        Usage:
+        ::
+
+            result = await api.restore_key(
+                key_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/restore",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Key(res.json())

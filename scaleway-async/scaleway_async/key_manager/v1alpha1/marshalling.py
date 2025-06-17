@@ -169,6 +169,14 @@ def unmarshal_Key(data: Any) -> Key:
     else:
         args["rotation_policy"] = None
 
+    field = data.get("deletion_requested_at", None)
+    if field is not None:
+        args["deletion_requested_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["deletion_requested_at"] = None
+
     return Key(**args)
 
 

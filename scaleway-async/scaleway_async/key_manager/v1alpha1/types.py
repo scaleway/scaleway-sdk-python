@@ -201,6 +201,11 @@ class Key:
     Key rotation policy.
     """
 
+    deletion_requested_at: Optional[datetime]
+    """
+    Returns the time at which deletion was requested.
+    """
+
 
 @dataclass
 class CreateKeyRequest:
@@ -482,6 +487,11 @@ class ImportKeyMaterialRequest:
 
 @dataclass
 class ListKeysRequest:
+    scheduled_for_deletion: bool
+    """
+    Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.
+    """
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -548,6 +558,16 @@ class ProtectKeyRequest:
 @dataclass
 class PublicKey:
     pem: str
+
+
+@dataclass
+class RestoreKeyRequest:
+    key_id: str
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
