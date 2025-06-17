@@ -14,6 +14,7 @@ from .types import (
     EndpointPublicDetails,
     Endpoint,
     InstanceSetting,
+    InstanceSnapshotSchedule,
     Volume,
     Instance,
     SnapshotVolumeType,
@@ -131,6 +132,43 @@ def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
     return InstanceSetting(**args)
 
 
+def unmarshal_InstanceSnapshotSchedule(data: Any) -> InstanceSnapshotSchedule:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InstanceSnapshotSchedule' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("frequency_hours", None)
+    if field is not None:
+        args["frequency_hours"] = field
+
+    field = data.get("retention_days", None)
+    if field is not None:
+        args["retention_days"] = field
+
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+
+    field = data.get("next_update", None)
+    if field is not None:
+        args["next_update"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["next_update"] = None
+
+    field = data.get("last_run", None)
+    if field is not None:
+        args["last_run"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["last_run"] = None
+
+    return InstanceSnapshotSchedule(**args)
+
+
 def unmarshal_Volume(data: Any) -> Volume:
     if not isinstance(data, dict):
         raise TypeError(
@@ -217,6 +255,12 @@ def unmarshal_Instance(data: Any) -> Instance:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["created_at"] = None
+
+    field = data.get("snapshot_schedule", None)
+    if field is not None:
+        args["snapshot_schedule"] = unmarshal_InstanceSnapshotSchedule(field)
+    else:
+        args["snapshot_schedule"] = None
 
     return Instance(**args)
 

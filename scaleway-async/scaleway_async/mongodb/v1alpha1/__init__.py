@@ -17,6 +17,7 @@ from .types import EndpointSpecPrivateNetworkDetails
 from .types import EndpointSpecPublicDetails
 from .types import Endpoint
 from .types import InstanceSetting
+from .types import InstanceSnapshotSchedule
 from .types import Volume
 from .types import NodeTypeVolumeType
 from .types import SnapshotVolumeType
@@ -77,6 +78,7 @@ __all__ = [
     "EndpointSpecPublicDetails",
     "Endpoint",
     "InstanceSetting",
+    "InstanceSnapshotSchedule",
     "Volume",
     "NodeTypeVolumeType",
     "SnapshotVolumeType",
