@@ -52,6 +52,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SERVERLESS_FUNCTION = "serverless_function"
     VPN_GATEWAY = "vpn_gateway"
     DDL_DATALAB = "ddl_datalab"
+    KAFKA_CLUSTER = "kafka_cluster"
 
     def __str__(self) -> str:
         return str(self.value)
