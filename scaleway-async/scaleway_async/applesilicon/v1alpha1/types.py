@@ -110,6 +110,13 @@ class ServerTypeStock(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class Commitment:
+    type_: CommitmentType
+
+    cancelled: bool
+
+
+@dataclass
 class OS:
     id: str
     """
@@ -193,10 +200,111 @@ class ServerTypeNetwork:
 
 
 @dataclass
-class Commitment:
-    type_: CommitmentType
+class Server:
+    id: str
+    """
+    UUID of the server.
+    """
 
-    cancelled: bool
+    type_: str
+    """
+    Type of the server.
+    """
+
+    name: str
+    """
+    Name of the server.
+    """
+
+    project_id: str
+    """
+    Project this server is associated with.
+    """
+
+    organization_id: str
+    """
+    Organization this server is associated with.
+    """
+
+    ip: str
+    """
+    IPv4 address of the server.
+    """
+
+    vnc_url: str
+    """
+    Vnc:// URL to access Apple Remote Desktop.
+    """
+
+    ssh_username: str
+    """
+    SSH Username for remote shell.
+    """
+
+    sudo_password: str
+    """
+    Admin password required to execute commands.
+    """
+
+    vnc_port: int
+    """
+    VNC port to use for remote desktop connection.
+    """
+
+    status: ServerStatus
+    """
+    Current status of the server.
+    """
+
+    os: Optional[OS]
+    """
+    Initially installed OS, this does not necessarily reflect the current OS version.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the server was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date on which the server was last updated.
+    """
+
+    deletable_at: Optional[datetime]
+    """
+    Date from which the server can be deleted.
+    """
+
+    deletion_scheduled: bool
+    """
+    Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
+    """
+
+    zone: ScwZone
+    """
+    Zone of the server.
+    """
+
+    delivered: bool
+    """
+    Set to true once the server has completed its provisioning steps and is ready to use. Some OS configurations might require a reinstallation of the server before delivery depending on the available stock. A reinstallation after the initial delivery will not change this flag and can be tracked using the server status.
+    """
+
+    vpc_status: ServerPrivateNetworkStatus
+    """
+    Activation status of optional Private Network feature support for this server.
+    """
+
+    public_bandwidth_bps: int
+    """
+    Public bandwidth configured for this server. Expressed in bits per second.
+    """
+
+    commitment: Optional[Commitment]
+    """
+    Commitment scheme applied to this server.
+    """
 
 
 @dataclass
@@ -307,114 +415,6 @@ class ServerType:
     default_os: Optional[OS]
     """
     The default OS for this server type.
-    """
-
-
-@dataclass
-class Server:
-    id: str
-    """
-    UUID of the server.
-    """
-
-    type_: str
-    """
-    Type of the server.
-    """
-
-    name: str
-    """
-    Name of the server.
-    """
-
-    project_id: str
-    """
-    Project this server is associated with.
-    """
-
-    organization_id: str
-    """
-    Organization this server is associated with.
-    """
-
-    ip: str
-    """
-    IPv4 address of the server.
-    """
-
-    vnc_url: str
-    """
-    Vnc:// URL to access Apple Remote Desktop.
-    """
-
-    ssh_username: str
-    """
-    SSH Username for remote shell.
-    """
-
-    sudo_password: str
-    """
-    Admin password required to execute commands.
-    """
-
-    vnc_port: int
-    """
-    VNC port to use for remote desktop connection.
-    """
-
-    status: ServerStatus
-    """
-    Current status of the server.
-    """
-
-    os: Optional[OS]
-    """
-    Initially installed OS, this does not necessarily reflect the current OS version.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the server was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the server was last updated.
-    """
-
-    deletable_at: Optional[datetime]
-    """
-    Date from which the server can be deleted.
-    """
-
-    deletion_scheduled: bool
-    """
-    Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
-    """
-
-    zone: ScwZone
-    """
-    Zone of the server.
-    """
-
-    delivered: bool
-    """
-    Set to true once the server has completed its provisioning steps and is ready to use. Some OS configurations might require a reinstallation of the server before delivery depending on the available stock. A reinstallation after the initial delivery will not change this flag and can be tracked using the server status.
-    """
-
-    vpc_status: ServerPrivateNetworkStatus
-    """
-    Activation status of optional Private Network feature support for this server.
-    """
-
-    public_bandwidth_bps: int
-    """
-    Public bandwidth configured for this server. Expressed in bits per second.
-    """
-
-    commitment: Optional[Commitment]
-    """
-    Commitment scheme applied to this server.
     """
 
 

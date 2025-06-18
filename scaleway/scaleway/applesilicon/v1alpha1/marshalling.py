@@ -8,6 +8,8 @@ from scaleway_core.profile import ProfileDefaults
 from .types import (
     ConnectivityDiagnosticActionType,
     OS,
+    Commitment,
+    Server,
     ServerPrivateNetwork,
     ServerTypeCPU,
     ServerTypeDisk,
@@ -15,8 +17,6 @@ from .types import (
     ServerTypeMemory,
     ServerTypeNetwork,
     ServerType,
-    Commitment,
-    Server,
     ConnectivityDiagnosticServerHealth,
     ConnectivityDiagnostic,
     ListOSResponse,
@@ -80,6 +80,132 @@ def unmarshal_OS(data: Any) -> OS:
         args["compatible_server_types"] = field
 
     return OS(**args)
+
+
+def unmarshal_Commitment(data: Any) -> Commitment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Commitment' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("cancelled", None)
+    if field is not None:
+        args["cancelled"] = field
+
+    return Commitment(**args)
+
+
+def unmarshal_Server(data: Any) -> Server:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Server' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("ip", None)
+    if field is not None:
+        args["ip"] = field
+
+    field = data.get("vnc_url", None)
+    if field is not None:
+        args["vnc_url"] = field
+
+    field = data.get("ssh_username", None)
+    if field is not None:
+        args["ssh_username"] = field
+
+    field = data.get("sudo_password", None)
+    if field is not None:
+        args["sudo_password"] = field
+
+    field = data.get("vnc_port", None)
+    if field is not None:
+        args["vnc_port"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("os", None)
+    if field is not None:
+        args["os"] = unmarshal_OS(field)
+    else:
+        args["os"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("deletable_at", None)
+    if field is not None:
+        args["deletable_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["deletable_at"] = None
+
+    field = data.get("deletion_scheduled", None)
+    if field is not None:
+        args["deletion_scheduled"] = field
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+
+    field = data.get("delivered", None)
+    if field is not None:
+        args["delivered"] = field
+
+    field = data.get("vpc_status", None)
+    if field is not None:
+        args["vpc_status"] = field
+
+    field = data.get("public_bandwidth_bps", None)
+    if field is not None:
+        args["public_bandwidth_bps"] = field
+
+    field = data.get("commitment", None)
+    if field is not None:
+        args["commitment"] = unmarshal_Commitment(field)
+    else:
+        args["commitment"] = None
+
+    return Server(**args)
 
 
 def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
@@ -289,132 +415,6 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["default_os"] = None
 
     return ServerType(**args)
-
-
-def unmarshal_Commitment(data: Any) -> Commitment:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Commitment' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
-
-    field = data.get("cancelled", None)
-    if field is not None:
-        args["cancelled"] = field
-
-    return Commitment(**args)
-
-
-def unmarshal_Server(data: Any) -> Server:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Server' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-
-    field = data.get("ip", None)
-    if field is not None:
-        args["ip"] = field
-
-    field = data.get("vnc_url", None)
-    if field is not None:
-        args["vnc_url"] = field
-
-    field = data.get("ssh_username", None)
-    if field is not None:
-        args["ssh_username"] = field
-
-    field = data.get("sudo_password", None)
-    if field is not None:
-        args["sudo_password"] = field
-
-    field = data.get("vnc_port", None)
-    if field is not None:
-        args["vnc_port"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
-    field = data.get("os", None)
-    if field is not None:
-        args["os"] = unmarshal_OS(field)
-    else:
-        args["os"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("deletable_at", None)
-    if field is not None:
-        args["deletable_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["deletable_at"] = None
-
-    field = data.get("deletion_scheduled", None)
-    if field is not None:
-        args["deletion_scheduled"] = field
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-
-    field = data.get("delivered", None)
-    if field is not None:
-        args["delivered"] = field
-
-    field = data.get("vpc_status", None)
-    if field is not None:
-        args["vpc_status"] = field
-
-    field = data.get("public_bandwidth_bps", None)
-    if field is not None:
-        args["public_bandwidth_bps"] = field
-
-    field = data.get("commitment", None)
-    if field is not None:
-        args["commitment"] = unmarshal_Commitment(field)
-    else:
-        args["commitment"] = None
-
-    return Server(**args)
 
 
 def unmarshal_ConnectivityDiagnosticServerHealth(
