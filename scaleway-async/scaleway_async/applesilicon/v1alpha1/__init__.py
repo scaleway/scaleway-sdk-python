@@ -12,17 +12,17 @@ from .content import SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES
 from .types import ServerStatus
 from .content import SERVER_TRANSIENT_STATUSES
 from .types import ServerTypeStock
+from .types import Commitment
 from .types import OS
 from .types import ServerTypeCPU
 from .types import ServerTypeDisk
 from .types import ServerTypeGPU
 from .types import ServerTypeMemory
 from .types import ServerTypeNetwork
-from .types import Commitment
+from .types import Server
 from .types import ConnectivityDiagnosticServerHealth
 from .types import ServerPrivateNetwork
 from .types import ServerType
-from .types import Server
 from .types import CommitmentTypeValue
 from .types import ConnectivityDiagnostic
 from .types import CreateServerRequest
@@ -65,17 +65,17 @@ __all__ = [
     "ServerStatus",
     "SERVER_TRANSIENT_STATUSES",
     "ServerTypeStock",
+    "Commitment",
     "OS",
     "ServerTypeCPU",
     "ServerTypeDisk",
     "ServerTypeGPU",
     "ServerTypeMemory",
     "ServerTypeNetwork",
-    "Commitment",
+    "Server",
     "ConnectivityDiagnosticServerHealth",
     "ServerPrivateNetwork",
     "ServerType",
-    "Server",
     "CommitmentTypeValue",
     "ConnectivityDiagnostic",
     "CreateServerRequest",
