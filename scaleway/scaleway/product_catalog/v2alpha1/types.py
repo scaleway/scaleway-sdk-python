@@ -23,6 +23,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     APPLE_SILICON = "apple_silicon"
     ELASTIC_METAL = "elastic_metal"
     DEDIBOX = "dedibox"
+    BLOCK_STORAGE = "block_storage"
 
     def __str__(self) -> str:
         return str(self.value)
