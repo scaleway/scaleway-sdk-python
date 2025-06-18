@@ -43,9 +43,9 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_OS,
+    unmarshal_Server,
     unmarshal_ServerPrivateNetwork,
     unmarshal_ServerType,
-    unmarshal_Server,
     unmarshal_ConnectivityDiagnostic,
     unmarshal_ListOSResponse,
     unmarshal_ListServerPrivateNetworksResponse,
