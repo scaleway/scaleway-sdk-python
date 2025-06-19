@@ -528,6 +528,11 @@ class Maintenance:
     Status of the maintenance.
     """
 
+    is_applicable: bool
+    """
+    Indicate if the maintenance can be applied by the user.
+    """
+
     starts_at: Optional[datetime]
     """
     Start date of the maintenance window.
@@ -2042,6 +2047,11 @@ class ListInstancesRequest:
     project_id: Optional[str]
     """
     Project ID to list the Database Instance of.
+    """
+
+    has_maintenances: Optional[bool]
+    """
+    Filter to only list instances with a scheduled maintenance.
     """
 
     page: Optional[int]
