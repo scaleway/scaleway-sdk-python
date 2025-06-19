@@ -219,6 +219,10 @@ def unmarshal_Maintenance(data: Any) -> Maintenance:
     if field is not None:
         args["status"] = field
 
+    field = data.get("is_applicable", None)
+    if field is not None:
+        args["is_applicable"] = field
+
     field = data.get("starts_at", None)
     if field is not None:
         args["starts_at"] = parser.isoparse(field) if isinstance(field, str) else field

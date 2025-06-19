@@ -801,6 +801,7 @@ class RdbV1API(API):
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        has_maintenances: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListInstancesResponse:
@@ -813,6 +814,7 @@ class RdbV1API(API):
         :param order_by: Criteria to use when ordering Database Instance listings.
         :param organization_id: Please use project_id instead.
         :param project_id: Project ID to list the Database Instance of.
+        :param has_maintenances: Filter to only list instances with a scheduled maintenance.
         :param page:
         :param page_size:
         :return: :class:`ListInstancesResponse <ListInstancesResponse>`
@@ -831,6 +833,7 @@ class RdbV1API(API):
             "GET",
             f"/rdb/v1/regions/{param_region}/instances",
             params={
+                "has_maintenances": has_maintenances,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -854,6 +857,7 @@ class RdbV1API(API):
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        has_maintenances: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[Instance]:
@@ -866,6 +870,7 @@ class RdbV1API(API):
         :param order_by: Criteria to use when ordering Database Instance listings.
         :param organization_id: Please use project_id instead.
         :param project_id: Project ID to list the Database Instance of.
+        :param has_maintenances: Filter to only list instances with a scheduled maintenance.
         :param page:
         :param page_size:
         :return: :class:`List[Instance] <List[Instance]>`
@@ -887,6 +892,7 @@ class RdbV1API(API):
                 "order_by": order_by,
                 "organization_id": organization_id,
                 "project_id": project_id,
+                "has_maintenances": has_maintenances,
                 "page": page,
                 "page_size": page_size,
             },
