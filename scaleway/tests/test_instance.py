@@ -18,7 +18,7 @@ logger.addHandler(stream_handler)
 
 server_name = f"test-sdk-python-{uuid.uuid4().hex[:6]}"
 max_retry = 10
-interval = 10
+interval = 0.1
 volume_size = 10
 commercial_type = "DEV1-S"
 zone = "fr-par-1"
