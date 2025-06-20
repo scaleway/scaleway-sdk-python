@@ -432,3 +432,11 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
     """
     The list of filtered product categories.
     """
+
+    global_: Optional[bool]
+
+    region: Optional[ScwRegion]
+
+    zone: Optional[ScwZone]
+
+    datacenter: Optional[str]
