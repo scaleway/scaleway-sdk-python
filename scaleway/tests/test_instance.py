@@ -1,6 +1,6 @@
 import logging
 import sys
-from typing import Dict
+from typing import List
 import unittest
 import uuid
 import time
@@ -17,14 +17,17 @@ stream_handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(stream_handler)
 
 server_name = f"test-sdk-python-{uuid.uuid4().hex[:6]}"
-timeout = 10
+max_retry = 10
+interval = 10
 volume_size = 10
 commercial_type = "DEV1-S"
+zone = "fr-par-1"
+timeout_attach = 10
 
 
 class TestE2EServerCreation(unittest.TestCase):
     def setUp(self) -> None:
-        self.zone = "fr-par-1"
+        self.zone = zone
         self.client = Client.from_config_file_and_env()
         self.instanceAPI = InstanceV1API(self.client, bypass_validation=True)
         self.blockAPI = BlockV1Alpha1API(self.client, bypass_validation=True)
@@ -33,32 +36,24 @@ class TestE2EServerCreation(unittest.TestCase):
 
     def tearDown(self) -> None:
         for volume in self._volumes:
-            try:
-                self.instanceAPI.detach_server_volume(
-                    server_id=self._server.id, volume_id=volume.id
-                )
-                logger.info("✅ Volume {volume.id} has been detach")
-            except Exception as e:
-                logger.warning(f"Failed to detach volume {volume.id}: {e}")
-            try:
-                self.blockAPI.delete_volume(volume_id=volume.id)
-                logger.info("✅ Volume {volume.id} has been deleted")
-            except Exception as e:
-                logger.warning(f"Failed to delete volume {volume.id}: {e}")
+            self.instanceAPI.detach_server_volume(
+                server_id=self._server.id, volume_id=volume.id
+            )
+            logger.info("✅ Volume {volume.id} has been detach")
+
+            self.blockAPI.delete_volume(volume_id=volume.id)
+            logger.info("✅ Volume {volume.id} has been deleted")
         if self._server:
-            try:
-                self.api.delete_server(zone=self.zone, server_id=self._server.id)
-                logger.info(f"🗑️ Deleted server: {self._server.id}")
-            except Exception as e:
-                logger.warning(f"Failed to delete server {self._server.id}: {e}")
+            self.api.delete_server(zone=self.zone, server_id=self._server.id)
+            logger.info(f"🗑️ Deleted server: {self._server.id}")
 
     def wait_test_instance_server(self, server_id):
-        for _ in range(10):
+        for i in range(1, max_retry):
+            interval *= i
             s = self.api.get_server(zone=self.zone, server_id=server_id)
             if s.state == "running":
-                logger.info(f"✅ Server {server_id} is running.")
                 break
-            time.sleep(timeout)
+            time.sleep(interval)
         else:
             self.fail("Server did not reach 'running' state in time.")
 
@@ -80,16 +75,15 @@ class TestE2EServerCreation(unittest.TestCase):
         self.wait_test_instance_server(server_id=server.server.id)
         return server.server
 
-    def create_test_from_empty_volume(self, number) -> Dict[str, Volume]:
-        volumes: Dict[str, Volume] = {}
+    def create_test_from_empty_volume(self, number) -> List[Volume]:
+        volumes: List[Volume] = {}
         for i in range(number):
             volume = self.blockAPI.create_volume(
-                project_id="19e2fd0b-3d53-4f8f-9338-629df9c1b1db",
                 from_empty=CreateVolumeRequestFromEmpty(size=10),
             )
             logger.info("✅ Created server: {volume.id}")
             self._volumes.append(volume)  # Ensure cleanup in tearDown
-            volumes[str(i)] = volume
+            volumes.append(volume)
 
         return volumes
 
@@ -110,7 +104,7 @@ class TestE2EServerCreation(unittest.TestCase):
         )
         logger.info(f"🔗 Attached volume {additional_volume.id} to server {server.id}")
 
-        time.sleep(5)
+        time.sleep(timeout_attach)
 
         updated_server = self.instanceAPI.get_server(
             zone=self.zone, server_id=server.id
