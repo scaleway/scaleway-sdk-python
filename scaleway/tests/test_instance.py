@@ -44,14 +44,14 @@ class TestE2EServerCreation(unittest.TestCase):
             self.blockAPI.delete_volume(volume_id=volume.id)
             logger.info("✅ Volume {volume.id} has been deleted")
         if self._server:
-            self.api.delete_server(zone=self.zone, server_id=self._server.id)
+            self.instanceAPI.delete_server(zone=self.zone, server_id=self._server.id)
             logger.info(f"🗑️ Deleted server: {self._server.id}")
 
     def wait_test_instance_server(self, server_id):
         interval = interval
         for i in range(1, max_retry):
             interval *= i
-            s = self.api.get_server(zone=self.zone, server_id=server_id)
+            s = self.instanceAPI.get_server(zone=self.zone, server_id=server_id)
             if s.state == "running":
                 logger.info(f"✅ Server {server_id} is running.")
                 break
@@ -84,6 +84,7 @@ class TestE2EServerCreation(unittest.TestCase):
                 from_empty=CreateVolumeRequestFromEmpty(size=10),
             )
             logger.info("✅ Created server: {volume.id}")
+            self.blockAPI.wait_for_volume(volume_id=volume.id, zone=self.zone)
             self._volumes.append(volume)  # Ensure cleanup in tearDown
             volumes.append(volume)
 
@@ -92,7 +93,7 @@ class TestE2EServerCreation(unittest.TestCase):
     def test_attach_aditionnal_volume(self):
         server = self.create_test_instance_server()
         additional_volumes = self.create_test_from_empty_volume(1)
-        additional_volume = list(additional_volumes.values())[0]
+        additional_volume = additional_volumes.values()[0]
 
         self.assertIsNotNone(server.id)
         self.assertEqual(server.zone, self.zone)
@@ -104,9 +105,10 @@ class TestE2EServerCreation(unittest.TestCase):
         self.instanceAPI.attach_server_volume(
             server_id=server.id, volume_id=additional_volume.id
         )
-        logger.info(f"🔗 Attached volume {additional_volume.id} to server {server.id}")
 
-        time.sleep(timeout_attach)
+        self.blockAPI.wait_for_volume(volume_id=additional_volume.id, zone=self.zone)
+
+        logger.info(f"🔗 Attached volume {additional_volume.id} to server {server.id}")
 
         updated_server = self.instanceAPI.get_server(
             zone=self.zone, server_id=server.id
