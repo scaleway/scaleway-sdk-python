@@ -48,10 +48,12 @@ class TestE2EServerCreation(unittest.TestCase):
             logger.info(f"🗑️ Deleted server: {self._server.id}")
 
     def wait_test_instance_server(self, server_id):
+        interval = interval
         for i in range(1, max_retry):
             interval *= i
             s = self.api.get_server(zone=self.zone, server_id=server_id)
             if s.state == "running":
+                logger.info(f"✅ Server {server_id} is running.")
                 break
             time.sleep(interval)
         else:
