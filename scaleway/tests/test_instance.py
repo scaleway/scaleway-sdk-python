@@ -22,7 +22,6 @@ interval = 0.1
 volume_size = 10
 commercial_type = "DEV1-S"
 zone = "fr-par-1"
-timeout_attach = 10
 
 
 class TestE2EServerCreation(unittest.TestCase):
@@ -43,19 +42,24 @@ class TestE2EServerCreation(unittest.TestCase):
 
             self.blockAPI.delete_volume(volume_id=volume.id)
             logger.info("✅ Volume {volume.id} has been deleted")
+
         if self._server:
             self.instanceAPI.delete_server(zone=self.zone, server_id=self._server.id)
             logger.info(f"🗑️ Deleted server: {self._server.id}")
 
     def wait_test_instance_server(self, server_id):
         interval = interval
+
         for i in range(1, max_retry):
             interval *= i
             s = self.instanceAPI.get_server(zone=self.zone, server_id=server_id)
+
             if s.state == "running":
                 logger.info(f"✅ Server {server_id} is running.")
                 break
+
             time.sleep(interval)
+
         self.fail("Server did not reach 'running' state in time.")
 
     def create_test_instance_server(self) -> Server:
@@ -64,6 +68,7 @@ class TestE2EServerCreation(unittest.TestCase):
                 volume_type="sbs_volume", name="my-volume", size=volume_size
             )
         }
+
         server = self.instanceAPI._create_server(
             commercial_type=commercial_type,
             zone=self.zone,
@@ -72,18 +77,24 @@ class TestE2EServerCreation(unittest.TestCase):
             volumes=volume,
         )
         logger.info(f"✅ Created server: {server.id}")
+
         self._server = server.server
+
         self.wait_test_instance_server(server_id=server.server.id)
+
         return server.server
 
     def create_test_from_empty_volume(self, number) -> List[Volume]:
         volumes: List[Volume] = {}
+
         for i in range(number):
             volume = self.blockAPI.create_volume(
                 from_empty=CreateVolumeRequestFromEmpty(size=10),
             )
             logger.info("✅ Created server: {volume.id}")
+
             self.blockAPI.wait_for_volume(volume_id=volume.id, zone=self.zone)
+
             self._volumes.append(volume)  # Ensure cleanup in tearDown
             volumes.append(volume)
 
