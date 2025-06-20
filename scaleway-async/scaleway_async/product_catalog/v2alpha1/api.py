@@ -4,7 +4,13 @@
 from typing import List, Optional
 
 from scaleway_core.api import API
+from scaleway_core.bridge import (
+    Region as ScwRegion,
+    Zone as ScwZone,
+)
 from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
     fetch_all_pages_async,
 )
 from .types import (
@@ -28,6 +34,10 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         product_types: Optional[
             List[ListPublicCatalogProductsRequestProductType]
         ] = None,
+        global_: Optional[bool] = None,
+        region: Optional[ScwRegion] = None,
+        zone: Optional[ScwZone] = None,
+        datacenter: Optional[str] = None,
     ) -> ListPublicCatalogProductsResponse:
         """
         List all available products.
@@ -35,6 +45,14 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         :param page: Number of the page. Value must be greater or equal to 1.
         :param page_size: The number of products per page. Value must be greater or equal to 1.
         :param product_types: The list of filtered product categories.
+        :param global_: Filter global products.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param region: Filter products by region.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param zone: Filter products by zone.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param datacenter: Filter products by datacenter.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :return: :class:`ListPublicCatalogProductsResponse <ListPublicCatalogProductsResponse>`
 
         Usage:
@@ -50,6 +68,14 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "product_types": product_types,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("datacenter", datacenter),
+                        OneOfPossibility("global_", global_),
+                        OneOfPossibility("region", region),
+                        OneOfPossibility("zone", zone),
+                    ]
+                ),
             },
         )
 
@@ -64,6 +90,10 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         product_types: Optional[
             List[ListPublicCatalogProductsRequestProductType]
         ] = None,
+        global_: Optional[bool] = None,
+        region: Optional[ScwRegion] = None,
+        zone: Optional[ScwZone] = None,
+        datacenter: Optional[str] = None,
     ) -> List[PublicCatalogProduct]:
         """
         List all available products.
@@ -71,6 +101,14 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         :param page: Number of the page. Value must be greater or equal to 1.
         :param page_size: The number of products per page. Value must be greater or equal to 1.
         :param product_types: The list of filtered product categories.
+        :param global_: Filter global products.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param region: Filter products by region.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param zone: Filter products by zone.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param datacenter: Filter products by datacenter.
+        One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :return: :class:`List[PublicCatalogProduct] <List[PublicCatalogProduct]>`
 
         Usage:
@@ -87,5 +125,9 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "product_types": product_types,
+                "global_": global_,
+                "region": region,
+                "zone": zone,
+                "datacenter": datacenter,
             },
         )
