@@ -20,7 +20,6 @@ from scaleway.test.v1.types import (
 
 system_random = random.SystemRandom()
 
-
 def _mock_human_raw() -> Dict[str, Any]:
     altitude_in_meter = system_random.randint(0, 100)
     created_at = utils.random_date_string(
@@ -67,8 +66,7 @@ def _mock_human() -> Human:
         name=utils.random_name(),
         project_id=str(uuid.uuid4()),
     )
-
-
+@unittest.skip("API test is not deploy")
 class TestTestV1UnmarshallingHuman(unittest.TestCase):
     def _assert_raw_and_unmarshalled_human(
         self,
@@ -126,7 +124,6 @@ class TestTestV1UnmarshallingHuman(unittest.TestCase):
                 humans[i], list_humans_response.humans[i]
             )
 
-
 def _mock_create_human_request() -> CreateHumanRequest:
     human = _mock_human()
 
@@ -144,7 +141,7 @@ def _mock_create_human_request() -> CreateHumanRequest:
         organization_id=human.organization_id,
     )
 
-
+@unittest.skip("API test is not deploy")
 class TestTestV1MarshallingCreateHumanRequest(unittest.TestCase):
     def _assert_create_human_request_and_raw(
         self,
