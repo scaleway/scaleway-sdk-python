@@ -11,7 +11,6 @@ from .types import (
     ListPublicCatalogProductsRequestProductType,
     ListPublicCatalogProductsResponse,
     PublicCatalogProduct,
-    PublicCatalogProductLocality,
 )
 from .marshalling import (
     unmarshal_ListPublicCatalogProductsResponse,
@@ -29,7 +28,6 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         product_types: Optional[
             List[ListPublicCatalogProductsRequestProductType]
         ] = None,
-        locality: Optional[PublicCatalogProductLocality] = None,
     ) -> ListPublicCatalogProductsResponse:
         """
         List all available products.
@@ -37,7 +35,6 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         :param page: Number of the page. Value must be greater or equal to 1.
         :param page_size: The number of products per page. Value must be greater or equal to 1.
         :param product_types: The list of filtered product categories.
-        :param locality: The locality of the products to filter by. If not set, all localities are returned.
         :return: :class:`ListPublicCatalogProductsResponse <ListPublicCatalogProductsResponse>`
 
         Usage:
@@ -50,7 +47,6 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
             "GET",
             "/product-catalog/v2alpha1/public-catalog/products",
             params={
-                "locality": locality,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "product_types": product_types,
@@ -68,7 +64,6 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         product_types: Optional[
             List[ListPublicCatalogProductsRequestProductType]
         ] = None,
-        locality: Optional[PublicCatalogProductLocality] = None,
     ) -> List[PublicCatalogProduct]:
         """
         List all available products.
@@ -76,7 +71,6 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         :param page: Number of the page. Value must be greater or equal to 1.
         :param page_size: The number of products per page. Value must be greater or equal to 1.
         :param product_types: The list of filtered product categories.
-        :param locality: The locality of the products to filter by. If not set, all localities are returned.
         :return: :class:`List[PublicCatalogProduct] <List[PublicCatalogProduct]>`
 
         Usage:
@@ -93,6 +87,5 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "product_types": product_types,
-                "locality": locality,
             },
         )
