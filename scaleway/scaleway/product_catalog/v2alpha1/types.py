@@ -432,8 +432,3 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
     """
     The list of filtered product categories.
     """
-
-    locality: Optional[PublicCatalogProductLocality]
-    """
-    The locality of the products to filter by. If not set, all localities are returned.
-    """
