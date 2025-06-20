@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway.baremetal.v3 package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway.baremetal.v3 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-scaleway.baremetal.v3.api">scaleway.baremetal.v3.api module</a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.add_server_private_network"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.add_server_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.delete_server_private_network"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.delete_server_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.list_server_private_networks"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.list_server_private_networks()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.list_server_private_networks_all"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.list_server_private_networks_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.set_server_private_networks"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.set_server_private_networks()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.baremetal.v3.content">scaleway.baremetal.v3.content module</a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.content.SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES"><code class="docutils literal notranslate"><span class="pre">SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.baremetal.v3.marshalling">scaleway.baremetal.v3.marshalling module</a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.marshalling.marshal_PrivateNetworkApiAddServerPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">marshal_PrivateNetworkApiAddServerPrivateNetworkRequest()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.marshalling.marshal_PrivateNetworkApiSetServerPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">marshal_PrivateNetworkApiSetServerPrivateNetworksRequest()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.marshalling.unmarshal_ListServerPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListServerPrivateNetworksResponse()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.marshalling.unmarshal_ServerPrivateNetwork"><code class="docutils literal notranslate"><span class="pre">unmarshal_ServerPrivateNetwork()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.marshalling.unmarshal_SetServerPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_SetServerPrivateNetworksResponse()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.baremetal.v3.types">scaleway.baremetal.v3.types module</a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse.server_private_networks"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse.server_private_networks</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.order_by</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.page</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.page_size</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.created_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.private_network_id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.server_id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.status"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.status</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.updated_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.vlan"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.vlan</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ATTACHED"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.ATTACHED</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ATTACHING"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.ATTACHING</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.DETACHING"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.DETACHING</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ERROR"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.ERROR</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.LOCKED"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.LOCKED</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.UNKNOWN_STATUS"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.UNKNOWN_STATUS</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">SetServerPrivateNetworksResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse.server_private_networks"><code class="docutils literal notranslate"><span class="pre">SetServerPrivateNetworksResponse.server_private_networks</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.baremetal.v3">Module contents</a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.add_server_private_network"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.add_server_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.delete_server_private_network"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.delete_server_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.list_server_private_networks"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.list_server_private_networks()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.list_server_private_networks_all"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.list_server_private_networks_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.set_server_private_networks"><code class="docutils literal notranslate"><span class="pre">BaremetalV3PrivateNetworkAPI.set_server_private_networks()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksResponse.server_private_networks"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse.server_private_networks</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.order_by</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.page</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.page_size</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.server_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.created_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.ipam_ip_ids"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.ipam_ip_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.private_network_id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.server_id"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.server_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.status"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.status</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.updated_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork.vlan"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetwork.vlan</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.ATTACHED"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.ATTACHED</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.ATTACHING"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.ATTACHING</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.DETACHING"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.DETACHING</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.ERROR"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.ERROR</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.LOCKED"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.LOCKED</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.UNKNOWN_STATUS"><code class="docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus.UNKNOWN_STATUS</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.SetServerPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">SetServerPrivateNetworksResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.baremetal.v3.SetServerPrivateNetworksResponse.server_private_networks"><code class="docutils literal notranslate"><span class="pre">SetServerPrivateNetworksResponse.server_private_networks</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway.baremetal.v3 package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway.baremetal.v3.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-baremetal-v3-package">
+<h1>scaleway.baremetal.v3 package<a class="headerlink" href="#scaleway-baremetal-v3-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway.baremetal.v3.api">
+<span id="scaleway-baremetal-v3-api-module"></span><h2>scaleway.baremetal.v3.api module<a class="headerlink" href="#module-scaleway.baremetal.v3.api" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.api.</span></span><span class="sig-name descname"><span class="pre">BaremetalV3PrivateNetworkAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>Elastic Metal - Private Networks API.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.add_server_private_network">
+<span class="sig-name descname"><span class="pre">add_server_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.add_server_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Add a server to a Private Network.
+Add an Elastic Metal server to a Private Network.
+:param server_id: UUID of the server.
+:param private_network_id: UUID of the Private Network.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param ipam_ip_ids: IPAM IDs of an IPs to attach to the server.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">ServerPrivateNetwork</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">add_server_private_network</span><span class="p">(</span>
+    <span class="n">server_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.delete_server_private_network">
+<span class="sig-name descname"><span class="pre">delete_server_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.delete_server_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a Private Network.
+:param server_id: UUID of the server.
+:param private_network_id: UUID of the Private Network.
+:param zone: Zone to target. If none is passed will use default zone from the config.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">delete_server_private_network</span><span class="p">(</span>
+    <span class="n">server_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.list_server_private_networks">
+<span class="sig-name descname"><span class="pre">list_server_private_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse"><span class="pre">ListServerPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.list_server_private_networks" title="Permalink to this definition"></a></dt>
+<dd><p>List the Private Networks of a server.
+List the Private Networks of an Elastic Metal server.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order for the returned Private Networks.
+:param page: Page number for the returned Private Networks.
+:param page_size: Maximum number of Private Networks per page.
+:param server_id: Filter Private Networks by server UUID.
+:param private_network_id: Filter Private Networks by Private Network UUID.
+:param organization_id: Filter Private Networks by organization UUID.
+:param project_id: Filter Private Networks by project UUID.
+:param ipam_ip_ids: Filter Private Networks by IPAM IP UUIDs.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_server_private_networks</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.list_server_private_networks_all">
+<span class="sig-name descname"><span class="pre">list_server_private_networks_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.list_server_private_networks_all" title="Permalink to this definition"></a></dt>
+<dd><p>List the Private Networks of a server.
+List the Private Networks of an Elastic Metal server.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order for the returned Private Networks.
+:param page: Page number for the returned Private Networks.
+:param page_size: Maximum number of Private Networks per page.
+:param server_id: Filter Private Networks by server UUID.
+:param private_network_id: Filter Private Networks by Private Network UUID.
+:param organization_id: Filter Private Networks by organization UUID.
+:param project_id: Filter Private Networks by project UUID.
+:param ipam_ip_ids: Filter Private Networks by IPAM IP UUIDs.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[ServerPrivateNetwork]</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_server_private_networks_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.set_server_private_networks">
+<span class="sig-name descname"><span class="pre">set_server_private_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_private_network_ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse" title="scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse"><span class="pre">SetServerPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.api.BaremetalV3PrivateNetworkAPI.set_server_private_networks" title="Permalink to this definition"></a></dt>
+<dd><p>Set multiple Private Networks on a server.
+Configure multiple Private Networks on an Elastic Metal server.
+:param server_id: UUID of the server.
+:param per_private_network_ipam_ip_ids: Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network’s CIDR block will automatically be used for attachment.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">SetServerPrivateNetworksResponse</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">set_server_private_networks</span><span class="p">(</span>
+    <span class="n">server_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">per_private_network_ipam_ip_ids</span><span class="o">=</span><span class="p">{},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway.baremetal.v3.content">
+<span id="scaleway-baremetal-v3-content-module"></span><h2>scaleway.baremetal.v3.content module<a class="headerlink" href="#module-scaleway.baremetal.v3.content" title="Permalink to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.content.SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES">
+<span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.content.</span></span><span class="sig-name descname"><span class="pre">SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus" title="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus"><span class="pre">ServerPrivateNetworkStatus</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;ServerPrivateNetworkStatus.ATTACHING:</span> <span class="pre">'attaching'&gt;,</span> <span class="pre">&lt;ServerPrivateNetworkStatus.DETACHING:</span> <span class="pre">'detaching'&gt;]</span></em><a class="headerlink" href="#scaleway.baremetal.v3.content.SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES" title="Permalink to this definition"></a></dt>
+<dd><p>Lists transient statutes of the enum <code class="xref py py-class docutils literal notranslate"><span class="pre">ServerPrivateNetworkStatus</span></code>.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway.baremetal.v3.marshalling">
+<span id="scaleway-baremetal-v3-marshalling-module"></span><h2>scaleway.baremetal.v3.marshalling module<a class="headerlink" href="#module-scaleway.baremetal.v3.marshalling" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.marshalling.marshal_PrivateNetworkApiAddServerPrivateNetworkRequest">
+<span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.marshalling.</span></span><span class="sig-name descname"><span class="pre">marshal_PrivateNetworkApiAddServerPrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest" title="scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults" title="scaleway_core.profile.profile.ProfileDefaults"><span class="pre">ProfileDefaults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.baremetal.v3.marshalling.marshal_PrivateNetworkApiAddServerPrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.marshalling.marshal_PrivateNetworkApiSetServerPrivateNetworksRequest">
+<span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.marshalling.</span></span><span class="sig-name descname"><span class="pre">marshal_PrivateNetworkApiSetServerPrivateNetworksRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest" title="scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults" title="scaleway_core.profile.profile.ProfileDefaults"><span class="pre">ProfileDefaults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.baremetal.v3.marshalling.marshal_PrivateNetworkApiSetServerPrivateNetworksRequest" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.marshalling.unmarshal_ListServerPrivateNetworksResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ListServerPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse"><span class="pre">ListServerPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.marshalling.unmarshal_ListServerPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.marshalling.unmarshal_ServerPrivateNetwork">
+<span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ServerPrivateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.marshalling.unmarshal_ServerPrivateNetwork" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.marshalling.unmarshal_SetServerPrivateNetworksResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_SetServerPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse" title="scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse"><span class="pre">SetServerPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.marshalling.unmarshal_SetServerPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-scaleway.baremetal.v3.types">
+<span id="scaleway-baremetal-v3-types-module"></span><h2>scaleway.baremetal.v3.types module<a class="headerlink" href="#module-scaleway.baremetal.v3.types" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_asc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_desc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">UPDATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'updated_at_asc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">UPDATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'updated_at_desc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">ListServerPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_private_networks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[ServerPrivateNetwork]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse.server_private_networks">
+<span class="sig-name descname"><span class="pre">server_private_networks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse.server_private_networks" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>IPAM IDs of an IPs to attach to the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiAddServerPrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ListServerPrivateNetworksRequestOrderBy]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by IPAM IP UUIDs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.order_by">
+<span class="sig-name descname"><span class="pre">order_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.order_by" title="Permalink to this definition"></a></dt>
+<dd><p>Sort order for the returned Private Networks.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by organization UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.page">
+<span class="sig-name descname"><span class="pre">page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.page" title="Permalink to this definition"></a></dt>
+<dd><p>Page number for the returned Private Networks.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.page_size">
+<span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.page_size" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of Private Networks per page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by Private Network UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by project UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by server UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiListServerPrivateNetworksRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_private_network_ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Dict[str,</span> <span class="pre">List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">per_private_network_ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network’s CIDR block will automatically be used for attachment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.PrivateNetworkApiSetServerPrivateNetworksRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">ServerPrivateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'ServerPrivateNetworkStatus'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vlan</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.created_at" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network creation date.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the Server-to-Private Network mapping.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>IPAM IP IDs of the server, if it has any.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network Project UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>Server UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus" title="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus"><span class="pre">ServerPrivateNetworkStatus</span></a></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.status" title="Permalink to this definition"></a></dt>
+<dd><p>Configuration status of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.updated_at" title="Permalink to this definition"></a></dt>
+<dd><p>Date the Private Network was last modified.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetwork.vlan">
+<span class="sig-name descname"><span class="pre">vlan</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork.vlan" title="Permalink to this definition"></a></dt>
+<dd><p>VLAN UUID associated with the Private Network.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">ServerPrivateNetworkStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ATTACHED">
+<span class="sig-name descname"><span class="pre">ATTACHED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'attached'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ATTACHED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ATTACHING">
+<span class="sig-name descname"><span class="pre">ATTACHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'attaching'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ATTACHING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.DETACHING">
+<span class="sig-name descname"><span class="pre">DETACHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'detaching'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.DETACHING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'error'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.ERROR" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.LOCKED">
+<span class="sig-name descname"><span class="pre">LOCKED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'locked'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.LOCKED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.UNKNOWN_STATUS">
+<span class="sig-name descname"><span class="pre">UNKNOWN_STATUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unknown_status'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus.UNKNOWN_STATUS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.types.</span></span><span class="sig-name descname"><span class="pre">SetServerPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_private_networks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[ServerPrivateNetwork]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse.server_private_networks">
+<span class="sig-name descname"><span class="pre">server_private_networks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse.server_private_networks" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway.baremetal.v3">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway.baremetal.v3" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">BaremetalV3PrivateNetworkAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>Elastic Metal - Private Networks API.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.add_server_private_network">
+<span class="sig-name descname"><span class="pre">add_server_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.add_server_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Add a server to a Private Network.
+Add an Elastic Metal server to a Private Network.
+:param server_id: UUID of the server.
+:param private_network_id: UUID of the Private Network.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param ipam_ip_ids: IPAM IDs of an IPs to attach to the server.
+:return: <a class="reference internal" href="#scaleway.baremetal.v3.ServerPrivateNetwork" title="scaleway.baremetal.v3.ServerPrivateNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerPrivateNetwork</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">add_server_private_network</span><span class="p">(</span>
+    <span class="n">server_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.delete_server_private_network">
+<span class="sig-name descname"><span class="pre">delete_server_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.delete_server_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a Private Network.
+:param server_id: UUID of the server.
+:param private_network_id: UUID of the Private Network.
+:param zone: Zone to target. If none is passed will use default zone from the config.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">delete_server_private_network</span><span class="p">(</span>
+    <span class="n">server_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.list_server_private_networks">
+<span class="sig-name descname"><span class="pre">list_server_private_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksResponse"><span class="pre">ListServerPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.list_server_private_networks" title="Permalink to this definition"></a></dt>
+<dd><p>List the Private Networks of a server.
+List the Private Networks of an Elastic Metal server.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order for the returned Private Networks.
+:param page: Page number for the returned Private Networks.
+:param page_size: Maximum number of Private Networks per page.
+:param server_id: Filter Private Networks by server UUID.
+:param private_network_id: Filter Private Networks by Private Network UUID.
+:param organization_id: Filter Private Networks by organization UUID.
+:param project_id: Filter Private Networks by project UUID.
+:param ipam_ip_ids: Filter Private Networks by IPAM IP UUIDs.
+:return: <a class="reference internal" href="#scaleway.baremetal.v3.ListServerPrivateNetworksResponse" title="scaleway.baremetal.v3.ListServerPrivateNetworksResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListServerPrivateNetworksResponse</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_server_private_networks</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.list_server_private_networks_all">
+<span class="sig-name descname"><span class="pre">list_server_private_networks_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.list_server_private_networks_all" title="Permalink to this definition"></a></dt>
+<dd><p>List the Private Networks of a server.
+List the Private Networks of an Elastic Metal server.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order for the returned Private Networks.
+:param page: Page number for the returned Private Networks.
+:param page_size: Maximum number of Private Networks per page.
+:param server_id: Filter Private Networks by server UUID.
+:param private_network_id: Filter Private Networks by Private Network UUID.
+:param organization_id: Filter Private Networks by organization UUID.
+:param project_id: Filter Private Networks by project UUID.
+:param ipam_ip_ids: Filter Private Networks by IPAM IP UUIDs.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[ServerPrivateNetwork]</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_server_private_networks_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.set_server_private_networks">
+<span class="sig-name descname"><span class="pre">set_server_private_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_private_network_ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse" title="scaleway.baremetal.v3.types.SetServerPrivateNetworksResponse"><span class="pre">SetServerPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.baremetal.v3.BaremetalV3PrivateNetworkAPI.set_server_private_networks" title="Permalink to this definition"></a></dt>
+<dd><p>Set multiple Private Networks on a server.
+Configure multiple Private Networks on an Elastic Metal server.
+:param server_id: UUID of the server.
+:param per_private_network_ipam_ip_ids: Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network’s CIDR block will automatically be used for attachment.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:return: <a class="reference internal" href="#scaleway.baremetal.v3.SetServerPrivateNetworksResponse" title="scaleway.baremetal.v3.SetServerPrivateNetworksResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetServerPrivateNetworksResponse</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">set_server_private_networks</span><span class="p">(</span>
+    <span class="n">server_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">per_private_network_ipam_ip_ids</span><span class="o">=</span><span class="p">{},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_asc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_desc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.CREATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">UPDATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'updated_at_asc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">UPDATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'updated_at_desc'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksRequestOrderBy.UPDATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">ListServerPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_private_networks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[ServerPrivateNetwork]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksResponse.server_private_networks">
+<span class="sig-name descname"><span class="pre">server_private_networks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksResponse.server_private_networks" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ListServerPrivateNetworksResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ListServerPrivateNetworksResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiAddServerPrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>IPAM IDs of an IPs to attach to the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiAddServerPrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiDeleteServerPrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiDeleteServerPrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiListServerPrivateNetworksRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ListServerPrivateNetworksRequestOrderBy]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by IPAM IP UUIDs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.order_by">
+<span class="sig-name descname"><span class="pre">order_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy" title="scaleway.baremetal.v3.types.ListServerPrivateNetworksRequestOrderBy"><span class="pre">ListServerPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.order_by" title="Permalink to this definition"></a></dt>
+<dd><p>Sort order for the returned Private Networks.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by organization UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.page">
+<span class="sig-name descname"><span class="pre">page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.page" title="Permalink to this definition"></a></dt>
+<dd><p>Page number for the returned Private Networks.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.page_size">
+<span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.page_size" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of Private Networks per page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by Private Network UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by project UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>Filter Private Networks by server UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiListServerPrivateNetworksRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">PrivateNetworkApiSetServerPrivateNetworksRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_private_network_ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Dict[str,</span> <span class="pre">List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ScwZone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">per_private_network_ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.per_private_network_ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network’s CIDR block will automatically be used for attachment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.PrivateNetworkApiSetServerPrivateNetworksRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">ServerPrivateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'ServerPrivateNetworkStatus'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ipam_ip_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vlan</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.created_at" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network creation date.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of the Server-to-Private Network mapping.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.ipam_ip_ids">
+<span class="sig-name descname"><span class="pre">ipam_ip_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.ipam_ip_ids" title="Permalink to this definition"></a></dt>
+<dd><p>IPAM IP IDs of the server, if it has any.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network Project UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.server_id">
+<span class="sig-name descname"><span class="pre">server_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.server_id" title="Permalink to this definition"></a></dt>
+<dd><p>Server UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetworkStatus" title="scaleway.baremetal.v3.types.ServerPrivateNetworkStatus"><span class="pre">ServerPrivateNetworkStatus</span></a></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.status" title="Permalink to this definition"></a></dt>
+<dd><p>Configuration status of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.updated_at" title="Permalink to this definition"></a></dt>
+<dd><p>Date the Private Network was last modified.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetwork.vlan">
+<span class="sig-name descname"><span class="pre">vlan</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetwork.vlan" title="Permalink to this definition"></a></dt>
+<dd><p>VLAN UUID associated with the Private Network.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetworkStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">ServerPrivateNetworkStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetworkStatus.ATTACHED">
+<span class="sig-name descname"><span class="pre">ATTACHED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'attached'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.ATTACHED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetworkStatus.ATTACHING">
+<span class="sig-name descname"><span class="pre">ATTACHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'attaching'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.ATTACHING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetworkStatus.DETACHING">
+<span class="sig-name descname"><span class="pre">DETACHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'detaching'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.DETACHING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetworkStatus.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'error'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.ERROR" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetworkStatus.LOCKED">
+<span class="sig-name descname"><span class="pre">LOCKED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'locked'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.LOCKED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.ServerPrivateNetworkStatus.UNKNOWN_STATUS">
+<span class="sig-name descname"><span class="pre">UNKNOWN_STATUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unknown_status'</span></em><a class="headerlink" href="#scaleway.baremetal.v3.ServerPrivateNetworkStatus.UNKNOWN_STATUS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.SetServerPrivateNetworksResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.baremetal.v3.</span></span><span class="sig-name descname"><span class="pre">SetServerPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_private_networks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[ServerPrivateNetwork]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.baremetal.v3.SetServerPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.baremetal.v3.SetServerPrivateNetworksResponse.server_private_networks">
+<span class="sig-name descname"><span class="pre">server_private_networks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.baremetal.v3.types.ServerPrivateNetwork" title="scaleway.baremetal.v3.types.ServerPrivateNetwork"><span class="pre">ServerPrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.baremetal.v3.SetServerPrivateNetworksResponse.server_private_networks" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

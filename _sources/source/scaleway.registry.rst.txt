@@ -1,0 +1,18 @@
+scaleway.registry package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.registry.v1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.registry
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway_core.utils package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway_core.utils package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-scaleway_core.utils.fetch_all_pages">scaleway_core.utils.fetch_all_pages module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.fetch_all_pages.fetch_all_pages"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.fetch_all_pages.fetch_all_pages_async"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages_async()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.utils.project_or_organization_id">scaleway_core.utils.project_or_organization_id module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.project_or_organization_id.project_or_organization_id"><code class="docutils literal notranslate"><span class="pre">project_or_organization_id()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.utils.random_name">scaleway_core.utils.random_name module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.random_name.random_name"><code class="docutils literal notranslate"><span class="pre">random_name()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.utils.resolve_one_of">scaleway_core.utils.resolve_one_of module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility.default"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.default</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility.param"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.param</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility.value"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.value</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.utils.resolve_one_of.resolve_one_of"><code class="docutils literal notranslate"><span class="pre">resolve_one_of()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.utils.strenummeta">scaleway_core.utils.strenummeta module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.strenummeta.StrEnumMeta"><code class="docutils literal notranslate"><span class="pre">StrEnumMeta</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.utils.validate_path_param">scaleway_core.utils.validate_path_param module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.validate_path_param.validate_path_param"><code class="docutils literal notranslate"><span class="pre">validate_path_param()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.utils.waiter">scaleway_core.utils.waiter module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions"><code class="docutils literal notranslate"><span class="pre">WaitForOptions</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions.max_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.max_delay</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions.min_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.min_delay</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions.stop"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.stop</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions.timeout"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.timeout</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.utils.waiter.wait_for_resource"><code class="docutils literal notranslate"><span class="pre">wait_for_resource()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.waiter.wait_for_resource_async"><code class="docutils literal notranslate"><span class="pre">wait_for_resource_async()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.utils">Module contents</a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.OneOfPossibility"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.OneOfPossibility.default"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.default</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.OneOfPossibility.param"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.param</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.OneOfPossibility.value"><code class="docutils literal notranslate"><span class="pre">OneOfPossibility.value</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.utils.StrEnumMeta"><code class="docutils literal notranslate"><span class="pre">StrEnumMeta</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.WaitForOptions"><code class="docutils literal notranslate"><span class="pre">WaitForOptions</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.utils.WaitForOptions.max_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.max_delay</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.WaitForOptions.min_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.min_delay</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.WaitForOptions.stop"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.stop</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.WaitForOptions.timeout"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.timeout</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.utils.fetch_all_pages"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.fetch_all_pages_async"><code class="docutils literal notranslate"><span class="pre">fetch_all_pages_async()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.project_or_organization_id"><code class="docutils literal notranslate"><span class="pre">project_or_organization_id()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.random_name"><code class="docutils literal notranslate"><span class="pre">random_name()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.resolve_one_of"><code class="docutils literal notranslate"><span class="pre">resolve_one_of()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.validate_path_param"><code class="docutils literal notranslate"><span class="pre">validate_path_param()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.wait_for_resource"><code class="docutils literal notranslate"><span class="pre">wait_for_resource()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.utils.wait_for_resource_async"><code class="docutils literal notranslate"><span class="pre">wait_for_resource_async()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway_core.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway_core.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-core-utils-package">
+<h1>scaleway_core.utils package<a class="headerlink" href="#scaleway-core-utils-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway_core.utils.fetch_all_pages">
+<span id="scaleway-core-utils-fetch-all-pages-module"></span><h2>scaleway_core.utils.fetch_all_pages module<a class="headerlink" href="#module-scaleway_core.utils.fetch_all_pages" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.fetch_all_pages.fetch_all_pages">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.fetch_all_pages.</span></span><span class="sig-name descname"><span class="pre">fetch_all_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.fetch_all_pages.fetch_all_pages" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – The key to use to get the list of items from the response</p></li>
+<li><p><strong>fetcher</strong> – The function to call to fetch the response</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of items</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.fetch_all_pages.fetch_all_pages_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.fetch_all_pages.</span></span><span class="sig-name descname"><span class="pre">fetch_all_pages_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.fetch_all_pages.fetch_all_pages_async" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – The key to use to get the list of items from the response</p></li>
+<li><p><strong>fetcher</strong> – The function to call to fetch the response</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of items</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.utils.project_or_organization_id">
+<span id="scaleway-core-utils-project-or-organization-id-module"></span><h2>scaleway_core.utils.project_or_organization_id module<a class="headerlink" href="#module-scaleway_core.utils.project_or_organization_id" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.project_or_organization_id.project_or_organization_id">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.project_or_organization_id.</span></span><span class="sig-name descname"><span class="pre">project_or_organization_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.project_or_organization_id.project_or_organization_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-scaleway_core.utils.random_name">
+<span id="scaleway-core-utils-random-name-module"></span><h2>scaleway_core.utils.random_name module<a class="headerlink" href="#module-scaleway_core.utils.random_name" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.random_name.random_name">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.random_name.</span></span><span class="sig-name descname"><span class="pre">random_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'-'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scaleway_core.utils.random_name.random_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-scaleway_core.utils.resolve_one_of">
+<span id="scaleway-core-utils-resolve-one-of-module"></span><h2>scaleway_core.utils.resolve_one_of module<a class="headerlink" href="#module-scaleway_core.utils.resolve_one_of" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.utils.resolve_one_of.OneOfPossibility">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.resolve_one_of.</span></span><span class="sig-name descname"><span class="pre">OneOfPossibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.resolve_one_of.OneOfPossibility.default">
+<span class="sig-name descname"><span class="pre">default</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility.default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.resolve_one_of.OneOfPossibility.param">
+<span class="sig-name descname"><span class="pre">param</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility.param" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.resolve_one_of.OneOfPossibility.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility.value" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.resolve_one_of.resolve_one_of">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.resolve_one_of.</span></span><span class="sig-name descname"><span class="pre">resolve_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">possibilities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility" title="scaleway_core.utils.resolve_one_of.OneOfPossibility"><span class="pre">OneOfPossibility</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_required</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.resolve_one_of.resolve_one_of" title="Permalink to this definition"></a></dt>
+<dd><p>Resolves the ideal parameter and value amongst an optional list.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.utils.strenummeta">
+<span id="scaleway-core-utils-strenummeta-module"></span><h2>scaleway_core.utils.strenummeta module<a class="headerlink" href="#module-scaleway_core.utils.strenummeta" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.utils.strenummeta.StrEnumMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.strenummeta.</span></span><span class="sig-name descname"><span class="pre">StrEnumMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classdict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.utils.strenummeta.StrEnumMeta" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumMeta</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.utils.validate_path_param">
+<span id="scaleway-core-utils-validate-path-param-module"></span><h2>scaleway_core.utils.validate_path_param module<a class="headerlink" href="#module-scaleway_core.utils.validate_path_param" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.validate_path_param.validate_path_param">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.validate_path_param.</span></span><span class="sig-name descname"><span class="pre">validate_path_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scaleway_core.utils.validate_path_param.validate_path_param" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the parameter if it’s valid as path parameter
+(string and not empty, or number), else throws an exception.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.utils.waiter">
+<span id="scaleway-core-utils-waiter-module"></span><h2>scaleway_core.utils.waiter module<a class="headerlink" href="#module-scaleway_core.utils.waiter" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.utils.waiter.WaitForOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.waiter.</span></span><span class="sig-name descname"><span class="pre">WaitForOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">U</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.utils.waiter.WaitForOptions" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code>]</p>
+<p>The options to wait until a resource is ready.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.waiter.WaitForOptions.max_delay">
+<span class="sig-name descname"><span class="pre">max_delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#scaleway_core.utils.waiter.WaitForOptions.max_delay" title="Permalink to this definition"></a></dt>
+<dd><p>The maximum delay before the next try in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>30 seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.waiter.WaitForOptions.min_delay">
+<span class="sig-name descname"><span class="pre">min_delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scaleway_core.utils.waiter.WaitForOptions.min_delay" title="Permalink to this definition"></a></dt>
+<dd><p>The minimum delay before the next try in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1 second.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.waiter.WaitForOptions.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">U</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway_core.utils.waiter.WaitForOptions.stop" title="Permalink to this definition"></a></dt>
+<dd><p>The condition to stop trying.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Waits for non-transient value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.waiter.WaitForOptions.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">300</span></em><a class="headerlink" href="#scaleway_core.utils.waiter.WaitForOptions.timeout" title="Permalink to this definition"></a></dt>
+<dd><p>Timeout in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>300 seconds (5 minutes).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.waiter.wait_for_resource">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.waiter.</span></span><span class="sig-name descname"><span class="pre">wait_for_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions" title="scaleway_core.utils.waiter.WaitForOptions"><span class="pre">WaitForOptions</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#scaleway_core.utils.waiter.wait_for_resource" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches resource several times until an expected condition is reached, timeouts, or throws an exception.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.waiter.wait_for_resource_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.waiter.</span></span><span class="sig-name descname"><span class="pre">wait_for_resource_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions" title="scaleway_core.utils.waiter.WaitForOptions"><span class="pre">WaitForOptions</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#scaleway_core.utils.waiter.wait_for_resource_async" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches resource several times until an expected condition is reached, timeouts, or throws an exception.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway_core.utils" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.utils.OneOfPossibility">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">OneOfPossibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.utils.OneOfPossibility" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.OneOfPossibility.default">
+<span class="sig-name descname"><span class="pre">default</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway_core.utils.OneOfPossibility.default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.OneOfPossibility.param">
+<span class="sig-name descname"><span class="pre">param</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.utils.OneOfPossibility.param" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.OneOfPossibility.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_core.utils.OneOfPossibility.value" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.utils.StrEnumMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">StrEnumMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classdict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.utils.StrEnumMeta" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EnumMeta</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.utils.WaitForOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">WaitForOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">U</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.utils.WaitForOptions" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code>]</p>
+<p>The options to wait until a resource is ready.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.WaitForOptions.max_delay">
+<span class="sig-name descname"><span class="pre">max_delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#scaleway_core.utils.WaitForOptions.max_delay" title="Permalink to this definition"></a></dt>
+<dd><p>The maximum delay before the next try in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>30 seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.WaitForOptions.min_delay">
+<span class="sig-name descname"><span class="pre">min_delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scaleway_core.utils.WaitForOptions.min_delay" title="Permalink to this definition"></a></dt>
+<dd><p>The minimum delay before the next try in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1 second.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.WaitForOptions.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">U</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway_core.utils.WaitForOptions.stop" title="Permalink to this definition"></a></dt>
+<dd><p>The condition to stop trying.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Waits for non-transient value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.utils.WaitForOptions.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">300</span></em><a class="headerlink" href="#scaleway_core.utils.WaitForOptions.timeout" title="Permalink to this definition"></a></dt>
+<dd><p>Timeout in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>300 seconds (5 minutes).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.fetch_all_pages">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">fetch_all_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.fetch_all_pages" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – The key to use to get the list of items from the response</p></li>
+<li><p><strong>fetcher</strong> – The function to call to fetch the response</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of items</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.fetch_all_pages_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">fetch_all_pages_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.fetch_all_pages_async" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – The key to use to get the list of items from the response</p></li>
+<li><p><strong>fetcher</strong> – The function to call to fetch the response</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of items</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.project_or_organization_id">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">project_or_organization_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.project_or_organization_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.random_name">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">random_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'-'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scaleway_core.utils.random_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.resolve_one_of">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">resolve_one_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">possibilities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_core.utils.resolve_one_of.OneOfPossibility" title="scaleway_core.utils.resolve_one_of.OneOfPossibility"><span class="pre">OneOfPossibility</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_required</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.utils.resolve_one_of" title="Permalink to this definition"></a></dt>
+<dd><p>Resolves the ideal parameter and value amongst an optional list.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.validate_path_param">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">validate_path_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scaleway_core.utils.validate_path_param" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the parameter if it’s valid as path parameter
+(string and not empty, or number), else throws an exception.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.wait_for_resource">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">wait_for_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions" title="scaleway_core.utils.waiter.WaitForOptions"><span class="pre">WaitForOptions</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#scaleway_core.utils.wait_for_resource" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches resource several times until an expected condition is reached, timeouts, or throws an exception.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.utils.wait_for_resource_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.utils.</span></span><span class="sig-name descname"><span class="pre">wait_for_resource_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetcher</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.utils.waiter.WaitForOptions" title="scaleway_core.utils.waiter.WaitForOptions"><span class="pre">WaitForOptions</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#scaleway_core.utils.wait_for_resource_async" title="Permalink to this definition"></a></dt>
+<dd><p>Fetches resource several times until an expected condition is reached, timeouts, or throws an exception.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
