@@ -69,6 +69,7 @@ def _mock_human() -> Human:
     )
 
 
+@unittest.skip("API test is not deployed")
 class TestTestV1UnmarshallingHuman(unittest.TestCase):
     def _assert_raw_and_unmarshalled_human(
         self,
@@ -145,6 +146,7 @@ def _mock_create_human_request() -> CreateHumanRequest:
     )
 
 
+@unittest.skip("API test is not deployed")
 class TestTestV1MarshallingCreateHumanRequest(unittest.TestCase):
     def _assert_create_human_request_and_raw(
         self,
