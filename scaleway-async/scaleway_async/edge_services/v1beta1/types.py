@@ -402,6 +402,11 @@ class CacheStage:
     Pipeline ID the cache stage belongs to.
     """
 
+    include_cookies: bool
+    """
+    Defines whether responses to requests with cookies must be stored in the cache.
+    """
+
     fallback_ttl: Optional[str]
     """
     Time To Live (TTL) in seconds. Defines how long content is cached.
@@ -847,6 +852,11 @@ class CreateCacheStageRequest:
     fallback_ttl: Optional[str]
     """
     Time To Live (TTL) in seconds. Defines how long content is cached.
+    """
+
+    include_cookies: Optional[bool]
+    """
+    Defines whether responses to requests with cookies must be stored in the cache.
     """
 
     pipeline_id: str
@@ -1698,6 +1708,11 @@ class UpdateCacheStageRequest:
     fallback_ttl: Optional[str]
     """
     Time To Live (TTL) in seconds. Defines how long content is cached.
+    """
+
+    include_cookies: Optional[bool]
+    """
+    Defines whether responses to requests with cookies must be stored in the cache.
     """
 
     backend_stage_id: Optional[str]

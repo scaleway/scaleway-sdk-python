@@ -1184,6 +1184,7 @@ class EdgeServicesV1Beta1API(API):
         self,
         *,
         fallback_ttl: Optional[str] = None,
+        include_cookies: Optional[bool] = None,
         backend_stage_id: Optional[str] = None,
         pipeline_id: str,
         waf_stage_id: Optional[str] = None,
@@ -1193,6 +1194,7 @@ class EdgeServicesV1Beta1API(API):
         Create cache stage.
         Create a new cache stage. You must specify the `fallback_ttl` field to customize the TTL of the cache.
         :param fallback_ttl: Time To Live (TTL) in seconds. Defines how long content is cached.
+        :param include_cookies: Defines whether responses to requests with cookies must be stored in the cache.
         :param backend_stage_id: Backend stage ID the cache stage will be linked to.
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
         :param pipeline_id: Pipeline ID the Cache stage belongs to.
@@ -1218,6 +1220,7 @@ class EdgeServicesV1Beta1API(API):
             body=marshal_CreateCacheStageRequest(
                 CreateCacheStageRequest(
                     fallback_ttl=fallback_ttl,
+                    include_cookies=include_cookies,
                     pipeline_id=pipeline_id,
                     backend_stage_id=backend_stage_id,
                     waf_stage_id=waf_stage_id,
@@ -1264,15 +1267,17 @@ class EdgeServicesV1Beta1API(API):
         *,
         cache_stage_id: str,
         fallback_ttl: Optional[str] = None,
+        include_cookies: Optional[bool] = None,
         backend_stage_id: Optional[str] = None,
         waf_stage_id: Optional[str] = None,
         route_stage_id: Optional[str] = None,
     ) -> CacheStage:
         """
         Update cache stage.
-        Update the parameters of an existing cache stage, specified by its `cache_stage_id`. Parameters which can be updated include the `fallback_ttl` and `backend_stage_id`.
+        Update the parameters of an existing cache stage, specified by its `cache_stage_id`. Parameters which can be updated include the `fallback_ttl`, `include_cookies` and `backend_stage_id`.
         :param cache_stage_id: ID of the cache stage to update.
         :param fallback_ttl: Time To Live (TTL) in seconds. Defines how long content is cached.
+        :param include_cookies: Defines whether responses to requests with cookies must be stored in the cache.
         :param backend_stage_id: Backend stage ID the cache stage will be linked to.
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
         :param waf_stage_id:
@@ -1298,6 +1303,7 @@ class EdgeServicesV1Beta1API(API):
                 UpdateCacheStageRequest(
                     cache_stage_id=cache_stage_id,
                     fallback_ttl=fallback_ttl,
+                    include_cookies=include_cookies,
                     backend_stage_id=backend_stage_id,
                     waf_stage_id=waf_stage_id,
                     route_stage_id=route_stage_id,
