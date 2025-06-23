@@ -226,6 +226,10 @@ def unmarshal_CacheStage(data: Any) -> CacheStage:
     if field is not None:
         args["pipeline_id"] = field
 
+    field = data.get("include_cookies", None)
+    if field is not None:
+        args["include_cookies"] = field
+
     field = data.get("fallback_ttl", None)
     if field is not None:
         args["fallback_ttl"] = field
@@ -1516,6 +1520,9 @@ def marshal_CreateCacheStageRequest(
     if request.fallback_ttl is not None:
         output["fallback_ttl"] = request.fallback_ttl
 
+    if request.include_cookies is not None:
+        output["include_cookies"] = request.include_cookies
+
     return output
 
 
@@ -1782,6 +1789,9 @@ def marshal_UpdateCacheStageRequest(
 
     if request.fallback_ttl is not None:
         output["fallback_ttl"] = request.fallback_ttl
+
+    if request.include_cookies is not None:
+        output["include_cookies"] = request.include_cookies
 
     return output
 
