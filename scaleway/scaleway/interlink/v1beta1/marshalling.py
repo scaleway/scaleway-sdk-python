@@ -596,6 +596,9 @@ def marshal_CreateLinkRequest(
     if request.peer_asn is not None:
         output["peer_asn"] = request.peer_asn
 
+    if request.vlan is not None:
+        output["vlan"] = request.vlan
+
     return output
 
 

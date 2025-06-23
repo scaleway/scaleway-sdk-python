@@ -553,6 +553,11 @@ class CreateLinkRequest:
     For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
     """
 
+    vlan: Optional[int]
+    """
+    For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
+    """
+
     connection_id: Optional[str]
 
     partner_id: Optional[str]
