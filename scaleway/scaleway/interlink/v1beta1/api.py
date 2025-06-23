@@ -765,6 +765,7 @@ class InterlinkV1Beta1API(API):
         connection_id: Optional[str] = None,
         partner_id: Optional[str] = None,
         peer_asn: Optional[int] = None,
+        vlan: Optional[int] = None,
     ) -> Link:
         """
         Create a link.
@@ -780,6 +781,7 @@ class InterlinkV1Beta1API(API):
         :param partner_id: If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth.
         One-Of ('host'): at most one of 'connection_id', 'partner_id' could be set.
         :param peer_asn: For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
+        :param vlan: For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
         :return: :class:`Link <Link>`
 
         Usage:
@@ -808,6 +810,7 @@ class InterlinkV1Beta1API(API):
                     project_id=project_id,
                     tags=tags,
                     peer_asn=peer_asn,
+                    vlan=vlan,
                     connection_id=connection_id,
                     partner_id=partner_id,
                 ),
