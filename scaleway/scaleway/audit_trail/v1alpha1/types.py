@@ -44,6 +44,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     KEY_MANAGER_KEY = "key_manager_key"
     ACCOUNT_USER = "account_user"
     ACCOUNT_ORGANIZATION = "account_organization"
+    INSTANCE_SERVER = "instance_server"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -59,6 +60,11 @@ class AccountUserInfo:
     email: str
 
     phone_number: Optional[str]
+
+
+@dataclass
+class InstanceServerInfo:
+    name: str
 
 
 @dataclass
@@ -144,6 +150,8 @@ class Resource:
     account_user_info: Optional[AccountUserInfo]
 
     account_organization_info: Optional[AccountOrganizationInfo]
+
+    instance_server_info: Optional[InstanceServerInfo]
 
 
 @dataclass

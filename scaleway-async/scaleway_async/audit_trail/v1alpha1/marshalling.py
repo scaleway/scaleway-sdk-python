@@ -7,6 +7,7 @@ from dateutil import parser
 from .types import (
     AccountOrganizationInfo,
     AccountUserInfo,
+    InstanceServerInfo,
     KeyManagerKeyInfo,
     KubernetesACLInfo,
     KubernetesClusterInfo,
@@ -54,6 +55,21 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
         args["phone_number"] = None
 
     return AccountUserInfo(**args)
+
+
+def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InstanceServerInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    return InstanceServerInfo(**args)
 
 
 def unmarshal_KeyManagerKeyInfo(data: Any) -> KeyManagerKeyInfo:
@@ -295,6 +311,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["account_organization_info"] = unmarshal_AccountOrganizationInfo(field)
     else:
         args["account_organization_info"] = None
+
+    field = data.get("instance_server_info", None)
+    if field is not None:
+        args["instance_server_info"] = unmarshal_InstanceServerInfo(field)
+    else:
+        args["instance_server_info"] = None
 
     return Resource(**args)
 
