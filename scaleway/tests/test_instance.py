@@ -23,6 +23,7 @@ volume_size = 10
 commercial_type = "DEV1-S"
 zone = "fr-par-1"
 
+
 @unittest.skip("Skipping this test temporarily")
 class TestE2EServerCreation(unittest.TestCase):
     def setUp(self) -> None:

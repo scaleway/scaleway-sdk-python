@@ -7,6 +7,7 @@ import utils
 from scaleway_async import Client, WaitForOptions
 from scaleway_async.test.v1 import EyeColors, Human, HumanStatus, TestV1API
 
+
 @unittest.skip("API test is not deployed")
 class TestTestV1(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self) -> None:

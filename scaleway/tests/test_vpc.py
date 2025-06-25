@@ -14,6 +14,7 @@ logger.addHandler(stream_handler)
 region = "fr-par"
 tags = ["sdk-python", "regression-test"]
 
+
 class TestScalewayVPCV2(unittest.TestCase):
     @classmethod
     def setUpClass(self):
@@ -21,14 +22,14 @@ class TestScalewayVPCV2(unittest.TestCase):
         self.vpcAPI = VpcV2API(self.client)
         self.project_id = self.client.default_project_id
         self.region = region
-        self._vpc= None
+        self._vpc = None
         self._pns_to_cleanup = []
 
         self._vpc = self.vpcAPI.create_vpc(
             enable_routing=True,
             region=self.region,
             project_id=self.project_id,
-            name=random_name("vpc-test-sdk-python")
+            name=random_name("vpc-test-sdk-python"),
         )
         logger.info(f"✅ VPC {self._vpc.id} has been created")
 
@@ -47,7 +48,7 @@ class TestScalewayVPCV2(unittest.TestCase):
             enable_routing=True,
             region=self.region,
             project_id=self.project_id,
-            name=random_name("vpc-test-sdk-python")
+            name=random_name("vpc-test-sdk-python"),
         )
         logger.info(f"✅ VPC {vpc.id} has been created")
         self.assertIsNotNone(vpc.id)
@@ -71,15 +72,17 @@ class TestScalewayVPCV2(unittest.TestCase):
                 vpc_id=self._vpc.id,
                 default_route_propagation_enabled=True,
                 project_id=self.project_id,
-                name=random_name(f"pn-{i}")
+                name=random_name(f"pn-{i}"),
             )
             self._pns_to_cleanup.append(pn)
-            logger.info(f"✅ PN {i+1}/5: {pn.id} created in VPC {self._vpc.id}")
+            logger.info(f"✅ PN {i + 1}/5: {pn.id} created in VPC {self._vpc.id}")
             self.assertEqual(pn.vpc_id, self._vpc.id)
 
     def test_list_private_network(self):
         networks = self.vpcAPI.list_private_networks(region=self.region)
-        logger.info(f"🔎 Listed {networks.total_count} private network(s) in region: {self.region}")
+        logger.info(
+            f"🔎 Listed {networks.total_count} private network(s) in region: {self.region}"
+        )
         self.assertIsInstance(networks.private_networks, list)
 
     def test_get_vpc(self):
@@ -93,18 +96,8 @@ class TestScalewayVPCV2(unittest.TestCase):
         logger.info(f"🛠️ Updated VPC {vpc.id} with tags: {tags}")
         self.assertEqual(vpc.tags, tags)
         self.assertEqual(self._vpc.id, vpc.id)
-    
+
     def test_list_vpc_all(self):
         vpcs = self.vpcAPI.list_vp_cs_all()
         logger.info(f"📥 Retrieved total of {len(vpcs)} VPC(s) across all regions")
         self.assertIsInstance(vpcs, list)
-
-       
-
-    
-    
-    
-    
-    
-
-       

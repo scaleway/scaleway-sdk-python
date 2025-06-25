@@ -166,7 +166,6 @@ class TestTestV1MarshallingCreateHumanRequest(unittest.TestCase):
         self.assertEqual(request.name, raw["name"])
         self.assertEqual(request.shoe_size, raw["shoe_size"])
 
-
     @unittest.skip("API test is not deployed")
     def test_marshal_CreateHumanRequest(self) -> None:
         request = _mock_create_human_request()
