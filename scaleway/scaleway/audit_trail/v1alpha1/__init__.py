@@ -4,6 +4,7 @@ from .types import ListEventsRequestOrderBy
 from .types import ResourceType
 from .types import AccountOrganizationInfo
 from .types import AccountUserInfo
+from .types import InstanceServerInfo
 from .types import KeyManagerKeyInfo
 from .types import KubernetesACLInfo
 from .types import KubernetesClusterInfo
@@ -27,6 +28,7 @@ __all__ = [
     "ResourceType",
     "AccountOrganizationInfo",
     "AccountUserInfo",
+    "InstanceServerInfo",
     "KeyManagerKeyInfo",
     "KubernetesACLInfo",
     "KubernetesClusterInfo",
