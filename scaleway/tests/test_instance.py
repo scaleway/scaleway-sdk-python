@@ -22,7 +22,7 @@ zone = "fr-par-1"
 class TestE2EServerCreation(unittest.TestCase):
     def setUp(self) -> None:
         self.zone = zone
-        self.client = Client.from_config_file_and_env()
+        self.client = Client.from_env()
         self.instanceAPI = InstanceV1API(self.client, bypass_validation=True)
         self.blockAPI = BlockV1Alpha1API(self.client, bypass_validation=True)
         self._server = None
