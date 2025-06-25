@@ -19,6 +19,7 @@ class TestTestV1(unittest.TestCase):
         client.secret_key = res.secret_key
         client.default_project_id = "00000000-0000-0000-0000-000000000000"
 
+
     def test_create_human(self) -> None:
         name = utils.random_name()
 
@@ -42,9 +43,11 @@ class TestTestV1(unittest.TestCase):
         humans = self.api.list_humans()
         self.assertTrue(isinstance(humans.humans, list))
 
+
     def test_list_humans_all(self) -> None:
         humans = self.api.list_humans_all()
         self.assertTrue(isinstance(humans, list))
+
 
     def test_get_human(self) -> None:
         name = utils.random_name()
@@ -120,7 +123,7 @@ class TestTestV1(unittest.TestCase):
         except Exception as e:
             self.assertNotIsInstance(e, TimeoutError)
             pass
-
+ 
     def test_run_human(self) -> None:
         name = utils.random_name()
 

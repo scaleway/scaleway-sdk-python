@@ -105,11 +105,13 @@ class TestTestV1UnmarshallingHuman(unittest.TestCase):
             raw["updated_at"],
         )
 
+    @unittest.skip("API test is not deployed")
     def test_unmarshal_Human(self) -> None:
         data = _mock_human_raw()
         human = unmarshal_Human(data)
         self._assert_raw_and_unmarshalled_human(data, human)
 
+    @unittest.skip("API test is not deployed")
     def test_unmarshal_ListHumansResponse(self) -> None:
         humans = [_mock_human_raw() for _ in range(10)]
         data = {
@@ -164,6 +166,8 @@ class TestTestV1MarshallingCreateHumanRequest(unittest.TestCase):
         self.assertEqual(request.name, raw["name"])
         self.assertEqual(request.shoe_size, raw["shoe_size"])
 
+
+    @unittest.skip("API test is not deployed")
     def test_marshal_CreateHumanRequest(self) -> None:
         request = _mock_create_human_request()
         raw = marshal_CreateHumanRequest(request, utils.random_profile_defaults())

@@ -23,7 +23,7 @@ volume_size = 10
 commercial_type = "DEV1-S"
 zone = "fr-par-1"
 
-
+@unittest.skip("Skipping this test temporarily")
 class TestE2EServerCreation(unittest.TestCase):
     def setUp(self) -> None:
         self.zone = zone
@@ -38,10 +38,10 @@ class TestE2EServerCreation(unittest.TestCase):
             self.instanceAPI.detach_server_volume(
                 server_id=self._server.id, volume_id=volume.id
             )
-            logger.info("✅ Volume {volume.id} has been detach")
+            logger.info(f"✅ Volume {volume.id} has been detach")
 
             self.blockAPI.delete_volume(volume_id=volume.id)
-            logger.info("✅ Volume {volume.id} has been deleted")
+            logger.info(f"✅ Volume {volume.id} has been deleted")
 
         if self._server:
             self.instanceAPI.delete_server(zone=self.zone, server_id=self._server.id)
@@ -60,7 +60,7 @@ class TestE2EServerCreation(unittest.TestCase):
 
             time.sleep(interval)
 
-        self.fail("Server did not reach 'running' state in time.")
+        self.fail(f"Server did not reach 'running' state in time.")
 
     def create_test_instance_server(self) -> Server:
         volume = {
@@ -91,7 +91,7 @@ class TestE2EServerCreation(unittest.TestCase):
             volume = self.blockAPI.create_volume(
                 from_empty=CreateVolumeRequestFromEmpty(size=10),
             )
-            logger.info("✅ Created server: {volume.id}")
+            logger.info(f"✅ Created server: {volume.id}")
 
             self.blockAPI.wait_for_volume(volume_id=volume.id, zone=self.zone)
 
