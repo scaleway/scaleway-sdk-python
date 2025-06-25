@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 from .types import (
     ApplicationType,
     ListApplicationsRequestOrderBy,
+    ListBookingsRequestOrderBy,
     ListJobResultsRequestOrderBy,
     ListJobsRequestOrderBy,
     ListPlatformsRequestOrderBy,
@@ -26,13 +27,16 @@ from .types import (
     PlatformType,
     SessionAccess,
     Application,
+    Booking,
     CreateJobRequest,
     CreateProcessRequest,
     CreateSessionRequest,
+    CreateSessionRequestBookingDemand,
     Job,
     JobCircuit,
     JobResult,
     ListApplicationsResponse,
+    ListBookingsResponse,
     ListJobResultsResponse,
     ListJobsResponse,
     ListPlatformsResponse,
@@ -44,11 +48,13 @@ from .types import (
     Process,
     ProcessResult,
     Session,
+    UpdateBookingRequest,
     UpdateJobRequest,
     UpdateProcessRequest,
     UpdateSessionRequest,
 )
 from .content import (
+    BOOKING_TRANSIENT_STATUSES,
     JOB_TRANSIENT_STATUSES,
     PROCESS_TRANSIENT_STATUSES,
     SESSION_TRANSIENT_STATUSES,
@@ -56,11 +62,13 @@ from .content import (
 from .marshalling import (
     unmarshal_JobCircuit,
     unmarshal_Application,
+    unmarshal_Booking,
     unmarshal_Job,
     unmarshal_Platform,
     unmarshal_Process,
     unmarshal_Session,
     unmarshal_ListApplicationsResponse,
+    unmarshal_ListBookingsResponse,
     unmarshal_ListJobResultsResponse,
     unmarshal_ListJobsResponse,
     unmarshal_ListPlatformsResponse,
@@ -71,6 +79,7 @@ from .marshalling import (
     marshal_CreateJobRequest,
     marshal_CreateProcessRequest,
     marshal_CreateSessionRequest,
+    marshal_UpdateBookingRequest,
     marshal_UpdateJobRequest,
     marshal_UpdateProcessRequest,
     marshal_UpdateSessionRequest,
@@ -619,7 +628,7 @@ class QaasV1Alpha1API(API):
         session_id: str,
     ) -> Session:
         """
-        Get session infrormation.
+        Get session information.
         Retrieve information about the provided **session ID**, such as name, status, and number of executed jobs.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
@@ -649,7 +658,7 @@ class QaasV1Alpha1API(API):
         options: Optional[WaitForOptions[Session, bool]] = None,
     ) -> Session:
         """
-        Get session infrormation.
+        Get session information.
         Retrieve information about the provided **session ID**, such as name, status, and number of executed jobs.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
@@ -770,6 +779,7 @@ class QaasV1Alpha1API(API):
         max_duration: Optional[str] = None,
         tags: Optional[List[str]] = None,
         deduplication_id: Optional[str] = None,
+        booking_demand: Optional[CreateSessionRequestBookingDemand] = None,
     ) -> Session:
         """
         Create a session.
@@ -781,6 +791,7 @@ class QaasV1Alpha1API(API):
         :param max_duration: Maximum duration before the session ends.
         :param tags: Tags of the session.
         :param deduplication_id: Deduplication ID of the session.
+        :param booking_demand: A booking demand to schedule the session, only applicable if the platform is bookable.
         :return: :class:`Session <Session>`
 
         Usage:
@@ -803,6 +814,7 @@ class QaasV1Alpha1API(API):
                     max_duration=max_duration,
                     tags=tags,
                     deduplication_id=deduplication_id,
+                    booking_demand=booking_demand,
                 ),
                 self.client,
             ),
@@ -865,7 +877,7 @@ class QaasV1Alpha1API(API):
     ) -> Session:
         """
         Terminate an existing session.
-        Terminate a session by its unique ID and cancel all its attached jobs.
+        Terminate a session by its unique ID and cancel all its attached jobs and booking.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
 
@@ -895,7 +907,7 @@ class QaasV1Alpha1API(API):
     ) -> None:
         """
         Delete an existing session.
-        Delete a session by its unique ID and delete all its attached jobs.
+        Delete a session by its unique ID and delete all its attached job and booking.
         :param session_id: Unique ID of the session.
 
         Usage:
@@ -1042,7 +1054,7 @@ class QaasV1Alpha1API(API):
         process_id: str,
     ) -> Process:
         """
-        Get process infrormation.
+        Get process information.
         Retrieve information about the provided **process ID**, such as name, status and progress.
         :param process_id: Unique ID of the process.
         :return: :class:`Process <Process>`
@@ -1072,7 +1084,7 @@ class QaasV1Alpha1API(API):
         options: Optional[WaitForOptions[Process, bool]] = None,
     ) -> Process:
         """
-        Get process infrormation.
+        Get process information.
         Retrieve information about the provided **process ID**, such as name, status and progress.
         :param process_id: Unique ID of the process.
         :return: :class:`Process <Process>`
@@ -1464,3 +1476,182 @@ class QaasV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
+
+    def get_booking(
+        self,
+        *,
+        booking_id: str,
+    ) -> Booking:
+        """
+        Get booking information.
+        Retrieve information about the provided **booking ID**, such as description, status and progress message.
+        :param booking_id: Unique ID of the booking.
+        :return: :class:`Booking <Booking>`
+
+        Usage:
+        ::
+
+            result = api.get_booking(
+                booking_id="example",
+            )
+        """
+
+        param_booking_id = validate_path_param("booking_id", booking_id)
+
+        res = self._request(
+            "GET",
+            f"/qaas/v1alpha1/bookings/{param_booking_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Booking(res.json())
+
+    def wait_for_booking(
+        self,
+        *,
+        booking_id: str,
+        options: Optional[WaitForOptions[Booking, bool]] = None,
+    ) -> Booking:
+        """
+        Get booking information.
+        Retrieve information about the provided **booking ID**, such as description, status and progress message.
+        :param booking_id: Unique ID of the booking.
+        :return: :class:`Booking <Booking>`
+
+        Usage:
+        ::
+
+            result = api.get_booking(
+                booking_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in BOOKING_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_booking,
+            options=options,
+            args={
+                "booking_id": booking_id,
+            },
+        )
+
+    def list_bookings(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        platform_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListBookingsRequestOrderBy] = None,
+    ) -> ListBookingsResponse:
+        """
+        List all bookings according the filter.
+        Retrieve information about all bookings of the provided **project ID** or ** platform ID**.
+        :param project_id: List bookings belonging to this project ID.
+        :param platform_id: List bookings attached to this platform ID.
+        :param page: Page number.
+        :param page_size: Maximum number of results to return per page.
+        :param order_by: Sort order of the returned results.
+        :return: :class:`ListBookingsResponse <ListBookingsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_bookings()
+        """
+
+        res = self._request(
+            "GET",
+            "/qaas/v1alpha1/bookings",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "platform_id": platform_id,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListBookingsResponse(res.json())
+
+    def list_bookings_all(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        platform_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListBookingsRequestOrderBy] = None,
+    ) -> List[Booking]:
+        """
+        List all bookings according the filter.
+        Retrieve information about all bookings of the provided **project ID** or ** platform ID**.
+        :param project_id: List bookings belonging to this project ID.
+        :param platform_id: List bookings attached to this platform ID.
+        :param page: Page number.
+        :param page_size: Maximum number of results to return per page.
+        :param order_by: Sort order of the returned results.
+        :return: :class:`List[Booking] <List[Booking]>`
+
+        Usage:
+        ::
+
+            result = api.list_bookings_all()
+        """
+
+        return fetch_all_pages(
+            type=ListBookingsResponse,
+            key="bookings",
+            fetcher=self.list_bookings,
+            args={
+                "project_id": project_id,
+                "platform_id": platform_id,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
+
+    def update_booking(
+        self,
+        *,
+        booking_id: str,
+        description: Optional[str] = None,
+    ) -> Booking:
+        """
+        Update booking information.
+        Update booking information of the provided **booking ID**.
+        :param booking_id: Unique ID of the booking.
+        :param description: Description of the booking slot.
+        :return: :class:`Booking <Booking>`
+
+        Usage:
+        ::
+
+            result = api.update_booking(
+                booking_id="example",
+            )
+        """
+
+        param_booking_id = validate_path_param("booking_id", booking_id)
+
+        res = self._request(
+            "PATCH",
+            f"/qaas/v1alpha1/bookings/{param_booking_id}",
+            body=marshal_UpdateBookingRequest(
+                UpdateBookingRequest(
+                    booking_id=booking_id,
+                    description=description,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Booking(res.json())

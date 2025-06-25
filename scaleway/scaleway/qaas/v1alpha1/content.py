@@ -3,11 +3,20 @@
 from typing import List
 
 from .types import (
+    BookingStatus,
     JobStatus,
     ProcessStatus,
     SessionStatus,
 )
 
+BOOKING_TRANSIENT_STATUSES: List[BookingStatus] = [
+    BookingStatus.WAITING,
+    BookingStatus.VALIDATING,
+    BookingStatus.CANCELLING,
+]
+"""
+Lists transient statutes of the enum :class:`BookingStatus <BookingStatus>`.
+"""
 JOB_TRANSIENT_STATUSES: List[JobStatus] = [
     JobStatus.WAITING,
     JobStatus.RUNNING,
