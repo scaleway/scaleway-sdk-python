@@ -112,6 +112,8 @@ jobs:
           poetry --version
       - name: Install dependencies and library
         run: poetry install
+      - name: Build tests
+        run: make build
       - name: Run tests
         env:
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
