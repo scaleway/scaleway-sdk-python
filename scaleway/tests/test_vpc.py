@@ -13,7 +13,7 @@ created_vpc_count = 1
 class TestScalewayVPCV2(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        self.client = Client.from_config_file_and_env()
+        self.client = Client.from_env()
         self.vpcAPI = VpcV2API(self.client)
         self.project_id = self.client.default_project_id
         self.region = region
