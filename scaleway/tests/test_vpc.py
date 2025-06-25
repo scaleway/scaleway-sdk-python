@@ -1,15 +1,8 @@
-import logging
-import sys
 import unittest
 from scaleway.vpc.v2 import VpcV2API
 from scaleway_core.api import ScalewayException
 from scaleway_core.client import Client
 from scaleway_core.utils import random_name
-
-logger = logging.getLogger()
-logger.level = logging.DEBUG
-stream_handler = logging.StreamHandler(sys.stdout)
-logger.addHandler(stream_handler)
 
 region = "fr-par"
 tags = ["sdk-python", "regression-test"]
@@ -31,17 +24,14 @@ class TestScalewayVPCV2(unittest.TestCase):
             project_id=self.project_id,
             name=random_name("vpc-test-sdk-python"),
         )
-        logger.info(f"✅ VPC {self._vpc.id} has been created")
 
     @classmethod
     def tearDownClass(self):
         for pn in self._pns_to_cleanup:
             self.vpcAPI.delete_private_network(private_network_id=pn.id)
-            logger.info(f"🧹 Deleted Private Network {pn.id}")
 
         if self._vpc is not None:
             self.vpcAPI.delete_vpc(vpc_id=self._vpc.id, region=self.region)
-            logger.info(f"🧹 Deleted VPC {self._vpc.id}")
 
     def test_delete_vpc(self):
         vpc = self.vpcAPI.create_vpc(
@@ -50,20 +40,17 @@ class TestScalewayVPCV2(unittest.TestCase):
             project_id=self.project_id,
             name=random_name("vpc-test-sdk-python"),
         )
-        logger.info(f"✅ VPC {vpc.id} has been created")
+
         self.assertIsNotNone(vpc.id)
         self.assertEqual(vpc.region, self.region)
 
         self.vpcAPI.delete_vpc(vpc_id=vpc.id)
-        logger.info(f"🗑️ VPC {vpc.id} deletion requested")
 
         with self.assertRaises(ScalewayException):
             self.vpcAPI.get_vpc(vpc_id=vpc.id)
-        logger.info(f"✅ VPC {vpc.id} has been deleted successfully")
 
     def test_list_vpcs(self):
         vpcs = self.vpcAPI.list_vp_cs(region=self.region).vpcs
-        logger.info(f"🔎 Listed {len(vpcs)} VPC(s) in region: {self.region}")
         self.assertIsInstance(vpcs, list)
 
     def test_create_private_network(self):
@@ -75,29 +62,26 @@ class TestScalewayVPCV2(unittest.TestCase):
                 name=random_name(f"pn-{i}"),
             )
             self._pns_to_cleanup.append(pn)
-            logger.info(f"✅ PN {i + 1}/5: {pn.id} created in VPC {self._vpc.id}")
+
             self.assertEqual(pn.vpc_id, self._vpc.id)
 
     def test_list_private_network(self):
         networks = self.vpcAPI.list_private_networks(region=self.region)
-        logger.info(
-            f"🔎 Listed {networks.total_count} private network(s) in region: {self.region}"
-        )
         self.assertIsInstance(networks.private_networks, list)
 
     def test_get_vpc(self):
         vpc = self.vpcAPI.get_vpc(vpc_id=self._vpc.id, region=self.region)
-        logger.info(f"📥 Retrieved VPC {vpc.id}")
+        
         self.assertIsNotNone(vpc)
         self.assertEqual(self._vpc.id, vpc.id)
 
     def test_update_vpc(self):
         vpc = self.vpcAPI.update_vpc(vpc_id=self._vpc.id, tags=tags)
-        logger.info(f"🛠️ Updated VPC {vpc.id} with tags: {tags}")
+        
         self.assertEqual(vpc.tags, tags)
         self.assertEqual(self._vpc.id, vpc.id)
 
     def test_list_vpc_all(self):
         vpcs = self.vpcAPI.list_vp_cs_all()
-        logger.info(f"📥 Retrieved total of {len(vpcs)} VPC(s) across all regions")
+
         self.assertIsInstance(vpcs, list)
