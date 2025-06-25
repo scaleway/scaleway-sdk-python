@@ -6,6 +6,7 @@ from scaleway_core.utils import random_name
 
 region = "fr-par"
 tags = ["sdk-python", "regression-test"]
+created_pn_count = 5
 
 
 class TestScalewayVPCV2(unittest.TestCase):
@@ -54,12 +55,12 @@ class TestScalewayVPCV2(unittest.TestCase):
         self.assertIsInstance(vpcs, list)
 
     def test_create_private_network(self):
-        for i in range(5):
+        for i in range(created_pn_count):
             pn = self.vpcAPI.create_private_network(
                 vpc_id=self._vpc.id,
                 default_route_propagation_enabled=True,
                 project_id=self.project_id,
-                name=random_name(f"pn-{i}"),
+                name=random_name(f"sdk-python-pn-{i}"),
             )
             self._pns_to_cleanup.append(pn)
 
@@ -68,6 +69,7 @@ class TestScalewayVPCV2(unittest.TestCase):
     def test_list_private_network(self):
         networks = self.vpcAPI.list_private_networks(region=self.region)
         self.assertIsInstance(networks.private_networks, list)
+        self.assertGreaterEqual(networks.total_count, created_pn_count)
 
     def test_get_vpc(self):
         vpc = self.vpcAPI.get_vpc(vpc_id=self._vpc.id, region=self.region)
@@ -85,3 +87,4 @@ class TestScalewayVPCV2(unittest.TestCase):
         vpcs = self.vpcAPI.list_vp_cs_all()
 
         self.assertIsInstance(vpcs, list)
+        self.assertGreaterEqual(len(vpcs), created_pn_count)

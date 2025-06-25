@@ -51,7 +51,7 @@ class TestE2EServerCreation(unittest.TestCase):
 
             time.sleep(interval)
 
-        self.fail(f"Server did not reach 'running' state in time.")
+        self.fail("Server did not reach 'running' state in time.")
 
     def create_test_instance_server(self) -> Server:
         volume = {
