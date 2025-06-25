@@ -73,13 +73,13 @@ class TestScalewayVPCV2(unittest.TestCase):
 
     def test_get_vpc(self):
         vpc = self.vpcAPI.get_vpc(vpc_id=self._vpc.id, region=self.region)
-        
+
         self.assertIsNotNone(vpc)
         self.assertEqual(self._vpc.id, vpc.id)
 
     def test_update_vpc(self):
         vpc = self.vpcAPI.update_vpc(vpc_id=self._vpc.id, tags=tags)
-        
+
         self.assertEqual(vpc.tags, tags)
         self.assertEqual(self._vpc.id, vpc.id)
 
