@@ -16,12 +16,15 @@ from .types import (
     SessionAccess,
     JobCircuit,
     Application,
+    Booking,
     Job,
+    PlatformBookingRequirement,
     PlatformHardware,
     Platform,
     Process,
     Session,
     ListApplicationsResponse,
+    ListBookingsResponse,
     JobResult,
     ListJobResultsResponse,
     ListJobsResponse,
@@ -33,7 +36,9 @@ from .types import (
     ListSessionsResponse,
     CreateJobRequest,
     CreateProcessRequest,
+    CreateSessionRequestBookingDemand,
     CreateSessionRequest,
+    UpdateBookingRequest,
     UpdateJobRequest,
     UpdateProcessRequest,
     UpdateSessionRequest,
@@ -92,6 +97,59 @@ def unmarshal_Application(data: Any) -> Application:
         args["input_template"] = field
 
     return Application(**args)
+
+
+def unmarshal_Booking(data: Any) -> Booking:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Booking' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("progress_message", None)
+    if field is not None:
+        args["progress_message"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("started_at", None)
+    if field is not None:
+        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("finished_at", None)
+    if field is not None:
+        args["finished_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["finished_at"] = None
+
+    return Booking(**args)
 
 
 def unmarshal_Job(data: Any) -> Job:
@@ -161,6 +219,41 @@ def unmarshal_Job(data: Any) -> Job:
         args["result_distribution"] = None
 
     return Job(**args)
+
+
+def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequirement:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PlatformBookingRequirement' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("min_duration", None)
+    if field is not None:
+        args["min_duration"] = field
+    else:
+        args["min_duration"] = None
+
+    field = data.get("max_duration", None)
+    if field is not None:
+        args["max_duration"] = field
+    else:
+        args["max_duration"] = None
+
+    field = data.get("max_cancellation_duration", None)
+    if field is not None:
+        args["max_cancellation_duration"] = field
+    else:
+        args["max_cancellation_duration"] = None
+
+    field = data.get("max_planification_duration", None)
+    if field is not None:
+        args["max_planification_duration"] = field
+    else:
+        args["max_planification_duration"] = None
+
+    return PlatformBookingRequirement(**args)
 
 
 def unmarshal_PlatformHardware(data: Any) -> PlatformHardware:
@@ -254,6 +347,18 @@ def unmarshal_Platform(data: Any) -> Platform:
     if field is not None:
         args["metadata"] = field
 
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("documentation_url", None)
+    if field is not None:
+        args["documentation_url"] = field
+
+    field = data.get("is_bookable", None)
+    if field is not None:
+        args["is_bookable"] = field
+
     field = data.get("price_per_hour", None)
     if field is not None:
         args["price_per_hour"] = unmarshal_Money(field)
@@ -277,6 +382,12 @@ def unmarshal_Platform(data: Any) -> Platform:
         args["hardware"] = unmarshal_PlatformHardware(field)
     else:
         args["hardware"] = None
+
+    field = data.get("booking_requirement", None)
+    if field is not None:
+        args["booking_requirement"] = unmarshal_PlatformBookingRequirement(field)
+    else:
+        args["booking_requirement"] = None
 
     return Platform(**args)
 
@@ -472,6 +583,12 @@ def unmarshal_Session(data: Any) -> Session:
     else:
         args["progress_message"] = None
 
+    field = data.get("booking_id", None)
+    if field is not None:
+        args["booking_id"] = field
+    else:
+        args["booking_id"] = None
+
     return Session(**args)
 
 
@@ -494,6 +611,27 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
         )
 
     return ListApplicationsResponse(**args)
+
+
+def unmarshal_ListBookingsResponse(data: Any) -> ListBookingsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListBookingsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("bookings", None)
+    if field is not None:
+        args["bookings"] = (
+            [unmarshal_Booking(v) for v in field] if field is not None else None
+        )
+
+    return ListBookingsResponse(**args)
 
 
 def unmarshal_JobResult(data: Any) -> JobResult:
@@ -765,6 +903,24 @@ def marshal_CreateProcessRequest(
     return output
 
 
+def marshal_CreateSessionRequestBookingDemand(
+    request: CreateSessionRequestBookingDemand,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.started_at is not None:
+        output["started_at"] = request.started_at.isoformat()
+
+    if request.finished_at is not None:
+        output["finished_at"] = request.finished_at.isoformat()
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    return output
+
+
 def marshal_CreateSessionRequest(
     request: CreateSessionRequest,
     defaults: ProfileDefaults,
@@ -791,6 +947,23 @@ def marshal_CreateSessionRequest(
 
     if request.deduplication_id is not None:
         output["deduplication_id"] = request.deduplication_id
+
+    if request.booking_demand is not None:
+        output["booking_demand"] = marshal_CreateSessionRequestBookingDemand(
+            request.booking_demand, defaults
+        )
+
+    return output
+
+
+def marshal_UpdateBookingRequest(
+    request: UpdateBookingRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
 
     return output
 

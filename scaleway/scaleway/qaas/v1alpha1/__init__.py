@@ -1,9 +1,12 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import ApplicationType
+from .types import BookingStatus
+from .content import BOOKING_TRANSIENT_STATUSES
 from .types import JobStatus
 from .content import JOB_TRANSIENT_STATUSES
 from .types import ListApplicationsRequestOrderBy
+from .types import ListBookingsRequestOrderBy
 from .types import ListJobResultsRequestOrderBy
 from .types import ListJobsRequestOrderBy
 from .types import ListPlatformsRequestOrderBy
@@ -20,9 +23,12 @@ from .types import SessionAccess
 from .types import SessionOriginType
 from .types import SessionStatus
 from .content import SESSION_TRANSIENT_STATUSES
+from .types import PlatformBookingRequirement
 from .types import PlatformHardware
 from .types import JobCircuit
+from .types import CreateSessionRequestBookingDemand
 from .types import Application
+from .types import Booking
 from .types import JobResult
 from .types import Job
 from .types import Platform
@@ -38,6 +44,7 @@ from .types import DeleteJobRequest
 from .types import DeleteProcessRequest
 from .types import DeleteSessionRequest
 from .types import GetApplicationRequest
+from .types import GetBookingRequest
 from .types import GetJobCircuitRequest
 from .types import GetJobRequest
 from .types import GetPlatformRequest
@@ -45,6 +52,8 @@ from .types import GetProcessRequest
 from .types import GetSessionRequest
 from .types import ListApplicationsRequest
 from .types import ListApplicationsResponse
+from .types import ListBookingsRequest
+from .types import ListBookingsResponse
 from .types import ListJobResultsRequest
 from .types import ListJobResultsResponse
 from .types import ListJobsRequest
@@ -60,6 +69,7 @@ from .types import ListSessionACLsResponse
 from .types import ListSessionsRequest
 from .types import ListSessionsResponse
 from .types import TerminateSessionRequest
+from .types import UpdateBookingRequest
 from .types import UpdateJobRequest
 from .types import UpdateProcessRequest
 from .types import UpdateSessionRequest
@@ -67,9 +77,12 @@ from .api import QaasV1Alpha1API
 
 __all__ = [
     "ApplicationType",
+    "BookingStatus",
+    "BOOKING_TRANSIENT_STATUSES",
     "JobStatus",
     "JOB_TRANSIENT_STATUSES",
     "ListApplicationsRequestOrderBy",
+    "ListBookingsRequestOrderBy",
     "ListJobResultsRequestOrderBy",
     "ListJobsRequestOrderBy",
     "ListPlatformsRequestOrderBy",
@@ -86,9 +99,12 @@ __all__ = [
     "SessionOriginType",
     "SessionStatus",
     "SESSION_TRANSIENT_STATUSES",
+    "PlatformBookingRequirement",
     "PlatformHardware",
     "JobCircuit",
+    "CreateSessionRequestBookingDemand",
     "Application",
+    "Booking",
     "JobResult",
     "Job",
     "Platform",
@@ -104,6 +120,7 @@ __all__ = [
     "DeleteProcessRequest",
     "DeleteSessionRequest",
     "GetApplicationRequest",
+    "GetBookingRequest",
     "GetJobCircuitRequest",
     "GetJobRequest",
     "GetPlatformRequest",
@@ -111,6 +128,8 @@ __all__ = [
     "GetSessionRequest",
     "ListApplicationsRequest",
     "ListApplicationsResponse",
+    "ListBookingsRequest",
+    "ListBookingsResponse",
     "ListJobResultsRequest",
     "ListJobResultsResponse",
     "ListJobsRequest",
@@ -126,6 +145,7 @@ __all__ = [
     "ListSessionsRequest",
     "ListSessionsResponse",
     "TerminateSessionRequest",
+    "UpdateBookingRequest",
     "UpdateJobRequest",
     "UpdateProcessRequest",
     "UpdateSessionRequest",

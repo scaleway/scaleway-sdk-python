@@ -23,6 +23,19 @@ class ApplicationType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class BookingStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    WAITING = "waiting"
+    VALIDATING = "validating"
+    VALIDATED = "validated"
+    CANCELLING = "cancelling"
+    CANCELLED = "cancelled"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class JobStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     WAITING = "waiting"
@@ -41,6 +54,16 @@ class ListApplicationsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_DESC = "name_desc"
     TYPE_ASC = "type_asc"
     TYPE_DESC = "type_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListBookingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    STARTED_AT_DESC = "started_at_desc"
+    STARTED_AT_ASC = "started_at_asc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -147,6 +170,7 @@ class PlatformTechnology(str, Enum, metaclass=StrEnumMeta):
     GENERAL_PURPOSE = "general_purpose"
     TRAPPED_ION = "trapped_ion"
     SUPERCONDUCTING = "superconducting"
+    NEUTRAL_ATOM = "neutral_atom"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -209,6 +233,29 @@ class SessionStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class PlatformBookingRequirement:
+    min_duration: Optional[str]
+    """
+    Minimal duration of any booking based on this platform.
+    """
+
+    max_duration: Optional[str]
+    """
+    Maximal duration of any bookings based on this platform.
+    """
+
+    max_cancellation_duration: Optional[str]
+    """
+    Allowed time to cancel a booking attached to this platform before the beginning of the session.
+    """
+
+    max_planification_duration: Optional[str]
+    """
+    Allowed planification time from now where the platform can be booked in the future.
+    """
+
+
+@dataclass
 class PlatformHardware:
     name: str
     """
@@ -249,6 +296,15 @@ class JobCircuit:
 
 
 @dataclass
+class CreateSessionRequestBookingDemand:
+    started_at: Optional[datetime]
+
+    finished_at: Optional[datetime]
+
+    description: Optional[str]
+
+
+@dataclass
 class Application:
     id: str
     """
@@ -273,6 +329,49 @@ class Application:
     input_template: str
     """
     JSON format describing the expected input.
+    """
+
+
+@dataclass
+class Booking:
+    id: str
+    """
+    Unique ID of the booking.
+    """
+
+    status: BookingStatus
+    """
+    Status of the booking.
+    """
+
+    description: str
+    """
+    Description of the booking slot.
+    """
+
+    progress_message: str
+    """
+    Any progress message of the booking.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Time at which the booking was created.
+    """
+
+    started_at: Optional[datetime]
+    """
+    Time at which the booking starts.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Time at which the booking was updated.
+    """
+
+    finished_at: Optional[datetime]
+    """
+    Time at which the booking finishes.
     """
 
 
@@ -419,6 +518,21 @@ class Platform:
     Metadata provided by the platform.
     """
 
+    description: str
+    """
+    English description of the platform.
+    """
+
+    documentation_url: str
+    """
+    Documentation link to external documentation to learn more on this platform.
+    """
+
+    is_bookable: bool
+    """
+    Specify if the platform is bookable.
+    """
+
     price_per_hour: Optional[Money]
     """
     Price to be paid per hour (excluding free tiers).
@@ -437,6 +551,11 @@ class Platform:
     hardware: Optional[PlatformHardware]
     """
     Specifications of the underlying hardware.
+    """
+
+    booking_requirement: Optional[PlatformBookingRequirement]
+    """
+    Booking constraints to fit if the platform is bookable.
     """
 
 
@@ -502,7 +621,7 @@ class Process:
 
     created_at: Optional[datetime]
     """
-    Tme at which the process was created.
+    Time at which the process was created.
     """
 
     started_at: Optional[datetime]
@@ -628,6 +747,11 @@ class Session:
     Any progress of the session.
     """
 
+    booking_id: Optional[str]
+    """
+    An optional booking unique ID of an attached booking.
+    """
+
 
 @dataclass
 class CancelJobRequest:
@@ -743,6 +867,11 @@ class CreateSessionRequest:
     Deduplication ID of the session.
     """
 
+    booking_demand: Optional[CreateSessionRequestBookingDemand]
+    """
+    A booking demand to schedule the session, only applicable if the platform is bookable.
+    """
+
 
 @dataclass
 class DeleteJobRequest:
@@ -773,6 +902,14 @@ class GetApplicationRequest:
     application_id: str
     """
     Unique ID of the application.
+    """
+
+
+@dataclass
+class GetBookingRequest:
+    booking_id: str
+    """
+    Unique ID of the booking.
     """
 
 
@@ -854,6 +991,47 @@ class ListApplicationsResponse:
     applications: List[Application]
     """
     List of applications.
+    """
+
+
+@dataclass
+class ListBookingsRequest:
+    project_id: Optional[str]
+    """
+    List bookings belonging to this project ID.
+    """
+
+    platform_id: Optional[str]
+    """
+    List bookings attached to this platform ID.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of results to return per page.
+    """
+
+    order_by: Optional[ListBookingsRequestOrderBy]
+    """
+    Sort order of the returned results.
+    """
+
+
+@dataclass
+class ListBookingsResponse:
+    total_count: int
+    """
+    Total number of bookings.
+    """
+
+    bookings: List[Booking]
+    """
+    List of bookings.
     """
 
 
@@ -1140,6 +1318,19 @@ class TerminateSessionRequest:
     session_id: str
     """
     Unique ID of the session.
+    """
+
+
+@dataclass
+class UpdateBookingRequest:
+    booking_id: str
+    """
+    Unique ID of the booking.
+    """
+
+    description: Optional[str]
+    """
+    Description of the booking slot.
     """
 
 
