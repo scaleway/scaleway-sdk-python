@@ -29,6 +29,7 @@ from .types import (
     DisableAlertRulesResponse,
     EnableAlertRulesResponse,
     GetConfigResponse,
+    GetRulesCountResponse,
     GlobalApiCreateGrafanaUserRequest,
     GlobalApiResetGrafanaUserPasswordRequest,
     GlobalApiSelectPlanRequest,
@@ -71,6 +72,7 @@ from .marshalling import (
     unmarshal_DisableAlertRulesResponse,
     unmarshal_EnableAlertRulesResponse,
     unmarshal_GetConfigResponse,
+    unmarshal_GetRulesCountResponse,
     unmarshal_Grafana,
     unmarshal_ListAlertsResponse,
     unmarshal_ListContactPointsResponse,
@@ -1227,6 +1229,39 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
+
+    def get_rules_count(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> GetRulesCountResponse:
+        """
+        Get a detailed count of enabled rules in the specified Project. Includes preconfigured and custom alerting and recording rules.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to retrieve the rule count for.
+        :return: :class:`GetRulesCountResponse <GetRulesCountResponse>`
+
+        Usage:
+        ::
+
+            result = api.get_rules_count()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/rules/count",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetRulesCountResponse(res.json())
 
     def create_contact_point(
         self,
