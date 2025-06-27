@@ -174,6 +174,24 @@ class GetConfigResponseRetention:
 
 
 @dataclass
+class RulesCount:
+    data_source_id: str
+    """
+    ID of the data source.
+    """
+
+    data_source_name: str
+    """
+    Name of the data source.
+    """
+
+    rules_count: int
+    """
+    Total count of rules associated with this data source.
+    """
+
+
+@dataclass
 class Alert:
     """
     Structure representing an alert.
@@ -591,6 +609,24 @@ class GetConfigResponse:
     product_logs_retention: Optional[GetConfigResponseRetention]
     """
     Scaleway logs retention configuration.
+    """
+
+
+@dataclass
+class GetRulesCountResponse:
+    rules_count_by_datasource: List[RulesCount]
+    """
+    Total count of rules grouped by data source.
+    """
+
+    preconfigured_rules_count: int
+    """
+    Total count of preconfigured rules.
+    """
+
+    custom_rules_count: int
+    """
+    Total count of custom rules.
     """
 
 
@@ -1217,6 +1253,19 @@ class RegionalApiGetDataSourceRequest:
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class RegionalApiGetRulesCountRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to retrieve the rule count for.
     """
 
 
