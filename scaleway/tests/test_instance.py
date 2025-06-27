@@ -1,24 +1,31 @@
+import logging
+import sys
 from typing import List
 import unittest
 import uuid
 import time
 
+from scaleway.instance.v1 import CreateServerResponse
 from scaleway_core.client import Client
 from scaleway.instance.v1.api import InstanceV1API
 from scaleway.block.v1alpha1 import BlockV1Alpha1API
-from scaleway.instance.v1.types import Server, VolumeServerTemplate
+from scaleway.instance.v1.types import Server, VolumeServerTemplate, VolumeVolumeType, ServerAction
 from scaleway.block.v1alpha1.types import Volume, CreateVolumeRequestFromEmpty
 
 
 server_name = f"test-sdk-python-{uuid.uuid4().hex[:6]}"
-max_retry = 10
-interval = 0.1
+max_retry = 60
+INTERVAL = 5
 volume_size = 10
 commercial_type = "DEV1-S"
 zone = "fr-par-1"
+image = "ubuntu_focal"
 
+logger = logging.getLogger()
+logger.level = logging.DEBUG
+stream_handler = logging.StreamHandler(sys.stdout)
+logger.addHandler(stream_handler)
 
-@unittest.skip("Skipping this test temporarily")
 class TestE2EServerCreation(unittest.TestCase):
     def setUp(self) -> None:
         self.zone = zone
@@ -40,46 +47,43 @@ class TestE2EServerCreation(unittest.TestCase):
             self.instanceAPI.delete_server(zone=self.zone, server_id=self._server.id)
 
     def wait_test_instance_server(self, server_id):
-        interval = interval
+        interval = INTERVAL
 
         for i in range(1, max_retry):
+            logger.log(1, "value of i: ", i)
             interval *= i
             s = self.instanceAPI.get_server(zone=self.zone, server_id=server_id)
-
-            if s.state == "running":
-                break
-
+            if s.server.state == "running":
+                return
             time.sleep(interval)
 
         self.fail("Server did not reach 'running' state in time.")
 
-    def create_test_instance_server(self) -> Server:
-        volume = {
-            "0": VolumeServerTemplate(
-                volume_type="sbs_volume", name="my-volume", size=volume_size
-            )
-        }
-
+    def create_test_instance_server(self) -> Server | None:
         server = self.instanceAPI._create_server(
             commercial_type=commercial_type,
             zone=self.zone,
             name=server_name,
             dynamic_ip_required=True,
-            volumes=volume,
+            protected=False,
+            image=image,
         )
 
-        self._server = server.server
+        self.instanceAPI.server_action(server_id=server.server.id, zone=self.zone, action=ServerAction.POWERON)
+
+        logging.log(1, "value of server", server)
 
         self.wait_test_instance_server(server_id=server.server.id)
+        self._server = server.server
 
         return server.server
 
     def create_test_from_empty_volume(self, number) -> List[Volume]:
-        volumes: List[Volume] = {}
+        volumes: List[Volume] = []
 
         for i in range(number):
             volume = self.blockAPI.create_volume(
-                from_empty=CreateVolumeRequestFromEmpty(size=10),
+                from_empty=CreateVolumeRequestFromEmpty(size=10), zone=self.zone
             )
 
             self.blockAPI.wait_for_volume(volume_id=volume.id, zone=self.zone)
@@ -92,7 +96,7 @@ class TestE2EServerCreation(unittest.TestCase):
     def test_attach_aditionnal_volume(self):
         server = self.create_test_instance_server()
         additional_volumes = self.create_test_from_empty_volume(1)
-        additional_volume = additional_volumes.values()[0]
+        additional_volume = additional_volumes[0]
 
         self.assertIsNotNone(server.id)
         self.assertEqual(server.zone, self.zone)
@@ -109,6 +113,6 @@ class TestE2EServerCreation(unittest.TestCase):
         updated_server = self.instanceAPI.get_server(
             zone=self.zone, server_id=server.id
         )
-        attached_volumes = updated_server.volumes or {}
-        attached_volume_ids = [v.volume.id for v in attached_volumes.values()]
+        attached_volumes = updated_server.server.volumes or {}
+        attached_volume_ids = [v.id for v in attached_volumes.values()]
         self.assertIn(additional_volume.id, attached_volume_ids)
