@@ -16,6 +16,7 @@ from .types import (
     PublicCatalogProductPropertiesHardwareRAM,
     PublicCatalogProductPropertiesHardwareStorage,
     PublicCatalogProductPropertiesAppleSilicon,
+    PublicCatalogProductPropertiesBlockStorage,
     PublicCatalogProductPropertiesDedibox,
     PublicCatalogProductPropertiesElasticMetal,
     PublicCatalogProductPropertiesHardware,
@@ -242,6 +243,27 @@ def unmarshal_PublicCatalogProductPropertiesAppleSilicon(
     return PublicCatalogProductPropertiesAppleSilicon(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesBlockStorage(
+    data: Any,
+) -> PublicCatalogProductPropertiesBlockStorage:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesBlockStorage' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("min_volume_size", None)
+    if field is not None:
+        args["min_volume_size"] = field
+
+    field = data.get("max_volume_size", None)
+    if field is not None:
+        args["max_volume_size"] = field
+
+    return PublicCatalogProductPropertiesBlockStorage(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesDedibox(
     data: Any,
 ) -> PublicCatalogProductPropertiesDedibox:
@@ -464,6 +486,14 @@ def unmarshal_PublicCatalogProductProperties(
         args["instance"] = unmarshal_PublicCatalogProductPropertiesInstance(field)
     else:
         args["instance"] = None
+
+    field = data.get("block_storage", None)
+    if field is not None:
+        args["block_storage"] = unmarshal_PublicCatalogProductPropertiesBlockStorage(
+            field
+        )
+    else:
+        args["block_storage"] = None
 
     return PublicCatalogProductProperties(**args)
 
