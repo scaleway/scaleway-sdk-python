@@ -1876,11 +1876,23 @@ class NodeMetadata:
 
     node_taints: List[NodeMetadataCoreV1Taint]
 
+    provider_id: str
+
+    resolvconf_path: str
+
     has_gpu: bool
 
     external_ip: str
 
     repo_uri: str
+
+    installer_tags: List[str]
+
+    updater_bin_url: str
+
+    updater_bin_version: str
+
+    updater_bin_path: str
 
 
 @dataclass
