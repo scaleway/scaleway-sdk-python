@@ -7,7 +7,6 @@ from .types import (
     DomainStatus,
     HostingStatus,
 )
-
 DOMAIN_AVAILABILITY_TRANSIENT_STATUSES: List[DomainAvailabilityStatus] = [
     DomainAvailabilityStatus.VALIDATING,
 ]

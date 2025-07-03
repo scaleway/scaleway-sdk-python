@@ -5,7 +5,6 @@ from typing import List
 from .types import (
     FileSystemStatus,
 )
-
 FILE_SYSTEM_TRANSIENT_STATUSES: List[FileSystemStatus] = [
     FileSystemStatus.CREATING,
     FileSystemStatus.UPDATING,

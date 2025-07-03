@@ -6,7 +6,6 @@ from .types import (
     DedicatedConnectionStatus,
     LinkStatus,
 )
-
 DEDICATED_CONNECTION_TRANSIENT_STATUSES: List[DedicatedConnectionStatus] = [
     DedicatedConnectionStatus.CONFIGURING,
 ]

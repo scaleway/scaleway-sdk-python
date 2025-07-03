@@ -8,7 +8,6 @@ from .types import (
     LbStatus,
     PrivateNetworkStatus,
 )
-
 CERTIFICATE_TRANSIENT_STATUSES: List[CertificateStatus] = [
     CertificateStatus.PENDING,
 ]

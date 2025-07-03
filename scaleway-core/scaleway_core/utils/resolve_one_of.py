@@ -12,7 +12,7 @@ class OneOfPossibility(Generic[T]):
     param: str
     value: Optional[T]
     default: Optional[T | ProfileDefaults] = None
-    marshal_func: Optional[Callable[[T, ProfileDefaults], Dict[str, Any]]] = None
+    marshal_func: Optional[Callable[[T, ProfileDefaults | None], Dict[str, Any]]] = None
 
 
 def resolve_one_of(

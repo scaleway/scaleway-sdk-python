@@ -5,7 +5,6 @@ from typing import List
 from .types import (
     HumanStatus,
 )
-
 HUMAN_TRANSIENT_STATUSES: List[HumanStatus] = [
     HumanStatus.RUNNING,
 ]

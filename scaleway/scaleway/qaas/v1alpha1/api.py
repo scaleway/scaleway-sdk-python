@@ -1,12 +1,31 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
+from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
     resolve_one_of,
     validate_path_param,
     fetch_all_pages,
@@ -14,6 +33,8 @@ from scaleway_core.utils import (
 )
 from .types import (
     ApplicationType,
+    BookingStatus,
+    JobStatus,
     ListApplicationsRequestOrderBy,
     ListBookingsRequestOrderBy,
     ListJobResultsRequestOrderBy,
@@ -23,31 +44,59 @@ from .types import (
     ListProcessesRequestOrderBy,
     ListSessionACLsRequestOrderBy,
     ListSessionsRequestOrderBy,
+    PlatformAvailability,
     PlatformTechnology,
     PlatformType,
+    ProcessStatus,
     SessionAccess,
+    SessionOriginType,
+    SessionStatus,
     Application,
     Booking,
+    CancelJobRequest,
+    CancelProcessRequest,
     CreateJobRequest,
     CreateProcessRequest,
     CreateSessionRequest,
     CreateSessionRequestBookingDemand,
+    DeleteJobRequest,
+    DeleteProcessRequest,
+    DeleteSessionRequest,
+    GetApplicationRequest,
+    GetBookingRequest,
+    GetJobCircuitRequest,
+    GetJobRequest,
+    GetPlatformRequest,
+    GetProcessRequest,
+    GetSessionRequest,
     Job,
     JobCircuit,
     JobResult,
+    ListApplicationsRequest,
     ListApplicationsResponse,
+    ListBookingsRequest,
     ListBookingsResponse,
+    ListJobResultsRequest,
     ListJobResultsResponse,
+    ListJobsRequest,
     ListJobsResponse,
+    ListPlatformsRequest,
     ListPlatformsResponse,
+    ListProcessResultsRequest,
     ListProcessResultsResponse,
+    ListProcessesRequest,
     ListProcessesResponse,
+    ListSessionACLsRequest,
     ListSessionACLsResponse,
+    ListSessionsRequest,
     ListSessionsResponse,
     Platform,
+    PlatformBookingRequirement,
+    PlatformHardware,
     Process,
     ProcessResult,
     Session,
+    TerminateSessionRequest,
     UpdateBookingRequest,
     UpdateJobRequest,
     UpdateProcessRequest,
@@ -85,12 +134,10 @@ from .marshalling import (
     marshal_UpdateSessionRequest,
 )
 
-
 class QaasV1Alpha1API(API):
     """
     This API allows you to manage Scaleway Quantum as a Service.
     """
-
     def get_job(
         self,
         *,
@@ -101,17 +148,17 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **job ID**, such as status, payload, and result.
         :param job_id: Unique ID of the job you want to get.
         :return: :class:`Job <Job>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_job(
                 job_id="example",
             )
         """
-
+        
         param_job_id = validate_path_param("job_id", job_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/jobs/{param_job_id}",
@@ -119,7 +166,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Job(res.json())
-
+        
     def wait_for_job(
         self,
         *,
@@ -131,10 +178,10 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **job ID**, such as status, payload, and result.
         :param job_id: Unique ID of the job you want to get.
         :return: :class:`Job <Job>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_job(
                 job_id="example",
             )
@@ -153,7 +200,7 @@ class QaasV1Alpha1API(API):
                 "job_id": job_id,
             },
         )
-
+        
     def list_jobs(
         self,
         *,
@@ -176,33 +223,32 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of jobs to return per page.
         :param order_by: Sort order of the returned jobs.
         :return: :class:`ListJobsResponse <ListJobsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_jobs()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/qaas/v1alpha1/jobs",
+            f"/qaas/v1alpha1/jobs",
             params={
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "tags": tags,
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("project_id", project_id),
-                        OneOfPossibility("session_id", session_id),
-                    ]
-                ),
+                **resolve_one_of([
+                    OneOfPossibility("project_id", project_id),
+                    OneOfPossibility("session_id", session_id),
+                ]),
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListJobsResponse(res.json())
-
+        
     def list_jobs_all(
         self,
         *,
@@ -225,14 +271,14 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of jobs to return per page.
         :param order_by: Sort order of the returned jobs.
         :return: :class:`List[Job] <List[Job]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_jobs_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListJobsResponse,
             key="jobs",
             fetcher=self.list_jobs,
@@ -245,7 +291,7 @@ class QaasV1Alpha1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def list_job_results(
         self,
         *,
@@ -262,17 +308,17 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
         :return: :class:`ListJobResultsResponse <ListJobResultsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_job_results(
                 job_id="example",
             )
         """
-
+        
         param_job_id = validate_path_param("job_id", job_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/jobs/{param_job_id}/results",
@@ -285,7 +331,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListJobResultsResponse(res.json())
-
+        
     def list_job_results_all(
         self,
         *,
@@ -302,16 +348,16 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
         :return: :class:`List[JobResult] <List[JobResult]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_job_results_all(
                 job_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListJobResultsResponse,
             key="job_results",
             fetcher=self.list_job_results,
@@ -322,7 +368,7 @@ class QaasV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def create_job(
         self,
         *,
@@ -341,20 +387,21 @@ class QaasV1Alpha1API(API):
         :param tags: Tags of the job.
         :param max_duration: Maximum duration of the job.
         :return: :class:`Job <Job>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_job(
                 name="example",
                 session_id="example",
                 circuit=JobCircuit(),
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/qaas/v1alpha1/jobs",
+            f"/qaas/v1alpha1/jobs",
             body=marshal_CreateJobRequest(
                 CreateJobRequest(
                     name=name,
@@ -369,7 +416,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Job(res.json())
-
+        
     def update_job(
         self,
         *,
@@ -384,17 +431,17 @@ class QaasV1Alpha1API(API):
         :param name: Name of the job.
         :param tags: Tags of the job.
         :return: :class:`Job <Job>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_job(
                 job_id="example",
             )
         """
-
+        
         param_job_id = validate_path_param("job_id", job_id)
-
+        
         res = self._request(
             "PATCH",
             f"/qaas/v1alpha1/jobs/{param_job_id}",
@@ -410,7 +457,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Job(res.json())
-
+        
     def cancel_job(
         self,
         *,
@@ -421,17 +468,17 @@ class QaasV1Alpha1API(API):
         Cancel the job corresponding to the provided **job ID**.
         :param job_id: Unique ID of the job.
         :return: :class:`Job <Job>`
-
+        
         Usage:
         ::
-
+        
             result = api.cancel_job(
                 job_id="example",
             )
         """
-
+        
         param_job_id = validate_path_param("job_id", job_id)
-
+        
         res = self._request(
             "POST",
             f"/qaas/v1alpha1/jobs/{param_job_id}/cancel",
@@ -440,7 +487,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Job(res.json())
-
+        
     def delete_job(
         self,
         *,
@@ -450,24 +497,23 @@ class QaasV1Alpha1API(API):
         Delete a job.
         Delete the job corresponding to the provided **job ID**.
         :param job_id: Unique ID of the job.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_job(
                 job_id="example",
             )
         """
-
+        
         param_job_id = validate_path_param("job_id", job_id)
-
+        
         res = self._request(
             "DELETE",
             f"/qaas/v1alpha1/jobs/{param_job_id}",
         )
 
         self._throw_on_error(res)
-
     def get_job_circuit(
         self,
         *,
@@ -478,17 +524,17 @@ class QaasV1Alpha1API(API):
         Retrieve the circuit of the provided **job ID**.
         :param job_id: Unique ID of the job.
         :return: :class:`JobCircuit <JobCircuit>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_job_circuit(
                 job_id="example",
             )
         """
-
+        
         param_job_id = validate_path_param("job_id", job_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/jobs/{param_job_id}/circuit",
@@ -496,7 +542,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_JobCircuit(res.json())
-
+        
     def get_platform(
         self,
         *,
@@ -507,17 +553,17 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **platform ID**, such as provider name, technology, and type.
         :param platform_id: Unique ID of the platform.
         :return: :class:`Platform <Platform>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_platform(
                 platform_id="example",
             )
         """
-
+        
         param_platform_id = validate_path_param("platform_id", platform_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/platforms/{param_platform_id}",
@@ -525,7 +571,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Platform(res.json())
-
+        
     def list_platforms(
         self,
         *,
@@ -550,16 +596,17 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of platforms to return per page.
         :param order_by: Sort order of the returned platforms.
         :return: :class:`ListPlatformsResponse <ListPlatformsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_platforms()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/qaas/v1alpha1/platforms",
+            f"/qaas/v1alpha1/platforms",
             params={
                 "backend_name": backend_name,
                 "name": name,
@@ -574,7 +621,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPlatformsResponse(res.json())
-
+        
     def list_platforms_all(
         self,
         *,
@@ -599,14 +646,14 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of platforms to return per page.
         :param order_by: Sort order of the returned platforms.
         :return: :class:`List[Platform] <List[Platform]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_platforms_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPlatformsResponse,
             key="platforms",
             fetcher=self.list_platforms,
@@ -621,7 +668,7 @@ class QaasV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def get_session(
         self,
         *,
@@ -632,17 +679,17 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **session ID**, such as name, status, and number of executed jobs.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_session(
                 session_id="example",
             )
         """
-
+        
         param_session_id = validate_path_param("session_id", session_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/sessions/{param_session_id}",
@@ -650,7 +697,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Session(res.json())
-
+        
     def wait_for_session(
         self,
         *,
@@ -662,10 +709,10 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **session ID**, such as name, status, and number of executed jobs.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_session(
                 session_id="example",
             )
@@ -684,7 +731,7 @@ class QaasV1Alpha1API(API):
                 "session_id": session_id,
             },
         )
-
+        
     def list_sessions(
         self,
         *,
@@ -705,16 +752,17 @@ class QaasV1Alpha1API(API):
         :param order_by: Sort order of the returned sessions.
         :param project_id: List sessions belonging to this project ID.
         :return: :class:`ListSessionsResponse <ListSessionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_sessions()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/qaas/v1alpha1/sessions",
+            f"/qaas/v1alpha1/sessions",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -727,7 +775,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSessionsResponse(res.json())
-
+        
     def list_sessions_all(
         self,
         *,
@@ -748,14 +796,14 @@ class QaasV1Alpha1API(API):
         :param order_by: Sort order of the returned sessions.
         :param project_id: List sessions belonging to this project ID.
         :return: :class:`List[Session] <List[Session]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_sessions_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSessionsResponse,
             key="sessions",
             fetcher=self.list_sessions,
@@ -768,7 +816,7 @@ class QaasV1Alpha1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def create_session(
         self,
         *,
@@ -793,18 +841,19 @@ class QaasV1Alpha1API(API):
         :param deduplication_id: Deduplication ID of the session.
         :param booking_demand: A booking demand to schedule the session, only applicable if the platform is bookable.
         :return: :class:`Session <Session>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_session(
                 platform_id="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/qaas/v1alpha1/sessions",
+            f"/qaas/v1alpha1/sessions",
             body=marshal_CreateSessionRequest(
                 CreateSessionRequest(
                     platform_id=platform_id,
@@ -822,7 +871,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Session(res.json())
-
+        
     def update_session(
         self,
         *,
@@ -841,17 +890,17 @@ class QaasV1Alpha1API(API):
         :param max_duration: Maximum time before the session ends.
         :param tags: Tags of the session.
         :return: :class:`Session <Session>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_session(
                 session_id="example",
             )
         """
-
+        
         param_session_id = validate_path_param("session_id", session_id)
-
+        
         res = self._request(
             "PATCH",
             f"/qaas/v1alpha1/sessions/{param_session_id}",
@@ -869,7 +918,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Session(res.json())
-
+        
     def terminate_session(
         self,
         *,
@@ -880,17 +929,17 @@ class QaasV1Alpha1API(API):
         Terminate a session by its unique ID and cancel all its attached jobs and booking.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
-
+        
         Usage:
         ::
-
+        
             result = api.terminate_session(
                 session_id="example",
             )
         """
-
+        
         param_session_id = validate_path_param("session_id", session_id)
-
+        
         res = self._request(
             "POST",
             f"/qaas/v1alpha1/sessions/{param_session_id}/terminate",
@@ -899,7 +948,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Session(res.json())
-
+        
     def delete_session(
         self,
         *,
@@ -909,24 +958,23 @@ class QaasV1Alpha1API(API):
         Delete an existing session.
         Delete a session by its unique ID and delete all its attached job and booking.
         :param session_id: Unique ID of the session.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_session(
                 session_id="example",
             )
         """
-
+        
         param_session_id = validate_path_param("session_id", session_id)
-
+        
         res = self._request(
             "DELETE",
             f"/qaas/v1alpha1/sessions/{param_session_id}",
         )
 
         self._throw_on_error(res)
-
     def list_session_ac_ls(
         self,
         *,
@@ -936,22 +984,22 @@ class QaasV1Alpha1API(API):
         order_by: Optional[ListSessionACLsRequestOrderBy] = None,
     ) -> ListSessionACLsResponse:
         """
-        :param session_id:
-        :param page:
-        :param page_size:
-        :param order_by:
+        :param session_id: 
+        :param page: 
+        :param page_size: 
+        :param order_by: 
         :return: :class:`ListSessionACLsResponse <ListSessionACLsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_session_ac_ls(
                 session_id="example",
             )
         """
-
+        
         param_session_id = validate_path_param("session_id", session_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/sessions/{param_session_id}/acls",
@@ -964,7 +1012,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSessionACLsResponse(res.json())
-
+        
     def list_session_ac_ls_all(
         self,
         *,
@@ -974,21 +1022,21 @@ class QaasV1Alpha1API(API):
         order_by: Optional[ListSessionACLsRequestOrderBy] = None,
     ) -> List[SessionAccess]:
         """
-        :param session_id:
-        :param page:
-        :param page_size:
-        :param order_by:
+        :param session_id: 
+        :param page: 
+        :param page_size: 
+        :param order_by: 
         :return: :class:`List[SessionAccess] <List[SessionAccess]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_session_ac_ls_all(
                 session_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSessionACLsResponse,
             key="acls",
             fetcher=self.list_session_ac_ls,
@@ -999,7 +1047,7 @@ class QaasV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def create_process(
         self,
         *,
@@ -1020,18 +1068,19 @@ class QaasV1Alpha1API(API):
         :param input: Process parameters in JSON format.
         :param tags: Tags of the process.
         :return: :class:`Process <Process>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_process(
                 name="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/qaas/v1alpha1/processes",
+            f"/qaas/v1alpha1/processes",
             body=marshal_CreateProcessRequest(
                 CreateProcessRequest(
                     name=name,
@@ -1047,7 +1096,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Process(res.json())
-
+        
     def get_process(
         self,
         *,
@@ -1058,17 +1107,17 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **process ID**, such as name, status and progress.
         :param process_id: Unique ID of the process.
         :return: :class:`Process <Process>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_process(
                 process_id="example",
             )
         """
-
+        
         param_process_id = validate_path_param("process_id", process_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/processes/{param_process_id}",
@@ -1076,7 +1125,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Process(res.json())
-
+        
     def wait_for_process(
         self,
         *,
@@ -1088,10 +1137,10 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **process ID**, such as name, status and progress.
         :param process_id: Unique ID of the process.
         :return: :class:`Process <Process>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_process(
                 process_id="example",
             )
@@ -1110,7 +1159,7 @@ class QaasV1Alpha1API(API):
                 "process_id": process_id,
             },
         )
-
+        
     def list_processes(
         self,
         *,
@@ -1131,16 +1180,17 @@ class QaasV1Alpha1API(API):
         :param order_by: Sort order of the returned processes.
         :param project_id: List processes belonging to this project ID.
         :return: :class:`ListProcessesResponse <ListProcessesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_processes()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/qaas/v1alpha1/processes",
+            f"/qaas/v1alpha1/processes",
             params={
                 "application_id": application_id,
                 "order_by": order_by,
@@ -1153,7 +1203,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListProcessesResponse(res.json())
-
+        
     def list_processes_all(
         self,
         *,
@@ -1174,14 +1224,14 @@ class QaasV1Alpha1API(API):
         :param order_by: Sort order of the returned processes.
         :param project_id: List processes belonging to this project ID.
         :return: :class:`List[Process] <List[Process]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_processes_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListProcessesResponse,
             key="processes",
             fetcher=self.list_processes,
@@ -1194,7 +1244,7 @@ class QaasV1Alpha1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def update_process(
         self,
         *,
@@ -1209,17 +1259,17 @@ class QaasV1Alpha1API(API):
         :param name: Name of the process.
         :param tags: Tags of the process.
         :return: :class:`Process <Process>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_process(
                 process_id="example",
             )
         """
-
+        
         param_process_id = validate_path_param("process_id", process_id)
-
+        
         res = self._request(
             "PATCH",
             f"/qaas/v1alpha1/processes/{param_process_id}",
@@ -1235,7 +1285,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Process(res.json())
-
+        
     def cancel_process(
         self,
         *,
@@ -1246,17 +1296,17 @@ class QaasV1Alpha1API(API):
         Cancel a process by its unique ID. Intermediate results are still available.
         :param process_id: Unique ID of the process.
         :return: :class:`Process <Process>`
-
+        
         Usage:
         ::
-
+        
             result = api.cancel_process(
                 process_id="example",
             )
         """
-
+        
         param_process_id = validate_path_param("process_id", process_id)
-
+        
         res = self._request(
             "POST",
             f"/qaas/v1alpha1/processes/{param_process_id}/cancel",
@@ -1265,7 +1315,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Process(res.json())
-
+        
     def delete_process(
         self,
         *,
@@ -1275,24 +1325,23 @@ class QaasV1Alpha1API(API):
         Delete an existing process.
         Delete a process by its unique ID and delete all its data.
         :param process_id: Unique ID of the process.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_process(
                 process_id="example",
             )
         """
-
+        
         param_process_id = validate_path_param("process_id", process_id)
-
+        
         res = self._request(
             "DELETE",
             f"/qaas/v1alpha1/processes/{param_process_id}",
         )
 
         self._throw_on_error(res)
-
     def list_process_results(
         self,
         *,
@@ -1309,17 +1358,17 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
         :return: :class:`ListProcessResultsResponse <ListProcessResultsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_process_results(
                 process_id="example",
             )
         """
-
+        
         param_process_id = validate_path_param("process_id", process_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/processes/{param_process_id}/results",
@@ -1332,7 +1381,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListProcessResultsResponse(res.json())
-
+        
     def list_process_results_all(
         self,
         *,
@@ -1349,16 +1398,16 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
         :return: :class:`List[ProcessResult] <List[ProcessResult]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_process_results_all(
                 process_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListProcessResultsResponse,
             key="process_results",
             fetcher=self.list_process_results,
@@ -1369,7 +1418,7 @@ class QaasV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def get_application(
         self,
         *,
@@ -1380,17 +1429,17 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **applcation ID**, such as name, type and compatible platforms.
         :param application_id: Unique ID of the application.
         :return: :class:`Application <Application>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_application(
                 application_id="example",
             )
         """
-
+        
         param_application_id = validate_path_param("application_id", application_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/applications/{param_application_id}",
@@ -1398,7 +1447,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Application(res.json())
-
+        
     def list_applications(
         self,
         *,
@@ -1417,16 +1466,17 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of applications a to return per page.
         :param order_by: Sort order of the returned applications.
         :return: :class:`ListApplicationsResponse <ListApplicationsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_applications()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/qaas/v1alpha1/applications",
+            f"/qaas/v1alpha1/applications",
             params={
                 "application_type": application_type,
                 "name": name,
@@ -1438,7 +1488,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListApplicationsResponse(res.json())
-
+        
     def list_applications_all(
         self,
         *,
@@ -1457,14 +1507,14 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of applications a to return per page.
         :param order_by: Sort order of the returned applications.
         :return: :class:`List[Application] <List[Application]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_applications_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListApplicationsResponse,
             key="applications",
             fetcher=self.list_applications,
@@ -1476,7 +1526,7 @@ class QaasV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def get_booking(
         self,
         *,
@@ -1487,17 +1537,17 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **booking ID**, such as description, status and progress message.
         :param booking_id: Unique ID of the booking.
         :return: :class:`Booking <Booking>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_booking(
                 booking_id="example",
             )
         """
-
+        
         param_booking_id = validate_path_param("booking_id", booking_id)
-
+        
         res = self._request(
             "GET",
             f"/qaas/v1alpha1/bookings/{param_booking_id}",
@@ -1505,7 +1555,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Booking(res.json())
-
+        
     def wait_for_booking(
         self,
         *,
@@ -1517,10 +1567,10 @@ class QaasV1Alpha1API(API):
         Retrieve information about the provided **booking ID**, such as description, status and progress message.
         :param booking_id: Unique ID of the booking.
         :return: :class:`Booking <Booking>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_booking(
                 booking_id="example",
             )
@@ -1539,7 +1589,7 @@ class QaasV1Alpha1API(API):
                 "booking_id": booking_id,
             },
         )
-
+        
     def list_bookings(
         self,
         *,
@@ -1558,16 +1608,17 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
         :return: :class:`ListBookingsResponse <ListBookingsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_bookings()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/qaas/v1alpha1/bookings",
+            f"/qaas/v1alpha1/bookings",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -1579,7 +1630,7 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBookingsResponse(res.json())
-
+        
     def list_bookings_all(
         self,
         *,
@@ -1598,14 +1649,14 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
         :return: :class:`List[Booking] <List[Booking]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_bookings_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListBookingsResponse,
             key="bookings",
             fetcher=self.list_bookings,
@@ -1617,7 +1668,7 @@ class QaasV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def update_booking(
         self,
         *,
@@ -1630,17 +1681,17 @@ class QaasV1Alpha1API(API):
         :param booking_id: Unique ID of the booking.
         :param description: Description of the booking slot.
         :return: :class:`Booking <Booking>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_booking(
                 booking_id="example",
             )
         """
-
+        
         param_booking_id = validate_path_param("booking_id", booking_id)
-
+        
         res = self._request(
             "PATCH",
             f"/qaas/v1alpha1/bookings/{param_booking_id}",
@@ -1655,3 +1706,4 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Booking(res.json())
+        

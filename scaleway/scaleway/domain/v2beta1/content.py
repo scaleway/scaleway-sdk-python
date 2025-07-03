@@ -11,7 +11,6 @@ from .types import (
     SSLCertificateStatus,
     TaskStatus,
 )
-
 DNS_ZONE_TRANSIENT_STATUSES: List[DNSZoneStatus] = [
     DNSZoneStatus.PENDING,
 ]
@@ -25,9 +24,7 @@ DOMAIN_FEATURE_TRANSIENT_STATUSES: List[DomainFeatureStatus] = [
 """
 Lists transient statutes of the enum :class:`DomainFeatureStatus <DomainFeatureStatus>`.
 """
-DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: List[
-    DomainRegistrationStatusTransferStatus
-] = [
+DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: List[DomainRegistrationStatusTransferStatus] = [
     DomainRegistrationStatusTransferStatus.PENDING,
     DomainRegistrationStatusTransferStatus.PROCESSING,
 ]

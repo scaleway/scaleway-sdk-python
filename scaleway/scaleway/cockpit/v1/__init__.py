@@ -14,7 +14,6 @@ from .types import UsageUnit
 from .types import PreconfiguredAlertData
 from .types import ContactPointEmail
 from .types import GetConfigResponseRetention
-from .types import RulesCount
 from .types import Alert
 from .types import ContactPoint
 from .types import DataSource
@@ -27,7 +26,6 @@ from .types import AlertManager
 from .types import DisableAlertRulesResponse
 from .types import EnableAlertRulesResponse
 from .types import GetConfigResponse
-from .types import GetRulesCountResponse
 from .types import GlobalApiCreateGrafanaUserRequest
 from .types import GlobalApiDeleteGrafanaUserRequest
 from .types import GlobalApiGetCurrentPlanRequest
@@ -62,7 +60,6 @@ from .types import RegionalApiEnableManagedAlertsRequest
 from .types import RegionalApiGetAlertManagerRequest
 from .types import RegionalApiGetConfigRequest
 from .types import RegionalApiGetDataSourceRequest
-from .types import RegionalApiGetRulesCountRequest
 from .types import RegionalApiGetTokenRequest
 from .types import RegionalApiGetUsageOverviewRequest
 from .types import RegionalApiListAlertsRequest
@@ -91,7 +88,6 @@ __all__ = [
     "PreconfiguredAlertData",
     "ContactPointEmail",
     "GetConfigResponseRetention",
-    "RulesCount",
     "Alert",
     "ContactPoint",
     "DataSource",
@@ -104,7 +100,6 @@ __all__ = [
     "DisableAlertRulesResponse",
     "EnableAlertRulesResponse",
     "GetConfigResponse",
-    "GetRulesCountResponse",
     "GlobalApiCreateGrafanaUserRequest",
     "GlobalApiDeleteGrafanaUserRequest",
     "GlobalApiGetCurrentPlanRequest",
@@ -139,7 +134,6 @@ __all__ = [
     "RegionalApiGetAlertManagerRequest",
     "RegionalApiGetConfigRequest",
     "RegionalApiGetDataSourceRequest",
-    "RegionalApiGetRulesCountRequest",
     "RegionalApiGetTokenRequest",
     "RegionalApiGetUsageOverviewRequest",
     "RegionalApiListAlertsRequest",

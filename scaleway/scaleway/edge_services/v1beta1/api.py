@@ -1,16 +1,39 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
+from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
+)
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
+    DNSStageType,
+    LbOriginError,
     ListBackendStagesRequestOrderBy,
     ListCacheStagesRequestOrderBy,
     ListDNSStagesRequestOrderBy,
@@ -20,7 +43,15 @@ from .types import (
     ListRouteStagesRequestOrderBy,
     ListTLSStagesRequestOrderBy,
     ListWafStagesRequestOrderBy,
+    PipelineErrorCode,
+    PipelineErrorSeverity,
+    PipelineErrorStage,
+    PipelineErrorType,
+    PipelineStatus,
     PlanName,
+    PurgeRequestStatus,
+    RuleHttpMatchMethodFilter,
+    RuleHttpMatchPathFilterPathFilterType,
     SearchBackendStagesRequestOrderBy,
     SearchWafStagesRequestOrderBy,
     WafStageMode,
@@ -44,29 +75,67 @@ from .types import (
     CreateTLSStageRequest,
     CreateWafStageRequest,
     DNSStage,
+    DeleteBackendStageRequest,
+    DeleteCacheStageRequest,
+    DeleteCurrentPlanRequest,
+    DeleteDNSStageRequest,
+    DeletePipelineRequest,
+    DeleteRouteStageRequest,
+    DeleteTLSStageRequest,
+    DeleteWafStageRequest,
+    GetBackendStageRequest,
+    GetBillingRequest,
     GetBillingResponse,
+    GetCacheStageRequest,
+    GetCurrentPlanRequest,
+    GetDNSStageRequest,
+    GetPipelineRequest,
+    GetPurgeRequestRequest,
+    GetRouteStageRequest,
+    GetTLSStageRequest,
+    GetWafStageRequest,
     HeadStageResponse,
+    HeadStageResponseHeadStage,
+    ListBackendStagesRequest,
     ListBackendStagesResponse,
+    ListCacheStagesRequest,
     ListCacheStagesResponse,
+    ListDNSStagesRequest,
     ListDNSStagesResponse,
+    ListHeadStagesRequest,
     ListHeadStagesResponse,
     ListHeadStagesResponseHeadStage,
+    ListPipelinesRequest,
     ListPipelinesResponse,
+    ListPipelinesWithStagesRequest,
     ListPipelinesWithStagesResponse,
     ListPlansResponse,
+    ListPurgeRequestsRequest,
     ListPurgeRequestsResponse,
+    ListRouteRulesRequest,
     ListRouteRulesResponse,
+    ListRouteStagesRequest,
     ListRouteStagesResponse,
+    ListTLSStagesRequest,
     ListTLSStagesResponse,
+    ListWafStagesRequest,
     ListWafStagesResponse,
     Pipeline,
+    PipelineError,
     PipelineStages,
     Plan,
+    PlanDetails,
+    PlanUsageDetails,
     PurgeRequest,
+    RouteRule,
     RouteStage,
+    RuleHttpMatch,
+    RuleHttpMatchPathFilter,
     ScalewayLb,
     ScalewayLbBackendConfig,
     ScalewayS3BackendConfig,
+    SearchBackendStagesRequest,
+    SearchWafStagesRequest,
     SelectPlanRequest,
     SetHeadStageRequest,
     SetHeadStageRequestAddNewHeadStage,
@@ -99,6 +168,7 @@ from .marshalling import (
     unmarshal_RouteStage,
     unmarshal_TLSStage,
     unmarshal_WafStage,
+    unmarshal_PipelineStages,
     unmarshal_PurgeRequest,
     unmarshal_AddRouteRulesResponse,
     unmarshal_CheckDomainResponse,
@@ -144,10 +214,10 @@ from .marshalling import (
     marshal_UpdateWafStageRequest,
 )
 
-
 class EdgeServicesV1Beta1API(API):
-    """ """
-
+    """
+    
+    """
     def list_pipelines(
         self,
         *,
@@ -170,22 +240,22 @@ class EdgeServicesV1Beta1API(API):
         :param project_id: Project ID to filter for. Only pipelines from this Project will be returned.
         :param has_backend_stage_lb: Filter on backend stage. Only pipelines with a Load Balancer origin will be returned.
         :return: :class:`ListPipelinesResponse <ListPipelinesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pipelines()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/edge-services/v1beta1/pipelines",
+            f"/edge-services/v1beta1/pipelines",
             params={
                 "has_backend_stage_lb": has_backend_stage_lb,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -194,7 +264,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPipelinesResponse(res.json())
-
+        
     def list_pipelines_all(
         self,
         *,
@@ -217,14 +287,14 @@ class EdgeServicesV1Beta1API(API):
         :param project_id: Project ID to filter for. Only pipelines from this Project will be returned.
         :param has_backend_stage_lb: Filter on backend stage. Only pipelines with a Load Balancer origin will be returned.
         :return: :class:`List[Pipeline] <List[Pipeline]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pipelines_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPipelinesResponse,
             key="pipelines",
             fetcher=self.list_pipelines,
@@ -238,7 +308,7 @@ class EdgeServicesV1Beta1API(API):
                 "has_backend_stage_lb": has_backend_stage_lb,
             },
         )
-
+        
     def create_pipeline(
         self,
         *,
@@ -253,19 +323,20 @@ class EdgeServicesV1Beta1API(API):
         :param description: Description of the pipeline.
         :param project_id: Project ID in which the pipeline will be created.
         :return: :class:`Pipeline <Pipeline>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_pipeline(
                 name="example",
                 description="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/edge-services/v1beta1/pipelines",
+            f"/edge-services/v1beta1/pipelines",
             body=marshal_CreatePipelineRequest(
                 CreatePipelineRequest(
                     name=name,
@@ -278,7 +349,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pipeline(res.json())
-
+        
     def get_pipeline(
         self,
         *,
@@ -289,17 +360,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing pipeline, specified by its `pipeline_id`. Its full details, including errors, are returned in the response object.
         :param pipeline_id: ID of the requested pipeline.
         :return: :class:`Pipeline <Pipeline>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_pipeline(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}",
@@ -307,7 +378,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pipeline(res.json())
-
+        
     def wait_for_pipeline(
         self,
         *,
@@ -319,10 +390,10 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing pipeline, specified by its `pipeline_id`. Its full details, including errors, are returned in the response object.
         :param pipeline_id: ID of the requested pipeline.
         :return: :class:`Pipeline <Pipeline>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_pipeline(
                 pipeline_id="example",
             )
@@ -341,7 +412,7 @@ class EdgeServicesV1Beta1API(API):
                 "pipeline_id": pipeline_id,
             },
         )
-
+        
     def list_pipelines_with_stages(
         self,
         *,
@@ -353,28 +424,28 @@ class EdgeServicesV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListPipelinesWithStagesResponse:
         """
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param order_by: 
+        :param page: 
+        :param page_size: 
+        :param name: 
+        :param organization_id: 
+        :param project_id: 
         :return: :class:`ListPipelinesWithStagesResponse <ListPipelinesWithStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pipelines_with_stages()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/edge-services/v1beta1/pipelines-stages",
+            f"/edge-services/v1beta1/pipelines-stages",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -383,7 +454,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPipelinesWithStagesResponse(res.json())
-
+        
     def list_pipelines_with_stages_all(
         self,
         *,
@@ -395,21 +466,21 @@ class EdgeServicesV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[PipelineStages]:
         """
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param order_by: 
+        :param page: 
+        :param page_size: 
+        :param name: 
+        :param organization_id: 
+        :param project_id: 
         :return: :class:`List[PipelineStages] <List[PipelineStages]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pipelines_with_stages_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPipelinesWithStagesResponse,
             key="pipelines",
             fetcher=self.list_pipelines_with_stages,
@@ -422,7 +493,7 @@ class EdgeServicesV1Beta1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def update_pipeline(
         self,
         *,
@@ -437,17 +508,17 @@ class EdgeServicesV1Beta1API(API):
         :param name: Name of the pipeline.
         :param description: Description of the pipeline.
         :return: :class:`Pipeline <Pipeline>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_pipeline(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "PATCH",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}",
@@ -463,7 +534,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pipeline(res.json())
-
+        
     def delete_pipeline(
         self,
         *,
@@ -473,24 +544,23 @@ class EdgeServicesV1Beta1API(API):
         Delete pipeline.
         Delete an existing pipeline, specified by its `pipeline_id`. Deleting a pipeline is permanent, and cannot be undone. Note that all stages linked to the pipeline are also deleted.
         :param pipeline_id: ID of the pipeline to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_pipeline(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}",
         )
 
         self._throw_on_error(res)
-
     def list_head_stages(
         self,
         *,
@@ -503,17 +573,17 @@ class EdgeServicesV1Beta1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of head stages to return per page.
         :return: :class:`ListHeadStagesResponse <ListHeadStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_head_stages(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/head-stages",
@@ -525,7 +595,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListHeadStagesResponse(res.json())
-
+        
     def list_head_stages_all(
         self,
         *,
@@ -538,16 +608,16 @@ class EdgeServicesV1Beta1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of head stages to return per page.
         :return: :class:`List[ListHeadStagesResponseHeadStage] <List[ListHeadStagesResponseHeadStage]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_head_stages_all(
                 pipeline_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListHeadStagesResponse,
             key="head_stages",
             fetcher=self.list_head_stages,
@@ -557,7 +627,7 @@ class EdgeServicesV1Beta1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def set_head_stage(
         self,
         *,
@@ -577,17 +647,17 @@ class EdgeServicesV1Beta1API(API):
         :param swap_head_stage: Replace a head stage with a new one.
         One-Of ('action'): at most one of 'add_new_head_stage', 'remove_head_stage', 'swap_head_stage' could be set.
         :return: :class:`HeadStageResponse <HeadStageResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_head_stage(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/set-head-stage",
@@ -604,7 +674,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_HeadStageResponse(res.json())
-
+        
     def list_dns_stages(
         self,
         *,
@@ -623,17 +693,17 @@ class EdgeServicesV1Beta1API(API):
         :param pipeline_id: Pipeline ID to filter for. Only DNS stages from this pipeline will be returned.
         :param fqdn: Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned.
         :return: :class:`ListDNSStagesResponse <ListDNSStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_dns_stages(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/dns-stages",
@@ -647,7 +717,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDNSStagesResponse(res.json())
-
+        
     def list_dns_stages_all(
         self,
         *,
@@ -666,16 +736,16 @@ class EdgeServicesV1Beta1API(API):
         :param pipeline_id: Pipeline ID to filter for. Only DNS stages from this pipeline will be returned.
         :param fqdn: Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned.
         :return: :class:`List[DNSStage] <List[DNSStage]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_dns_stages_all(
                 pipeline_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDNSStagesResponse,
             key="stages",
             fetcher=self.list_dns_stages,
@@ -687,7 +757,7 @@ class EdgeServicesV1Beta1API(API):
                 "fqdn": fqdn,
             },
         )
-
+        
     def create_dns_stage(
         self,
         *,
@@ -709,17 +779,17 @@ class EdgeServicesV1Beta1API(API):
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :param pipeline_id: Pipeline ID the DNS stage belongs to.
         :return: :class:`DNSStage <DNSStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_dns_stage(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/dns-stages",
@@ -737,7 +807,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DNSStage(res.json())
-
+        
     def get_dns_stage(
         self,
         *,
@@ -748,17 +818,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing DNS stage, specified by its `dns_stage_id`. Its full details, including FQDNs, are returned in the response object.
         :param dns_stage_id: ID of the requested DNS stage.
         :return: :class:`DNSStage <DNSStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_dns_stage(
                 dns_stage_id="example",
             )
         """
-
+        
         param_dns_stage_id = validate_path_param("dns_stage_id", dns_stage_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/dns-stages/{param_dns_stage_id}",
@@ -766,7 +836,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DNSStage(res.json())
-
+        
     def update_dns_stage(
         self,
         *,
@@ -788,17 +858,17 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: Backend stage ID the DNS stage will be linked to.
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :return: :class:`DNSStage <DNSStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_dns_stage(
                 dns_stage_id="example",
             )
         """
-
+        
         param_dns_stage_id = validate_path_param("dns_stage_id", dns_stage_id)
-
+        
         res = self._request(
             "PATCH",
             f"/edge-services/v1beta1/dns-stages/{param_dns_stage_id}",
@@ -816,7 +886,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DNSStage(res.json())
-
+        
     def delete_dns_stage(
         self,
         *,
@@ -826,24 +896,23 @@ class EdgeServicesV1Beta1API(API):
         Delete DNS stage.
         Delete an existing DNS stage, specified by its `dns_stage_id`. Deleting a DNS stage is permanent, and cannot be undone.
         :param dns_stage_id: ID of the DNS stage to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_dns_stage(
                 dns_stage_id="example",
             )
         """
-
+        
         param_dns_stage_id = validate_path_param("dns_stage_id", dns_stage_id)
-
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/dns-stages/{param_dns_stage_id}",
         )
 
         self._throw_on_error(res)
-
     def list_tls_stages(
         self,
         *,
@@ -864,17 +933,17 @@ class EdgeServicesV1Beta1API(API):
         :param secret_id: Secret ID to filter for. Only TLS stages with this Secret ID will be returned.
         :param secret_region: Secret region to filter for. Only TLS stages with a Secret in this region will be returned.
         :return: :class:`ListTLSStagesResponse <ListTLSStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_tls_stages(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/tls-stages",
@@ -889,7 +958,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListTLSStagesResponse(res.json())
-
+        
     def list_tls_stages_all(
         self,
         *,
@@ -910,16 +979,16 @@ class EdgeServicesV1Beta1API(API):
         :param secret_id: Secret ID to filter for. Only TLS stages with this Secret ID will be returned.
         :param secret_region: Secret region to filter for. Only TLS stages with a Secret in this region will be returned.
         :return: :class:`List[TLSStage] <List[TLSStage]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_tls_stages_all(
                 pipeline_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListTLSStagesResponse,
             key="stages",
             fetcher=self.list_tls_stages,
@@ -932,7 +1001,7 @@ class EdgeServicesV1Beta1API(API):
                 "secret_region": secret_region,
             },
         )
-
+        
     def create_tls_stage(
         self,
         *,
@@ -954,22 +1023,22 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: Backend stage ID the TLS stage will be linked to.
         One-Of ('next'): at most one of 'cache_stage_id', 'backend_stage_id', 'route_stage_id', 'waf_stage_id' could be set.
         :param pipeline_id: Pipeline ID the TLS stage belongs to.
-        :param route_stage_id:
+        :param route_stage_id: 
         One-Of ('next'): at most one of 'cache_stage_id', 'backend_stage_id', 'route_stage_id', 'waf_stage_id' could be set.
-        :param waf_stage_id:
+        :param waf_stage_id: 
         One-Of ('next'): at most one of 'cache_stage_id', 'backend_stage_id', 'route_stage_id', 'waf_stage_id' could be set.
         :return: :class:`TLSStage <TLSStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_tls_stage(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/tls-stages",
@@ -989,7 +1058,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_TLSStage(res.json())
-
+        
     def get_tls_stage(
         self,
         *,
@@ -1000,17 +1069,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing TLS stage, specified by its `tls_stage_id`. Its full details, including secrets and certificate expiration date are returned in the response object.
         :param tls_stage_id: ID of the requested TLS stage.
         :return: :class:`TLSStage <TLSStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_tls_stage(
                 tls_stage_id="example",
             )
         """
-
+        
         param_tls_stage_id = validate_path_param("tls_stage_id", tls_stage_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/tls-stages/{param_tls_stage_id}",
@@ -1018,7 +1087,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_TLSStage(res.json())
-
+        
     def update_tls_stage(
         self,
         *,
@@ -1040,22 +1109,22 @@ class EdgeServicesV1Beta1API(API):
         One-Of ('next'): at most one of 'cache_stage_id', 'backend_stage_id', 'route_stage_id', 'waf_stage_id' could be set.
         :param backend_stage_id: Backend stage ID the TLS stage will be linked to.
         One-Of ('next'): at most one of 'cache_stage_id', 'backend_stage_id', 'route_stage_id', 'waf_stage_id' could be set.
-        :param route_stage_id:
+        :param route_stage_id: 
         One-Of ('next'): at most one of 'cache_stage_id', 'backend_stage_id', 'route_stage_id', 'waf_stage_id' could be set.
-        :param waf_stage_id:
+        :param waf_stage_id: 
         One-Of ('next'): at most one of 'cache_stage_id', 'backend_stage_id', 'route_stage_id', 'waf_stage_id' could be set.
         :return: :class:`TLSStage <TLSStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_tls_stage(
                 tls_stage_id="example",
             )
         """
-
+        
         param_tls_stage_id = validate_path_param("tls_stage_id", tls_stage_id)
-
+        
         res = self._request(
             "PATCH",
             f"/edge-services/v1beta1/tls-stages/{param_tls_stage_id}",
@@ -1075,7 +1144,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_TLSStage(res.json())
-
+        
     def delete_tls_stage(
         self,
         *,
@@ -1085,24 +1154,23 @@ class EdgeServicesV1Beta1API(API):
         Delete TLS stage.
         Delete an existing TLS stage, specified by its `tls_stage_id`. Deleting a TLS stage is permanent, and cannot be undone.
         :param tls_stage_id: ID of the TLS stage to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_tls_stage(
                 tls_stage_id="example",
             )
         """
-
+        
         param_tls_stage_id = validate_path_param("tls_stage_id", tls_stage_id)
-
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/tls-stages/{param_tls_stage_id}",
         )
 
         self._throw_on_error(res)
-
     def list_cache_stages(
         self,
         *,
@@ -1119,17 +1187,17 @@ class EdgeServicesV1Beta1API(API):
         :param page_size: Number of cache stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only cache stages from this pipeline will be returned.
         :return: :class:`ListCacheStagesResponse <ListCacheStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cache_stages(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/cache-stages",
@@ -1142,7 +1210,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListCacheStagesResponse(res.json())
-
+        
     def list_cache_stages_all(
         self,
         *,
@@ -1159,16 +1227,16 @@ class EdgeServicesV1Beta1API(API):
         :param page_size: Number of cache stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only cache stages from this pipeline will be returned.
         :return: :class:`List[CacheStage] <List[CacheStage]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cache_stages_all(
                 pipeline_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListCacheStagesResponse,
             key="stages",
             fetcher=self.list_cache_stages,
@@ -1179,7 +1247,7 @@ class EdgeServicesV1Beta1API(API):
                 "pipeline_id": pipeline_id,
             },
         )
-
+        
     def create_cache_stage(
         self,
         *,
@@ -1198,22 +1266,22 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: Backend stage ID the cache stage will be linked to.
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
         :param pipeline_id: Pipeline ID the Cache stage belongs to.
-        :param waf_stage_id:
+        :param waf_stage_id: 
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
-        :param route_stage_id:
+        :param route_stage_id: 
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
         :return: :class:`CacheStage <CacheStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_cache_stage(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/cache-stages",
@@ -1232,7 +1300,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CacheStage(res.json())
-
+        
     def get_cache_stage(
         self,
         *,
@@ -1243,17 +1311,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing cache stage, specified by its `cache_stage_id`. Its full details, including Time To Live (TTL), are returned in the response object.
         :param cache_stage_id: ID of the requested cache stage.
         :return: :class:`CacheStage <CacheStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_cache_stage(
                 cache_stage_id="example",
             )
         """
-
+        
         param_cache_stage_id = validate_path_param("cache_stage_id", cache_stage_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/cache-stages/{param_cache_stage_id}",
@@ -1261,7 +1329,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CacheStage(res.json())
-
+        
     def update_cache_stage(
         self,
         *,
@@ -1280,22 +1348,22 @@ class EdgeServicesV1Beta1API(API):
         :param include_cookies: Defines whether responses to requests with cookies must be stored in the cache.
         :param backend_stage_id: Backend stage ID the cache stage will be linked to.
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
-        :param waf_stage_id:
+        :param waf_stage_id: 
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
-        :param route_stage_id:
+        :param route_stage_id: 
         One-Of ('next'): at most one of 'backend_stage_id', 'waf_stage_id', 'route_stage_id' could be set.
         :return: :class:`CacheStage <CacheStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_cache_stage(
                 cache_stage_id="example",
             )
         """
-
+        
         param_cache_stage_id = validate_path_param("cache_stage_id", cache_stage_id)
-
+        
         res = self._request(
             "PATCH",
             f"/edge-services/v1beta1/cache-stages/{param_cache_stage_id}",
@@ -1314,7 +1382,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CacheStage(res.json())
-
+        
     def delete_cache_stage(
         self,
         *,
@@ -1324,24 +1392,23 @@ class EdgeServicesV1Beta1API(API):
         Delete cache stage.
         Delete an existing cache stage, specified by its `cache_stage_id`. Deleting a cache stage is permanent, and cannot be undone.
         :param cache_stage_id: ID of the cache stage to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_cache_stage(
                 cache_stage_id="example",
             )
         """
-
+        
         param_cache_stage_id = validate_path_param("cache_stage_id", cache_stage_id)
-
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/cache-stages/{param_cache_stage_id}",
         )
 
         self._throw_on_error(res)
-
     def list_backend_stages(
         self,
         *,
@@ -1364,17 +1431,17 @@ class EdgeServicesV1Beta1API(API):
         :param bucket_region: Bucket region to filter for. Only backend stages with buckets in this region will be returned.
         :param lb_id: Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned.
         :return: :class:`ListBackendStagesResponse <ListBackendStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backend_stages(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/backend-stages",
@@ -1390,7 +1457,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBackendStagesResponse(res.json())
-
+        
     def list_backend_stages_all(
         self,
         *,
@@ -1413,16 +1480,16 @@ class EdgeServicesV1Beta1API(API):
         :param bucket_region: Bucket region to filter for. Only backend stages with buckets in this region will be returned.
         :param lb_id: Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned.
         :return: :class:`List[BackendStage] <List[BackendStage]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backend_stages_all(
                 pipeline_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListBackendStagesResponse,
             key="stages",
             fetcher=self.list_backend_stages,
@@ -1436,7 +1503,7 @@ class EdgeServicesV1Beta1API(API):
                 "lb_id": lb_id,
             },
         )
-
+        
     def create_backend_stage(
         self,
         *,
@@ -1453,17 +1520,17 @@ class EdgeServicesV1Beta1API(API):
         One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb' could be set.
         :param pipeline_id: Pipeline ID the Backend stage belongs to.
         :return: :class:`BackendStage <BackendStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_backend_stage(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/backend-stages",
@@ -1479,7 +1546,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_BackendStage(res.json())
-
+        
     def get_backend_stage(
         self,
         *,
@@ -1490,19 +1557,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing backend stage, specified by its `backend_stage_id`. Its full details, including `scaleway_s3` or `scaleway_lb`, are returned in the response object.
         :param backend_stage_id: ID of the requested backend stage.
         :return: :class:`BackendStage <BackendStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_backend_stage(
                 backend_stage_id="example",
             )
         """
-
-        param_backend_stage_id = validate_path_param(
-            "backend_stage_id", backend_stage_id
-        )
-
+        
+        param_backend_stage_id = validate_path_param("backend_stage_id", backend_stage_id)
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/backend-stages/{param_backend_stage_id}",
@@ -1510,7 +1575,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_BackendStage(res.json())
-
+        
     def update_backend_stage(
         self,
         *,
@@ -1529,20 +1594,18 @@ class EdgeServicesV1Beta1API(API):
         :param scaleway_lb: Scaleway Load Balancer origin linked to the backend stage.
         One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb' could be set.
         :return: :class:`BackendStage <BackendStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_backend_stage(
                 backend_stage_id="example",
                 pipeline_id="example",
             )
         """
-
-        param_backend_stage_id = validate_path_param(
-            "backend_stage_id", backend_stage_id
-        )
-
+        
+        param_backend_stage_id = validate_path_param("backend_stage_id", backend_stage_id)
+        
         res = self._request(
             "PATCH",
             f"/edge-services/v1beta1/backend-stages/{param_backend_stage_id}",
@@ -1559,7 +1622,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_BackendStage(res.json())
-
+        
     def delete_backend_stage(
         self,
         *,
@@ -1569,26 +1632,23 @@ class EdgeServicesV1Beta1API(API):
         Delete backend stage.
         Delete an existing backend stage, specified by its `backend_stage_id`. Deleting a backend stage is permanent, and cannot be undone.
         :param backend_stage_id: ID of the backend stage to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_backend_stage(
                 backend_stage_id="example",
             )
         """
-
-        param_backend_stage_id = validate_path_param(
-            "backend_stage_id", backend_stage_id
-        )
-
+        
+        param_backend_stage_id = validate_path_param("backend_stage_id", backend_stage_id)
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/backend-stages/{param_backend_stage_id}",
         )
 
         self._throw_on_error(res)
-
     def search_backend_stages(
         self,
         *,
@@ -1601,24 +1661,25 @@ class EdgeServicesV1Beta1API(API):
         lb_id: Optional[str] = None,
     ) -> ListBackendStagesResponse:
         """
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param project_id:
-        :param bucket_name:
-        :param bucket_region:
-        :param lb_id:
+        :param order_by: 
+        :param page: 
+        :param page_size: 
+        :param project_id: 
+        :param bucket_name: 
+        :param bucket_region: 
+        :param lb_id: 
         :return: :class:`ListBackendStagesResponse <ListBackendStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.search_backend_stages()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/edge-services/v1beta1/search-backend-stages",
+            f"/edge-services/v1beta1/search-backend-stages",
             params={
                 "bucket_name": bucket_name,
                 "bucket_region": bucket_region,
@@ -1632,7 +1693,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBackendStagesResponse(res.json())
-
+        
     def list_waf_stages(
         self,
         *,
@@ -1649,17 +1710,17 @@ class EdgeServicesV1Beta1API(API):
         :param page_size: Number of WAF stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only WAF stages from this pipeline will be returned.
         :return: :class:`ListWafStagesResponse <ListWafStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_waf_stages(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/waf-stages",
@@ -1672,7 +1733,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListWafStagesResponse(res.json())
-
+        
     def list_waf_stages_all(
         self,
         *,
@@ -1689,16 +1750,16 @@ class EdgeServicesV1Beta1API(API):
         :param page_size: Number of WAF stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only WAF stages from this pipeline will be returned.
         :return: :class:`List[WafStage] <List[WafStage]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_waf_stages_all(
                 pipeline_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListWafStagesResponse,
             key="stages",
             fetcher=self.list_waf_stages,
@@ -1709,7 +1770,7 @@ class EdgeServicesV1Beta1API(API):
                 "pipeline_id": pipeline_id,
             },
         )
-
+        
     def create_waf_stage(
         self,
         *,
@@ -1727,18 +1788,18 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: ID of the backend stage to forward requests to after the WAF stage.
         One-Of ('next'): at most one of 'backend_stage_id' could be set.
         :return: :class:`WafStage <WafStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_waf_stage(
                 pipeline_id="example",
                 paranoia_level=1,
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/waf-stages",
@@ -1755,7 +1816,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_WafStage(res.json())
-
+        
     def get_waf_stage(
         self,
         *,
@@ -1766,17 +1827,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing WAF stage, specified by its `waf_stage_id`. Its full details are returned in the response object.
         :param waf_stage_id: ID of the requested WAF stage.
         :return: :class:`WafStage <WafStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_waf_stage(
                 waf_stage_id="example",
             )
         """
-
+        
         param_waf_stage_id = validate_path_param("waf_stage_id", waf_stage_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/waf-stages/{param_waf_stage_id}",
@@ -1784,7 +1845,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_WafStage(res.json())
-
+        
     def update_waf_stage(
         self,
         *,
@@ -1802,17 +1863,17 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: ID of the backend stage to forward requests to after the WAF stage.
         One-Of ('next'): at most one of 'backend_stage_id' could be set.
         :return: :class:`WafStage <WafStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_waf_stage(
                 waf_stage_id="example",
             )
         """
-
+        
         param_waf_stage_id = validate_path_param("waf_stage_id", waf_stage_id)
-
+        
         res = self._request(
             "PATCH",
             f"/edge-services/v1beta1/waf-stages/{param_waf_stage_id}",
@@ -1829,7 +1890,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_WafStage(res.json())
-
+        
     def delete_waf_stage(
         self,
         *,
@@ -1839,24 +1900,23 @@ class EdgeServicesV1Beta1API(API):
         Delete WAF stage.
         Delete an existing WAF stage, specified by its `waf_stage_id`. Deleting a WAF stage is permanent, and cannot be undone.
         :param waf_stage_id: ID of the WAF stage to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_waf_stage(
                 waf_stage_id="example",
             )
         """
-
+        
         param_waf_stage_id = validate_path_param("waf_stage_id", waf_stage_id)
-
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/waf-stages/{param_waf_stage_id}",
         )
 
         self._throw_on_error(res)
-
     def search_waf_stages(
         self,
         *,
@@ -1866,21 +1926,22 @@ class EdgeServicesV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListWafStagesResponse:
         """
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param project_id:
+        :param order_by: 
+        :param page: 
+        :param page_size: 
+        :param project_id: 
         :return: :class:`ListWafStagesResponse <ListWafStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.search_waf_stages()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/edge-services/v1beta1/search-waf-stages",
+            f"/edge-services/v1beta1/search-waf-stages",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -1891,7 +1952,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListWafStagesResponse(res.json())
-
+        
     def list_route_stages(
         self,
         *,
@@ -1908,17 +1969,17 @@ class EdgeServicesV1Beta1API(API):
         :param page_size: Number of route stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only route stages from this pipeline will be returned.
         :return: :class:`ListRouteStagesResponse <ListRouteStagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_route_stages(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/route-stages",
@@ -1931,7 +1992,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRouteStagesResponse(res.json())
-
+        
     def list_route_stages_all(
         self,
         *,
@@ -1948,16 +2009,16 @@ class EdgeServicesV1Beta1API(API):
         :param page_size: Number of route stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only route stages from this pipeline will be returned.
         :return: :class:`List[RouteStage] <List[RouteStage]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_route_stages_all(
                 pipeline_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRouteStagesResponse,
             key="stages",
             fetcher=self.list_route_stages,
@@ -1968,7 +2029,7 @@ class EdgeServicesV1Beta1API(API):
                 "pipeline_id": pipeline_id,
             },
         )
-
+        
     def create_route_stage(
         self,
         *,
@@ -1982,17 +2043,17 @@ class EdgeServicesV1Beta1API(API):
         :param waf_stage_id: ID of the WAF stage HTTP requests should be forwarded to when no rules are matched.
         One-Of ('next'): at most one of 'waf_stage_id' could be set.
         :return: :class:`RouteStage <RouteStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_route_stage(
                 pipeline_id="example",
             )
         """
-
+        
         param_pipeline_id = validate_path_param("pipeline_id", pipeline_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/route-stages",
@@ -2007,7 +2068,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RouteStage(res.json())
-
+        
     def get_route_stage(
         self,
         *,
@@ -2018,17 +2079,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about an existing route stage, specified by its `route_stage_id`. The summary of the route stage (without route rules) is returned in the response object.
         :param route_stage_id: ID of the requested route stage.
         :return: :class:`RouteStage <RouteStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_route_stage(
                 route_stage_id="example",
             )
         """
-
+        
         param_route_stage_id = validate_path_param("route_stage_id", route_stage_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/route-stages/{param_route_stage_id}",
@@ -2036,7 +2097,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RouteStage(res.json())
-
+        
     def update_route_stage(
         self,
         *,
@@ -2050,17 +2111,17 @@ class EdgeServicesV1Beta1API(API):
         :param waf_stage_id: ID of the WAF stage HTTP requests should be forwarded to when no rules are matched.
         One-Of ('next'): at most one of 'waf_stage_id' could be set.
         :return: :class:`RouteStage <RouteStage>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_route_stage(
                 route_stage_id="example",
             )
         """
-
+        
         param_route_stage_id = validate_path_param("route_stage_id", route_stage_id)
-
+        
         res = self._request(
             "PATCH",
             f"/edge-services/v1beta1/route-stages/{param_route_stage_id}",
@@ -2075,7 +2136,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RouteStage(res.json())
-
+        
     def delete_route_stage(
         self,
         *,
@@ -2085,24 +2146,23 @@ class EdgeServicesV1Beta1API(API):
         Delete route stage.
         Delete an existing route stage, specified by its `route_stage_id`. Deleting a route stage is permanent, and cannot be undone.
         :param route_stage_id: ID of the route stage to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_route_stage(
                 route_stage_id="example",
             )
         """
-
+        
         param_route_stage_id = validate_path_param("route_stage_id", route_stage_id)
-
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/route-stages/{param_route_stage_id}",
         )
 
         self._throw_on_error(res)
-
     def list_route_rules(
         self,
         *,
@@ -2113,17 +2173,17 @@ class EdgeServicesV1Beta1API(API):
         List all route rules of an existing route stage, specified by its `route_stage_id`.
         :param route_stage_id: Route stage ID to filter for. Only route rules from this route stage will be returned.
         :return: :class:`ListRouteRulesResponse <ListRouteRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_route_rules(
                 route_stage_id="example",
             )
         """
-
+        
         param_route_stage_id = validate_path_param("route_stage_id", route_stage_id)
-
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/route-stages/{param_route_stage_id}/route-rules",
@@ -2131,7 +2191,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRouteRulesResponse(res.json())
-
+        
     def set_route_rules(
         self,
         *,
@@ -2144,17 +2204,17 @@ class EdgeServicesV1Beta1API(API):
         :param route_stage_id: ID of the route stage to update.
         :param route_rules: List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
         :return: :class:`SetRouteRulesResponse <SetRouteRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_route_rules(
                 route_stage_id="example",
             )
         """
-
+        
         param_route_stage_id = validate_path_param("route_stage_id", route_stage_id)
-
+        
         res = self._request(
             "PUT",
             f"/edge-services/v1beta1/route-stages/{param_route_stage_id}/route-rules",
@@ -2169,7 +2229,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetRouteRulesResponse(res.json())
-
+        
     def add_route_rules(
         self,
         *,
@@ -2188,17 +2248,17 @@ class EdgeServicesV1Beta1API(API):
         :param before_position: Add rules before the given position.
         One-Of ('position'): at most one of 'after_position', 'before_position' could be set.
         :return: :class:`AddRouteRulesResponse <AddRouteRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.add_route_rules(
                 route_stage_id="example",
             )
         """
-
+        
         param_route_stage_id = validate_path_param("route_stage_id", route_stage_id)
-
+        
         res = self._request(
             "POST",
             f"/edge-services/v1beta1/route-stages/{param_route_stage_id}/route-rules",
@@ -2215,7 +2275,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddRouteRulesResponse(res.json())
-
+        
     def check_domain(
         self,
         *,
@@ -2224,23 +2284,24 @@ class EdgeServicesV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> CheckDomainResponse:
         """
-        :param fqdn:
-        :param cname:
-        :param project_id:
+        :param fqdn: 
+        :param cname: 
+        :param project_id: 
         :return: :class:`CheckDomainResponse <CheckDomainResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.check_domain(
                 fqdn="example",
                 cname="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/edge-services/v1beta1/check-domain",
+            f"/edge-services/v1beta1/check-domain",
             body=marshal_CheckDomainRequest(
                 CheckDomainRequest(
                     fqdn=fqdn,
@@ -2253,7 +2314,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckDomainResponse(res.json())
-
+        
     def check_pem_chain(
         self,
         *,
@@ -2263,25 +2324,26 @@ class EdgeServicesV1Beta1API(API):
         raw: Optional[str] = None,
     ) -> CheckPEMChainResponse:
         """
-        :param fqdn:
-        :param project_id:
-        :param secret:
+        :param fqdn: 
+        :param project_id: 
+        :param secret: 
         One-Of ('chain'): at most one of 'secret', 'raw' could be set.
-        :param raw:
+        :param raw: 
         One-Of ('chain'): at most one of 'secret', 'raw' could be set.
         :return: :class:`CheckPEMChainResponse <CheckPEMChainResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.check_pem_chain(
                 fqdn="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/edge-services/v1beta1/check-pem-chain",
+            f"/edge-services/v1beta1/check-pem-chain",
             body=marshal_CheckPEMChainRequest(
                 CheckPEMChainRequest(
                     fqdn=fqdn,
@@ -2295,7 +2357,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckPEMChainResponse(res.json())
-
+        
     def list_purge_requests(
         self,
         *,
@@ -2316,20 +2378,20 @@ class EdgeServicesV1Beta1API(API):
         :param project_id: Project ID to filter for. Only purge requests from this Project will be returned.
         :param pipeline_id: Pipeline ID to filter for. Only purge requests from this pipeline will be returned.
         :return: :class:`ListPurgeRequestsResponse <ListPurgeRequestsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_purge_requests()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/edge-services/v1beta1/purge-requests",
+            f"/edge-services/v1beta1/purge-requests",
             params={
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "pipeline_id": pipeline_id,
@@ -2339,7 +2401,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPurgeRequestsResponse(res.json())
-
+        
     def list_purge_requests_all(
         self,
         *,
@@ -2360,14 +2422,14 @@ class EdgeServicesV1Beta1API(API):
         :param project_id: Project ID to filter for. Only purge requests from this Project will be returned.
         :param pipeline_id: Pipeline ID to filter for. Only purge requests from this pipeline will be returned.
         :return: :class:`List[PurgeRequest] <List[PurgeRequest]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_purge_requests_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPurgeRequestsResponse,
             key="purge_requests",
             fetcher=self.list_purge_requests,
@@ -2380,7 +2442,7 @@ class EdgeServicesV1Beta1API(API):
                 "pipeline_id": pipeline_id,
             },
         )
-
+        
     def create_purge_request(
         self,
         *,
@@ -2397,18 +2459,19 @@ class EdgeServicesV1Beta1API(API):
         :param all: Defines whether to purge all content.
         One-Of ('target'): at most one of 'assets', 'all' could be set.
         :return: :class:`PurgeRequest <PurgeRequest>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_purge_request(
                 pipeline_id="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/edge-services/v1beta1/purge-requests",
+            f"/edge-services/v1beta1/purge-requests",
             body=marshal_CreatePurgeRequestRequest(
                 CreatePurgeRequestRequest(
                     pipeline_id=pipeline_id,
@@ -2421,7 +2484,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_PurgeRequest(res.json())
-
+        
     def get_purge_request(
         self,
         *,
@@ -2432,19 +2495,17 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about a purge request, specified by its `purge_request_id`. Its full details, including `status` and `target`, are returned in the response object.
         :param purge_request_id: ID of the requested purge request.
         :return: :class:`PurgeRequest <PurgeRequest>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_purge_request(
                 purge_request_id="example",
             )
         """
-
-        param_purge_request_id = validate_path_param(
-            "purge_request_id", purge_request_id
-        )
-
+        
+        param_purge_request_id = validate_path_param("purge_request_id", purge_request_id)
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/purge-requests/{param_purge_request_id}",
@@ -2452,7 +2513,7 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_PurgeRequest(res.json())
-
+        
     def wait_for_purge_request(
         self,
         *,
@@ -2464,10 +2525,10 @@ class EdgeServicesV1Beta1API(API):
         Retrieve information about a purge request, specified by its `purge_request_id`. Its full details, including `status` and `target`, are returned in the response object.
         :param purge_request_id: ID of the requested purge request.
         :return: :class:`PurgeRequest <PurgeRequest>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_purge_request(
                 purge_request_id="example",
             )
@@ -2477,9 +2538,7 @@ class EdgeServicesV1Beta1API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status not in PURGE_REQUEST_TRANSIENT_STATUSES
-            )
+            options.stop = lambda res: res.status not in PURGE_REQUEST_TRANSIENT_STATUSES
 
         return wait_for_resource(
             fetcher=self.get_purge_request,
@@ -2488,25 +2547,26 @@ class EdgeServicesV1Beta1API(API):
                 "purge_request_id": purge_request_id,
             },
         )
-
+        
     def check_lb_origin(
         self,
         *,
         lb: Optional[ScalewayLb] = None,
     ) -> CheckLbOriginResponse:
         """
-        :param lb:
+        :param lb: 
         :return: :class:`CheckLbOriginResponse <CheckLbOriginResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.check_lb_origin()
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/edge-services/v1beta1/check-lb-origin",
+            f"/edge-services/v1beta1/check-lb-origin",
             body=marshal_CheckLbOriginRequest(
                 CheckLbOriginRequest(
                     lb=lb,
@@ -2517,28 +2577,29 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckLbOriginResponse(res.json())
-
+        
     def list_plans(
         self,
     ) -> ListPlansResponse:
         """
-
+        
         :return: :class:`ListPlansResponse <ListPlansResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_plans()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/edge-services/v1beta1/plans",
+            f"/edge-services/v1beta1/plans",
         )
 
         self._throw_on_error(res)
         return unmarshal_ListPlansResponse(res.json())
-
+        
     def select_plan(
         self,
         *,
@@ -2546,19 +2607,20 @@ class EdgeServicesV1Beta1API(API):
         plan_name: Optional[PlanName] = None,
     ) -> Plan:
         """
-        :param project_id:
-        :param plan_name:
+        :param project_id: 
+        :param plan_name: 
         :return: :class:`Plan <Plan>`
-
+        
         Usage:
         ::
-
+        
             result = api.select_plan()
         """
-
+        
+        
         res = self._request(
             "PATCH",
-            "/edge-services/v1beta1/current-plan",
+            f"/edge-services/v1beta1/current-plan",
             body=marshal_SelectPlanRequest(
                 SelectPlanRequest(
                     project_id=project_id,
@@ -2570,26 +2632,24 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Plan(res.json())
-
+        
     def get_current_plan(
         self,
         *,
         project_id: Optional[str] = None,
     ) -> Plan:
         """
-        :param project_id:
+        :param project_id: 
         :return: :class:`Plan <Plan>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_current_plan()
         """
-
-        param_project_id = validate_path_param(
-            "project_id", project_id or self.client.default_project_id
-        )
-
+        
+        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/current-plan/{param_project_id}",
@@ -2597,32 +2657,29 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Plan(res.json())
-
+        
     def delete_current_plan(
         self,
         *,
         project_id: Optional[str] = None,
     ) -> None:
         """
-        :param project_id:
-
+        :param project_id: 
+        
         Usage:
         ::
-
+        
             result = api.delete_current_plan()
         """
-
-        param_project_id = validate_path_param(
-            "project_id", project_id or self.client.default_project_id
-        )
-
+        
+        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
+        
         res = self._request(
             "DELETE",
             f"/edge-services/v1beta1/current-plan/{param_project_id}",
         )
 
         self._throw_on_error(res)
-
     def get_billing(
         self,
         *,
@@ -2630,19 +2687,17 @@ class EdgeServicesV1Beta1API(API):
     ) -> GetBillingResponse:
         """
         Gives information on the currently selected Edge Services subscription plan, resource usage and associated billing information for this calendar month (including whether consumption falls within or exceeds the currently selected subscription plan.).
-        :param project_id:
+        :param project_id: 
         :return: :class:`GetBillingResponse <GetBillingResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_billing()
         """
-
-        param_project_id = validate_path_param(
-            "project_id", project_id or self.client.default_project_id
-        )
-
+        
+        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
+        
         res = self._request(
             "GET",
             f"/edge-services/v1beta1/billing/{param_project_id}",
@@ -2650,3 +2705,4 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetBillingResponse(res.json())
+        
