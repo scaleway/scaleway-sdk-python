@@ -345,6 +345,10 @@ def unmarshal_Event(data: Any) -> Event:
     if field is not None:
         args["source_ip"] = field
 
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+
     field = data.get("recorded_at", None)
     if field is not None:
         args["recorded_at"] = (
@@ -371,10 +375,6 @@ def unmarshal_Event(data: Any) -> Event:
     else:
         args["user_agent"] = None
 
-    field = data.get("product_name", None)
-    if field is not None:
-        args["product_name"] = field
-
     field = data.get("service_name", None)
     if field is not None:
         args["service_name"] = field
@@ -396,12 +396,6 @@ def unmarshal_Event(data: Any) -> Event:
     field = data.get("status_code", None)
     if field is not None:
         args["status_code"] = field
-
-    field = data.get("resource", None)
-    if field is not None:
-        args["resource"] = unmarshal_Resource(field)
-    else:
-        args["resource"] = None
 
     field = data.get("request_body", None)
     if field is not None:
