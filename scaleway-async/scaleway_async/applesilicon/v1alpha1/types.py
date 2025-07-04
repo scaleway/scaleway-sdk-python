@@ -200,6 +200,11 @@ class ServerTypeNetwork:
 
 
 @dataclass
+class BatchCreateServersRequestBatchInnerCreateServerRequest:
+    name: str
+
+
+@dataclass
 class Server:
     id: str
     """
@@ -421,6 +426,57 @@ class ServerType:
 @dataclass
 class CommitmentTypeValue:
     commitment_type: CommitmentType
+
+
+@dataclass
+class BatchCreateServersRequest:
+    type_: str
+    """
+    Create servers of the given type.
+    """
+
+    enable_vpc: bool
+    """
+    Activate the Private Network feature for these servers. This feature is configured through the Apple Silicon - Private Networks API.
+    """
+
+    public_bandwidth_bps: int
+    """
+    Public bandwidth to configure for these servers. This defaults to the minimum bandwidth for the corresponding server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Create servers in the given project ID.
+    """
+
+    os_id: Optional[str]
+    """
+    Create servers & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
+    """
+
+    commitment_type: Optional[CommitmentType]
+    """
+    Activate commitment for these servers. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
+    """
+
+    requests: Optional[List[BatchCreateServersRequestBatchInnerCreateServerRequest]]
+    """
+    List of servers to create.
+    """
+
+
+@dataclass
+class BatchCreateServersResponse:
+    servers: List[Server]
+    """
+    List of created servers.
+    """
 
 
 @dataclass

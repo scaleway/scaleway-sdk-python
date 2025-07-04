@@ -18,6 +18,9 @@ from .types import (
     CommitmentType,
     ListServerPrivateNetworksRequestOrderBy,
     ListServersRequestOrderBy,
+    BatchCreateServersRequest,
+    BatchCreateServersRequestBatchInnerCreateServerRequest,
+    BatchCreateServersResponse,
     CommitmentTypeValue,
     ConnectivityDiagnostic,
     CreateServerRequest,
@@ -46,6 +49,7 @@ from .marshalling import (
     unmarshal_Server,
     unmarshal_ServerPrivateNetwork,
     unmarshal_ServerType,
+    unmarshal_BatchCreateServersResponse,
     unmarshal_ConnectivityDiagnostic,
     unmarshal_ListOSResponse,
     unmarshal_ListServerPrivateNetworksResponse,
@@ -53,6 +57,7 @@ from .marshalling import (
     unmarshal_ListServersResponse,
     unmarshal_SetServerPrivateNetworksResponse,
     unmarshal_StartConnectivityDiagnosticResponse,
+    marshal_BatchCreateServersRequest,
     marshal_CreateServerRequest,
     marshal_PrivateNetworkApiAddServerPrivateNetworkRequest,
     marshal_PrivateNetworkApiSetServerPrivateNetworksRequest,
@@ -183,6 +188,66 @@ class ApplesiliconV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
+
+    async def batch_create_servers(
+        self,
+        *,
+        type_: str,
+        enable_vpc: bool,
+        public_bandwidth_bps: int,
+        zone: Optional[ScwZone] = None,
+        project_id: Optional[str] = None,
+        os_id: Optional[str] = None,
+        commitment_type: Optional[CommitmentType] = None,
+        requests: Optional[
+            List[BatchCreateServersRequestBatchInnerCreateServerRequest]
+        ] = None,
+    ) -> BatchCreateServersResponse:
+        """
+        Create multiple servers atomically.
+        Create multiple servers in the targeted zone specifying their configurations. If the request cannot entirely be fullfilled, no servers are created.
+        :param type_: Create servers of the given type.
+        :param enable_vpc: Activate the Private Network feature for these servers. This feature is configured through the Apple Silicon - Private Networks API.
+        :param public_bandwidth_bps: Public bandwidth to configure for these servers. This defaults to the minimum bandwidth for the corresponding server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: Create servers in the given project ID.
+        :param os_id: Create servers & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
+        :param commitment_type: Activate commitment for these servers. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
+        :param requests: List of servers to create.
+        :return: :class:`BatchCreateServersResponse <BatchCreateServersResponse>`
+
+        Usage:
+        ::
+
+            result = await api.batch_create_servers(
+                type="example",
+                enable_vpc=False,
+                public_bandwidth_bps=1,
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/batch-create-servers",
+            body=marshal_BatchCreateServersRequest(
+                BatchCreateServersRequest(
+                    type_=type_,
+                    enable_vpc=enable_vpc,
+                    public_bandwidth_bps=public_bandwidth_bps,
+                    zone=zone,
+                    project_id=project_id,
+                    os_id=os_id,
+                    commitment_type=commitment_type,
+                    requests=requests,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_BatchCreateServersResponse(res.json())
 
     async def list_servers(
         self,
