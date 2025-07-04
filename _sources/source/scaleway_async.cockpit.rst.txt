@@ -1,0 +1,19 @@
+scaleway\_async.cockpit package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.cockpit.v1
+   scaleway_async.cockpit.v1beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.cockpit
+   :members:
+   :undoc-members:
+   :show-inheritance:
