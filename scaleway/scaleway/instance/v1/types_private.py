@@ -4,57 +4,45 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from decimal import Decimal
-from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
     Zone as ScwZone,
-)
-from scaleway_core.utils import (
-    StrEnumMeta,
 )
 
 from .types import (
     Arch,
-    AttachServerVolumeRequestVolumeType,
     BootType,
-    ImageState,
-    IpState,
-    IpType,
-    ListServersRequestOrder,
-    PlacementGroupPolicyMode,
-    PlacementGroupPolicyType,
-    PrivateNICState,
     SecurityGroupPolicy,
     SecurityGroupRuleAction,
     SecurityGroupRuleDirection,
     SecurityGroupRuleProtocol,
-    SecurityGroupState,
     ServerAction,
-    ServerFilesystemState,
-    ServerIpIpFamily,
-    ServerIpProvisioningMode,
-    ServerIpState,
     ServerState,
-    ServerTypesAvailability,
     SnapshotState,
-    SnapshotVolumeType,
-    TaskStatus,
-    VolumeServerState,
-    VolumeServerVolumeType,
-    VolumeState,
-    VolumeVolumeType,ServerSummary,Bootscript,Volume,VolumeSummary,ServerTypeNetworkInterface,ServerTypeVolumeConstraintSizes,Image,PlacementGroup,PrivateNIC,SecurityGroupSummary,ServerFilesystem,ServerIp,ServerIpv6,ServerLocation,ServerMaintenance,VolumeServer,SnapshotBaseVolume,ServerTypeCapabilities,ServerTypeGPUInfo,ServerTypeNetwork,ServerTypeVolumeConstraintsByType,VolumeTypeCapabilities,VolumeTypeConstraints,Server,VolumeTemplate,Ip,SecurityGroup,SecurityGroupRule,VolumeServerTemplate,Snapshot,Task,Dashboard,PlacementGroupServer,GetServerTypesAvailabilityResponseAvailability,ServerType,VolumeType,ServerActionRequestVolumeBackupTemplate,SetSecurityGroupRulesRequestRule,VolumeImageUpdateTemplate,SecurityGroupTemplate,ApplyBlockMigrationRequest,AttachServerFileSystemRequest,AttachServerFileSystemResponse,AttachServerVolumeRequest,AttachServerVolumeResponse,CheckBlockMigrationOrganizationQuotasRequest,CreateImageRequest,CreateImageResponse,CreateIpRequest,CreateIpResponse,CreatePlacementGroupRequest,CreatePlacementGroupResponse,CreatePrivateNICRequest,CreatePrivateNICResponse,CreateSecurityGroupRequest,CreateSecurityGroupResponse,CreateSecurityGroupRuleRequest,CreateSecurityGroupRuleResponse,CreateServerRequest,CreateServerResponse,CreateSnapshotRequest,CreateSnapshotResponse,CreateVolumeRequest,CreateVolumeResponse,DeleteImageRequest,DeleteIpRequest,DeletePlacementGroupRequest,DeletePrivateNICRequest,DeleteSecurityGroupRequest,DeleteSecurityGroupRuleRequest,DeleteServerRequest,DeleteServerUserDataRequest,DeleteSnapshotRequest,DeleteVolumeRequest,DetachServerFileSystemRequest,DetachServerFileSystemResponse,DetachServerVolumeRequest,DetachServerVolumeResponse,ExportSnapshotRequest,ExportSnapshotResponse,GetDashboardRequest,GetDashboardResponse,GetImageRequest,GetImageResponse,GetIpRequest,GetIpResponse,GetPlacementGroupRequest,GetPlacementGroupResponse,GetPlacementGroupServersRequest,GetPlacementGroupServersResponse,GetPrivateNICRequest,GetPrivateNICResponse,GetSecurityGroupRequest,GetSecurityGroupResponse,GetSecurityGroupRuleRequest,GetSecurityGroupRuleResponse,GetServerCompatibleTypesRequest,GetServerRequest,GetServerResponse,GetServerTypesAvailabilityRequest,GetServerTypesAvailabilityResponse,GetSnapshotRequest,GetSnapshotResponse,GetVolumeRequest,GetVolumeResponse,ListDefaultSecurityGroupRulesRequest,ListImagesRequest,ListImagesResponse,ListIpsRequest,ListIpsResponse,ListPlacementGroupsRequest,ListPlacementGroupsResponse,ListPrivateNICsRequest,ListPrivateNICsResponse,ListSecurityGroupRulesRequest,ListSecurityGroupRulesResponse,ListSecurityGroupsRequest,ListSecurityGroupsResponse,ListServerActionsRequest,ListServerActionsResponse,ListServerUserDataRequest,ListServerUserDataResponse,ListServersRequest,ListServersResponse,ListServersTypesRequest,ListServersTypesResponse,ListSnapshotsRequest,ListSnapshotsResponse,ListVolumesRequest,ListVolumesResponse,ListVolumesTypesRequest,ListVolumesTypesResponse,MigrationPlan,PlanBlockMigrationRequest,ServerActionRequest,ServerActionResponse,ServerCompatibleTypes,SetImageRequest,SetPlacementGroupRequest,SetPlacementGroupResponse,SetPlacementGroupServersRequest,SetPlacementGroupServersResponse,SetSecurityGroupRulesRequest,SetSecurityGroupRulesResponse,UpdateImageRequest,UpdateImageResponse,UpdateIpRequest,UpdateIpResponse,UpdatePlacementGroupRequest,UpdatePlacementGroupResponse,UpdatePlacementGroupServersRequest,UpdatePlacementGroupServersResponse,UpdatePrivateNICRequest,UpdateSecurityGroupRequest,UpdateSecurityGroupResponse,UpdateSecurityGroupRuleRequest,UpdateSecurityGroupRuleResponse,UpdateServerRequest,UpdateServerResponse,UpdateSnapshotRequest,UpdateSnapshotResponse,UpdateVolumeRequest,UpdateVolumeResponse,)
+    VolumeVolumeType,
+    ServerSummary,
+    Volume,
+    Image,
+    PlacementGroup,
+    PrivateNIC,
+    SecurityGroupSummary,
+    ServerIp,
+    ServerIpv6,
+    ServerLocation,
+    ServerMaintenance,
+    SnapshotBaseVolume,
+    Server,
+    SecurityGroup,
+    SecurityGroupRule,
+    Snapshot,
+)
+
 
 @dataclass
 class _SetImageResponse:
     image: Optional[Image]
+
 
 @dataclass
 class _SetSecurityGroupRequest:
@@ -123,9 +111,11 @@ class _SetSecurityGroupRequest:
     Instances attached to this security group.
     """
 
+
 @dataclass
 class _SetSecurityGroupResponse:
     security_group: Optional[SecurityGroup]
+
 
 @dataclass
 class _SetSecurityGroupRuleRequest:
@@ -145,9 +135,11 @@ class _SetSecurityGroupRuleRequest:
     dest_port_from: Optional[int]
     dest_port_to: Optional[int]
 
+
 @dataclass
 class _SetSecurityGroupRuleResponse:
     rule: Optional[SecurityGroupRule]
+
 
 @dataclass
 class _SetServerRequest:
@@ -276,9 +268,11 @@ class _SetServerRequest:
     The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
     """
 
+
 @dataclass
 class _SetServerResponse:
     server: Optional[Server]
+
 
 @dataclass
 class _SetSnapshotRequest:
@@ -298,6 +292,7 @@ class _SetSnapshotRequest:
     project: Optional[str]
     snapshot_id: str
     tags: Optional[List[str]]
+
 
 @dataclass
 class _SetSnapshotResponse:

@@ -2,41 +2,23 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
     ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
     Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
     unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
     WaitForOptions,
-    project_or_organization_id,
     random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
-    AvailableClusterSettingPropertyType,
-    ClusterStatus,
     ListClustersRequestOrderBy,
-    NodeTypeStock,
-    PrivateNetworkProvisioningMode,
     ACLRule,
     ACLRuleSpec,
     AddAclRulesRequest,
@@ -44,38 +26,21 @@ from .types import (
     AddClusterSettingsRequest,
     AddEndpointsRequest,
     AddEndpointsResponse,
-    AvailableClusterSetting,
     Cluster,
     ClusterMetricsResponse,
     ClusterSetting,
     ClusterSettingsResponse,
     ClusterVersion,
     CreateClusterRequest,
-    DeleteAclRuleRequest,
-    DeleteClusterRequest,
-    DeleteClusterSettingRequest,
-    DeleteEndpointRequest,
     Endpoint,
     EndpointSpec,
     EndpointSpecPrivateNetworkSpec,
-    EndpointSpecPrivateNetworkSpecIpamConfig,
     EndpointSpecPublicNetworkSpec,
-    GetAclRuleRequest,
-    GetClusterCertificateRequest,
-    GetClusterMetricsRequest,
-    GetClusterRequest,
-    GetEndpointRequest,
-    ListClusterVersionsRequest,
     ListClusterVersionsResponse,
-    ListClustersRequest,
     ListClustersResponse,
-    ListNodeTypesRequest,
     ListNodeTypesResponse,
     MigrateClusterRequest,
     NodeType,
-    PrivateNetwork,
-    PublicNetwork,
-    RenewClusterCertificateRequest,
     SetAclRulesRequest,
     SetAclRulesResponse,
     SetClusterSettingsRequest,
@@ -112,10 +77,12 @@ from .marshalling import (
     marshal_UpdateEndpointRequest,
 )
 
+
 class RedisV1API(API):
     """
     This API allows you to manage your Managed Databases for Redis™.
     """
+
     def create_cluster(
         self,
         *,
@@ -150,10 +117,10 @@ class RedisV1API(API):
         :param endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
         :param cluster_settings: List of advanced settings to be set upon Database Instance initialization.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_cluster(
                 version="example",
                 node_type="example",
@@ -162,9 +129,9 @@ class RedisV1API(API):
                 tls_enabled=False,
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "POST",
             f"/redis/v1/zones/{param_zone}/clusters",
@@ -190,7 +157,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def update_cluster(
         self,
         *,
@@ -211,18 +178,18 @@ class RedisV1API(API):
         :param user_name: Name of the Database Instance user.
         :param password: Password of the Database Instance user.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_cluster(
                 cluster_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "PATCH",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}",
@@ -241,7 +208,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def get_cluster(
         self,
         *,
@@ -254,18 +221,18 @@ class RedisV1API(API):
         :param cluster_id: UUID of the cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_cluster(
                 cluster_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}",
@@ -273,7 +240,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def wait_for_cluster(
         self,
         *,
@@ -287,10 +254,10 @@ class RedisV1API(API):
         :param cluster_id: UUID of the cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_cluster(
                 cluster_id="example",
             )
@@ -310,7 +277,7 @@ class RedisV1API(API):
                 "zone": zone,
             },
         )
-        
+
     def list_clusters(
         self,
         *,
@@ -334,25 +301,26 @@ class RedisV1API(API):
         :param project_id: Filter by Project ID.
         :param organization_id: Filter by Organization ID.
         :param version: Filter by Redis™ engine version.
-        :param page: 
-        :param page_size: 
+        :param page:
+        :param page_size:
         :return: :class:`ListClustersResponse <ListClustersResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_clusters()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/clusters",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -363,7 +331,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClustersResponse(res.json())
-        
+
     def list_clusters_all(
         self,
         *,
@@ -387,17 +355,17 @@ class RedisV1API(API):
         :param project_id: Filter by Project ID.
         :param organization_id: Filter by Organization ID.
         :param version: Filter by Redis™ engine version.
-        :param page: 
-        :param page_size: 
+        :param page:
+        :param page_size:
         :return: :class:`List[Cluster] <List[Cluster]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_clusters_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListClustersResponse,
             key="clusters",
             fetcher=self.list_clusters,
@@ -413,7 +381,7 @@ class RedisV1API(API):
                 "page_size": page_size,
             },
         )
-        
+
     def migrate_cluster(
         self,
         *,
@@ -435,18 +403,18 @@ class RedisV1API(API):
         :param cluster_size: Number of nodes for the Database Instance.
         One-Of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.migrate_cluster(
                 cluster_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "POST",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/migrate",
@@ -464,7 +432,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def delete_cluster(
         self,
         *,
@@ -477,18 +445,18 @@ class RedisV1API(API):
         :param cluster_id: UUID of the Database Instance to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_cluster(
                 cluster_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "DELETE",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}",
@@ -496,7 +464,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def get_cluster_metrics(
         self,
         *,
@@ -515,18 +483,18 @@ class RedisV1API(API):
         :param end_at: End date.
         :param metric_name: Name of the metric to gather.
         :return: :class:`ClusterMetricsResponse <ClusterMetricsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_cluster_metrics(
                 cluster_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/metrics",
@@ -539,7 +507,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ClusterMetricsResponse(res.json())
-        
+
     def list_node_types(
         self,
         *,
@@ -553,20 +521,20 @@ class RedisV1API(API):
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param include_disabled_types: Defines whether or not to include disabled types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page: 
-        :param page_size: 
+        :param page:
+        :param page_size:
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_node_types(
                 include_disabled_types=False,
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/node-types",
@@ -579,7 +547,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNodeTypesResponse(res.json())
-        
+
     def list_node_types_all(
         self,
         *,
@@ -593,19 +561,19 @@ class RedisV1API(API):
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param include_disabled_types: Defines whether or not to include disabled types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page: 
-        :param page_size: 
+        :param page:
+        :param page_size:
         :return: :class:`List[NodeType] <List[NodeType]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_node_types_all(
                 include_disabled_types=False,
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListNodeTypesResponse,
             key="node_types",
             fetcher=self.list_node_types,
@@ -616,7 +584,7 @@ class RedisV1API(API):
                 "page_size": page_size,
             },
         )
-        
+
     def list_cluster_versions(
         self,
         *,
@@ -636,22 +604,22 @@ class RedisV1API(API):
         :param include_deprecated: Defines whether or not to include deprecated Redis™ engine versions.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param version: List Redis™ engine versions that match a given name pattern.
-        :param page: 
-        :param page_size: 
+        :param page:
+        :param page_size:
         :return: :class:`ListClusterVersionsResponse <ListClusterVersionsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_cluster_versions(
                 include_disabled=False,
                 include_beta=False,
                 include_deprecated=False,
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/cluster-versions",
@@ -667,7 +635,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClusterVersionsResponse(res.json())
-        
+
     def list_cluster_versions_all(
         self,
         *,
@@ -687,13 +655,13 @@ class RedisV1API(API):
         :param include_deprecated: Defines whether or not to include deprecated Redis™ engine versions.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param version: List Redis™ engine versions that match a given name pattern.
-        :param page: 
-        :param page_size: 
+        :param page:
+        :param page_size:
         :return: :class:`List[ClusterVersion] <List[ClusterVersion]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_cluster_versions_all(
                 include_disabled=False,
                 include_beta=False,
@@ -701,7 +669,7 @@ class RedisV1API(API):
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListClusterVersionsResponse,
             key="versions",
             fetcher=self.list_cluster_versions,
@@ -715,7 +683,7 @@ class RedisV1API(API):
                 "page_size": page_size,
             },
         )
-        
+
     def get_cluster_certificate(
         self,
         *,
@@ -728,18 +696,18 @@ class RedisV1API(API):
         :param cluster_id: UUID of the cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ScwFile <ScwFile>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_cluster_certificate(
                 cluster_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/certificate",
@@ -747,7 +715,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-        
+
     def renew_cluster_certificate(
         self,
         *,
@@ -760,18 +728,18 @@ class RedisV1API(API):
         :param cluster_id: UUID of the cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.renew_cluster_certificate(
                 cluster_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "POST",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/renew-certificate",
@@ -780,7 +748,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def add_cluster_settings(
         self,
         *,
@@ -795,19 +763,19 @@ class RedisV1API(API):
         :param settings: Settings to add to the cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ClusterSettingsResponse <ClusterSettingsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.add_cluster_settings(
                 cluster_id="example",
                 settings=[],
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "POST",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/settings",
@@ -823,7 +791,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ClusterSettingsResponse(res.json())
-        
+
     def delete_cluster_setting(
         self,
         *,
@@ -838,20 +806,20 @@ class RedisV1API(API):
         :param setting_name: Setting name to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_cluster_setting(
                 cluster_id="example",
                 setting_name="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
         param_setting_name = validate_path_param("setting_name", setting_name)
-        
+
         res = self._request(
             "DELETE",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/settings/{param_setting_name}",
@@ -859,7 +827,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def set_cluster_settings(
         self,
         *,
@@ -874,19 +842,19 @@ class RedisV1API(API):
         :param settings: Settings to define for the Database Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ClusterSettingsResponse <ClusterSettingsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_cluster_settings(
                 cluster_id="example",
                 settings=[],
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "PUT",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/settings",
@@ -902,7 +870,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ClusterSettingsResponse(res.json())
-        
+
     def set_acl_rules(
         self,
         *,
@@ -917,19 +885,19 @@ class RedisV1API(API):
         :param acl_rules: ACLs rules to define for the cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetAclRulesResponse <SetAclRulesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_acl_rules(
                 cluster_id="example",
                 acl_rules=[],
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "PUT",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/acls",
@@ -945,7 +913,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetAclRulesResponse(res.json())
-        
+
     def add_acl_rules(
         self,
         *,
@@ -960,19 +928,19 @@ class RedisV1API(API):
         :param acl_rules: ACLs rules to add to the cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`AddAclRulesResponse <AddAclRulesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.add_acl_rules(
                 cluster_id="example",
                 acl_rules=[],
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "POST",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/acls",
@@ -988,7 +956,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddAclRulesResponse(res.json())
-        
+
     def delete_acl_rule(
         self,
         *,
@@ -1001,18 +969,18 @@ class RedisV1API(API):
         :param acl_id: UUID of the ACL rule you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_acl_rule(
                 acl_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_acl_id = validate_path_param("acl_id", acl_id)
-        
+
         res = self._request(
             "DELETE",
             f"/redis/v1/zones/{param_zone}/acls/{param_acl_id}",
@@ -1020,7 +988,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def get_acl_rule(
         self,
         *,
@@ -1033,18 +1001,18 @@ class RedisV1API(API):
         :param acl_id: UUID of the ACL rule you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ACLRule <ACLRule>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_acl_rule(
                 acl_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_acl_id = validate_path_param("acl_id", acl_id)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/acls/{param_acl_id}",
@@ -1052,7 +1020,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ACLRule(res.json())
-        
+
     def set_endpoints(
         self,
         *,
@@ -1067,19 +1035,19 @@ class RedisV1API(API):
         :param endpoints: Endpoints to define for the Database Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetEndpointsResponse <SetEndpointsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_endpoints(
                 cluster_id="example",
                 endpoints=[],
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "PUT",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/endpoints",
@@ -1095,7 +1063,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetEndpointsResponse(res.json())
-        
+
     def add_endpoints(
         self,
         *,
@@ -1110,19 +1078,19 @@ class RedisV1API(API):
         :param endpoints: Endpoints to add to the Database Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`AddEndpointsResponse <AddEndpointsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.add_endpoints(
                 cluster_id="example",
                 endpoints=[],
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-        
+
         res = self._request(
             "POST",
             f"/redis/v1/zones/{param_zone}/clusters/{param_cluster_id}/endpoints",
@@ -1138,7 +1106,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddEndpointsResponse(res.json())
-        
+
     def delete_endpoint(
         self,
         *,
@@ -1151,18 +1119,18 @@ class RedisV1API(API):
         :param endpoint_id: UUID of the endpoint you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Cluster <Cluster>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_endpoint(
                 endpoint_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-        
+
         res = self._request(
             "DELETE",
             f"/redis/v1/zones/{param_zone}/endpoints/{param_endpoint_id}",
@@ -1170,7 +1138,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-        
+
     def get_endpoint(
         self,
         *,
@@ -1183,18 +1151,18 @@ class RedisV1API(API):
         :param endpoint_id: UUID of the endpoint you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Endpoint <Endpoint>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_endpoint(
                 endpoint_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-        
+
         res = self._request(
             "GET",
             f"/redis/v1/zones/{param_zone}/endpoints/{param_endpoint_id}",
@@ -1202,7 +1170,7 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
-        
+
     def update_endpoint(
         self,
         *,
@@ -1221,18 +1189,18 @@ class RedisV1API(API):
         :param public_network: Public network details.
         One-Of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
         :return: :class:`Endpoint <Endpoint>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_endpoint(
                 endpoint_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-        
+
         res = self._request(
             "PATCH",
             f"/redis/v1/zones/{param_zone}/endpoints/{param_endpoint_id}",
@@ -1249,4 +1217,3 @@ class RedisV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
-        

@@ -1,35 +1,17 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
     Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
-    random_name,
     resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
     ListImagesRequestOrderBy,
@@ -37,18 +19,10 @@ from .types import (
     ListVersionsRequestOrderBy,
     LocalImageType,
     Category,
-    GetCategoryRequest,
-    GetImageRequest,
-    GetLocalImageRequest,
-    GetVersionRequest,
     Image,
-    ListCategoriesRequest,
     ListCategoriesResponse,
-    ListImagesRequest,
     ListImagesResponse,
-    ListLocalImagesRequest,
     ListLocalImagesResponse,
-    ListVersionsRequest,
     ListVersionsResponse,
     LocalImage,
     Version,
@@ -64,10 +38,12 @@ from .marshalling import (
     unmarshal_ListVersionsResponse,
 )
 
+
 class MarketplaceV2API(API):
     """
     This API allows you to find available images for use when launching a Scaleway Instance.
     """
+
     def list_images(
         self,
         *,
@@ -88,19 +64,18 @@ class MarketplaceV2API(API):
         :param arch: Choose for which machine architecture to return images.
         :param category: Choose the category of images to get.
         :return: :class:`ListImagesResponse <ListImagesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_images(
                 include_eol=False,
             )
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/marketplace/v2/images",
+            "/marketplace/v2/images",
             params={
                 "arch": arch,
                 "category": category,
@@ -113,7 +88,7 @@ class MarketplaceV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListImagesResponse(res.json())
-        
+
     def list_images_all(
         self,
         *,
@@ -134,16 +109,16 @@ class MarketplaceV2API(API):
         :param arch: Choose for which machine architecture to return images.
         :param category: Choose the category of images to get.
         :return: :class:`List[Image] <List[Image]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_images_all(
                 include_eol=False,
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListImagesResponse,
             key="images",
             fetcher=self.list_images,
@@ -156,7 +131,7 @@ class MarketplaceV2API(API):
                 "category": category,
             },
         )
-        
+
     def get_image(
         self,
         *,
@@ -167,17 +142,17 @@ class MarketplaceV2API(API):
         Get detailed information about a marketplace image, specified by its `image_id` (UUID format).
         :param image_id: Display the image name.
         :return: :class:`Image <Image>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_image(
                 image_id="example",
             )
         """
-        
+
         param_image_id = validate_path_param("image_id", image_id)
-        
+
         res = self._request(
             "GET",
             f"/marketplace/v2/images/{param_image_id}",
@@ -185,7 +160,7 @@ class MarketplaceV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Image(res.json())
-        
+
     def list_versions(
         self,
         *,
@@ -197,24 +172,23 @@ class MarketplaceV2API(API):
         """
         List versions of an Image.
         Get a list of all available version of an image, specified by its `image_id` (UUID format).
-        :param image_id: 
-        :param page_size: 
-        :param page: 
-        :param order_by: 
+        :param image_id:
+        :param page_size:
+        :param page:
+        :param order_by:
         :return: :class:`ListVersionsResponse <ListVersionsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_versions(
                 image_id="example",
             )
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/marketplace/v2/versions",
+            "/marketplace/v2/versions",
             params={
                 "image_id": image_id,
                 "order_by": order_by,
@@ -225,7 +199,7 @@ class MarketplaceV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVersionsResponse(res.json())
-        
+
     def list_versions_all(
         self,
         *,
@@ -237,21 +211,21 @@ class MarketplaceV2API(API):
         """
         List versions of an Image.
         Get a list of all available version of an image, specified by its `image_id` (UUID format).
-        :param image_id: 
-        :param page_size: 
-        :param page: 
-        :param order_by: 
+        :param image_id:
+        :param page_size:
+        :param page:
+        :param order_by:
         :return: :class:`List[Version] <List[Version]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_versions_all(
                 image_id="example",
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListVersionsResponse,
             key="versions",
             fetcher=self.list_versions,
@@ -262,7 +236,7 @@ class MarketplaceV2API(API):
                 "order_by": order_by,
             },
         )
-        
+
     def get_version(
         self,
         *,
@@ -271,19 +245,19 @@ class MarketplaceV2API(API):
         """
         Get a specific image version.
         Get information such as the name, creation date, last update and published date for an image version specified by its `version_id` (UUID format).
-        :param version_id: 
+        :param version_id:
         :return: :class:`Version <Version>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_version(
                 version_id="example",
             )
         """
-        
+
         param_version_id = validate_path_param("version_id", version_id)
-        
+
         res = self._request(
             "GET",
             f"/marketplace/v2/versions/{param_version_id}",
@@ -291,7 +265,7 @@ class MarketplaceV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Version(res.json())
-        
+
     def list_local_images(
         self,
         *,
@@ -319,34 +293,35 @@ class MarketplaceV2API(API):
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param type_: Filter by type.
         :return: :class:`ListLocalImagesResponse <ListLocalImagesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_local_images()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/marketplace/v2/local-images",
+            "/marketplace/v2/local-images",
             params={
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "type": type_,
                 "zone": zone or self.client.default_zone,
-                **resolve_one_of([
-                    OneOfPossibility("image_id", image_id),
-                    OneOfPossibility("image_label", image_label),
-                    OneOfPossibility("version_id", version_id),
-                ]),
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("image_id", image_id),
+                        OneOfPossibility("image_label", image_label),
+                        OneOfPossibility("version_id", version_id),
+                    ]
+                ),
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListLocalImagesResponse(res.json())
-        
+
     def list_local_images_all(
         self,
         *,
@@ -374,14 +349,14 @@ class MarketplaceV2API(API):
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param type_: Filter by type.
         :return: :class:`List[LocalImage] <List[LocalImage]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_local_images_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListLocalImagesResponse,
             key="local_images",
             fetcher=self.list_local_images,
@@ -396,7 +371,7 @@ class MarketplaceV2API(API):
                 "image_label": image_label,
             },
         )
-        
+
     def get_local_image(
         self,
         *,
@@ -405,19 +380,19 @@ class MarketplaceV2API(API):
         """
         Get a specific local image by ID.
         Get detailed information about a local image, including compatible commercial types, supported architecture, labels and the Availability Zone of the image, specified by its `local_image_id` (UUID format).
-        :param local_image_id: 
+        :param local_image_id:
         :return: :class:`LocalImage <LocalImage>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_local_image(
                 local_image_id="example",
             )
         """
-        
+
         param_local_image_id = validate_path_param("local_image_id", local_image_id)
-        
+
         res = self._request(
             "GET",
             f"/marketplace/v2/local-images/{param_local_image_id}",
@@ -425,7 +400,7 @@ class MarketplaceV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_LocalImage(res.json())
-        
+
     def list_categories(
         self,
         *,
@@ -435,20 +410,19 @@ class MarketplaceV2API(API):
         """
         List existing image categories.
         Get a list of all existing categories. The output can be paginated.
-        :param page_size: 
-        :param page: 
+        :param page_size:
+        :param page:
         :return: :class:`ListCategoriesResponse <ListCategoriesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_categories()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/marketplace/v2/categories",
+            "/marketplace/v2/categories",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -457,7 +431,7 @@ class MarketplaceV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListCategoriesResponse(res.json())
-        
+
     def list_categories_all(
         self,
         *,
@@ -467,17 +441,17 @@ class MarketplaceV2API(API):
         """
         List existing image categories.
         Get a list of all existing categories. The output can be paginated.
-        :param page_size: 
-        :param page: 
+        :param page_size:
+        :param page:
         :return: :class:`List[Category] <List[Category]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_categories_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListCategoriesResponse,
             key="categories",
             fetcher=self.list_categories,
@@ -486,7 +460,7 @@ class MarketplaceV2API(API):
                 "page": page,
             },
         )
-        
+
     def get_category(
         self,
         *,
@@ -495,19 +469,19 @@ class MarketplaceV2API(API):
         """
         Get a specific category.
         Get information about a specific category of the marketplace catalog, specified by its `category_id` (UUID format).
-        :param category_id: 
+        :param category_id:
         :return: :class:`Category <Category>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_category(
                 category_id="example",
             )
         """
-        
+
         param_category_id = validate_path_param("category_id", category_id)
-        
+
         res = self._request(
             "GET",
             f"/marketplace/v2/categories/{param_category_id}",
@@ -515,4 +489,3 @@ class MarketplaceV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Category(res.json())
-        

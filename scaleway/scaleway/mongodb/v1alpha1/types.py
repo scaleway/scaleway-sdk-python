@@ -3,23 +3,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from decimal import Decimal
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
 
 class InstanceStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -35,6 +29,7 @@ class InstanceStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class ListInstancesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -45,6 +40,7 @@ class ListInstancesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class ListSnapshotsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
@@ -57,12 +53,14 @@ class ListSnapshotsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class NodeTypeStock(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STOCK = "unknown_stock"
@@ -73,6 +71,7 @@ class NodeTypeStock(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class SettingPropertyType(str, Enum, metaclass=StrEnumMeta):
     BOOLEAN = "boolean"
     INT = "int"
@@ -81,6 +80,7 @@ class SettingPropertyType(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -94,6 +94,7 @@ class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class UserRoleRole(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ROLE = "unknown_role"
     READ = "read"
@@ -104,6 +105,7 @@ class UserRoleRole(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class VolumeType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     SBS_5K = "sbs_5k"
@@ -112,20 +114,23 @@ class VolumeType(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 @dataclass
 class EndpointPrivateNetworkDetails:
     """
     Private Network details.
     """
+
     private_network_id: str
     """
     UUID of the Private Network.
     """
-    
+
 
 @dataclass
 class EndpointPublicDetails:
     pass
+
 
 @dataclass
 class EndpointSpecPrivateNetworkDetails:
@@ -133,11 +138,12 @@ class EndpointSpecPrivateNetworkDetails:
     """
     UUID of the Private Network.
     """
-    
+
 
 @dataclass
 class EndpointSpecPublicDetails:
     pass
+
 
 @dataclass
 class Endpoint:
@@ -145,26 +151,26 @@ class Endpoint:
     """
     UUID of the endpoint.
     """
-    
+
     ips: List[str]
     """
     List of IPv4 addresses of the endpoint.
     """
-    
+
     dns_records: List[str]
     """
     List of DNS records of the endpoint.
     """
-    
+
     port: int
     """
     TCP port of the endpoint.
     """
-    
+
     private_network: Optional[EndpointPrivateNetworkDetails]
-    
+
     public: Optional[EndpointPublicDetails]
-    
+
 
 @dataclass
 class InstanceSetting:
@@ -172,25 +178,25 @@ class InstanceSetting:
     """
     Name of the settings.
     """
-    
+
     value: str
     """
     Value of the settings.
     """
-    
+
 
 @dataclass
 class InstanceSnapshotSchedule:
     frequency_hours: int
-    
+
     retention_days: int
-    
+
     enabled: bool
-    
+
     next_update: Optional[datetime]
-    
+
     last_run: Optional[datetime]
-    
+
 
 @dataclass
 class Volume:
@@ -198,12 +204,12 @@ class Volume:
     """
     Type of volume where data is stored.
     """
-    
+
     size: int
     """
     Volume size.
     """
-    
+
 
 @dataclass
 class NodeTypeVolumeType:
@@ -211,32 +217,32 @@ class NodeTypeVolumeType:
     """
     Volume Type.
     """
-    
+
     description: str
     """
     The description of the volume.
     """
-    
+
     min_size: int
     """
     Minimum size required for the volume.
     """
-    
+
     max_size: int
     """
     Maximum size required for the volume.
     """
-    
+
     chunk_size: int
     """
     Minimum increment level for a Block Storage volume size.
     """
-    
+
 
 @dataclass
 class SnapshotVolumeType:
     type_: VolumeType
-    
+
 
 @dataclass
 class UserRole:
@@ -244,11 +250,11 @@ class UserRole:
     """
     Name of the preset role.
     """
-    
+
     database: Optional[str]
-    
+
     any_database: Optional[bool]
-    
+
 
 @dataclass
 class Setting:
@@ -256,64 +262,64 @@ class Setting:
     """
     Setting name from the database engine.
     """
-    
+
     default_value: str
     """
     Value set when not specified.
     """
-    
+
     hot_configurable: bool
     """
     Setting can be applied without restarting.
     """
-    
+
     description: str
     """
     Setting description.
     """
-    
+
     property_type: SettingPropertyType
     """
     Setting type.
     """
-    
+
     unit: Optional[str]
     """
     Setting base unit.
     """
-    
+
     string_constraint: Optional[str]
     """
     Validation regex for string type settings.
     """
-    
+
     int_min: Optional[int]
     """
     Minimum value for int types.
     """
-    
+
     int_max: Optional[int]
     """
     Maximum value for int types.
     """
-    
+
     float_min: Optional[float]
     """
     Minimum value for float types.
     """
-    
+
     float_max: Optional[float]
     """
     Maximum value for float types.
     """
-    
+
 
 @dataclass
 class EndpointSpec:
     public: Optional[EndpointSpecPublicDetails]
-    
+
     private_network: Optional[EndpointSpecPrivateNetworkDetails]
-    
+
 
 @dataclass
 class CreateInstanceRequestVolumeDetails:
@@ -321,12 +327,12 @@ class CreateInstanceRequestVolumeDetails:
     """
     Volume size.
     """
-    
+
     volume_type: VolumeType
     """
     Type of volume where data is stored.
     """
-    
+
 
 @dataclass
 class Instance:
@@ -334,72 +340,72 @@ class Instance:
     """
     UUID of the Database Instance.
     """
-    
+
     name: str
     """
     Name of the Database Instance.
     """
-    
+
     project_id: str
     """
     Project ID the Database Instance belongs to.
     """
-    
+
     status: InstanceStatus
     """
     Status of the Database Instance.
     """
-    
+
     version: str
     """
     MongoDB® engine version of the Database Instance.
     """
-    
+
     tags: List[str]
     """
     List of tags applied to the Database Instance.
     """
-    
+
     settings: List[InstanceSetting]
     """
     Advanced settings of the Database Instance.
     """
-    
+
     node_number: int
     """
     Number of node in the Database Instance.
     """
-    
+
     node_type: str
     """
     Node type of the Database Instance.
     """
-    
+
     endpoints: List[Endpoint]
     """
     List of Database Instance endpoints.
     """
-    
+
     region: ScwRegion
     """
     Region the Database Instance is in.
     """
-    
+
     volume: Optional[Volume]
     """
     Volumes of the Database Instance.
     """
-    
+
     created_at: Optional[datetime]
     """
     Creation date (must follow the ISO 8601 format).
     """
-    
+
     snapshot_schedule: Optional[InstanceSnapshotSchedule]
     """
     Snapshot schedule configuration of the Database Instance.
     """
-    
+
 
 @dataclass
 class NodeType:
@@ -407,47 +413,47 @@ class NodeType:
     """
     Node type name identifier.
     """
-    
+
     stock_status: NodeTypeStock
     """
     Current stock status for the node type.
     """
-    
+
     description: str
     """
     Current specs of the offer.
     """
-    
+
     vcpus: int
     """
     Number of virtual CPUs.
     """
-    
+
     memory: int
     """
     Quantity of RAM.
     """
-    
+
     available_volume_types: List[NodeTypeVolumeType]
     """
     Available storage options for the node type.
     """
-    
+
     disabled: bool
     """
     The node type is currently disabled.
     """
-    
+
     beta: bool
     """
     The node type is currently in beta.
     """
-    
+
     instance_range: str
     """
     Instance range associated with the node type offer.
     """
-    
+
 
 @dataclass
 class Snapshot:
@@ -455,62 +461,62 @@ class Snapshot:
     """
     UUID of the snapshot.
     """
-    
+
     instance_id: str
     """
     UUID of the Database Instance.
     """
-    
+
     name: str
     """
     Name of the snapshot.
     """
-    
+
     status: SnapshotStatus
     """
     Status of the snapshot.
     """
-    
+
     size: int
     """
     Size of the snapshot.
     """
-    
+
     instance_name: str
     """
     Name of the Database Instance of the snapshot.
     """
-    
+
     node_type: str
     """
     Source node type.
     """
-    
+
     region: ScwRegion
     """
     Region of the snapshot.
     """
-    
+
     expires_at: Optional[datetime]
     """
     Expiration date (must follow the ISO 8601 format).
     """
-    
+
     created_at: Optional[datetime]
     """
     Creation date (must follow the ISO 8601 format).
     """
-    
+
     updated_at: Optional[datetime]
     """
     Updated date (must follow the ISO 8601 format).
     """
-    
+
     volume_type: Optional[SnapshotVolumeType]
     """
     Type of volume where data is stored - sbs_5k or sbs_15k.
     """
-    
+
 
 @dataclass
 class User:
@@ -518,12 +524,12 @@ class User:
     """
     Name of the user (Length must be between 1 and 63 characters. First character must be an alphabet character (a-zA-Z). Only a-zA-Z0-9_$- characters are accepted).
     """
-    
+
     roles: List[UserRole]
     """
     List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
-    
+
 
 @dataclass
 class Version:
@@ -531,17 +537,17 @@ class Version:
     """
     MongoDB® engine version.
     """
-    
+
     available_settings: List[Setting]
     """
     Instance settings available to be updated.
     """
-    
+
     end_of_life_at: Optional[datetime]
     """
     Date of End of Life.
     """
-    
+
 
 @dataclass
 class RestoreSnapshotRequestVolumeDetails:
@@ -549,7 +555,7 @@ class RestoreSnapshotRequestVolumeDetails:
     """
     Type of volume where data is stored.
     """
-    
+
 
 @dataclass
 class CreateEndpointRequest:
@@ -557,17 +563,17 @@ class CreateEndpointRequest:
     """
     UUID of the Database Instance.
     """
-    
+
     endpoint: EndpointSpec
     """
     EndpointSpec used to expose your Database Instance.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class CreateInstanceRequest:
@@ -575,57 +581,57 @@ class CreateInstanceRequest:
     """
     Version of the MongoDB® engine.
     """
-    
+
     node_number: int
     """
     Number of node to use for the Database Instance.
     """
-    
+
     node_type: str
     """
     Type of node to use for the Database Instance.
     """
-    
+
     user_name: str
     """
     Username created when the Database Instance is created.
     """
-    
+
     password: str
     """
     Password of the initial user.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     The Project ID on which the Database Instance will be created.
     """
-    
+
     name: Optional[str]
     """
     Name of the Database Instance.
     """
-    
+
     tags: Optional[List[str]]
     """
     Tags to apply to the Database Instance.
     """
-    
+
     volume: Optional[CreateInstanceRequestVolumeDetails]
     """
     Instance volume information.
     """
-    
+
     endpoints: Optional[List[EndpointSpec]]
     """
     One or multiple EndpointSpec used to expose your Database Instance.
     """
-    
+
 
 @dataclass
 class CreateSnapshotRequest:
@@ -633,22 +639,22 @@ class CreateSnapshotRequest:
     """
     UUID of the Database Instance to snapshot.
     """
-    
+
     name: str
     """
     Name of the snapshot.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     expires_at: Optional[datetime]
     """
     Expiration date of the snapshot (must follow the ISO 8601 format).
     """
-    
+
 
 @dataclass
 class CreateUserRequest:
@@ -656,22 +662,22 @@ class CreateUserRequest:
     """
     UUID of the Database Instance the user belongs to.
     """
-    
+
     name: str
     """
     Name of the database user.
     """
-    
+
     password: str
     """
     Password of the database user.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class DeleteEndpointRequest:
@@ -679,12 +685,12 @@ class DeleteEndpointRequest:
     """
     UUID of the Endpoint to delete.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class DeleteInstanceRequest:
@@ -692,12 +698,12 @@ class DeleteInstanceRequest:
     """
     UUID of the Database Instance to delete.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class DeleteSnapshotRequest:
@@ -705,12 +711,12 @@ class DeleteSnapshotRequest:
     """
     UUID of the snapshot.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class DeleteUserRequest:
@@ -718,17 +724,17 @@ class DeleteUserRequest:
     """
     UUID of the Database Instance the user belongs to.
     """
-    
+
     name: str
     """
     Name of the database user.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class GetInstanceCertificateRequest:
@@ -736,12 +742,12 @@ class GetInstanceCertificateRequest:
     """
     UUID of the Database Instance.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class GetInstanceRequest:
@@ -749,12 +755,12 @@ class GetInstanceRequest:
     """
     UUID of the Database Instance.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class GetSnapshotRequest:
@@ -762,12 +768,12 @@ class GetSnapshotRequest:
     """
     UUID of the snapshot.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class ListInstancesRequest:
@@ -775,36 +781,36 @@ class ListInstancesRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     tags: Optional[List[str]]
     """
     List Database Instances that have a given tag.
     """
-    
+
     name: Optional[str]
     """
     Lists Database Instances that match a name pattern.
     """
-    
+
     order_by: Optional[ListInstancesRequestOrderBy]
     """
     Criteria to use when ordering Database Instance listings.
     """
-    
+
     organization_id: Optional[str]
     """
     Organization ID of the Database Instance.
     """
-    
+
     project_id: Optional[str]
     """
     Project ID.
     """
-    
+
     page: Optional[int]
-    
+
     page_size: Optional[int]
-    
+
 
 @dataclass
 class ListInstancesResponse:
@@ -812,12 +818,12 @@ class ListInstancesResponse:
     """
     List of all Database Instances available in an Organization or Project.
     """
-    
+
     total_count: int
     """
     Total count of Database Instances available in an Organization or Project.
     """
-    
+
 
 @dataclass
 class ListNodeTypesRequest:
@@ -825,16 +831,16 @@ class ListNodeTypesRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     include_disabled_types: Optional[bool]
     """
     Defines whether or not to include disabled types.
     """
-    
+
     page: Optional[int]
-    
+
     page_size: Optional[int]
-    
+
 
 @dataclass
 class ListNodeTypesResponse:
@@ -842,12 +848,12 @@ class ListNodeTypesResponse:
     """
     Types of the node.
     """
-    
+
     total_count: int
     """
     Total count of node-types available.
     """
-    
+
 
 @dataclass
 class ListSnapshotsRequest:
@@ -855,36 +861,36 @@ class ListSnapshotsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     instance_id: Optional[str]
     """
     Instance ID the snapshots belongs to.
     """
-    
+
     name: Optional[str]
     """
     Lists database snapshots that match a name pattern.
     """
-    
+
     order_by: Optional[ListSnapshotsRequestOrderBy]
     """
     Criteria to use when ordering snapshot listings.
     """
-    
+
     organization_id: Optional[str]
     """
     Organization ID the snapshots belongs to.
     """
-    
+
     project_id: Optional[str]
     """
     Project ID to list the snapshots of.
     """
-    
+
     page: Optional[int]
-    
+
     page_size: Optional[int]
-    
+
 
 @dataclass
 class ListSnapshotsResponse:
@@ -892,12 +898,12 @@ class ListSnapshotsResponse:
     """
     List of all database snapshots available in an Organization or Project.
     """
-    
+
     total_count: int
     """
     Total count of database snapshots available in a Organization or Project.
     """
-    
+
 
 @dataclass
 class ListUsersRequest:
@@ -905,26 +911,26 @@ class ListUsersRequest:
     """
     UUID of the Database Instance.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     name: Optional[str]
     """
     Name of the user.
     """
-    
+
     order_by: Optional[ListUsersRequestOrderBy]
     """
     Criteria to use when requesting user listing.
     """
-    
+
     page: Optional[int]
-    
+
     page_size: Optional[int]
-    
+
 
 @dataclass
 class ListUsersResponse:
@@ -932,12 +938,12 @@ class ListUsersResponse:
     """
     List of users in a Database Instance.
     """
-    
+
     total_count: int
     """
     Total count of users present on a Database Instance.
     """
-    
+
 
 @dataclass
 class ListVersionsRequest:
@@ -945,13 +951,13 @@ class ListVersionsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     version: Optional[str]
-    
+
     page: Optional[int]
-    
+
     page_size: Optional[int]
-    
+
 
 @dataclass
 class ListVersionsResponse:
@@ -959,12 +965,12 @@ class ListVersionsResponse:
     """
     Available MongoDB® engine version.
     """
-    
+
     total_count: int
     """
     Total count of MongoDB® engine version available.
     """
-    
+
 
 @dataclass
 class RestoreSnapshotRequest:
@@ -972,32 +978,32 @@ class RestoreSnapshotRequest:
     """
     UUID of the snapshot.
     """
-    
+
     instance_name: str
     """
     Name of the new Database Instance.
     """
-    
+
     node_type: str
     """
     Node type to use for the new Database Instance.
     """
-    
+
     node_number: int
     """
     Number of nodes to use for the new Database Instance.
     """
-    
+
     volume: RestoreSnapshotRequestVolumeDetails
     """
     Instance volume information.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class SetUserRoleRequest:
@@ -1005,22 +1011,22 @@ class SetUserRoleRequest:
     """
     UUID of the Database Instance the user belongs to.
     """
-    
+
     user_name: str
     """
     Name of the database user.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     roles: Optional[List[UserRole]]
     """
     List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
-    
+
 
 @dataclass
 class UpdateInstanceRequest:
@@ -1028,22 +1034,22 @@ class UpdateInstanceRequest:
     """
     UUID of the Database Instance to update.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     name: Optional[str]
     """
     Name of the Database Instance.
     """
-    
+
     tags: Optional[List[str]]
     """
     Tags of a Database Instance.
     """
-    
+
 
 @dataclass
 class UpdateSnapshotRequest:
@@ -1051,22 +1057,22 @@ class UpdateSnapshotRequest:
     """
     UUID of the Snapshot.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     name: Optional[str]
     """
     Name of the snapshot.
     """
-    
+
     expires_at: Optional[datetime]
     """
     Expiration date of the snapshot (must follow the ISO 8601 format).
     """
-    
+
 
 @dataclass
 class UpdateUserRequest:
@@ -1074,22 +1080,22 @@ class UpdateUserRequest:
     """
     UUID of the Database Instance the user belongs to.
     """
-    
+
     name: str
     """
     Name of the database user.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     password: Optional[str]
     """
     Password of the database user.
     """
-    
+
 
 @dataclass
 class UpgradeInstanceRequest:
@@ -1097,11 +1103,10 @@ class UpgradeInstanceRequest:
     """
     UUID of the Database Instance you want to upgrade.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     volume_size: Optional[int]
-    

@@ -8,6 +8,7 @@ from .types import (
     ProcessStatus,
     SessionStatus,
 )
+
 BOOKING_TRANSIENT_STATUSES: List[BookingStatus] = [
     BookingStatus.WAITING,
     BookingStatus.VALIDATING,

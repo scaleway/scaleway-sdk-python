@@ -15,6 +15,7 @@ from .types import (
     VolumeServerState,
     VolumeState,
 )
+
 IMAGE_TRANSIENT_STATUSES: List[ImageState] = [
     ImageState.CREATING,
 ]

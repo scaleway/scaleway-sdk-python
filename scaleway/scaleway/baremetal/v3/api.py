@@ -1,49 +1,23 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
     Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
-    random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
     ListServerPrivateNetworksRequestOrderBy,
-    ServerPrivateNetworkStatus,
     ListServerPrivateNetworksResponse,
     PrivateNetworkApiAddServerPrivateNetworkRequest,
-    PrivateNetworkApiDeleteServerPrivateNetworkRequest,
-    PrivateNetworkApiListServerPrivateNetworksRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
     ServerPrivateNetwork,
     SetServerPrivateNetworksResponse,
-)
-from .content import (
-    SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_ServerPrivateNetwork,
@@ -53,10 +27,12 @@ from .marshalling import (
     marshal_PrivateNetworkApiSetServerPrivateNetworksRequest,
 )
 
+
 class BaremetalV3PrivateNetworkAPI(API):
     """
     Elastic Metal - Private Networks API.
     """
+
     def add_server_private_network(
         self,
         *,
@@ -73,19 +49,19 @@ class BaremetalV3PrivateNetworkAPI(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ipam_ip_ids: IPAM IDs of an IPs to attach to the server.
         :return: :class:`ServerPrivateNetwork <ServerPrivateNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.add_server_private_network(
                 server_id="example",
                 private_network_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-        
+
         res = self._request(
             "POST",
             f"/baremetal/v3/zones/{param_zone}/servers/{param_server_id}/private-networks",
@@ -102,7 +78,7 @@ class BaremetalV3PrivateNetworkAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ServerPrivateNetwork(res.json())
-        
+
     def set_server_private_networks(
         self,
         *,
@@ -117,19 +93,19 @@ class BaremetalV3PrivateNetworkAPI(API):
         :param per_private_network_ipam_ip_ids: Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetServerPrivateNetworksResponse <SetServerPrivateNetworksResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_server_private_networks(
                 server_id="example",
                 per_private_network_ipam_ip_ids={},
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-        
+
         res = self._request(
             "PUT",
             f"/baremetal/v3/zones/{param_zone}/servers/{param_server_id}/private-networks",
@@ -145,7 +121,7 @@ class BaremetalV3PrivateNetworkAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SetServerPrivateNetworksResponse(res.json())
-        
+
     def list_server_private_networks(
         self,
         *,
@@ -172,22 +148,23 @@ class BaremetalV3PrivateNetworkAPI(API):
         :param project_id: Filter Private Networks by project UUID.
         :param ipam_ip_ids: Filter Private Networks by IPAM IP UUIDs.
         :return: :class:`ListServerPrivateNetworksResponse <ListServerPrivateNetworksResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_server_private_networks()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/baremetal/v3/zones/{param_zone}/server-private-networks",
             params={
                 "ipam_ip_ids": ipam_ip_ids,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "private_network_id": private_network_id,
@@ -198,7 +175,7 @@ class BaremetalV3PrivateNetworkAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServerPrivateNetworksResponse(res.json())
-        
+
     def list_server_private_networks_all(
         self,
         *,
@@ -225,14 +202,14 @@ class BaremetalV3PrivateNetworkAPI(API):
         :param project_id: Filter Private Networks by project UUID.
         :param ipam_ip_ids: Filter Private Networks by IPAM IP UUIDs.
         :return: :class:`List[ServerPrivateNetwork] <List[ServerPrivateNetwork]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_server_private_networks_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListServerPrivateNetworksResponse,
             key="server_private_networks",
             fetcher=self.list_server_private_networks,
@@ -248,7 +225,7 @@ class BaremetalV3PrivateNetworkAPI(API):
                 "ipam_ip_ids": ipam_ip_ids,
             },
         )
-        
+
     def delete_server_private_network(
         self,
         *,
@@ -261,20 +238,22 @@ class BaremetalV3PrivateNetworkAPI(API):
         :param server_id: UUID of the server.
         :param private_network_id: UUID of the Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_server_private_network(
                 server_id="example",
                 private_network_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-        param_private_network_id = validate_path_param("private_network_id", private_network_id)
-        
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
         res = self._request(
             "DELETE",
             f"/baremetal/v3/zones/{param_zone}/servers/{param_server_id}/private-networks/{param_private_network_id}",

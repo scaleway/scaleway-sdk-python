@@ -1,38 +1,18 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
     random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
-    AclRuleProtocol,
     Action,
     ListPrivateNetworksRequestOrderBy,
     ListSubnetsRequestOrderBy,
@@ -43,24 +23,11 @@ from .types import (
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCRequest,
-    DeletePrivateNetworkRequest,
-    DeleteRouteRequest,
     DeleteSubnetsRequest,
     DeleteSubnetsResponse,
-    DeleteVPCRequest,
-    EnableCustomRoutesPropagationRequest,
-    EnableDHCPRequest,
-    EnableRoutingRequest,
-    GetAclRequest,
     GetAclResponse,
-    GetPrivateNetworkRequest,
-    GetRouteRequest,
-    GetVPCRequest,
-    ListPrivateNetworksRequest,
     ListPrivateNetworksResponse,
-    ListSubnetsRequest,
     ListSubnetsResponse,
-    ListVPCsRequest,
     ListVPCsResponse,
     PrivateNetwork,
     Route,
@@ -94,10 +61,12 @@ from .marshalling import (
     marshal_UpdateVPCRequest,
 )
 
+
 class VpcV2API(API):
     """
     This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.
     """
+
     def list_vp_cs(
         self,
         *,
@@ -126,15 +95,17 @@ class VpcV2API(API):
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
         :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
         :return: :class:`ListVPCsResponse <ListVPCsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_vp_cs()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/vpc/v2/regions/{param_region}/vpcs",
@@ -142,7 +113,8 @@ class VpcV2API(API):
                 "is_default": is_default,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -153,7 +125,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVPCsResponse(res.json())
-        
+
     def list_vp_cs_all(
         self,
         *,
@@ -182,14 +154,14 @@ class VpcV2API(API):
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
         :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
         :return: :class:`List[VPC] <List[VPC]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_vp_cs_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListVPCsResponse,
             key="vpcs",
             fetcher=self.list_vp_cs,
@@ -206,7 +178,7 @@ class VpcV2API(API):
                 "routing_enabled": routing_enabled,
             },
         )
-        
+
     def create_vpc(
         self,
         *,
@@ -225,17 +197,19 @@ class VpcV2API(API):
         :param project_id: Scaleway Project in which to create the VPC.
         :param tags: Tags for the VPC.
         :return: :class:`VPC <VPC>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_vpc(
                 enable_routing=False,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/vpcs",
@@ -253,7 +227,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_VPC(res.json())
-        
+
     def get_vpc(
         self,
         *,
@@ -266,18 +240,20 @@ class VpcV2API(API):
         :param vpc_id: VPC ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`VPC <VPC>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_vpc(
                 vpc_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_vpc_id = validate_path_param("vpc_id", vpc_id)
-        
+
         res = self._request(
             "GET",
             f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}",
@@ -285,7 +261,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_VPC(res.json())
-        
+
     def update_vpc(
         self,
         *,
@@ -302,18 +278,20 @@ class VpcV2API(API):
         :param name: Name for the VPC.
         :param tags: Tags for the VPC.
         :return: :class:`VPC <VPC>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_vpc(
                 vpc_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_vpc_id = validate_path_param("vpc_id", vpc_id)
-        
+
         res = self._request(
             "PATCH",
             f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}",
@@ -330,7 +308,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_VPC(res.json())
-        
+
     def delete_vpc(
         self,
         *,
@@ -342,24 +320,27 @@ class VpcV2API(API):
         Delete a VPC specified by its VPC ID.
         :param vpc_id: VPC ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_vpc(
                 vpc_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_vpc_id = validate_path_param("vpc_id", vpc_id)
-        
+
         res = self._request(
             "DELETE",
             f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}",
         )
 
         self._throw_on_error(res)
+
     def list_private_networks(
         self,
         *,
@@ -390,15 +371,17 @@ class VpcV2API(API):
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
         :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
         :return: :class:`ListPrivateNetworksResponse <ListPrivateNetworksResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_private_networks()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/vpc/v2/regions/{param_region}/private-networks",
@@ -406,7 +389,8 @@ class VpcV2API(API):
                 "dhcp_enabled": dhcp_enabled,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "private_network_ids": private_network_ids,
@@ -418,7 +402,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPrivateNetworksResponse(res.json())
-        
+
     def list_private_networks_all(
         self,
         *,
@@ -449,14 +433,14 @@ class VpcV2API(API):
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
         :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
         :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_private_networks_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListPrivateNetworksResponse,
             key="private_networks",
             fetcher=self.list_private_networks,
@@ -474,7 +458,7 @@ class VpcV2API(API):
                 "dhcp_enabled": dhcp_enabled,
             },
         )
-        
+
     def create_private_network(
         self,
         *,
@@ -497,17 +481,19 @@ class VpcV2API(API):
         :param subnets: Private Network subnets CIDR.
         :param vpc_id: VPC in which to create the Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_private_network(
                 default_route_propagation_enabled=False,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/private-networks",
@@ -527,7 +513,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_PrivateNetwork(res.json())
-        
+
     def get_private_network(
         self,
         *,
@@ -540,18 +526,22 @@ class VpcV2API(API):
         :param private_network_id: Private Network ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_private_network(
                 private_network_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_private_network_id = validate_path_param("private_network_id", private_network_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
         res = self._request(
             "GET",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}",
@@ -559,7 +549,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_PrivateNetwork(res.json())
-        
+
     def update_private_network(
         self,
         *,
@@ -578,18 +568,22 @@ class VpcV2API(API):
         :param tags: Tags for the Private Network.
         :param default_route_propagation_enabled: Defines whether default v4 and v6 routes are propagated for this Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_private_network(
                 private_network_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_private_network_id = validate_path_param("private_network_id", private_network_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
         res = self._request(
             "PATCH",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}",
@@ -607,7 +601,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_PrivateNetwork(res.json())
-        
+
     def delete_private_network(
         self,
         *,
@@ -619,24 +613,29 @@ class VpcV2API(API):
         Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
         :param private_network_id: Private Network ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_private_network(
                 private_network_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_private_network_id = validate_path_param("private_network_id", private_network_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
         res = self._request(
             "DELETE",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}",
         )
 
         self._throw_on_error(res)
+
     def enable_dhcp(
         self,
         *,
@@ -649,18 +648,22 @@ class VpcV2API(API):
         :param private_network_id: Private Network ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.enable_dhcp(
                 private_network_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_private_network_id = validate_path_param("private_network_id", private_network_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/enable-dhcp",
@@ -669,7 +672,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_PrivateNetwork(res.json())
-        
+
     def enable_routing(
         self,
         *,
@@ -682,18 +685,20 @@ class VpcV2API(API):
         :param vpc_id: VPC ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`VPC <VPC>`
-        
+
         Usage:
         ::
-        
+
             result = api.enable_routing(
                 vpc_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_vpc_id = validate_path_param("vpc_id", vpc_id)
-        
+
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}/enable-routing",
@@ -702,7 +707,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_VPC(res.json())
-        
+
     def enable_custom_routes_propagation(
         self,
         *,
@@ -715,18 +720,20 @@ class VpcV2API(API):
         :param vpc_id: VPC ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`VPC <VPC>`
-        
+
         Usage:
         ::
-        
+
             result = api.enable_custom_routes_propagation(
                 vpc_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_vpc_id = validate_path_param("vpc_id", vpc_id)
-        
+
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}/enable-custom-routes-propagation",
@@ -735,7 +742,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_VPC(res.json())
-        
+
     def list_subnets(
         self,
         *,
@@ -760,21 +767,24 @@ class VpcV2API(API):
         :param subnet_ids: Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only subnets belonging to this VPC will be returned.
         :return: :class:`ListSubnetsResponse <ListSubnetsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_subnets()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/vpc/v2/regions/{param_region}/subnets",
             params={
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -785,7 +795,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSubnetsResponse(res.json())
-        
+
     def list_subnets_all(
         self,
         *,
@@ -810,14 +820,14 @@ class VpcV2API(API):
         :param subnet_ids: Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only subnets belonging to this VPC will be returned.
         :return: :class:`List[Subnet] <List[Subnet]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_subnets_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListSubnetsResponse,
             key="subnets",
             fetcher=self.list_subnets,
@@ -832,7 +842,7 @@ class VpcV2API(API):
                 "vpc_id": vpc_id,
             },
         )
-        
+
     def add_subnets(
         self,
         *,
@@ -847,18 +857,22 @@ class VpcV2API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param subnets: Private Network subnets CIDR.
         :return: :class:`AddSubnetsResponse <AddSubnetsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.add_subnets(
                 private_network_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_private_network_id = validate_path_param("private_network_id", private_network_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/subnets",
@@ -874,7 +888,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddSubnetsResponse(res.json())
-        
+
     def delete_subnets(
         self,
         *,
@@ -889,18 +903,22 @@ class VpcV2API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param subnets: Private Network subnets CIDR.
         :return: :class:`DeleteSubnetsResponse <DeleteSubnetsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_subnets(
                 private_network_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_private_network_id = validate_path_param("private_network_id", private_network_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
         res = self._request(
             "DELETE",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/subnets",
@@ -916,7 +934,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_DeleteSubnetsResponse(res.json())
-        
+
     def create_route(
         self,
         *,
@@ -939,19 +957,21 @@ class VpcV2API(API):
         :param nexthop_resource_id: ID of the nexthop resource.
         :param nexthop_private_network_id: ID of the nexthop private network.
         :return: :class:`Route <Route>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_route(
                 description="example",
                 vpc_id="example",
                 destination="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/routes",
@@ -971,7 +991,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-        
+
     def get_route(
         self,
         *,
@@ -984,18 +1004,20 @@ class VpcV2API(API):
         :param route_id: Route ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Route <Route>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_route(
                 route_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_route_id = validate_path_param("route_id", route_id)
-        
+
         res = self._request(
             "GET",
             f"/vpc/v2/regions/{param_region}/routes/{param_route_id}",
@@ -1003,7 +1025,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-        
+
     def update_route(
         self,
         *,
@@ -1026,18 +1048,20 @@ class VpcV2API(API):
         :param nexthop_resource_id: ID of the nexthop resource.
         :param nexthop_private_network_id: ID of the nexthop private network.
         :return: :class:`Route <Route>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_route(
                 route_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_route_id = validate_path_param("route_id", route_id)
-        
+
         res = self._request(
             "PATCH",
             f"/vpc/v2/regions/{param_region}/routes/{param_route_id}",
@@ -1057,7 +1081,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-        
+
     def delete_route(
         self,
         *,
@@ -1069,24 +1093,27 @@ class VpcV2API(API):
         Delete a Route specified by its Route ID.
         :param route_id: Route ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_route(
                 route_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_route_id = validate_path_param("route_id", route_id)
-        
+
         res = self._request(
             "DELETE",
             f"/vpc/v2/regions/{param_region}/routes/{param_route_id}",
         )
 
         self._throw_on_error(res)
+
     def get_acl(
         self,
         *,
@@ -1101,19 +1128,21 @@ class VpcV2API(API):
         :param is_ipv6: Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`GetAclResponse <GetAclResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_acl(
                 vpc_id="example",
                 is_ipv6=False,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_vpc_id = validate_path_param("vpc_id", vpc_id)
-        
+
         res = self._request(
             "GET",
             f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}/acl-rules",
@@ -1124,7 +1153,7 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetAclResponse(res.json())
-        
+
     def set_acl(
         self,
         *,
@@ -1143,10 +1172,10 @@ class VpcV2API(API):
         :param default_policy: Action to take for packets which do not match any rules.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetAclResponse <SetAclResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_acl(
                 vpc_id="example",
                 rules=[],
@@ -1154,10 +1183,12 @@ class VpcV2API(API):
                 default_policy=Action.unknown_action,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_vpc_id = validate_path_param("vpc_id", vpc_id)
-        
+
         res = self._request(
             "PUT",
             f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}/acl-rules",
@@ -1175,4 +1206,3 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetAclResponse(res.json())
-        

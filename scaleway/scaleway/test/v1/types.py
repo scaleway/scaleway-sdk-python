@@ -3,23 +3,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from decimal import Decimal
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
-from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-)
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
 
 class EyeColors(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
@@ -35,6 +26,7 @@ class EyeColors(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class HumanStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     STOPPED = "stopped"
@@ -42,6 +34,7 @@ class HumanStatus(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class ListHumansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
@@ -54,63 +47,64 @@ class ListHumansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 @dataclass
 class Human:
     id: str
-    
+
     organization_id: str
-    
+
     height: float
-    
+
     shoe_size: float
-    
+
     altitude_in_meter: int
-    
+
     altitude_in_millimeter: int
-    
+
     fingers_count: int
-    
+
     created_at: Optional[datetime]
-    
+
     updated_at: Optional[datetime]
-    
+
     hair_count: int
-    
+
     is_happy: bool
-    
+
     eyes_color: EyeColors
-    
+
     status: HumanStatus
-    
+
     name: str
-    
+
     project_id: str
-    
+
 
 @dataclass
 class CreateHumanRequest:
     height: float
-    
+
     shoe_size: float
-    
+
     altitude_in_meter: int
-    
+
     altitude_in_millimeter: int
-    
+
     fingers_count: int
-    
+
     hair_count: int
-    
+
     is_happy: bool
-    
+
     name: str
-    
+
     eyes_color: Optional[EyeColors]
-    
+
     project_id: Optional[str]
-    
+
     organization_id: Optional[str]
-    
+
 
 @dataclass
 class DeleteHumanRequest:
@@ -118,7 +112,7 @@ class DeleteHumanRequest:
     """
     UUID of the human you want to delete.
     """
-    
+
 
 @dataclass
 class GetHumanRequest:
@@ -126,39 +120,39 @@ class GetHumanRequest:
     """
     UUID of the human you want to get.
     """
-    
+
 
 @dataclass
 class ListHumansRequest:
     page: Optional[int]
-    
+
     page_size: Optional[int]
-    
+
     order_by: Optional[ListHumansRequestOrderBy]
-    
+
     organization_id: Optional[str]
-    
+
     project_id: Optional[str]
-    
+
 
 @dataclass
 class ListHumansResponse:
     total_count: int
-    
+
     humans: List[Human]
-    
+
 
 @dataclass
 class RegisterRequest:
     username: str
-    
+
 
 @dataclass
 class RegisterResponse:
     secret_key: str
-    
+
     access_key: str
-    
+
 
 @dataclass
 class RunHumanRequest:
@@ -166,7 +160,7 @@ class RunHumanRequest:
     """
     UUID of the human you want to make run.
     """
-    
+
 
 @dataclass
 class SmokeHumanRequest:
@@ -174,7 +168,7 @@ class SmokeHumanRequest:
     """
     UUID of the human you want to make smoking.
     """
-    
+
 
 @dataclass
 class UpdateHumanRequest:
@@ -182,25 +176,24 @@ class UpdateHumanRequest:
     """
     UUID of the human you want to update.
     """
-    
+
     height: Optional[float]
     """
     Height of the human in meters.
     """
-    
+
     shoe_size: Optional[float]
-    
+
     altitude_in_meter: Optional[int]
-    
+
     altitude_in_millimeter: Optional[int]
-    
+
     fingers_count: Optional[int]
-    
+
     hair_count: Optional[int]
-    
+
     is_happy: Optional[bool]
-    
+
     eyes_color: Optional[EyeColors]
-    
+
     name: Optional[str]
-    

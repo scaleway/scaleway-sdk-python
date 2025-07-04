@@ -5,6 +5,7 @@ from typing import List
 from .types import (
     HubStatus,
 )
+
 HUB_TRANSIENT_STATUSES: List[HubStatus] = [
     HubStatus.ENABLING,
     HubStatus.DISABLING,

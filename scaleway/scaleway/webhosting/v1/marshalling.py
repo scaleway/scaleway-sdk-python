@@ -1,53 +1,21 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from decimal import Decimal
-from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
     unmarshal_Money,
-    marshal_Money,
-    marshal_ScwFile,
-    marshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
 )
 from .types import (
-    DnsRecordStatus,
-    DnsRecordType,
-    DnsRecordsStatus,
     DomainAction,
     DomainAvailabilityAction,
-    DomainAvailabilityStatus,
     DomainDnsAction,
-    DomainStatus,
-    DomainZoneOwner,
-    HostingStatus,
-    ListDatabaseUsersRequestOrderBy,
-    ListDatabasesRequestOrderBy,
-    ListFtpAccountsRequestOrderBy,
-    ListHostingsRequestOrderBy,
-    ListMailAccountsRequestOrderBy,
-    ListOffersRequestOrderBy,
-    ListWebsitesRequestOrderBy,
-    NameserverStatus,
-    OfferOptionName,
-    OfferOptionWarning,
-    PlatformPlatformGroup,
     DatabaseUser,
     Database,
     FtpAccount,
@@ -101,8 +69,9 @@ from .types import (
     MailAccountApiRemoveMailAccountRequest,
 )
 from ...std.types import (
-LanguageCode as StdLanguageCode,
+    LanguageCode as StdLanguageCode,
 )
+
 
 def unmarshal_DatabaseUser(data: Any) -> DatabaseUser:
     if not isinstance(data, dict):
@@ -112,13 +81,16 @@ def unmarshal_DatabaseUser(data: Any) -> DatabaseUser:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("username", str())
-    args["username"] = field
+    field = data.get("username", None)
+    if field is not None:
+        args["username"] = field
 
-    field = data.get("databases", [])
-    args["databases"] = field
+    field = data.get("databases", None)
+    if field is not None:
+        args["databases"] = field
 
     return DatabaseUser(**args)
+
 
 def unmarshal_Database(data: Any) -> Database:
     if not isinstance(data, dict):
@@ -128,13 +100,16 @@ def unmarshal_Database(data: Any) -> Database:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("database_name", str())
-    args["database_name"] = field
+    field = data.get("database_name", None)
+    if field is not None:
+        args["database_name"] = field
 
-    field = data.get("users", [])
-    args["users"] = field
+    field = data.get("users", None)
+    if field is not None:
+        args["users"] = field
 
     return Database(**args)
+
 
 def unmarshal_FtpAccount(data: Any) -> FtpAccount:
     if not isinstance(data, dict):
@@ -144,13 +119,16 @@ def unmarshal_FtpAccount(data: Any) -> FtpAccount:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("username", str())
-    args["username"] = field
+    field = data.get("username", None)
+    if field is not None:
+        args["username"] = field
 
-    field = data.get("path", str())
-    args["path"] = field
+    field = data.get("path", None)
+    if field is not None:
+        args["path"] = field
 
     return FtpAccount(**args)
+
 
 def unmarshal_MailAccount(data: Any) -> MailAccount:
     if not isinstance(data, dict):
@@ -160,13 +138,16 @@ def unmarshal_MailAccount(data: Any) -> MailAccount:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("domain", str())
-    args["domain"] = field
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
 
-    field = data.get("username", str())
-    args["username"] = field
+    field = data.get("username", None)
+    if field is not None:
+        args["username"] = field
 
     return MailAccount(**args)
+
 
 def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainResponse:
     if not isinstance(data, dict):
@@ -176,10 +157,12 @@ def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainRespo
 
     args: Dict[str, Any] = {}
 
-    field = data.get("owns_domain", False)
-    args["owns_domain"] = field
+    field = data.get("owns_domain", None)
+    if field is not None:
+        args["owns_domain"] = field
 
     return CheckUserOwnsDomainResponse(**args)
+
 
 def unmarshal_AutoConfigDomainDns(data: Any) -> AutoConfigDomainDns:
     if not isinstance(data, dict):
@@ -189,22 +172,28 @@ def unmarshal_AutoConfigDomainDns(data: Any) -> AutoConfigDomainDns:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("nameservers", False)
-    args["nameservers"] = field
+    field = data.get("nameservers", None)
+    if field is not None:
+        args["nameservers"] = field
 
-    field = data.get("web_records", False)
-    args["web_records"] = field
+    field = data.get("web_records", None)
+    if field is not None:
+        args["web_records"] = field
 
-    field = data.get("mail_records", False)
-    args["mail_records"] = field
+    field = data.get("mail_records", None)
+    if field is not None:
+        args["mail_records"] = field
 
-    field = data.get("all_records", False)
-    args["all_records"] = field
+    field = data.get("all_records", None)
+    if field is not None:
+        args["all_records"] = field
 
-    field = data.get("none", False)
-    args["none"] = field
+    field = data.get("none", None)
+    if field is not None:
+        args["none"] = field
 
     return AutoConfigDomainDns(**args)
+
 
 def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     if not isinstance(data, dict):
@@ -214,28 +203,38 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", str())
-    args["name"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
-    field = data.get("type", getattr(DnsRecordType, "UNKNOWN_TYPE"))
-    args["type_"] = field
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
 
-    field = data.get("ttl", 0)
-    args["ttl"] = field
+    field = data.get("ttl", None)
+    if field is not None:
+        args["ttl"] = field
 
-    field = data.get("value", str())
-    args["value"] = field
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
 
-    field = data.get("status", getattr(DnsRecordStatus, "UNKNOWN_STATUS"))
-    args["status"] = field
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
-    field = data.get("raw_data", str())
-    args["raw_data"] = field
+    field = data.get("raw_data", None)
+    if field is not None:
+        args["raw_data"] = field
 
     field = data.get("priority", None)
-    args["priority"] = field
+    if field is not None:
+        args["priority"] = field
+    else:
+        args["priority"] = None
 
     return DnsRecord(**args)
+
 
 def unmarshal_Nameserver(data: Any) -> Nameserver:
     if not isinstance(data, dict):
@@ -245,16 +244,20 @@ def unmarshal_Nameserver(data: Any) -> Nameserver:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("hostname", str())
-    args["hostname"] = field
+    field = data.get("hostname", None)
+    if field is not None:
+        args["hostname"] = field
 
-    field = data.get("status", getattr(NameserverStatus, "UNKNOWN_STATUS"))
-    args["status"] = field
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
-    field = data.get("is_default", False)
-    args["is_default"] = field
+    field = data.get("is_default", None)
+    if field is not None:
+        args["is_default"] = field
 
     return Nameserver(**args)
+
 
 def unmarshal_DnsRecords(data: Any) -> DnsRecords:
     if not isinstance(data, dict):
@@ -264,22 +267,38 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("records", [])
-    args["records"] = [unmarshal_DnsRecord(v) for v in field] if field is not None else None
+    field = data.get("records", None)
+    if field is not None:
+        args["records"] = (
+            [unmarshal_DnsRecord(v) for v in field] if field is not None else None
+        )
 
-    field = data.get("name_servers", [])
-    args["name_servers"] = [unmarshal_Nameserver(v) for v in field] if field is not None else None
+    field = data.get("name_servers", None)
+    if field is not None:
+        args["name_servers"] = (
+            [unmarshal_Nameserver(v) for v in field] if field is not None else None
+        )
 
-    field = data.get("status", getattr(DnsRecordsStatus, "UNKNOWN_STATUS"))
-    args["status"] = field
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
     field = data.get("dns_config", None)
-    args["dns_config"] = [DomainDnsAction(v) for v in field] if field is not None else None
+    if field is not None:
+        args["dns_config"] = (
+            [DomainDnsAction(v) for v in field] if field is not None else None
+        )
+    else:
+        args["dns_config"] = None
 
     field = data.get("auto_config_domain_dns", None)
-    args["auto_config_domain_dns"] = unmarshal_AutoConfigDomainDns(field) if field is not None else None
+    if field is not None:
+        args["auto_config_domain_dns"] = unmarshal_AutoConfigDomainDns(field)
+    else:
+        args["auto_config_domain_dns"] = None
 
     return DnsRecords(**args)
+
 
 def unmarshal_Domain(data: Any) -> Domain:
     if not isinstance(data, dict):
@@ -289,25 +308,40 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", str())
-    args["name"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
-    field = data.get("status", getattr(DomainStatus, "UNKNOWN_STATUS"))
-    args["status"] = field
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
-    field = data.get("owner", getattr(DomainZoneOwner, "UNKNOWN_ZONE_OWNER"))
-    args["owner"] = field
+    field = data.get("owner", None)
+    if field is not None:
+        args["owner"] = field
 
-    field = data.get("available_actions", [])
-    args["available_actions"] = [DomainAction(v) for v in field] if field is not None else None
+    field = data.get("available_actions", None)
+    if field is not None:
+        args["available_actions"] = (
+            [DomainAction(v) for v in field] if field is not None else None
+        )
 
     field = data.get("available_dns_actions", None)
-    args["available_dns_actions"] = [DomainDnsAction(v) for v in field] if field is not None else None
+    if field is not None:
+        args["available_dns_actions"] = (
+            [DomainDnsAction(v) for v in field] if field is not None else None
+        )
+    else:
+        args["available_dns_actions"] = None
 
     field = data.get("auto_config_domain_dns", None)
-    args["auto_config_domain_dns"] = unmarshal_AutoConfigDomainDns(field) if field is not None else None
+    if field is not None:
+        args["auto_config_domain_dns"] = unmarshal_AutoConfigDomainDns(field)
+    else:
+        args["auto_config_domain_dns"] = None
 
     return Domain(**args)
+
 
 def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
     if not isinstance(data, dict):
@@ -317,13 +351,16 @@ def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("dashboard", str())
-    args["dashboard"] = field
+    field = data.get("dashboard", None)
+    if field is not None:
+        args["dashboard"] = field
 
-    field = data.get("webmail", str())
-    args["webmail"] = field
+    field = data.get("webmail", None)
+    if field is not None:
+        args["webmail"] = field
 
     return PlatformControlPanelUrls(**args)
+
 
 def unmarshal_OfferOption(data: Any) -> OfferOption:
     if not isinstance(data, dict):
@@ -333,31 +370,42 @@ def unmarshal_OfferOption(data: Any) -> OfferOption:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", str())
-    args["id"] = field
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
 
-    field = data.get("name", getattr(OfferOptionName, "UNKNOWN_NAME"))
-    args["name"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
-    field = data.get("billing_operation_path", str())
-    args["billing_operation_path"] = field
+    field = data.get("billing_operation_path", None)
+    if field is not None:
+        args["billing_operation_path"] = field
 
-    field = data.get("min_value", 0)
-    args["min_value"] = field
+    field = data.get("min_value", None)
+    if field is not None:
+        args["min_value"] = field
 
-    field = data.get("current_value", 0)
-    args["current_value"] = field
+    field = data.get("current_value", None)
+    if field is not None:
+        args["current_value"] = field
 
-    field = data.get("max_value", 0)
-    args["max_value"] = field
+    field = data.get("max_value", None)
+    if field is not None:
+        args["max_value"] = field
 
-    field = data.get("quota_warning", getattr(OfferOptionWarning, "UNKNOWN_WARNING"))
-    args["quota_warning"] = field
+    field = data.get("quota_warning", None)
+    if field is not None:
+        args["quota_warning"] = field
 
     field = data.get("price", None)
-    args["price"] = unmarshal_Money(field) if field is not None else None
+    if field is not None:
+        args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
 
     return OfferOption(**args)
+
 
 def unmarshal_PlatformControlPanel(data: Any) -> PlatformControlPanel:
     if not isinstance(data, dict):
@@ -367,13 +415,18 @@ def unmarshal_PlatformControlPanel(data: Any) -> PlatformControlPanel:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", str())
-    args["name"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
     field = data.get("urls", None)
-    args["urls"] = unmarshal_PlatformControlPanelUrls(field) if field is not None else None
+    if field is not None:
+        args["urls"] = unmarshal_PlatformControlPanelUrls(field)
+    else:
+        args["urls"] = None
 
     return PlatformControlPanel(**args)
+
 
 def unmarshal_HostingUser(data: Any) -> HostingUser:
     if not isinstance(data, dict):
@@ -383,19 +436,28 @@ def unmarshal_HostingUser(data: Any) -> HostingUser:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("username", str())
-    args["username"] = field
+    field = data.get("username", None)
+    if field is not None:
+        args["username"] = field
 
-    field = data.get("contact_email", str())
-    args["contact_email"] = field
+    field = data.get("contact_email", None)
+    if field is not None:
+        args["contact_email"] = field
 
     field = data.get("one_time_password", None)
-    args["one_time_password"] = field
+    if field is not None:
+        args["one_time_password"] = field
+    else:
+        args["one_time_password"] = None
 
     field = data.get("one_time_password_b64", None)
-    args["one_time_password_b64"] = field
+    if field is not None:
+        args["one_time_password_b64"] = field
+    else:
+        args["one_time_password_b64"] = None
 
     return HostingUser(**args)
+
 
 def unmarshal_Offer(data: Any) -> Offer:
     if not isinstance(data, dict):
@@ -405,34 +467,48 @@ def unmarshal_Offer(data: Any) -> Offer:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", str())
-    args["id"] = field
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
 
-    field = data.get("name", str())
-    args["name"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
-    field = data.get("billing_operation_path", str())
-    args["billing_operation_path"] = field
+    field = data.get("billing_operation_path", None)
+    if field is not None:
+        args["billing_operation_path"] = field
 
-    field = data.get("options", [])
-    args["options"] = [unmarshal_OfferOption(v) for v in field] if field is not None else None
+    field = data.get("options", None)
+    if field is not None:
+        args["options"] = (
+            [unmarshal_OfferOption(v) for v in field] if field is not None else None
+        )
 
-    field = data.get("available", False)
-    args["available"] = field
+    field = data.get("available", None)
+    if field is not None:
+        args["available"] = field
 
-    field = data.get("control_panel_name", str())
-    args["control_panel_name"] = field
+    field = data.get("control_panel_name", None)
+    if field is not None:
+        args["control_panel_name"] = field
 
-    field = data.get("end_of_life", False)
-    args["end_of_life"] = field
+    field = data.get("end_of_life", None)
+    if field is not None:
+        args["end_of_life"] = field
 
-    field = data.get("quota_warning", getattr(OfferOptionWarning, "UNKNOWN_WARNING"))
-    args["quota_warning"] = field
+    field = data.get("quota_warning", None)
+    if field is not None:
+        args["quota_warning"] = field
 
     field = data.get("price", None)
-    args["price"] = unmarshal_Money(field) if field is not None else None
+    if field is not None:
+        args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
 
     return Offer(**args)
+
 
 def unmarshal_Platform(data: Any) -> Platform:
     if not isinstance(data, dict):
@@ -442,25 +518,34 @@ def unmarshal_Platform(data: Any) -> Platform:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("hostname", str())
-    args["hostname"] = field
+    field = data.get("hostname", None)
+    if field is not None:
+        args["hostname"] = field
 
-    field = data.get("number", 0)
-    args["number"] = field
+    field = data.get("number", None)
+    if field is not None:
+        args["number"] = field
 
-    field = data.get("group_name", getattr(PlatformPlatformGroup, "UNKNOWN_GROUP"))
-    args["group_name"] = field
+    field = data.get("group_name", None)
+    if field is not None:
+        args["group_name"] = field
 
-    field = data.get("ipv4", str())
-    args["ipv4"] = field
+    field = data.get("ipv4", None)
+    if field is not None:
+        args["ipv4"] = field
 
-    field = data.get("ipv6", str())
-    args["ipv6"] = field
+    field = data.get("ipv6", None)
+    if field is not None:
+        args["ipv6"] = field
 
     field = data.get("control_panel", None)
-    args["control_panel"] = unmarshal_PlatformControlPanel(field) if field is not None else None
+    if field is not None:
+        args["control_panel"] = unmarshal_PlatformControlPanel(field)
+    else:
+        args["control_panel"] = None
 
     return Platform(**args)
+
 
 def unmarshal_Hosting(data: Any) -> Hosting:
     if not isinstance(data, dict):
@@ -470,52 +555,80 @@ def unmarshal_Hosting(data: Any) -> Hosting:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", str())
-    args["id"] = field
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
 
-    field = data.get("project_id", str())
-    args["project_id"] = field
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
 
-    field = data.get("status", getattr(HostingStatus, "UNKNOWN_STATUS"))
-    args["status"] = field
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
-    field = data.get("domain", str())
-    args["domain"] = field
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
 
-    field = data.get("tags", [])
-    args["tags"] = field
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
 
-    field = data.get("ipv4", str())
-    args["ipv4"] = field
+    field = data.get("ipv4", None)
+    if field is not None:
+        args["ipv4"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
-    field = data.get("protected", False)
-    args["protected"] = field
+    field = data.get("protected", None)
+    if field is not None:
+        args["protected"] = field
 
-    field = data.get("domain_status", getattr(DomainStatus, "UNKNOWN_STATUS"))
-    args["domain_status"] = field
+    field = data.get("domain_status", None)
+    if field is not None:
+        args["domain_status"] = field
 
-    field = data.get("region", )
-    args["region"] = field
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
 
     field = data.get("offer", None)
-    args["offer"] = unmarshal_Offer(field) if field is not None else None
+    if field is not None:
+        args["offer"] = unmarshal_Offer(field)
+    else:
+        args["offer"] = None
 
     field = data.get("platform", None)
-    args["platform"] = unmarshal_Platform(field) if field is not None else None
+    if field is not None:
+        args["platform"] = unmarshal_Platform(field)
+    else:
+        args["platform"] = None
 
     field = data.get("dns_status", None)
-    args["dns_status"] = field
+    if field is not None:
+        args["dns_status"] = field
+    else:
+        args["dns_status"] = None
 
     field = data.get("user", None)
-    args["user"] = unmarshal_HostingUser(field) if field is not None else None
+    if field is not None:
+        args["user"] = unmarshal_HostingUser(field)
+    else:
+        args["user"] = None
 
     return Hosting(**args)
+
 
 def unmarshal_ControlPanel(data: Any) -> ControlPanel:
     if not isinstance(data, dict):
@@ -525,19 +638,26 @@ def unmarshal_ControlPanel(data: Any) -> ControlPanel:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", str())
-    args["name"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
-    field = data.get("available", False)
-    args["available"] = field
+    field = data.get("available", None)
+    if field is not None:
+        args["available"] = field
 
-    field = data.get("logo_url", str())
-    args["logo_url"] = field
+    field = data.get("logo_url", None)
+    if field is not None:
+        args["logo_url"] = field
 
-    field = data.get("available_languages", [])
-    args["available_languages"] = [StdLanguageCode(v) for v in field] if field is not None else None
+    field = data.get("available_languages", None)
+    if field is not None:
+        args["available_languages"] = (
+            [StdLanguageCode(v) for v in field] if field is not None else None
+        )
 
     return ControlPanel(**args)
+
 
 def unmarshal_ListControlPanelsResponse(data: Any) -> ListControlPanelsResponse:
     if not isinstance(data, dict):
@@ -547,13 +667,18 @@ def unmarshal_ListControlPanelsResponse(data: Any) -> ListControlPanelsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("control_panels", [])
-    args["control_panels"] = [unmarshal_ControlPanel(v) for v in field] if field is not None else None
+    field = data.get("control_panels", None)
+    if field is not None:
+        args["control_panels"] = (
+            [unmarshal_ControlPanel(v) for v in field] if field is not None else None
+        )
 
     return ListControlPanelsResponse(**args)
+
 
 def unmarshal_ListDatabaseUsersResponse(data: Any) -> ListDatabaseUsersResponse:
     if not isinstance(data, dict):
@@ -563,13 +688,18 @@ def unmarshal_ListDatabaseUsersResponse(data: Any) -> ListDatabaseUsersResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("users", [])
-    args["users"] = [unmarshal_DatabaseUser(v) for v in field] if field is not None else None
+    field = data.get("users", None)
+    if field is not None:
+        args["users"] = (
+            [unmarshal_DatabaseUser(v) for v in field] if field is not None else None
+        )
 
     return ListDatabaseUsersResponse(**args)
+
 
 def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
     if not isinstance(data, dict):
@@ -579,13 +709,18 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("databases", [])
-    args["databases"] = [unmarshal_Database(v) for v in field] if field is not None else None
+    field = data.get("databases", None)
+    if field is not None:
+        args["databases"] = (
+            [unmarshal_Database(v) for v in field] if field is not None else None
+        )
 
     return ListDatabasesResponse(**args)
+
 
 def unmarshal_ListFtpAccountsResponse(data: Any) -> ListFtpAccountsResponse:
     if not isinstance(data, dict):
@@ -595,13 +730,18 @@ def unmarshal_ListFtpAccountsResponse(data: Any) -> ListFtpAccountsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("ftp_accounts", [])
-    args["ftp_accounts"] = [unmarshal_FtpAccount(v) for v in field] if field is not None else None
+    field = data.get("ftp_accounts", None)
+    if field is not None:
+        args["ftp_accounts"] = (
+            [unmarshal_FtpAccount(v) for v in field] if field is not None else None
+        )
 
     return ListFtpAccountsResponse(**args)
+
 
 def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     if not isinstance(data, dict):
@@ -611,40 +751,58 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", str())
-    args["id"] = field
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
 
-    field = data.get("project_id", str())
-    args["project_id"] = field
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
 
-    field = data.get("status", getattr(HostingStatus, "UNKNOWN_STATUS"))
-    args["status"] = field
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
-    field = data.get("domain", str())
-    args["domain"] = field
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
 
-    field = data.get("protected", False)
-    args["protected"] = field
+    field = data.get("protected", None)
+    if field is not None:
+        args["protected"] = field
 
-    field = data.get("offer_name", str())
-    args["offer_name"] = field
+    field = data.get("offer_name", None)
+    if field is not None:
+        args["offer_name"] = field
 
-    field = data.get("domain_status", getattr(DomainStatus, "UNKNOWN_STATUS"))
-    args["domain_status"] = field
+    field = data.get("domain_status", None)
+    if field is not None:
+        args["domain_status"] = field
 
-    field = data.get("region", )
-    args["region"] = field
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("dns_status", None)
-    args["dns_status"] = field
+    if field is not None:
+        args["dns_status"] = field
+    else:
+        args["dns_status"] = None
 
     return HostingSummary(**args)
+
 
 def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:
     if not isinstance(data, dict):
@@ -654,13 +812,18 @@ def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("hostings", [])
-    args["hostings"] = [unmarshal_HostingSummary(v) for v in field] if field is not None else None
+    field = data.get("hostings", None)
+    if field is not None:
+        args["hostings"] = (
+            [unmarshal_HostingSummary(v) for v in field] if field is not None else None
+        )
 
     return ListHostingsResponse(**args)
+
 
 def unmarshal_ListMailAccountsResponse(data: Any) -> ListMailAccountsResponse:
     if not isinstance(data, dict):
@@ -670,13 +833,18 @@ def unmarshal_ListMailAccountsResponse(data: Any) -> ListMailAccountsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("mail_accounts", [])
-    args["mail_accounts"] = [unmarshal_MailAccount(v) for v in field] if field is not None else None
+    field = data.get("mail_accounts", None)
+    if field is not None:
+        args["mail_accounts"] = (
+            [unmarshal_MailAccount(v) for v in field] if field is not None else None
+        )
 
     return ListMailAccountsResponse(**args)
+
 
 def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
     if not isinstance(data, dict):
@@ -686,13 +854,18 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("offers", [])
-    args["offers"] = [unmarshal_Offer(v) for v in field] if field is not None else None
+    field = data.get("offers", None)
+    if field is not None:
+        args["offers"] = (
+            [unmarshal_Offer(v) for v in field] if field is not None else None
+        )
 
     return ListOffersResponse(**args)
+
 
 def unmarshal_Website(data: Any) -> Website:
     if not isinstance(data, dict):
@@ -702,16 +875,20 @@ def unmarshal_Website(data: Any) -> Website:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("domain", str())
-    args["domain"] = field
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
 
-    field = data.get("path", str())
-    args["path"] = field
+    field = data.get("path", None)
+    if field is not None:
+        args["path"] = field
 
-    field = data.get("ssl_status", False)
-    args["ssl_status"] = field
+    field = data.get("ssl_status", None)
+    if field is not None:
+        args["ssl_status"] = field
 
     return Website(**args)
+
 
 def unmarshal_ListWebsitesResponse(data: Any) -> ListWebsitesResponse:
     if not isinstance(data, dict):
@@ -721,13 +898,18 @@ def unmarshal_ListWebsitesResponse(data: Any) -> ListWebsitesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", 0)
-    args["total_count"] = field
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("websites", [])
-    args["websites"] = [unmarshal_Website(v) for v in field] if field is not None else None
+    field = data.get("websites", None)
+    if field is not None:
+        args["websites"] = (
+            [unmarshal_Website(v) for v in field] if field is not None else None
+        )
 
     return ListWebsitesResponse(**args)
+
 
 def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordResponse:
     if not isinstance(data, dict):
@@ -737,13 +919,18 @@ def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordRes
 
     args: Dict[str, Any] = {}
 
-    field = data.get("one_time_password_b64", str())
-    args["one_time_password_b64"] = field
+    field = data.get("one_time_password_b64", None)
+    if field is not None:
+        args["one_time_password_b64"] = field
 
     field = data.get("one_time_password", None)
-    args["one_time_password"] = field
+    if field is not None:
+        args["one_time_password"] = field
+    else:
+        args["one_time_password"] = None
 
     return ResetHostingPasswordResponse(**args)
+
 
 def unmarshal_ResourceSummary(data: Any) -> ResourceSummary:
     if not isinstance(data, dict):
@@ -753,19 +940,24 @@ def unmarshal_ResourceSummary(data: Any) -> ResourceSummary:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("databases_count", 0)
-    args["databases_count"] = field
+    field = data.get("databases_count", None)
+    if field is not None:
+        args["databases_count"] = field
 
-    field = data.get("mail_accounts_count", 0)
-    args["mail_accounts_count"] = field
+    field = data.get("mail_accounts_count", None)
+    if field is not None:
+        args["mail_accounts_count"] = field
 
-    field = data.get("ftp_accounts_count", 0)
-    args["ftp_accounts_count"] = field
+    field = data.get("ftp_accounts_count", None)
+    if field is not None:
+        args["ftp_accounts_count"] = field
 
-    field = data.get("websites_count", 0)
-    args["websites_count"] = field
+    field = data.get("websites_count", None)
+    if field is not None:
+        args["websites_count"] = field
 
     return ResourceSummary(**args)
+
 
 def unmarshal_DomainAvailability(data: Any) -> DomainAvailability:
     if not isinstance(data, dict):
@@ -775,25 +967,36 @@ def unmarshal_DomainAvailability(data: Any) -> DomainAvailability:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", str())
-    args["name"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
-    field = data.get("zone_name", str())
-    args["zone_name"] = field
+    field = data.get("zone_name", None)
+    if field is not None:
+        args["zone_name"] = field
 
-    field = data.get("status", getattr(DomainAvailabilityStatus, "UNKNOWN_STATUS"))
-    args["status"] = field
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
-    field = data.get("available_actions", [])
-    args["available_actions"] = [DomainAvailabilityAction(v) for v in field] if field is not None else None
+    field = data.get("available_actions", None)
+    if field is not None:
+        args["available_actions"] = (
+            [DomainAvailabilityAction(v) for v in field] if field is not None else None
+        )
 
-    field = data.get("can_create_hosting", False)
-    args["can_create_hosting"] = field
+    field = data.get("can_create_hosting", None)
+    if field is not None:
+        args["can_create_hosting"] = field
 
     field = data.get("price", None)
-    args["price"] = unmarshal_Money(field) if field is not None else None
+    if field is not None:
+        args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
 
     return DomainAvailability(**args)
+
 
 def unmarshal_SearchDomainsResponse(data: Any) -> SearchDomainsResponse:
     if not isinstance(data, dict):
@@ -803,10 +1006,16 @@ def unmarshal_SearchDomainsResponse(data: Any) -> SearchDomainsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("domains_available", [])
-    args["domains_available"] = [unmarshal_DomainAvailability(v) for v in field] if field is not None else None
+    field = data.get("domains_available", None)
+    if field is not None:
+        args["domains_available"] = (
+            [unmarshal_DomainAvailability(v) for v in field]
+            if field is not None
+            else None
+        )
 
     return SearchDomainsResponse(**args)
+
 
 def unmarshal_Session(data: Any) -> Session:
     if not isinstance(data, dict):
@@ -816,10 +1025,12 @@ def unmarshal_Session(data: Any) -> Session:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("url", str())
-    args["url"] = field
+    field = data.get("url", None)
+    if field is not None:
+        args["url"] = field
 
     return Session(**args)
+
 
 def marshal_DatabaseApiAssignDatabaseUserRequest(
     request: DatabaseApiAssignDatabaseUserRequest,
@@ -829,11 +1040,9 @@ def marshal_DatabaseApiAssignDatabaseUserRequest(
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
-
 
     return output
+
 
 def marshal_DatabaseApiChangeDatabaseUserPasswordRequest(
     request: DatabaseApiChangeDatabaseUserPasswordRequest,
@@ -843,11 +1052,9 @@ def marshal_DatabaseApiChangeDatabaseUserPasswordRequest(
 
     if request.password is not None:
         output["password"] = request.password
-    else:
-        output["password"] = str()
-
 
     return output
+
 
 def marshal_CreateDatabaseRequestUser(
     request: CreateDatabaseRequestUser,
@@ -857,16 +1064,12 @@ def marshal_CreateDatabaseRequestUser(
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
 
     if request.password is not None:
         output["password"] = request.password
-    else:
-        output["password"] = str()
-
 
     return output
+
 
 def marshal_DatabaseApiCreateDatabaseRequest(
     request: DatabaseApiCreateDatabaseRequest,
@@ -874,21 +1077,19 @@ def marshal_DatabaseApiCreateDatabaseRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of([
-            OneOfPossibility(param="new_user", value=request.new_user,marshal_func=marshal_CreateDatabaseRequestUser
-            ),
-            OneOfPossibility(param="existing_username", value=request.existing_username,marshal_func=None
-            ),
-        ]),
+        resolve_one_of(
+            [
+                OneOfPossibility("new_user", request.new_user),
+                OneOfPossibility("existing_username", request.existing_username),
+            ]
+        ),
     )
 
     if request.database_name is not None:
         output["database_name"] = request.database_name
-    else:
-        output["database_name"] = str()
-
 
     return output
+
 
 def marshal_DatabaseApiCreateDatabaseUserRequest(
     request: DatabaseApiCreateDatabaseUserRequest,
@@ -898,16 +1099,12 @@ def marshal_DatabaseApiCreateDatabaseUserRequest(
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
 
     if request.password is not None:
         output["password"] = request.password
-    else:
-        output["password"] = str()
-
 
     return output
+
 
 def marshal_DatabaseApiUnassignDatabaseUserRequest(
     request: DatabaseApiUnassignDatabaseUserRequest,
@@ -917,11 +1114,9 @@ def marshal_DatabaseApiUnassignDatabaseUserRequest(
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
-
 
     return output
+
 
 def marshal_DnsApiCheckUserOwnsDomainRequest(
     request: DnsApiCheckUserOwnsDomainRequest,
@@ -931,11 +1126,9 @@ def marshal_DnsApiCheckUserOwnsDomainRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
-    else:
-        output["project_id"] = None
-
 
     return output
+
 
 def marshal_AutoConfigDomainDns(
     request: AutoConfigDomainDns,
@@ -945,31 +1138,21 @@ def marshal_AutoConfigDomainDns(
 
     if request.nameservers is not None:
         output["nameservers"] = request.nameservers
-    else:
-        output["nameservers"] = False
 
     if request.web_records is not None:
         output["web_records"] = request.web_records
-    else:
-        output["web_records"] = False
 
     if request.mail_records is not None:
         output["mail_records"] = request.mail_records
-    else:
-        output["mail_records"] = False
 
     if request.all_records is not None:
         output["all_records"] = request.all_records
-    else:
-        output["all_records"] = False
 
     if request.none is not None:
         output["none"] = request.none
-    else:
-        output["none"] = False
-
 
     return output
+
 
 def marshal_SyncDomainDnsRecordsRequestRecord(
     request: SyncDomainDnsRecordsRequestRecord,
@@ -979,16 +1162,12 @@ def marshal_SyncDomainDnsRecordsRequestRecord(
 
     if request.name is not None:
         output["name"] = request.name
-    else:
-        output["name"] = str()
 
     if request.type_ is not None:
         output["type"] = str(request.type_)
-    else:
-        output["type"] = str()
-
 
     return output
+
 
 def marshal_DnsApiSyncDomainDnsRecordsRequest(
     request: DnsApiSyncDomainDnsRecordsRequest,
@@ -998,36 +1177,29 @@ def marshal_DnsApiSyncDomainDnsRecordsRequest(
 
     if request.update_web_records is not None:
         output["update_web_records"] = request.update_web_records
-    else:
-        output["update_web_records"] = None
 
     if request.update_mail_records is not None:
         output["update_mail_records"] = request.update_mail_records
-    else:
-        output["update_mail_records"] = None
 
     if request.update_all_records is not None:
         output["update_all_records"] = request.update_all_records
-    else:
-        output["update_all_records"] = None
 
     if request.update_nameservers is not None:
         output["update_nameservers"] = request.update_nameservers
-    else:
-        output["update_nameservers"] = None
 
     if request.custom_records is not None:
-        output["custom_records"] = [marshal_SyncDomainDnsRecordsRequestRecord(item, defaults) for item in request.custom_records]
-    else:
-        output["custom_records"] = None
+        output["custom_records"] = [
+            marshal_SyncDomainDnsRecordsRequestRecord(item, defaults)
+            for item in request.custom_records
+        ]
 
     if request.auto_config_domain_dns is not None:
-        output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(request.auto_config_domain_dns, defaults)
-    else:
-        output["auto_config_domain_dns"] = None
-
+        output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
+            request.auto_config_domain_dns, defaults
+        )
 
     return output
+
 
 def marshal_FtpAccountApiChangeFtpAccountPasswordRequest(
     request: FtpAccountApiChangeFtpAccountPasswordRequest,
@@ -1037,11 +1209,9 @@ def marshal_FtpAccountApiChangeFtpAccountPasswordRequest(
 
     if request.password is not None:
         output["password"] = request.password
-    else:
-        output["password"] = str()
-
 
     return output
+
 
 def marshal_FtpAccountApiCreateFtpAccountRequest(
     request: FtpAccountApiCreateFtpAccountRequest,
@@ -1051,21 +1221,15 @@ def marshal_FtpAccountApiCreateFtpAccountRequest(
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
 
     if request.path is not None:
         output["path"] = request.path
-    else:
-        output["path"] = str()
 
     if request.password is not None:
         output["password"] = request.password
-    else:
-        output["password"] = str()
-
 
     return output
+
 
 def marshal_CreateHostingRequestDomainConfiguration(
     request: CreateHostingRequestDomainConfiguration,
@@ -1075,26 +1239,18 @@ def marshal_CreateHostingRequestDomainConfiguration(
 
     if request.update_nameservers is not None:
         output["update_nameservers"] = request.update_nameservers
-    else:
-        output["update_nameservers"] = str()
 
     if request.update_web_record is not None:
         output["update_web_record"] = request.update_web_record
-    else:
-        output["update_web_record"] = str()
 
     if request.update_mail_record is not None:
         output["update_mail_record"] = request.update_mail_record
-    else:
-        output["update_mail_record"] = str()
 
     if request.update_all_records is not None:
         output["update_all_records"] = request.update_all_records
-    else:
-        output["update_all_records"] = str()
-
 
     return output
+
 
 def marshal_OfferOptionRequest(
     request: OfferOptionRequest,
@@ -1104,16 +1260,12 @@ def marshal_OfferOptionRequest(
 
     if request.id is not None:
         output["id"] = request.id
-    else:
-        output["id"] = str()
 
     if request.quantity is not None:
         output["quantity"] = request.quantity
-    else:
-        output["quantity"] = 0
-
 
     return output
+
 
 def marshal_HostingApiCreateHostingRequest(
     request: HostingApiCreateHostingRequest,
@@ -1123,56 +1275,44 @@ def marshal_HostingApiCreateHostingRequest(
 
     if request.offer_id is not None:
         output["offer_id"] = request.offer_id
-    else:
-        output["offer_id"] = str()
 
     if request.email is not None:
         output["email"] = request.email
-    else:
-        output["email"] = str()
 
     if request.domain is not None:
         output["domain"] = request.domain
-    else:
-        output["domain"] = str()
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
-    else:
-        output["project_id"] = None
 
     if request.tags is not None:
         output["tags"] = request.tags
-    else:
-        output["tags"] = None
 
     if request.offer_options is not None:
-        output["offer_options"] = [marshal_OfferOptionRequest(item, defaults) for item in request.offer_options]
-    else:
-        output["offer_options"] = None
+        output["offer_options"] = [
+            marshal_OfferOptionRequest(item, defaults) for item in request.offer_options
+        ]
 
     if request.language is not None:
         output["language"] = str(request.language)
-    else:
-        output["language"] = None
 
     if request.domain_configuration is not None:
-        output["domain_configuration"] = marshal_CreateHostingRequestDomainConfiguration(request.domain_configuration, defaults)
-    else:
-        output["domain_configuration"] = None
+        output["domain_configuration"] = (
+            marshal_CreateHostingRequestDomainConfiguration(
+                request.domain_configuration, defaults
+            )
+        )
 
     if request.skip_welcome_email is not None:
         output["skip_welcome_email"] = request.skip_welcome_email
-    else:
-        output["skip_welcome_email"] = None
 
     if request.auto_config_domain_dns is not None:
-        output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(request.auto_config_domain_dns, defaults)
-    else:
-        output["auto_config_domain_dns"] = None
-
+        output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
+            request.auto_config_domain_dns, defaults
+        )
 
     return output
+
 
 def marshal_HostingApiUpdateHostingRequest(
     request: HostingApiUpdateHostingRequest,
@@ -1182,31 +1322,23 @@ def marshal_HostingApiUpdateHostingRequest(
 
     if request.email is not None:
         output["email"] = request.email
-    else:
-        output["email"] = None
 
     if request.tags is not None:
         output["tags"] = request.tags
-    else:
-        output["tags"] = None
 
     if request.offer_options is not None:
-        output["offer_options"] = [marshal_OfferOptionRequest(item, defaults) for item in request.offer_options]
-    else:
-        output["offer_options"] = None
+        output["offer_options"] = [
+            marshal_OfferOptionRequest(item, defaults) for item in request.offer_options
+        ]
 
     if request.offer_id is not None:
         output["offer_id"] = request.offer_id
-    else:
-        output["offer_id"] = None
 
     if request.protected is not None:
         output["protected"] = request.protected
-    else:
-        output["protected"] = None
-
 
     return output
+
 
 def marshal_MailAccountApiChangeMailAccountPasswordRequest(
     request: MailAccountApiChangeMailAccountPasswordRequest,
@@ -1216,21 +1348,15 @@ def marshal_MailAccountApiChangeMailAccountPasswordRequest(
 
     if request.domain is not None:
         output["domain"] = request.domain
-    else:
-        output["domain"] = str()
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
 
     if request.password is not None:
         output["password"] = request.password
-    else:
-        output["password"] = str()
-
 
     return output
+
 
 def marshal_MailAccountApiCreateMailAccountRequest(
     request: MailAccountApiCreateMailAccountRequest,
@@ -1240,21 +1366,15 @@ def marshal_MailAccountApiCreateMailAccountRequest(
 
     if request.domain is not None:
         output["domain"] = request.domain
-    else:
-        output["domain"] = str()
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
 
     if request.password is not None:
         output["password"] = request.password
-    else:
-        output["password"] = str()
-
 
     return output
+
 
 def marshal_MailAccountApiRemoveMailAccountRequest(
     request: MailAccountApiRemoveMailAccountRequest,
@@ -1264,13 +1384,8 @@ def marshal_MailAccountApiRemoveMailAccountRequest(
 
     if request.domain is not None:
         output["domain"] = request.domain
-    else:
-        output["domain"] = str()
 
     if request.username is not None:
         output["username"] = request.username
-    else:
-        output["username"] = str()
-
 
     return output

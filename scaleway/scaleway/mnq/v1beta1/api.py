@@ -1,44 +1,22 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
     random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
     ListNatsAccountsRequestOrderBy,
     ListNatsCredentialsRequestOrderBy,
     ListSnsCredentialsRequestOrderBy,
     ListSqsCredentialsRequestOrderBy,
-    SnsInfoStatus,
-    SqsInfoStatus,
-    File,
     ListNatsAccountsResponse,
     ListNatsCredentialsResponse,
     ListSnsCredentialsResponse,
@@ -46,21 +24,11 @@ from .types import (
     NatsAccount,
     NatsApiCreateNatsAccountRequest,
     NatsApiCreateNatsCredentialsRequest,
-    NatsApiDeleteNatsAccountRequest,
-    NatsApiDeleteNatsCredentialsRequest,
-    NatsApiGetNatsAccountRequest,
-    NatsApiGetNatsCredentialsRequest,
-    NatsApiListNatsAccountsRequest,
-    NatsApiListNatsCredentialsRequest,
     NatsApiUpdateNatsAccountRequest,
     NatsCredentials,
     SnsApiActivateSnsRequest,
     SnsApiCreateSnsCredentialsRequest,
     SnsApiDeactivateSnsRequest,
-    SnsApiDeleteSnsCredentialsRequest,
-    SnsApiGetSnsCredentialsRequest,
-    SnsApiGetSnsInfoRequest,
-    SnsApiListSnsCredentialsRequest,
     SnsApiUpdateSnsCredentialsRequest,
     SnsCredentials,
     SnsInfo,
@@ -68,10 +36,6 @@ from .types import (
     SqsApiActivateSqsRequest,
     SqsApiCreateSqsCredentialsRequest,
     SqsApiDeactivateSqsRequest,
-    SqsApiDeleteSqsCredentialsRequest,
-    SqsApiGetSqsCredentialsRequest,
-    SqsApiGetSqsInfoRequest,
-    SqsApiListSqsCredentialsRequest,
     SqsApiUpdateSqsCredentialsRequest,
     SqsCredentials,
     SqsInfo,
@@ -101,10 +65,12 @@ from .marshalling import (
     marshal_SqsApiUpdateSqsCredentialsRequest,
 )
 
+
 class MnqV1Beta1NatsAPI(API):
     """
     This API allows you to manage Scaleway NATS accounts.
     """
+
     def create_nats_account(
         self,
         *,
@@ -119,15 +85,17 @@ class MnqV1Beta1NatsAPI(API):
         :param name: NATS account name.
         :param project_id: Project containing the NATS account.
         :return: :class:`NatsAccount <NatsAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_nats_account()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/nats-accounts",
@@ -143,7 +111,7 @@ class MnqV1Beta1NatsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_NatsAccount(res.json())
-        
+
     def delete_nats_account(
         self,
         *,
@@ -155,24 +123,27 @@ class MnqV1Beta1NatsAPI(API):
         Delete a NATS account, specified by its NATS account ID. Note that deleting a NATS account is irreversible, and any credentials, streams, consumer and stored messages belonging to this NATS account will also be deleted.
         :param nats_account_id: ID of the NATS account to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_nats_account(
                 nats_account_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_nats_account_id = validate_path_param("nats_account_id", nats_account_id)
-        
+
         res = self._request(
             "DELETE",
             f"/mnq/v1beta1/regions/{param_region}/nats-accounts/{param_nats_account_id}",
         )
 
         self._throw_on_error(res)
+
     def update_nats_account(
         self,
         *,
@@ -187,18 +158,20 @@ class MnqV1Beta1NatsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: NATS account name.
         :return: :class:`NatsAccount <NatsAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_nats_account(
                 nats_account_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_nats_account_id = validate_path_param("nats_account_id", nats_account_id)
-        
+
         res = self._request(
             "PATCH",
             f"/mnq/v1beta1/regions/{param_region}/nats-accounts/{param_nats_account_id}",
@@ -214,7 +187,7 @@ class MnqV1Beta1NatsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_NatsAccount(res.json())
-        
+
     def get_nats_account(
         self,
         *,
@@ -227,18 +200,20 @@ class MnqV1Beta1NatsAPI(API):
         :param nats_account_id: ID of the NATS account to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`NatsAccount <NatsAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_nats_account(
                 nats_account_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_nats_account_id = validate_path_param("nats_account_id", nats_account_id)
-        
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/nats-accounts/{param_nats_account_id}",
@@ -246,7 +221,7 @@ class MnqV1Beta1NatsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_NatsAccount(res.json())
-        
+
     def list_nats_accounts(
         self,
         *,
@@ -265,15 +240,17 @@ class MnqV1Beta1NatsAPI(API):
         :param page_size: Maximum number of NATS accounts to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`ListNatsAccountsResponse <ListNatsAccountsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_nats_accounts()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/nats-accounts",
@@ -287,7 +264,7 @@ class MnqV1Beta1NatsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNatsAccountsResponse(res.json())
-        
+
     def list_nats_accounts_all(
         self,
         *,
@@ -306,14 +283,14 @@ class MnqV1Beta1NatsAPI(API):
         :param page_size: Maximum number of NATS accounts to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`List[NatsAccount] <List[NatsAccount]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_nats_accounts_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListNatsAccountsResponse,
             key="nats_accounts",
             fetcher=self.list_nats_accounts,
@@ -325,7 +302,7 @@ class MnqV1Beta1NatsAPI(API):
                 "order_by": order_by,
             },
         )
-        
+
     def create_nats_credentials(
         self,
         *,
@@ -340,17 +317,19 @@ class MnqV1Beta1NatsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :return: :class:`NatsCredentials <NatsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_nats_credentials(
                 nats_account_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/nats-credentials",
@@ -366,7 +345,7 @@ class MnqV1Beta1NatsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_NatsCredentials(res.json())
-        
+
     def delete_nats_credentials(
         self,
         *,
@@ -378,24 +357,29 @@ class MnqV1Beta1NatsAPI(API):
         Delete a set of credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can no longer be used to access the NATS account, and active connections using this credentials will be closed.
         :param nats_credentials_id: ID of the credentials to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_nats_credentials(
                 nats_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_nats_credentials_id = validate_path_param("nats_credentials_id", nats_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_nats_credentials_id = validate_path_param(
+            "nats_credentials_id", nats_credentials_id
+        )
+
         res = self._request(
             "DELETE",
             f"/mnq/v1beta1/regions/{param_region}/nats-credentials/{param_nats_credentials_id}",
         )
 
         self._throw_on_error(res)
+
     def get_nats_credentials(
         self,
         *,
@@ -408,18 +392,22 @@ class MnqV1Beta1NatsAPI(API):
         :param nats_credentials_id: ID of the credentials to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`NatsCredentials <NatsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_nats_credentials(
                 nats_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_nats_credentials_id = validate_path_param("nats_credentials_id", nats_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_nats_credentials_id = validate_path_param(
+            "nats_credentials_id", nats_credentials_id
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/nats-credentials/{param_nats_credentials_id}",
@@ -427,7 +415,7 @@ class MnqV1Beta1NatsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_NatsCredentials(res.json())
-        
+
     def list_nats_credentials(
         self,
         *,
@@ -448,15 +436,17 @@ class MnqV1Beta1NatsAPI(API):
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`ListNatsCredentialsResponse <ListNatsCredentialsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_nats_credentials()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/nats-credentials",
@@ -471,7 +461,7 @@ class MnqV1Beta1NatsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNatsCredentialsResponse(res.json())
-        
+
     def list_nats_credentials_all(
         self,
         *,
@@ -492,14 +482,14 @@ class MnqV1Beta1NatsAPI(API):
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`List[NatsCredentials] <List[NatsCredentials]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_nats_credentials_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListNatsCredentialsResponse,
             key="nats_credentials",
             fetcher=self.list_nats_credentials,
@@ -512,12 +502,13 @@ class MnqV1Beta1NatsAPI(API):
                 "order_by": order_by,
             },
         )
-        
+
 
 class MnqV1Beta1SnsAPI(API):
     """
     This API allows you to manage your Scaleway Topics and Events.
     """
+
     def activate_sns(
         self,
         *,
@@ -530,15 +521,17 @@ class MnqV1Beta1SnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project on which to activate the Topics and Events service.
         :return: :class:`SnsInfo <SnsInfo>`
-        
+
         Usage:
         ::
-        
+
             result = api.activate_sns()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/activate-sns",
@@ -553,7 +546,7 @@ class MnqV1Beta1SnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SnsInfo(res.json())
-        
+
     def get_sns_info(
         self,
         *,
@@ -566,15 +559,17 @@ class MnqV1Beta1SnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project to retrieve Topics and Events info from.
         :return: :class:`SnsInfo <SnsInfo>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_sns_info()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/sns-info",
@@ -585,7 +580,7 @@ class MnqV1Beta1SnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SnsInfo(res.json())
-        
+
     def deactivate_sns(
         self,
         *,
@@ -598,15 +593,17 @@ class MnqV1Beta1SnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project on which to deactivate the Topics and Events service.
         :return: :class:`SnsInfo <SnsInfo>`
-        
+
         Usage:
         ::
-        
+
             result = api.deactivate_sns()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/deactivate-sns",
@@ -621,7 +618,7 @@ class MnqV1Beta1SnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SnsInfo(res.json())
-        
+
     def create_sns_credentials(
         self,
         *,
@@ -638,15 +635,17 @@ class MnqV1Beta1SnsAPI(API):
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SnsCredentials <SnsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_sns_credentials()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/sns-credentials",
@@ -663,7 +662,7 @@ class MnqV1Beta1SnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SnsCredentials(res.json())
-        
+
     def delete_sns_credentials(
         self,
         *,
@@ -675,24 +674,29 @@ class MnqV1Beta1SnsAPI(API):
         Delete a set of Topics and Events credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access Topics and Events.
         :param sns_credentials_id: ID of the credentials to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_sns_credentials(
                 sns_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_sns_credentials_id = validate_path_param("sns_credentials_id", sns_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_sns_credentials_id = validate_path_param(
+            "sns_credentials_id", sns_credentials_id
+        )
+
         res = self._request(
             "DELETE",
             f"/mnq/v1beta1/regions/{param_region}/sns-credentials/{param_sns_credentials_id}",
         )
 
         self._throw_on_error(res)
+
     def update_sns_credentials(
         self,
         *,
@@ -709,18 +713,22 @@ class MnqV1Beta1SnsAPI(API):
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SnsCredentials <SnsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_sns_credentials(
                 sns_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_sns_credentials_id = validate_path_param("sns_credentials_id", sns_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_sns_credentials_id = validate_path_param(
+            "sns_credentials_id", sns_credentials_id
+        )
+
         res = self._request(
             "PATCH",
             f"/mnq/v1beta1/regions/{param_region}/sns-credentials/{param_sns_credentials_id}",
@@ -737,7 +745,7 @@ class MnqV1Beta1SnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SnsCredentials(res.json())
-        
+
     def get_sns_credentials(
         self,
         *,
@@ -750,18 +758,22 @@ class MnqV1Beta1SnsAPI(API):
         :param sns_credentials_id: ID of the Topics and Events credentials to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SnsCredentials <SnsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_sns_credentials(
                 sns_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_sns_credentials_id = validate_path_param("sns_credentials_id", sns_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_sns_credentials_id = validate_path_param(
+            "sns_credentials_id", sns_credentials_id
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/sns-credentials/{param_sns_credentials_id}",
@@ -769,7 +781,7 @@ class MnqV1Beta1SnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SnsCredentials(res.json())
-        
+
     def list_sns_credentials(
         self,
         *,
@@ -788,15 +800,17 @@ class MnqV1Beta1SnsAPI(API):
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`ListSnsCredentialsResponse <ListSnsCredentialsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_sns_credentials()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/sns-credentials",
@@ -810,7 +824,7 @@ class MnqV1Beta1SnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSnsCredentialsResponse(res.json())
-        
+
     def list_sns_credentials_all(
         self,
         *,
@@ -829,14 +843,14 @@ class MnqV1Beta1SnsAPI(API):
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`List[SnsCredentials] <List[SnsCredentials]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_sns_credentials_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListSnsCredentialsResponse,
             key="sns_credentials",
             fetcher=self.list_sns_credentials,
@@ -848,12 +862,13 @@ class MnqV1Beta1SnsAPI(API):
                 "order_by": order_by,
             },
         )
-        
+
 
 class MnqV1Beta1SqsAPI(API):
     """
     This API allows you to manage your Scaleway Queues.
     """
+
     def activate_sqs(
         self,
         *,
@@ -866,15 +881,17 @@ class MnqV1Beta1SqsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project on which to activate the Queues service.
         :return: :class:`SqsInfo <SqsInfo>`
-        
+
         Usage:
         ::
-        
+
             result = api.activate_sqs()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/activate-sqs",
@@ -889,7 +906,7 @@ class MnqV1Beta1SqsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SqsInfo(res.json())
-        
+
     def get_sqs_info(
         self,
         *,
@@ -902,15 +919,17 @@ class MnqV1Beta1SqsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project to retrieve Queues info from.
         :return: :class:`SqsInfo <SqsInfo>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_sqs_info()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/sqs-info",
@@ -921,7 +940,7 @@ class MnqV1Beta1SqsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SqsInfo(res.json())
-        
+
     def deactivate_sqs(
         self,
         *,
@@ -934,15 +953,17 @@ class MnqV1Beta1SqsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project on which to deactivate the Queues service.
         :return: :class:`SqsInfo <SqsInfo>`
-        
+
         Usage:
         ::
-        
+
             result = api.deactivate_sqs()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/deactivate-sqs",
@@ -957,7 +978,7 @@ class MnqV1Beta1SqsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SqsInfo(res.json())
-        
+
     def create_sqs_credentials(
         self,
         *,
@@ -974,15 +995,17 @@ class MnqV1Beta1SqsAPI(API):
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SqsCredentials <SqsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_sqs_credentials()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/mnq/v1beta1/regions/{param_region}/sqs-credentials",
@@ -999,7 +1022,7 @@ class MnqV1Beta1SqsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SqsCredentials(res.json())
-        
+
     def delete_sqs_credentials(
         self,
         *,
@@ -1011,24 +1034,29 @@ class MnqV1Beta1SqsAPI(API):
         Delete a set of Queues credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access Queues.
         :param sqs_credentials_id: ID of the credentials to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_sqs_credentials(
                 sqs_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_sqs_credentials_id = validate_path_param("sqs_credentials_id", sqs_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_sqs_credentials_id = validate_path_param(
+            "sqs_credentials_id", sqs_credentials_id
+        )
+
         res = self._request(
             "DELETE",
             f"/mnq/v1beta1/regions/{param_region}/sqs-credentials/{param_sqs_credentials_id}",
         )
 
         self._throw_on_error(res)
+
     def update_sqs_credentials(
         self,
         *,
@@ -1045,18 +1073,22 @@ class MnqV1Beta1SqsAPI(API):
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SqsCredentials <SqsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_sqs_credentials(
                 sqs_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_sqs_credentials_id = validate_path_param("sqs_credentials_id", sqs_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_sqs_credentials_id = validate_path_param(
+            "sqs_credentials_id", sqs_credentials_id
+        )
+
         res = self._request(
             "PATCH",
             f"/mnq/v1beta1/regions/{param_region}/sqs-credentials/{param_sqs_credentials_id}",
@@ -1073,7 +1105,7 @@ class MnqV1Beta1SqsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SqsCredentials(res.json())
-        
+
     def get_sqs_credentials(
         self,
         *,
@@ -1086,18 +1118,22 @@ class MnqV1Beta1SqsAPI(API):
         :param sqs_credentials_id: ID of the Queues credentials to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SqsCredentials <SqsCredentials>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_sqs_credentials(
                 sqs_credentials_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_sqs_credentials_id = validate_path_param("sqs_credentials_id", sqs_credentials_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_sqs_credentials_id = validate_path_param(
+            "sqs_credentials_id", sqs_credentials_id
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/sqs-credentials/{param_sqs_credentials_id}",
@@ -1105,7 +1141,7 @@ class MnqV1Beta1SqsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SqsCredentials(res.json())
-        
+
     def list_sqs_credentials(
         self,
         *,
@@ -1124,15 +1160,17 @@ class MnqV1Beta1SqsAPI(API):
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`ListSqsCredentialsResponse <ListSqsCredentialsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_sqs_credentials()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/mnq/v1beta1/regions/{param_region}/sqs-credentials",
@@ -1146,7 +1184,7 @@ class MnqV1Beta1SqsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSqsCredentialsResponse(res.json())
-        
+
     def list_sqs_credentials_all(
         self,
         *,
@@ -1165,14 +1203,14 @@ class MnqV1Beta1SqsAPI(API):
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
         :return: :class:`List[SqsCredentials] <List[SqsCredentials]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_sqs_credentials_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListSqsCredentialsResponse,
             key="sqs_credentials",
             fetcher=self.list_sqs_credentials,
@@ -1184,4 +1222,3 @@ class MnqV1Beta1SqsAPI(API):
                 "order_by": order_by,
             },
         )
-        

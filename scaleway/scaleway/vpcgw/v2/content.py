@@ -6,6 +6,7 @@ from .types import (
     GatewayNetworkStatus,
     GatewayStatus,
 )
+
 GATEWAY_NETWORK_TRANSIENT_STATUSES: List[GatewayNetworkStatus] = [
     GatewayNetworkStatus.ATTACHING,
     GatewayNetworkStatus.CONFIGURING,

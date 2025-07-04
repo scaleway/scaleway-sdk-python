@@ -1,71 +1,36 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
-    random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
     DataKeyAlgorithmSymmetricEncryption,
-    KeyAlgorithmAsymmetricEncryption,
-    KeyAlgorithmAsymmetricSigning,
-    KeyAlgorithmSymmetricEncryption,
     KeyOrigin,
-    KeyState,
     ListKeysRequestOrderBy,
     ListKeysRequestUsage,
     CreateKeyRequest,
     DataKey,
     DecryptRequest,
     DecryptResponse,
-    DeleteKeyMaterialRequest,
-    DeleteKeyRequest,
-    DisableKeyRequest,
-    EnableKeyRequest,
     EncryptRequest,
     EncryptResponse,
     GenerateDataKeyRequest,
-    GetKeyRequest,
-    GetPublicKeyRequest,
     ImportKeyMaterialRequest,
     Key,
     KeyRotationPolicy,
     KeyUsage,
-    ListKeysRequest,
     ListKeysResponse,
-    ProtectKeyRequest,
     PublicKey,
-    RestoreKeyRequest,
-    RotateKeyRequest,
     SignRequest,
     SignResponse,
-    UnprotectKeyRequest,
     UpdateKeyRequest,
     VerifyRequest,
     VerifyResponse,
@@ -89,10 +54,12 @@ from .marshalling import (
     marshal_VerifyRequest,
 )
 
+
 class KeyManagerV1Alpha1API(API):
     """
     This API allows you to create, manage and use cryptographic keys in a centralized and secure service.
     """
+
     def create_key(
         self,
         *,
@@ -119,17 +86,19 @@ class KeyManagerV1Alpha1API(API):
         :param rotation_policy: If not specified, no rotation policy will be applied to the key.
         :param origin: Refer to the `Key.Origin` enum for a description of values.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_key(
                 unprotected=False,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys",
@@ -151,7 +120,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def get_key(
         self,
         *,
@@ -164,18 +133,20 @@ class KeyManagerV1Alpha1API(API):
         :param key_id: ID of the key to target.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "GET",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}",
@@ -183,7 +154,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def get_public_key(
         self,
         *,
@@ -196,18 +167,20 @@ class KeyManagerV1Alpha1API(API):
         :param key_id: ID of the key.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`PublicKey <PublicKey>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_public_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "GET",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/public-key",
@@ -215,7 +188,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_PublicKey(res.json())
-        
+
     def update_key(
         self,
         *,
@@ -236,18 +209,20 @@ class KeyManagerV1Alpha1API(API):
         :param tags: (Optional) Updated list of the key's tags.
         :param rotation_policy: If not specified, the key's existing rotation policy applies.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "PATCH",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}",
@@ -266,7 +241,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def delete_key(
         self,
         *,
@@ -278,24 +253,27 @@ class KeyManagerV1Alpha1API(API):
         Permanently delete a key specified by the `region` and `key_id` parameters. This action is irreversible. Any data encrypted with this key, including data encryption keys, will no longer be decipherable.
         :param key_id: ID of the key to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "DELETE",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}",
         )
 
         self._throw_on_error(res)
+
     def rotate_key(
         self,
         *,
@@ -308,18 +286,20 @@ class KeyManagerV1Alpha1API(API):
         :param key_id: ID of the key to rotate.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.rotate_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/rotate",
@@ -328,7 +308,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def protect_key(
         self,
         *,
@@ -341,18 +321,20 @@ class KeyManagerV1Alpha1API(API):
         :param key_id: ID of the key to apply key protection to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.protect_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/protect",
@@ -361,7 +343,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def unprotect_key(
         self,
         *,
@@ -374,18 +356,20 @@ class KeyManagerV1Alpha1API(API):
         :param key_id: ID of the key to remove key protection from.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.unprotect_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/unprotect",
@@ -394,7 +378,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def enable_key(
         self,
         *,
@@ -407,18 +391,20 @@ class KeyManagerV1Alpha1API(API):
         :param key_id: ID of the key to enable.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.enable_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/enable",
@@ -427,7 +413,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def disable_key(
         self,
         *,
@@ -440,18 +426,20 @@ class KeyManagerV1Alpha1API(API):
         :param key_id: ID of the key to disable.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.disable_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/disable",
@@ -460,7 +448,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def list_keys(
         self,
         *,
@@ -482,31 +470,34 @@ class KeyManagerV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
         :param project_id: (Optional) Filter by Project ID.
-        :param order_by: 
-        :param page: 
-        :param page_size: 
+        :param order_by:
+        :param page:
+        :param page_size:
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
         :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
         :return: :class:`ListKeysResponse <ListKeysResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_keys(
                 scheduled_for_deletion=False,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/key-manager/v1alpha1/regions/{param_region}/keys",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -518,7 +509,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListKeysResponse(res.json())
-        
+
     def list_keys_all(
         self,
         *,
@@ -540,23 +531,23 @@ class KeyManagerV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
         :param project_id: (Optional) Filter by Project ID.
-        :param order_by: 
-        :param page: 
-        :param page_size: 
+        :param order_by:
+        :param page:
+        :param page_size:
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
         :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
         :return: :class:`List[Key] <List[Key]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_keys_all(
                 scheduled_for_deletion=False,
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListKeysResponse,
             key="keys",
             fetcher=self.list_keys,
@@ -573,7 +564,7 @@ class KeyManagerV1Alpha1API(API):
                 "usage": usage,
             },
         )
-        
+
     def generate_data_key(
         self,
         *,
@@ -585,7 +576,7 @@ class KeyManagerV1Alpha1API(API):
         """
         Create a data encryption key.
         Create a new data encryption key for cryptographic operations outside of Key Manager. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager.
-        
+
         The data encryption key is returned in plaintext and ciphertext but it should only be stored in its encrypted form (ciphertext). Key Manager does not store your data encryption key. To retrieve your key's plaintext, use the `Decrypt` method with your key's ID and ciphertext.
         :param key_id: ID of the key.
         :param without_plaintext: Default value is `false`, meaning that the plaintext is returned.
@@ -593,19 +584,21 @@ class KeyManagerV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param algorithm: See the `DataKey.Algorithm.SymmetricEncryption` enum for a description of values.
         :return: :class:`DataKey <DataKey>`
-        
+
         Usage:
         ::
-        
+
             result = api.generate_data_key(
                 key_id="example",
                 without_plaintext=False,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/generate-data-key",
@@ -622,7 +615,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DataKey(res.json())
-        
+
     def encrypt(
         self,
         *,
@@ -639,19 +632,21 @@ class KeyManagerV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param associated_data: Additional data which will not be encrypted, but authenticated and appended to the encrypted payload. Only supported by keys with a usage set to `symmetric_encryption`.
         :return: :class:`EncryptResponse <EncryptResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.encrypt(
                 key_id="example",
                 plaintext="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/encrypt",
@@ -668,7 +663,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_EncryptResponse(res.json())
-        
+
     def decrypt(
         self,
         *,
@@ -685,19 +680,21 @@ class KeyManagerV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param associated_data: The additional data must match the value passed in the encryption request. Only supported by keys with a usage set to `symmetric_encryption`.
         :return: :class:`DecryptResponse <DecryptResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.decrypt(
                 key_id="example",
                 ciphertext="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/decrypt",
@@ -714,7 +711,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DecryptResponse(res.json())
-        
+
     def sign(
         self,
         *,
@@ -729,19 +726,21 @@ class KeyManagerV1Alpha1API(API):
         :param digest: The digest must be generated using the same algorithm defined in the key’s algorithm settings.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SignResponse <SignResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.sign(
                 key_id="example",
                 digest="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/sign",
@@ -757,7 +756,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SignResponse(res.json())
-        
+
     def verify(
         self,
         *,
@@ -774,20 +773,22 @@ class KeyManagerV1Alpha1API(API):
         :param signature: The message signature to verify.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`VerifyResponse <VerifyResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.verify(
                 key_id="example",
                 digest="example",
                 signature="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/verify",
@@ -804,7 +805,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_VerifyResponse(res.json())
-        
+
     def import_key_material(
         self,
         *,
@@ -821,19 +822,21 @@ class KeyManagerV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param salt: A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.import_key_material(
                 key_id="example",
                 key_material="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/import-key-material",
@@ -850,7 +853,7 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
+
     def delete_key_material(
         self,
         *,
@@ -862,18 +865,20 @@ class KeyManagerV1Alpha1API(API):
         Delete previously imported key material. This renders the associated cryptographic key unusable for any operation. The key's origin must be `external`.
         :param key_id: ID of the key of which to delete the key material.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_key_material(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/delete-key-material",
@@ -881,6 +886,7 @@ class KeyManagerV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
     def restore_key(
         self,
         *,
@@ -890,21 +896,23 @@ class KeyManagerV1Alpha1API(API):
         """
         Restore a key.
         Restore a key and all its rotations scheduled for deletion specified by the `region` and `key_id` parameters.
-        :param key_id: 
+        :param key_id:
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
-        
+
         Usage:
         ::
-        
+
             result = api.restore_key(
                 key_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_key_id = validate_path_param("key_id", key_id)
-        
+
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/restore",
@@ -913,4 +921,3 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
-        
