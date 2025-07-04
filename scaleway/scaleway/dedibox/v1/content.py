@@ -13,7 +13,6 @@ from .types import (
     ServerStatus,
     ServiceProvisioningStatus,
 )
-
 BMC_ACCESS_TRANSIENT_STATUSES: List[BMCAccessStatus] = [
     BMCAccessStatus.CREATING,
     BMCAccessStatus.DELETING,

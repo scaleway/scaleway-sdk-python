@@ -1,25 +1,51 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
+    DatabaseBackupStatus,
+    DatabaseStatus,
     ListDatabaseBackupsRequestOrderBy,
     ListDatabasesRequestOrderBy,
     CreateDatabaseRequest,
     Database,
     DatabaseBackup,
+    DeleteDatabaseRequest,
+    ExportDatabaseBackupRequest,
+    GetDatabaseBackupRequest,
+    GetDatabaseRequest,
+    ListDatabaseBackupsRequest,
     ListDatabaseBackupsResponse,
+    ListDatabasesRequest,
     ListDatabasesResponse,
     RestoreDatabaseFromBackupRequest,
     UpdateDatabaseRequest,
@@ -37,12 +63,10 @@ from .marshalling import (
     marshal_UpdateDatabaseRequest,
 )
 
-
 class ServerlessSqldbV1Alpha1API(API):
     """
     This API allows you to manage your Serverless SQL Databases.
     """
-
     def create_database(
         self,
         *,
@@ -63,21 +87,19 @@ class ServerlessSqldbV1Alpha1API(API):
         :param project_id: The ID of your Scaleway project.
         :param from_backup_id: The ID of the backup to create the database from.
         :return: :class:`Database <Database>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_database(
                 name="example",
                 cpu_min=1,
                 cpu_max=1,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/databases",
@@ -96,7 +118,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-
+        
     def get_database(
         self,
         *,
@@ -109,20 +131,18 @@ class ServerlessSqldbV1Alpha1API(API):
         :param database_id: UUID of the Serverless SQL DB database.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_database(
                 database_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_database_id = validate_path_param("database_id", database_id)
-
+        
         res = self._request(
             "GET",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/databases/{param_database_id}",
@@ -130,7 +150,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-
+        
     def wait_for_database(
         self,
         *,
@@ -144,10 +164,10 @@ class ServerlessSqldbV1Alpha1API(API):
         :param database_id: UUID of the Serverless SQL DB database.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_database(
                 database_id="example",
             )
@@ -167,7 +187,7 @@ class ServerlessSqldbV1Alpha1API(API):
                 "region": region,
             },
         )
-
+        
     def delete_database(
         self,
         *,
@@ -180,20 +200,18 @@ class ServerlessSqldbV1Alpha1API(API):
         :param database_id: UUID of the Serverless SQL Database.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_database(
                 database_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_database_id = validate_path_param("database_id", database_id)
-
+        
         res = self._request(
             "DELETE",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/databases/{param_database_id}",
@@ -201,7 +219,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-
+        
     def list_databases(
         self,
         *,
@@ -224,25 +242,22 @@ class ServerlessSqldbV1Alpha1API(API):
         :param name: Filter by the name of the database.
         :param order_by: Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`.
         :return: :class:`ListDatabasesResponse <ListDatabasesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_databases()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/databases",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -251,7 +266,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDatabasesResponse(res.json())
-
+        
     def list_databases_all(
         self,
         *,
@@ -274,14 +289,14 @@ class ServerlessSqldbV1Alpha1API(API):
         :param name: Filter by the name of the database.
         :param order_by: Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`.
         :return: :class:`List[Database] <List[Database]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_databases_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDatabasesResponse,
             key="databases",
             fetcher=self.list_databases,
@@ -295,7 +310,7 @@ class ServerlessSqldbV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def update_database(
         self,
         *,
@@ -312,20 +327,18 @@ class ServerlessSqldbV1Alpha1API(API):
         :param cpu_min: The minimum number of CPU units for your Serverless SQL Database.
         :param cpu_max: The maximum number of CPU units for your Serverless SQL Database.
         :return: :class:`Database <Database>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_database(
                 database_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_database_id = validate_path_param("database_id", database_id)
-
+        
         res = self._request(
             "PATCH",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/databases/{param_database_id}",
@@ -342,7 +355,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-
+        
     def restore_database_from_backup(
         self,
         *,
@@ -357,21 +370,19 @@ class ServerlessSqldbV1Alpha1API(API):
         :param backup_id: UUID of the Serverless SQL Database backup to restore.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
-
+        
         Usage:
         ::
-
+        
             result = api.restore_database_from_backup(
                 database_id="example",
                 backup_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_database_id = validate_path_param("database_id", database_id)
-
+        
         res = self._request(
             "POST",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/databases/{param_database_id}/restore",
@@ -387,7 +398,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-
+        
     def get_database_backup(
         self,
         *,
@@ -400,20 +411,18 @@ class ServerlessSqldbV1Alpha1API(API):
         :param backup_id: UUID of the Serverless SQL Database backup.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_database_backup(
                 backup_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backup_id = validate_path_param("backup_id", backup_id)
-
+        
         res = self._request(
             "GET",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/backups/{param_backup_id}",
@@ -421,7 +430,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
-
+        
     def list_database_backups(
         self,
         *,
@@ -444,27 +453,24 @@ class ServerlessSqldbV1Alpha1API(API):
         :param page_size: Page size.
         :param order_by: Sorting criteria. One of `created_at_asc`, `created_at_desc`.
         :return: :class:`ListDatabaseBackupsResponse <ListDatabaseBackupsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_database_backups(
                 database_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/backups",
             params={
                 "database_id": database_id,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -473,7 +479,7 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDatabaseBackupsResponse(res.json())
-
+        
     def list_database_backups_all(
         self,
         *,
@@ -496,16 +502,16 @@ class ServerlessSqldbV1Alpha1API(API):
         :param page_size: Page size.
         :param order_by: Sorting criteria. One of `created_at_asc`, `created_at_desc`.
         :return: :class:`List[DatabaseBackup] <List[DatabaseBackup]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_database_backups_all(
                 database_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDatabaseBackupsResponse,
             key="backups",
             fetcher=self.list_database_backups,
@@ -519,7 +525,7 @@ class ServerlessSqldbV1Alpha1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def export_database_backup(
         self,
         *,
@@ -532,20 +538,18 @@ class ServerlessSqldbV1Alpha1API(API):
         :param backup_id: UUID of the Serverless SQL Database backup.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.export_database_backup(
                 backup_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backup_id = validate_path_param("backup_id", backup_id)
-
+        
         res = self._request(
             "POST",
             f"/serverless-sqldb/v1alpha1/regions/{param_region}/backups/{param_backup_id}/export",
@@ -554,3 +558,4 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
+        

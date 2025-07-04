@@ -7,7 +7,6 @@ from .types import (
     SnapshotStatus,
     VolumeStatus,
 )
-
 REFERENCE_TRANSIENT_STATUSES: List[ReferenceStatus] = [
     ReferenceStatus.ATTACHING,
     ReferenceStatus.DETACHING,

@@ -2,15 +2,29 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
     random_name,
     resolve_one_of,
     validate_path_param,
@@ -22,14 +36,23 @@ from .types import (
     ContainerPrivacy,
     ContainerProtocol,
     ContainerSandbox,
+    ContainerStatus,
+    CronStatus,
+    DomainStatus,
     ListContainersRequestOrderBy,
     ListCronsRequestOrderBy,
     ListDomainsRequestOrderBy,
     ListNamespacesRequestOrderBy,
     ListTokensRequestOrderBy,
     ListTriggersRequestOrderBy,
+    NamespaceStatus,
+    TokenStatus,
+    TriggerInputType,
+    TriggerStatus,
     Container,
     ContainerHealthCheckSpec,
+    ContainerHealthCheckSpecHTTPProbe,
+    ContainerHealthCheckSpecTCPProbe,
     ContainerScalingOption,
     CreateContainerRequest,
     CreateCronRequest,
@@ -41,17 +64,40 @@ from .types import (
     CreateTriggerRequestMnqSqsClientConfig,
     CreateTriggerRequestSqsClientConfig,
     Cron,
+    DeleteContainerRequest,
+    DeleteCronRequest,
+    DeleteDomainRequest,
+    DeleteNamespaceRequest,
+    DeleteTokenRequest,
+    DeleteTriggerRequest,
+    DeployContainerRequest,
     Domain,
+    GetContainerRequest,
+    GetCronRequest,
+    GetDomainRequest,
+    GetNamespaceRequest,
+    GetTokenRequest,
+    GetTriggerRequest,
+    ListContainersRequest,
     ListContainersResponse,
+    ListCronsRequest,
     ListCronsResponse,
+    ListDomainsRequest,
     ListDomainsResponse,
+    ListNamespacesRequest,
     ListNamespacesResponse,
+    ListTokensRequest,
     ListTokensResponse,
+    ListTriggersRequest,
     ListTriggersResponse,
     Namespace,
     Secret,
+    SecretHashedValue,
     Token,
     Trigger,
+    TriggerMnqNatsClientConfig,
+    TriggerMnqSqsClientConfig,
+    TriggerSqsClientConfig,
     UpdateContainerRequest,
     UpdateCronRequest,
     UpdateNamespaceRequest,
@@ -91,12 +137,10 @@ from .marshalling import (
     marshal_UpdateTriggerRequest,
 )
 
-
 class ContainerV1Beta1API(API):
     """
     This API allows you to manage your Serverless Containers.
     """
-
     def list_namespaces(
         self,
         *,
@@ -119,25 +163,22 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the namespace belongs to.
         :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`ListNamespacesResponse <ListNamespacesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_namespaces()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/namespaces",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -146,7 +187,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNamespacesResponse(res.json())
-
+        
     def list_namespaces_all(
         self,
         *,
@@ -169,14 +210,14 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the namespace belongs to.
         :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`List[Namespace] <List[Namespace]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_namespaces_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListNamespacesResponse,
             key="namespaces",
             fetcher=self.list_namespaces,
@@ -190,7 +231,7 @@ class ContainerV1Beta1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_namespace(
         self,
         *,
@@ -203,20 +244,18 @@ class ContainerV1Beta1API(API):
         :param namespace_id: UUID of the namespace to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_namespace(
                 namespace_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_namespace_id = validate_path_param("namespace_id", namespace_id)
-
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/namespaces/{param_namespace_id}",
@@ -224,7 +263,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-
+        
     def wait_for_namespace(
         self,
         *,
@@ -238,10 +277,10 @@ class ContainerV1Beta1API(API):
         :param namespace_id: UUID of the namespace to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_namespace(
                 namespace_id="example",
             )
@@ -261,7 +300,7 @@ class ContainerV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def create_namespace(
         self,
         *,
@@ -286,19 +325,17 @@ class ContainerV1Beta1API(API):
         :param secret_environment_variables: Secret environment variables of the namespace to create.
         :param tags: Tags of the Serverless Container Namespace.
         :return: :class:`Namespace <Namespace>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_namespace(
                 activate_vpc_integration=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/containers/v1beta1/regions/{param_region}/namespaces",
@@ -319,7 +356,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-
+        
     def update_namespace(
         self,
         *,
@@ -340,20 +377,18 @@ class ContainerV1Beta1API(API):
         :param secret_environment_variables: Secret environment variables of the namespace to update.
         :param tags: Tags of the Serverless Container Namespace.
         :return: :class:`Namespace <Namespace>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_namespace(
                 namespace_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_namespace_id = validate_path_param("namespace_id", namespace_id)
-
+        
         res = self._request(
             "PATCH",
             f"/containers/v1beta1/regions/{param_region}/namespaces/{param_namespace_id}",
@@ -372,7 +407,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-
+        
     def delete_namespace(
         self,
         *,
@@ -385,20 +420,18 @@ class ContainerV1Beta1API(API):
         :param namespace_id: UUID of the namespace to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_namespace(
                 namespace_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_namespace_id = validate_path_param("namespace_id", namespace_id)
-
+        
         res = self._request(
             "DELETE",
             f"/containers/v1beta1/regions/{param_region}/namespaces/{param_namespace_id}",
@@ -406,7 +439,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-
+        
     def list_containers(
         self,
         *,
@@ -431,19 +464,17 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the container belongs to.
         :param project_id: UUID of the Project the container belongs to.
         :return: :class:`ListContainersResponse <ListContainersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_containers(
                 namespace_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/containers",
@@ -451,8 +482,7 @@ class ContainerV1Beta1API(API):
                 "name": name,
                 "namespace_id": namespace_id,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -461,7 +491,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListContainersResponse(res.json())
-
+        
     def list_containers_all(
         self,
         *,
@@ -486,16 +516,16 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the container belongs to.
         :param project_id: UUID of the Project the container belongs to.
         :return: :class:`List[Container] <List[Container]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_containers_all(
                 namespace_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListContainersResponse,
             key="containers",
             fetcher=self.list_containers,
@@ -510,7 +540,7 @@ class ContainerV1Beta1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_container(
         self,
         *,
@@ -523,20 +553,18 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_container(
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_container_id = validate_path_param("container_id", container_id)
-
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/containers/{param_container_id}",
@@ -544,7 +572,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Container(res.json())
-
+        
     def wait_for_container(
         self,
         *,
@@ -558,10 +586,10 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_container(
                 container_id="example",
             )
@@ -581,7 +609,7 @@ class ContainerV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def create_container(
         self,
         *,
@@ -642,25 +670,23 @@ class ContainerV1Beta1API(API):
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
         :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
-
+        
         Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_container(
                 namespace_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/containers/v1beta1/regions/{param_region}/containers",
@@ -698,7 +724,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Container(res.json())
-
+        
     def update_container(
         self,
         *,
@@ -759,25 +785,23 @@ class ContainerV1Beta1API(API):
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
         :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
-
+        
         Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_container(
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_container_id = validate_path_param("container_id", container_id)
-
+        
         res = self._request(
             "PATCH",
             f"/containers/v1beta1/regions/{param_region}/containers/{param_container_id}",
@@ -815,7 +839,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Container(res.json())
-
+        
     def delete_container(
         self,
         *,
@@ -828,20 +852,18 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_container(
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_container_id = validate_path_param("container_id", container_id)
-
+        
         res = self._request(
             "DELETE",
             f"/containers/v1beta1/regions/{param_region}/containers/{param_container_id}",
@@ -849,7 +871,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Container(res.json())
-
+        
     def deploy_container(
         self,
         *,
@@ -862,20 +884,18 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to deploy.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
-
+        
         Usage:
         ::
-
+        
             result = api.deploy_container(
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_container_id = validate_path_param("container_id", container_id)
-
+        
         res = self._request(
             "POST",
             f"/containers/v1beta1/regions/{param_region}/containers/{param_container_id}/deploy",
@@ -884,7 +904,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Container(res.json())
-
+        
     def list_crons(
         self,
         *,
@@ -902,19 +922,17 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
         :return: :class:`ListCronsResponse <ListCronsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_crons(
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/crons",
@@ -928,7 +946,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListCronsResponse(res.json())
-
+        
     def list_crons_all(
         self,
         *,
@@ -946,16 +964,16 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
         :return: :class:`List[Cron] <List[Cron]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_crons_all(
                 container_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListCronsResponse,
             key="crons",
             fetcher=self.list_crons,
@@ -967,7 +985,7 @@ class ContainerV1Beta1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def get_cron(
         self,
         *,
@@ -980,20 +998,18 @@ class ContainerV1Beta1API(API):
         :param cron_id: UUID of the cron to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_cron(
                 cron_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cron_id = validate_path_param("cron_id", cron_id)
-
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/crons/{param_cron_id}",
@@ -1001,7 +1017,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cron(res.json())
-
+        
     def wait_for_cron(
         self,
         *,
@@ -1015,10 +1031,10 @@ class ContainerV1Beta1API(API):
         :param cron_id: UUID of the cron to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_cron(
                 cron_id="example",
             )
@@ -1038,7 +1054,7 @@ class ContainerV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def create_cron(
         self,
         *,
@@ -1056,20 +1072,18 @@ class ContainerV1Beta1API(API):
         :param args: Arguments to pass with the cron.
         :param name: Name of the cron to create.
         :return: :class:`Cron <Cron>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_cron(
                 container_id="example",
                 schedule="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/containers/v1beta1/regions/{param_region}/crons",
@@ -1087,7 +1101,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cron(res.json())
-
+        
     def update_cron(
         self,
         *,
@@ -1108,20 +1122,18 @@ class ContainerV1Beta1API(API):
         :param args: Arguments to pass with the cron.
         :param name: Name of the cron.
         :return: :class:`Cron <Cron>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_cron(
                 cron_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cron_id = validate_path_param("cron_id", cron_id)
-
+        
         res = self._request(
             "PATCH",
             f"/containers/v1beta1/regions/{param_region}/crons/{param_cron_id}",
@@ -1140,7 +1152,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cron(res.json())
-
+        
     def delete_cron(
         self,
         *,
@@ -1153,20 +1165,18 @@ class ContainerV1Beta1API(API):
         :param cron_id: UUID of the cron to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_cron(
                 cron_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cron_id = validate_path_param("cron_id", cron_id)
-
+        
         res = self._request(
             "DELETE",
             f"/containers/v1beta1/regions/{param_region}/crons/{param_cron_id}",
@@ -1174,7 +1184,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cron(res.json())
-
+        
     def list_domains(
         self,
         *,
@@ -1193,19 +1203,17 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_domains(
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/domains",
@@ -1219,7 +1227,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDomainsResponse(res.json())
-
+        
     def list_domains_all(
         self,
         *,
@@ -1238,16 +1246,16 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
         :return: :class:`List[Domain] <List[Domain]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_domains_all(
                 container_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDomainsResponse,
             key="domains",
             fetcher=self.list_domains,
@@ -1259,7 +1267,7 @@ class ContainerV1Beta1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def get_domain(
         self,
         *,
@@ -1272,20 +1280,18 @@ class ContainerV1Beta1API(API):
         :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_domain(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_domain_id = validate_path_param("domain_id", domain_id)
-
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/domains/{param_domain_id}",
@@ -1293,7 +1299,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def wait_for_domain(
         self,
         *,
@@ -1307,10 +1313,10 @@ class ContainerV1Beta1API(API):
         :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_domain(
                 domain_id="example",
             )
@@ -1330,7 +1336,7 @@ class ContainerV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def create_domain(
         self,
         *,
@@ -1345,20 +1351,18 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to assign the domain to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_domain(
                 hostname="example",
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/containers/v1beta1/regions/{param_region}/domains",
@@ -1374,7 +1378,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def delete_domain(
         self,
         *,
@@ -1387,20 +1391,18 @@ class ContainerV1Beta1API(API):
         :param domain_id: UUID of the domain to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_domain(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_domain_id = validate_path_param("domain_id", domain_id)
-
+        
         res = self._request(
             "DELETE",
             f"/containers/v1beta1/regions/{param_region}/domains/{param_domain_id}",
@@ -1408,7 +1410,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def create_token(
         self,
         *,
@@ -1428,17 +1430,15 @@ class ContainerV1Beta1API(API):
         :param description: Description of the token.
         :param expires_at: Expiry date of the token.
         :return: :class:`Token <Token>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_token()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/containers/v1beta1/regions/{param_region}/tokens",
@@ -1456,7 +1456,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Token(res.json())
-
+        
     def get_token(
         self,
         *,
@@ -1469,20 +1469,18 @@ class ContainerV1Beta1API(API):
         :param token_id: UUID of the token to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_token(
                 token_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_token_id = validate_path_param("token_id", token_id)
-
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/tokens/{param_token_id}",
@@ -1490,7 +1488,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Token(res.json())
-
+        
     def wait_for_token(
         self,
         *,
@@ -1504,10 +1502,10 @@ class ContainerV1Beta1API(API):
         :param token_id: UUID of the token to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_token(
                 token_id="example",
             )
@@ -1527,7 +1525,7 @@ class ContainerV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def list_tokens(
         self,
         *,
@@ -1548,17 +1546,15 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container the token belongs to.
         :param namespace_id: UUID of the namespace the token belongs to.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_tokens()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/tokens",
@@ -1573,7 +1569,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListTokensResponse(res.json())
-
+        
     def list_tokens_all(
         self,
         *,
@@ -1594,14 +1590,14 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container the token belongs to.
         :param namespace_id: UUID of the namespace the token belongs to.
         :return: :class:`List[Token] <List[Token]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_tokens_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListTokensResponse,
             key="tokens",
             fetcher=self.list_tokens,
@@ -1614,7 +1610,7 @@ class ContainerV1Beta1API(API):
                 "namespace_id": namespace_id,
             },
         )
-
+        
     def delete_token(
         self,
         *,
@@ -1627,20 +1623,18 @@ class ContainerV1Beta1API(API):
         :param token_id: UUID of the token to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_token(
                 token_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_token_id = validate_path_param("token_id", token_id)
-
+        
         res = self._request(
             "DELETE",
             f"/containers/v1beta1/regions/{param_region}/tokens/{param_token_id}",
@@ -1648,7 +1642,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Token(res.json())
-
+        
     def create_trigger(
         self,
         *,
@@ -1674,20 +1668,18 @@ class ContainerV1Beta1API(API):
         :param sqs_config: Configuration for an AWS SQS queue.
         One-Of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
         :return: :class:`Trigger <Trigger>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_trigger(
                 name="example",
                 container_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/containers/v1beta1/regions/{param_region}/triggers",
@@ -1707,7 +1699,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Trigger(res.json())
-
+        
     def get_trigger(
         self,
         *,
@@ -1720,20 +1712,18 @@ class ContainerV1Beta1API(API):
         :param trigger_id: ID of the trigger to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_trigger(
                 trigger_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_trigger_id = validate_path_param("trigger_id", trigger_id)
-
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/triggers/{param_trigger_id}",
@@ -1741,7 +1731,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Trigger(res.json())
-
+        
     def wait_for_trigger(
         self,
         *,
@@ -1755,10 +1745,10 @@ class ContainerV1Beta1API(API):
         :param trigger_id: ID of the trigger to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_trigger(
                 trigger_id="example",
             )
@@ -1778,7 +1768,7 @@ class ContainerV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def list_triggers(
         self,
         *,
@@ -1804,17 +1794,15 @@ class ContainerV1Beta1API(API):
         :param project_id: ID of the project the triggers belongs to.
         One-Of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
         :return: :class:`ListTriggersResponse <ListTriggersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_triggers()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/containers/v1beta1/regions/{param_region}/triggers",
@@ -1822,19 +1810,17 @@ class ContainerV1Beta1API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("container_id", container_id),
-                        OneOfPossibility("namespace_id", namespace_id),
-                        OneOfPossibility("project_id", project_id),
-                    ]
-                ),
+                **resolve_one_of([
+                    OneOfPossibility("container_id", container_id),
+                    OneOfPossibility("namespace_id", namespace_id),
+                    OneOfPossibility("project_id", project_id),
+                ]),
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListTriggersResponse(res.json())
-
+        
     def list_triggers_all(
         self,
         *,
@@ -1860,14 +1846,14 @@ class ContainerV1Beta1API(API):
         :param project_id: ID of the project the triggers belongs to.
         One-Of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
         :return: :class:`List[Trigger] <List[Trigger]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_triggers_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListTriggersResponse,
             key="triggers",
             fetcher=self.list_triggers,
@@ -1881,7 +1867,7 @@ class ContainerV1Beta1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def update_trigger(
         self,
         *,
@@ -1901,20 +1887,18 @@ class ContainerV1Beta1API(API):
         :param sqs_config: Configuration for an AWS SQS queue.
         One-Of ('config'): at most one of 'sqs_config' could be set.
         :return: :class:`Trigger <Trigger>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_trigger(
                 trigger_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_trigger_id = validate_path_param("trigger_id", trigger_id)
-
+        
         res = self._request(
             "PATCH",
             f"/containers/v1beta1/regions/{param_region}/triggers/{param_trigger_id}",
@@ -1932,7 +1916,7 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Trigger(res.json())
-
+        
     def delete_trigger(
         self,
         *,
@@ -1945,20 +1929,18 @@ class ContainerV1Beta1API(API):
         :param trigger_id: ID of the trigger to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_trigger(
                 trigger_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_trigger_id = validate_path_param("trigger_id", trigger_id)
-
+        
         res = self._request(
             "DELETE",
             f"/containers/v1beta1/regions/{param_region}/triggers/{param_trigger_id}",
@@ -1966,3 +1948,4 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Trigger(res.json())
+        

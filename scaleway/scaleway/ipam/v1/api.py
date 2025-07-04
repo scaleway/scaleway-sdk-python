@@ -1,17 +1,35 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
+    WaitForOptions,
+    project_or_organization_id,
+    random_name,
     resolve_one_of,
     validate_path_param,
     fetch_all_pages,
+    wait_for_resource,
 )
 from .types import (
     ListIPsRequestOrderBy,
@@ -20,10 +38,14 @@ from .types import (
     BookIPRequest,
     CustomResource,
     DetachIPRequest,
+    GetIPRequest,
     IP,
+    ListIPsRequest,
     ListIPsResponse,
     MoveIPRequest,
+    ReleaseIPRequest,
     ReleaseIPSetRequest,
+    Resource,
     Reverse,
     Source,
     UpdateIPRequest,
@@ -39,12 +61,10 @@ from .marshalling import (
     marshal_UpdateIPRequest,
 )
 
-
 class IpamV1API(API):
     """
     This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.
     """
-
     def book_ip(
         self,
         *,
@@ -67,20 +87,18 @@ class IpamV1API(API):
         :param tags: Tags for the IP.
         :param resource: Custom resource to attach to the IP being reserved. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.book_ip(
                 source=Source(),
                 is_ipv6=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/ipam/v1/regions/{param_region}/ips",
@@ -100,7 +118,7 @@ class IpamV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def release_ip(
         self,
         *,
@@ -112,20 +130,18 @@ class IpamV1API(API):
         Release an IP not currently attached to a resource, and returns it to the available IP pool.
         :param ip_id: IP ID.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.release_ip(
                 ip_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "DELETE",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}",
@@ -133,7 +149,6 @@ class IpamV1API(API):
         )
 
         self._throw_on_error(res)
-
     def release_ip_set(
         self,
         *,
@@ -142,18 +157,16 @@ class IpamV1API(API):
     ) -> None:
         """
         :param region: Region to target. If none is passed will use default region from the config.
-        :param ip_ids:
-
+        :param ip_ids: 
+        
         Usage:
         ::
-
+        
             result = api.release_ip_set()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/ipam/v1/regions/{param_region}/ip-sets/release",
@@ -167,7 +180,6 @@ class IpamV1API(API):
         )
 
         self._throw_on_error(res)
-
     def get_ip(
         self,
         *,
@@ -180,20 +192,18 @@ class IpamV1API(API):
         :param ip_id: IP ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_ip(
                 ip_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "GET",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}",
@@ -201,7 +211,7 @@ class IpamV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def update_ip(
         self,
         *,
@@ -218,20 +228,18 @@ class IpamV1API(API):
         :param tags: Tags for the IP.
         :param reverses: Array of reverse domain names associated with an IP in the subnet of the current IP.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_ip(
                 ip_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "PATCH",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}",
@@ -248,7 +256,7 @@ class IpamV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def list_i_ps(
         self,
         *,
@@ -300,20 +308,18 @@ class IpamV1API(API):
         :param organization_id: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
         :param ip_ids: IP IDs to filter for. Only IPs with these UUIDs will be returned.
-        :param source_vpc_id:
+        :param source_vpc_id: 
         One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :return: :class:`ListIPsResponse <ListIPsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_i_ps()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/ipam/v1/regions/{param_region}/ips",
@@ -323,8 +329,7 @@ class IpamV1API(API):
                 "is_ipv6": is_ipv6,
                 "mac_address": mac_address,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -335,20 +340,18 @@ class IpamV1API(API):
                 "resource_types": resource_types,
                 "tags": tags,
                 "vpc_id": vpc_id,
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("private_network_id", private_network_id),
-                        OneOfPossibility("source_vpc_id", source_vpc_id),
-                        OneOfPossibility("subnet_id", subnet_id),
-                        OneOfPossibility("zonal", zonal),
-                    ]
-                ),
+                **resolve_one_of([
+                    OneOfPossibility("private_network_id", private_network_id),
+                    OneOfPossibility("source_vpc_id", source_vpc_id),
+                    OneOfPossibility("subnet_id", subnet_id),
+                    OneOfPossibility("zonal", zonal),
+                ]),
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListIPsResponse(res.json())
-
+        
     def list_i_ps_all(
         self,
         *,
@@ -400,17 +403,17 @@ class IpamV1API(API):
         :param organization_id: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
         :param ip_ids: IP IDs to filter for. Only IPs with these UUIDs will be returned.
-        :param source_vpc_id:
+        :param source_vpc_id: 
         One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :return: :class:`List[IP] <List[IP]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_i_ps_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListIPsResponse,
             key="ips",
             fetcher=self.list_i_ps,
@@ -438,7 +441,7 @@ class IpamV1API(API):
                 "source_vpc_id": source_vpc_id,
             },
         )
-
+        
     def attach_ip(
         self,
         *,
@@ -453,21 +456,19 @@ class IpamV1API(API):
         :param resource: Custom resource to be attached to the IP.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_ip(
                 ip_id="example",
                 resource=CustomResource(),
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "POST",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}/attach",
@@ -483,7 +484,7 @@ class IpamV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def detach_ip(
         self,
         *,
@@ -498,21 +499,19 @@ class IpamV1API(API):
         :param resource: Custom resource currently attached to the IP.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.detach_ip(
                 ip_id="example",
                 resource=CustomResource(),
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "POST",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}/detach",
@@ -528,7 +527,7 @@ class IpamV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def move_ip(
         self,
         *,
@@ -545,21 +544,19 @@ class IpamV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param to_resource: Custom resource to be attached to the IP.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.move_ip(
                 ip_id="example",
                 from_resource=CustomResource(),
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "POST",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}/move",
@@ -576,3 +573,4 @@ class IpamV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
+        

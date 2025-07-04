@@ -2,22 +2,44 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
     ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
     unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
+    ACLRuleAction,
+    ACLRuleDirection,
+    ACLRuleProtocol,
+    DatabaseBackupStatus,
+    EndpointPrivateNetworkDetailsProvisioningMode,
+    EngineSettingPropertyType,
+    InstanceLogStatus,
+    InstanceStatus,
     ListDatabaseBackupsRequestOrderBy,
     ListDatabasesRequestOrderBy,
     ListInstanceLogsRequestOrderBy,
@@ -25,7 +47,13 @@ from .types import (
     ListPrivilegesRequestOrderBy,
     ListSnapshotsRequestOrderBy,
     ListUsersRequestOrderBy,
+    MaintenanceStatus,
+    NodeTypeGeneration,
+    NodeTypeStock,
     Permission,
+    ReadReplicaStatus,
+    SnapshotStatus,
+    StorageClass,
     VolumeType,
     ACLRule,
     ACLRuleRequest,
@@ -33,6 +61,8 @@ from .types import (
     AddInstanceACLRulesResponse,
     AddInstanceSettingsRequest,
     AddInstanceSettingsResponse,
+    ApplyInstanceMaintenanceRequest,
+    BackupSchedule,
     CloneInstanceRequest,
     CreateDatabaseBackupRequest,
     CreateDatabaseRequest,
@@ -46,38 +76,83 @@ from .types import (
     Database,
     DatabaseBackup,
     DatabaseEngine,
+    DeleteDatabaseBackupRequest,
+    DeleteDatabaseRequest,
+    DeleteEndpointRequest,
     DeleteInstanceACLRulesRequest,
     DeleteInstanceACLRulesResponse,
+    DeleteInstanceRequest,
     DeleteInstanceSettingsRequest,
     DeleteInstanceSettingsResponse,
+    DeleteReadReplicaRequest,
+    DeleteSnapshotRequest,
+    DeleteUserRequest,
     EncryptionAtRest,
     Endpoint,
+    EndpointDirectAccessDetails,
+    EndpointLoadBalancerDetails,
+    EndpointPrivateNetworkDetails,
     EndpointSpec,
+    EndpointSpecLoadBalancer,
+    EndpointSpecPrivateNetwork,
+    EndpointSpecPrivateNetworkIpamConfig,
+    EngineSetting,
+    EngineVersion,
+    ExportDatabaseBackupRequest,
+    GetDatabaseBackupRequest,
+    GetEndpointRequest,
+    GetInstanceCertificateRequest,
+    GetInstanceLogRequest,
+    GetInstanceMetricsRequest,
+    GetInstanceRequest,
+    GetReadReplicaRequest,
+    GetSnapshotRequest,
     Instance,
     InstanceLog,
     InstanceMetrics,
     InstanceSetting,
+    ListDatabaseBackupsRequest,
     ListDatabaseBackupsResponse,
+    ListDatabaseEnginesRequest,
     ListDatabaseEnginesResponse,
+    ListDatabasesRequest,
     ListDatabasesResponse,
+    ListInstanceACLRulesRequest,
     ListInstanceACLRulesResponse,
+    ListInstanceLogsDetailsRequest,
     ListInstanceLogsDetailsResponse,
+    ListInstanceLogsDetailsResponseInstanceLogDetail,
+    ListInstanceLogsRequest,
     ListInstanceLogsResponse,
+    ListInstancesRequest,
     ListInstancesResponse,
+    ListNodeTypesRequest,
     ListNodeTypesResponse,
+    ListPrivilegesRequest,
     ListPrivilegesResponse,
+    ListSnapshotsRequest,
     ListSnapshotsResponse,
+    ListUsersRequest,
     ListUsersResponse,
     LogsPolicy,
     Maintenance,
     MigrateEndpointRequest,
     NodeType,
+    NodeTypeVolumeConstraintSizes,
+    NodeTypeVolumeType,
     PrepareInstanceLogsRequest,
     PrepareInstanceLogsResponse,
     Privilege,
+    PromoteReadReplicaRequest,
     PurgeInstanceLogsRequest,
     ReadReplica,
     ReadReplicaEndpointSpec,
+    ReadReplicaEndpointSpecDirectAccess,
+    ReadReplicaEndpointSpecPrivateNetwork,
+    ReadReplicaEndpointSpecPrivateNetworkIpamConfig,
+    RenewInstanceCertificateRequest,
+    ResetReadReplicaRequest,
+    RestartInstanceRequest,
     RestoreDatabaseBackupRequest,
     SetInstanceACLRulesRequest,
     SetInstanceACLRulesResponse,
@@ -85,18 +160,22 @@ from .types import (
     SetInstanceSettingsResponse,
     SetPrivilegeRequest,
     Snapshot,
+    SnapshotVolumeType,
     UpdateDatabaseBackupRequest,
     UpdateInstanceRequest,
     UpdateSnapshotRequest,
     UpdateUserRequest,
+    UpgradableVersion,
     UpgradeInstanceRequest,
     UpgradeInstanceRequestMajorUpgradeWorkflow,
     User,
+    Volume,
 )
 from .content import (
     DATABASE_BACKUP_TRANSIENT_STATUSES,
     INSTANCE_LOG_TRANSIENT_STATUSES,
     INSTANCE_TRANSIENT_STATUSES,
+    MAINTENANCE_TRANSIENT_STATUSES,
     READ_REPLICA_TRANSIENT_STATUSES,
     SNAPSHOT_TRANSIENT_STATUSES,
 )
@@ -158,12 +237,10 @@ from .marshalling import (
     marshal_UpgradeInstanceRequest,
 )
 
-
 class RdbV1API(API):
     """
     This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
     """
-
     def list_database_engines(
         self,
         *,
@@ -179,20 +256,18 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database engine.
         :param version: Version of the database engine.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListDatabaseEnginesResponse <ListDatabaseEnginesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_database_engines()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/database-engines",
@@ -206,7 +281,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDatabaseEnginesResponse(res.json())
-
+        
     def list_database_engines_all(
         self,
         *,
@@ -222,17 +297,17 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database engine.
         :param version: Version of the database engine.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[DatabaseEngine] <List[DatabaseEngine]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_database_engines_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDatabaseEnginesResponse,
             key="engines",
             fetcher=self.list_database_engines,
@@ -244,7 +319,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def list_node_types(
         self,
         *,
@@ -258,22 +333,20 @@ class RdbV1API(API):
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param include_disabled_types: Defines whether or not to include disabled types.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_node_types(
                 include_disabled_types=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/node-types",
@@ -286,7 +359,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNodeTypesResponse(res.json())
-
+        
     def list_node_types_all(
         self,
         *,
@@ -300,19 +373,19 @@ class RdbV1API(API):
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param include_disabled_types: Defines whether or not to include disabled types.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[NodeType] <List[NodeType]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_node_types_all(
                 include_disabled_types=False,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListNodeTypesResponse,
             key="node_types",
             fetcher=self.list_node_types,
@@ -323,7 +396,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def list_database_backups(
         self,
         *,
@@ -345,20 +418,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param organization_id: Organization ID of the Organization the database backups belong to.
         :param project_id: Project ID of the Project the database backups belong to.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListDatabaseBackupsResponse <ListDatabaseBackupsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_database_backups()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/backups",
@@ -366,8 +437,7 @@ class RdbV1API(API):
                 "instance_id": instance_id,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -376,7 +446,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDatabaseBackupsResponse(res.json())
-
+        
     def list_database_backups_all(
         self,
         *,
@@ -398,17 +468,17 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param organization_id: Organization ID of the Organization the database backups belong to.
         :param project_id: Project ID of the Project the database backups belong to.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[DatabaseBackup] <List[DatabaseBackup]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_database_backups_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDatabaseBackupsResponse,
             key="database_backups",
             fetcher=self.list_database_backups,
@@ -423,7 +493,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_database_backup(
         self,
         *,
@@ -442,20 +512,18 @@ class RdbV1API(API):
         :param name: Name of the backup.
         :param expires_at: Expiration date (must follow the ISO 8601 format).
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_database_backup(
                 instance_id="example",
                 database_name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/backups",
@@ -473,7 +541,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
-
+        
     def get_database_backup(
         self,
         *,
@@ -486,22 +554,18 @@ class RdbV1API(API):
         :param database_backup_id: UUID of the database backup.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_database_backup(
                 database_backup_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_database_backup_id = validate_path_param(
-            "database_backup_id", database_backup_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_database_backup_id = validate_path_param("database_backup_id", database_backup_id)
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/backups/{param_database_backup_id}",
@@ -509,7 +573,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
-
+        
     def wait_for_database_backup(
         self,
         *,
@@ -523,10 +587,10 @@ class RdbV1API(API):
         :param database_backup_id: UUID of the database backup.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_database_backup(
                 database_backup_id="example",
             )
@@ -536,9 +600,7 @@ class RdbV1API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status not in DATABASE_BACKUP_TRANSIENT_STATUSES
-            )
+            options.stop = lambda res: res.status not in DATABASE_BACKUP_TRANSIENT_STATUSES
 
         return wait_for_resource(
             fetcher=self.get_database_backup,
@@ -548,7 +610,7 @@ class RdbV1API(API):
                 "region": region,
             },
         )
-
+        
     def update_database_backup(
         self,
         *,
@@ -565,22 +627,18 @@ class RdbV1API(API):
         :param name: Name of the Database Backup.
         :param expires_at: Expiration date (must follow the ISO 8601 format).
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_database_backup(
                 database_backup_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_database_backup_id = validate_path_param(
-            "database_backup_id", database_backup_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_database_backup_id = validate_path_param("database_backup_id", database_backup_id)
+        
         res = self._request(
             "PATCH",
             f"/rdb/v1/regions/{param_region}/backups/{param_database_backup_id}",
@@ -597,7 +655,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
-
+        
     def delete_database_backup(
         self,
         *,
@@ -610,22 +668,18 @@ class RdbV1API(API):
         :param database_backup_id: UUID of the database backup to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_database_backup(
                 database_backup_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_database_backup_id = validate_path_param(
-            "database_backup_id", database_backup_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_database_backup_id = validate_path_param("database_backup_id", database_backup_id)
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/backups/{param_database_backup_id}",
@@ -633,7 +687,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
-
+        
     def restore_database_backup(
         self,
         *,
@@ -650,23 +704,19 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param database_name: Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup).
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.restore_database_backup(
                 database_backup_id="example",
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_database_backup_id = validate_path_param(
-            "database_backup_id", database_backup_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_database_backup_id = validate_path_param("database_backup_id", database_backup_id)
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/backups/{param_database_backup_id}/restore",
@@ -683,7 +733,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
-
+        
     def export_database_backup(
         self,
         *,
@@ -696,22 +746,18 @@ class RdbV1API(API):
         :param database_backup_id: UUID of the database backup you want to export.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseBackup <DatabaseBackup>`
-
+        
         Usage:
         ::
-
+        
             result = api.export_database_backup(
                 database_backup_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_database_backup_id = validate_path_param(
-            "database_backup_id", database_backup_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_database_backup_id = validate_path_param("database_backup_id", database_backup_id)
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/backups/{param_database_backup_id}/export",
@@ -720,7 +766,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
-
+        
     def upgrade_instance(
         self,
         *,
@@ -731,9 +777,7 @@ class RdbV1API(API):
         volume_size: Optional[int] = None,
         volume_type: Optional[VolumeType] = None,
         upgradable_version_id: Optional[str] = None,
-        major_upgrade_workflow: Optional[
-            UpgradeInstanceRequestMajorUpgradeWorkflow
-        ] = None,
+        major_upgrade_workflow: Optional[UpgradeInstanceRequestMajorUpgradeWorkflow] = None,
         enable_encryption: Optional[bool] = None,
     ) -> Instance:
         """
@@ -756,20 +800,18 @@ class RdbV1API(API):
         :param enable_encryption: Defines whether or not encryption should be enabled on the Database Instance.
         One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.upgrade_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/upgrade",
@@ -791,7 +833,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def list_instances(
         self,
         *,
@@ -815,20 +857,18 @@ class RdbV1API(API):
         :param organization_id: Please use project_id instead.
         :param project_id: Project ID to list the Database Instance of.
         :param has_maintenances: Filter to only list instances with a scheduled maintenance.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListInstancesResponse <ListInstancesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instances()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances",
@@ -836,8 +876,7 @@ class RdbV1API(API):
                 "has_maintenances": has_maintenances,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -847,7 +886,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstancesResponse(res.json())
-
+        
     def list_instances_all(
         self,
         *,
@@ -871,17 +910,17 @@ class RdbV1API(API):
         :param organization_id: Please use project_id instead.
         :param project_id: Project ID to list the Database Instance of.
         :param has_maintenances: Filter to only list instances with a scheduled maintenance.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[Instance] <List[Instance]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instances_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInstancesResponse,
             key="instances",
             fetcher=self.list_instances,
@@ -897,7 +936,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def get_instance(
         self,
         *,
@@ -910,20 +949,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}",
@@ -931,7 +968,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def wait_for_instance(
         self,
         *,
@@ -945,10 +982,10 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance(
                 instance_id="example",
             )
@@ -968,7 +1005,7 @@ class RdbV1API(API):
                 "region": region,
             },
         )
-
+        
     def create_instance(
         self,
         *,
@@ -1013,10 +1050,10 @@ class RdbV1API(API):
         :param init_endpoints: One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
         :param encryption: Encryption at rest settings for your Database Instance.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_instance(
                 engine="example",
                 user_name="example",
@@ -1028,11 +1065,9 @@ class RdbV1API(API):
                 backup_same_region=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances",
@@ -1062,7 +1097,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def update_instance(
         self,
         *,
@@ -1091,20 +1126,18 @@ class RdbV1API(API):
         :param backup_same_region: Store logical backups in the same region as the Database Instance.
         :param backup_schedule_start_hour: Defines the start time of the autobackup.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "PATCH",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}",
@@ -1127,7 +1160,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def delete_instance(
         self,
         *,
@@ -1140,20 +1173,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}",
@@ -1161,7 +1192,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def clone_instance(
         self,
         *,
@@ -1178,21 +1209,19 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_type: Node type of the clone.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.clone_instance(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/clone",
@@ -1209,7 +1238,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def restart_instance(
         self,
         *,
@@ -1222,20 +1251,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance you want to restart.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.restart_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/restart",
@@ -1244,7 +1271,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def get_instance_certificate(
         self,
         *,
@@ -1257,20 +1284,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ScwFile <ScwFile>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_certificate(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/certificate",
@@ -1278,7 +1303,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-
+        
     def renew_instance_certificate(
         self,
         *,
@@ -1290,20 +1315,18 @@ class RdbV1API(API):
         Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.
         :param instance_id: UUID of the Database Instance you want logs of.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.renew_instance_certificate(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/renew-certificate",
@@ -1311,7 +1334,6 @@ class RdbV1API(API):
         )
 
         self._throw_on_error(res)
-
     def get_instance_metrics(
         self,
         *,
@@ -1330,20 +1352,18 @@ class RdbV1API(API):
         :param end_date: End date to gather metrics from.
         :param metric_name: Name of the metric to gather.
         :return: :class:`InstanceMetrics <InstanceMetrics>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_metrics(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/metrics",
@@ -1356,7 +1376,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceMetrics(res.json())
-
+        
     def create_read_replica(
         self,
         *,
@@ -1373,19 +1393,17 @@ class RdbV1API(API):
         :param endpoint_spec: Specification of the endpoint you want to create.
         :param same_zone: Defines whether to create the replica in the same availability zone as the main instance nodes or not.
         :return: :class:`ReadReplica <ReadReplica>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_read_replica(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/read-replicas",
@@ -1402,7 +1420,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ReadReplica(res.json())
-
+        
     def get_read_replica(
         self,
         *,
@@ -1415,20 +1433,18 @@ class RdbV1API(API):
         :param read_replica_id: UUID of the Read Replica.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_read_replica(
                 read_replica_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_read_replica_id = validate_path_param("read_replica_id", read_replica_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/read-replicas/{param_read_replica_id}",
@@ -1436,7 +1452,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ReadReplica(res.json())
-
+        
     def wait_for_read_replica(
         self,
         *,
@@ -1450,10 +1466,10 @@ class RdbV1API(API):
         :param read_replica_id: UUID of the Read Replica.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_read_replica(
                 read_replica_id="example",
             )
@@ -1473,7 +1489,7 @@ class RdbV1API(API):
                 "region": region,
             },
         )
-
+        
     def delete_read_replica(
         self,
         *,
@@ -1486,20 +1502,18 @@ class RdbV1API(API):
         :param read_replica_id: UUID of the Read Replica.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_read_replica(
                 read_replica_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_read_replica_id = validate_path_param("read_replica_id", read_replica_id)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/read-replicas/{param_read_replica_id}",
@@ -1507,7 +1521,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ReadReplica(res.json())
-
+        
     def reset_read_replica(
         self,
         *,
@@ -1521,20 +1535,18 @@ class RdbV1API(API):
         :param read_replica_id: UUID of the Read Replica.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
-
+        
         Usage:
         ::
-
+        
             result = api.reset_read_replica(
                 read_replica_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_read_replica_id = validate_path_param("read_replica_id", read_replica_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/read-replicas/{param_read_replica_id}/reset",
@@ -1543,7 +1555,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ReadReplica(res.json())
-
+        
     def promote_read_replica(
         self,
         *,
@@ -1556,20 +1568,18 @@ class RdbV1API(API):
         :param read_replica_id: UUID of the Read Replica.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.promote_read_replica(
                 read_replica_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_read_replica_id = validate_path_param("read_replica_id", read_replica_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/read-replicas/{param_read_replica_id}/promote",
@@ -1578,7 +1588,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def create_read_replica_endpoint(
         self,
         *,
@@ -1593,21 +1603,19 @@ class RdbV1API(API):
         :param endpoint_spec: Specification of the endpoint you want to create.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_read_replica_endpoint(
                 read_replica_id="example",
                 endpoint_spec=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_read_replica_id = validate_path_param("read_replica_id", read_replica_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/read-replicas/{param_read_replica_id}/endpoints",
@@ -1623,7 +1631,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ReadReplica(res.json())
-
+        
     def prepare_instance_logs(
         self,
         *,
@@ -1640,20 +1648,18 @@ class RdbV1API(API):
         :param start_date: Start datetime of your log. (RFC 3339 format).
         :param end_date: End datetime of your log. (RFC 3339 format).
         :return: :class:`PrepareInstanceLogsResponse <PrepareInstanceLogsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.prepare_instance_logs(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/prepare-logs",
@@ -1670,7 +1676,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_PrepareInstanceLogsResponse(res.json())
-
+        
     def list_instance_logs(
         self,
         *,
@@ -1685,20 +1691,18 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering Database Instance logs listing.
         :return: :class:`ListInstanceLogsResponse <ListInstanceLogsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_logs(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/logs",
@@ -1709,7 +1713,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstanceLogsResponse(res.json())
-
+        
     def get_instance_log(
         self,
         *,
@@ -1722,20 +1726,18 @@ class RdbV1API(API):
         :param instance_log_id: UUID of the instance_log you want.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`InstanceLog <InstanceLog>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_log(
                 instance_log_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_log_id = validate_path_param("instance_log_id", instance_log_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/logs/{param_instance_log_id}",
@@ -1743,7 +1745,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceLog(res.json())
-
+        
     def wait_for_instance_log(
         self,
         *,
@@ -1757,10 +1759,10 @@ class RdbV1API(API):
         :param instance_log_id: UUID of the instance_log you want.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`InstanceLog <InstanceLog>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_log(
                 instance_log_id="example",
             )
@@ -1780,7 +1782,7 @@ class RdbV1API(API):
                 "region": region,
             },
         )
-
+        
     def purge_instance_logs(
         self,
         *,
@@ -1794,20 +1796,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance you want logs of.
         :param region: Region to target. If none is passed will use default region from the config.
         :param log_name: Given log name to purge.
-
+        
         Usage:
         ::
-
+        
             result = api.purge_instance_logs(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/purge-logs",
@@ -1822,7 +1822,6 @@ class RdbV1API(API):
         )
 
         self._throw_on_error(res)
-
     def list_instance_logs_details(
         self,
         *,
@@ -1835,20 +1834,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance you want logs of.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListInstanceLogsDetailsResponse <ListInstanceLogsDetailsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_logs_details(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/logs-details",
@@ -1856,7 +1853,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstanceLogsDetailsResponse(res.json())
-
+        
     def add_instance_settings(
         self,
         *,
@@ -1871,21 +1868,19 @@ class RdbV1API(API):
         :param settings: Settings to add to the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AddInstanceSettingsResponse <AddInstanceSettingsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.add_instance_settings(
                 instance_id="example",
                 settings=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/settings",
@@ -1901,7 +1896,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddInstanceSettingsResponse(res.json())
-
+        
     def delete_instance_settings(
         self,
         *,
@@ -1916,21 +1911,19 @@ class RdbV1API(API):
         :param setting_names: Settings names to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DeleteInstanceSettingsResponse <DeleteInstanceSettingsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_instance_settings(
                 instance_id="example",
                 setting_names=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/settings",
@@ -1946,7 +1939,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DeleteInstanceSettingsResponse(res.json())
-
+        
     def set_instance_settings(
         self,
         *,
@@ -1961,21 +1954,19 @@ class RdbV1API(API):
         :param settings: Settings to define for the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetInstanceSettingsResponse <SetInstanceSettingsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_instance_settings(
                 instance_id="example",
                 settings=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "PUT",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/settings",
@@ -1991,7 +1982,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetInstanceSettingsResponse(res.json())
-
+        
     def list_instance_acl_rules(
         self,
         *,
@@ -2005,23 +1996,21 @@ class RdbV1API(API):
         List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListInstanceACLRulesResponse <ListInstanceACLRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_acl_rules(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/acls",
@@ -2033,7 +2022,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstanceACLRulesResponse(res.json())
-
+        
     def list_instance_acl_rules_all(
         self,
         *,
@@ -2047,19 +2036,19 @@ class RdbV1API(API):
         List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[ACLRule] <List[ACLRule]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_acl_rules_all(
                 instance_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInstanceACLRulesResponse,
             key="rules",
             fetcher=self.list_instance_acl_rules,
@@ -2070,7 +2059,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def add_instance_acl_rules(
         self,
         *,
@@ -2085,21 +2074,19 @@ class RdbV1API(API):
         :param rules: ACL rules to add to the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AddInstanceACLRulesResponse <AddInstanceACLRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.add_instance_acl_rules(
                 instance_id="example",
                 rules=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/acls",
@@ -2115,7 +2102,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddInstanceACLRulesResponse(res.json())
-
+        
     def set_instance_acl_rules(
         self,
         *,
@@ -2130,21 +2117,19 @@ class RdbV1API(API):
         :param rules: ACL rules to define for the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetInstanceACLRulesResponse <SetInstanceACLRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_instance_acl_rules(
                 instance_id="example",
                 rules=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "PUT",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/acls",
@@ -2160,7 +2145,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetInstanceACLRulesResponse(res.json())
-
+        
     def delete_instance_acl_rules(
         self,
         *,
@@ -2175,21 +2160,19 @@ class RdbV1API(API):
         :param acl_rule_ips: IP addresses defined in the ACL rules of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DeleteInstanceACLRulesResponse <DeleteInstanceACLRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_instance_acl_rules(
                 instance_id="example",
                 acl_rule_ips=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/acls",
@@ -2205,7 +2188,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DeleteInstanceACLRulesResponse(res.json())
-
+        
     def list_users(
         self,
         *,
@@ -2223,23 +2206,21 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the user.
         :param order_by: Criteria to use when requesting user listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListUsersResponse <ListUsersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_users(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/users",
@@ -2253,7 +2234,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListUsersResponse(res.json())
-
+        
     def list_users_all(
         self,
         *,
@@ -2271,19 +2252,19 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the user.
         :param order_by: Criteria to use when requesting user listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[User] <List[User]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_users_all(
                 instance_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListUsersResponse,
             key="users",
             fetcher=self.list_users,
@@ -2296,7 +2277,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_user(
         self,
         *,
@@ -2315,10 +2296,10 @@ class RdbV1API(API):
         :param is_admin: Defines whether the user will have administrative privileges.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`User <User>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_user(
                 instance_id="example",
                 name="example",
@@ -2326,12 +2307,10 @@ class RdbV1API(API):
                 is_admin=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/users",
@@ -2349,7 +2328,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
-
+        
     def update_user(
         self,
         *,
@@ -2368,22 +2347,20 @@ class RdbV1API(API):
         :param password: Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character.
         :param is_admin: Defines whether or not this user got administrative privileges.
         :return: :class:`User <User>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_user(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
         param_name = validate_path_param("name", name)
-
+        
         res = self._request(
             "PATCH",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
@@ -2401,7 +2378,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
-
+        
     def delete_user(
         self,
         *,
@@ -2415,29 +2392,26 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance to delete the user from.
         :param name: Name of the user.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_user(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
         param_name = validate_path_param("name", name)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
         )
 
         self._throw_on_error(res)
-
     def list_databases(
         self,
         *,
@@ -2459,23 +2433,21 @@ class RdbV1API(API):
         :param managed: Defines whether or not the database is managed.
         :param owner: User that owns this database.
         :param order_by: Criteria to use when ordering database listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListDatabasesResponse <ListDatabasesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_databases(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/databases",
@@ -2491,7 +2463,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDatabasesResponse(res.json())
-
+        
     def list_databases_all(
         self,
         *,
@@ -2513,19 +2485,19 @@ class RdbV1API(API):
         :param managed: Defines whether or not the database is managed.
         :param owner: User that owns this database.
         :param order_by: Criteria to use when ordering database listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[Database] <List[Database]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_databases_all(
                 instance_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDatabasesResponse,
             key="databases",
             fetcher=self.list_databases,
@@ -2540,7 +2512,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_database(
         self,
         *,
@@ -2555,21 +2527,19 @@ class RdbV1API(API):
         :param name: Name of the database.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_database(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/databases",
@@ -2585,7 +2555,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-
+        
     def delete_database(
         self,
         *,
@@ -2599,29 +2569,26 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance where to delete the database.
         :param name: Name of the database to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_database(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
         param_name = validate_path_param("name", name)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/databases/{param_name}",
         )
 
         self._throw_on_error(res)
-
     def list_privileges(
         self,
         *,
@@ -2639,25 +2606,23 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering privileges listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :param database_name: Name of the database.
         :param user_name: Name of the user.
         :return: :class:`ListPrivilegesResponse <ListPrivilegesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_privileges(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/privileges",
@@ -2672,7 +2637,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPrivilegesResponse(res.json())
-
+        
     def list_privileges_all(
         self,
         *,
@@ -2690,21 +2655,21 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering privileges listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :param database_name: Name of the database.
         :param user_name: Name of the user.
         :return: :class:`List[Privilege] <List[Privilege]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_privileges_all(
                 instance_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPrivilegesResponse,
             key="privileges",
             fetcher=self.list_privileges,
@@ -2718,7 +2683,7 @@ class RdbV1API(API):
                 "user_name": user_name,
             },
         )
-
+        
     def set_privilege(
         self,
         *,
@@ -2737,22 +2702,20 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param permission: Permission to set (Read, Read/Write, All, Custom).
         :return: :class:`Privilege <Privilege>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_privilege(
                 instance_id="example",
                 database_name="example",
                 user_name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "PUT",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/privileges",
@@ -2770,7 +2733,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Privilege(res.json())
-
+        
     def list_snapshots(
         self,
         *,
@@ -2792,20 +2755,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param organization_id: Organization ID the snapshots belongs to.
         :param project_id: Project ID the snapshots belongs to.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/snapshots",
@@ -2813,8 +2774,7 @@ class RdbV1API(API):
                 "instance_id": instance_id,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -2823,7 +2783,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSnapshotsResponse(res.json())
-
+        
     def list_snapshots_all(
         self,
         *,
@@ -2845,17 +2805,17 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance.
         :param organization_id: Organization ID the snapshots belongs to.
         :param project_id: Project ID the snapshots belongs to.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[Snapshot] <List[Snapshot]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSnapshotsResponse,
             key="snapshots",
             fetcher=self.list_snapshots,
@@ -2870,7 +2830,7 @@ class RdbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def get_snapshot(
         self,
         *,
@@ -2883,20 +2843,18 @@ class RdbV1API(API):
         :param snapshot_id: UUID of the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_snapshot(
                 snapshot_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/snapshots/{param_snapshot_id}",
@@ -2904,7 +2862,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def wait_for_snapshot(
         self,
         *,
@@ -2918,10 +2876,10 @@ class RdbV1API(API):
         :param snapshot_id: UUID of the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_snapshot(
                 snapshot_id="example",
             )
@@ -2941,7 +2899,7 @@ class RdbV1API(API):
                 "region": region,
             },
         )
-
+        
     def create_snapshot(
         self,
         *,
@@ -2958,20 +2916,18 @@ class RdbV1API(API):
         :param name: Name of the snapshot.
         :param expires_at: Expiration date (must follow the ISO 8601 format).
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_snapshot(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/snapshots",
@@ -2988,7 +2944,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def update_snapshot(
         self,
         *,
@@ -3005,20 +2961,18 @@ class RdbV1API(API):
         :param name: Name of the snapshot.
         :param expires_at: Expiration date (must follow the ISO 8601 format).
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_snapshot(
                 snapshot_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "PATCH",
             f"/rdb/v1/regions/{param_region}/snapshots/{param_snapshot_id}",
@@ -3035,7 +2989,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def delete_snapshot(
         self,
         *,
@@ -3048,20 +3002,18 @@ class RdbV1API(API):
         :param snapshot_id: UUID of the snapshot to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_snapshot(
                 snapshot_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/snapshots/{param_snapshot_id}",
@@ -3069,7 +3021,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def create_instance_from_snapshot(
         self,
         *,
@@ -3088,21 +3040,19 @@ class RdbV1API(API):
         :param is_ha_cluster: Defines whether or not High-Availability is enabled on the new Database Instance.
         :param node_type: The node type used to restore the snapshot.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_instance_from_snapshot(
                 snapshot_id="example",
                 instance_name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/snapshots/{param_snapshot_id}/create-instance",
@@ -3120,7 +3070,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def create_endpoint(
         self,
         *,
@@ -3135,20 +3085,18 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_spec: Specification of the endpoint you want to create.
         :return: :class:`Endpoint <Endpoint>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_endpoint(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/endpoints",
@@ -3164,7 +3112,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
-
+        
     def delete_endpoint(
         self,
         *,
@@ -3176,27 +3124,24 @@ class RdbV1API(API):
         Delete the endpoint of a Database Instance. You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
         :param endpoint_id: This endpoint can also be used to delete a Read Replica endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_endpoint(
                 endpoint_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-
+        
         res = self._request(
             "DELETE",
             f"/rdb/v1/regions/{param_region}/endpoints/{param_endpoint_id}",
         )
 
         self._throw_on_error(res)
-
     def get_endpoint(
         self,
         *,
@@ -3209,20 +3154,18 @@ class RdbV1API(API):
         :param endpoint_id: UUID of the endpoint you want to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Endpoint <Endpoint>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_endpoint(
                 endpoint_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-
+        
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/endpoints/{param_endpoint_id}",
@@ -3230,7 +3173,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
-
+        
     def migrate_endpoint(
         self,
         *,
@@ -3244,21 +3187,19 @@ class RdbV1API(API):
         :param instance_id: UUID of the instance you want to attach the endpoint to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Endpoint <Endpoint>`
-
+        
         Usage:
         ::
-
+        
             result = api.migrate_endpoint(
                 endpoint_id="example",
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/endpoints/{param_endpoint_id}/migrate",
@@ -3274,7 +3215,7 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
-
+        
     def apply_instance_maintenance(
         self,
         *,
@@ -3287,20 +3228,18 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance you want to apply maintenance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Maintenance <Maintenance>`
-
+        
         Usage:
         ::
-
+        
             result = api.apply_instance_maintenance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/apply-maintenance",
@@ -3309,3 +3248,4 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Maintenance(res.json())
+        

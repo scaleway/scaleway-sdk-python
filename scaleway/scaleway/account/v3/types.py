@@ -3,10 +3,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from decimal import Decimal
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
+from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+)
 from scaleway_core.utils import (
     StrEnumMeta,
 )
@@ -14,7 +24,6 @@ from scaleway_core.utils import (
 from ...std.types import (
     LanguageCode as StdLanguageCode,
 )
-
 
 class ContractType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
@@ -27,7 +36,6 @@ class ContractType(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class ListContractSignaturesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     SIGNED_AT_ASC = "signed_at_asc"
     SIGNED_AT_DESC = "signed_at_desc"
@@ -39,7 +47,6 @@ class ListContractSignaturesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class ListProjectsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -49,13 +56,11 @@ class ListProjectsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class QualificationAiMachineSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class QualificationArchitectureType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCHITECTURE_TYPE = "unknown_architecture_type"
@@ -71,13 +76,11 @@ class QualificationArchitectureType(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class QualificationArchiveDataSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class QualificationContainerSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
@@ -85,13 +88,11 @@ class QualificationContainerSubUseCase(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class QualificationDeploySoftwareSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class QualificationHostApplicationSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
@@ -100,7 +101,6 @@ class QualificationHostApplicationSubUseCase(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class QualificationHostWebsiteSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
@@ -112,13 +112,11 @@ class QualificationHostWebsiteSubUseCase(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class QualificationOtherUseCaseSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class QualificationSetScalewayEnvironmentSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
@@ -126,58 +124,56 @@ class QualificationSetScalewayEnvironmentSubUseCase(str, Enum, metaclass=StrEnum
     def __str__(self) -> str:
         return str(self.value)
 
-
 class QualificationShareDataSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
     def __str__(self) -> str:
         return str(self.value)
 
-
 @dataclass
 class QualificationAiMachine:
     sub_use_case: QualificationAiMachineSubUseCase
-
+    
 
 @dataclass
 class QualificationArchiveData:
     sub_use_case: QualificationArchiveDataSubUseCase
-
+    
 
 @dataclass
 class QualificationContainer:
     sub_use_case: QualificationContainerSubUseCase
-
+    
 
 @dataclass
 class QualificationDeploySoftware:
     sub_use_case: QualificationDeploySoftwareSubUseCase
-
+    
 
 @dataclass
 class QualificationHostApplication:
     sub_use_case: QualificationHostApplicationSubUseCase
-
+    
 
 @dataclass
 class QualificationHostWebsite:
     sub_use_case: QualificationHostWebsiteSubUseCase
-
+    
 
 @dataclass
 class QualificationOtherUseCase:
     sub_use_case: QualificationOtherUseCaseSubUseCase
-
+    
 
 @dataclass
 class QualificationSetScalewayEnvironment:
     sub_use_case: QualificationSetScalewayEnvironmentSubUseCase
-
+    
 
 @dataclass
 class QualificationShareData:
     sub_use_case: QualificationShareDataSubUseCase
-
+    
 
 @dataclass
 class Contract:
@@ -185,32 +181,32 @@ class Contract:
     """
     ID of the contract.
     """
-
+    
     type_: ContractType
     """
     The type of the contract.
     """
-
+    
     name: str
     """
     The name of the contract.
     """
-
+    
     version: int
     """
     The version of the contract.
     """
-
+    
     created_at: Optional[datetime]
     """
     The creation date of the contract.
     """
-
+    
     updated_at: Optional[datetime]
     """
     The last modification date of the contract.
     """
-
+    
 
 @dataclass
 class Qualification:
@@ -218,25 +214,25 @@ class Qualification:
     """
     Architecture type of the qualification.
     """
-
+    
     host_website: Optional[QualificationHostWebsite]
-
+    
     host_application: Optional[QualificationHostApplication]
-
+    
     deploy_software: Optional[QualificationDeploySoftware]
-
+    
     set_scaleway_environment: Optional[QualificationSetScalewayEnvironment]
-
+    
     ai_machine: Optional[QualificationAiMachine]
-
+    
     container: Optional[QualificationContainer]
-
+    
     archive_data: Optional[QualificationArchiveData]
-
+    
     share_data: Optional[QualificationShareData]
-
+    
     other_use_case: Optional[QualificationOtherUseCase]
-
+    
 
 @dataclass
 class ContractSignature:
@@ -244,32 +240,32 @@ class ContractSignature:
     """
     ID of the contract signature.
     """
-
+    
     organization_id: str
     """
     The Organization ID which signed the contract.
     """
-
+    
     created_at: Optional[datetime]
     """
     The creation date of the contract signature.
     """
-
+    
     signed_at: Optional[datetime]
     """
     The signing date of the contract signature.
     """
-
+    
     expires_at: Optional[datetime]
     """
     The expiration date of the contract signature.
     """
-
+    
     contract: Optional[Contract]
     """
     The contract signed.
     """
-
+    
 
 @dataclass
 class Project:
@@ -277,37 +273,37 @@ class Project:
     """
     ID of the Project.
     """
-
+    
     name: str
     """
     Name of the Project.
     """
-
+    
     organization_id: str
     """
     Organization ID of the Project.
     """
-
+    
     description: str
     """
     Description of the Project.
     """
-
+    
     created_at: Optional[datetime]
     """
     Creation date of the Project.
     """
-
+    
     updated_at: Optional[datetime]
     """
     Update date of the Project.
     """
-
+    
     qualification: Optional[Qualification]
     """
     Qualification of the Project.
     """
-
+    
 
 @dataclass
 class CheckContractSignatureResponse:
@@ -315,12 +311,12 @@ class CheckContractSignatureResponse:
     """
     Whether a signature has been requested for this contract.
     """
-
+    
     validated: bool
     """
     Whether the signature for this contract has been validated.
     """
-
+    
 
 @dataclass
 class ContractApiCheckContractSignatureRequest:
@@ -328,17 +324,17 @@ class ContractApiCheckContractSignatureRequest:
     """
     Filter on contract name.
     """
-
+    
     organization_id: Optional[str]
     """
     ID of the Organization to check the contract signature for.
     """
-
+    
     contract_type: Optional[ContractType]
     """
     Filter on contract type.
     """
-
+    
 
 @dataclass
 class ContractApiCreateContractSignatureRequest:
@@ -346,22 +342,22 @@ class ContractApiCreateContractSignatureRequest:
     """
     The name of the contract.
     """
-
+    
     validated: bool
     """
     Whether the contract is validated at creation.
     """
-
+    
     contract_type: Optional[ContractType]
     """
     The type of the contract.
     """
-
+    
     organization_id: Optional[str]
     """
     ID of the Organization.
     """
-
+    
 
 @dataclass
 class ContractApiDownloadContractSignatureRequest:
@@ -369,12 +365,12 @@ class ContractApiDownloadContractSignatureRequest:
     """
     The contract signature ID.
     """
-
+    
     locale: Optional[StdLanguageCode]
     """
     The locale requested for the content of the contract.
     """
-
+    
 
 @dataclass
 class ContractApiListContractSignaturesRequest:
@@ -382,22 +378,22 @@ class ContractApiListContractSignaturesRequest:
     """
     The page number for the returned contracts.
     """
-
+    
     page_size: Optional[int]
     """
     The maximum number of contracts per page.
     """
-
+    
     order_by: Optional[ListContractSignaturesRequestOrderBy]
     """
     How the contracts are ordered in the response.
     """
-
+    
     organization_id: Optional[str]
     """
     Filter on Organization ID.
     """
-
+    
 
 @dataclass
 class ContractApiValidateContractSignatureRequest:
@@ -405,7 +401,7 @@ class ContractApiValidateContractSignatureRequest:
     """
     The contract linked to your Organization you want to sign.
     """
-
+    
 
 @dataclass
 class ListContractSignaturesResponse:
@@ -413,12 +409,12 @@ class ListContractSignaturesResponse:
     """
     The total number of contract signatures.
     """
-
+    
     contract_signatures: List[ContractSignature]
     """
     The paginated returned contract signatures.
     """
-
+    
 
 @dataclass
 class ListProjectsResponse:
@@ -426,12 +422,12 @@ class ListProjectsResponse:
     """
     Total number of Projects.
     """
-
+    
     projects: List[Project]
     """
     Paginated returned Projects.
     """
-
+    
 
 @dataclass
 class ProjectApiCreateProjectRequest:
@@ -439,17 +435,17 @@ class ProjectApiCreateProjectRequest:
     """
     Description of the Project.
     """
-
+    
     name: Optional[str]
     """
     Name of the Project.
     """
-
+    
     organization_id: Optional[str]
     """
     Organization ID of the Project.
     """
-
+    
 
 @dataclass
 class ProjectApiDeleteProjectRequest:
@@ -457,7 +453,7 @@ class ProjectApiDeleteProjectRequest:
     """
     Project ID of the Project.
     """
-
+    
 
 @dataclass
 class ProjectApiGetProjectRequest:
@@ -465,7 +461,7 @@ class ProjectApiGetProjectRequest:
     """
     Project ID of the Project.
     """
-
+    
 
 @dataclass
 class ProjectApiListProjectsRequest:
@@ -473,32 +469,32 @@ class ProjectApiListProjectsRequest:
     """
     Organization ID of the Project.
     """
-
+    
     name: Optional[str]
     """
     Name of the Project.
     """
-
+    
     page: Optional[int]
     """
     Page number for the returned Projects.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of Project per page.
     """
-
+    
     order_by: Optional[ListProjectsRequestOrderBy]
     """
     Sort order of the returned Projects.
     """
-
+    
     project_ids: Optional[List[str]]
     """
     Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
     """
-
+    
 
 @dataclass
 class ProjectApiSetProjectQualificationRequest:
@@ -506,12 +502,12 @@ class ProjectApiSetProjectQualificationRequest:
     """
     Project ID.
     """
-
+    
     qualification: Optional[Qualification]
     """
     Use case chosen for the Project.
     """
-
+    
 
 @dataclass
 class ProjectApiUpdateProjectRequest:
@@ -519,17 +515,17 @@ class ProjectApiUpdateProjectRequest:
     """
     Project ID of the Project.
     """
-
+    
     name: Optional[str]
     """
     Name of the Project.
     """
-
+    
     description: Optional[str]
     """
     Description of the Project.
     """
-
+    
 
 @dataclass
 class ProjectQualification:
@@ -537,8 +533,9 @@ class ProjectQualification:
     """
     Project ID.
     """
-
+    
     qualification: Optional[Qualification]
     """
     Qualification of the Project.
     """
+    

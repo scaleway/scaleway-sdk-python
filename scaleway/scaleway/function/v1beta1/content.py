@@ -10,7 +10,6 @@ from .types import (
     TokenStatus,
     TriggerStatus,
 )
-
 CRON_TRANSIENT_STATUSES: List[CronStatus] = [
     CronStatus.DELETING,
     CronStatus.CREATING,

@@ -5,7 +5,6 @@ from typing import List
 from .types import (
     JobRunState,
 )
-
 JOB_RUN_TRANSIENT_STATUSES: List[JobRunState] = [
     JobRunState.QUEUED,
     JobRunState.SCHEDULED,

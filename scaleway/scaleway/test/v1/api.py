@@ -1,23 +1,50 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
+from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
+)
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
     EyeColors,
+    HumanStatus,
     ListHumansRequestOrderBy,
     CreateHumanRequest,
+    DeleteHumanRequest,
+    GetHumanRequest,
     Human,
+    ListHumansRequest,
     ListHumansResponse,
     RegisterRequest,
     RegisterResponse,
+    RunHumanRequest,
+    SmokeHumanRequest,
     UpdateHumanRequest,
 )
 from .content import (
@@ -32,12 +59,10 @@ from .marshalling import (
     marshal_UpdateHumanRequest,
 )
 
-
 class TestV1API(API):
     """
     No Auth Service for end-to-end testing.
     """
-
     def register(
         self,
         *,
@@ -46,22 +71,23 @@ class TestV1API(API):
         """
         Register a user.
         Register a human and return a access-key and a secret-key that must be used in all other commands.
-
+        
         Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable.
-        :param username:
+        :param username: 
         :return: :class:`RegisterResponse <RegisterResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.register(
                 username="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/test/v1/register",
+            f"/test/v1/register",
             body=marshal_RegisterRequest(
                 RegisterRequest(
                     username=username,
@@ -72,7 +98,7 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RegisterResponse(res.json())
-
+        
     def list_humans(
         self,
         *,
@@ -84,26 +110,26 @@ class TestV1API(API):
     ) -> ListHumansResponse:
         """
         List all your humans.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param organization_id:
-        :param project_id:
+        :param page: 
+        :param page_size: 
+        :param order_by: 
+        :param organization_id: 
+        :param project_id: 
         :return: :class:`ListHumansResponse <ListHumansResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_humans()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/test/v1/humans",
+            f"/test/v1/humans",
             params={
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -112,7 +138,7 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListHumansResponse(res.json())
-
+        
     def list_humans_all(
         self,
         *,
@@ -124,20 +150,20 @@ class TestV1API(API):
     ) -> List[Human]:
         """
         List all your humans.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param organization_id:
-        :param project_id:
+        :param page: 
+        :param page_size: 
+        :param order_by: 
+        :param organization_id: 
+        :param project_id: 
         :return: :class:`List[Human] <List[Human]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_humans_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListHumansResponse,
             key="humans",
             fetcher=self.list_humans,
@@ -149,7 +175,7 @@ class TestV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_human(
         self,
         *,
@@ -160,17 +186,17 @@ class TestV1API(API):
         Get the human details associated with the given id.
         :param human_id: UUID of the human you want to get.
         :return: :class:`Human <Human>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_human(
                 human_id="example",
             )
         """
-
+        
         param_human_id = validate_path_param("human_id", human_id)
-
+        
         res = self._request(
             "GET",
             f"/test/v1/humans/{param_human_id}",
@@ -178,7 +204,7 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Human(res.json())
-
+        
     def wait_for_human(
         self,
         *,
@@ -190,10 +216,10 @@ class TestV1API(API):
         Get the human details associated with the given id.
         :param human_id: UUID of the human you want to get.
         :return: :class:`Human <Human>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_human(
                 human_id="example",
             )
@@ -212,7 +238,7 @@ class TestV1API(API):
                 "human_id": human_id,
             },
         )
-
+        
     def create_human(
         self,
         *,
@@ -230,24 +256,24 @@ class TestV1API(API):
     ) -> Human:
         """
         Create a new human.
-        :param height:
-        :param shoe_size:
-        :param altitude_in_meter:
-        :param altitude_in_millimeter:
-        :param fingers_count:
-        :param hair_count:
-        :param is_happy:
-        :param name:
-        :param eyes_color:
-        :param organization_id:
+        :param height: 
+        :param shoe_size: 
+        :param altitude_in_meter: 
+        :param altitude_in_millimeter: 
+        :param fingers_count: 
+        :param hair_count: 
+        :param is_happy: 
+        :param name: 
+        :param eyes_color: 
+        :param organization_id: 
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
-        :param project_id:
+        :param project_id: 
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :return: :class:`Human <Human>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_human(
                 height=3.14,
                 shoe_size=3.14,
@@ -259,10 +285,11 @@ class TestV1API(API):
                 name="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/test/v1/humans",
+            f"/test/v1/humans",
             body=marshal_CreateHumanRequest(
                 CreateHumanRequest(
                     height=height,
@@ -283,7 +310,7 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Human(res.json())
-
+        
     def update_human(
         self,
         *,
@@ -303,26 +330,26 @@ class TestV1API(API):
         Update the human associated with the given id.
         :param human_id: UUID of the human you want to update.
         :param height: Height of the human in meters.
-        :param shoe_size:
-        :param altitude_in_meter:
-        :param altitude_in_millimeter:
-        :param fingers_count:
-        :param hair_count:
-        :param is_happy:
-        :param eyes_color:
-        :param name:
+        :param shoe_size: 
+        :param altitude_in_meter: 
+        :param altitude_in_millimeter: 
+        :param fingers_count: 
+        :param hair_count: 
+        :param is_happy: 
+        :param eyes_color: 
+        :param name: 
         :return: :class:`Human <Human>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_human(
                 human_id="example",
             )
         """
-
+        
         param_human_id = validate_path_param("human_id", human_id)
-
+        
         res = self._request(
             "PATCH",
             f"/test/v1/humans/{param_human_id}",
@@ -345,7 +372,7 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Human(res.json())
-
+        
     def delete_human(
         self,
         *,
@@ -356,17 +383,17 @@ class TestV1API(API):
         Delete the human associated with the given id.
         :param human_id: UUID of the human you want to delete.
         :return: :class:`Human <Human>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_human(
                 human_id="example",
             )
         """
-
+        
         param_human_id = validate_path_param("human_id", human_id)
-
+        
         res = self._request(
             "DELETE",
             f"/test/v1/humans/{param_human_id}",
@@ -374,7 +401,7 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Human(res.json())
-
+        
     def run_human(
         self,
         *,
@@ -385,17 +412,17 @@ class TestV1API(API):
         Start a one hour running for the given human.
         :param human_id: UUID of the human you want to make run.
         :return: :class:`Human <Human>`
-
+        
         Usage:
         ::
-
+        
             result = api.run_human(
                 human_id="example",
             )
         """
-
+        
         param_human_id = validate_path_param("human_id", human_id)
-
+        
         res = self._request(
             "POST",
             f"/test/v1/humans/{param_human_id}/run",
@@ -404,7 +431,7 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Human(res.json())
-
+        
     def smoke_human(
         self,
         *,
@@ -415,17 +442,17 @@ class TestV1API(API):
         :param human_id: UUID of the human you want to make smoking.
         :return: :class:`Human <Human>`
         :deprecated
-
+        
         Usage:
         ::
-
+        
             result = api.smoke_human(
                 human_id="example",
             )
         """
-
+        
         param_human_id = validate_path_param("human_id", human_id)
-
+        
         res = self._request(
             "POST",
             f"/test/v1/humans/{param_human_id}/smoke",
@@ -434,3 +461,4 @@ class TestV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Human(res.json())
+        

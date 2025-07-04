@@ -7,10 +7,7 @@ from .types import (
     ServerPrivateNetworkStatus,
     ServerStatus,
 )
-
-SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES: List[
-    ServerPrivateNetworkServerStatus
-] = [
+SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES: List[ServerPrivateNetworkServerStatus] = [
     ServerPrivateNetworkServerStatus.ATTACHING,
     ServerPrivateNetworkServerStatus.DETACHING,
 ]

@@ -2,43 +2,84 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
     ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
     unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
+    InstanceStatus,
     ListInstancesRequestOrderBy,
     ListSnapshotsRequestOrderBy,
     ListUsersRequestOrderBy,
+    NodeTypeStock,
+    SettingPropertyType,
+    SnapshotStatus,
+    UserRoleRole,
+    VolumeType,
     CreateEndpointRequest,
     CreateInstanceRequest,
     CreateInstanceRequestVolumeDetails,
     CreateSnapshotRequest,
     CreateUserRequest,
+    DeleteEndpointRequest,
+    DeleteInstanceRequest,
+    DeleteSnapshotRequest,
+    DeleteUserRequest,
     Endpoint,
+    EndpointPrivateNetworkDetails,
+    EndpointPublicDetails,
     EndpointSpec,
+    EndpointSpecPrivateNetworkDetails,
+    EndpointSpecPublicDetails,
+    GetInstanceCertificateRequest,
+    GetInstanceRequest,
+    GetSnapshotRequest,
     Instance,
+    InstanceSetting,
+    InstanceSnapshotSchedule,
+    ListInstancesRequest,
     ListInstancesResponse,
+    ListNodeTypesRequest,
     ListNodeTypesResponse,
+    ListSnapshotsRequest,
     ListSnapshotsResponse,
+    ListUsersRequest,
     ListUsersResponse,
+    ListVersionsRequest,
     ListVersionsResponse,
     NodeType,
+    NodeTypeVolumeType,
     RestoreSnapshotRequest,
     RestoreSnapshotRequestVolumeDetails,
     SetUserRoleRequest,
+    Setting,
     Snapshot,
+    SnapshotVolumeType,
     UpdateInstanceRequest,
     UpdateSnapshotRequest,
     UpdateUserRequest,
@@ -46,6 +87,7 @@ from .types import (
     User,
     UserRole,
     Version,
+    Volume,
 )
 from .content import (
     INSTANCE_TRANSIENT_STATUSES,
@@ -73,12 +115,10 @@ from .marshalling import (
     marshal_UpgradeInstanceRequest,
 )
 
-
 class MongodbV1Alpha1API(API):
     """
     This API allows you to manage your Managed Databases for MongoDB®.
     """
-
     def list_node_types(
         self,
         *,
@@ -91,20 +131,18 @@ class MongodbV1Alpha1API(API):
         List available node types.
         :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_node_types()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/node-types",
@@ -117,7 +155,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNodeTypesResponse(res.json())
-
+        
     def list_node_types_all(
         self,
         *,
@@ -130,17 +168,17 @@ class MongodbV1Alpha1API(API):
         List available node types.
         :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[NodeType] <List[NodeType]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_node_types_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListNodeTypesResponse,
             key="node_types",
             fetcher=self.list_node_types,
@@ -151,7 +189,7 @@ class MongodbV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def list_versions(
         self,
         *,
@@ -163,21 +201,19 @@ class MongodbV1Alpha1API(API):
         """
         List available MongoDB® versions.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param version:
-        :param page:
-        :param page_size:
+        :param version: 
+        :param page: 
+        :param page_size: 
         :return: :class:`ListVersionsResponse <ListVersionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_versions()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/versions",
@@ -190,7 +226,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVersionsResponse(res.json())
-
+        
     def list_versions_all(
         self,
         *,
@@ -202,18 +238,18 @@ class MongodbV1Alpha1API(API):
         """
         List available MongoDB® versions.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param version:
-        :param page:
-        :param page_size:
+        :param version: 
+        :param page: 
+        :param page_size: 
         :return: :class:`List[Version] <List[Version]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_versions_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListVersionsResponse,
             key="versions",
             fetcher=self.list_versions,
@@ -224,7 +260,7 @@ class MongodbV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def list_instances(
         self,
         *,
@@ -246,28 +282,25 @@ class MongodbV1Alpha1API(API):
         :param order_by: Criteria to use when ordering Database Instance listings.
         :param organization_id: Organization ID of the Database Instance.
         :param project_id: Project ID.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListInstancesResponse <ListInstancesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instances()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/instances",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -277,7 +310,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstancesResponse(res.json())
-
+        
     def list_instances_all(
         self,
         *,
@@ -299,17 +332,17 @@ class MongodbV1Alpha1API(API):
         :param order_by: Criteria to use when ordering Database Instance listings.
         :param organization_id: Organization ID of the Database Instance.
         :param project_id: Project ID.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[Instance] <List[Instance]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instances_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInstancesResponse,
             key="instances",
             fetcher=self.list_instances,
@@ -324,7 +357,7 @@ class MongodbV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def get_instance(
         self,
         *,
@@ -337,20 +370,18 @@ class MongodbV1Alpha1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}",
@@ -358,7 +389,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def wait_for_instance(
         self,
         *,
@@ -372,10 +403,10 @@ class MongodbV1Alpha1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance(
                 instance_id="example",
             )
@@ -395,7 +426,7 @@ class MongodbV1Alpha1API(API):
                 "region": region,
             },
         )
-
+        
     def create_instance(
         self,
         *,
@@ -426,10 +457,10 @@ class MongodbV1Alpha1API(API):
         :param volume: Instance volume information.
         :param endpoints: One or multiple EndpointSpec used to expose your Database Instance.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_instance(
                 version="example",
                 node_number=1,
@@ -438,11 +469,9 @@ class MongodbV1Alpha1API(API):
                 password="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/mongodb/v1alpha1/regions/{param_region}/instances",
@@ -466,7 +495,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def update_instance(
         self,
         *,
@@ -483,20 +512,18 @@ class MongodbV1Alpha1API(API):
         :param name: Name of the Database Instance.
         :param tags: Tags of a Database Instance.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "PATCH",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}",
@@ -513,7 +540,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def delete_instance(
         self,
         *,
@@ -526,20 +553,18 @@ class MongodbV1Alpha1API(API):
         :param instance_id: UUID of the Database Instance to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "DELETE",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}",
@@ -547,7 +572,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def upgrade_instance(
         self,
         *,
@@ -563,20 +588,18 @@ class MongodbV1Alpha1API(API):
         :param volume_size: Increase your Block Storage volume size.
         One-Of ('upgrade_target'): at most one of 'volume_size' could be set.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.upgrade_instance(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/upgrade",
@@ -592,7 +615,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def get_instance_certificate(
         self,
         *,
@@ -605,20 +628,18 @@ class MongodbV1Alpha1API(API):
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ScwFile <ScwFile>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_certificate(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/certificate",
@@ -626,7 +647,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-
+        
     def create_snapshot(
         self,
         *,
@@ -643,21 +664,19 @@ class MongodbV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param expires_at: Expiration date of the snapshot (must follow the ISO 8601 format).
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_snapshot(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/snapshots",
@@ -674,7 +693,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def get_snapshot(
         self,
         *,
@@ -687,20 +706,18 @@ class MongodbV1Alpha1API(API):
         :param snapshot_id: UUID of the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_snapshot(
                 snapshot_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}",
@@ -708,7 +725,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def wait_for_snapshot(
         self,
         *,
@@ -722,10 +739,10 @@ class MongodbV1Alpha1API(API):
         :param snapshot_id: UUID of the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_snapshot(
                 snapshot_id="example",
             )
@@ -745,7 +762,7 @@ class MongodbV1Alpha1API(API):
                 "region": region,
             },
         )
-
+        
     def update_snapshot(
         self,
         *,
@@ -762,20 +779,18 @@ class MongodbV1Alpha1API(API):
         :param name: Name of the snapshot.
         :param expires_at: Expiration date of the snapshot (must follow the ISO 8601 format).
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_snapshot(
                 snapshot_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "POST",
             f"/mongodb/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}",
@@ -792,7 +807,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def restore_snapshot(
         self,
         *,
@@ -813,10 +828,10 @@ class MongodbV1Alpha1API(API):
         :param volume: Instance volume information.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
-
+        
         Usage:
         ::
-
+        
             result = api.restore_snapshot(
                 snapshot_id="example",
                 instance_name="example",
@@ -825,12 +840,10 @@ class MongodbV1Alpha1API(API):
                 volume=RestoreSnapshotRequestVolumeDetails(),
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "POST",
             f"/mongodb/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}/restore",
@@ -849,7 +862,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Instance(res.json())
-
+        
     def list_snapshots(
         self,
         *,
@@ -871,20 +884,18 @@ class MongodbV1Alpha1API(API):
         :param order_by: Criteria to use when ordering snapshot listings.
         :param organization_id: Organization ID the snapshots belongs to.
         :param project_id: Project ID to list the snapshots of.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/snapshots",
@@ -892,8 +903,7 @@ class MongodbV1Alpha1API(API):
                 "instance_id": instance_id,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -902,7 +912,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSnapshotsResponse(res.json())
-
+        
     def list_snapshots_all(
         self,
         *,
@@ -924,17 +934,17 @@ class MongodbV1Alpha1API(API):
         :param order_by: Criteria to use when ordering snapshot listings.
         :param organization_id: Organization ID the snapshots belongs to.
         :param project_id: Project ID to list the snapshots of.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[Snapshot] <List[Snapshot]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSnapshotsResponse,
             key="snapshots",
             fetcher=self.list_snapshots,
@@ -949,7 +959,7 @@ class MongodbV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def delete_snapshot(
         self,
         *,
@@ -962,20 +972,18 @@ class MongodbV1Alpha1API(API):
         :param snapshot_id: UUID of the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_snapshot(
                 snapshot_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "DELETE",
             f"/mongodb/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}",
@@ -983,7 +991,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def list_users(
         self,
         *,
@@ -1001,23 +1009,21 @@ class MongodbV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the user.
         :param order_by: Criteria to use when requesting user listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`ListUsersResponse <ListUsersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_users(
                 instance_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "GET",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users",
@@ -1031,7 +1037,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListUsersResponse(res.json())
-
+        
     def list_users_all(
         self,
         *,
@@ -1049,19 +1055,19 @@ class MongodbV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the user.
         :param order_by: Criteria to use when requesting user listing.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :return: :class:`List[User] <List[User]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_users_all(
                 instance_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListUsersResponse,
             key="users",
             fetcher=self.list_users,
@@ -1074,7 +1080,7 @@ class MongodbV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_user(
         self,
         *,
@@ -1091,22 +1097,20 @@ class MongodbV1Alpha1API(API):
         :param password: Password of the database user.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`User <User>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_user(
                 instance_id="example",
                 name="example",
                 password="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "POST",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users",
@@ -1123,7 +1127,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
-
+        
     def update_user(
         self,
         *,
@@ -1140,22 +1144,20 @@ class MongodbV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param password: Password of the database user.
         :return: :class:`User <User>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_user(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
         param_name = validate_path_param("name", name)
-
+        
         res = self._request(
             "PATCH",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
@@ -1172,7 +1174,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
-
+        
     def delete_user(
         self,
         *,
@@ -1186,22 +1188,20 @@ class MongodbV1Alpha1API(API):
         :param instance_id: UUID of the Database Instance the user belongs to.
         :param name: Name of the database user.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_user(
                 instance_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
         param_name = validate_path_param("name", name)
-
+        
         res = self._request(
             "DELETE",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
@@ -1209,7 +1209,6 @@ class MongodbV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-
     def set_user_role(
         self,
         *,
@@ -1226,21 +1225,19 @@ class MongodbV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param roles: List of roles assigned to the user, along with the corresponding database where each role is granted.
         :return: :class:`User <User>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_user_role(
                 instance_id="example",
                 user_name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_instance_id = validate_path_param("instance_id", instance_id)
-
+        
         res = self._request(
             "PUT",
             f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/roles",
@@ -1257,7 +1254,7 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
-
+        
     def delete_endpoint(
         self,
         *,
@@ -1269,27 +1266,24 @@ class MongodbV1Alpha1API(API):
         Delete the endpoint of a Database Instance. You must specify the `endpoint_id` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
         :param endpoint_id: UUID of the Endpoint to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_endpoint(
                 endpoint_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-
+        
         res = self._request(
             "DELETE",
             f"/mongodb/v1alpha1/regions/{param_region}/endpoints/{param_endpoint_id}",
         )
 
         self._throw_on_error(res)
-
     def create_endpoint(
         self,
         *,
@@ -1304,20 +1298,18 @@ class MongodbV1Alpha1API(API):
         :param endpoint: EndpointSpec used to expose your Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Endpoint <Endpoint>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_endpoint(
                 instance_id="example",
                 endpoint=EndpointSpec(),
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/mongodb/v1alpha1/regions/{param_region}/endpoints",
@@ -1333,3 +1325,4 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
+        

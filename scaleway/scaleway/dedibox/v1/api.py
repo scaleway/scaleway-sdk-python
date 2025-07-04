@@ -1,22 +1,51 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
     ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
     Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
     unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
     AttachFailoverIPToMacAddressRequestMacType,
+    BMCAccessStatus,
+    BackupStatus,
+    FailoverBlockVersion,
+    FailoverIPInterfaceType,
+    FailoverIPStatus,
+    FailoverIPVersion,
+    GetRpnStatusResponseStatus,
+    IPSemantic,
+    IPStatus,
+    IPVersion,
+    IPv6BlockDelegationStatus,
+    InvoicePaymentMethod,
+    InvoiceStatus,
     ListFailoverIPsRequestOrderBy,
     ListInvoicesRequestOrderBy,
     ListOSRequestOrderBy,
@@ -38,37 +67,100 @@ from .types import (
     ListServerEventsRequestOrderBy,
     ListServersRequestOrderBy,
     ListServicesRequestOrderBy,
+    LogAction,
+    LogStatus,
+    MemoryType,
+    NetworkInterfaceInterfaceType,
+    OSArch,
     OSType,
+    OfferAntiDosInfoType,
     OfferCatalog,
+    OfferPaymentFrequency,
+    OfferSANInfoType,
+    OfferServerInfoStock,
+    PartitionFileSystem,
+    PartitionType,
+    RaidArrayRaidLevel,
+    RefundMethod,
+    RefundStatus,
+    RescueProtocol,
+    RpnGroupMemberStatus,
+    RpnGroupType,
     RpnSanIpType,
+    RpnSanStatus,
+    RpnV2GroupStatus,
     RpnV2GroupType,
+    RpnV2MemberStatus,
+    ServerDiskType,
+    ServerInstallStatus,
+    ServerStatus,
+    ServiceLevelLevel,
+    ServiceProvisioningStatus,
+    ServiceType,
     AttachFailoverIPToMacAddressRequest,
     AttachFailoverIPsRequest,
     BMCAccess,
     Backup,
+    BillingApiCanOrderRequest,
+    BillingApiDownloadInvoiceRequest,
+    BillingApiDownloadRefundRequest,
+    BillingApiGetInvoiceRequest,
+    BillingApiGetRefundRequest,
+    BillingApiListInvoicesRequest,
+    BillingApiListRefundsRequest,
+    CPU,
     CanOrderResponse,
+    CancelServerInstallRequest,
     CreateFailoverIPsRequest,
     CreateFailoverIPsResponse,
     CreateServerRequest,
+    DeleteFailoverIPRequest,
+    DeleteServerRequest,
+    DeleteServiceRequest,
+    DetachFailoverIPFromMacAddressRequest,
     DetachFailoverIPsRequest,
+    Disk,
+    FailoverBlock,
     FailoverIP,
+    GetBMCAccessRequest,
+    GetFailoverIPRequest,
     GetIPv6BlockQuotasResponse,
+    GetIPv6BlockQuotasResponseQuota,
+    GetOSRequest,
+    GetOfferRequest,
+    GetOrderedServiceRequest,
+    GetRaidRequest,
+    GetRemainingQuotaRequest,
     GetRemainingQuotaResponse,
+    GetRescueRequest,
     GetRpnStatusResponse,
+    GetServerBackupRequest,
+    GetServerDefaultPartitioningRequest,
+    GetServerInstallRequest,
+    GetServerRequest,
+    GetServiceRequest,
     IP,
     IPv6Block,
     IPv6BlockApiCreateIPv6BlockRequest,
     IPv6BlockApiCreateIPv6BlockSubnetRequest,
+    IPv6BlockApiDeleteIPv6BlockRequest,
+    IPv6BlockApiGetIPv6BlockQuotasRequest,
+    IPv6BlockApiGetIPv6BlockRequest,
+    IPv6BlockApiListIPv6BlockSubnetsAvailableRequest,
     IPv6BlockApiUpdateIPv6BlockRequest,
     InstallPartition,
     InstallServerRequest,
     Invoice,
     InvoiceSummary,
+    ListFailoverIPsRequest,
     ListFailoverIPsResponse,
     ListIPv6BlockSubnetsAvailableResponse,
+    ListIPv6BlockSubnetsAvailableResponseSubnet,
     ListInvoicesResponse,
     ListIpsResponse,
+    ListOSRequest,
     ListOSResponse,
+    ListOffersRequest,
     ListOffersResponse,
     ListRefundsResponse,
     ListRpnCapableSanServersResponse,
@@ -82,50 +174,107 @@ from .types import (
     ListRpnV2GroupLogsResponse,
     ListRpnV2GroupsResponse,
     ListRpnV2MembersResponse,
+    ListServerDisksRequest,
     ListServerDisksResponse,
+    ListServerEventsRequest,
     ListServerEventsResponse,
+    ListServersRequest,
     ListServersResponse,
+    ListServicesRequest,
     ListServicesResponse,
+    ListSubscribableServerOptionsRequest,
     ListSubscribableServerOptionsResponse,
     Log,
+    Memory,
+    NetworkInterface,
     OS,
     Offer,
+    OfferAntiDosInfo,
+    OfferBackupInfo,
+    OfferBandwidthInfo,
+    OfferFailoverBlockInfo,
+    OfferFailoverIpInfo,
+    OfferLicenseInfo,
+    OfferRPNInfo,
+    OfferSANInfo,
+    OfferServerInfo,
+    OfferServiceLevelInfo,
+    OfferStorageInfo,
+    Partition,
+    PersistentMemory,
     Raid,
+    RaidArray,
+    RaidController,
+    RebootServerRequest,
     Refund,
     RefundSummary,
     Rescue,
+    RpnApiGetRpnStatusRequest,
+    RpnApiListRpnServerCapabilitiesRequest,
     RpnGroup,
     RpnGroupMember,
     RpnSan,
     RpnSanApiAddIpRequest,
     RpnSanApiCreateRpnSanRequest,
+    RpnSanApiDeleteRpnSanRequest,
+    RpnSanApiGetRpnSanRequest,
+    RpnSanApiListAvailableIpsRequest,
+    RpnSanApiListIpsRequest,
+    RpnSanApiListRpnSansRequest,
     RpnSanApiRemoveIpRequest,
+    RpnSanIp,
+    RpnSanIpRpnV2Group,
+    RpnSanIpServer,
     RpnSanServer,
     RpnSanSummary,
     RpnServerCapability,
+    RpnV1ApiAcceptRpnInviteRequest,
     RpnV1ApiAddRpnGroupMembersRequest,
     RpnV1ApiCreateRpnGroupRequest,
     RpnV1ApiDeleteRpnGroupMembersRequest,
+    RpnV1ApiDeleteRpnGroupRequest,
+    RpnV1ApiGetRpnGroupRequest,
     RpnV1ApiLeaveRpnGroupRequest,
+    RpnV1ApiListRpnCapableSanServersRequest,
+    RpnV1ApiListRpnCapableServersRequest,
+    RpnV1ApiListRpnGroupMembersRequest,
+    RpnV1ApiListRpnGroupsRequest,
+    RpnV1ApiListRpnInvitesRequest,
+    RpnV1ApiRefuseRpnInviteRequest,
     RpnV1ApiRpnGroupInviteRequest,
     RpnV1ApiUpdateRpnGroupNameRequest,
     RpnV2ApiAddRpnV2MembersRequest,
     RpnV2ApiCreateRpnV2GroupRequest,
+    RpnV2ApiDeleteRpnV2GroupRequest,
     RpnV2ApiDeleteRpnV2MembersRequest,
+    RpnV2ApiDisableRpnV2GroupCompatibilityRequest,
     RpnV2ApiEnableRpnV2GroupCompatibilityRequest,
+    RpnV2ApiGetRpnV2GroupRequest,
+    RpnV2ApiListRpnV2CapableResourcesRequest,
+    RpnV2ApiListRpnV2GroupLogsRequest,
+    RpnV2ApiListRpnV2GroupsRequest,
+    RpnV2ApiListRpnV2MembersRequest,
     RpnV2ApiUpdateRpnV2GroupNameRequest,
     RpnV2ApiUpdateRpnV2VlanForMembersRequest,
     RpnV2Group,
+    RpnV2GroupSubnet,
     RpnV2Member,
     Server,
     ServerDefaultPartitioning,
     ServerDisk,
     ServerEvent,
     ServerInstall,
+    ServerLocation,
+    ServerOption,
     ServerSummary,
     Service,
+    ServiceLevel,
     StartBMCAccessRequest,
     StartRescueRequest,
+    StartServerRequest,
+    StopBMCAccessRequest,
+    StopRescueRequest,
+    StopServerRequest,
     SubscribeServerOptionRequest,
     SubscribeStorageOptionsRequest,
     SubscribeStorageOptionsResponse,
@@ -138,10 +287,14 @@ from .types import (
 )
 from .content import (
     BMC_ACCESS_TRANSIENT_STATUSES,
+    I_PV6_BLOCK_DELEGATION_TRANSIENT_STATUSES,
+    RPN_GROUP_MEMBER_TRANSIENT_STATUSES,
     RPN_SAN_TRANSIENT_STATUSES,
     RPN_V2_GROUP_TRANSIENT_STATUSES,
+    RPN_V2_MEMBER_TRANSIENT_STATUSES,
     SERVER_INSTALL_TRANSIENT_STATUSES,
     SERVER_TRANSIENT_STATUSES,
+    SERVICE_PROVISIONING_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_IP,
@@ -226,12 +379,10 @@ from .marshalling import (
     marshal_UpdateServerTagsRequest,
 )
 
-
 class DediboxV1API(API):
     """
     Dedibox Phoenix API.
     """
-
     def list_servers(
         self,
         *,
@@ -251,15 +402,15 @@ class DediboxV1API(API):
         :param project_id: Filter servers by project ID.
         :param search: Filter servers by hostname.
         :return: :class:`ListServersResponse <ListServersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_servers()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers",
@@ -274,7 +425,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServersResponse(res.json())
-
+        
     def list_servers_all(
         self,
         *,
@@ -294,14 +445,14 @@ class DediboxV1API(API):
         :param project_id: Filter servers by project ID.
         :param search: Filter servers by hostname.
         :return: :class:`List[ServerSummary] <List[ServerSummary]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_servers_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListServersResponse,
             key="servers",
             fetcher=self.list_servers,
@@ -314,7 +465,7 @@ class DediboxV1API(API):
                 "search": search,
             },
         )
-
+        
     def get_server(
         self,
         *,
@@ -327,18 +478,18 @@ class DediboxV1API(API):
         :param server_id: ID of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}",
@@ -346,7 +497,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
-
+        
     def wait_for_server(
         self,
         *,
@@ -360,10 +511,10 @@ class DediboxV1API(API):
         :param server_id: ID of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server(
                 server_id=1,
             )
@@ -383,7 +534,7 @@ class DediboxV1API(API):
                 "zone": zone,
             },
         )
-
+        
     def get_server_backup(
         self,
         *,
@@ -394,18 +545,18 @@ class DediboxV1API(API):
         :param server_id: Server ID of the backup.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backup <Backup>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server_backup(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/backups",
@@ -413,7 +564,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backup(res.json())
-
+        
     def update_server_backup(
         self,
         *,
@@ -430,18 +581,18 @@ class DediboxV1API(API):
         :param autologin: Autologin of the server backup.
         :param acl_enabled: Boolean to enable or disable ACL.
         :return: :class:`Backup <Backup>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_server_backup(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/backups",
@@ -459,7 +610,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backup(res.json())
-
+        
     def list_subscribable_server_options(
         self,
         *,
@@ -476,18 +627,18 @@ class DediboxV1API(API):
         :param page: Page number.
         :param page_size: Number of subscribable server option per page.
         :return: :class:`ListSubscribableServerOptionsResponse <ListSubscribableServerOptionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_subscribable_server_options(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/subscribable-server-options",
@@ -499,7 +650,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSubscribableServerOptionsResponse(res.json())
-
+        
     def list_subscribable_server_options_all(
         self,
         *,
@@ -516,16 +667,16 @@ class DediboxV1API(API):
         :param page: Page number.
         :param page_size: Number of subscribable server option per page.
         :return: :class:`List[Offer] <List[Offer]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_subscribable_server_options_all(
                 server_id=1,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSubscribableServerOptionsResponse,
             key="server_options",
             fetcher=self.list_subscribable_server_options,
@@ -536,7 +687,7 @@ class DediboxV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def subscribe_server_option(
         self,
         *,
@@ -551,19 +702,19 @@ class DediboxV1API(API):
         :param option_id: Option ID to subscribe.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Service <Service>`
-
+        
         Usage:
         ::
-
+        
             result = api.subscribe_server_option(
                 server_id=1,
                 option_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/subscribe-server-option",
@@ -579,7 +730,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Service(res.json())
-
+        
     def create_server(
         self,
         *,
@@ -598,18 +749,18 @@ class DediboxV1API(API):
         :param project_id: Project ID of the new server.
         :param datacenter_name: Datacenter name of the new server.
         :return: :class:`Service <Service>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_server(
                 offer_id=1,
                 server_option_ids=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers",
@@ -627,7 +778,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Service(res.json())
-
+        
     def subscribe_storage_options(
         self,
         *,
@@ -642,19 +793,19 @@ class DediboxV1API(API):
         :param options_ids: Option IDs of the storage options to subscribe.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SubscribeStorageOptionsResponse <SubscribeStorageOptionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.subscribe_storage_options(
                 server_id=1,
                 options_ids=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/subscribe-storage-options",
@@ -670,7 +821,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SubscribeStorageOptionsResponse(res.json())
-
+        
     def update_server(
         self,
         *,
@@ -687,18 +838,18 @@ class DediboxV1API(API):
         :param hostname: Hostname of the server to update.
         :param enable_ipv6: Flag to enable or not the IPv6 of server.
         :return: :class:`Server <Server>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_server(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}",
@@ -715,7 +866,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
-
+        
     def update_server_tags(
         self,
         *,
@@ -728,18 +879,18 @@ class DediboxV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Tags of server to update.
         :return: :class:`Server <Server>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_server_tags(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/tags",
@@ -755,7 +906,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
-
+        
     def reboot_server(
         self,
         *,
@@ -767,18 +918,18 @@ class DediboxV1API(API):
         Reboot the server associated with the given ID, use boot param to reboot in rescue.
         :param server_id: Server ID to reboot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.reboot_server(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/reboot",
@@ -786,7 +937,6 @@ class DediboxV1API(API):
         )
 
         self._throw_on_error(res)
-
     def start_server(
         self,
         *,
@@ -798,18 +948,18 @@ class DediboxV1API(API):
         Start the server associated with the given ID.
         :param server_id: Server ID to start.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.start_server(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/start",
@@ -817,7 +967,6 @@ class DediboxV1API(API):
         )
 
         self._throw_on_error(res)
-
     def stop_server(
         self,
         *,
@@ -829,18 +978,18 @@ class DediboxV1API(API):
         Stop the server associated with the given ID.
         :param server_id: Server ID to stop.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.stop_server(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/stop",
@@ -848,7 +997,6 @@ class DediboxV1API(API):
         )
 
         self._throw_on_error(res)
-
     def delete_server(
         self,
         *,
@@ -860,25 +1008,24 @@ class DediboxV1API(API):
         Delete the server associated with the given ID.
         :param server_id: Server ID to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_server(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}",
         )
 
         self._throw_on_error(res)
-
     def list_server_events(
         self,
         *,
@@ -897,18 +1044,18 @@ class DediboxV1API(API):
         :param page_size: Number of server event per page.
         :param order_by: Order of the server events.
         :return: :class:`ListServerEventsResponse <ListServerEventsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_server_events(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/events",
@@ -921,7 +1068,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServerEventsResponse(res.json())
-
+        
     def list_server_events_all(
         self,
         *,
@@ -940,16 +1087,16 @@ class DediboxV1API(API):
         :param page_size: Number of server event per page.
         :param order_by: Order of the server events.
         :return: :class:`List[ServerEvent] <List[ServerEvent]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_server_events_all(
                 server_id=1,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListServerEventsResponse,
             key="events",
             fetcher=self.list_server_events,
@@ -961,7 +1108,7 @@ class DediboxV1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def list_server_disks(
         self,
         *,
@@ -980,18 +1127,18 @@ class DediboxV1API(API):
         :param page_size: Number of server disk per page.
         :param order_by: Order of the server disks.
         :return: :class:`ListServerDisksResponse <ListServerDisksResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_server_disks(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/disks",
@@ -1004,7 +1151,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServerDisksResponse(res.json())
-
+        
     def list_server_disks_all(
         self,
         *,
@@ -1023,16 +1170,16 @@ class DediboxV1API(API):
         :param page_size: Number of server disk per page.
         :param order_by: Order of the server disks.
         :return: :class:`List[ServerDisk] <List[ServerDisk]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_server_disks_all(
                 server_id=1,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListServerDisksResponse,
             key="disks",
             fetcher=self.list_server_disks,
@@ -1044,7 +1191,7 @@ class DediboxV1API(API):
                 "order_by": order_by,
             },
         )
-
+        
     def get_ordered_service(
         self,
         *,
@@ -1052,23 +1199,21 @@ class DediboxV1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Service:
         """
-        :param ordered_service_id:
+        :param ordered_service_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Service <Service>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_ordered_service(
                 ordered_service_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_ordered_service_id = validate_path_param(
-            "ordered_service_id", ordered_service_id
-        )
-
+        param_ordered_service_id = validate_path_param("ordered_service_id", ordered_service_id)
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/ordered-services/{param_ordered_service_id}",
@@ -1076,7 +1221,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Service(res.json())
-
+        
     def get_service(
         self,
         *,
@@ -1089,18 +1234,18 @@ class DediboxV1API(API):
         :param service_id: ID of the service.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Service <Service>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_service(
                 service_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_service_id = validate_path_param("service_id", service_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/zones/{param_zone}/services/{param_service_id}",
@@ -1109,7 +1254,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Service(res.json())
-
+        
     def delete_service(
         self,
         *,
@@ -1122,18 +1267,18 @@ class DediboxV1API(API):
         :param service_id: ID of the service.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Service <Service>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_service(
                 service_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_service_id = validate_path_param("service_id", service_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/zones/{param_zone}/services/{param_service_id}",
@@ -1141,7 +1286,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Service(res.json())
-
+        
     def list_services(
         self,
         *,
@@ -1159,15 +1304,15 @@ class DediboxV1API(API):
         :param order_by: Order of the services.
         :param project_id: Project ID.
         :return: :class:`ListServicesResponse <ListServicesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_services()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/services",
@@ -1181,7 +1326,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServicesResponse(res.json())
-
+        
     def list_services_all(
         self,
         *,
@@ -1199,14 +1344,14 @@ class DediboxV1API(API):
         :param order_by: Order of the services.
         :param project_id: Project ID.
         :return: :class:`List[Service] <List[Service]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_services_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListServicesResponse,
             key="services",
             fetcher=self.list_services,
@@ -1218,7 +1363,7 @@ class DediboxV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def install_server(
         self,
         *,
@@ -1251,20 +1396,20 @@ class DediboxV1API(API):
         :param license_offer_id: Offer ID of license to install on server.
         :param ip_id: IP to link at the license to install on server.
         :return: :class:`ServerInstall <ServerInstall>`
-
+        
         Usage:
         ::
-
+        
             result = api.install_server(
                 server_id=1,
                 os_id=1,
                 hostname="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/install",
@@ -1289,7 +1434,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ServerInstall(res.json())
-
+        
     def get_server_install(
         self,
         *,
@@ -1302,18 +1447,18 @@ class DediboxV1API(API):
         :param server_id: Server ID of the server to install.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ServerInstall <ServerInstall>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server_install(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/install",
@@ -1321,7 +1466,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ServerInstall(res.json())
-
+        
     def wait_for_server_install(
         self,
         *,
@@ -1335,10 +1480,10 @@ class DediboxV1API(API):
         :param server_id: Server ID of the server to install.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ServerInstall <ServerInstall>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server_install(
                 server_id=1,
             )
@@ -1348,9 +1493,7 @@ class DediboxV1API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status not in SERVER_INSTALL_TRANSIENT_STATUSES
-            )
+            options.stop = lambda res: res.status not in SERVER_INSTALL_TRANSIENT_STATUSES
 
         return wait_for_resource(
             fetcher=self.get_server_install,
@@ -1360,7 +1503,7 @@ class DediboxV1API(API):
                 "zone": zone,
             },
         )
-
+        
     def cancel_server_install(
         self,
         *,
@@ -1372,25 +1515,24 @@ class DediboxV1API(API):
         Cancels the current server installation associated with the given server ID.
         :param server_id: Server ID of the server to cancel install.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.cancel_server_install(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/cancel-install",
         )
 
         self._throw_on_error(res)
-
     def get_server_default_partitioning(
         self,
         *,
@@ -1405,20 +1547,20 @@ class DediboxV1API(API):
         :param os_id: OS ID of the default partitioning.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ServerDefaultPartitioning <ServerDefaultPartitioning>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server_default_partitioning(
                 server_id=1,
                 os_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
         param_os_id = validate_path_param("os_id", os_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/partitioning/{param_os_id}",
@@ -1426,7 +1568,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ServerDefaultPartitioning(res.json())
-
+        
     def start_bmc_access(
         self,
         *,
@@ -1441,19 +1583,19 @@ class DediboxV1API(API):
         :param server_id: ID of the server to start the BMC access.
         :param ip: The IP authorized to connect to the given server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.start_bmc_access(
                 server_id=1,
                 ip="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/bmc-access",
@@ -1468,7 +1610,6 @@ class DediboxV1API(API):
         )
 
         self._throw_on_error(res)
-
     def get_bmc_access(
         self,
         *,
@@ -1481,18 +1622,18 @@ class DediboxV1API(API):
         :param server_id: ID of the server to get BMC access.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`BMCAccess <BMCAccess>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_bmc_access(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/bmc-access",
@@ -1500,7 +1641,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_BMCAccess(res.json())
-
+        
     def wait_for_bmc_access(
         self,
         *,
@@ -1514,10 +1655,10 @@ class DediboxV1API(API):
         :param server_id: ID of the server to get BMC access.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`BMCAccess <BMCAccess>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_bmc_access(
                 server_id=1,
             )
@@ -1537,7 +1678,7 @@ class DediboxV1API(API):
                 "zone": zone,
             },
         )
-
+        
     def stop_bmc_access(
         self,
         *,
@@ -1549,25 +1690,24 @@ class DediboxV1API(API):
         Stop BMC (Baseboard Management Controller) access associated with the given ID.
         :param server_id: ID of the server to stop BMC access.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.stop_bmc_access(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/bmc-access",
         )
 
         self._throw_on_error(res)
-
     def list_offers(
         self,
         *,
@@ -1600,15 +1740,15 @@ class DediboxV1API(API):
         :param available_only: Set this filter to true to only return available offers.
         :param is_rpn_san: Get the RPN SAN offers.
         :return: :class:`ListOffersResponse <ListOffersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_offers()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/offers",
@@ -1629,7 +1769,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListOffersResponse(res.json())
-
+        
     def list_offers_all(
         self,
         *,
@@ -1662,14 +1802,14 @@ class DediboxV1API(API):
         :param available_only: Set this filter to true to only return available offers.
         :param is_rpn_san: Get the RPN SAN offers.
         :return: :class:`List[Offer] <List[Offer]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_offers_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListOffersResponse,
             key="offers",
             fetcher=self.list_offers,
@@ -1688,7 +1828,7 @@ class DediboxV1API(API):
                 "is_rpn_san": is_rpn_san,
             },
         )
-
+        
     def get_offer(
         self,
         *,
@@ -1703,18 +1843,18 @@ class DediboxV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Project ID.
         :return: :class:`Offer <Offer>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_offer(
                 offer_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_offer_id = validate_path_param("offer_id", offer_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/offers/{param_offer_id}",
@@ -1725,7 +1865,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Offer(res.json())
-
+        
     def list_os(
         self,
         *,
@@ -1747,17 +1887,17 @@ class DediboxV1API(API):
         :param type_: Type of the OS.
         :param project_id: Project ID.
         :return: :class:`ListOSResponse <ListOSResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_os(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/os",
@@ -1773,7 +1913,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListOSResponse(res.json())
-
+        
     def list_os_all(
         self,
         *,
@@ -1795,16 +1935,16 @@ class DediboxV1API(API):
         :param type_: Type of the OS.
         :param project_id: Project ID.
         :return: :class:`List[OS] <List[OS]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_os_all(
                 server_id=1,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListOSResponse,
             key="os",
             fetcher=self.list_os,
@@ -1818,7 +1958,7 @@ class DediboxV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_os(
         self,
         *,
@@ -1835,19 +1975,19 @@ class DediboxV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Project ID.
         :return: :class:`OS <OS>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_os(
                 os_id=1,
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_os_id = validate_path_param("os_id", os_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/os/{param_os_id}",
@@ -1859,7 +1999,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_OS(res.json())
-
+        
     def update_reverse(
         self,
         *,
@@ -1874,19 +2014,19 @@ class DediboxV1API(API):
         :param reverse: Reverse to apply on the IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_reverse(
                 ip_id=1,
                 reverse="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/zones/{param_zone}/reverses/{param_ip_id}",
@@ -1902,7 +2042,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def create_failover_i_ps(
         self,
         *,
@@ -1919,18 +2059,18 @@ class DediboxV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Project ID.
         :return: :class:`CreateFailoverIPsResponse <CreateFailoverIPsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_failover_i_ps(
                 offer_id=1,
                 quantity=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/failover-ips",
@@ -1947,7 +2087,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateFailoverIPsResponse(res.json())
-
+        
     def attach_failover_i_ps(
         self,
         *,
@@ -1961,18 +2101,18 @@ class DediboxV1API(API):
         :param server_id: ID of the server.
         :param fips_ids: List of ID of failovers IP to attach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.attach_failover_i_ps(
                 server_id=1,
                 fips_ids=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/failover-ips/attach",
@@ -1987,7 +2127,6 @@ class DediboxV1API(API):
         )
 
         self._throw_on_error(res)
-
     def detach_failover_i_ps(
         self,
         *,
@@ -1999,17 +2138,17 @@ class DediboxV1API(API):
         Detach failovers on the server associated with the given ID.
         :param fips_ids: List of IDs of failovers IP to detach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.detach_failover_i_ps(
                 fips_ids=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/failover-ips/detach",
@@ -2023,7 +2162,6 @@ class DediboxV1API(API):
         )
 
         self._throw_on_error(res)
-
     def attach_failover_ip_to_mac_address(
         self,
         *,
@@ -2039,18 +2177,18 @@ class DediboxV1API(API):
         :param type_: A mac type.
         :param mac: A valid mac address (existing or not).
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_failover_ip_to_mac_address(
                 ip_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/failover-ips/{param_ip_id}/attach-to-mac-address",
@@ -2067,7 +2205,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def detach_failover_ip_from_mac_address(
         self,
         *,
@@ -2079,18 +2217,18 @@ class DediboxV1API(API):
         :param ip_id: ID of the failover IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`IP <IP>`
-
+        
         Usage:
         ::
-
+        
             result = api.detach_failover_ip_from_mac_address(
                 ip_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/failover-ips/{param_ip_id}/detach-from-mac-address",
@@ -2099,7 +2237,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-
+        
     def delete_failover_ip(
         self,
         *,
@@ -2111,25 +2249,24 @@ class DediboxV1API(API):
         Delete the failover associated with the given ID.
         :param ip_id: ID of the failover IP to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_failover_ip(
                 ip_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/zones/{param_zone}/failover-ips/{param_ip_id}",
         )
 
         self._throw_on_error(res)
-
     def list_failover_i_ps(
         self,
         *,
@@ -2153,15 +2290,15 @@ class DediboxV1API(API):
         :param only_available: True: return all failovers IP not attached on server
         false: return all failovers IP attached on server.
         :return: :class:`ListFailoverIPsResponse <ListFailoverIPsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_failover_i_ps()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/failover-ips",
@@ -2177,7 +2314,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListFailoverIPsResponse(res.json())
-
+        
     def list_failover_i_ps_all(
         self,
         *,
@@ -2201,14 +2338,14 @@ class DediboxV1API(API):
         :param only_available: True: return all failovers IP not attached on server
         false: return all failovers IP attached on server.
         :return: :class:`List[FailoverIP] <List[FailoverIP]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_failover_i_ps_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListFailoverIPsResponse,
             key="failover_ips",
             fetcher=self.list_failover_i_ps,
@@ -2222,7 +2359,7 @@ class DediboxV1API(API):
                 "only_available": only_available,
             },
         )
-
+        
     def get_failover_ip(
         self,
         *,
@@ -2235,18 +2372,18 @@ class DediboxV1API(API):
         :param ip_id: ID of the failover IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`FailoverIP <FailoverIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_failover_ip(
                 ip_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/failover-ips/{param_ip_id}",
@@ -2254,7 +2391,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FailoverIP(res.json())
-
+        
     def get_remaining_quota(
         self,
         *,
@@ -2266,15 +2403,15 @@ class DediboxV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Project ID.
         :return: :class:`GetRemainingQuotaResponse <GetRemainingQuotaResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_remaining_quota()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/remaining-quota",
@@ -2285,7 +2422,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetRemainingQuotaResponse(res.json())
-
+        
     def get_raid(
         self,
         *,
@@ -2298,18 +2435,18 @@ class DediboxV1API(API):
         :param server_id: ID of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Raid <Raid>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_raid(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/raid",
@@ -2317,7 +2454,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Raid(res.json())
-
+        
     def update_raid(
         self,
         *,
@@ -2331,19 +2468,19 @@ class DediboxV1API(API):
         :param server_id: ID of the server.
         :param raid_arrays: RAIDs to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.update_raid(
                 server_id=1,
                 raid_arrays=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/update-raid",
@@ -2358,7 +2495,6 @@ class DediboxV1API(API):
         )
 
         self._throw_on_error(res)
-
     def start_rescue(
         self,
         *,
@@ -2373,19 +2509,19 @@ class DediboxV1API(API):
         :param os_id: OS ID to use to start rescue.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Rescue <Rescue>`
-
+        
         Usage:
         ::
-
+        
             result = api.start_rescue(
                 server_id=1,
                 os_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/rescue",
@@ -2401,7 +2537,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Rescue(res.json())
-
+        
     def get_rescue(
         self,
         *,
@@ -2414,18 +2550,18 @@ class DediboxV1API(API):
         :param server_id: ID of the server to get rescue.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Rescue <Rescue>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_rescue(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/rescue",
@@ -2433,7 +2569,7 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Rescue(res.json())
-
+        
     def stop_rescue(
         self,
         *,
@@ -2445,18 +2581,18 @@ class DediboxV1API(API):
         Stop rescue on the server associated with the given ID.
         :param server_id: ID of the server to stop rescue.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.stop_rescue(
                 server_id=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/zones/{param_zone}/servers/{param_server_id}/rescue",
@@ -2464,12 +2600,10 @@ class DediboxV1API(API):
 
         self._throw_on_error(res)
 
-
 class DediboxV1BillingAPI(API):
     """
     Dedibox Phoenix Billing API.
     """
-
     def list_invoices(
         self,
         *,
@@ -2479,21 +2613,22 @@ class DediboxV1BillingAPI(API):
         project_id: Optional[str] = None,
     ) -> ListInvoicesResponse:
         """
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param project_id:
+        :param page: 
+        :param page_size: 
+        :param order_by: 
+        :param project_id: 
         :return: :class:`ListInvoicesResponse <ListInvoicesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_invoices()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/invoices",
+            f"/dedibox/v1/invoices",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -2504,7 +2639,7 @@ class DediboxV1BillingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInvoicesResponse(res.json())
-
+        
     def list_invoices_all(
         self,
         *,
@@ -2514,19 +2649,19 @@ class DediboxV1BillingAPI(API):
         project_id: Optional[str] = None,
     ) -> List[InvoiceSummary]:
         """
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param project_id:
+        :param page: 
+        :param page_size: 
+        :param order_by: 
+        :param project_id: 
         :return: :class:`List[InvoiceSummary] <List[InvoiceSummary]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_invoices_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInvoicesResponse,
             key="invoices",
             fetcher=self.list_invoices,
@@ -2537,26 +2672,26 @@ class DediboxV1BillingAPI(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_invoice(
         self,
         *,
         invoice_id: int,
     ) -> Invoice:
         """
-        :param invoice_id:
+        :param invoice_id: 
         :return: :class:`Invoice <Invoice>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_invoice(
                 invoice_id=1,
             )
         """
-
+        
         param_invoice_id = validate_path_param("invoice_id", invoice_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/invoices/{param_invoice_id}",
@@ -2564,26 +2699,26 @@ class DediboxV1BillingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Invoice(res.json())
-
+        
     def download_invoice(
         self,
         *,
         invoice_id: int,
     ) -> ScwFile:
         """
-        :param invoice_id:
+        :param invoice_id: 
         :return: :class:`ScwFile <ScwFile>`
-
+        
         Usage:
         ::
-
+        
             result = api.download_invoice(
                 invoice_id=1,
             )
         """
-
+        
         param_invoice_id = validate_path_param("invoice_id", invoice_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/invoices/{param_invoice_id}/download",
@@ -2591,7 +2726,7 @@ class DediboxV1BillingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-
+        
     def list_refunds(
         self,
         *,
@@ -2601,21 +2736,22 @@ class DediboxV1BillingAPI(API):
         project_id: Optional[str] = None,
     ) -> ListRefundsResponse:
         """
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param project_id:
+        :param page: 
+        :param page_size: 
+        :param order_by: 
+        :param project_id: 
         :return: :class:`ListRefundsResponse <ListRefundsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_refunds()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/refunds",
+            f"/dedibox/v1/refunds",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -2626,7 +2762,7 @@ class DediboxV1BillingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRefundsResponse(res.json())
-
+        
     def list_refunds_all(
         self,
         *,
@@ -2636,19 +2772,19 @@ class DediboxV1BillingAPI(API):
         project_id: Optional[str] = None,
     ) -> List[RefundSummary]:
         """
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param project_id:
+        :param page: 
+        :param page_size: 
+        :param order_by: 
+        :param project_id: 
         :return: :class:`List[RefundSummary] <List[RefundSummary]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_refunds_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRefundsResponse,
             key="refunds",
             fetcher=self.list_refunds,
@@ -2659,26 +2795,26 @@ class DediboxV1BillingAPI(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_refund(
         self,
         *,
         refund_id: int,
     ) -> Refund:
         """
-        :param refund_id:
+        :param refund_id: 
         :return: :class:`Refund <Refund>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_refund(
                 refund_id=1,
             )
         """
-
+        
         param_refund_id = validate_path_param("refund_id", refund_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/refunds/{param_refund_id}",
@@ -2686,26 +2822,26 @@ class DediboxV1BillingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Refund(res.json())
-
+        
     def download_refund(
         self,
         *,
         refund_id: int,
     ) -> ScwFile:
         """
-        :param refund_id:
+        :param refund_id: 
         :return: :class:`ScwFile <ScwFile>`
-
+        
         Usage:
         ::
-
+        
             result = api.download_refund(
                 refund_id=1,
             )
         """
-
+        
         param_refund_id = validate_path_param("refund_id", refund_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/refunds/{param_refund_id}/download",
@@ -2713,25 +2849,26 @@ class DediboxV1BillingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-
+        
     def can_order(
         self,
         *,
         project_id: Optional[str] = None,
     ) -> CanOrderResponse:
         """
-        :param project_id:
+        :param project_id: 
         :return: :class:`CanOrderResponse <CanOrderResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.can_order()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/can-order",
+            f"/dedibox/v1/can-order",
             params={
                 "project_id": project_id or self.client.default_project_id,
             },
@@ -2739,13 +2876,12 @@ class DediboxV1BillingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_CanOrderResponse(res.json())
-
+        
 
 class DediboxV1IPv6BlockAPI(API):
     """
     Dedibox Phoenix IPv6 Block API.
     """
-
     def get_i_pv6_block_quotas(
         self,
         *,
@@ -2759,16 +2895,17 @@ class DediboxV1IPv6BlockAPI(API):
         /64 link to your number of failover IP.
         :param project_id: ID of the project.
         :return: :class:`GetIPv6BlockQuotasResponse <GetIPv6BlockQuotasResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_i_pv6_block_quotas()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/ipv6-block-quotas",
+            f"/dedibox/v1/ipv6-block-quotas",
             params={
                 "project_id": project_id or self.client.default_project_id,
             },
@@ -2776,7 +2913,7 @@ class DediboxV1IPv6BlockAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_GetIPv6BlockQuotasResponse(res.json())
-
+        
     def create_i_pv6_block(
         self,
         *,
@@ -2787,16 +2924,17 @@ class DediboxV1IPv6BlockAPI(API):
         Create IPv6 block associated with the given project ID.
         :param project_id: ID of the project.
         :return: :class:`IPv6Block <IPv6Block>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_i_pv6_block()
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/dedibox/v1/ipv6-block",
+            f"/dedibox/v1/ipv6-block",
             body=marshal_IPv6BlockApiCreateIPv6BlockRequest(
                 IPv6BlockApiCreateIPv6BlockRequest(
                     project_id=project_id,
@@ -2807,7 +2945,7 @@ class DediboxV1IPv6BlockAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_IPv6Block(res.json())
-
+        
     def get_i_pv6_block(
         self,
         *,
@@ -2818,16 +2956,17 @@ class DediboxV1IPv6BlockAPI(API):
         Get the IPv6 block associated with the given ID.
         :param project_id: ID of the project.
         :return: :class:`IPv6Block <IPv6Block>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_i_pv6_block()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/ipv6-block",
+            f"/dedibox/v1/ipv6-block",
             params={
                 "project_id": project_id or self.client.default_project_id,
             },
@@ -2835,7 +2974,7 @@ class DediboxV1IPv6BlockAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_IPv6Block(res.json())
-
+        
     def update_i_pv6_block(
         self,
         *,
@@ -2849,17 +2988,17 @@ class DediboxV1IPv6BlockAPI(API):
         :param block_id: ID of the IPv6 block.
         :param nameservers: DNS to link to the IPv6.
         :return: :class:`IPv6Block <IPv6Block>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_i_pv6_block(
                 block_id=1,
             )
         """
-
+        
         param_block_id = validate_path_param("block_id", block_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/ipv6-blocks/{param_block_id}",
@@ -2874,7 +3013,7 @@ class DediboxV1IPv6BlockAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_IPv6Block(res.json())
-
+        
     def delete_i_pv6_block(
         self,
         *,
@@ -2884,24 +3023,23 @@ class DediboxV1IPv6BlockAPI(API):
         Delete IPv6 block.
         Delete IPv6 block subnet with the given ID.
         :param block_id: ID of the IPv6 block to delete.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_i_pv6_block(
                 block_id=1,
             )
         """
-
+        
         param_block_id = validate_path_param("block_id", block_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/ipv6-blocks/{param_block_id}",
         )
 
         self._throw_on_error(res)
-
     def create_i_pv6_block_subnet(
         self,
         *,
@@ -2918,19 +3056,19 @@ class DediboxV1IPv6BlockAPI(API):
         :param address: Address of the IPv6.
         :param cidr: Classless InterDomain Routing notation of the IPv6.
         :return: :class:`IPv6Block <IPv6Block>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_i_pv6_block_subnet(
                 block_id=1,
                 address="example",
                 cidr=1,
             )
         """
-
+        
         param_block_id = validate_path_param("block_id", block_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/ipv6-blocks/{param_block_id}/subnets",
@@ -2946,7 +3084,7 @@ class DediboxV1IPv6BlockAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_IPv6Block(res.json())
-
+        
     def list_i_pv6_block_subnets_available(
         self,
         *,
@@ -2957,17 +3095,17 @@ class DediboxV1IPv6BlockAPI(API):
         List all available IPv6 block subnets for given IP ID.
         :param block_id: ID of the IPv6 block.
         :return: :class:`ListIPv6BlockSubnetsAvailableResponse <ListIPv6BlockSubnetsAvailableResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_i_pv6_block_subnets_available(
                 block_id=1,
             )
         """
-
+        
         param_block_id = validate_path_param("block_id", block_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/ipv6-blocks/{param_block_id}/subnets",
@@ -2975,13 +3113,12 @@ class DediboxV1IPv6BlockAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListIPv6BlockSubnetsAvailableResponse(res.json())
-
+        
 
 class DediboxV1RpnAPI(API):
     """
     Dedibox Phoenix RPN API.
     """
-
     def list_rpn_server_capabilities(
         self,
         *,
@@ -2996,16 +3133,17 @@ class DediboxV1RpnAPI(API):
         :param order_by: Order of the servers.
         :param project_id: Filter servers by project ID.
         :return: :class:`ListRpnServerCapabilitiesResponse <ListRpnServerCapabilitiesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_server_capabilities()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpn/server-capabilities",
+            f"/dedibox/v1/rpn/server-capabilities",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -3016,7 +3154,7 @@ class DediboxV1RpnAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnServerCapabilitiesResponse(res.json())
-
+        
     def list_rpn_server_capabilities_all(
         self,
         *,
@@ -3031,14 +3169,14 @@ class DediboxV1RpnAPI(API):
         :param order_by: Order of the servers.
         :param project_id: Filter servers by project ID.
         :return: :class:`List[RpnServerCapability] <List[RpnServerCapability]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_server_capabilities_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnServerCapabilitiesResponse,
             key="servers",
             fetcher=self.list_rpn_server_capabilities,
@@ -3049,7 +3187,7 @@ class DediboxV1RpnAPI(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_rpn_status(
         self,
         *,
@@ -3062,16 +3200,17 @@ class DediboxV1RpnAPI(API):
         :param rpnv1_group_id: An RPN v1 group ID.
         :param rpnv2_group_id: An RPN v2 group ID.
         :return: :class:`GetRpnStatusResponse <GetRpnStatusResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_rpn_status()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpn/status",
+            f"/dedibox/v1/rpn/status",
             params={
                 "project_id": project_id or self.client.default_project_id,
                 "rpnv1_group_id": rpnv1_group_id,
@@ -3081,13 +3220,12 @@ class DediboxV1RpnAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_GetRpnStatusResponse(res.json())
-
+        
 
 class DediboxV1RpnSanAPI(API):
     """
     Dedibox Phoenix RPN SAN API.
     """
-
     def list_rpn_sans(
         self,
         *,
@@ -3102,16 +3240,17 @@ class DediboxV1RpnSanAPI(API):
         :param order_by: Order of the RPN SANs.
         :param project_id: Filter RPN SANs by project ID.
         :return: :class:`ListRpnSansResponse <ListRpnSansResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_sans()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpn-sans",
+            f"/dedibox/v1/rpn-sans",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -3122,7 +3261,7 @@ class DediboxV1RpnSanAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnSansResponse(res.json())
-
+        
     def list_rpn_sans_all(
         self,
         *,
@@ -3137,14 +3276,14 @@ class DediboxV1RpnSanAPI(API):
         :param order_by: Order of the RPN SANs.
         :param project_id: Filter RPN SANs by project ID.
         :return: :class:`List[RpnSanSummary] <List[RpnSanSummary]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_sans_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnSansResponse,
             key="rpn_sans",
             fetcher=self.list_rpn_sans,
@@ -3155,7 +3294,7 @@ class DediboxV1RpnSanAPI(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_rpn_san(
         self,
         *,
@@ -3164,17 +3303,17 @@ class DediboxV1RpnSanAPI(API):
         """
         :param rpn_san_id: RPN SAN ID.
         :return: :class:`RpnSan <RpnSan>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_rpn_san(
                 rpn_san_id=1,
             )
         """
-
+        
         param_rpn_san_id = validate_path_param("rpn_san_id", rpn_san_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpn-sans/{param_rpn_san_id}",
@@ -3182,7 +3321,7 @@ class DediboxV1RpnSanAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnSan(res.json())
-
+        
     def wait_for_rpn_san(
         self,
         *,
@@ -3192,10 +3331,10 @@ class DediboxV1RpnSanAPI(API):
         """
         :param rpn_san_id: RPN SAN ID.
         :return: :class:`RpnSan <RpnSan>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_rpn_san(
                 rpn_san_id=1,
             )
@@ -3214,7 +3353,7 @@ class DediboxV1RpnSanAPI(API):
                 "rpn_san_id": rpn_san_id,
             },
         )
-
+        
     def delete_rpn_san(
         self,
         *,
@@ -3222,24 +3361,23 @@ class DediboxV1RpnSanAPI(API):
     ) -> None:
         """
         :param rpn_san_id: RPN SAN ID.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_rpn_san(
                 rpn_san_id=1,
             )
         """
-
+        
         param_rpn_san_id = validate_path_param("rpn_san_id", rpn_san_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/rpn-sans/{param_rpn_san_id}",
         )
 
         self._throw_on_error(res)
-
     def create_rpn_san(
         self,
         *,
@@ -3250,18 +3388,19 @@ class DediboxV1RpnSanAPI(API):
         :param offer_id: Offer ID.
         :param project_id: Your project ID.
         :return: :class:`Service <Service>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_rpn_san(
                 offer_id=1,
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/dedibox/v1/rpn-sans",
+            f"/dedibox/v1/rpn-sans",
             body=marshal_RpnSanApiCreateRpnSanRequest(
                 RpnSanApiCreateRpnSanRequest(
                     offer_id=offer_id,
@@ -3273,7 +3412,7 @@ class DediboxV1RpnSanAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Service(res.json())
-
+        
     def list_ips(
         self,
         *,
@@ -3284,17 +3423,17 @@ class DediboxV1RpnSanAPI(API):
         :param rpn_san_id: RPN SAN ID.
         :param type_: Filter by IP type (server | rpnv2_subnet).
         :return: :class:`ListIpsResponse <ListIpsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_ips(
                 rpn_san_id=1,
             )
         """
-
+        
         param_rpn_san_id = validate_path_param("rpn_san_id", rpn_san_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpn-sans/{param_rpn_san_id}/ips",
@@ -3305,7 +3444,7 @@ class DediboxV1RpnSanAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListIpsResponse(res.json())
-
+        
     def add_ip(
         self,
         *,
@@ -3315,18 +3454,18 @@ class DediboxV1RpnSanAPI(API):
         """
         :param rpn_san_id: RPN SAN ID.
         :param ip_ids: An array of IP ID.
-
+        
         Usage:
         ::
-
+        
             result = api.add_ip(
                 rpn_san_id=1,
                 ip_ids=[],
             )
         """
-
+        
         param_rpn_san_id = validate_path_param("rpn_san_id", rpn_san_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpn-sans/{param_rpn_san_id}/ips",
@@ -3340,7 +3479,6 @@ class DediboxV1RpnSanAPI(API):
         )
 
         self._throw_on_error(res)
-
     def remove_ip(
         self,
         *,
@@ -3350,18 +3488,18 @@ class DediboxV1RpnSanAPI(API):
         """
         :param rpn_san_id: RPN SAN ID.
         :param ip_ids: An array of IP ID.
-
+        
         Usage:
         ::
-
+        
             result = api.remove_ip(
                 rpn_san_id=1,
                 ip_ids=[],
             )
         """
-
+        
         param_rpn_san_id = validate_path_param("rpn_san_id", rpn_san_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/rpn-sans/{param_rpn_san_id}/ips",
@@ -3375,7 +3513,6 @@ class DediboxV1RpnSanAPI(API):
         )
 
         self._throw_on_error(res)
-
     def list_available_ips(
         self,
         *,
@@ -3386,17 +3523,17 @@ class DediboxV1RpnSanAPI(API):
         :param rpn_san_id: RPN SAN ID.
         :param type_: Filter by IP type (server | rpnv2_subnet).
         :return: :class:`ListIpsResponse <ListIpsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_available_ips(
                 rpn_san_id=1,
             )
         """
-
+        
         param_rpn_san_id = validate_path_param("rpn_san_id", rpn_san_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpn-sans/{param_rpn_san_id}/available-ips",
@@ -3407,13 +3544,12 @@ class DediboxV1RpnSanAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListIpsResponse(res.json())
-
+        
 
 class DediboxV1RpnV1API(API):
     """
     Dedibox Phoenix RPN v1 API.
     """
-
     def list_rpn_groups(
         self,
         *,
@@ -3428,16 +3564,17 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn v1 groups.
         :param project_id: Filter rpn v1 groups by project ID.
         :return: :class:`ListRpnGroupsResponse <ListRpnGroupsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_groups()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpnv1/groups",
+            f"/dedibox/v1/rpnv1/groups",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -3448,7 +3585,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnGroupsResponse(res.json())
-
+        
     def list_rpn_groups_all(
         self,
         *,
@@ -3463,14 +3600,14 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn v1 groups.
         :param project_id: Filter rpn v1 groups by project ID.
         :return: :class:`List[RpnGroup] <List[RpnGroup]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_groups_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnGroupsResponse,
             key="rpn_groups",
             fetcher=self.list_rpn_groups,
@@ -3481,7 +3618,7 @@ class DediboxV1RpnV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_rpn_group(
         self,
         *,
@@ -3490,17 +3627,17 @@ class DediboxV1RpnV1API(API):
         """
         :param group_id: Rpn v1 group ID.
         :return: :class:`RpnGroup <RpnGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_rpn_group(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}",
@@ -3508,7 +3645,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnGroup(res.json())
-
+        
     def create_rpn_group(
         self,
         *,
@@ -3523,18 +3660,19 @@ class DediboxV1RpnV1API(API):
         :param san_server_ids: A collection of rpn v1 capable rpn sans servers.
         :param project_id: A project ID.
         :return: :class:`RpnGroup <RpnGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_rpn_group(
                 name="example",
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/dedibox/v1/rpnv1/groups",
+            f"/dedibox/v1/rpnv1/groups",
             body=marshal_RpnV1ApiCreateRpnGroupRequest(
                 RpnV1ApiCreateRpnGroupRequest(
                     name=name,
@@ -3548,7 +3686,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnGroup(res.json())
-
+        
     def delete_rpn_group(
         self,
         *,
@@ -3556,24 +3694,23 @@ class DediboxV1RpnV1API(API):
     ) -> None:
         """
         :param group_id: Rpn v1 group ID.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_rpn_group(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}",
         )
 
         self._throw_on_error(res)
-
     def update_rpn_group_name(
         self,
         *,
@@ -3584,17 +3721,17 @@ class DediboxV1RpnV1API(API):
         :param group_id: Rpn v1 group ID.
         :param name: New rpn v1 group name.
         :return: :class:`RpnGroup <RpnGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_rpn_group_name(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}",
@@ -3609,7 +3746,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnGroup(res.json())
-
+        
     def list_rpn_group_members(
         self,
         *,
@@ -3626,17 +3763,17 @@ class DediboxV1RpnV1API(API):
         :param group_id: Filter rpn v1 group members by group ID.
         :param project_id: A project ID.
         :return: :class:`ListRpnGroupMembersResponse <ListRpnGroupMembersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_group_members(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}/members",
@@ -3650,7 +3787,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnGroupMembersResponse(res.json())
-
+        
     def list_rpn_group_members_all(
         self,
         *,
@@ -3667,16 +3804,16 @@ class DediboxV1RpnV1API(API):
         :param group_id: Filter rpn v1 group members by group ID.
         :param project_id: A project ID.
         :return: :class:`List[RpnGroupMember] <List[RpnGroupMember]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_group_members_all(
                 group_id=1,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnGroupMembersResponse,
             key="members",
             fetcher=self.list_rpn_group_members,
@@ -3688,7 +3825,7 @@ class DediboxV1RpnV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def rpn_group_invite(
         self,
         *,
@@ -3700,18 +3837,18 @@ class DediboxV1RpnV1API(API):
         :param group_id: The RPN V1 group ID.
         :param server_ids: A collection of external server IDs.
         :param project_id: A project ID.
-
+        
         Usage:
         ::
-
+        
             result = api.rpn_group_invite(
                 group_id=1,
                 server_ids=[],
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}/invite",
@@ -3726,7 +3863,6 @@ class DediboxV1RpnV1API(API):
         )
 
         self._throw_on_error(res)
-
     def leave_rpn_group(
         self,
         *,
@@ -3738,18 +3874,18 @@ class DediboxV1RpnV1API(API):
         :param group_id: The RPN V1 group ID.
         :param member_ids: A collection of rpn v1 group members IDs.
         :param project_id: A project ID.
-
+        
         Usage:
         ::
-
+        
             result = api.leave_rpn_group(
                 group_id=1,
                 member_ids=[],
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}/leave",
@@ -3764,7 +3900,6 @@ class DediboxV1RpnV1API(API):
         )
 
         self._throw_on_error(res)
-
     def add_rpn_group_members(
         self,
         *,
@@ -3777,17 +3912,17 @@ class DediboxV1RpnV1API(API):
         :param server_ids: A collection of rpn v1 capable server IDs.
         :param san_server_ids: A collection of rpn v1 capable RPN SAN server IDs.
         :return: :class:`RpnGroup <RpnGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.add_rpn_group_members(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}/members",
@@ -3803,7 +3938,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnGroup(res.json())
-
+        
     def delete_rpn_group_members(
         self,
         *,
@@ -3814,18 +3949,18 @@ class DediboxV1RpnV1API(API):
         :param group_id: The rpn v1 group ID.
         :param member_ids: A collection of rpn v1 group members IDs.
         :return: :class:`RpnGroup <RpnGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_rpn_group_members(
                 group_id=1,
                 member_ids=[],
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/rpnv1/groups/{param_group_id}/members",
@@ -3840,7 +3975,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnGroup(res.json())
-
+        
     def list_rpn_capable_servers(
         self,
         *,
@@ -3855,16 +3990,17 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
         :return: :class:`ListRpnCapableServersResponse <ListRpnCapableServersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_capable_servers()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpnv1/capable-servers",
+            f"/dedibox/v1/rpnv1/capable-servers",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -3875,7 +4011,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnCapableServersResponse(res.json())
-
+        
     def list_rpn_capable_servers_all(
         self,
         *,
@@ -3890,14 +4026,14 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
         :return: :class:`List[Server] <List[Server]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_capable_servers_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnCapableServersResponse,
             key="servers",
             fetcher=self.list_rpn_capable_servers,
@@ -3908,7 +4044,7 @@ class DediboxV1RpnV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def list_rpn_capable_san_servers(
         self,
         *,
@@ -3923,16 +4059,17 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
         :return: :class:`ListRpnCapableSanServersResponse <ListRpnCapableSanServersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_capable_san_servers()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpnv1/capable-san-servers",
+            f"/dedibox/v1/rpnv1/capable-san-servers",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -3943,7 +4080,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnCapableSanServersResponse(res.json())
-
+        
     def list_rpn_capable_san_servers_all(
         self,
         *,
@@ -3958,14 +4095,14 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
         :return: :class:`List[RpnSanServer] <List[RpnSanServer]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_capable_san_servers_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnCapableSanServersResponse,
             key="san_servers",
             fetcher=self.list_rpn_capable_san_servers,
@@ -3976,7 +4113,7 @@ class DediboxV1RpnV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def list_rpn_invites(
         self,
         *,
@@ -3991,16 +4128,17 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
         :return: :class:`ListRpnInvitesResponse <ListRpnInvitesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_invites()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpnv1/invites",
+            f"/dedibox/v1/rpnv1/invites",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -4011,7 +4149,7 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnInvitesResponse(res.json())
-
+        
     def list_rpn_invites_all(
         self,
         *,
@@ -4026,14 +4164,14 @@ class DediboxV1RpnV1API(API):
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
         :return: :class:`List[RpnGroupMember] <List[RpnGroupMember]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_invites_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnInvitesResponse,
             key="members",
             fetcher=self.list_rpn_invites,
@@ -4044,7 +4182,7 @@ class DediboxV1RpnV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def accept_rpn_invite(
         self,
         *,
@@ -4052,24 +4190,23 @@ class DediboxV1RpnV1API(API):
     ) -> None:
         """
         :param member_id: The member ID.
-
+        
         Usage:
         ::
-
+        
             result = api.accept_rpn_invite(
                 member_id=1,
             )
         """
-
+        
         param_member_id = validate_path_param("member_id", member_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv1/invites/{param_member_id}/accept",
         )
 
         self._throw_on_error(res)
-
     def refuse_rpn_invite(
         self,
         *,
@@ -4077,17 +4214,17 @@ class DediboxV1RpnV1API(API):
     ) -> None:
         """
         :param member_id: The member ID.
-
+        
         Usage:
         ::
-
+        
             result = api.refuse_rpn_invite(
                 member_id=1,
             )
         """
-
+        
         param_member_id = validate_path_param("member_id", member_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv1/invites/{param_member_id}/refuse",
@@ -4095,12 +4232,10 @@ class DediboxV1RpnV1API(API):
 
         self._throw_on_error(res)
 
-
 class DediboxV1RpnV2API(API):
     """
     Dedibox Phoenix RPN v2 API.
     """
-
     def list_rpn_v2_groups(
         self,
         *,
@@ -4115,16 +4250,17 @@ class DediboxV1RpnV2API(API):
         :param order_by: Order of the rpn v2 groups.
         :param project_id: Filter rpn v2 groups by project ID.
         :return: :class:`ListRpnV2GroupsResponse <ListRpnV2GroupsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_groups()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpnv2/groups",
+            f"/dedibox/v1/rpnv2/groups",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -4135,7 +4271,7 @@ class DediboxV1RpnV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnV2GroupsResponse(res.json())
-
+        
     def list_rpn_v2_groups_all(
         self,
         *,
@@ -4150,14 +4286,14 @@ class DediboxV1RpnV2API(API):
         :param order_by: Order of the rpn v2 groups.
         :param project_id: Filter rpn v2 groups by project ID.
         :return: :class:`List[RpnV2Group] <List[RpnV2Group]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_groups_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnV2GroupsResponse,
             key="rpn_groups",
             fetcher=self.list_rpn_v2_groups,
@@ -4168,7 +4304,7 @@ class DediboxV1RpnV2API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def list_rpn_v2_members(
         self,
         *,
@@ -4185,17 +4321,17 @@ class DediboxV1RpnV2API(API):
         :param group_id: RPN V2 group ID.
         :param type_: Filter members by type.
         :return: :class:`ListRpnV2MembersResponse <ListRpnV2MembersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_members(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}/members",
@@ -4209,7 +4345,7 @@ class DediboxV1RpnV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnV2MembersResponse(res.json())
-
+        
     def list_rpn_v2_members_all(
         self,
         *,
@@ -4226,16 +4362,16 @@ class DediboxV1RpnV2API(API):
         :param group_id: RPN V2 group ID.
         :param type_: Filter members by type.
         :return: :class:`List[RpnV2Member] <List[RpnV2Member]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_members_all(
                 group_id=1,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnV2MembersResponse,
             key="members",
             fetcher=self.list_rpn_v2_members,
@@ -4247,7 +4383,7 @@ class DediboxV1RpnV2API(API):
                 "type_": type_,
             },
         )
-
+        
     def get_rpn_v2_group(
         self,
         *,
@@ -4256,17 +4392,17 @@ class DediboxV1RpnV2API(API):
         """
         :param group_id: RPN V2 group ID.
         :return: :class:`RpnV2Group <RpnV2Group>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_rpn_v2_group(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}",
@@ -4274,7 +4410,7 @@ class DediboxV1RpnV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnV2Group(res.json())
-
+        
     def wait_for_rpn_v2_group(
         self,
         *,
@@ -4284,10 +4420,10 @@ class DediboxV1RpnV2API(API):
         """
         :param group_id: RPN V2 group ID.
         :return: :class:`RpnV2Group <RpnV2Group>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_rpn_v2_group(
                 group_id=1,
             )
@@ -4306,7 +4442,7 @@ class DediboxV1RpnV2API(API):
                 "group_id": group_id,
             },
         )
-
+        
     def create_rpn_v2_group(
         self,
         *,
@@ -4321,19 +4457,20 @@ class DediboxV1RpnV2API(API):
         :param project_id: Project ID of the RPN V2 group.
         :param type_: RPN V2 group type (qing / standard).
         :return: :class:`RpnV2Group <RpnV2Group>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_rpn_v2_group(
                 name="example",
                 servers=[],
             )
         """
-
+        
+        
         res = self._request(
             "POST",
-            "/dedibox/v1/rpnv2/groups",
+            f"/dedibox/v1/rpnv2/groups",
             body=marshal_RpnV2ApiCreateRpnV2GroupRequest(
                 RpnV2ApiCreateRpnV2GroupRequest(
                     name=name,
@@ -4347,7 +4484,7 @@ class DediboxV1RpnV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnV2Group(res.json())
-
+        
     def delete_rpn_v2_group(
         self,
         *,
@@ -4355,24 +4492,23 @@ class DediboxV1RpnV2API(API):
     ) -> None:
         """
         :param group_id: RPN V2 group ID.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_rpn_v2_group(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}",
         )
 
         self._throw_on_error(res)
-
     def update_rpn_v2_group_name(
         self,
         *,
@@ -4383,17 +4519,17 @@ class DediboxV1RpnV2API(API):
         :param group_id: RPN V2 group ID.
         :param name: RPN V2 group name.
         :return: :class:`RpnV2Group <RpnV2Group>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_rpn_v2_group_name(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}",
@@ -4408,7 +4544,7 @@ class DediboxV1RpnV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_RpnV2Group(res.json())
-
+        
     def add_rpn_v2_members(
         self,
         *,
@@ -4418,18 +4554,18 @@ class DediboxV1RpnV2API(API):
         """
         :param group_id: RPN V2 group ID.
         :param servers: A collection of server IDs.
-
+        
         Usage:
         ::
-
+        
             result = api.add_rpn_v2_members(
                 group_id=1,
                 servers=[],
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}/members",
@@ -4443,7 +4579,6 @@ class DediboxV1RpnV2API(API):
         )
 
         self._throw_on_error(res)
-
     def delete_rpn_v2_members(
         self,
         *,
@@ -4453,18 +4588,18 @@ class DediboxV1RpnV2API(API):
         """
         :param group_id: RPN V2 group ID.
         :param member_ids: A collection of member IDs.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_rpn_v2_members(
                 group_id=1,
                 member_ids=[],
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "DELETE",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}/members",
@@ -4478,7 +4613,6 @@ class DediboxV1RpnV2API(API):
         )
 
         self._throw_on_error(res)
-
     def list_rpn_v2_capable_resources(
         self,
         *,
@@ -4493,16 +4627,17 @@ class DediboxV1RpnV2API(API):
         :param order_by: Order of the rpn v2 capable resources.
         :param project_id: Filter rpn v2 capable resources by project ID.
         :return: :class:`ListRpnV2CapableResourcesResponse <ListRpnV2CapableResourcesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_capable_resources()
         """
-
+        
+        
         res = self._request(
             "GET",
-            "/dedibox/v1/rpnv2/groups/capable",
+            f"/dedibox/v1/rpnv2/groups/capable",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -4513,7 +4648,7 @@ class DediboxV1RpnV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnV2CapableResourcesResponse(res.json())
-
+        
     def list_rpn_v2_capable_resources_all(
         self,
         *,
@@ -4528,14 +4663,14 @@ class DediboxV1RpnV2API(API):
         :param order_by: Order of the rpn v2 capable resources.
         :param project_id: Filter rpn v2 capable resources by project ID.
         :return: :class:`List[Server] <List[Server]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_capable_resources_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnV2CapableResourcesResponse,
             key="servers",
             fetcher=self.list_rpn_v2_capable_resources,
@@ -4546,7 +4681,7 @@ class DediboxV1RpnV2API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def list_rpn_v2_group_logs(
         self,
         *,
@@ -4561,17 +4696,17 @@ class DediboxV1RpnV2API(API):
         :param order_by: Order of the rpn v2 group logs.
         :param group_id: RPN V2 group ID.
         :return: :class:`ListRpnV2GroupLogsResponse <ListRpnV2GroupLogsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_group_logs(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "GET",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}/logs",
@@ -4584,7 +4719,7 @@ class DediboxV1RpnV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRpnV2GroupLogsResponse(res.json())
-
+        
     def list_rpn_v2_group_logs_all(
         self,
         *,
@@ -4599,16 +4734,16 @@ class DediboxV1RpnV2API(API):
         :param order_by: Order of the rpn v2 group logs.
         :param group_id: RPN V2 group ID.
         :return: :class:`List[Log] <List[Log]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_rpn_v2_group_logs_all(
                 group_id=1,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRpnV2GroupLogsResponse,
             key="logs",
             fetcher=self.list_rpn_v2_group_logs,
@@ -4619,7 +4754,7 @@ class DediboxV1RpnV2API(API):
                 "group_id": group_id,
             },
         )
-
+        
     def update_rpn_v2_vlan_for_members(
         self,
         *,
@@ -4632,18 +4767,18 @@ class DediboxV1RpnV2API(API):
         :param member_ids: RPN V2 member IDs.
         :param vlan: Min: 0.
         Max: 3967.
-
+        
         Usage:
         ::
-
+        
             result = api.update_rpn_v2_vlan_for_members(
                 group_id=1,
                 member_ids=[],
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "PATCH",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}/vlan",
@@ -4658,7 +4793,6 @@ class DediboxV1RpnV2API(API):
         )
 
         self._throw_on_error(res)
-
     def enable_rpn_v2_group_compatibility(
         self,
         *,
@@ -4668,18 +4802,18 @@ class DediboxV1RpnV2API(API):
         """
         :param group_id: RPN V2 group ID.
         :param rpnv1_group_id: RPN V1 group ID.
-
+        
         Usage:
         ::
-
+        
             result = api.enable_rpn_v2_group_compatibility(
                 group_id=1,
                 rpnv1_group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}/enable-compatibility",
@@ -4693,7 +4827,6 @@ class DediboxV1RpnV2API(API):
         )
 
         self._throw_on_error(res)
-
     def disable_rpn_v2_group_compatibility(
         self,
         *,
@@ -4701,17 +4834,17 @@ class DediboxV1RpnV2API(API):
     ) -> None:
         """
         :param group_id: RPN V2 group ID.
-
+        
         Usage:
         ::
-
+        
             result = api.disable_rpn_v2_group_compatibility(
                 group_id=1,
             )
         """
-
+        
         param_group_id = validate_path_param("group_id", group_id)
-
+        
         res = self._request(
             "POST",
             f"/dedibox/v1/rpnv2/groups/{param_group_id}/disable-compatibility",

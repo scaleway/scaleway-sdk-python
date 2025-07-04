@@ -6,7 +6,6 @@ from .types import (
     PipelineStatus,
     PurgeRequestStatus,
 )
-
 PIPELINE_TRANSIENT_STATUSES: List[PipelineStatus] = [
     PipelineStatus.PENDING,
 ]

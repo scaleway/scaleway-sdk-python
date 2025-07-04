@@ -1,15 +1,32 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
     Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -17,26 +34,43 @@ from scaleway_core.utils import (
 from .types import (
     ListSnapshotsRequestOrderBy,
     ListVolumesRequestOrderBy,
+    ReferenceStatus,
+    ReferenceType,
+    SnapshotStatus,
+    StorageClass,
+    VolumeStatus,
     CreateSnapshotRequest,
     CreateVolumeRequest,
     CreateVolumeRequestFromEmpty,
     CreateVolumeRequestFromSnapshot,
+    DeleteSnapshotRequest,
+    DeleteVolumeRequest,
     ExportSnapshotToObjectStorageRequest,
+    GetSnapshotRequest,
+    GetVolumeRequest,
     ImportSnapshotFromObjectStorageRequest,
+    ListSnapshotsRequest,
     ListSnapshotsResponse,
+    ListVolumeTypesRequest,
     ListVolumeTypesResponse,
+    ListVolumesRequest,
     ListVolumesResponse,
+    Reference,
     Snapshot,
+    SnapshotParentVolume,
     UpdateSnapshotRequest,
     UpdateVolumeRequest,
     Volume,
+    VolumeSpecifications,
     VolumeType,
 )
 from .content import (
+    REFERENCE_TRANSIENT_STATUSES,
     SNAPSHOT_TRANSIENT_STATUSES,
     VOLUME_TRANSIENT_STATUSES,
 )
 from .marshalling import (
+    unmarshal_Reference,
     unmarshal_Snapshot,
     unmarshal_Volume,
     unmarshal_ListSnapshotsResponse,
@@ -50,12 +84,10 @@ from .marshalling import (
     marshal_UpdateVolumeRequest,
 )
 
-
 class BlockV1API(API):
     """
     This API allows you to manage your Block Storage volumes.
     """
-
     def list_volume_types(
         self,
         *,
@@ -70,15 +102,15 @@ class BlockV1API(API):
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :return: :class:`ListVolumeTypesResponse <ListVolumeTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_volume_types()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/block/v1/zones/{param_zone}/volume-types",
@@ -90,7 +122,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVolumeTypesResponse(res.json())
-
+        
     def list_volume_types_all(
         self,
         *,
@@ -105,14 +137,14 @@ class BlockV1API(API):
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :return: :class:`List[VolumeType] <List[VolumeType]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_volume_types_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListVolumeTypesResponse,
             key="volume_types",
             fetcher=self.list_volume_types,
@@ -122,7 +154,7 @@ class BlockV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def list_volumes(
         self,
         *,
@@ -149,23 +181,22 @@ class BlockV1API(API):
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
         :return: :class:`ListVolumesResponse <ListVolumesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_volumes()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/block/v1/zones/{param_zone}/volumes",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "product_resource_id": product_resource_id,
@@ -176,7 +207,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVolumesResponse(res.json())
-
+        
     def list_volumes_all(
         self,
         *,
@@ -203,14 +234,14 @@ class BlockV1API(API):
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
         :return: :class:`List[Volume] <List[Volume]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_volumes_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListVolumesResponse,
             key="volumes",
             fetcher=self.list_volumes,
@@ -226,7 +257,7 @@ class BlockV1API(API):
                 "tags": tags,
             },
         )
-
+        
     def create_volume(
         self,
         *,
@@ -253,15 +284,15 @@ class BlockV1API(API):
         One-Of ('from'): at most one of 'from_empty', 'from_snapshot' could be set.
         :param tags: List of tags assigned to the volume.
         :return: :class:`Volume <Volume>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_volume()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/block/v1/zones/{param_zone}/volumes",
@@ -281,7 +312,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Volume(res.json())
-
+        
     def get_volume(
         self,
         *,
@@ -294,18 +325,18 @@ class BlockV1API(API):
         :param volume_id: UUID of the volume.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Volume <Volume>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_volume(
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_volume_id = validate_path_param("volume_id", volume_id)
-
+        
         res = self._request(
             "GET",
             f"/block/v1/zones/{param_zone}/volumes/{param_volume_id}",
@@ -313,7 +344,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Volume(res.json())
-
+        
     def wait_for_volume(
         self,
         *,
@@ -327,10 +358,10 @@ class BlockV1API(API):
         :param volume_id: UUID of the volume.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Volume <Volume>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_volume(
                 volume_id="example",
             )
@@ -350,7 +381,7 @@ class BlockV1API(API):
                 "zone": zone,
             },
         )
-
+        
     def delete_volume(
         self,
         *,
@@ -362,25 +393,24 @@ class BlockV1API(API):
         You must specify the `volume_id` of the volume you want to delete. The volume must not be in the `in_use` status.
         :param volume_id: UUID of the volume.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_volume(
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_volume_id = validate_path_param("volume_id", volume_id)
-
+        
         res = self._request(
             "DELETE",
             f"/block/v1/zones/{param_zone}/volumes/{param_volume_id}",
         )
 
         self._throw_on_error(res)
-
     def update_volume(
         self,
         *,
@@ -403,18 +433,18 @@ class BlockV1API(API):
         :param tags: List of tags assigned to the volume.
         :param perf_iops: The selected value must be available for the volume's current storage class.
         :return: :class:`Volume <Volume>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_volume(
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_volume_id = validate_path_param("volume_id", volume_id)
-
+        
         res = self._request(
             "PATCH",
             f"/block/v1/zones/{param_zone}/volumes/{param_volume_id}",
@@ -433,7 +463,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Volume(res.json())
-
+        
     def list_snapshots(
         self,
         *,
@@ -460,23 +490,22 @@ class BlockV1API(API):
         :param name: Filter snapshots by their names.
         :param tags: Filter by tags. Only snapshots with one or more matching tags will be returned.
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/block/v1/zones/{param_zone}/snapshots",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -487,7 +516,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSnapshotsResponse(res.json())
-
+        
     def list_snapshots_all(
         self,
         *,
@@ -514,14 +543,14 @@ class BlockV1API(API):
         :param name: Filter snapshots by their names.
         :param tags: Filter by tags. Only snapshots with one or more matching tags will be returned.
         :return: :class:`List[Snapshot] <List[Snapshot]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSnapshotsResponse,
             key="snapshots",
             fetcher=self.list_snapshots,
@@ -537,7 +566,7 @@ class BlockV1API(API):
                 "tags": tags,
             },
         )
-
+        
     def get_snapshot(
         self,
         *,
@@ -550,18 +579,18 @@ class BlockV1API(API):
         :param snapshot_id: UUID of the snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_snapshot(
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "GET",
             f"/block/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
@@ -569,7 +598,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def wait_for_snapshot(
         self,
         *,
@@ -583,10 +612,10 @@ class BlockV1API(API):
         :param snapshot_id: UUID of the snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_snapshot(
                 snapshot_id="example",
             )
@@ -606,7 +635,7 @@ class BlockV1API(API):
                 "zone": zone,
             },
         )
-
+        
     def create_snapshot(
         self,
         *,
@@ -626,17 +655,17 @@ class BlockV1API(API):
         :param project_id: UUID of the project to which the volume and the snapshot belong.
         :param tags: List of tags assigned to the snapshot.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_snapshot(
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/block/v1/zones/{param_zone}/snapshots",
@@ -654,7 +683,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def import_snapshot_from_object_storage(
         self,
         *,
@@ -678,19 +707,19 @@ class BlockV1API(API):
         :param tags: List of tags assigned to the snapshot.
         :param size: Size of the snapshot.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.import_snapshot_from_object_storage(
                 bucket="example",
                 key="example",
                 name="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/block/v1/zones/{param_zone}/snapshots/import-from-object-storage",
@@ -710,7 +739,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def export_snapshot_to_object_storage(
         self,
         *,
@@ -728,20 +757,20 @@ class BlockV1API(API):
         :param key: The object key inside the given bucket.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.export_snapshot_to_object_storage(
                 snapshot_id="example",
                 bucket="example",
                 key="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "POST",
             f"/block/v1/zones/{param_zone}/snapshots/{param_snapshot_id}/export-to-object-storage",
@@ -758,7 +787,7 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
-
+        
     def delete_snapshot(
         self,
         *,
@@ -770,25 +799,24 @@ class BlockV1API(API):
         You must specify the `snapshot_id` of the snapshot you want to delete. The snapshot must not be in use.
         :param snapshot_id: UUID of the snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_snapshot(
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "DELETE",
             f"/block/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
         )
 
         self._throw_on_error(res)
-
     def update_snapshot(
         self,
         *,
@@ -805,18 +833,18 @@ class BlockV1API(API):
         :param name: When defined, is the name of the snapshot.
         :param tags: List of tags assigned to the snapshot.
         :return: :class:`Snapshot <Snapshot>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_snapshot(
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "PATCH",
             f"/block/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
@@ -833,3 +861,4 @@ class BlockV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
+        

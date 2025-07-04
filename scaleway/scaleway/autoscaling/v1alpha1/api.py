@@ -1,34 +1,74 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Dict, List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
     Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
+    WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
+    wait_for_resource,
 )
 from .types import (
+    InstanceGroupEventLevel,
+    InstanceGroupEventSource,
     InstancePolicyAction,
     InstancePolicyType,
+    InstanceTemplateStatus,
     ListInstanceGroupEventsRequestOrderBy,
     ListInstanceGroupsRequestOrderBy,
     ListInstancePoliciesRequestOrderBy,
     ListInstanceTemplatesRequestOrderBy,
+    MetricAggregate,
+    MetricManagedMetric,
+    MetricOperator,
+    UpdateInstancePolicyRequestMetricAggregate,
+    UpdateInstancePolicyRequestMetricManagedMetric,
+    UpdateInstancePolicyRequestMetricOperator,
+    VolumeInstanceTemplateVolumeType,
     Capacity,
     CreateInstanceGroupRequest,
     CreateInstancePolicyRequest,
     CreateInstanceTemplateRequest,
+    DeleteInstanceGroupRequest,
+    DeleteInstancePolicyRequest,
+    DeleteInstanceTemplateRequest,
+    GetInstanceGroupRequest,
+    GetInstancePolicyRequest,
+    GetInstanceTemplateRequest,
     InstanceGroup,
     InstanceGroupEvent,
     InstancePolicy,
     InstanceTemplate,
+    ListInstanceGroupEventsRequest,
     ListInstanceGroupEventsResponse,
+    ListInstanceGroupsRequest,
     ListInstanceGroupsResponse,
+    ListInstancePoliciesRequest,
     ListInstancePoliciesResponse,
+    ListInstanceTemplatesRequest,
     ListInstanceTemplatesResponse,
     Loadbalancer,
     Metric,
@@ -39,6 +79,8 @@ from .types import (
     UpdateInstancePolicyRequestMetric,
     UpdateInstanceTemplateRequest,
     VolumeInstanceTemplate,
+    VolumeInstanceTemplateFromEmpty,
+    VolumeInstanceTemplateFromSnapshot,
 )
 from .marshalling import (
     unmarshal_InstanceGroup,
@@ -56,10 +98,10 @@ from .marshalling import (
     marshal_UpdateInstanceTemplateRequest,
 )
 
-
 class AutoscalingV1Alpha1API(API):
-    """ """
-
+    """
+    
+    """
     def get_instance_group(
         self,
         *,
@@ -72,20 +114,18 @@ class AutoscalingV1Alpha1API(API):
         :param instance_group_id: ID of the requested Instance group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`InstanceGroup <InstanceGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_group(
                 instance_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_instance_group_id = validate_path_param(
-            "instance_group_id", instance_group_id
-        )
-
+        param_instance_group_id = validate_path_param("instance_group_id", instance_group_id)
+        
         res = self._request(
             "GET",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-groups/{param_instance_group_id}",
@@ -93,7 +133,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceGroup(res.json())
-
+        
     def create_instance_group(
         self,
         *,
@@ -116,10 +156,10 @@ class AutoscalingV1Alpha1API(API):
         :param project_id: Project ID to filter for, only Instance groups from this Project will be returned.
         :param tags: List of tags for the Instance group.
         :return: :class:`InstanceGroup <InstanceGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_instance_group(
                 name="example",
                 template_id="example",
@@ -127,9 +167,9 @@ class AutoscalingV1Alpha1API(API):
                 loadbalancer=Loadbalancer(),
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-groups",
@@ -149,7 +189,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceGroup(res.json())
-
+        
     def list_instance_groups(
         self,
         *,
@@ -166,15 +206,15 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
         :return: :class:`ListInstanceGroupsResponse <ListInstanceGroupsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_groups()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-groups",
@@ -187,7 +227,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstanceGroupsResponse(res.json())
-
+        
     def list_instance_groups_all(
         self,
         *,
@@ -204,14 +244,14 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
         :return: :class:`List[InstanceGroup] <List[InstanceGroup]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_groups_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInstanceGroupsResponse,
             key="instance_groups",
             fetcher=self.list_instance_groups,
@@ -222,7 +262,7 @@ class AutoscalingV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def update_instance_group(
         self,
         *,
@@ -243,20 +283,18 @@ class AutoscalingV1Alpha1API(API):
         :param capacity: Specification of the minimum and maximum replicas for the Instance group, and the cooldown interval between two scaling events.
         :param loadbalancer: Specification of the Load Balancer to link to the Instance group.
         :return: :class:`InstanceGroup <InstanceGroup>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_instance_group(
                 instance_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_instance_group_id = validate_path_param(
-            "instance_group_id", instance_group_id
-        )
-
+        param_instance_group_id = validate_path_param("instance_group_id", instance_group_id)
+        
         res = self._request(
             "PATCH",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-groups/{param_instance_group_id}",
@@ -275,7 +313,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceGroup(res.json())
-
+        
     def delete_instance_group(
         self,
         *,
@@ -287,27 +325,24 @@ class AutoscalingV1Alpha1API(API):
         Delete an existing Instance group, specified by its `instance_group_id`. Deleting an Instance group is permanent, and cannot be undone.
         :param instance_group_id: ID of the Instance group to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_instance_group(
                 instance_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_instance_group_id = validate_path_param(
-            "instance_group_id", instance_group_id
-        )
-
+        param_instance_group_id = validate_path_param("instance_group_id", instance_group_id)
+        
         res = self._request(
             "DELETE",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-groups/{param_instance_group_id}",
         )
 
         self._throw_on_error(res)
-
     def create_instance_template(
         self,
         *,
@@ -342,19 +377,19 @@ class AutoscalingV1Alpha1API(API):
         :param private_network_ids: Private Network IDs to attach to the new Instance.
         :param cloud_init: Cloud-config file must be passed in Base64 format. Cloud-config files are special scripts designed to be run by the cloud-init process. These are generally used for initial configuration on the very first boot of a server.
         :return: :class:`InstanceTemplate <InstanceTemplate>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_instance_template(
                 commercial_type="example",
                 volumes={},
                 name="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-templates",
@@ -380,7 +415,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceTemplate(res.json())
-
+        
     def update_instance_template(
         self,
         *,
@@ -415,18 +450,18 @@ class AutoscalingV1Alpha1API(API):
         :param private_network_ids: Private Network IDs to attach to the new Instance.
         :param cloud_init: Cloud-config file must be passed in Base64 format. Cloud-config files are special scripts designed to be run by the cloud-init process. These are generally used for initial configuration on the very first boot of a server.
         :return: :class:`InstanceTemplate <InstanceTemplate>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_instance_template(
                 template_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_template_id = validate_path_param("template_id", template_id)
-
+        
         res = self._request(
             "PATCH",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-templates/{param_template_id}",
@@ -452,7 +487,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceTemplate(res.json())
-
+        
     def get_instance_template(
         self,
         *,
@@ -465,18 +500,18 @@ class AutoscalingV1Alpha1API(API):
         :param template_id: Template ID of the resource.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`InstanceTemplate <InstanceTemplate>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_template(
                 template_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_template_id = validate_path_param("template_id", template_id)
-
+        
         res = self._request(
             "GET",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-templates/{param_template_id}",
@@ -484,7 +519,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstanceTemplate(res.json())
-
+        
     def delete_instance_template(
         self,
         *,
@@ -496,25 +531,24 @@ class AutoscalingV1Alpha1API(API):
         Delete an existing Instance template. This action is permanent and cannot be undone.
         :param template_id: ID of the template to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_instance_template(
                 template_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_template_id = validate_path_param("template_id", template_id)
-
+        
         res = self._request(
             "DELETE",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-templates/{param_template_id}",
         )
 
         self._throw_on_error(res)
-
     def list_instance_templates(
         self,
         *,
@@ -531,15 +565,15 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
         :return: :class:`ListInstanceTemplatesResponse <ListInstanceTemplatesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_templates()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-templates",
@@ -552,7 +586,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstanceTemplatesResponse(res.json())
-
+        
     def list_instance_templates_all(
         self,
         *,
@@ -569,14 +603,14 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
         :return: :class:`List[InstanceTemplate] <List[InstanceTemplate]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_templates_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInstanceTemplatesResponse,
             key="instance_templates",
             fetcher=self.list_instance_templates,
@@ -587,7 +621,7 @@ class AutoscalingV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_instance_policy(
         self,
         *,
@@ -613,10 +647,10 @@ class AutoscalingV1Alpha1API(API):
         :param metric: Cockpit metric to use when determining whether to trigger a scale up/down action.
         One-Of ('trigger'): at most one of 'metric' could be set.
         :return: :class:`InstancePolicy <InstancePolicy>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_instance_policy(
                 name="example",
                 action=InstancePolicyAction.unknown_action,
@@ -626,9 +660,9 @@ class AutoscalingV1Alpha1API(API):
                 instance_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-policies",
@@ -649,7 +683,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstancePolicy(res.json())
-
+        
     def update_instance_policy(
         self,
         *,
@@ -675,18 +709,18 @@ class AutoscalingV1Alpha1API(API):
         :param value: Value to update (number representing the magnitude of the scaling action to take for the Instance group).
         :param priority: Priority to update (priority of this policy compared to all other scaling policies. The lower the number, the higher the priority).
         :return: :class:`InstancePolicy <InstancePolicy>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_instance_policy(
                 policy_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_policy_id = validate_path_param("policy_id", policy_id)
-
+        
         res = self._request(
             "PATCH",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-policies/{param_policy_id}",
@@ -707,7 +741,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstancePolicy(res.json())
-
+        
     def list_instance_policies(
         self,
         *,
@@ -726,17 +760,17 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of scaling policies to return per page.
         :return: :class:`ListInstancePoliciesResponse <ListInstancePoliciesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_policies(
                 instance_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-policies",
@@ -750,7 +784,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstancePoliciesResponse(res.json())
-
+        
     def list_instance_policies_all(
         self,
         *,
@@ -769,16 +803,16 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of scaling policies to return per page.
         :return: :class:`List[InstancePolicy] <List[InstancePolicy]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_policies_all(
                 instance_group_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInstancePoliciesResponse,
             key="policies",
             fetcher=self.list_instance_policies,
@@ -790,7 +824,7 @@ class AutoscalingV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def get_instance_policy(
         self,
         *,
@@ -803,18 +837,18 @@ class AutoscalingV1Alpha1API(API):
         :param policy_id: Policy ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`InstancePolicy <InstancePolicy>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_instance_policy(
                 policy_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_policy_id = validate_path_param("policy_id", policy_id)
-
+        
         res = self._request(
             "GET",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-policies/{param_policy_id}",
@@ -822,7 +856,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_InstancePolicy(res.json())
-
+        
     def delete_instance_policy(
         self,
         *,
@@ -834,25 +868,24 @@ class AutoscalingV1Alpha1API(API):
         Delete an existing scaling policy, specified by its `policy_id`. Deleting a scaling policy is permanent, and cannot be undone.
         :param policy_id: ID of the policy to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_instance_policy(
                 policy_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_policy_id = validate_path_param("policy_id", policy_id)
-
+        
         res = self._request(
             "DELETE",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-policies/{param_policy_id}",
         )
 
         self._throw_on_error(res)
-
     def list_instance_group_events(
         self,
         *,
@@ -871,20 +904,18 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
         :return: :class:`ListInstanceGroupEventsResponse <ListInstanceGroupEventsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_group_events(
                 instance_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_instance_group_id = validate_path_param(
-            "instance_group_id", instance_group_id
-        )
-
+        param_instance_group_id = validate_path_param("instance_group_id", instance_group_id)
+        
         res = self._request(
             "GET",
             f"/autoscaling/v1alpha1/zones/{param_zone}/instance-groups/{param_instance_group_id}/events",
@@ -897,7 +928,7 @@ class AutoscalingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInstanceGroupEventsResponse(res.json())
-
+        
     def list_instance_group_events_all(
         self,
         *,
@@ -916,16 +947,16 @@ class AutoscalingV1Alpha1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
         :return: :class:`List[InstanceGroupEvent] <List[InstanceGroupEvent]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_instance_group_events_all(
                 instance_group_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListInstanceGroupEventsResponse,
             key="instance_events",
             fetcher=self.list_instance_group_events,
@@ -937,3 +968,4 @@ class AutoscalingV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
+        

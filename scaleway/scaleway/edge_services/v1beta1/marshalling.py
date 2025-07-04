@@ -1,19 +1,55 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from decimal import Decimal
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
     unmarshal_Money,
+    marshal_Money,
+    marshal_ScwFile,
+    marshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
 )
 from .types import (
+    DNSStageType,
+    LbOriginError,
+    ListBackendStagesRequestOrderBy,
+    ListCacheStagesRequestOrderBy,
+    ListDNSStagesRequestOrderBy,
+    ListPipelinesRequestOrderBy,
+    ListPipelinesWithStagesRequestOrderBy,
+    ListPurgeRequestsRequestOrderBy,
+    ListRouteStagesRequestOrderBy,
+    ListTLSStagesRequestOrderBy,
+    ListWafStagesRequestOrderBy,
+    PipelineErrorCode,
+    PipelineErrorSeverity,
+    PipelineErrorStage,
+    PipelineErrorType,
+    PipelineStatus,
+    PlanName,
+    PurgeRequestStatus,
     RuleHttpMatchMethodFilter,
+    RuleHttpMatchPathFilterPathFilterType,
+    SearchBackendStagesRequestOrderBy,
+    SearchWafStagesRequestOrderBy,
+    WafStageMode,
     ScalewayLb,
     ScalewayLbBackendConfig,
     ScalewayS3BackendConfig,
@@ -85,7 +121,6 @@ from .types import (
     UpdateWafStageRequest,
 )
 
-
 def unmarshal_ScalewayLb(data: Any) -> ScalewayLb:
     if not isinstance(data, dict):
         raise TypeError(
@@ -94,32 +129,22 @@ def unmarshal_ScalewayLb(data: Any) -> ScalewayLb:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
+    field = data.get("zone", str())
+    args["zone"] = field
 
-    field = data.get("frontend_id", None)
-    if field is not None:
-        args["frontend_id"] = field
+    field = data.get("frontend_id", str())
+    args["frontend_id"] = field
 
     field = data.get("is_ssl", None)
-    if field is not None:
-        args["is_ssl"] = field
-    else:
-        args["is_ssl"] = None
+    args["is_ssl"] = field
 
     field = data.get("domain_name", None)
-    if field is not None:
-        args["domain_name"] = field
-    else:
-        args["domain_name"] = None
+    args["domain_name"] = field
 
     return ScalewayLb(**args)
-
 
 def unmarshal_ScalewayLbBackendConfig(data: Any) -> ScalewayLbBackendConfig:
     if not isinstance(data, dict):
@@ -129,14 +154,10 @@ def unmarshal_ScalewayLbBackendConfig(data: Any) -> ScalewayLbBackendConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("lbs", None)
-    if field is not None:
-        args["lbs"] = (
-            [unmarshal_ScalewayLb(v) for v in field] if field is not None else None
-        )
+    field = data.get("lbs", [])
+    args["lbs"] = [unmarshal_ScalewayLb(v) for v in field] if field is not None else None
 
     return ScalewayLbBackendConfig(**args)
-
 
 def unmarshal_ScalewayS3BackendConfig(data: Any) -> ScalewayS3BackendConfig:
     if not isinstance(data, dict):
@@ -147,25 +168,15 @@ def unmarshal_ScalewayS3BackendConfig(data: Any) -> ScalewayS3BackendConfig:
     args: Dict[str, Any] = {}
 
     field = data.get("bucket_name", None)
-    if field is not None:
-        args["bucket_name"] = field
-    else:
-        args["bucket_name"] = None
+    args["bucket_name"] = field
 
     field = data.get("bucket_region", None)
-    if field is not None:
-        args["bucket_region"] = field
-    else:
-        args["bucket_region"] = None
+    args["bucket_region"] = field
 
     field = data.get("is_website", None)
-    if field is not None:
-        args["is_website"] = field
-    else:
-        args["is_website"] = None
+    args["is_website"] = field
 
     return ScalewayS3BackendConfig(**args)
-
 
 def unmarshal_BackendStage(data: Any) -> BackendStage:
     if not isinstance(data, dict):
@@ -175,40 +186,25 @@ def unmarshal_BackendStage(data: Any) -> BackendStage:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
+    field = data.get("pipeline_id", str())
+    args["pipeline_id"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("scaleway_s3", None)
-    if field is not None:
-        args["scaleway_s3"] = unmarshal_ScalewayS3BackendConfig(field)
-    else:
-        args["scaleway_s3"] = None
+    args["scaleway_s3"] = unmarshal_ScalewayS3BackendConfig(field) if field is not None else None
 
     field = data.get("scaleway_lb", None)
-    if field is not None:
-        args["scaleway_lb"] = unmarshal_ScalewayLbBackendConfig(field)
-    else:
-        args["scaleway_lb"] = None
+    args["scaleway_lb"] = unmarshal_ScalewayLbBackendConfig(field) if field is not None else None
 
     return BackendStage(**args)
-
 
 def unmarshal_CacheStage(data: Any) -> CacheStage:
     if not isinstance(data, dict):
@@ -218,56 +214,34 @@ def unmarshal_CacheStage(data: Any) -> CacheStage:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
+    field = data.get("pipeline_id", str())
+    args["pipeline_id"] = field
 
-    field = data.get("include_cookies", None)
-    if field is not None:
-        args["include_cookies"] = field
+    field = data.get("include_cookies", False)
+    args["include_cookies"] = field
 
     field = data.get("fallback_ttl", None)
-    if field is not None:
-        args["fallback_ttl"] = field
-    else:
-        args["fallback_ttl"] = None
+    args["fallback_ttl"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("backend_stage_id", None)
-    if field is not None:
-        args["backend_stage_id"] = field
-    else:
-        args["backend_stage_id"] = None
+    args["backend_stage_id"] = field
 
     field = data.get("waf_stage_id", None)
-    if field is not None:
-        args["waf_stage_id"] = field
-    else:
-        args["waf_stage_id"] = None
+    args["waf_stage_id"] = field
 
     field = data.get("route_stage_id", None)
-    if field is not None:
-        args["route_stage_id"] = field
-    else:
-        args["route_stage_id"] = None
+    args["route_stage_id"] = field
 
     return CacheStage(**args)
-
 
 def unmarshal_DNSStage(data: Any) -> DNSStage:
     if not isinstance(data, dict):
@@ -277,54 +251,34 @@ def unmarshal_DNSStage(data: Any) -> DNSStage:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("fqdns", None)
-    if field is not None:
-        args["fqdns"] = field
+    field = data.get("fqdns", [])
+    args["fqdns"] = field
 
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
+    field = data.get("type", getattr(DNSStageType, "UNKNOWN_TYPE"))
+    args["type_"] = field
 
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
+    field = data.get("pipeline_id", str())
+    args["pipeline_id"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("tls_stage_id", None)
-    if field is not None:
-        args["tls_stage_id"] = field
-    else:
-        args["tls_stage_id"] = None
+    args["tls_stage_id"] = field
 
     field = data.get("cache_stage_id", None)
-    if field is not None:
-        args["cache_stage_id"] = field
-    else:
-        args["cache_stage_id"] = None
+    args["cache_stage_id"] = field
 
     field = data.get("backend_stage_id", None)
-    if field is not None:
-        args["backend_stage_id"] = field
-    else:
-        args["backend_stage_id"] = None
+    args["backend_stage_id"] = field
 
     return DNSStage(**args)
-
 
 def unmarshal_PipelineError(data: Any) -> PipelineError:
     if not isinstance(data, dict):
@@ -334,28 +288,22 @@ def unmarshal_PipelineError(data: Any) -> PipelineError:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stage", None)
-    if field is not None:
-        args["stage"] = field
+    field = data.get("stage", str())
+    args["stage"] = field
 
-    field = data.get("code", None)
-    if field is not None:
-        args["code"] = field
+    field = data.get("code", str())
+    args["code"] = field
 
-    field = data.get("severity", None)
-    if field is not None:
-        args["severity"] = field
+    field = data.get("severity", str())
+    args["severity"] = field
 
-    field = data.get("message", None)
-    if field is not None:
-        args["message"] = field
+    field = data.get("message", str())
+    args["message"] = field
 
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
+    field = data.get("type", str())
+    args["type_"] = field
 
     return PipelineError(**args)
-
 
 def unmarshal_Pipeline(data: Any) -> Pipeline:
     if not isinstance(data, dict):
@@ -365,50 +313,34 @@ def unmarshal_Pipeline(data: Any) -> Pipeline:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
+    field = data.get("name", str())
+    args["name"] = field
 
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
+    field = data.get("description", str())
+    args["description"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
+    field = data.get("status", getattr(PipelineStatus, "UNKNOWN_STATUS"))
+    args["status"] = field
 
-    field = data.get("errors", None)
-    if field is not None:
-        args["errors"] = (
-            [unmarshal_PipelineError(v) for v in field] if field is not None else None
-        )
+    field = data.get("errors", [])
+    args["errors"] = [unmarshal_PipelineError(v) for v in field] if field is not None else None
 
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
+    field = data.get("project_id", str())
+    args["project_id"] = field
 
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
+    field = data.get("organization_id", str())
+    args["organization_id"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Pipeline(**args)
-
 
 def unmarshal_RouteStage(data: Any) -> RouteStage:
     if not isinstance(data, dict):
@@ -418,34 +350,22 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
+    field = data.get("pipeline_id", str())
+    args["pipeline_id"] = field
 
     field = data.get("waf_stage_id", None)
-    if field is not None:
-        args["waf_stage_id"] = field
-    else:
-        args["waf_stage_id"] = None
+    args["waf_stage_id"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return RouteStage(**args)
-
 
 def unmarshal_TLSSecret(data: Any) -> TLSSecret:
     if not isinstance(data, dict):
@@ -455,16 +375,13 @@ def unmarshal_TLSSecret(data: Any) -> TLSSecret:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("secret_id", None)
-    if field is not None:
-        args["secret_id"] = field
+    field = data.get("secret_id", str())
+    args["secret_id"] = field
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
+    field = data.get("region", str())
+    args["region"] = field
 
     return TLSSecret(**args)
-
 
 def unmarshal_TLSStage(data: Any) -> TLSStage:
     if not isinstance(data, dict):
@@ -474,70 +391,40 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("secrets", None)
-    if field is not None:
-        args["secrets"] = (
-            [unmarshal_TLSSecret(v) for v in field] if field is not None else None
-        )
+    field = data.get("secrets", [])
+    args["secrets"] = [unmarshal_TLSSecret(v) for v in field] if field is not None else None
 
-    field = data.get("managed_certificate", None)
-    if field is not None:
-        args["managed_certificate"] = field
+    field = data.get("managed_certificate", False)
+    args["managed_certificate"] = field
 
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
+    field = data.get("pipeline_id", str())
+    args["pipeline_id"] = field
 
     field = data.get("certificate_expires_at", None)
-    if field is not None:
-        args["certificate_expires_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["certificate_expires_at"] = None
+    args["certificate_expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("cache_stage_id", None)
-    if field is not None:
-        args["cache_stage_id"] = field
-    else:
-        args["cache_stage_id"] = None
+    args["cache_stage_id"] = field
 
     field = data.get("backend_stage_id", None)
-    if field is not None:
-        args["backend_stage_id"] = field
-    else:
-        args["backend_stage_id"] = None
+    args["backend_stage_id"] = field
 
     field = data.get("waf_stage_id", None)
-    if field is not None:
-        args["waf_stage_id"] = field
-    else:
-        args["waf_stage_id"] = None
+    args["waf_stage_id"] = field
 
     field = data.get("route_stage_id", None)
-    if field is not None:
-        args["route_stage_id"] = field
-    else:
-        args["route_stage_id"] = None
+    args["route_stage_id"] = field
 
     return TLSStage(**args)
-
 
 def unmarshal_WafStage(data: Any) -> WafStage:
     if not isinstance(data, dict):
@@ -547,42 +434,28 @@ def unmarshal_WafStage(data: Any) -> WafStage:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
+    field = data.get("pipeline_id", str())
+    args["pipeline_id"] = field
 
-    field = data.get("mode", None)
-    if field is not None:
-        args["mode"] = field
+    field = data.get("mode", getattr(WafStageMode, "UNKNOWN_MODE"))
+    args["mode"] = field
 
-    field = data.get("paranoia_level", None)
-    if field is not None:
-        args["paranoia_level"] = field
+    field = data.get("paranoia_level", 0)
+    args["paranoia_level"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("backend_stage_id", None)
-    if field is not None:
-        args["backend_stage_id"] = field
-    else:
-        args["backend_stage_id"] = None
+    args["backend_stage_id"] = field
 
     return WafStage(**args)
-
 
 def unmarshal_PipelineStages(data: Any) -> PipelineStages:
     if not isinstance(data, dict):
@@ -592,50 +465,28 @@ def unmarshal_PipelineStages(data: Any) -> PipelineStages:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("dns_stages", None)
-    if field is not None:
-        args["dns_stages"] = (
-            [unmarshal_DNSStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("dns_stages", str())
+    args["dns_stages"] = [unmarshal_DNSStage(v) for v in field] if field is not None else None
 
-    field = data.get("tls_stages", None)
-    if field is not None:
-        args["tls_stages"] = (
-            [unmarshal_TLSStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("tls_stages", str())
+    args["tls_stages"] = [unmarshal_TLSStage(v) for v in field] if field is not None else None
 
-    field = data.get("cache_stages", None)
-    if field is not None:
-        args["cache_stages"] = (
-            [unmarshal_CacheStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("cache_stages", str())
+    args["cache_stages"] = [unmarshal_CacheStage(v) for v in field] if field is not None else None
 
-    field = data.get("backend_stages", None)
-    if field is not None:
-        args["backend_stages"] = (
-            [unmarshal_BackendStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("backend_stages", str())
+    args["backend_stages"] = [unmarshal_BackendStage(v) for v in field] if field is not None else None
 
-    field = data.get("waf_stages", None)
-    if field is not None:
-        args["waf_stages"] = (
-            [unmarshal_WafStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("waf_stages", str())
+    args["waf_stages"] = [unmarshal_WafStage(v) for v in field] if field is not None else None
 
-    field = data.get("route_stages", None)
-    if field is not None:
-        args["route_stages"] = (
-            [unmarshal_RouteStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("route_stages", str())
+    args["route_stages"] = [unmarshal_RouteStage(v) for v in field] if field is not None else None
 
     field = data.get("pipeline", None)
-    if field is not None:
-        args["pipeline"] = unmarshal_Pipeline(field)
-    else:
-        args["pipeline"] = None
+    args["pipeline"] = unmarshal_Pipeline(field) if field is not None else None
 
     return PipelineStages(**args)
-
 
 def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
     if not isinstance(data, dict):
@@ -645,44 +496,28 @@ def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
+    field = data.get("pipeline_id", str())
+    args["pipeline_id"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
+    field = data.get("status", getattr(PurgeRequestStatus, "UNKNOWN_STATUS"))
+    args["status"] = field
 
     field = data.get("assets", None)
-    if field is not None:
-        args["assets"] = field
-    else:
-        args["assets"] = None
+    args["assets"] = field
 
     field = data.get("all", None)
-    if field is not None:
-        args["all"] = field
-    else:
-        args["all"] = None
+    args["all"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return PurgeRequest(**args)
-
 
 def unmarshal_RuleHttpMatchPathFilter(data: Any) -> RuleHttpMatchPathFilter:
     if not isinstance(data, dict):
@@ -692,16 +527,13 @@ def unmarshal_RuleHttpMatchPathFilter(data: Any) -> RuleHttpMatchPathFilter:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("path_filter_type", None)
-    if field is not None:
-        args["path_filter_type"] = field
+    field = data.get("path_filter_type", getattr(RuleHttpMatchPathFilterPathFilterType, "UNKNOWN_PATH_FILTER"))
+    args["path_filter_type"] = field
 
-    field = data.get("value", None)
-    if field is not None:
-        args["value"] = field
+    field = data.get("value", str())
+    args["value"] = field
 
     return RuleHttpMatchPathFilter(**args)
-
 
 def unmarshal_RuleHttpMatch(data: Any) -> RuleHttpMatch:
     if not isinstance(data, dict):
@@ -711,20 +543,13 @@ def unmarshal_RuleHttpMatch(data: Any) -> RuleHttpMatch:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("method_filters", None)
-    if field is not None:
-        args["method_filters"] = (
-            [RuleHttpMatchMethodFilter(v) for v in field] if field is not None else None
-        )
+    field = data.get("method_filters", [])
+    args["method_filters"] = [RuleHttpMatchMethodFilter(v) for v in field] if field is not None else None
 
     field = data.get("path_filter", None)
-    if field is not None:
-        args["path_filter"] = unmarshal_RuleHttpMatchPathFilter(field)
-    else:
-        args["path_filter"] = None
+    args["path_filter"] = unmarshal_RuleHttpMatchPathFilter(field) if field is not None else None
 
     return RuleHttpMatch(**args)
-
 
 def unmarshal_RouteRule(data: Any) -> RouteRule:
     if not isinstance(data, dict):
@@ -734,28 +559,19 @@ def unmarshal_RouteRule(data: Any) -> RouteRule:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("position", None)
-    if field is not None:
-        args["position"] = field
+    field = data.get("position", 0)
+    args["position"] = field
 
-    field = data.get("route_stage_id", None)
-    if field is not None:
-        args["route_stage_id"] = field
+    field = data.get("route_stage_id", str())
+    args["route_stage_id"] = field
 
     field = data.get("rule_http_match", None)
-    if field is not None:
-        args["rule_http_match"] = unmarshal_RuleHttpMatch(field)
-    else:
-        args["rule_http_match"] = None
+    args["rule_http_match"] = unmarshal_RuleHttpMatch(field) if field is not None else None
 
     field = data.get("backend_stage_id", None)
-    if field is not None:
-        args["backend_stage_id"] = field
-    else:
-        args["backend_stage_id"] = None
+    args["backend_stage_id"] = field
 
     return RouteRule(**args)
-
 
 def unmarshal_AddRouteRulesResponse(data: Any) -> AddRouteRulesResponse:
     if not isinstance(data, dict):
@@ -765,14 +581,10 @@ def unmarshal_AddRouteRulesResponse(data: Any) -> AddRouteRulesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("route_rules", None)
-    if field is not None:
-        args["route_rules"] = (
-            [unmarshal_RouteRule(v) for v in field] if field is not None else None
-        )
+    field = data.get("route_rules", [])
+    args["route_rules"] = [unmarshal_RouteRule(v) for v in field] if field is not None else None
 
     return AddRouteRulesResponse(**args)
-
 
 def unmarshal_CheckDomainResponse(data: Any) -> CheckDomainResponse:
     if not isinstance(data, dict):
@@ -782,12 +594,10 @@ def unmarshal_CheckDomainResponse(data: Any) -> CheckDomainResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("is_valid", None)
-    if field is not None:
-        args["is_valid"] = field
+    field = data.get("is_valid", str())
+    args["is_valid"] = field
 
     return CheckDomainResponse(**args)
-
 
 def unmarshal_CheckLbOriginResponse(data: Any) -> CheckLbOriginResponse:
     if not isinstance(data, dict):
@@ -797,16 +607,13 @@ def unmarshal_CheckLbOriginResponse(data: Any) -> CheckLbOriginResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("is_valid", None)
-    if field is not None:
-        args["is_valid"] = field
+    field = data.get("is_valid", str())
+    args["is_valid"] = field
 
-    field = data.get("error_type", None)
-    if field is not None:
-        args["error_type"] = field
+    field = data.get("error_type", str())
+    args["error_type"] = field
 
     return CheckLbOriginResponse(**args)
-
 
 def unmarshal_CheckPEMChainResponse(data: Any) -> CheckPEMChainResponse:
     if not isinstance(data, dict):
@@ -816,12 +623,10 @@ def unmarshal_CheckPEMChainResponse(data: Any) -> CheckPEMChainResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("is_valid", None)
-    if field is not None:
-        args["is_valid"] = field
+    field = data.get("is_valid", str())
+    args["is_valid"] = field
 
     return CheckPEMChainResponse(**args)
-
 
 def unmarshal_PlanDetails(data: Any) -> PlanDetails:
     if not isinstance(data, dict):
@@ -831,24 +636,19 @@ def unmarshal_PlanDetails(data: Any) -> PlanDetails:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("plan_name", None)
-    if field is not None:
-        args["plan_name"] = field
+    field = data.get("plan_name", getattr(PlanName, "UNKNOWN_NAME"))
+    args["plan_name"] = field
 
-    field = data.get("package_gb", None)
-    if field is not None:
-        args["package_gb"] = field
+    field = data.get("package_gb", 0)
+    args["package_gb"] = field
 
-    field = data.get("pipeline_limit", None)
-    if field is not None:
-        args["pipeline_limit"] = field
+    field = data.get("pipeline_limit", 0)
+    args["pipeline_limit"] = field
 
-    field = data.get("waf_requests", None)
-    if field is not None:
-        args["waf_requests"] = field
+    field = data.get("waf_requests", 0)
+    args["waf_requests"] = field
 
     return PlanDetails(**args)
-
 
 def unmarshal_PlanUsageDetails(data: Any) -> PlanUsageDetails:
     if not isinstance(data, dict):
@@ -859,13 +659,9 @@ def unmarshal_PlanUsageDetails(data: Any) -> PlanUsageDetails:
     args: Dict[str, Any] = {}
 
     field = data.get("plan_cost", None)
-    if field is not None:
-        args["plan_cost"] = unmarshal_Money(field)
-    else:
-        args["plan_cost"] = None
+    args["plan_cost"] = unmarshal_Money(field) if field is not None else None
 
     return PlanUsageDetails(**args)
-
 
 def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
     if not isinstance(data, dict):
@@ -876,77 +672,46 @@ def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("current_plan", None)
-    if field is not None:
-        args["current_plan"] = unmarshal_PlanDetails(field)
-    else:
-        args["current_plan"] = None
+    args["current_plan"] = unmarshal_PlanDetails(field) if field is not None else None
 
-    field = data.get("pipeline_number", None)
-    if field is not None:
-        args["pipeline_number"] = field
+    field = data.get("pipeline_number", 0)
+    args["pipeline_number"] = field
 
-    field = data.get("current_plan_cache_usage", None)
-    if field is not None:
-        args["current_plan_cache_usage"] = field
+    field = data.get("current_plan_cache_usage", 0)
+    args["current_plan_cache_usage"] = field
 
-    field = data.get("extra_cache_usage", None)
-    if field is not None:
-        args["extra_cache_usage"] = field
+    field = data.get("extra_cache_usage", 0)
+    args["extra_cache_usage"] = field
 
-    field = data.get("current_plan_waf_usage", None)
-    if field is not None:
-        args["current_plan_waf_usage"] = field
+    field = data.get("current_plan_waf_usage", 0)
+    args["current_plan_waf_usage"] = field
 
-    field = data.get("extra_waf_usage", None)
-    if field is not None:
-        args["extra_waf_usage"] = field
+    field = data.get("extra_waf_usage", 0)
+    args["extra_waf_usage"] = field
 
     field = data.get("plan_cost", None)
-    if field is not None:
-        args["plan_cost"] = unmarshal_Money(field)
-    else:
-        args["plan_cost"] = None
+    args["plan_cost"] = unmarshal_Money(field) if field is not None else None
 
     field = data.get("extra_pipelines_cost", None)
-    if field is not None:
-        args["extra_pipelines_cost"] = unmarshal_Money(field)
-    else:
-        args["extra_pipelines_cost"] = None
+    args["extra_pipelines_cost"] = unmarshal_Money(field) if field is not None else None
 
-    field = data.get("plans_usage_details", None)
-    if field is not None:
-        args["plans_usage_details"] = (
-            {key: unmarshal_PlanUsageDetails(value) for key, value in field.items()}
-            if field is not None
-            else None
-        )
+    field = data.get("plans_usage_details", {})
+    args["plans_usage_details"] = {key: unmarshal_PlanUsageDetails(value)for key, value in field.items()
+    } if field is not None else None
 
     field = data.get("extra_cache_cost", None)
-    if field is not None:
-        args["extra_cache_cost"] = unmarshal_Money(field)
-    else:
-        args["extra_cache_cost"] = None
+    args["extra_cache_cost"] = unmarshal_Money(field) if field is not None else None
 
     field = data.get("extra_waf_cost", None)
-    if field is not None:
-        args["extra_waf_cost"] = unmarshal_Money(field)
-    else:
-        args["extra_waf_cost"] = None
+    args["extra_waf_cost"] = unmarshal_Money(field) if field is not None else None
 
     field = data.get("waf_add_on", None)
-    if field is not None:
-        args["waf_add_on"] = unmarshal_Money(field)
-    else:
-        args["waf_add_on"] = None
+    args["waf_add_on"] = unmarshal_Money(field) if field is not None else None
 
     field = data.get("total_cost", None)
-    if field is not None:
-        args["total_cost"] = unmarshal_Money(field)
-    else:
-        args["total_cost"] = None
+    args["total_cost"] = unmarshal_Money(field) if field is not None else None
 
     return GetBillingResponse(**args)
-
 
 def unmarshal_HeadStageResponseHeadStage(data: Any) -> HeadStageResponseHeadStage:
     if not isinstance(data, dict):
@@ -957,13 +722,9 @@ def unmarshal_HeadStageResponseHeadStage(data: Any) -> HeadStageResponseHeadStag
     args: Dict[str, Any] = {}
 
     field = data.get("dns_stage_id", None)
-    if field is not None:
-        args["dns_stage_id"] = field
-    else:
-        args["dns_stage_id"] = None
+    args["dns_stage_id"] = field
 
     return HeadStageResponseHeadStage(**args)
-
 
 def unmarshal_HeadStageResponse(data: Any) -> HeadStageResponse:
     if not isinstance(data, dict):
@@ -974,13 +735,9 @@ def unmarshal_HeadStageResponse(data: Any) -> HeadStageResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("head_stage", None)
-    if field is not None:
-        args["head_stage"] = unmarshal_HeadStageResponseHeadStage(field)
-    else:
-        args["head_stage"] = None
+    args["head_stage"] = unmarshal_HeadStageResponseHeadStage(field) if field is not None else None
 
     return HeadStageResponse(**args)
-
 
 def unmarshal_ListBackendStagesResponse(data: Any) -> ListBackendStagesResponse:
     if not isinstance(data, dict):
@@ -990,18 +747,13 @@ def unmarshal_ListBackendStagesResponse(data: Any) -> ListBackendStagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stages", None)
-    if field is not None:
-        args["stages"] = (
-            [unmarshal_BackendStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("stages", [])
+    args["stages"] = [unmarshal_BackendStage(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListBackendStagesResponse(**args)
-
 
 def unmarshal_ListCacheStagesResponse(data: Any) -> ListCacheStagesResponse:
     if not isinstance(data, dict):
@@ -1011,18 +763,13 @@ def unmarshal_ListCacheStagesResponse(data: Any) -> ListCacheStagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stages", None)
-    if field is not None:
-        args["stages"] = (
-            [unmarshal_CacheStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("stages", [])
+    args["stages"] = [unmarshal_CacheStage(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListCacheStagesResponse(**args)
-
 
 def unmarshal_ListDNSStagesResponse(data: Any) -> ListDNSStagesResponse:
     if not isinstance(data, dict):
@@ -1032,22 +779,15 @@ def unmarshal_ListDNSStagesResponse(data: Any) -> ListDNSStagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stages", None)
-    if field is not None:
-        args["stages"] = (
-            [unmarshal_DNSStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("stages", [])
+    args["stages"] = [unmarshal_DNSStage(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListDNSStagesResponse(**args)
 
-
-def unmarshal_ListHeadStagesResponseHeadStage(
-    data: Any,
-) -> ListHeadStagesResponseHeadStage:
+def unmarshal_ListHeadStagesResponseHeadStage(data: Any) -> ListHeadStagesResponseHeadStage:
     if not isinstance(data, dict):
         raise TypeError(
             "Unmarshalling the type 'ListHeadStagesResponseHeadStage' failed as data isn't a dictionary."
@@ -1056,13 +796,9 @@ def unmarshal_ListHeadStagesResponseHeadStage(
     args: Dict[str, Any] = {}
 
     field = data.get("dns_stage_id", None)
-    if field is not None:
-        args["dns_stage_id"] = field
-    else:
-        args["dns_stage_id"] = None
+    args["dns_stage_id"] = field
 
     return ListHeadStagesResponseHeadStage(**args)
-
 
 def unmarshal_ListHeadStagesResponse(data: Any) -> ListHeadStagesResponse:
     if not isinstance(data, dict):
@@ -1072,20 +808,13 @@ def unmarshal_ListHeadStagesResponse(data: Any) -> ListHeadStagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("head_stages", None)
-    if field is not None:
-        args["head_stages"] = (
-            [unmarshal_ListHeadStagesResponseHeadStage(v) for v in field]
-            if field is not None
-            else None
-        )
+    field = data.get("head_stages", [])
+    args["head_stages"] = [unmarshal_ListHeadStagesResponseHeadStage(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListHeadStagesResponse(**args)
-
 
 def unmarshal_ListPipelinesResponse(data: Any) -> ListPipelinesResponse:
     if not isinstance(data, dict):
@@ -1095,22 +824,15 @@ def unmarshal_ListPipelinesResponse(data: Any) -> ListPipelinesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("pipelines", None)
-    if field is not None:
-        args["pipelines"] = (
-            [unmarshal_Pipeline(v) for v in field] if field is not None else None
-        )
+    field = data.get("pipelines", [])
+    args["pipelines"] = [unmarshal_Pipeline(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListPipelinesResponse(**args)
 
-
-def unmarshal_ListPipelinesWithStagesResponse(
-    data: Any,
-) -> ListPipelinesWithStagesResponse:
+def unmarshal_ListPipelinesWithStagesResponse(data: Any) -> ListPipelinesWithStagesResponse:
     if not isinstance(data, dict):
         raise TypeError(
             "Unmarshalling the type 'ListPipelinesWithStagesResponse' failed as data isn't a dictionary."
@@ -1118,18 +840,13 @@ def unmarshal_ListPipelinesWithStagesResponse(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("pipelines", None)
-    if field is not None:
-        args["pipelines"] = (
-            [unmarshal_PipelineStages(v) for v in field] if field is not None else None
-        )
+    field = data.get("pipelines", str())
+    args["pipelines"] = [unmarshal_PipelineStages(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", str())
+    args["total_count"] = field
 
     return ListPipelinesWithStagesResponse(**args)
-
 
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
     if not isinstance(data, dict):
@@ -1139,18 +856,13 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", str())
+    args["total_count"] = field
 
-    field = data.get("plans", None)
-    if field is not None:
-        args["plans"] = (
-            [unmarshal_PlanDetails(v) for v in field] if field is not None else None
-        )
+    field = data.get("plans", str())
+    args["plans"] = [unmarshal_PlanDetails(v) for v in field] if field is not None else None
 
     return ListPlansResponse(**args)
-
 
 def unmarshal_ListPurgeRequestsResponse(data: Any) -> ListPurgeRequestsResponse:
     if not isinstance(data, dict):
@@ -1160,18 +872,13 @@ def unmarshal_ListPurgeRequestsResponse(data: Any) -> ListPurgeRequestsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("purge_requests", None)
-    if field is not None:
-        args["purge_requests"] = (
-            [unmarshal_PurgeRequest(v) for v in field] if field is not None else None
-        )
+    field = data.get("purge_requests", [])
+    args["purge_requests"] = [unmarshal_PurgeRequest(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListPurgeRequestsResponse(**args)
-
 
 def unmarshal_ListRouteRulesResponse(data: Any) -> ListRouteRulesResponse:
     if not isinstance(data, dict):
@@ -1181,14 +888,10 @@ def unmarshal_ListRouteRulesResponse(data: Any) -> ListRouteRulesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("route_rules", None)
-    if field is not None:
-        args["route_rules"] = (
-            [unmarshal_RouteRule(v) for v in field] if field is not None else None
-        )
+    field = data.get("route_rules", [])
+    args["route_rules"] = [unmarshal_RouteRule(v) for v in field] if field is not None else None
 
     return ListRouteRulesResponse(**args)
-
 
 def unmarshal_ListRouteStagesResponse(data: Any) -> ListRouteStagesResponse:
     if not isinstance(data, dict):
@@ -1198,18 +901,13 @@ def unmarshal_ListRouteStagesResponse(data: Any) -> ListRouteStagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stages", None)
-    if field is not None:
-        args["stages"] = (
-            [unmarshal_RouteStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("stages", [])
+    args["stages"] = [unmarshal_RouteStage(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListRouteStagesResponse(**args)
-
 
 def unmarshal_ListTLSStagesResponse(data: Any) -> ListTLSStagesResponse:
     if not isinstance(data, dict):
@@ -1219,18 +917,13 @@ def unmarshal_ListTLSStagesResponse(data: Any) -> ListTLSStagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stages", None)
-    if field is not None:
-        args["stages"] = (
-            [unmarshal_TLSStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("stages", [])
+    args["stages"] = [unmarshal_TLSStage(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListTLSStagesResponse(**args)
-
 
 def unmarshal_ListWafStagesResponse(data: Any) -> ListWafStagesResponse:
     if not isinstance(data, dict):
@@ -1240,18 +933,13 @@ def unmarshal_ListWafStagesResponse(data: Any) -> ListWafStagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stages", None)
-    if field is not None:
-        args["stages"] = (
-            [unmarshal_WafStage(v) for v in field] if field is not None else None
-        )
+    field = data.get("stages", [])
+    args["stages"] = [unmarshal_WafStage(v) for v in field] if field is not None else None
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
     return ListWafStagesResponse(**args)
-
 
 def unmarshal_Plan(data: Any) -> Plan:
     if not isinstance(data, dict):
@@ -1261,12 +949,10 @@ def unmarshal_Plan(data: Any) -> Plan:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("plan_name", None)
-    if field is not None:
-        args["plan_name"] = field
+    field = data.get("plan_name", str())
+    args["plan_name"] = field
 
     return Plan(**args)
-
 
 def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
     if not isinstance(data, dict):
@@ -1276,14 +962,10 @@ def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("route_rules", None)
-    if field is not None:
-        args["route_rules"] = (
-            [unmarshal_RouteRule(v) for v in field] if field is not None else None
-        )
+    field = data.get("route_rules", [])
+    args["route_rules"] = [unmarshal_RouteRule(v) for v in field] if field is not None else None
 
     return SetRouteRulesResponse(**args)
-
 
 def marshal_RuleHttpMatchPathFilter(
     request: RuleHttpMatchPathFilter,
@@ -1293,12 +975,16 @@ def marshal_RuleHttpMatchPathFilter(
 
     if request.path_filter_type is not None:
         output["path_filter_type"] = str(request.path_filter_type)
+    else:
+        output["path_filter_type"] = getattr(RuleHttpMatchPathFilterPathFilterType, "UNKNOWN_PATH_FILTER")
 
     if request.value is not None:
         output["value"] = request.value
+    else:
+        output["value"] = str()
+
 
     return output
-
 
 def marshal_RuleHttpMatch(
     request: RuleHttpMatch,
@@ -1308,14 +994,16 @@ def marshal_RuleHttpMatch(
 
     if request.method_filters is not None:
         output["method_filters"] = [str(item) for item in request.method_filters]
+    else:
+        output["method_filters"] = []
 
     if request.path_filter is not None:
-        output["path_filter"] = marshal_RuleHttpMatchPathFilter(
-            request.path_filter, defaults
-        )
+        output["path_filter"] = marshal_RuleHttpMatchPathFilter(request.path_filter, defaults)
+    else:
+        output["path_filter"] = None
+
 
     return output
-
 
 def marshal_SetRouteRulesRequestRouteRule(
     request: SetRouteRulesRequestRouteRule,
@@ -1323,22 +1011,20 @@ def marshal_SetRouteRulesRequestRouteRule(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("rule_http_match", request.rule_http_match),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="rule_http_match", value=request.rule_http_match,marshal_func=marshal_RuleHttpMatch
+            ),
+        ]),
     )
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
-    return output
 
+    return output
 
 def marshal_AddRouteRulesRequest(
     request: AddRouteRulesRequest,
@@ -1346,22 +1032,21 @@ def marshal_AddRouteRulesRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("after_position", request.after_position),
-                OneOfPossibility("before_position", request.before_position),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="after_position", value=request.after_position,marshal_func=None
+            ),
+            OneOfPossibility(param="before_position", value=request.before_position,marshal_func=None
+            ),
+        ]),
     )
 
     if request.route_rules is not None:
-        output["route_rules"] = [
-            marshal_SetRouteRulesRequestRouteRule(item, defaults)
-            for item in request.route_rules
-        ]
+        output["route_rules"] = [marshal_SetRouteRulesRequestRouteRule(item, defaults) for item in request.route_rules]
+    else:
+        output["route_rules"] = None
+
 
     return output
-
 
 def marshal_CheckDomainRequest(
     request: CheckDomainRequest,
@@ -1371,15 +1056,21 @@ def marshal_CheckDomainRequest(
 
     if request.fqdn is not None:
         output["fqdn"] = request.fqdn
+    else:
+        output["fqdn"] = str()
 
     if request.cname is not None:
         output["cname"] = request.cname
+    else:
+        output["cname"] = str()
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+    else:
+        output["project_id"] = None
+
 
     return output
-
 
 def marshal_ScalewayLb(
     request: ScalewayLb,
@@ -1389,21 +1080,29 @@ def marshal_ScalewayLb(
 
     if request.id is not None:
         output["id"] = request.id
+    else:
+        output["id"] = str()
 
     if request.zone is not None:
         output["zone"] = request.zone or defaults.default_zone
 
     if request.frontend_id is not None:
         output["frontend_id"] = request.frontend_id
+    else:
+        output["frontend_id"] = str()
 
     if request.is_ssl is not None:
         output["is_ssl"] = request.is_ssl
+    else:
+        output["is_ssl"] = None
 
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
+    else:
+        output["domain_name"] = None
+
 
     return output
-
 
 def marshal_CheckLbOriginRequest(
     request: CheckLbOriginRequest,
@@ -1413,9 +1112,11 @@ def marshal_CheckLbOriginRequest(
 
     if request.lb is not None:
         output["lb"] = marshal_ScalewayLb(request.lb, defaults)
+    else:
+        output["lb"] = None
+
 
     return output
-
 
 def marshal_CheckPEMChainRequestSecretChain(
     request: CheckPEMChainRequestSecretChain,
@@ -1425,12 +1126,16 @@ def marshal_CheckPEMChainRequestSecretChain(
 
     if request.secret_id is not None:
         output["secret_id"] = request.secret_id
+    else:
+        output["secret_id"] = str()
 
     if request.secret_region is not None:
         output["secret_region"] = request.secret_region
+    else:
+        output["secret_region"] = str()
+
 
     return output
-
 
 def marshal_CheckPEMChainRequest(
     request: CheckPEMChainRequest,
@@ -1438,22 +1143,26 @@ def marshal_CheckPEMChainRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("secret", request.secret),
-                OneOfPossibility("raw", request.raw),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="secret", value=request.secret,marshal_func=marshal_CheckPEMChainRequestSecretChain
+            ),
+            OneOfPossibility(param="raw", value=request.raw,marshal_func=None
+            ),
+        ]),
     )
 
     if request.fqdn is not None:
         output["fqdn"] = request.fqdn
+    else:
+        output["fqdn"] = str()
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+    else:
+        output["project_id"] = None
+
 
     return output
-
 
 def marshal_ScalewayLbBackendConfig(
     request: ScalewayLbBackendConfig,
@@ -1463,9 +1172,11 @@ def marshal_ScalewayLbBackendConfig(
 
     if request.lbs is not None:
         output["lbs"] = [marshal_ScalewayLb(item, defaults) for item in request.lbs]
+    else:
+        output["lbs"] = []
+
 
     return output
-
 
 def marshal_ScalewayS3BackendConfig(
     request: ScalewayS3BackendConfig,
@@ -1475,15 +1186,21 @@ def marshal_ScalewayS3BackendConfig(
 
     if request.bucket_name is not None:
         output["bucket_name"] = request.bucket_name
+    else:
+        output["bucket_name"] = None
 
     if request.bucket_region is not None:
         output["bucket_region"] = request.bucket_region
+    else:
+        output["bucket_region"] = None
 
     if request.is_website is not None:
         output["is_website"] = request.is_website
+    else:
+        output["is_website"] = None
+
 
     return output
-
 
 def marshal_CreateBackendStageRequest(
     request: CreateBackendStageRequest,
@@ -1491,16 +1208,16 @@ def marshal_CreateBackendStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("scaleway_s3", request.scaleway_s3),
-                OneOfPossibility("scaleway_lb", request.scaleway_lb),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="scaleway_s3", value=request.scaleway_s3,marshal_func=marshal_ScalewayS3BackendConfig
+            ),
+            OneOfPossibility(param="scaleway_lb", value=request.scaleway_lb,marshal_func=marshal_ScalewayLbBackendConfig
+            ),
+        ]),
     )
 
-    return output
 
+    return output
 
 def marshal_CreateCacheStageRequest(
     request: CreateCacheStageRequest,
@@ -1508,23 +1225,28 @@ def marshal_CreateCacheStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="waf_stage_id", value=request.waf_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="route_stage_id", value=request.route_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.fallback_ttl is not None:
         output["fallback_ttl"] = request.fallback_ttl
+    else:
+        output["fallback_ttl"] = None
 
     if request.include_cookies is not None:
         output["include_cookies"] = request.include_cookies
+    else:
+        output["include_cookies"] = None
+
 
     return output
-
 
 def marshal_CreateDNSStageRequest(
     request: CreateDNSStageRequest,
@@ -1532,20 +1254,23 @@ def marshal_CreateDNSStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("tls_stage_id", request.tls_stage_id),
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="tls_stage_id", value=request.tls_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="cache_stage_id", value=request.cache_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.fqdns is not None:
         output["fqdns"] = request.fqdns
+    else:
+        output["fqdns"] = None
+
 
     return output
-
 
 def marshal_CreatePipelineRequest(
     request: CreatePipelineRequest,
@@ -1555,15 +1280,21 @@ def marshal_CreatePipelineRequest(
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = str()
 
     if request.description is not None:
         output["description"] = request.description
+    else:
+        output["description"] = str()
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+    else:
+        output["project_id"] = None
+
 
     return output
-
 
 def marshal_CreatePurgeRequestRequest(
     request: CreatePurgeRequestRequest,
@@ -1571,19 +1302,21 @@ def marshal_CreatePurgeRequestRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("assets", request.assets),
-                OneOfPossibility("all", request.all),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="assets", value=request.assets,marshal_func=None
+            ),
+            OneOfPossibility(param="all", value=request.all,marshal_func=None
+            ),
+        ]),
     )
 
     if request.pipeline_id is not None:
         output["pipeline_id"] = request.pipeline_id
+    else:
+        output["pipeline_id"] = str()
+
 
     return output
-
 
 def marshal_CreateRouteStageRequest(
     request: CreateRouteStageRequest,
@@ -1591,15 +1324,14 @@ def marshal_CreateRouteStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="waf_stage_id", value=request.waf_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
-    return output
 
+    return output
 
 def marshal_TLSSecret(
     request: TLSSecret,
@@ -1609,12 +1341,14 @@ def marshal_TLSSecret(
 
     if request.secret_id is not None:
         output["secret_id"] = request.secret_id
+    else:
+        output["secret_id"] = str()
 
     if request.region is not None:
         output["region"] = request.region or defaults.default_region
 
-    return output
 
+    return output
 
 def marshal_CreateTLSStageRequest(
     request: CreateTLSStageRequest,
@@ -1622,26 +1356,30 @@ def marshal_CreateTLSStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="cache_stage_id", value=request.cache_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="route_stage_id", value=request.route_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="waf_stage_id", value=request.waf_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.secrets is not None:
-        output["secrets"] = [
-            marshal_TLSSecret(item, defaults) for item in request.secrets
-        ]
+        output["secrets"] = [marshal_TLSSecret(item, defaults) for item in request.secrets]
+    else:
+        output["secrets"] = None
 
     if request.managed_certificate is not None:
         output["managed_certificate"] = request.managed_certificate
+    else:
+        output["managed_certificate"] = None
+
 
     return output
-
 
 def marshal_CreateWafStageRequest(
     request: CreateWafStageRequest,
@@ -1649,21 +1387,24 @@ def marshal_CreateWafStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.paranoia_level is not None:
         output["paranoia_level"] = request.paranoia_level
+    else:
+        output["paranoia_level"] = 0
 
     if request.mode is not None:
         output["mode"] = str(request.mode)
+    else:
+        output["mode"] = None
+
 
     return output
-
 
 def marshal_SelectPlanRequest(
     request: SelectPlanRequest,
@@ -1673,12 +1414,16 @@ def marshal_SelectPlanRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+    else:
+        output["project_id"] = None
 
     if request.plan_name is not None:
         output["plan_name"] = str(request.plan_name)
+    else:
+        output["plan_name"] = None
+
 
     return output
-
 
 def marshal_SetHeadStageRequestAddNewHeadStage(
     request: SetHeadStageRequestAddNewHeadStage,
@@ -1688,9 +1433,11 @@ def marshal_SetHeadStageRequestAddNewHeadStage(
 
     if request.new_stage_id is not None:
         output["new_stage_id"] = request.new_stage_id
+    else:
+        output["new_stage_id"] = str()
+
 
     return output
-
 
 def marshal_SetHeadStageRequestRemoveHeadStage(
     request: SetHeadStageRequestRemoveHeadStage,
@@ -1700,9 +1447,11 @@ def marshal_SetHeadStageRequestRemoveHeadStage(
 
     if request.remove_stage_id is not None:
         output["remove_stage_id"] = request.remove_stage_id
+    else:
+        output["remove_stage_id"] = str()
+
 
     return output
-
 
 def marshal_SetHeadStageRequestSwapHeadStage(
     request: SetHeadStageRequestSwapHeadStage,
@@ -1712,12 +1461,16 @@ def marshal_SetHeadStageRequestSwapHeadStage(
 
     if request.new_stage_id is not None:
         output["new_stage_id"] = request.new_stage_id
+    else:
+        output["new_stage_id"] = str()
 
     if request.current_stage_id is not None:
         output["current_stage_id"] = request.current_stage_id
+    else:
+        output["current_stage_id"] = str()
+
 
     return output
-
 
 def marshal_SetHeadStageRequest(
     request: SetHeadStageRequest,
@@ -1725,17 +1478,18 @@ def marshal_SetHeadStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("add_new_head_stage", request.add_new_head_stage),
-                OneOfPossibility("remove_head_stage", request.remove_head_stage),
-                OneOfPossibility("swap_head_stage", request.swap_head_stage),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="add_new_head_stage", value=request.add_new_head_stage,marshal_func=marshal_SetHeadStageRequestAddNewHeadStage
+            ),
+            OneOfPossibility(param="remove_head_stage", value=request.remove_head_stage,marshal_func=marshal_SetHeadStageRequestRemoveHeadStage
+            ),
+            OneOfPossibility(param="swap_head_stage", value=request.swap_head_stage,marshal_func=marshal_SetHeadStageRequestSwapHeadStage
+            ),
+        ]),
     )
 
-    return output
 
+    return output
 
 def marshal_SetRouteRulesRequest(
     request: SetRouteRulesRequest,
@@ -1744,13 +1498,12 @@ def marshal_SetRouteRulesRequest(
     output: Dict[str, Any] = {}
 
     if request.route_rules is not None:
-        output["route_rules"] = [
-            marshal_SetRouteRulesRequestRouteRule(item, defaults)
-            for item in request.route_rules
-        ]
+        output["route_rules"] = [marshal_SetRouteRulesRequestRouteRule(item, defaults) for item in request.route_rules]
+    else:
+        output["route_rules"] = None
+
 
     return output
-
 
 def marshal_UpdateBackendStageRequest(
     request: UpdateBackendStageRequest,
@@ -1758,19 +1511,21 @@ def marshal_UpdateBackendStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("scaleway_s3", request.scaleway_s3),
-                OneOfPossibility("scaleway_lb", request.scaleway_lb),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="scaleway_s3", value=request.scaleway_s3,marshal_func=marshal_ScalewayS3BackendConfig
+            ),
+            OneOfPossibility(param="scaleway_lb", value=request.scaleway_lb,marshal_func=marshal_ScalewayLbBackendConfig
+            ),
+        ]),
     )
 
     if request.pipeline_id is not None:
         output["pipeline_id"] = request.pipeline_id
+    else:
+        output["pipeline_id"] = str()
+
 
     return output
-
 
 def marshal_UpdateCacheStageRequest(
     request: UpdateCacheStageRequest,
@@ -1778,23 +1533,28 @@ def marshal_UpdateCacheStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="waf_stage_id", value=request.waf_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="route_stage_id", value=request.route_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.fallback_ttl is not None:
         output["fallback_ttl"] = request.fallback_ttl
+    else:
+        output["fallback_ttl"] = None
 
     if request.include_cookies is not None:
         output["include_cookies"] = request.include_cookies
+    else:
+        output["include_cookies"] = None
+
 
     return output
-
 
 def marshal_UpdateDNSStageRequest(
     request: UpdateDNSStageRequest,
@@ -1802,20 +1562,23 @@ def marshal_UpdateDNSStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("tls_stage_id", request.tls_stage_id),
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="tls_stage_id", value=request.tls_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="cache_stage_id", value=request.cache_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.fqdns is not None:
         output["fqdns"] = request.fqdns
+    else:
+        output["fqdns"] = None
+
 
     return output
-
 
 def marshal_UpdatePipelineRequest(
     request: UpdatePipelineRequest,
@@ -1825,12 +1588,16 @@ def marshal_UpdatePipelineRequest(
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = None
 
     if request.description is not None:
         output["description"] = request.description
+    else:
+        output["description"] = None
+
 
     return output
-
 
 def marshal_UpdateRouteStageRequest(
     request: UpdateRouteStageRequest,
@@ -1838,15 +1605,14 @@ def marshal_UpdateRouteStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="waf_stage_id", value=request.waf_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
-    return output
 
+    return output
 
 def marshal_TLSSecretsConfig(
     request: TLSSecretsConfig,
@@ -1855,12 +1621,12 @@ def marshal_TLSSecretsConfig(
     output: Dict[str, Any] = {}
 
     if request.tls_secrets is not None:
-        output["tls_secrets"] = [
-            marshal_TLSSecret(item, defaults) for item in request.tls_secrets
-        ]
+        output["tls_secrets"] = [marshal_TLSSecret(item, defaults) for item in request.tls_secrets]
+    else:
+        output["tls_secrets"] = []
+
 
     return output
-
 
 def marshal_UpdateTLSStageRequest(
     request: UpdateTLSStageRequest,
@@ -1868,26 +1634,30 @@ def marshal_UpdateTLSStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="cache_stage_id", value=request.cache_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="route_stage_id", value=request.route_stage_id,marshal_func=None
+            ),
+            OneOfPossibility(param="waf_stage_id", value=request.waf_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.tls_secrets_config is not None:
-        output["tls_secrets_config"] = marshal_TLSSecretsConfig(
-            request.tls_secrets_config, defaults
-        )
+        output["tls_secrets_config"] = marshal_TLSSecretsConfig(request.tls_secrets_config, defaults)
+    else:
+        output["tls_secrets_config"] = None
 
     if request.managed_certificate is not None:
         output["managed_certificate"] = request.managed_certificate
+    else:
+        output["managed_certificate"] = None
+
 
     return output
-
 
 def marshal_UpdateWafStageRequest(
     request: UpdateWafStageRequest,
@@ -1895,17 +1665,21 @@ def marshal_UpdateWafStageRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="backend_stage_id", value=request.backend_stage_id,marshal_func=None
+            ),
+        ]),
     )
 
     if request.mode is not None:
         output["mode"] = str(request.mode)
+    else:
+        output["mode"] = None
 
     if request.paranoia_level is not None:
         output["paranoia_level"] = request.paranoia_level
+    else:
+        output["paranoia_level"] = None
+
 
     return output

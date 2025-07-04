@@ -1,14 +1,32 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
     Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -16,21 +34,28 @@ from scaleway_core.utils import (
 from .types import (
     FlexibleIPStatus,
     ListFlexibleIPsRequestOrderBy,
+    MACAddressStatus,
     MACAddressType,
     AttachFlexibleIPRequest,
     AttachFlexibleIPsResponse,
     CreateFlexibleIPRequest,
+    DeleteFlexibleIPRequest,
+    DeleteMACAddrRequest,
     DetachFlexibleIPRequest,
     DetachFlexibleIPsResponse,
     DuplicateMACAddrRequest,
     FlexibleIP,
     GenerateMACAddrRequest,
+    GetFlexibleIPRequest,
+    ListFlexibleIPsRequest,
     ListFlexibleIPsResponse,
+    MACAddress,
     MoveMACAddrRequest,
     UpdateFlexibleIPRequest,
 )
 from .content import (
     FLEXIBLE_IP_TRANSIENT_STATUSES,
+    MAC_ADDRESS_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_FlexibleIP,
@@ -46,12 +71,10 @@ from .marshalling import (
     marshal_UpdateFlexibleIPRequest,
 )
 
-
 class FlexibleipV1Alpha1API(API):
     """
     This API allows you to manage your Elastic Metal servers' flexible public IP addresses.
     """
-
     def create_flexible_ip(
         self,
         *,
@@ -74,18 +97,18 @@ class FlexibleipV1Alpha1API(API):
         :param server_id: ID of the server to which the newly created flexible IP will be attached.
         :param reverse: Value of the reverse DNS.
         :return: :class:`FlexibleIP <FlexibleIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_flexible_ip(
                 description="example",
                 is_ipv6=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips",
@@ -105,7 +128,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FlexibleIP(res.json())
-
+        
     def get_flexible_ip(
         self,
         *,
@@ -118,18 +141,18 @@ class FlexibleipV1Alpha1API(API):
         :param fip_id: ID of the flexible IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`FlexibleIP <FlexibleIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_flexible_ip(
                 fip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_fip_id = validate_path_param("fip_id", fip_id)
-
+        
         res = self._request(
             "GET",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/{param_fip_id}",
@@ -137,7 +160,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FlexibleIP(res.json())
-
+        
     def wait_for_flexible_ip(
         self,
         *,
@@ -151,10 +174,10 @@ class FlexibleipV1Alpha1API(API):
         :param fip_id: ID of the flexible IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`FlexibleIP <FlexibleIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_flexible_ip(
                 fip_id="example",
             )
@@ -174,7 +197,7 @@ class FlexibleipV1Alpha1API(API):
                 "zone": zone,
             },
         )
-
+        
     def list_flexible_i_ps(
         self,
         *,
@@ -201,22 +224,21 @@ class FlexibleipV1Alpha1API(API):
         :param organization_id: Filter by Organization ID, only flexible IPs from this Organization will be returned.
         :param project_id: Filter by Project ID, only flexible IPs from this Project will be returned.
         :return: :class:`ListFlexibleIPsResponse <ListFlexibleIPsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_flexible_i_ps()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips",
             params={
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -228,7 +250,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListFlexibleIPsResponse(res.json())
-
+        
     def list_flexible_i_ps_all(
         self,
         *,
@@ -255,14 +277,14 @@ class FlexibleipV1Alpha1API(API):
         :param organization_id: Filter by Organization ID, only flexible IPs from this Organization will be returned.
         :param project_id: Filter by Project ID, only flexible IPs from this Project will be returned.
         :return: :class:`List[FlexibleIP] <List[FlexibleIP]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_flexible_i_ps_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListFlexibleIPsResponse,
             key="flexible_ips",
             fetcher=self.list_flexible_i_ps,
@@ -278,7 +300,7 @@ class FlexibleipV1Alpha1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def update_flexible_ip(
         self,
         *,
@@ -297,18 +319,18 @@ class FlexibleipV1Alpha1API(API):
         :param tags: Tags associated with the flexible IP.
         :param reverse: Value of the reverse DNS.
         :return: :class:`FlexibleIP <FlexibleIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_flexible_ip(
                 fip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_fip_id = validate_path_param("fip_id", fip_id)
-
+        
         res = self._request(
             "PATCH",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/{param_fip_id}",
@@ -326,7 +348,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FlexibleIP(res.json())
-
+        
     def delete_flexible_ip(
         self,
         *,
@@ -338,25 +360,24 @@ class FlexibleipV1Alpha1API(API):
         Delete an existing flexible IP, specified by its ID and zone. Note that deleting a flexible IP is permanent and cannot be undone.
         :param fip_id: ID of the flexible IP to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_flexible_ip(
                 fip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_fip_id = validate_path_param("fip_id", fip_id)
-
+        
         res = self._request(
             "DELETE",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/{param_fip_id}",
         )
 
         self._throw_on_error(res)
-
     def attach_flexible_ip(
         self,
         *,
@@ -371,18 +392,18 @@ class FlexibleipV1Alpha1API(API):
         :param server_id: ID of the server on which to attach the flexible IPs.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`AttachFlexibleIPsResponse <AttachFlexibleIPsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_flexible_ip(
                 fips_ids=[],
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/attach",
@@ -398,7 +419,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AttachFlexibleIPsResponse(res.json())
-
+        
     def detach_flexible_ip(
         self,
         *,
@@ -411,17 +432,17 @@ class FlexibleipV1Alpha1API(API):
         :param fips_ids: List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DetachFlexibleIPsResponse <DetachFlexibleIPsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.detach_flexible_ip(
                 fips_ids=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/detach",
@@ -436,7 +457,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DetachFlexibleIPsResponse(res.json())
-
+        
     def generate_mac_addr(
         self,
         *,
@@ -451,19 +472,19 @@ class FlexibleipV1Alpha1API(API):
         :param mac_type: TODO.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`FlexibleIP <FlexibleIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.generate_mac_addr(
                 fip_id="example",
                 mac_type=MACAddressType.unknown_type,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_fip_id = validate_path_param("fip_id", fip_id)
-
+        
         res = self._request(
             "POST",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/{param_fip_id}/mac",
@@ -479,7 +500,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FlexibleIP(res.json())
-
+        
     def duplicate_mac_addr(
         self,
         *,
@@ -494,19 +515,19 @@ class FlexibleipV1Alpha1API(API):
         :param duplicate_from_fip_id: Note that flexible IPs need to be attached to the same server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`FlexibleIP <FlexibleIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.duplicate_mac_addr(
                 fip_id="example",
                 duplicate_from_fip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_fip_id = validate_path_param("fip_id", fip_id)
-
+        
         res = self._request(
             "POST",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/{param_fip_id}/mac/duplicate",
@@ -522,7 +543,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FlexibleIP(res.json())
-
+        
     def move_mac_addr(
         self,
         *,
@@ -533,23 +554,23 @@ class FlexibleipV1Alpha1API(API):
         """
         Relocate an existing virtual MAC address to a different flexible IP.
         Relocate a virtual MAC (Media Access Control) address from an existing flexible IP to a different flexible IP.
-        :param fip_id:
-        :param dst_fip_id:
+        :param fip_id: 
+        :param dst_fip_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`FlexibleIP <FlexibleIP>`
-
+        
         Usage:
         ::
-
+        
             result = api.move_mac_addr(
                 fip_id="example",
                 dst_fip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_fip_id = validate_path_param("fip_id", fip_id)
-
+        
         res = self._request(
             "POST",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/{param_fip_id}/mac/move",
@@ -565,7 +586,7 @@ class FlexibleipV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FlexibleIP(res.json())
-
+        
     def delete_mac_addr(
         self,
         *,
@@ -577,18 +598,18 @@ class FlexibleipV1Alpha1API(API):
         Detach a given MAC (Media Access Control) address from an existing flexible IP.
         :param fip_id: If the flexible IP belongs to a MAC group, the MAC will be removed from both the MAC group and flexible IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_mac_addr(
                 fip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_fip_id = validate_path_param("fip_id", fip_id)
-
+        
         res = self._request(
             "DELETE",
             f"/flexible-ip/v1alpha1/zones/{param_zone}/fips/{param_fip_id}/mac",

@@ -1,19 +1,51 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from decimal import Decimal
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
     unmarshal_Money,
+    marshal_Money,
+    marshal_ScwFile,
+    marshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
 )
 from .types import (
+    ApplicationType,
+    BookingStatus,
+    JobStatus,
+    ListApplicationsRequestOrderBy,
+    ListBookingsRequestOrderBy,
+    ListJobResultsRequestOrderBy,
+    ListJobsRequestOrderBy,
+    ListPlatformsRequestOrderBy,
+    ListProcessResultsRequestOrderBy,
+    ListProcessesRequestOrderBy,
+    ListSessionACLsRequestOrderBy,
+    ListSessionsRequestOrderBy,
+    PlatformAvailability,
+    PlatformTechnology,
+    PlatformType,
+    ProcessStatus,
     SessionAccess,
+    SessionOriginType,
+    SessionStatus,
     JobCircuit,
     Application,
     Booking,
@@ -44,7 +76,6 @@ from .types import (
     UpdateSessionRequest,
 )
 
-
 def unmarshal_JobCircuit(data: Any) -> JobCircuit:
     if not isinstance(data, dict):
         raise TypeError(
@@ -54,19 +85,12 @@ def unmarshal_JobCircuit(data: Any) -> JobCircuit:
     args: Dict[str, Any] = {}
 
     field = data.get("perceval_circuit", None)
-    if field is not None:
-        args["perceval_circuit"] = field
-    else:
-        args["perceval_circuit"] = None
+    args["perceval_circuit"] = field
 
     field = data.get("qiskit_circuit", None)
-    if field is not None:
-        args["qiskit_circuit"] = field
-    else:
-        args["qiskit_circuit"] = None
+    args["qiskit_circuit"] = field
 
     return JobCircuit(**args)
-
 
 def unmarshal_Application(data: Any) -> Application:
     if not isinstance(data, dict):
@@ -76,28 +100,22 @@ def unmarshal_Application(data: Any) -> Application:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
+    field = data.get("name", str())
+    args["name"] = field
 
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
+    field = data.get("type", getattr(ApplicationType, "UNKNOWN_TYPE"))
+    args["type_"] = field
 
-    field = data.get("compatible_platform_ids", None)
-    if field is not None:
-        args["compatible_platform_ids"] = field
+    field = data.get("compatible_platform_ids", [])
+    args["compatible_platform_ids"] = field
 
-    field = data.get("input_template", None)
-    if field is not None:
-        args["input_template"] = field
+    field = data.get("input_template", str())
+    args["input_template"] = field
 
     return Application(**args)
-
 
 def unmarshal_Booking(data: Any) -> Booking:
     if not isinstance(data, dict):
@@ -107,50 +125,31 @@ def unmarshal_Booking(data: Any) -> Booking:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
+    field = data.get("status", getattr(BookingStatus, "UNKNOWN_STATUS"))
+    args["status"] = field
 
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
+    field = data.get("description", str())
+    args["description"] = field
 
-    field = data.get("progress_message", None)
-    if field is not None:
-        args["progress_message"] = field
+    field = data.get("progress_message", str())
+    args["progress_message"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("started_at", None)
-    if field is not None:
-        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["started_at"] = None
+    args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("finished_at", None)
-    if field is not None:
-        args["finished_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["finished_at"] = None
+    args["finished_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Booking(**args)
-
 
 def unmarshal_Job(data: Any) -> Job:
     if not isinstance(data, dict):
@@ -160,66 +159,40 @@ def unmarshal_Job(data: Any) -> Job:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
+    field = data.get("name", str())
+    args["name"] = field
 
-    field = data.get("session_id", None)
-    if field is not None:
-        args["session_id"] = field
+    field = data.get("session_id", str())
+    args["session_id"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
+    field = data.get("status", getattr(JobStatus, "UNKNOWN_STATUS"))
+    args["status"] = field
 
     field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-    else:
-        args["tags"] = None
+    args["tags"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("started_at", None)
-    if field is not None:
-        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["started_at"] = None
+    args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("progress_message", None)
-    if field is not None:
-        args["progress_message"] = field
-    else:
-        args["progress_message"] = None
+    args["progress_message"] = field
 
     field = data.get("job_duration", None)
-    if field is not None:
-        args["job_duration"] = field
-    else:
-        args["job_duration"] = None
+    args["job_duration"] = field
 
     field = data.get("result_distribution", None)
-    if field is not None:
-        args["result_distribution"] = field
-    else:
-        args["result_distribution"] = None
+    args["result_distribution"] = field
 
     return Job(**args)
-
 
 def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequirement:
     if not isinstance(data, dict):
@@ -230,31 +203,18 @@ def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequiremen
     args: Dict[str, Any] = {}
 
     field = data.get("min_duration", None)
-    if field is not None:
-        args["min_duration"] = field
-    else:
-        args["min_duration"] = None
+    args["min_duration"] = field
 
     field = data.get("max_duration", None)
-    if field is not None:
-        args["max_duration"] = field
-    else:
-        args["max_duration"] = None
+    args["max_duration"] = field
 
     field = data.get("max_cancellation_duration", None)
-    if field is not None:
-        args["max_cancellation_duration"] = field
-    else:
-        args["max_cancellation_duration"] = None
+    args["max_cancellation_duration"] = field
 
     field = data.get("max_planification_duration", None)
-    if field is not None:
-        args["max_planification_duration"] = field
-    else:
-        args["max_planification_duration"] = None
+    args["max_planification_duration"] = field
 
     return PlatformBookingRequirement(**args)
-
 
 def unmarshal_PlatformHardware(data: Any) -> PlatformHardware:
     if not isinstance(data, dict):
@@ -264,32 +224,25 @@ def unmarshal_PlatformHardware(data: Any) -> PlatformHardware:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
+    field = data.get("name", str())
+    args["name"] = field
 
-    field = data.get("vcpus", None)
-    if field is not None:
-        args["vcpus"] = field
+    field = data.get("vcpus", 0)
+    args["vcpus"] = field
 
-    field = data.get("gpus", None)
-    if field is not None:
-        args["gpus"] = field
+    field = data.get("gpus", 0)
+    args["gpus"] = field
 
-    field = data.get("gpus_network", None)
-    if field is not None:
-        args["gpus_network"] = field
+    field = data.get("gpus_network", str())
+    args["gpus_network"] = field
 
-    field = data.get("ram", None)
-    if field is not None:
-        args["ram"] = field
+    field = data.get("ram", 0)
+    args["ram"] = field
 
-    field = data.get("vram", None)
-    if field is not None:
-        args["vram"] = field
+    field = data.get("vram", 0)
+    args["vram"] = field
 
     return PlatformHardware(**args)
-
 
 def unmarshal_Platform(data: Any) -> Platform:
     if not isinstance(data, dict):
@@ -299,98 +252,67 @@ def unmarshal_Platform(data: Any) -> Platform:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("version", None)
-    if field is not None:
-        args["version"] = field
+    field = data.get("version", str())
+    args["version"] = field
 
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
+    field = data.get("name", str())
+    args["name"] = field
 
-    field = data.get("provider_name", None)
-    if field is not None:
-        args["provider_name"] = field
+    field = data.get("provider_name", str())
+    args["provider_name"] = field
 
-    field = data.get("backend_name", None)
-    if field is not None:
-        args["backend_name"] = field
+    field = data.get("backend_name", str())
+    args["backend_name"] = field
 
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
+    field = data.get("type", getattr(PlatformType, "UNKNOWN_TYPE"))
+    args["type_"] = field
 
-    field = data.get("technology", None)
-    if field is not None:
-        args["technology"] = field
+    field = data.get("technology", getattr(PlatformTechnology, "UNKNOWN_TECHNOLOGY"))
+    args["technology"] = field
 
-    field = data.get("max_qubit_count", None)
-    if field is not None:
-        args["max_qubit_count"] = field
+    field = data.get("max_qubit_count", 0)
+    args["max_qubit_count"] = field
 
-    field = data.get("max_shot_count", None)
-    if field is not None:
-        args["max_shot_count"] = field
+    field = data.get("max_shot_count", 0)
+    args["max_shot_count"] = field
 
-    field = data.get("max_circuit_count", None)
-    if field is not None:
-        args["max_circuit_count"] = field
+    field = data.get("max_circuit_count", 0)
+    args["max_circuit_count"] = field
 
-    field = data.get("availability", None)
-    if field is not None:
-        args["availability"] = field
+    field = data.get("availability", getattr(PlatformAvailability, "UNKNOWN_AVAILABILITY"))
+    args["availability"] = field
 
-    field = data.get("metadata", None)
-    if field is not None:
-        args["metadata"] = field
+    field = data.get("metadata", str())
+    args["metadata"] = field
 
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
+    field = data.get("description", str())
+    args["description"] = field
 
-    field = data.get("documentation_url", None)
-    if field is not None:
-        args["documentation_url"] = field
+    field = data.get("documentation_url", str())
+    args["documentation_url"] = field
 
-    field = data.get("is_bookable", None)
-    if field is not None:
-        args["is_bookable"] = field
+    field = data.get("is_bookable", False)
+    args["is_bookable"] = field
 
     field = data.get("price_per_hour", None)
-    if field is not None:
-        args["price_per_hour"] = unmarshal_Money(field)
-    else:
-        args["price_per_hour"] = None
+    args["price_per_hour"] = unmarshal_Money(field) if field is not None else None
 
     field = data.get("price_per_shot", None)
-    if field is not None:
-        args["price_per_shot"] = unmarshal_Money(field)
-    else:
-        args["price_per_shot"] = None
+    args["price_per_shot"] = unmarshal_Money(field) if field is not None else None
 
     field = data.get("price_per_circuit", None)
-    if field is not None:
-        args["price_per_circuit"] = unmarshal_Money(field)
-    else:
-        args["price_per_circuit"] = None
+    args["price_per_circuit"] = unmarshal_Money(field) if field is not None else None
 
     field = data.get("hardware", None)
-    if field is not None:
-        args["hardware"] = unmarshal_PlatformHardware(field)
-    else:
-        args["hardware"] = None
+    args["hardware"] = unmarshal_PlatformHardware(field) if field is not None else None
 
     field = data.get("booking_requirement", None)
-    if field is not None:
-        args["booking_requirement"] = unmarshal_PlatformBookingRequirement(field)
-    else:
-        args["booking_requirement"] = None
+    args["booking_requirement"] = unmarshal_PlatformBookingRequirement(field) if field is not None else None
 
     return Platform(**args)
-
 
 def unmarshal_Process(data: Any) -> Process:
     if not isinstance(data, dict):
@@ -400,88 +322,52 @@ def unmarshal_Process(data: Any) -> Process:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
+    field = data.get("name", str())
+    args["name"] = field
 
-    field = data.get("attached_session_ids", None)
-    if field is not None:
-        args["attached_session_ids"] = field
+    field = data.get("attached_session_ids", [])
+    args["attached_session_ids"] = field
 
     field = data.get("application_id", None)
-    if field is not None:
-        args["application_id"] = field
-    else:
-        args["application_id"] = None
+    args["application_id"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
+    field = data.get("status", getattr(ProcessStatus, "UNKNOWN_STATUS"))
+    args["status"] = field
 
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
+    field = data.get("project_id", str())
+    args["project_id"] = field
 
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
+    field = data.get("tags", [])
+    args["tags"] = field
 
     field = data.get("platform_id", None)
-    if field is not None:
-        args["platform_id"] = field
-    else:
-        args["platform_id"] = None
+    args["platform_id"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("started_at", None)
-    if field is not None:
-        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["started_at"] = None
+    args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("finished_at", None)
-    if field is not None:
-        args["finished_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["finished_at"] = None
+    args["finished_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("progress", None)
-    if field is not None:
-        args["progress"] = field
-    else:
-        args["progress"] = None
+    args["progress"] = field
 
     field = data.get("progress_message", None)
-    if field is not None:
-        args["progress_message"] = field
-    else:
-        args["progress_message"] = None
+    args["progress_message"] = field
 
     field = data.get("input", None)
-    if field is not None:
-        args["input"] = field
-    else:
-        args["input"] = None
+    args["input"] = field
 
     return Process(**args)
-
 
 def unmarshal_Session(data: Any) -> Session:
     if not isinstance(data, dict):
@@ -491,106 +377,64 @@ def unmarshal_Session(data: Any) -> Session:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
+    field = data.get("id", str())
+    args["id"] = field
 
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
+    field = data.get("name", str())
+    args["name"] = field
 
-    field = data.get("platform_id", None)
-    if field is not None:
-        args["platform_id"] = field
+    field = data.get("platform_id", str())
+    args["platform_id"] = field
 
-    field = data.get("waiting_job_count", None)
-    if field is not None:
-        args["waiting_job_count"] = field
+    field = data.get("waiting_job_count", 0)
+    args["waiting_job_count"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
-    field = data.get("finished_job_count", None)
-    if field is not None:
-        args["finished_job_count"] = field
+    field = data.get("finished_job_count", 0)
+    args["finished_job_count"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
+    field = data.get("status", getattr(SessionStatus, "UNKNOWN_STATUS"))
+    args["status"] = field
 
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
+    field = data.get("project_id", str())
+    args["project_id"] = field
 
-    field = data.get("deduplication_id", None)
-    if field is not None:
-        args["deduplication_id"] = field
+    field = data.get("deduplication_id", str())
+    args["deduplication_id"] = field
 
-    field = data.get("origin_type", None)
-    if field is not None:
-        args["origin_type"] = field
+    field = data.get("origin_type", getattr(SessionOriginType, "UNKNOWN_ORIGIN_TYPE"))
+    args["origin_type"] = field
 
     field = data.get("started_at", None)
-    if field is not None:
-        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["started_at"] = None
+    args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("terminated_at", None)
-    if field is not None:
-        args["terminated_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["terminated_at"] = None
+    args["terminated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("max_idle_duration", None)
-    if field is not None:
-        args["max_idle_duration"] = field
-    else:
-        args["max_idle_duration"] = None
+    args["max_idle_duration"] = field
 
     field = data.get("max_duration", None)
-    if field is not None:
-        args["max_duration"] = field
-    else:
-        args["max_duration"] = None
+    args["max_duration"] = field
 
     field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-    else:
-        args["tags"] = None
+    args["tags"] = field
 
     field = data.get("origin_id", None)
-    if field is not None:
-        args["origin_id"] = field
-    else:
-        args["origin_id"] = None
+    args["origin_id"] = field
 
     field = data.get("progress_message", None)
-    if field is not None:
-        args["progress_message"] = field
-    else:
-        args["progress_message"] = None
+    args["progress_message"] = field
 
     field = data.get("booking_id", None)
-    if field is not None:
-        args["booking_id"] = field
-    else:
-        args["booking_id"] = None
+    args["booking_id"] = field
 
     return Session(**args)
-
 
 def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
     if not isinstance(data, dict):
@@ -600,18 +444,13 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("applications", None)
-    if field is not None:
-        args["applications"] = (
-            [unmarshal_Application(v) for v in field] if field is not None else None
-        )
+    field = data.get("applications", [])
+    args["applications"] = [unmarshal_Application(v) for v in field] if field is not None else None
 
     return ListApplicationsResponse(**args)
-
 
 def unmarshal_ListBookingsResponse(data: Any) -> ListBookingsResponse:
     if not isinstance(data, dict):
@@ -621,18 +460,13 @@ def unmarshal_ListBookingsResponse(data: Any) -> ListBookingsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("bookings", None)
-    if field is not None:
-        args["bookings"] = (
-            [unmarshal_Booking(v) for v in field] if field is not None else None
-        )
+    field = data.get("bookings", [])
+    args["bookings"] = [unmarshal_Booking(v) for v in field] if field is not None else None
 
     return ListBookingsResponse(**args)
-
 
 def unmarshal_JobResult(data: Any) -> JobResult:
     if not isinstance(data, dict):
@@ -642,30 +476,19 @@ def unmarshal_JobResult(data: Any) -> JobResult:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("job_id", None)
-    if field is not None:
-        args["job_id"] = field
+    field = data.get("job_id", str())
+    args["job_id"] = field
 
     field = data.get("result", None)
-    if field is not None:
-        args["result"] = field
-    else:
-        args["result"] = None
+    args["result"] = field
 
     field = data.get("url", None)
-    if field is not None:
-        args["url"] = field
-    else:
-        args["url"] = None
+    args["url"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return JobResult(**args)
-
 
 def unmarshal_ListJobResultsResponse(data: Any) -> ListJobResultsResponse:
     if not isinstance(data, dict):
@@ -675,18 +498,13 @@ def unmarshal_ListJobResultsResponse(data: Any) -> ListJobResultsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("job_results", None)
-    if field is not None:
-        args["job_results"] = (
-            [unmarshal_JobResult(v) for v in field] if field is not None else None
-        )
+    field = data.get("job_results", [])
+    args["job_results"] = [unmarshal_JobResult(v) for v in field] if field is not None else None
 
     return ListJobResultsResponse(**args)
-
 
 def unmarshal_ListJobsResponse(data: Any) -> ListJobsResponse:
     if not isinstance(data, dict):
@@ -696,16 +514,13 @@ def unmarshal_ListJobsResponse(data: Any) -> ListJobsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("jobs", None)
-    if field is not None:
-        args["jobs"] = [unmarshal_Job(v) for v in field] if field is not None else None
+    field = data.get("jobs", [])
+    args["jobs"] = [unmarshal_Job(v) for v in field] if field is not None else None
 
     return ListJobsResponse(**args)
-
 
 def unmarshal_ListPlatformsResponse(data: Any) -> ListPlatformsResponse:
     if not isinstance(data, dict):
@@ -715,18 +530,13 @@ def unmarshal_ListPlatformsResponse(data: Any) -> ListPlatformsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("platforms", None)
-    if field is not None:
-        args["platforms"] = (
-            [unmarshal_Platform(v) for v in field] if field is not None else None
-        )
+    field = data.get("platforms", [])
+    args["platforms"] = [unmarshal_Platform(v) for v in field] if field is not None else None
 
     return ListPlatformsResponse(**args)
-
 
 def unmarshal_ProcessResult(data: Any) -> ProcessResult:
     if not isinstance(data, dict):
@@ -736,22 +546,16 @@ def unmarshal_ProcessResult(data: Any) -> ProcessResult:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("process_id", None)
-    if field is not None:
-        args["process_id"] = field
+    field = data.get("process_id", str())
+    args["process_id"] = field
 
-    field = data.get("result", None)
-    if field is not None:
-        args["result"] = field
+    field = data.get("result", str())
+    args["result"] = field
 
     field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return ProcessResult(**args)
-
 
 def unmarshal_ListProcessResultsResponse(data: Any) -> ListProcessResultsResponse:
     if not isinstance(data, dict):
@@ -761,18 +565,13 @@ def unmarshal_ListProcessResultsResponse(data: Any) -> ListProcessResultsRespons
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("process_results", None)
-    if field is not None:
-        args["process_results"] = (
-            [unmarshal_ProcessResult(v) for v in field] if field is not None else None
-        )
+    field = data.get("process_results", [])
+    args["process_results"] = [unmarshal_ProcessResult(v) for v in field] if field is not None else None
 
     return ListProcessResultsResponse(**args)
-
 
 def unmarshal_ListProcessesResponse(data: Any) -> ListProcessesResponse:
     if not isinstance(data, dict):
@@ -782,18 +581,13 @@ def unmarshal_ListProcessesResponse(data: Any) -> ListProcessesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("processes", None)
-    if field is not None:
-        args["processes"] = (
-            [unmarshal_Process(v) for v in field] if field is not None else None
-        )
+    field = data.get("processes", [])
+    args["processes"] = [unmarshal_Process(v) for v in field] if field is not None else None
 
     return ListProcessesResponse(**args)
-
 
 def unmarshal_ListSessionACLsResponse(data: Any) -> ListSessionACLsResponse:
     if not isinstance(data, dict):
@@ -803,16 +597,13 @@ def unmarshal_ListSessionACLsResponse(data: Any) -> ListSessionACLsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", str())
+    args["total_count"] = field
 
-    field = data.get("acls", None)
-    if field is not None:
-        args["acls"] = [SessionAccess(v) for v in field] if field is not None else None
+    field = data.get("acls", str())
+    args["acls"] = [SessionAccess(v) for v in field] if field is not None else None
 
     return ListSessionACLsResponse(**args)
-
 
 def unmarshal_ListSessionsResponse(data: Any) -> ListSessionsResponse:
     if not isinstance(data, dict):
@@ -822,18 +613,13 @@ def unmarshal_ListSessionsResponse(data: Any) -> ListSessionsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
+    field = data.get("total_count", 0)
+    args["total_count"] = field
 
-    field = data.get("sessions", None)
-    if field is not None:
-        args["sessions"] = (
-            [unmarshal_Session(v) for v in field] if field is not None else None
-        )
+    field = data.get("sessions", [])
+    args["sessions"] = [unmarshal_Session(v) for v in field] if field is not None else None
 
     return ListSessionsResponse(**args)
-
 
 def marshal_JobCircuit(
     request: JobCircuit,
@@ -841,16 +627,16 @@ def marshal_JobCircuit(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
     output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("perceval_circuit", request.perceval_circuit),
-                OneOfPossibility("qiskit_circuit", request.qiskit_circuit),
-            ]
-        ),
+        resolve_one_of([
+            OneOfPossibility(param="perceval_circuit", value=request.perceval_circuit,marshal_func=None
+            ),
+            OneOfPossibility(param="qiskit_circuit", value=request.qiskit_circuit,marshal_func=None
+            ),
+        ]),
     )
 
-    return output
 
+    return output
 
 def marshal_CreateJobRequest(
     request: CreateJobRequest,
@@ -860,21 +646,31 @@ def marshal_CreateJobRequest(
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = str()
 
     if request.session_id is not None:
         output["session_id"] = request.session_id
+    else:
+        output["session_id"] = str()
 
     if request.circuit is not None:
         output["circuit"] = marshal_JobCircuit(request.circuit, defaults)
+    else:
+        output["circuit"] = str()
 
     if request.tags is not None:
         output["tags"] = request.tags
+    else:
+        output["tags"] = None
 
     if request.max_duration is not None:
         output["max_duration"] = request.max_duration
+    else:
+        output["max_duration"] = None
+
 
     return output
-
 
 def marshal_CreateProcessRequest(
     request: CreateProcessRequest,
@@ -884,24 +680,36 @@ def marshal_CreateProcessRequest(
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = str()
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+    else:
+        output["project_id"] = None
 
     if request.platform_id is not None:
         output["platform_id"] = request.platform_id
+    else:
+        output["platform_id"] = None
 
     if request.application_id is not None:
         output["application_id"] = request.application_id
+    else:
+        output["application_id"] = None
 
     if request.input is not None:
         output["input"] = request.input
+    else:
+        output["input"] = None
 
     if request.tags is not None:
         output["tags"] = request.tags
+    else:
+        output["tags"] = None
+
 
     return output
-
 
 def marshal_CreateSessionRequestBookingDemand(
     request: CreateSessionRequestBookingDemand,
@@ -911,15 +719,21 @@ def marshal_CreateSessionRequestBookingDemand(
 
     if request.started_at is not None:
         output["started_at"] = request.started_at.isoformat()
+    else:
+        output["started_at"] = None
 
     if request.finished_at is not None:
         output["finished_at"] = request.finished_at.isoformat()
+    else:
+        output["finished_at"] = None
 
     if request.description is not None:
         output["description"] = request.description
+    else:
+        output["description"] = None
+
 
     return output
-
 
 def marshal_CreateSessionRequest(
     request: CreateSessionRequest,
@@ -929,32 +743,46 @@ def marshal_CreateSessionRequest(
 
     if request.platform_id is not None:
         output["platform_id"] = request.platform_id
+    else:
+        output["platform_id"] = str()
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+    else:
+        output["project_id"] = None
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = None
 
     if request.max_idle_duration is not None:
         output["max_idle_duration"] = request.max_idle_duration
+    else:
+        output["max_idle_duration"] = None
 
     if request.max_duration is not None:
         output["max_duration"] = request.max_duration
+    else:
+        output["max_duration"] = None
 
     if request.tags is not None:
         output["tags"] = request.tags
+    else:
+        output["tags"] = None
 
     if request.deduplication_id is not None:
         output["deduplication_id"] = request.deduplication_id
+    else:
+        output["deduplication_id"] = None
 
     if request.booking_demand is not None:
-        output["booking_demand"] = marshal_CreateSessionRequestBookingDemand(
-            request.booking_demand, defaults
-        )
+        output["booking_demand"] = marshal_CreateSessionRequestBookingDemand(request.booking_demand, defaults)
+    else:
+        output["booking_demand"] = None
+
 
     return output
-
 
 def marshal_UpdateBookingRequest(
     request: UpdateBookingRequest,
@@ -964,9 +792,11 @@ def marshal_UpdateBookingRequest(
 
     if request.description is not None:
         output["description"] = request.description
+    else:
+        output["description"] = None
+
 
     return output
-
 
 def marshal_UpdateJobRequest(
     request: UpdateJobRequest,
@@ -976,12 +806,16 @@ def marshal_UpdateJobRequest(
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = None
 
     if request.tags is not None:
         output["tags"] = request.tags
+    else:
+        output["tags"] = None
+
 
     return output
-
 
 def marshal_UpdateProcessRequest(
     request: UpdateProcessRequest,
@@ -991,12 +825,16 @@ def marshal_UpdateProcessRequest(
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = None
 
     if request.tags is not None:
         output["tags"] = request.tags
+    else:
+        output["tags"] = None
+
 
     return output
-
 
 def marshal_UpdateSessionRequest(
     request: UpdateSessionRequest,
@@ -1006,14 +844,23 @@ def marshal_UpdateSessionRequest(
 
     if request.name is not None:
         output["name"] = request.name
+    else:
+        output["name"] = None
 
     if request.max_idle_duration is not None:
         output["max_idle_duration"] = request.max_idle_duration
+    else:
+        output["max_idle_duration"] = None
 
     if request.max_duration is not None:
         output["max_duration"] = request.max_duration
+    else:
+        output["max_duration"] = None
 
     if request.tags is not None:
         output["tags"] = request.tags
+    else:
+        output["tags"] = None
+
 
     return output

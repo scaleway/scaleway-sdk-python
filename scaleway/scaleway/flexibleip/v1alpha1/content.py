@@ -6,7 +6,6 @@ from .types import (
     FlexibleIPStatus,
     MACAddressStatus,
 )
-
 FLEXIBLE_IP_TRANSIENT_STATUSES: List[FlexibleIPStatus] = [
     FlexibleIPStatus.UPDATING,
     FlexibleIPStatus.DETACHING,

@@ -7,7 +7,6 @@ from .types import (
     NamespaceStatus,
     TagStatus,
 )
-
 IMAGE_TRANSIENT_STATUSES: List[ImageStatus] = [
     ImageStatus.DELETING,
 ]
