@@ -559,9 +559,9 @@ def unmarshal_Alert(data: Any) -> Alert:
     if field is not None:
         args["duration"] = field
 
-    field = data.get("enabled", None)
+    field = data.get("rule_status", None)
     if field is not None:
-        args["enabled"] = field
+        args["rule_status"] = field
 
     field = data.get("annotations", None)
     if field is not None:
