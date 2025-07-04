@@ -7,6 +7,7 @@ from dateutil import parser
 from .types import (
     AccountOrganizationInfo,
     AccountUserInfo,
+    AppleSiliconServerInfo,
     InstanceServerInfo,
     KeyManagerKeyInfo,
     KubernetesACLInfo,
@@ -55,6 +56,25 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
         args["phone_number"] = None
 
     return AccountUserInfo(**args)
+
+
+def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AppleSiliconServerInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    return AppleSiliconServerInfo(**args)
 
 
 def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
@@ -318,6 +338,12 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["instance_server_info"] = None
 
+    field = data.get("apple_silicon_server_info", None)
+    if field is not None:
+        args["apple_silicon_server_info"] = unmarshal_AppleSiliconServerInfo(field)
+    else:
+        args["apple_silicon_server_info"] = None
+
     return Resource(**args)
 
 
@@ -345,6 +371,10 @@ def unmarshal_Event(data: Any) -> Event:
     if field is not None:
         args["source_ip"] = field
 
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+
     field = data.get("recorded_at", None)
     if field is not None:
         args["recorded_at"] = (
@@ -371,10 +401,6 @@ def unmarshal_Event(data: Any) -> Event:
     else:
         args["user_agent"] = None
 
-    field = data.get("product_name", None)
-    if field is not None:
-        args["product_name"] = field
-
     field = data.get("service_name", None)
     if field is not None:
         args["service_name"] = field
@@ -396,12 +422,6 @@ def unmarshal_Event(data: Any) -> Event:
     field = data.get("status_code", None)
     if field is not None:
         args["status_code"] = field
-
-    field = data.get("resource", None)
-    if field is not None:
-        args["resource"] = unmarshal_Resource(field)
-    else:
-        args["resource"] = None
 
     field = data.get("request_body", None)
     if field is not None:
