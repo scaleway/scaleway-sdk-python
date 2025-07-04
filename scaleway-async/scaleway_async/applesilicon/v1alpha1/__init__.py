@@ -19,11 +19,14 @@ from .types import ServerTypeDisk
 from .types import ServerTypeGPU
 from .types import ServerTypeMemory
 from .types import ServerTypeNetwork
+from .types import BatchCreateServersRequestBatchInnerCreateServerRequest
 from .types import Server
 from .types import ConnectivityDiagnosticServerHealth
 from .types import ServerPrivateNetwork
 from .types import ServerType
 from .types import CommitmentTypeValue
+from .types import BatchCreateServersRequest
+from .types import BatchCreateServersResponse
 from .types import ConnectivityDiagnostic
 from .types import CreateServerRequest
 from .types import DeleteServerRequest
@@ -72,11 +75,14 @@ __all__ = [
     "ServerTypeGPU",
     "ServerTypeMemory",
     "ServerTypeNetwork",
+    "BatchCreateServersRequestBatchInnerCreateServerRequest",
     "Server",
     "ConnectivityDiagnosticServerHealth",
     "ServerPrivateNetwork",
     "ServerType",
     "CommitmentTypeValue",
+    "BatchCreateServersRequest",
+    "BatchCreateServersResponse",
     "ConnectivityDiagnostic",
     "CreateServerRequest",
     "DeleteServerRequest",
