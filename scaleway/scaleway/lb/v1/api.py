@@ -1,22 +1,48 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
     Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
+    AclActionRedirectRedirectType,
+    AclActionType,
+    AclHttpFilter,
+    BackendServerStatsHealthCheckStatus,
+    BackendServerStatsServerState,
+    CertificateStatus,
+    CertificateType,
     ForwardPortAlgorithm,
+    InstanceStatus,
+    LbStatus,
+    LbTypeStock,
     ListAclRequestOrderBy,
     ListBackendsRequestOrderBy,
     ListCertificatesRequestOrderBy,
@@ -27,12 +53,14 @@ from .types import (
     ListRoutesRequestOrderBy,
     ListSubscriberRequestOrderBy,
     OnMarkedDownAction,
+    PrivateNetworkStatus,
     Protocol,
     ProxyProtocol,
     SSLCompatibilityLevel,
     StickySessionsType,
     Acl,
     AclAction,
+    AclActionRedirect,
     AclMatch,
     AclSpec,
     AddBackendServersRequest,
@@ -50,7 +78,24 @@ from .types import (
     CreateLbRequest,
     CreateRouteRequest,
     CreateSubscriberRequest,
+    DeleteAclRequest,
+    DeleteBackendRequest,
+    DeleteCertificateRequest,
+    DeleteFrontendRequest,
+    DeleteLbRequest,
+    DeleteRouteRequest,
+    DeleteSubscriberRequest,
+    DetachPrivateNetworkRequest,
     Frontend,
+    GetAclRequest,
+    GetBackendRequest,
+    GetCertificateRequest,
+    GetFrontendRequest,
+    GetIpRequest,
+    GetLbRequest,
+    GetLbStatsRequest,
+    GetRouteRequest,
+    GetSubscriberRequest,
     HealthCheck,
     HealthCheckHttpConfig,
     HealthCheckHttpsConfig,
@@ -59,26 +104,39 @@ from .types import (
     HealthCheckPgsqlConfig,
     HealthCheckRedisConfig,
     HealthCheckTcpConfig,
+    Instance,
     Ip,
     Lb,
     LbStats,
     LbType,
     ListAclResponse,
+    ListAclsRequest,
+    ListBackendStatsRequest,
     ListBackendStatsResponse,
+    ListBackendsRequest,
     ListBackendsResponse,
+    ListCertificatesRequest,
     ListCertificatesResponse,
+    ListFrontendsRequest,
     ListFrontendsResponse,
+    ListIPsRequest,
     ListIpsResponse,
+    ListLbPrivateNetworksRequest,
     ListLbPrivateNetworksResponse,
+    ListLbTypesRequest,
     ListLbTypesResponse,
+    ListLbsRequest,
     ListLbsResponse,
+    ListRoutesRequest,
     ListRoutesResponse,
+    ListSubscriberRequest,
     ListSubscriberResponse,
     MigrateLbRequest,
     PrivateNetwork,
     PrivateNetworkDHCPConfig,
     PrivateNetworkIpamConfig,
     PrivateNetworkStaticConfig,
+    ReleaseIpRequest,
     RemoveBackendServersRequest,
     Route,
     RouteMatch,
@@ -88,6 +146,7 @@ from .types import (
     Subscriber,
     SubscriberEmailConfig,
     SubscriberWebhookConfig,
+    UnsubscribeFromLbRequest,
     UpdateAclRequest,
     UpdateBackendRequest,
     UpdateCertificateRequest,
@@ -107,12 +166,41 @@ from .types import (
     ZonedApiCreateLbRequest,
     ZonedApiCreateRouteRequest,
     ZonedApiCreateSubscriberRequest,
+    ZonedApiDeleteAclRequest,
+    ZonedApiDeleteBackendRequest,
+    ZonedApiDeleteCertificateRequest,
+    ZonedApiDeleteFrontendRequest,
+    ZonedApiDeleteLbRequest,
+    ZonedApiDeleteRouteRequest,
+    ZonedApiDeleteSubscriberRequest,
     ZonedApiDetachPrivateNetworkRequest,
+    ZonedApiGetAclRequest,
+    ZonedApiGetBackendRequest,
+    ZonedApiGetCertificateRequest,
+    ZonedApiGetFrontendRequest,
+    ZonedApiGetIpRequest,
+    ZonedApiGetLbRequest,
+    ZonedApiGetLbStatsRequest,
+    ZonedApiGetRouteRequest,
+    ZonedApiGetSubscriberRequest,
+    ZonedApiListAclsRequest,
+    ZonedApiListBackendStatsRequest,
+    ZonedApiListBackendsRequest,
+    ZonedApiListCertificatesRequest,
+    ZonedApiListFrontendsRequest,
+    ZonedApiListIPsRequest,
+    ZonedApiListLbPrivateNetworksRequest,
+    ZonedApiListLbTypesRequest,
+    ZonedApiListLbsRequest,
+    ZonedApiListRoutesRequest,
+    ZonedApiListSubscriberRequest,
     ZonedApiMigrateLbRequest,
+    ZonedApiReleaseIpRequest,
     ZonedApiRemoveBackendServersRequest,
     ZonedApiSetAclsRequest,
     ZonedApiSetBackendServersRequest,
     ZonedApiSubscribeToLbRequest,
+    ZonedApiUnsubscribeFromLbRequest,
     ZonedApiUpdateAclRequest,
     ZonedApiUpdateBackendRequest,
     ZonedApiUpdateCertificateRequest,
@@ -125,7 +213,9 @@ from .types import (
 )
 from .content import (
     CERTIFICATE_TRANSIENT_STATUSES,
+    INSTANCE_TRANSIENT_STATUSES,
     LB_TRANSIENT_STATUSES,
+    PRIVATE_NETWORK_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_Ip,
@@ -201,12 +291,10 @@ from .marshalling import (
     marshal_ZonedApiUpdateSubscriberRequest,
 )
 
-
 class LbV1ZonedAPI(API):
     """
     This API allows you to manage your Scaleway Load Balancer services.
     """
-
     def list_lbs(
         self,
         *,
@@ -231,23 +319,22 @@ class LbV1ZonedAPI(API):
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
         :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`ListLbsResponse <ListLbsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lbs()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -257,7 +344,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListLbsResponse(res.json())
-
+        
     def list_lbs_all(
         self,
         *,
@@ -282,14 +369,14 @@ class LbV1ZonedAPI(API):
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
         :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`List[Lb] <List[Lb]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lbs_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListLbsResponse,
             key="lbs",
             fetcher=self.list_lbs,
@@ -304,7 +391,7 @@ class LbV1ZonedAPI(API):
                 "tags": tags,
             },
         )
-
+        
     def create_lb(
         self,
         *,
@@ -339,18 +426,18 @@ class LbV1ZonedAPI(API):
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_lb(
                 description="example",
                 type="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lbs",
@@ -375,7 +462,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def get_lb(
         self,
         *,
@@ -388,18 +475,18 @@ class LbV1ZonedAPI(API):
         :param lb_id: Load Balancer ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_lb(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}",
@@ -407,7 +494,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def wait_for_lb(
         self,
         *,
@@ -421,10 +508,10 @@ class LbV1ZonedAPI(API):
         :param lb_id: Load Balancer ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_lb(
                 lb_id="example",
             )
@@ -444,7 +531,7 @@ class LbV1ZonedAPI(API):
                 "zone": zone,
             },
         )
-
+        
     def update_lb(
         self,
         *,
@@ -465,20 +552,20 @@ class LbV1ZonedAPI(API):
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_lb(
                 lb_id="example",
                 name="example",
                 description="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}",
@@ -497,7 +584,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def delete_lb(
         self,
         *,
@@ -511,19 +598,19 @@ class LbV1ZonedAPI(API):
         :param lb_id: ID of the Load Balancer to delete.
         :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_lb(
                 lb_id="example",
                 release_ip=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}",
@@ -533,7 +620,6 @@ class LbV1ZonedAPI(API):
         )
 
         self._throw_on_error(res)
-
     def migrate_lb(
         self,
         *,
@@ -548,19 +634,19 @@ class LbV1ZonedAPI(API):
         :param type_: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.migrate_lb(
                 lb_id="example",
                 type="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/migrate",
@@ -576,7 +662,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def list_i_ps(
         self,
         *,
@@ -601,23 +687,22 @@ class LbV1ZonedAPI(API):
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_i_ps()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/ips",
             params={
                 "ip_address": ip_address,
                 "ip_type": ip_type,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -627,7 +712,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListIpsResponse(res.json())
-
+        
     def list_i_ps_all(
         self,
         *,
@@ -652,14 +737,14 @@ class LbV1ZonedAPI(API):
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`List[Ip] <List[Ip]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_i_ps_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListIpsResponse,
             key="ips",
             fetcher=self.list_i_ps,
@@ -674,7 +759,7 @@ class LbV1ZonedAPI(API):
                 "tags": tags,
             },
         )
-
+        
     def create_ip(
         self,
         *,
@@ -697,17 +782,17 @@ class LbV1ZonedAPI(API):
         :param reverse: Reverse DNS (domain name) for the IP address.
         :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_ip(
                 is_ipv6=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/ips",
@@ -726,7 +811,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Ip(res.json())
-
+        
     def get_ip(
         self,
         *,
@@ -739,18 +824,18 @@ class LbV1ZonedAPI(API):
         :param ip_id: IP address ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Ip <Ip>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_ip(
                 ip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/ips/{param_ip_id}",
@@ -758,7 +843,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Ip(res.json())
-
+        
     def release_ip(
         self,
         *,
@@ -770,25 +855,24 @@ class LbV1ZonedAPI(API):
         Delete a Load Balancer flexible IP address. This action is irreversible, and cannot be undone.
         :param ip_id: IP address ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.release_ip(
                 ip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/ips/{param_ip_id}",
         )
 
         self._throw_on_error(res)
-
     def update_ip(
         self,
         *,
@@ -807,18 +891,18 @@ class LbV1ZonedAPI(API):
         :param lb_id: ID of the server on which to attach the flexible IP.
         :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_ip(
                 ip_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "PATCH",
             f"/lb/v1/zones/{param_zone}/ips/{param_ip_id}",
@@ -836,7 +920,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Ip(res.json())
-
+        
     def list_backends(
         self,
         *,
@@ -857,18 +941,18 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of backends to return.
         :return: :class:`ListBackendsResponse <ListBackendsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backends(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/backends",
@@ -882,7 +966,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBackendsResponse(res.json())
-
+        
     def list_backends_all(
         self,
         *,
@@ -903,16 +987,16 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of backends to return.
         :return: :class:`List[Backend] <List[Backend]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backends_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListBackendsResponse,
             key="backends",
             fetcher=self.list_backends,
@@ -925,7 +1009,7 @@ class LbV1ZonedAPI(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_backend(
         self,
         *,
@@ -980,10 +1064,10 @@ class LbV1ZonedAPI(API):
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_backend(
                 forward_protocol=Protocol.tcp,
                 forward_port=1,
@@ -995,10 +1079,10 @@ class LbV1ZonedAPI(API):
                 server_ip=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/backends",
@@ -1034,7 +1118,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def get_backend(
         self,
         *,
@@ -1047,18 +1131,18 @@ class LbV1ZonedAPI(API):
         :param backend_id: Backend ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_backend(
                 backend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}",
@@ -1066,7 +1150,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def update_backend(
         self,
         *,
@@ -1117,10 +1201,10 @@ class LbV1ZonedAPI(API):
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_backend(
                 backend_id="example",
                 name="example",
@@ -1131,10 +1215,10 @@ class LbV1ZonedAPI(API):
                 sticky_sessions_cookie_name="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}",
@@ -1168,7 +1252,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def delete_backend(
         self,
         *,
@@ -1180,25 +1264,24 @@ class LbV1ZonedAPI(API):
         Delete a backend of a given Load Balancer, specified by its backend ID. This action is irreversible and cannot be undone.
         :param backend_id: ID of the backend to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_backend(
                 backend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}",
         )
 
         self._throw_on_error(res)
-
     def add_backend_servers(
         self,
         *,
@@ -1213,19 +1296,19 @@ class LbV1ZonedAPI(API):
         :param server_ip: List of IP addresses to add to backend servers.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.add_backend_servers(
                 backend_id="example",
                 server_ip=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}/servers",
@@ -1241,7 +1324,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def remove_backend_servers(
         self,
         *,
@@ -1256,19 +1339,19 @@ class LbV1ZonedAPI(API):
         :param server_ip: List of IP addresses to remove from backend servers.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.remove_backend_servers(
                 backend_id="example",
                 server_ip=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}/servers",
@@ -1284,7 +1367,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def set_backend_servers(
         self,
         *,
@@ -1299,19 +1382,19 @@ class LbV1ZonedAPI(API):
         :param server_ip: List of IP addresses for backend servers. Any other existing backend servers will be removed.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_backend_servers(
                 backend_id="example",
                 server_ip=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}/servers",
@@ -1327,7 +1410,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def update_health_check(
         self,
         *,
@@ -1373,10 +1456,10 @@ class LbV1ZonedAPI(API):
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
         :param transient_check_delay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
         :return: :class:`HealthCheck <HealthCheck>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_health_check(
                 port=1,
                 check_max_retries=1,
@@ -1384,10 +1467,10 @@ class LbV1ZonedAPI(API):
                 check_send_proxy=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}/healthcheck",
@@ -1415,7 +1498,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_HealthCheck(res.json())
-
+        
     def list_frontends(
         self,
         *,
@@ -1436,18 +1519,18 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of frontends to return.
         :return: :class:`ListFrontendsResponse <ListFrontendsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_frontends(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/frontends",
@@ -1461,7 +1544,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListFrontendsResponse(res.json())
-
+        
     def list_frontends_all(
         self,
         *,
@@ -1482,16 +1565,16 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of frontends to return.
         :return: :class:`List[Frontend] <List[Frontend]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_frontends_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListFrontendsResponse,
             key="frontends",
             fetcher=self.list_frontends,
@@ -1504,7 +1587,7 @@ class LbV1ZonedAPI(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_frontend(
         self,
         *,
@@ -1535,10 +1618,10 @@ class LbV1ZonedAPI(API):
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
         :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_frontend(
                 inbound_port=1,
                 lb_id="example",
@@ -1547,10 +1630,10 @@ class LbV1ZonedAPI(API):
                 enable_access_logs=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/frontends",
@@ -1574,7 +1657,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Frontend(res.json())
-
+        
     def get_frontend(
         self,
         *,
@@ -1587,18 +1670,18 @@ class LbV1ZonedAPI(API):
         :param frontend_id: Frontend ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Frontend <Frontend>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_frontend(
                 frontend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}",
@@ -1606,7 +1689,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Frontend(res.json())
-
+        
     def update_frontend(
         self,
         *,
@@ -1637,10 +1720,10 @@ class LbV1ZonedAPI(API):
         :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :param enable_access_logs: Defines wether to enable access logs on the frontend.
         :return: :class:`Frontend <Frontend>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_frontend(
                 frontend_id="example",
                 name="example",
@@ -1649,10 +1732,10 @@ class LbV1ZonedAPI(API):
                 enable_http3=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}",
@@ -1676,7 +1759,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Frontend(res.json())
-
+        
     def delete_frontend(
         self,
         *,
@@ -1688,25 +1771,24 @@ class LbV1ZonedAPI(API):
         Delete a given frontend, specified by its frontend ID. This action is irreversible and cannot be undone.
         :param frontend_id: ID of the frontend to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_frontend(
                 frontend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}",
         )
 
         self._throw_on_error(res)
-
     def list_routes(
         self,
         *,
@@ -1725,15 +1807,15 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`ListRoutesResponse <ListRoutesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_routes()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/routes",
@@ -1747,7 +1829,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRoutesResponse(res.json())
-
+        
     def list_routes_all(
         self,
         *,
@@ -1766,14 +1848,14 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`List[Route] <List[Route]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_routes_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRoutesResponse,
             key="routes",
             fetcher=self.list_routes,
@@ -1785,7 +1867,7 @@ class LbV1ZonedAPI(API):
                 "frontend_id": frontend_id,
             },
         )
-
+        
     def create_route(
         self,
         *,
@@ -1802,18 +1884,18 @@ class LbV1ZonedAPI(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_route(
                 frontend_id="example",
                 backend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/routes",
@@ -1830,7 +1912,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-
+        
     def get_route(
         self,
         *,
@@ -1843,18 +1925,18 @@ class LbV1ZonedAPI(API):
         :param route_id: Route ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Route <Route>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_route(
                 route_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_route_id = validate_path_param("route_id", route_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/routes/{param_route_id}",
@@ -1862,7 +1944,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-
+        
     def update_route(
         self,
         *,
@@ -1879,19 +1961,19 @@ class LbV1ZonedAPI(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_route(
                 route_id="example",
                 backend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_route_id = validate_path_param("route_id", route_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/routes/{param_route_id}",
@@ -1908,7 +1990,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-
+        
     def delete_route(
         self,
         *,
@@ -1920,25 +2002,24 @@ class LbV1ZonedAPI(API):
         Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.
         :param route_id: Route ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_route(
                 route_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_route_id = validate_path_param("route_id", route_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/routes/{param_route_id}",
         )
 
         self._throw_on_error(res)
-
     def get_lb_stats(
         self,
         *,
@@ -1953,18 +2034,18 @@ class LbV1ZonedAPI(API):
         :param backend_id: ID of the backend.
         :return: :class:`LbStats <LbStats>`
         :deprecated
-
+        
         Usage:
         ::
-
+        
             result = api.get_lb_stats(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/stats",
@@ -1975,7 +2056,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_LbStats(res.json())
-
+        
     def list_backend_stats(
         self,
         *,
@@ -1994,18 +2075,18 @@ class LbV1ZonedAPI(API):
         :param page_size: Number of items to return.
         :param backend_id: ID of the backend.
         :return: :class:`ListBackendStatsResponse <ListBackendStatsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backend_stats(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/backend-stats",
@@ -2018,7 +2099,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBackendStatsResponse(res.json())
-
+        
     def list_backend_stats_all(
         self,
         *,
@@ -2037,16 +2118,16 @@ class LbV1ZonedAPI(API):
         :param page_size: Number of items to return.
         :param backend_id: ID of the backend.
         :return: :class:`List[BackendServerStats] <List[BackendServerStats]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backend_stats_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListBackendStatsResponse,
             key="backend_servers_stats",
             fetcher=self.list_backend_stats,
@@ -2058,7 +2139,7 @@ class LbV1ZonedAPI(API):
                 "backend_id": backend_id,
             },
         )
-
+        
     def list_acls(
         self,
         *,
@@ -2079,18 +2160,18 @@ class LbV1ZonedAPI(API):
         :param page_size: The number of ACLs to return.
         :param name: ACL name to filter for.
         :return: :class:`ListAclResponse <ListAclResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_acls(
                 frontend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}/acls",
@@ -2104,7 +2185,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListAclResponse(res.json())
-
+        
     def list_acls_all(
         self,
         *,
@@ -2125,16 +2206,16 @@ class LbV1ZonedAPI(API):
         :param page_size: The number of ACLs to return.
         :param name: ACL name to filter for.
         :return: :class:`List[Acl] <List[Acl]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_acls_all(
                 frontend_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListAclResponse,
             key="acls",
             fetcher=self.list_acls,
@@ -2147,7 +2228,7 @@ class LbV1ZonedAPI(API):
                 "name": name,
             },
         )
-
+        
     def create_acl(
         self,
         *,
@@ -2170,10 +2251,10 @@ class LbV1ZonedAPI(API):
         :param name: ACL name.
         :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :return: :class:`Acl <Acl>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_acl(
                 frontend_id="example",
                 action=AclAction(),
@@ -2181,10 +2262,10 @@ class LbV1ZonedAPI(API):
                 description="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}/acls",
@@ -2204,7 +2285,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Acl(res.json())
-
+        
     def get_acl(
         self,
         *,
@@ -2217,18 +2298,18 @@ class LbV1ZonedAPI(API):
         :param acl_id: ACL ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Acl <Acl>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_acl(
                 acl_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_acl_id = validate_path_param("acl_id", acl_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/acls/{param_acl_id}",
@@ -2236,7 +2317,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Acl(res.json())
-
+        
     def update_acl(
         self,
         *,
@@ -2259,10 +2340,10 @@ class LbV1ZonedAPI(API):
         :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :param description: ACL description.
         :return: :class:`Acl <Acl>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_acl(
                 acl_id="example",
                 name="example",
@@ -2270,10 +2351,10 @@ class LbV1ZonedAPI(API):
                 index=1,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_acl_id = validate_path_param("acl_id", acl_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/acls/{param_acl_id}",
@@ -2293,7 +2374,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Acl(res.json())
-
+        
     def delete_acl(
         self,
         *,
@@ -2305,25 +2386,24 @@ class LbV1ZonedAPI(API):
         Delete an ACL, specified by its ACL ID. Deleting an ACL is irreversible and cannot be undone.
         :param acl_id: ACL ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_acl(
                 acl_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_acl_id = validate_path_param("acl_id", acl_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/acls/{param_acl_id}",
         )
 
         self._throw_on_error(res)
-
     def set_acls(
         self,
         *,
@@ -2338,19 +2418,19 @@ class LbV1ZonedAPI(API):
         :param frontend_id: Frontend ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetAclsResponse <SetAclsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_acls(
                 acls=[],
                 frontend_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}/acls",
@@ -2366,7 +2446,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SetAclsResponse(res.json())
-
+        
     def create_certificate(
         self,
         *,
@@ -2387,18 +2467,18 @@ class LbV1ZonedAPI(API):
         :param custom_certificate: Object to define an existing custom certificate to be imported.
         One-Of ('type'): at most one of 'letsencrypt', 'custom_certificate' could be set.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_certificate(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/certificates",
@@ -2416,7 +2496,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
-
+        
     def list_certificates(
         self,
         *,
@@ -2437,18 +2517,18 @@ class LbV1ZonedAPI(API):
         :param page_size: Number of certificates to return.
         :param name: Certificate name to filter for, only certificates of this name will be returned.
         :return: :class:`ListCertificatesResponse <ListCertificatesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_certificates(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/certificates",
@@ -2462,7 +2542,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListCertificatesResponse(res.json())
-
+        
     def list_certificates_all(
         self,
         *,
@@ -2483,16 +2563,16 @@ class LbV1ZonedAPI(API):
         :param page_size: Number of certificates to return.
         :param name: Certificate name to filter for, only certificates of this name will be returned.
         :return: :class:`List[Certificate] <List[Certificate]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_certificates_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListCertificatesResponse,
             key="certificates",
             fetcher=self.list_certificates,
@@ -2505,7 +2585,7 @@ class LbV1ZonedAPI(API):
                 "name": name,
             },
         )
-
+        
     def get_certificate(
         self,
         *,
@@ -2518,18 +2598,18 @@ class LbV1ZonedAPI(API):
         :param certificate_id: Certificate ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_certificate(
                 certificate_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_certificate_id = validate_path_param("certificate_id", certificate_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/certificates/{param_certificate_id}",
@@ -2537,7 +2617,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
-
+        
     def wait_for_certificate(
         self,
         *,
@@ -2551,10 +2631,10 @@ class LbV1ZonedAPI(API):
         :param certificate_id: Certificate ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_certificate(
                 certificate_id="example",
             )
@@ -2574,7 +2654,7 @@ class LbV1ZonedAPI(API):
                 "zone": zone,
             },
         )
-
+        
     def update_certificate(
         self,
         *,
@@ -2589,19 +2669,19 @@ class LbV1ZonedAPI(API):
         :param name: Certificate name.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_certificate(
                 certificate_id="example",
                 name="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_certificate_id = validate_path_param("certificate_id", certificate_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/certificates/{param_certificate_id}",
@@ -2617,7 +2697,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
-
+        
     def delete_certificate(
         self,
         *,
@@ -2629,25 +2709,24 @@ class LbV1ZonedAPI(API):
         Delete an SSL/TLS certificate, specified by its certificate ID. Deleting a certificate is irreversible and cannot be undone.
         :param certificate_id: Certificate ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_certificate(
                 certificate_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_certificate_id = validate_path_param("certificate_id", certificate_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/certificates/{param_certificate_id}",
         )
 
         self._throw_on_error(res)
-
     def list_lb_types(
         self,
         *,
@@ -2662,15 +2741,15 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
         :return: :class:`ListLbTypesResponse <ListLbTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_types()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lb-types",
@@ -2682,7 +2761,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListLbTypesResponse(res.json())
-
+        
     def list_lb_types_all(
         self,
         *,
@@ -2697,14 +2776,14 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
         :return: :class:`List[LbType] <List[LbType]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_types_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListLbTypesResponse,
             key="lb_types",
             fetcher=self.list_lb_types,
@@ -2714,7 +2793,7 @@ class LbV1ZonedAPI(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_subscriber(
         self,
         *,
@@ -2739,17 +2818,17 @@ class LbV1ZonedAPI(API):
         :param project_id: Project ID to create the subscriber in.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :return: :class:`Subscriber <Subscriber>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_subscriber(
                 name="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/subscribers",
@@ -2768,7 +2847,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Subscriber(res.json())
-
+        
     def get_subscriber(
         self,
         *,
@@ -2781,18 +2860,18 @@ class LbV1ZonedAPI(API):
         :param subscriber_id: Subscriber ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Subscriber <Subscriber>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_subscriber(
                 subscriber_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_subscriber_id = validate_path_param("subscriber_id", subscriber_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/subscribers/{param_subscriber_id}",
@@ -2800,7 +2879,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Subscriber(res.json())
-
+        
     def list_subscriber(
         self,
         *,
@@ -2823,23 +2902,22 @@ class LbV1ZonedAPI(API):
         :param organization_id: Filter subscribers by Organization ID.
         :param project_id: Filter subscribers by Project ID.
         :return: :class:`ListSubscriberResponse <ListSubscriberResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_subscriber()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/subscribers",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -2848,7 +2926,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSubscriberResponse(res.json())
-
+        
     def list_subscriber_all(
         self,
         *,
@@ -2871,14 +2949,14 @@ class LbV1ZonedAPI(API):
         :param organization_id: Filter subscribers by Organization ID.
         :param project_id: Filter subscribers by Project ID.
         :return: :class:`List[Subscriber] <List[Subscriber]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_subscriber_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSubscriberResponse,
             key="subscribers",
             fetcher=self.list_subscriber,
@@ -2892,7 +2970,7 @@ class LbV1ZonedAPI(API):
                 "project_id": project_id,
             },
         )
-
+        
     def update_subscriber(
         self,
         *,
@@ -2913,19 +2991,19 @@ class LbV1ZonedAPI(API):
         :param webhook_config: Webhook URI configuration.
         One-Of ('config'): at most one of 'email_config', 'webhook_config' could be set.
         :return: :class:`Subscriber <Subscriber>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_subscriber(
                 subscriber_id="example",
                 name="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_subscriber_id = validate_path_param("subscriber_id", subscriber_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/zones/{param_zone}/subscribers/{param_subscriber_id}",
@@ -2943,7 +3021,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Subscriber(res.json())
-
+        
     def delete_subscriber(
         self,
         *,
@@ -2955,25 +3033,24 @@ class LbV1ZonedAPI(API):
         Delete an existing subscriber, specified by its subscriber ID. Deleting a subscriber is permanent, and cannot be undone.
         :param subscriber_id: Subscriber ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_subscriber(
                 subscriber_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_subscriber_id = validate_path_param("subscriber_id", subscriber_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/lb/subscription/{param_subscriber_id}",
         )
 
         self._throw_on_error(res)
-
     def subscribe_to_lb(
         self,
         *,
@@ -2988,19 +3065,19 @@ class LbV1ZonedAPI(API):
         :param subscriber_id: Subscriber ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.subscribe_to_lb(
                 lb_id="example",
                 subscriber_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lb/{param_lb_id}/subscribe",
@@ -3016,7 +3093,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def unsubscribe_from_lb(
         self,
         *,
@@ -3029,18 +3106,18 @@ class LbV1ZonedAPI(API):
         :param lb_id: Load Balancer ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.unsubscribe_from_lb(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/zones/{param_zone}/lb/{param_lb_id}/unsubscribe",
@@ -3048,7 +3125,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def list_lb_private_networks(
         self,
         *,
@@ -3067,18 +3144,18 @@ class LbV1ZonedAPI(API):
         :param page_size: Number of objects to return.
         :param page: The page number to return, from the paginated results.
         :return: :class:`ListLbPrivateNetworksResponse <ListLbPrivateNetworksResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_private_networks(
                 lb_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/private-networks",
@@ -3091,7 +3168,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListLbPrivateNetworksResponse(res.json())
-
+        
     def list_lb_private_networks_all(
         self,
         *,
@@ -3110,16 +3187,16 @@ class LbV1ZonedAPI(API):
         :param page_size: Number of objects to return.
         :param page: The page number to return, from the paginated results.
         :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_private_networks_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListLbPrivateNetworksResponse,
             key="private_network",
             fetcher=self.list_lb_private_networks,
@@ -3131,7 +3208,7 @@ class LbV1ZonedAPI(API):
                 "page": page,
             },
         )
-
+        
     def attach_private_network(
         self,
         *,
@@ -3157,19 +3234,19 @@ class LbV1ZonedAPI(API):
         One-Of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :param ipam_ids: IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_private_network(
                 lb_id="example",
                 private_network_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/attach-private-network",
@@ -3189,7 +3266,7 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_PrivateNetwork(res.json())
-
+        
     def detach_private_network(
         self,
         *,
@@ -3203,19 +3280,19 @@ class LbV1ZonedAPI(API):
         :param lb_id: Load balancer ID.
         :param private_network_id: Set your instance private network id.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.detach_private_network(
                 lb_id="example",
                 private_network_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/detach-private-network",
@@ -3231,12 +3308,10 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
 
-
 class LbV1API(API):
     """
     This API allows you to manage your Load Balancers.
     """
-
     def list_lbs(
         self,
         *,
@@ -3260,25 +3335,22 @@ class LbV1API(API):
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
         :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`ListLbsResponse <ListLbsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lbs()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -3288,7 +3360,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListLbsResponse(res.json())
-
+        
     def list_lbs_all(
         self,
         *,
@@ -3312,14 +3384,14 @@ class LbV1API(API):
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
         :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`List[Lb] <List[Lb]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lbs_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListLbsResponse,
             key="lbs",
             fetcher=self.list_lbs,
@@ -3334,7 +3406,7 @@ class LbV1API(API):
                 "tags": tags,
             },
         )
-
+        
     def create_lb(
         self,
         *,
@@ -3368,20 +3440,18 @@ class LbV1API(API):
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_lb(
                 description="example",
                 type="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lbs",
@@ -3406,7 +3476,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def get_lb(
         self,
         *,
@@ -3418,20 +3488,18 @@ class LbV1API(API):
         :param lb_id: Load Balancer ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_lb(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}",
@@ -3439,7 +3507,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def wait_for_lb(
         self,
         *,
@@ -3452,10 +3520,10 @@ class LbV1API(API):
         :param lb_id: Load Balancer ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_lb(
                 lb_id="example",
             )
@@ -3475,7 +3543,7 @@ class LbV1API(API):
                 "region": region,
             },
         )
-
+        
     def update_lb(
         self,
         *,
@@ -3495,22 +3563,20 @@ class LbV1API(API):
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_lb(
                 lb_id="example",
                 name="example",
                 description="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}",
@@ -3529,7 +3595,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def delete_lb(
         self,
         *,
@@ -3542,21 +3608,19 @@ class LbV1API(API):
         :param lb_id: ID of the Load Balancer to delete.
         :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_lb(
                 lb_id="example",
                 release_ip=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}",
@@ -3566,7 +3630,6 @@ class LbV1API(API):
         )
 
         self._throw_on_error(res)
-
     def migrate_lb(
         self,
         *,
@@ -3580,21 +3643,19 @@ class LbV1API(API):
         :param type_: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.migrate_lb(
                 lb_id="example",
                 type="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/migrate",
@@ -3610,7 +3671,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def list_i_ps(
         self,
         *,
@@ -3634,25 +3695,22 @@ class LbV1API(API):
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_i_ps()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/ips",
             params={
                 "ip_address": ip_address,
                 "ip_type": ip_type,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -3662,7 +3720,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListIpsResponse(res.json())
-
+        
     def list_i_ps_all(
         self,
         *,
@@ -3686,14 +3744,14 @@ class LbV1API(API):
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`List[Ip] <List[Ip]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_i_ps_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListIpsResponse,
             key="ips",
             fetcher=self.list_i_ps,
@@ -3708,7 +3766,7 @@ class LbV1API(API):
                 "tags": tags,
             },
         )
-
+        
     def create_ip(
         self,
         *,
@@ -3730,19 +3788,17 @@ class LbV1API(API):
         :param reverse: Reverse DNS (domain name) for the IP address.
         :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_ip(
                 is_ipv6=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/ips",
@@ -3761,7 +3817,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Ip(res.json())
-
+        
     def get_ip(
         self,
         *,
@@ -3773,20 +3829,18 @@ class LbV1API(API):
         :param ip_id: IP address ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Ip <Ip>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_ip(
                 ip_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/ips/{param_ip_id}",
@@ -3794,7 +3848,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Ip(res.json())
-
+        
     def release_ip(
         self,
         *,
@@ -3805,27 +3859,24 @@ class LbV1API(API):
         Delete an IP.
         :param ip_id: IP address ID.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.release_ip(
                 ip_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/ips/{param_ip_id}",
         )
 
         self._throw_on_error(res)
-
     def update_ip(
         self,
         *,
@@ -3843,20 +3894,18 @@ class LbV1API(API):
         :param lb_id: ID of the server on which to attach the flexible IP.
         :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_ip(
                 ip_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_ip_id = validate_path_param("ip_id", ip_id)
-
+        
         res = self._request(
             "PATCH",
             f"/lb/v1/regions/{param_region}/ips/{param_ip_id}",
@@ -3874,7 +3923,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Ip(res.json())
-
+        
     def list_backends(
         self,
         *,
@@ -3894,20 +3943,18 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of backends to return.
         :return: :class:`ListBackendsResponse <ListBackendsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backends(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/backends",
@@ -3921,7 +3968,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBackendsResponse(res.json())
-
+        
     def list_backends_all(
         self,
         *,
@@ -3941,16 +3988,16 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of backends to return.
         :return: :class:`List[Backend] <List[Backend]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backends_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListBackendsResponse,
             key="backends",
             fetcher=self.list_backends,
@@ -3963,7 +4010,7 @@ class LbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_backend(
         self,
         *,
@@ -4017,10 +4064,10 @@ class LbV1API(API):
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_backend(
                 forward_protocol=Protocol.tcp,
                 forward_port=1,
@@ -4032,12 +4079,10 @@ class LbV1API(API):
                 server_ip=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/backends",
@@ -4073,7 +4118,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def get_backend(
         self,
         *,
@@ -4085,20 +4130,18 @@ class LbV1API(API):
         :param backend_id: Backend ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_backend(
                 backend_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}",
@@ -4106,7 +4149,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def update_backend(
         self,
         *,
@@ -4156,10 +4199,10 @@ class LbV1API(API):
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_backend(
                 backend_id="example",
                 name="example",
@@ -4170,12 +4213,10 @@ class LbV1API(API):
                 sticky_sessions_cookie_name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}",
@@ -4209,7 +4250,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def delete_backend(
         self,
         *,
@@ -4220,27 +4261,24 @@ class LbV1API(API):
         Delete a backend in a given load balancer.
         :param backend_id: ID of the backend to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_backend(
                 backend_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}",
         )
 
         self._throw_on_error(res)
-
     def add_backend_servers(
         self,
         *,
@@ -4254,21 +4292,19 @@ class LbV1API(API):
         :param server_ip: List of IP addresses to add to backend servers.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.add_backend_servers(
                 backend_id="example",
                 server_ip=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}/servers",
@@ -4284,7 +4320,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def remove_backend_servers(
         self,
         *,
@@ -4298,21 +4334,19 @@ class LbV1API(API):
         :param server_ip: List of IP addresses to remove from backend servers.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.remove_backend_servers(
                 backend_id="example",
                 server_ip=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}/servers",
@@ -4328,7 +4362,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def set_backend_servers(
         self,
         *,
@@ -4342,21 +4376,19 @@ class LbV1API(API):
         :param server_ip: List of IP addresses for backend servers. Any other existing backend servers will be removed.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Backend <Backend>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_backend_servers(
                 backend_id="example",
                 server_ip=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}/servers",
@@ -4372,7 +4404,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Backend(res.json())
-
+        
     def update_health_check(
         self,
         *,
@@ -4417,10 +4449,10 @@ class LbV1API(API):
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
         :param transient_check_delay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
         :return: :class:`HealthCheck <HealthCheck>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_health_check(
                 port=1,
                 check_max_retries=1,
@@ -4428,12 +4460,10 @@ class LbV1API(API):
                 check_send_proxy=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_backend_id = validate_path_param("backend_id", backend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}/healthcheck",
@@ -4461,7 +4491,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_HealthCheck(res.json())
-
+        
     def list_frontends(
         self,
         *,
@@ -4481,20 +4511,18 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of frontends to return.
         :return: :class:`ListFrontendsResponse <ListFrontendsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_frontends(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/frontends",
@@ -4508,7 +4536,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListFrontendsResponse(res.json())
-
+        
     def list_frontends_all(
         self,
         *,
@@ -4528,16 +4556,16 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of frontends to return.
         :return: :class:`List[Frontend] <List[Frontend]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_frontends_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListFrontendsResponse,
             key="frontends",
             fetcher=self.list_frontends,
@@ -4550,7 +4578,7 @@ class LbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_frontend(
         self,
         *,
@@ -4580,10 +4608,10 @@ class LbV1API(API):
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
         :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_frontend(
                 inbound_port=1,
                 lb_id="example",
@@ -4592,12 +4620,10 @@ class LbV1API(API):
                 enable_access_logs=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/frontends",
@@ -4621,7 +4647,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Frontend(res.json())
-
+        
     def get_frontend(
         self,
         *,
@@ -4633,20 +4659,18 @@ class LbV1API(API):
         :param frontend_id: Frontend ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Frontend <Frontend>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_frontend(
                 frontend_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/frontends/{param_frontend_id}",
@@ -4654,7 +4678,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Frontend(res.json())
-
+        
     def update_frontend(
         self,
         *,
@@ -4684,10 +4708,10 @@ class LbV1API(API):
         :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :param enable_access_logs: Defines wether to enable access logs on the frontend.
         :return: :class:`Frontend <Frontend>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_frontend(
                 frontend_id="example",
                 name="example",
@@ -4696,12 +4720,10 @@ class LbV1API(API):
                 enable_http3=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/frontends/{param_frontend_id}",
@@ -4725,7 +4747,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Frontend(res.json())
-
+        
     def delete_frontend(
         self,
         *,
@@ -4736,27 +4758,24 @@ class LbV1API(API):
         Delete a frontend.
         :param frontend_id: ID of the frontend to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_frontend(
                 frontend_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/frontends/{param_frontend_id}",
         )
 
         self._throw_on_error(res)
-
     def list_routes(
         self,
         *,
@@ -4774,17 +4793,15 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`ListRoutesResponse <ListRoutesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_routes()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/routes",
@@ -4798,7 +4815,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRoutesResponse(res.json())
-
+        
     def list_routes_all(
         self,
         *,
@@ -4816,14 +4833,14 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`List[Route] <List[Route]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_routes_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRoutesResponse,
             key="routes",
             fetcher=self.list_routes,
@@ -4835,7 +4852,7 @@ class LbV1API(API):
                 "frontend_id": frontend_id,
             },
         )
-
+        
     def create_route(
         self,
         *,
@@ -4851,20 +4868,18 @@ class LbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_route(
                 frontend_id="example",
                 backend_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/routes",
@@ -4881,7 +4896,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-
+        
     def get_route(
         self,
         *,
@@ -4893,20 +4908,18 @@ class LbV1API(API):
         :param route_id: Route ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Route <Route>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_route(
                 route_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_route_id = validate_path_param("route_id", route_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/routes/{param_route_id}",
@@ -4914,7 +4927,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-
+        
     def update_route(
         self,
         *,
@@ -4930,21 +4943,19 @@ class LbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_route(
                 route_id="example",
                 backend_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_route_id = validate_path_param("route_id", route_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/routes/{param_route_id}",
@@ -4961,7 +4972,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Route(res.json())
-
+        
     def delete_route(
         self,
         *,
@@ -4972,27 +4983,24 @@ class LbV1API(API):
         Delete a backend redirection.
         :param route_id: Route ID.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_route(
                 route_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_route_id = validate_path_param("route_id", route_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/routes/{param_route_id}",
         )
 
         self._throw_on_error(res)
-
     def get_lb_stats(
         self,
         *,
@@ -5007,20 +5015,18 @@ class LbV1API(API):
         :param backend_id: ID of the backend.
         :return: :class:`LbStats <LbStats>`
         :deprecated
-
+        
         Usage:
         ::
-
+        
             result = api.get_lb_stats(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/stats",
@@ -5031,7 +5037,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_LbStats(res.json())
-
+        
     def list_backend_stats(
         self,
         *,
@@ -5049,20 +5055,18 @@ class LbV1API(API):
         :param page_size: Number of items to return.
         :param backend_id: ID of the backend.
         :return: :class:`ListBackendStatsResponse <ListBackendStatsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backend_stats(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/backend-stats",
@@ -5075,7 +5079,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBackendStatsResponse(res.json())
-
+        
     def list_backend_stats_all(
         self,
         *,
@@ -5093,16 +5097,16 @@ class LbV1API(API):
         :param page_size: Number of items to return.
         :param backend_id: ID of the backend.
         :return: :class:`List[BackendServerStats] <List[BackendServerStats]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_backend_stats_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListBackendStatsResponse,
             key="backend_servers_stats",
             fetcher=self.list_backend_stats,
@@ -5114,7 +5118,7 @@ class LbV1API(API):
                 "backend_id": backend_id,
             },
         )
-
+        
     def list_acls(
         self,
         *,
@@ -5134,20 +5138,18 @@ class LbV1API(API):
         :param page_size: The number of ACLs to return.
         :param name: ACL name to filter for.
         :return: :class:`ListAclResponse <ListAclResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_acls(
                 frontend_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/frontends/{param_frontend_id}/acls",
@@ -5161,7 +5163,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListAclResponse(res.json())
-
+        
     def list_acls_all(
         self,
         *,
@@ -5181,16 +5183,16 @@ class LbV1API(API):
         :param page_size: The number of ACLs to return.
         :param name: ACL name to filter for.
         :return: :class:`List[Acl] <List[Acl]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_acls_all(
                 frontend_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListAclResponse,
             key="acls",
             fetcher=self.list_acls,
@@ -5203,7 +5205,7 @@ class LbV1API(API):
                 "name": name,
             },
         )
-
+        
     def create_acl(
         self,
         *,
@@ -5225,10 +5227,10 @@ class LbV1API(API):
         :param name: ACL name.
         :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :return: :class:`Acl <Acl>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_acl(
                 frontend_id="example",
                 action=AclAction(),
@@ -5236,12 +5238,10 @@ class LbV1API(API):
                 description="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_frontend_id = validate_path_param("frontend_id", frontend_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/frontends/{param_frontend_id}/acls",
@@ -5261,7 +5261,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Acl(res.json())
-
+        
     def get_acl(
         self,
         *,
@@ -5273,20 +5273,18 @@ class LbV1API(API):
         :param acl_id: ACL ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Acl <Acl>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_acl(
                 acl_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_acl_id = validate_path_param("acl_id", acl_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/acls/{param_acl_id}",
@@ -5294,7 +5292,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Acl(res.json())
-
+        
     def update_acl(
         self,
         *,
@@ -5316,10 +5314,10 @@ class LbV1API(API):
         :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :param description: ACL description.
         :return: :class:`Acl <Acl>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_acl(
                 acl_id="example",
                 name="example",
@@ -5327,12 +5325,10 @@ class LbV1API(API):
                 index=1,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_acl_id = validate_path_param("acl_id", acl_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/acls/{param_acl_id}",
@@ -5352,7 +5348,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Acl(res.json())
-
+        
     def delete_acl(
         self,
         *,
@@ -5363,27 +5359,24 @@ class LbV1API(API):
         Delete an ACL.
         :param acl_id: ACL ID.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_acl(
                 acl_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_acl_id = validate_path_param("acl_id", acl_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/acls/{param_acl_id}",
         )
 
         self._throw_on_error(res)
-
     def create_certificate(
         self,
         *,
@@ -5404,20 +5397,18 @@ class LbV1API(API):
         :param custom_certificate: Object to define an existing custom certificate to be imported.
         One-Of ('type'): at most one of 'letsencrypt', 'custom_certificate' could be set.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_certificate(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/certificates",
@@ -5435,7 +5426,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
-
+        
     def list_certificates(
         self,
         *,
@@ -5455,20 +5446,18 @@ class LbV1API(API):
         :param page_size: Number of certificates to return.
         :param name: Certificate name to filter for, only certificates of this name will be returned.
         :return: :class:`ListCertificatesResponse <ListCertificatesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_certificates(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/certificates",
@@ -5482,7 +5471,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListCertificatesResponse(res.json())
-
+        
     def list_certificates_all(
         self,
         *,
@@ -5502,16 +5491,16 @@ class LbV1API(API):
         :param page_size: Number of certificates to return.
         :param name: Certificate name to filter for, only certificates of this name will be returned.
         :return: :class:`List[Certificate] <List[Certificate]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_certificates_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListCertificatesResponse,
             key="certificates",
             fetcher=self.list_certificates,
@@ -5524,7 +5513,7 @@ class LbV1API(API):
                 "name": name,
             },
         )
-
+        
     def get_certificate(
         self,
         *,
@@ -5536,20 +5525,18 @@ class LbV1API(API):
         :param certificate_id: Certificate ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_certificate(
                 certificate_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_certificate_id = validate_path_param("certificate_id", certificate_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/certificates/{param_certificate_id}",
@@ -5557,7 +5544,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
-
+        
     def wait_for_certificate(
         self,
         *,
@@ -5570,10 +5557,10 @@ class LbV1API(API):
         :param certificate_id: Certificate ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_certificate(
                 certificate_id="example",
             )
@@ -5593,7 +5580,7 @@ class LbV1API(API):
                 "region": region,
             },
         )
-
+        
     def update_certificate(
         self,
         *,
@@ -5607,21 +5594,19 @@ class LbV1API(API):
         :param name: Certificate name.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Certificate <Certificate>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_certificate(
                 certificate_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_certificate_id = validate_path_param("certificate_id", certificate_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/certificates/{param_certificate_id}",
@@ -5637,7 +5622,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
-
+        
     def delete_certificate(
         self,
         *,
@@ -5648,27 +5633,24 @@ class LbV1API(API):
         Delete a TLS certificate.
         :param certificate_id: Certificate ID.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_certificate(
                 certificate_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_certificate_id = validate_path_param("certificate_id", certificate_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/certificates/{param_certificate_id}",
         )
 
         self._throw_on_error(res)
-
     def list_lb_types(
         self,
         *,
@@ -5682,17 +5664,15 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
         :return: :class:`ListLbTypesResponse <ListLbTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_types()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lb-types",
@@ -5704,7 +5684,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListLbTypesResponse(res.json())
-
+        
     def list_lb_types_all(
         self,
         *,
@@ -5718,14 +5698,14 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
         :return: :class:`List[LbType] <List[LbType]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_types_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListLbTypesResponse,
             key="lb_types",
             fetcher=self.list_lb_types,
@@ -5735,7 +5715,7 @@ class LbV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def create_subscriber(
         self,
         *,
@@ -5759,19 +5739,17 @@ class LbV1API(API):
         :param project_id: Project ID to create the subscriber in.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :return: :class:`Subscriber <Subscriber>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_subscriber(
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/subscribers",
@@ -5790,7 +5768,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Subscriber(res.json())
-
+        
     def get_subscriber(
         self,
         *,
@@ -5802,20 +5780,18 @@ class LbV1API(API):
         :param subscriber_id: Subscriber ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Subscriber <Subscriber>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_subscriber(
                 subscriber_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_subscriber_id = validate_path_param("subscriber_id", subscriber_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/subscribers/{param_subscriber_id}",
@@ -5823,7 +5799,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Subscriber(res.json())
-
+        
     def list_subscriber(
         self,
         *,
@@ -5845,25 +5821,22 @@ class LbV1API(API):
         :param organization_id: Filter subscribers by Organization ID.
         :param project_id: Filter subscribers by Project ID.
         :return: :class:`ListSubscriberResponse <ListSubscriberResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_subscriber()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/subscribers",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -5872,7 +5845,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSubscriberResponse(res.json())
-
+        
     def list_subscriber_all(
         self,
         *,
@@ -5894,14 +5867,14 @@ class LbV1API(API):
         :param organization_id: Filter subscribers by Organization ID.
         :param project_id: Filter subscribers by Project ID.
         :return: :class:`List[Subscriber] <List[Subscriber]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_subscriber_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSubscriberResponse,
             key="subscribers",
             fetcher=self.list_subscriber,
@@ -5915,7 +5888,7 @@ class LbV1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def update_subscriber(
         self,
         *,
@@ -5935,21 +5908,19 @@ class LbV1API(API):
         :param webhook_config: Webhook URI configuration.
         One-Of ('config'): at most one of 'email_config', 'webhook_config' could be set.
         :return: :class:`Subscriber <Subscriber>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_subscriber(
                 subscriber_id="example",
                 name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_subscriber_id = validate_path_param("subscriber_id", subscriber_id)
-
+        
         res = self._request(
             "PUT",
             f"/lb/v1/regions/{param_region}/subscribers/{param_subscriber_id}",
@@ -5967,7 +5938,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Subscriber(res.json())
-
+        
     def delete_subscriber(
         self,
         *,
@@ -5978,27 +5949,24 @@ class LbV1API(API):
         Delete a subscriber.
         :param subscriber_id: Subscriber ID.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_subscriber(
                 subscriber_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_subscriber_id = validate_path_param("subscriber_id", subscriber_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/lb/subscriber/{param_subscriber_id}",
         )
 
         self._throw_on_error(res)
-
     def subscribe_to_lb(
         self,
         *,
@@ -6012,21 +5980,19 @@ class LbV1API(API):
         :param subscriber_id: Subscriber ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.subscribe_to_lb(
                 lb_id="example",
                 subscriber_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lb/{param_lb_id}/subscribe",
@@ -6042,7 +6008,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def unsubscribe_from_lb(
         self,
         *,
@@ -6054,20 +6020,18 @@ class LbV1API(API):
         :param lb_id: Load Balancer ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Lb <Lb>`
-
+        
         Usage:
         ::
-
+        
             result = api.unsubscribe_from_lb(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "DELETE",
             f"/lb/v1/regions/{param_region}/lb/{param_lb_id}/unsubscribe",
@@ -6075,7 +6039,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
-
+        
     def list_lb_private_networks(
         self,
         *,
@@ -6093,20 +6057,18 @@ class LbV1API(API):
         :param page_size: Number of objects to return.
         :param page: The page number to return, from the paginated results.
         :return: :class:`ListLbPrivateNetworksResponse <ListLbPrivateNetworksResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_private_networks(
                 lb_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-
+        
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/private-networks",
@@ -6119,7 +6081,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListLbPrivateNetworksResponse(res.json())
-
+        
     def list_lb_private_networks_all(
         self,
         *,
@@ -6137,16 +6099,16 @@ class LbV1API(API):
         :param page_size: Number of objects to return.
         :param page: The page number to return, from the paginated results.
         :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_lb_private_networks_all(
                 lb_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListLbPrivateNetworksResponse,
             key="private_network",
             fetcher=self.list_lb_private_networks,
@@ -6158,7 +6120,7 @@ class LbV1API(API):
                 "page": page,
             },
         )
-
+        
     def attach_private_network(
         self,
         *,
@@ -6183,24 +6145,20 @@ class LbV1API(API):
         One-Of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :param ipam_ids: IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_private_network(
                 lb_id="example",
                 private_network_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-        param_private_network_id = validate_path_param(
-            "private_network_id", private_network_id
-        )
-
+        param_private_network_id = validate_path_param("private_network_id", private_network_id)
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/private-networks/{param_private_network_id}/attach",
@@ -6220,7 +6178,7 @@ class LbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_PrivateNetwork(res.json())
-
+        
     def detach_private_network(
         self,
         *,
@@ -6233,24 +6191,20 @@ class LbV1API(API):
         :param lb_id: Load balancer ID.
         :param private_network_id: Set your instance private network id.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.detach_private_network(
                 lb_id="example",
                 private_network_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_lb_id = validate_path_param("lb_id", lb_id)
-        param_private_network_id = validate_path_param(
-            "private_network_id", private_network_id
-        )
-
+        param_private_network_id = validate_path_param("private_network_id", private_network_id)
+        
         res = self._request(
             "POST",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/private-networks/{param_private_network_id}/detach",

@@ -6,7 +6,6 @@ from .types import (
     InstanceStatus,
     SnapshotStatus,
 )
-
 INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
     InstanceStatus.PROVISIONING,
     InstanceStatus.CONFIGURING,

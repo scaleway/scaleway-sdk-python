@@ -1,14 +1,32 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -25,19 +43,37 @@ from .types import (
     ListRoutingPoliciesRequestOrderBy,
     AttachRoutingPolicyRequest,
     AttachVpcRequest,
+    BgpConfig,
     CreateLinkRequest,
     CreateRoutingPolicyRequest,
     DedicatedConnection,
+    DeleteLinkRequest,
+    DeleteRoutingPolicyRequest,
     DetachRoutingPolicyRequest,
+    DetachVpcRequest,
+    DisableRoutePropagationRequest,
+    EnableRoutePropagationRequest,
+    GetDedicatedConnectionRequest,
+    GetLinkRequest,
+    GetPartnerRequest,
+    GetPopRequest,
+    GetRoutingPolicyRequest,
     Link,
+    ListDedicatedConnectionsRequest,
     ListDedicatedConnectionsResponse,
+    ListLinksRequest,
     ListLinksResponse,
+    ListPartnersRequest,
     ListPartnersResponse,
+    ListPopsRequest,
     ListPopsResponse,
+    ListRoutingPoliciesRequest,
     ListRoutingPoliciesResponse,
     Partner,
+    PartnerHost,
     Pop,
     RoutingPolicy,
+    SelfHost,
     UpdateLinkRequest,
     UpdateRoutingPolicyRequest,
 )
@@ -65,12 +101,10 @@ from .marshalling import (
     marshal_UpdateRoutingPolicyRequest,
 )
 
-
 class InterlinkV1Beta1API(API):
     """
     This API allows you to manage your Scaleway InterLink, to connect your on-premises infrastructure with your Scaleway VPC.
     """
-
     def list_dedicated_connections(
         self,
         *,
@@ -101,17 +135,15 @@ class InterlinkV1Beta1API(API):
         :param bandwidth_mbps: Filter for dedicated connections with this bandwidth size.
         :param pop_id: Filter for dedicated connections present in this PoP.
         :return: :class:`ListDedicatedConnectionsResponse <ListDedicatedConnectionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_dedicated_connections()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/dedicated-connections",
@@ -119,8 +151,7 @@ class InterlinkV1Beta1API(API):
                 "bandwidth_mbps": bandwidth_mbps,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "pop_id": pop_id,
@@ -132,7 +163,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDedicatedConnectionsResponse(res.json())
-
+        
     def list_dedicated_connections_all(
         self,
         *,
@@ -163,14 +194,14 @@ class InterlinkV1Beta1API(API):
         :param bandwidth_mbps: Filter for dedicated connections with this bandwidth size.
         :param pop_id: Filter for dedicated connections present in this PoP.
         :return: :class:`List[DedicatedConnection] <List[DedicatedConnection]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_dedicated_connections_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDedicatedConnectionsResponse,
             key="connections",
             fetcher=self.list_dedicated_connections,
@@ -188,7 +219,7 @@ class InterlinkV1Beta1API(API):
                 "pop_id": pop_id,
             },
         )
-
+        
     def get_dedicated_connection(
         self,
         *,
@@ -201,20 +232,18 @@ class InterlinkV1Beta1API(API):
         :param connection_id: ID of connection to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DedicatedConnection <DedicatedConnection>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_dedicated_connection(
                 connection_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_connection_id = validate_path_param("connection_id", connection_id)
-
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/dedicated-connections/{param_connection_id}",
@@ -222,7 +251,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DedicatedConnection(res.json())
-
+        
     def wait_for_dedicated_connection(
         self,
         *,
@@ -236,10 +265,10 @@ class InterlinkV1Beta1API(API):
         :param connection_id: ID of connection to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DedicatedConnection <DedicatedConnection>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_dedicated_connection(
                 connection_id="example",
             )
@@ -249,9 +278,7 @@ class InterlinkV1Beta1API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status not in DEDICATED_CONNECTION_TRANSIENT_STATUSES
-            )
+            options.stop = lambda res: res.status not in DEDICATED_CONNECTION_TRANSIENT_STATUSES
 
         return wait_for_resource(
             fetcher=self.get_dedicated_connection,
@@ -261,7 +288,7 @@ class InterlinkV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def list_partners(
         self,
         *,
@@ -280,17 +307,15 @@ class InterlinkV1Beta1API(API):
         :param page_size: Maximum number of partners to return per page.
         :param pop_ids: Filter for partners present (offering a connection) in one of these PoPs.
         :return: :class:`ListPartnersResponse <ListPartnersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_partners()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/partners",
@@ -304,7 +329,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPartnersResponse(res.json())
-
+        
     def list_partners_all(
         self,
         *,
@@ -323,14 +348,14 @@ class InterlinkV1Beta1API(API):
         :param page_size: Maximum number of partners to return per page.
         :param pop_ids: Filter for partners present (offering a connection) in one of these PoPs.
         :return: :class:`List[Partner] <List[Partner]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_partners_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPartnersResponse,
             key="partners",
             fetcher=self.list_partners,
@@ -342,7 +367,7 @@ class InterlinkV1Beta1API(API):
                 "pop_ids": pop_ids,
             },
         )
-
+        
     def get_partner(
         self,
         *,
@@ -355,20 +380,18 @@ class InterlinkV1Beta1API(API):
         :param partner_id: ID of partner to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Partner <Partner>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_partner(
                 partner_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_partner_id = validate_path_param("partner_id", partner_id)
-
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/partners/{param_partner_id}",
@@ -376,7 +399,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Partner(res.json())
-
+        
     def list_pops(
         self,
         *,
@@ -403,17 +426,15 @@ class InterlinkV1Beta1API(API):
         :param link_bandwidth_mbps: Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
         :param dedicated_available: Filter for PoPs with a dedicated connection available for self-hosted links.
         :return: :class:`ListPopsResponse <ListPopsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pops()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/pops",
@@ -431,7 +452,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPopsResponse(res.json())
-
+        
     def list_pops_all(
         self,
         *,
@@ -458,14 +479,14 @@ class InterlinkV1Beta1API(API):
         :param link_bandwidth_mbps: Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
         :param dedicated_available: Filter for PoPs with a dedicated connection available for self-hosted links.
         :return: :class:`List[Pop] <List[Pop]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pops_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPopsResponse,
             key="pops",
             fetcher=self.list_pops,
@@ -481,7 +502,7 @@ class InterlinkV1Beta1API(API):
                 "dedicated_available": dedicated_available,
             },
         )
-
+        
     def get_pop(
         self,
         *,
@@ -494,20 +515,18 @@ class InterlinkV1Beta1API(API):
         :param pop_id: ID of PoP to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Pop <Pop>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_pop(
                 pop_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_pop_id = validate_path_param("pop_id", pop_id)
-
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/pops/{param_pop_id}",
@@ -515,7 +534,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pop(res.json())
-
+        
     def list_links(
         self,
         *,
@@ -562,17 +581,15 @@ class InterlinkV1Beta1API(API):
         :param kind: Filter for hosted or self-hosted links.
         :param connection_id: Filter for links self-hosted on this connection.
         :return: :class:`ListLinksResponse <ListLinksResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_links()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/links",
@@ -584,8 +601,7 @@ class InterlinkV1Beta1API(API):
                 "kind": kind,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "pairing_key": pairing_key,
@@ -601,7 +617,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListLinksResponse(res.json())
-
+        
     def list_links_all(
         self,
         *,
@@ -648,14 +664,14 @@ class InterlinkV1Beta1API(API):
         :param kind: Filter for hosted or self-hosted links.
         :param connection_id: Filter for links self-hosted on this connection.
         :return: :class:`List[Link] <List[Link]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_links_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListLinksResponse,
             key="links",
             fetcher=self.list_links,
@@ -681,7 +697,7 @@ class InterlinkV1Beta1API(API):
                 "connection_id": connection_id,
             },
         )
-
+        
     def get_link(
         self,
         *,
@@ -694,20 +710,18 @@ class InterlinkV1Beta1API(API):
         :param link_id: ID of the link to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_link(
                 link_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}",
@@ -715,7 +729,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def wait_for_link(
         self,
         *,
@@ -729,10 +743,10 @@ class InterlinkV1Beta1API(API):
         :param link_id: ID of the link to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_link(
                 link_id="example",
             )
@@ -752,7 +766,7 @@ class InterlinkV1Beta1API(API):
                 "region": region,
             },
         )
-
+        
     def create_link(
         self,
         *,
@@ -783,21 +797,19 @@ class InterlinkV1Beta1API(API):
         :param peer_asn: For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
         :param vlan: For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_link(
                 name="example",
                 pop_id="example",
                 bandwidth_mbps=1,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links",
@@ -820,7 +832,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def update_link(
         self,
         *,
@@ -839,20 +851,18 @@ class InterlinkV1Beta1API(API):
         :param tags: List of tags to apply to the link.
         :param peer_asn: For self-hosted links, AS Number to establish BGP session.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_link(
                 link_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "PATCH",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}",
@@ -870,7 +880,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def delete_link(
         self,
         *,
@@ -883,20 +893,18 @@ class InterlinkV1Beta1API(API):
         :param link_id: ID of the link to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_link(
                 link_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "DELETE",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}",
@@ -904,7 +912,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def attach_vpc(
         self,
         *,
@@ -919,21 +927,19 @@ class InterlinkV1Beta1API(API):
         :param vpc_id: ID of the VPC to attach.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_vpc(
                 link_id="example",
                 vpc_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/attach-vpc",
@@ -949,7 +955,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def detach_vpc(
         self,
         *,
@@ -962,20 +968,18 @@ class InterlinkV1Beta1API(API):
         :param link_id: ID of the link to detach the VPC from.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.detach_vpc(
                 link_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/detach-vpc",
@@ -984,7 +988,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def attach_routing_policy(
         self,
         *,
@@ -999,21 +1003,19 @@ class InterlinkV1Beta1API(API):
         :param routing_policy_id: ID of the routing policy to be attached.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_routing_policy(
                 link_id="example",
                 routing_policy_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/attach-routing-policy",
@@ -1029,7 +1031,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def detach_routing_policy(
         self,
         *,
@@ -1044,21 +1046,19 @@ class InterlinkV1Beta1API(API):
         :param routing_policy_id: ID of the routing policy to be detached.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.detach_routing_policy(
                 link_id="example",
                 routing_policy_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/detach-routing-policy",
@@ -1074,7 +1074,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def enable_route_propagation(
         self,
         *,
@@ -1087,20 +1087,18 @@ class InterlinkV1Beta1API(API):
         :param link_id: ID of the link on which to enable route propagation.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.enable_route_propagation(
                 link_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/enable-route-propagation",
@@ -1109,7 +1107,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def disable_route_propagation(
         self,
         *,
@@ -1122,20 +1120,18 @@ class InterlinkV1Beta1API(API):
         :param link_id: ID of the link on which to disable route propagation.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
-
+        
         Usage:
         ::
-
+        
             result = api.disable_route_propagation(
                 link_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_link_id = validate_path_param("link_id", link_id)
-
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/disable-route-propagation",
@@ -1144,7 +1140,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
-
+        
     def list_routing_policies(
         self,
         *,
@@ -1171,17 +1167,15 @@ class InterlinkV1Beta1API(API):
         :param tags: Tags to filter for.
         :param ipv6: Filter for the routing policies based on IP prefixes version.
         :return: :class:`ListRoutingPoliciesResponse <ListRoutingPoliciesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_routing_policies()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/routing-policies",
@@ -1189,8 +1183,7 @@ class InterlinkV1Beta1API(API):
                 "ipv6": ipv6,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -1200,7 +1193,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListRoutingPoliciesResponse(res.json())
-
+        
     def list_routing_policies_all(
         self,
         *,
@@ -1227,14 +1220,14 @@ class InterlinkV1Beta1API(API):
         :param tags: Tags to filter for.
         :param ipv6: Filter for the routing policies based on IP prefixes version.
         :return: :class:`List[RoutingPolicy] <List[RoutingPolicy]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_routing_policies_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListRoutingPoliciesResponse,
             key="routing_policies",
             fetcher=self.list_routing_policies,
@@ -1250,7 +1243,7 @@ class InterlinkV1Beta1API(API):
                 "ipv6": ipv6,
             },
         )
-
+        
     def get_routing_policy(
         self,
         *,
@@ -1263,22 +1256,18 @@ class InterlinkV1Beta1API(API):
         :param routing_policy_id: ID of the routing policy to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`RoutingPolicy <RoutingPolicy>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_routing_policy(
                 routing_policy_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_routing_policy_id = validate_path_param(
-            "routing_policy_id", routing_policy_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_routing_policy_id = validate_path_param("routing_policy_id", routing_policy_id)
+        
         res = self._request(
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/routing-policies/{param_routing_policy_id}",
@@ -1286,7 +1275,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RoutingPolicy(res.json())
-
+        
     def create_routing_policy(
         self,
         *,
@@ -1309,20 +1298,18 @@ class InterlinkV1Beta1API(API):
         :param prefix_filter_in: IP prefixes to accept from the peer (ranges of route announcements to accept).
         :param prefix_filter_out: IP prefix filters to advertise to the peer (ranges of routes to advertise).
         :return: :class:`RoutingPolicy <RoutingPolicy>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_routing_policy(
                 name="example",
                 is_ipv6=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/interlink/v1beta1/regions/{param_region}/routing-policies",
@@ -1342,7 +1329,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RoutingPolicy(res.json())
-
+        
     def update_routing_policy(
         self,
         *,
@@ -1363,22 +1350,18 @@ class InterlinkV1Beta1API(API):
         :param prefix_filter_in: IP prefixes to accept from the peer (ranges of route announcements to accept).
         :param prefix_filter_out: IP prefix filters for routes to advertise to the peer (ranges of routes to advertise).
         :return: :class:`RoutingPolicy <RoutingPolicy>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_routing_policy(
                 routing_policy_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_routing_policy_id = validate_path_param(
-            "routing_policy_id", routing_policy_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_routing_policy_id = validate_path_param("routing_policy_id", routing_policy_id)
+        
         res = self._request(
             "PATCH",
             f"/interlink/v1beta1/regions/{param_region}/routing-policies/{param_routing_policy_id}",
@@ -1397,7 +1380,7 @@ class InterlinkV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RoutingPolicy(res.json())
-
+        
     def delete_routing_policy(
         self,
         *,
@@ -1409,22 +1392,18 @@ class InterlinkV1Beta1API(API):
         Delete an existing routing policy, specified by its routing policy ID.
         :param routing_policy_id: ID of the routing policy to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_routing_policy(
                 routing_policy_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_routing_policy_id = validate_path_param(
-            "routing_policy_id", routing_policy_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_routing_policy_id = validate_path_param("routing_policy_id", routing_policy_id)
+        
         res = self._request(
             "DELETE",
             f"/interlink/v1beta1/regions/{param_region}/routing-policies/{param_routing_policy_id}",

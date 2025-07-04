@@ -28,6 +28,16 @@ def resolve_one_of(
     # Get the first non-empty default
     for possibility in possibilities:
         if possibility.default is not None:
+<<<<<<< HEAD
+            if possibility.marshal_func is not None:
+                # When no actual value, call with None as value
+                return {
+                    possibility.param: possibility.marshal_func(
+                        None, possibility.default
+                    )
+                }
+=======
+>>>>>>> 539c303 (Revert "fix(core): management one_of")
             return {possibility.param: possibility.default}
 
     # If required, raise an error

@@ -6,7 +6,6 @@ from .types import (
     DomainStatus,
     EmailStatus,
 )
-
 DOMAIN_TRANSIENT_STATUSES: List[DomainStatus] = [
     DomainStatus.PENDING,
     DomainStatus.AUTOCONFIGURING,

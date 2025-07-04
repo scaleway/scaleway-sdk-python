@@ -2,33 +2,58 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
     BlocklistType,
+    DomainLastStatusAutoconfigStateReason,
+    DomainLastStatusRecordStatus,
+    DomainReputationStatus,
     DomainStatus,
     EmailFlag,
+    EmailRcptType,
     EmailStatus,
     ListBlocklistsRequestOrderBy,
     ListEmailsRequestOrderBy,
     ListWebhookEventsRequestOrderBy,
     ListWebhooksRequestOrderBy,
     OfferName,
+    PoolStatus,
+    ProjectSettingsPeriodicReportFrequency,
     WebhookEventStatus,
     WebhookEventType,
     Blocklist,
     BulkCreateBlocklistsRequest,
     BulkCreateBlocklistsResponse,
+    CancelEmailRequest,
+    CheckDomainRequest,
     CreateDomainRequest,
     CreateEmailRequest,
     CreateEmailRequestAddress,
@@ -36,21 +61,50 @@ from .types import (
     CreateEmailRequestHeader,
     CreateEmailResponse,
     CreateWebhookRequest,
+    DeleteBlocklistRequest,
+    DeleteWebhookRequest,
     Domain,
     DomainLastStatus,
+    DomainLastStatusAutoconfigState,
+    DomainLastStatusDkimRecord,
+    DomainLastStatusDmarcRecord,
+    DomainLastStatusSpfRecord,
+    DomainRecords,
+    DomainRecordsDMARC,
+    DomainReputation,
+    DomainStatistics,
     Email,
+    EmailTry,
+    GetDomainLastStatusRequest,
+    GetDomainRequest,
+    GetEmailRequest,
+    GetProjectConsumptionRequest,
+    GetProjectSettingsRequest,
+    GetStatisticsRequest,
+    GetWebhookRequest,
+    ListBlocklistsRequest,
     ListBlocklistsResponse,
+    ListDomainsRequest,
     ListDomainsResponse,
+    ListEmailsRequest,
     ListEmailsResponse,
+    ListOfferSubscriptionsRequest,
     ListOfferSubscriptionsResponse,
+    ListOffersRequest,
     ListOffersResponse,
+    ListPoolsRequest,
     ListPoolsResponse,
+    ListWebhookEventsRequest,
     ListWebhookEventsResponse,
+    ListWebhooksRequest,
     ListWebhooksResponse,
+    Offer,
     OfferSubscription,
     Pool,
     ProjectConsumption,
     ProjectSettings,
+    ProjectSettingsPeriodicReport,
+    RevokeDomainRequest,
     Statistics,
     UpdateDomainRequest,
     UpdateOfferSubscriptionRequest,
@@ -93,12 +147,10 @@ from .marshalling import (
     marshal_UpdateWebhookRequest,
 )
 
-
 class TemV1Alpha1API(API):
     """
     This API allows you to manage your Transactional Email services.
     """
-
     def create_email(
         self,
         *,
@@ -131,10 +183,10 @@ class TemV1Alpha1API(API):
         :param send_before: Maximum date to deliver the email.
         :param additional_headers: Array of additional headers as key-value.
         :return: :class:`CreateEmailResponse <CreateEmailResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_email(
                 from=CreateEmailRequestAddress(),
                 subject="example",
@@ -142,11 +194,9 @@ class TemV1Alpha1API(API):
                 html="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/emails",
@@ -171,7 +221,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateEmailResponse(res.json())
-
+        
     def get_email(
         self,
         *,
@@ -184,20 +234,18 @@ class TemV1Alpha1API(API):
         :param email_id: ID of the email to retrieve.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Email <Email>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_email(
                 email_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_email_id = validate_path_param("email_id", email_id)
-
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/emails/{param_email_id}",
@@ -205,7 +253,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Email(res.json())
-
+        
     def wait_for_email(
         self,
         *,
@@ -219,10 +267,10 @@ class TemV1Alpha1API(API):
         :param email_id: ID of the email to retrieve.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Email <Email>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_email(
                 email_id="example",
             )
@@ -242,7 +290,7 @@ class TemV1Alpha1API(API):
                 "region": region,
             },
         )
-
+        
     def list_emails(
         self,
         *,
@@ -267,8 +315,8 @@ class TemV1Alpha1API(API):
         List emails.
         Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :param project_id: (Optional) ID of the Project in which to list the emails.
         :param domain_id: (Optional) ID of the domain for which to list the emails.
         :param message_id: (Optional) ID of the message for which to list the emails.
@@ -283,17 +331,15 @@ class TemV1Alpha1API(API):
         :param order_by: (Optional) List emails corresponding to specific criteria.
         :param flags: (Optional) List emails containing only specific flags.
         :return: :class:`ListEmailsResponse <ListEmailsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_emails()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/emails",
@@ -318,7 +364,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListEmailsResponse(res.json())
-
+        
     def list_emails_all(
         self,
         *,
@@ -343,8 +389,8 @@ class TemV1Alpha1API(API):
         List emails.
         Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
+        :param page: 
+        :param page_size: 
         :param project_id: (Optional) ID of the Project in which to list the emails.
         :param domain_id: (Optional) ID of the domain for which to list the emails.
         :param message_id: (Optional) ID of the message for which to list the emails.
@@ -359,14 +405,14 @@ class TemV1Alpha1API(API):
         :param order_by: (Optional) List emails corresponding to specific criteria.
         :param flags: (Optional) List emails containing only specific flags.
         :return: :class:`List[Email] <List[Email]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_emails_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListEmailsResponse,
             key="emails",
             fetcher=self.list_emails,
@@ -389,7 +435,7 @@ class TemV1Alpha1API(API):
                 "flags": flags,
             },
         )
-
+        
     def get_statistics(
         self,
         *,
@@ -410,17 +456,15 @@ class TemV1Alpha1API(API):
         :param until: (Optional) Number of emails created before this date.
         :param mail_from: (Optional) Number of emails sent with this sender's email address.
         :return: :class:`Statistics <Statistics>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_statistics()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/statistics",
@@ -435,7 +479,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Statistics(res.json())
-
+        
     def cancel_email(
         self,
         *,
@@ -448,20 +492,18 @@ class TemV1Alpha1API(API):
         :param email_id: ID of the email to cancel.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Email <Email>`
-
+        
         Usage:
         ::
-
+        
             result = api.cancel_email(
                 email_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_email_id = validate_path_param("email_id", email_id)
-
+        
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/emails/{param_email_id}/cancel",
@@ -470,7 +512,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Email(res.json())
-
+        
     def create_domain(
         self,
         *,
@@ -489,20 +531,18 @@ class TemV1Alpha1API(API):
         :param project_id: ID of the project to which the domain belongs.
         :param accept_tos: Deprecated. Accept Scaleway's Terms of Service.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_domain(
                 domain_name="example",
                 autoconfig=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains",
@@ -520,7 +560,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def get_domain(
         self,
         *,
@@ -533,20 +573,18 @@ class TemV1Alpha1API(API):
         :param domain_id: ID of the domain.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_domain(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_domain_id = validate_path_param("domain_id", domain_id)
-
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}",
@@ -554,7 +592,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def wait_for_domain(
         self,
         *,
@@ -568,10 +606,10 @@ class TemV1Alpha1API(API):
         :param domain_id: ID of the domain.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_domain(
                 domain_id="example",
             )
@@ -591,7 +629,7 @@ class TemV1Alpha1API(API):
                 "region": region,
             },
         )
-
+        
     def list_domains(
         self,
         *,
@@ -614,24 +652,21 @@ class TemV1Alpha1API(API):
         :param organization_id: (Optional) ID of the Organization in which to list the domains.
         :param name: (Optional) Names of the domains to list.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_domains()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains",
             params={
                 "name": name,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -641,7 +676,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDomainsResponse(res.json())
-
+        
     def list_domains_all(
         self,
         *,
@@ -664,14 +699,14 @@ class TemV1Alpha1API(API):
         :param organization_id: (Optional) ID of the Organization in which to list the domains.
         :param name: (Optional) Names of the domains to list.
         :return: :class:`List[Domain] <List[Domain]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_domains_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDomainsResponse,
             key="domains",
             fetcher=self.list_domains,
@@ -685,7 +720,7 @@ class TemV1Alpha1API(API):
                 "name": name,
             },
         )
-
+        
     def revoke_domain(
         self,
         *,
@@ -698,20 +733,18 @@ class TemV1Alpha1API(API):
         :param domain_id: ID of the domain to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.revoke_domain(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_domain_id = validate_path_param("domain_id", domain_id)
-
+        
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}/revoke",
@@ -720,7 +753,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def check_domain(
         self,
         *,
@@ -733,20 +766,18 @@ class TemV1Alpha1API(API):
         :param domain_id: ID of the domain to check.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.check_domain(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_domain_id = validate_path_param("domain_id", domain_id)
-
+        
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}/check",
@@ -755,7 +786,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def get_domain_last_status(
         self,
         *,
@@ -768,20 +799,18 @@ class TemV1Alpha1API(API):
         :param domain_id: ID of the domain to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DomainLastStatus <DomainLastStatus>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_domain_last_status(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_domain_id = validate_path_param("domain_id", domain_id)
-
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}/verification",
@@ -789,7 +818,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DomainLastStatus(res.json())
-
+        
     def update_domain(
         self,
         *,
@@ -804,20 +833,18 @@ class TemV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param autoconfig: (Optional) If set to true, activate auto-configuration of the domain's DNS zone.
         :return: :class:`Domain <Domain>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_domain(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_domain_id = validate_path_param("domain_id", domain_id)
-
+        
         res = self._request(
             "PATCH",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}",
@@ -833,7 +860,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-
+        
     def create_webhook(
         self,
         *,
@@ -854,21 +881,19 @@ class TemV1Alpha1API(API):
         :param project_id: ID of the project to which the Webhook belongs.
         :param event_types: List of event types that will trigger an event.
         :return: :class:`Webhook <Webhook>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_webhook(
                 domain_id="example",
                 name="example",
                 sns_arn="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks",
@@ -887,7 +912,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Webhook(res.json())
-
+        
     def list_webhooks(
         self,
         *,
@@ -910,25 +935,22 @@ class TemV1Alpha1API(API):
         :param organization_id: (Optional) ID of the Organization for which to list the Webhooks.
         :param domain_id: (Optional) ID of the Domain for which to list the Webhooks.
         :return: :class:`ListWebhooksResponse <ListWebhooksResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_webhooks()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks",
             params={
                 "domain_id": domain_id,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -937,7 +959,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListWebhooksResponse(res.json())
-
+        
     def list_webhooks_all(
         self,
         *,
@@ -960,14 +982,14 @@ class TemV1Alpha1API(API):
         :param organization_id: (Optional) ID of the Organization for which to list the Webhooks.
         :param domain_id: (Optional) ID of the Domain for which to list the Webhooks.
         :return: :class:`List[Webhook] <List[Webhook]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_webhooks_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListWebhooksResponse,
             key="webhooks",
             fetcher=self.list_webhooks,
@@ -981,7 +1003,7 @@ class TemV1Alpha1API(API):
                 "domain_id": domain_id,
             },
         )
-
+        
     def get_webhook(
         self,
         *,
@@ -994,20 +1016,18 @@ class TemV1Alpha1API(API):
         :param webhook_id: ID of the Webhook to check.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Webhook <Webhook>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_webhook(
                 webhook_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_webhook_id = validate_path_param("webhook_id", webhook_id)
-
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}",
@@ -1015,7 +1035,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Webhook(res.json())
-
+        
     def update_webhook(
         self,
         *,
@@ -1034,20 +1054,18 @@ class TemV1Alpha1API(API):
         :param event_types: List of event types to update.
         :param sns_arn: Scaleway SNS ARN topic to update.
         :return: :class:`Webhook <Webhook>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_webhook(
                 webhook_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_webhook_id = validate_path_param("webhook_id", webhook_id)
-
+        
         res = self._request(
             "PATCH",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}",
@@ -1065,7 +1083,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Webhook(res.json())
-
+        
     def delete_webhook(
         self,
         *,
@@ -1077,27 +1095,24 @@ class TemV1Alpha1API(API):
         You must specify the Webhook you want to delete by the `region` and `webhook_id`. Deleting a Webhook is permanent and cannot be undone.
         :param webhook_id: ID of the Webhook to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_webhook(
                 webhook_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_webhook_id = validate_path_param("webhook_id", webhook_id)
-
+        
         res = self._request(
             "DELETE",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}",
         )
 
         self._throw_on_error(res)
-
     def list_webhook_events(
         self,
         *,
@@ -1128,20 +1143,18 @@ class TemV1Alpha1API(API):
         :param organization_id: ID of the webhook Organization.
         :param domain_id: ID of the domain to watch for triggering events.
         :return: :class:`ListWebhookEventsResponse <ListWebhookEventsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_webhook_events(
                 webhook_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_webhook_id = validate_path_param("webhook_id", webhook_id)
-
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}/events",
@@ -1150,8 +1163,7 @@ class TemV1Alpha1API(API):
                 "email_id": email_id,
                 "event_types": event_types,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -1161,7 +1173,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListWebhookEventsResponse(res.json())
-
+        
     def list_webhook_events_all(
         self,
         *,
@@ -1192,16 +1204,16 @@ class TemV1Alpha1API(API):
         :param organization_id: ID of the webhook Organization.
         :param domain_id: ID of the domain to watch for triggering events.
         :return: :class:`List[WebhookEvent] <List[WebhookEvent]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_webhook_events_all(
                 webhook_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListWebhookEventsResponse,
             key="webhook_events",
             fetcher=self.list_webhook_events,
@@ -1219,7 +1231,7 @@ class TemV1Alpha1API(API):
                 "domain_id": domain_id,
             },
         )
-
+        
     def get_project_settings(
         self,
         *,
@@ -1232,20 +1244,16 @@ class TemV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project.
         :return: :class:`ProjectSettings <ProjectSettings>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_project_settings()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_project_id = validate_path_param(
-            "project_id", project_id or self.client.default_project_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/project/{param_project_id}/settings",
@@ -1253,15 +1261,13 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ProjectSettings(res.json())
-
+        
     def update_project_settings(
         self,
         *,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        periodic_report: Optional[
-            UpdateProjectSettingsRequestUpdatePeriodicReport
-        ] = None,
+        periodic_report: Optional[UpdateProjectSettingsRequestUpdatePeriodicReport] = None,
     ) -> ProjectSettings:
         """
         Update project settings.
@@ -1270,20 +1276,16 @@ class TemV1Alpha1API(API):
         :param project_id: ID of the project.
         :param periodic_report: Periodic report update details - all fields are optional.
         :return: :class:`ProjectSettings <ProjectSettings>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_project_settings()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_project_id = validate_path_param(
-            "project_id", project_id or self.client.default_project_id
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
+        
         res = self._request(
             "PATCH",
             f"/transactional-email/v1alpha1/regions/{param_region}/project/{param_project_id}/settings",
@@ -1299,7 +1301,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ProjectSettings(res.json())
-
+        
     def list_blocklists(
         self,
         *,
@@ -1324,19 +1326,17 @@ class TemV1Alpha1API(API):
         :param type_: (Optional) Filter by a blocklist type.
         :param custom: (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
         :return: :class:`ListBlocklistsResponse <ListBlocklistsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_blocklists(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/blocklists",
@@ -1353,7 +1353,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListBlocklistsResponse(res.json())
-
+        
     def list_blocklists_all(
         self,
         *,
@@ -1378,16 +1378,16 @@ class TemV1Alpha1API(API):
         :param type_: (Optional) Filter by a blocklist type.
         :param custom: (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
         :return: :class:`List[Blocklist] <List[Blocklist]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_blocklists_all(
                 domain_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListBlocklistsResponse,
             key="blocklists",
             fetcher=self.list_blocklists,
@@ -1402,7 +1402,7 @@ class TemV1Alpha1API(API):
                 "custom": custom,
             },
         )
-
+        
     def bulk_create_blocklists(
         self,
         *,
@@ -1421,19 +1421,17 @@ class TemV1Alpha1API(API):
         :param type_: Type of blocklist.
         :param reason: Reason to block the email.
         :return: :class:`BulkCreateBlocklistsResponse <BulkCreateBlocklistsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.bulk_create_blocklists(
                 domain_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/blocklists",
@@ -1451,7 +1449,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_BulkCreateBlocklistsResponse(res.json())
-
+        
     def delete_blocklist(
         self,
         *,
@@ -1463,27 +1461,24 @@ class TemV1Alpha1API(API):
         You must specify the blocklist you want to delete by the `region` and `blocklist_id`.
         :param blocklist_id: ID of the blocklist to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_blocklist(
                 blocklist_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_blocklist_id = validate_path_param("blocklist_id", blocklist_id)
-
+        
         res = self._request(
             "DELETE",
             f"/transactional-email/v1alpha1/regions/{param_region}/blocklists/{param_blocklist_id}",
         )
 
         self._throw_on_error(res)
-
     def list_offer_subscriptions(
         self,
         *,
@@ -1496,17 +1491,15 @@ class TemV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project.
         :return: :class:`ListOfferSubscriptionsResponse <ListOfferSubscriptionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_offer_subscriptions()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/offer-subscriptions",
@@ -1517,7 +1510,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListOfferSubscriptionsResponse(res.json())
-
+        
     def update_offer_subscription(
         self,
         *,
@@ -1531,17 +1524,15 @@ class TemV1Alpha1API(API):
         :param project_id: ID of the Project.
         :param name: Name of the offer-subscription.
         :return: :class:`OfferSubscription <OfferSubscription>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_offer_subscription()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "PATCH",
             f"/transactional-email/v1alpha1/regions/{param_region}/offer-subscriptions",
@@ -1557,7 +1548,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_OfferSubscription(res.json())
-
+        
     def list_offers(
         self,
         *,
@@ -1568,17 +1559,15 @@ class TemV1Alpha1API(API):
         Retrieve the list of the available and free-of-charge offers you can subscribe to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListOffersResponse <ListOffersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_offers()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/offers",
@@ -1586,7 +1575,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListOffersResponse(res.json())
-
+        
     def list_pools(
         self,
         *,
@@ -1603,17 +1592,15 @@ class TemV1Alpha1API(API):
         :param page_size: Requested page size. Value must be between 1 and 1000.
         :param project_id: ID of the Project.
         :return: :class:`ListPoolsResponse <ListPoolsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pools()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/pools",
@@ -1626,7 +1613,7 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPoolsResponse(res.json())
-
+        
     def list_pools_all(
         self,
         *,
@@ -1643,14 +1630,14 @@ class TemV1Alpha1API(API):
         :param page_size: Requested page size. Value must be between 1 and 1000.
         :param project_id: ID of the Project.
         :return: :class:`List[Pool] <List[Pool]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pools_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPoolsResponse,
             key="pools",
             fetcher=self.list_pools,
@@ -1661,7 +1648,7 @@ class TemV1Alpha1API(API):
                 "project_id": project_id,
             },
         )
-
+        
     def get_project_consumption(
         self,
         *,
@@ -1673,17 +1660,15 @@ class TemV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project.
         :return: :class:`ProjectConsumption <ProjectConsumption>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_project_consumption()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/project-consumption",
@@ -1694,3 +1679,4 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ProjectConsumption(res.json())
+        

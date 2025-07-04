@@ -2,16 +2,34 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
     Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
+    WaitForOptions,
+    project_or_organization_id,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
+    wait_for_resource,
 )
 from .types_private import (
     _SetImageResponse,
@@ -29,18 +47,30 @@ from .types import (
     AttachServerVolumeRequestVolumeType,
     BootType,
     ImageState,
+    IpState,
     IpType,
     ListServersRequestOrder,
     PlacementGroupPolicyMode,
     PlacementGroupPolicyType,
+    PrivateNICState,
     SecurityGroupPolicy,
     SecurityGroupRuleAction,
     SecurityGroupRuleDirection,
     SecurityGroupRuleProtocol,
+    SecurityGroupState,
     ServerAction,
+    ServerFilesystemState,
+    ServerIpIpFamily,
+    ServerIpProvisioningMode,
+    ServerIpState,
     ServerState,
+    ServerTypesAvailability,
     SnapshotState,
     SnapshotVolumeType,
+    TaskStatus,
+    VolumeServerState,
+    VolumeServerVolumeType,
+    VolumeState,
     VolumeVolumeType,
     ApplyBlockMigrationRequest,
     AttachServerFileSystemRequest,
@@ -67,41 +97,81 @@ from .types import (
     CreateSnapshotResponse,
     CreateVolumeRequest,
     CreateVolumeResponse,
+    Dashboard,
+    DeleteImageRequest,
+    DeleteIpRequest,
+    DeletePlacementGroupRequest,
+    DeletePrivateNICRequest,
+    DeleteSecurityGroupRequest,
+    DeleteSecurityGroupRuleRequest,
+    DeleteServerRequest,
+    DeleteServerUserDataRequest,
+    DeleteSnapshotRequest,
+    DeleteVolumeRequest,
     DetachServerFileSystemRequest,
     DetachServerFileSystemResponse,
     DetachServerVolumeRequest,
     DetachServerVolumeResponse,
     ExportSnapshotRequest,
     ExportSnapshotResponse,
+    GetDashboardRequest,
     GetDashboardResponse,
+    GetImageRequest,
     GetImageResponse,
+    GetIpRequest,
     GetIpResponse,
+    GetPlacementGroupRequest,
     GetPlacementGroupResponse,
+    GetPlacementGroupServersRequest,
     GetPlacementGroupServersResponse,
+    GetPrivateNICRequest,
     GetPrivateNICResponse,
+    GetSecurityGroupRequest,
     GetSecurityGroupResponse,
+    GetSecurityGroupRuleRequest,
     GetSecurityGroupRuleResponse,
+    GetServerCompatibleTypesRequest,
+    GetServerRequest,
     GetServerResponse,
+    GetServerTypesAvailabilityRequest,
     GetServerTypesAvailabilityResponse,
+    GetServerTypesAvailabilityResponseAvailability,
+    GetSnapshotRequest,
     GetSnapshotResponse,
+    GetVolumeRequest,
     GetVolumeResponse,
     Image,
     Ip,
+    ListDefaultSecurityGroupRulesRequest,
+    ListImagesRequest,
     ListImagesResponse,
+    ListIpsRequest,
     ListIpsResponse,
+    ListPlacementGroupsRequest,
     ListPlacementGroupsResponse,
+    ListPrivateNICsRequest,
     ListPrivateNICsResponse,
+    ListSecurityGroupRulesRequest,
     ListSecurityGroupRulesResponse,
+    ListSecurityGroupsRequest,
     ListSecurityGroupsResponse,
+    ListServerActionsRequest,
     ListServerActionsResponse,
+    ListServerUserDataRequest,
     ListServerUserDataResponse,
+    ListServersRequest,
     ListServersResponse,
+    ListServersTypesRequest,
     ListServersTypesResponse,
+    ListSnapshotsRequest,
     ListSnapshotsResponse,
+    ListVolumesRequest,
     ListVolumesResponse,
+    ListVolumesTypesRequest,
     ListVolumesTypesResponse,
     MigrationPlan,
     PlacementGroup,
+    PlacementGroupServer,
     PlanBlockMigrationRequest,
     PrivateNIC,
     SecurityGroup,
@@ -113,11 +183,19 @@ from .types import (
     ServerActionRequestVolumeBackupTemplate,
     ServerActionResponse,
     ServerCompatibleTypes,
+    ServerFilesystem,
     ServerIp,
     ServerIpv6,
     ServerLocation,
     ServerMaintenance,
     ServerSummary,
+    ServerType,
+    ServerTypeCapabilities,
+    ServerTypeGPUInfo,
+    ServerTypeNetwork,
+    ServerTypeNetworkInterface,
+    ServerTypeVolumeConstraintSizes,
+    ServerTypeVolumeConstraintsByType,
     SetImageRequest,
     SetPlacementGroupRequest,
     SetPlacementGroupResponse,
@@ -128,6 +206,7 @@ from .types import (
     SetSecurityGroupRulesResponse,
     Snapshot,
     SnapshotBaseVolume,
+    Task,
     UpdateImageRequest,
     UpdateImageResponse,
     UpdateIpRequest,
@@ -149,9 +228,26 @@ from .types import (
     UpdateVolumeResponse,
     Volume,
     VolumeImageUpdateTemplate,
+    VolumeServer,
     VolumeServerTemplate,
     VolumeSummary,
     VolumeTemplate,
+    VolumeType,
+    VolumeTypeCapabilities,
+    VolumeTypeConstraints,
+)
+from .content import (
+    IMAGE_TRANSIENT_STATUSES,
+    IP_TRANSIENT_STATUSES,
+    PRIVATE_NIC_TRANSIENT_STATUSES,
+    SECURITY_GROUP_TRANSIENT_STATUSES,
+    SERVER_FILESYSTEM_TRANSIENT_STATUSES,
+    SERVER_IP_TRANSIENT_STATUSES,
+    SERVER_TRANSIENT_STATUSES,
+    SNAPSHOT_TRANSIENT_STATUSES,
+    TASK_TRANSIENT_STATUSES,
+    VOLUME_SERVER_TRANSIENT_STATUSES,
+    VOLUME_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_PrivateNIC,
@@ -252,12 +348,10 @@ from .marshalling import (
     marshal__SetSnapshotRequest,
 )
 
-
 class InstanceV1API(API):
     """
     This API allows you to manage your CPU and GPU Instances.
     """
-
     def get_server_types_availability(
         self,
         *,
@@ -272,15 +366,15 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`GetServerTypesAvailabilityResponse <GetServerTypesAvailabilityResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server_types_availability()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/products/servers/availability",
@@ -292,7 +386,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetServerTypesAvailabilityResponse(res.json())
-
+        
     def list_servers_types(
         self,
         *,
@@ -304,18 +398,18 @@ class InstanceV1API(API):
         List Instance types.
         List available Instance types and their technical details.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param per_page:
-        :param page:
+        :param per_page: 
+        :param page: 
         :return: :class:`ListServersTypesResponse <ListServersTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_servers_types()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/products/servers",
@@ -327,7 +421,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServersTypesResponse(res.json())
-
+        
     def list_volumes_types(
         self,
         *,
@@ -339,18 +433,18 @@ class InstanceV1API(API):
         List volume types.
         List all volume types and their technical details.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param per_page:
-        :param page:
+        :param per_page: 
+        :param page: 
         :return: :class:`ListVolumesTypesResponse <ListVolumesTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_volumes_types()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/products/volumes",
@@ -362,7 +456,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVolumesTypesResponse(res.json())
-
+        
     def list_servers(
         self,
         *,
@@ -405,15 +499,15 @@ class InstanceV1API(API):
         :param private_nic_mac_address: List Instances associated with the given private NIC MAC address.
         :param servers: List Instances from these server ids (use commas to separate them).
         :return: :class:`ListServersResponse <ListServersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_servers()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers",
@@ -426,9 +520,7 @@ class InstanceV1API(API):
                 "per_page": per_page or self.client.default_page_size,
                 "private_ip": private_ip,
                 "private_network": private_network,
-                "private_networks": ",".join(private_networks)
-                if private_networks and len(private_networks) > 0
-                else None,
+                "private_networks": ",".join(private_networks) if private_networks and len(private_networks) > 0 else None,
                 "private_nic_mac_address": private_nic_mac_address,
                 "project": project or self.client.default_project_id,
                 "servers": ",".join(servers) if servers and len(servers) > 0 else None,
@@ -441,7 +533,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServersResponse(res.json())
-
+        
     def list_servers_all(
         self,
         *,
@@ -484,14 +576,14 @@ class InstanceV1API(API):
         :param private_nic_mac_address: List Instances associated with the given private NIC MAC address.
         :param servers: List Instances from these server ids (use commas to separate them).
         :return: :class:`List[Server] <List[Server]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_servers_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListServersResponse,
             key="servers",
             fetcher=self.list_servers,
@@ -515,7 +607,7 @@ class InstanceV1API(API):
                 "servers": servers,
             },
         )
-
+        
     def _create_server(
         self,
         *,
@@ -563,18 +655,18 @@ class InstanceV1API(API):
         :param placement_group: Placement group ID if Instance must be part of a placement group.
         :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password.
         :return: :class:`CreateServerResponse <CreateServerResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api._create_server(
                 commercial_type="example",
                 protected=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers",
@@ -605,7 +697,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateServerResponse(res.json())
-
+        
     def delete_server(
         self,
         *,
@@ -615,27 +707,26 @@ class InstanceV1API(API):
         """
         Delete an Instance.
         Delete the Instance with the specified ID.
-        :param server_id:
+        :param server_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_server(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}",
         )
 
         self._throw_on_error(res)
-
     def get_server(
         self,
         *,
@@ -648,18 +739,18 @@ class InstanceV1API(API):
         :param server_id: UUID of the Instance you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetServerResponse <GetServerResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}",
@@ -667,7 +758,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetServerResponse(res.json())
-
+        
     def _set_server(
         self,
         *,
@@ -736,10 +827,10 @@ class InstanceV1API(API):
         :param private_nics: Instance private NICs.
         :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
         :return: :class:`_SetServerResponse <_SetServerResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api._set_server(
                 id="example",
                 name="example",
@@ -750,10 +841,10 @@ class InstanceV1API(API):
                 state_detail="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_id = validate_path_param("id", id)
-
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/servers/{param_id}",
@@ -797,7 +888,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetServerResponse(res.json())
-
+        
     def _update_server(
         self,
         *,
@@ -824,15 +915,15 @@ class InstanceV1API(API):
         :param server_id: UUID of the Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the Instance.
-        :param boot_type:
+        :param boot_type: 
         :param tags: Tags of the Instance.
-        :param volumes:
-        :param dynamic_ip_required:
+        :param volumes: 
+        :param dynamic_ip_required: 
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
-        :param enable_ipv6:
+        :param enable_ipv6: 
         :param protected: True to activate server protection option.
-        :param security_group:
+        :param security_group: 
         :param placement_group: Placement group ID if Instance must be part of a placement group.
         :param private_nics: Instance private NICs.
         :param commercial_type: Warning: This field has some restrictions:
@@ -842,18 +933,18 @@ class InstanceV1API(API):
         - Local storage requirements of the target commercial_types must be fulfilled (i.e. if an Instance has 80GB of local storage, it can be changed into a GP1-XS, which has a maximum of 150GB, but it cannot be changed into a DEV1-S, which has only 20GB).
         :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
         :return: :class:`UpdateServerResponse <UpdateServerResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api._update_server(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}",
@@ -882,7 +973,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdateServerResponse(res.json())
-
+        
     def list_server_actions(
         self,
         *,
@@ -892,21 +983,21 @@ class InstanceV1API(API):
         """
         List Instance actions.
         List all actions (e.g. power on, power off, reboot) that can currently be performed on an Instance.
-        :param server_id:
+        :param server_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListServerActionsResponse <ListServerActionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_server_actions(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/action",
@@ -914,7 +1005,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServerActionsResponse(res.json())
-
+        
     def server_action(
         self,
         *,
@@ -936,10 +1027,10 @@ class InstanceV1API(API):
         * `backup`:  Create an image with all the volumes of an Instance.
         * `terminate`: Delete the Instance along with its attached local volumes.
         * `enable_routed_ip`: Migrate the Instance to the new network stack.
-
+        
         The `terminate` action will result in the deletion of `l_ssd` and `scratch` volumes types, `sbs_volume` volumes will only be detached.
         If you want to preserve your `l_ssd` volumes, you should stop your Instance, detach the volumes to be preserved, then delete your Instance.
-
+        
         The `backup` action can be done with:
         * No `volumes` key in the body: an image is created with snapshots of all the server volumes, except for the `scratch` volumes types.
         * `volumes` key in the body with a dictionary as value, in this dictionary volumes UUID as keys and empty dictionaries as values : an image is created with the snapshots of the volumes in `volumes` key. `scratch` volumes types can't be shapshotted.
@@ -953,18 +1044,18 @@ class InstanceV1API(API):
         :param disable_ipv6: Disable IPv6 on the Instance while performing migration to routed IPs.
         This field should only be specified when performing a enable_routed_ip action.
         :return: :class:`ServerActionResponse <ServerActionResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.server_action(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/action",
@@ -983,7 +1074,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ServerActionResponse(res.json())
-
+        
     def list_server_user_data(
         self,
         *,
@@ -996,18 +1087,18 @@ class InstanceV1API(API):
         :param server_id: UUID of the Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListServerUserDataResponse <ListServerUserDataResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_server_user_data(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/user_data",
@@ -1015,7 +1106,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListServerUserDataResponse(res.json())
-
+        
     def delete_server_user_data(
         self,
         *,
@@ -1029,27 +1120,26 @@ class InstanceV1API(API):
         :param server_id: UUID of the Instance.
         :param key: Key of the user data to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_server_user_data(
                 server_id="example",
                 key="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
         param_key = validate_path_param("key", key)
-
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/user_data/{param_key}",
         )
 
         self._throw_on_error(res)
-
     def get_server_compatible_types(
         self,
         *,
@@ -1067,18 +1157,18 @@ class InstanceV1API(API):
         :param server_id: UUID of the Instance you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ServerCompatibleTypes <ServerCompatibleTypes>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_server_compatible_types(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/compatible-types",
@@ -1086,7 +1176,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ServerCompatibleTypes(res.json())
-
+        
     def attach_server_volume(
         self,
         *,
@@ -1097,25 +1187,25 @@ class InstanceV1API(API):
         boot: Optional[bool] = None,
     ) -> AttachServerVolumeResponse:
         """
-        :param server_id:
-        :param volume_id:
+        :param server_id: 
+        :param volume_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_type:
-        :param boot:
+        :param volume_type: 
+        :param boot: 
         :return: :class:`AttachServerVolumeResponse <AttachServerVolumeResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_server_volume(
                 server_id="example",
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/attach-volume",
@@ -1133,7 +1223,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AttachServerVolumeResponse(res.json())
-
+        
     def detach_server_volume(
         self,
         *,
@@ -1142,23 +1232,23 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
     ) -> DetachServerVolumeResponse:
         """
-        :param server_id:
-        :param volume_id:
+        :param server_id: 
+        :param volume_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DetachServerVolumeResponse <DetachServerVolumeResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.detach_server_volume(
                 server_id="example",
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/detach-volume",
@@ -1174,7 +1264,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DetachServerVolumeResponse(res.json())
-
+        
     def attach_server_file_system(
         self,
         *,
@@ -1184,23 +1274,23 @@ class InstanceV1API(API):
     ) -> AttachServerFileSystemResponse:
         """
         Attach a filesystem volume to an Instance.
-        :param server_id:
-        :param filesystem_id:
+        :param server_id: 
+        :param filesystem_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`AttachServerFileSystemResponse <AttachServerFileSystemResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.attach_server_file_system(
                 server_id="example",
                 filesystem_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/attach-filesystem",
@@ -1216,7 +1306,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AttachServerFileSystemResponse(res.json())
-
+        
     def detach_server_file_system(
         self,
         *,
@@ -1226,23 +1316,23 @@ class InstanceV1API(API):
     ) -> DetachServerFileSystemResponse:
         """
         Detach a filesystem volume to an Instance.
-        :param server_id:
-        :param filesystem_id:
+        :param server_id: 
+        :param filesystem_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DetachServerFileSystemResponse <DetachServerFileSystemResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.detach_server_file_system(
                 server_id="example",
                 filesystem_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/detach-filesystem",
@@ -1258,7 +1348,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DetachServerFileSystemResponse(res.json())
-
+        
     def list_images(
         self,
         *,
@@ -1276,24 +1366,24 @@ class InstanceV1API(API):
         List Instance images.
         List all existing Instance images.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-        :param per_page:
-        :param page:
-        :param name:
-        :param public:
-        :param arch:
-        :param project:
-        :param tags:
+        :param organization: 
+        :param per_page: 
+        :param page: 
+        :param name: 
+        :param public: 
+        :param arch: 
+        :param project: 
+        :param tags: 
         :return: :class:`ListImagesResponse <ListImagesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_images()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/images",
@@ -1311,7 +1401,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListImagesResponse(res.json())
-
+        
     def list_images_all(
         self,
         *,
@@ -1329,23 +1419,23 @@ class InstanceV1API(API):
         List Instance images.
         List all existing Instance images.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-        :param per_page:
-        :param page:
-        :param name:
-        :param public:
-        :param arch:
-        :param project:
-        :param tags:
+        :param organization: 
+        :param per_page: 
+        :param page: 
+        :param name: 
+        :param public: 
+        :param arch: 
+        :param project: 
+        :param tags: 
         :return: :class:`List[Image] <List[Image]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_images_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListImagesResponse,
             key="images",
             fetcher=self.list_images,
@@ -1361,7 +1451,7 @@ class InstanceV1API(API):
                 "tags": tags,
             },
         )
-
+        
     def get_image(
         self,
         *,
@@ -1374,18 +1464,18 @@ class InstanceV1API(API):
         :param image_id: UUID of the image you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetImageResponse <GetImageResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_image(
                 image_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_image_id = validate_path_param("image_id", image_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/images/{param_image_id}",
@@ -1393,7 +1483,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetImageResponse(res.json())
-
+        
     def create_image(
         self,
         *,
@@ -1422,18 +1512,18 @@ class InstanceV1API(API):
         :param tags: Tags of the image.
         :param public: True to create a public image.
         :return: :class:`CreateImageResponse <CreateImageResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_image(
                 root_volume="example",
                 arch=Arch.unknown_arch,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/images",
@@ -1455,7 +1545,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateImageResponse(res.json())
-
+        
     def _set_image(
         self,
         *,
@@ -1479,25 +1569,25 @@ class InstanceV1API(API):
         Update image.
         Replace all image properties with an image message.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param id:
-        :param name:
-        :param arch:
-        :param creation_date:
-        :param modification_date:
-        :param from_server:
-        :param public:
-        :param default_bootscript:
-        :param extra_volumes:
-        :param organization:
-        :param root_volume:
-        :param state:
-        :param project:
-        :param tags:
+        :param id: 
+        :param name: 
+        :param arch: 
+        :param creation_date: 
+        :param modification_date: 
+        :param from_server: 
+        :param public: 
+        :param default_bootscript: 
+        :param extra_volumes: 
+        :param organization: 
+        :param root_volume: 
+        :param state: 
+        :param project: 
+        :param tags: 
         :return: :class:`_SetImageResponse <_SetImageResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api._set_image(
                 id="example",
                 name="example",
@@ -1505,10 +1595,10 @@ class InstanceV1API(API):
                 public=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_id = validate_path_param("id", id)
-
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/images/{param_id}",
@@ -1536,7 +1626,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetImageResponse(res.json())
-
+        
     def update_image(
         self,
         *,
@@ -1559,18 +1649,18 @@ class InstanceV1API(API):
         :param tags: Tags of the image.
         :param public: True to set the image as public.
         :return: :class:`UpdateImageResponse <UpdateImageResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_image(
                 image_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_image_id = validate_path_param("image_id", image_id)
-
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/images/{param_image_id}",
@@ -1590,7 +1680,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdateImageResponse(res.json())
-
+        
     def delete_image(
         self,
         *,
@@ -1602,25 +1692,24 @@ class InstanceV1API(API):
         Delete the image with the specified ID.
         :param image_id: UUID of the image you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_image(
                 image_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_image_id = validate_path_param("image_id", image_id)
-
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/images/{param_image_id}",
         )
 
         self._throw_on_error(res)
-
     def list_snapshots(
         self,
         *,
@@ -1645,15 +1734,15 @@ class InstanceV1API(API):
         :param tags: List snapshots that have the requested tag.
         :param base_volume_id: List snapshots originating only from this volume.
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/snapshots",
@@ -1670,7 +1759,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSnapshotsResponse(res.json())
-
+        
     def list_snapshots_all(
         self,
         *,
@@ -1695,14 +1784,14 @@ class InstanceV1API(API):
         :param tags: List snapshots that have the requested tag.
         :param base_volume_id: List snapshots originating only from this volume.
         :return: :class:`List[Snapshot] <List[Snapshot]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_snapshots_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSnapshotsResponse,
             key="snapshots",
             fetcher=self.list_snapshots,
@@ -1717,7 +1806,7 @@ class InstanceV1API(API):
                 "base_volume_id": base_volume_id,
             },
         )
-
+        
     def create_snapshot(
         self,
         *,
@@ -1749,15 +1838,15 @@ class InstanceV1API(API):
         :param key: Object key for snapshot imports.
         :param size: Imported snapshot size, must be a multiple of 512.
         :return: :class:`CreateSnapshotResponse <CreateSnapshotResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_snapshot()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/snapshots",
@@ -1780,7 +1869,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateSnapshotResponse(res.json())
-
+        
     def get_snapshot(
         self,
         *,
@@ -1793,18 +1882,18 @@ class InstanceV1API(API):
         :param snapshot_id: UUID of the snapshot you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetSnapshotResponse <GetSnapshotResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_snapshot(
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
@@ -1812,7 +1901,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetSnapshotResponse(res.json())
-
+        
     def _set_snapshot(
         self,
         *,
@@ -1833,24 +1922,24 @@ class InstanceV1API(API):
         """
         Set snapshot.
         Replace all the properties of a snapshot.
-        :param id:
-        :param name:
+        :param id: 
+        :param name: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-        :param volume_type:
-        :param size:
-        :param state:
-        :param base_volume:
-        :param creation_date:
-        :param modification_date:
-        :param project:
-        :param snapshot_id:
-        :param tags:
+        :param organization: 
+        :param volume_type: 
+        :param size: 
+        :param state: 
+        :param base_volume: 
+        :param creation_date: 
+        :param modification_date: 
+        :param project: 
+        :param snapshot_id: 
+        :param tags: 
         :return: :class:`_SetSnapshotResponse <_SetSnapshotResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api._set_snapshot(
                 id="example",
                 name="example",
@@ -1858,10 +1947,10 @@ class InstanceV1API(API):
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
@@ -1887,7 +1976,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetSnapshotResponse(res.json())
-
+        
     def update_snapshot(
         self,
         *,
@@ -1904,18 +1993,18 @@ class InstanceV1API(API):
         :param name: Name of the snapshot.
         :param tags: Tags of the snapshot.
         :return: :class:`UpdateSnapshotResponse <UpdateSnapshotResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_snapshot(
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
@@ -1932,7 +2021,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdateSnapshotResponse(res.json())
-
+        
     def delete_snapshot(
         self,
         *,
@@ -1944,25 +2033,24 @@ class InstanceV1API(API):
         Delete the snapshot with the specified ID.
         :param snapshot_id: UUID of the snapshot you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_snapshot(
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
         )
 
         self._throw_on_error(res)
-
     def export_snapshot(
         self,
         *,
@@ -1979,20 +2067,20 @@ class InstanceV1API(API):
         :param snapshot_id: Snapshot ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ExportSnapshotResponse <ExportSnapshotResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.export_snapshot(
                 bucket="example",
                 key="example",
                 snapshot_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}/export",
@@ -2009,7 +2097,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ExportSnapshotResponse(res.json())
-
+        
     def list_volumes(
         self,
         *,
@@ -2034,15 +2122,15 @@ class InstanceV1API(API):
         :param tags: Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
         :return: :class:`ListVolumesResponse <ListVolumesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_volumes()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/volumes",
@@ -2059,7 +2147,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVolumesResponse(res.json())
-
+        
     def list_volumes_all(
         self,
         *,
@@ -2084,14 +2172,14 @@ class InstanceV1API(API):
         :param tags: Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
         :return: :class:`List[Volume] <List[Volume]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_volumes_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListVolumesResponse,
             key="volumes",
             fetcher=self.list_volumes,
@@ -2106,7 +2194,7 @@ class InstanceV1API(API):
                 "name": name,
             },
         )
-
+        
     def create_volume(
         self,
         *,
@@ -2135,15 +2223,15 @@ class InstanceV1API(API):
         :param base_snapshot: ID of the snapshot on which this volume will be based.
         One-Of ('from'): at most one of 'size', 'base_snapshot' could be set.
         :return: :class:`CreateVolumeResponse <CreateVolumeResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_volume()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/volumes",
@@ -2164,7 +2252,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateVolumeResponse(res.json())
-
+        
     def get_volume(
         self,
         *,
@@ -2177,18 +2265,18 @@ class InstanceV1API(API):
         :param volume_id: UUID of the volume you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetVolumeResponse <GetVolumeResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_volume(
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_volume_id = validate_path_param("volume_id", volume_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/volumes/{param_volume_id}",
@@ -2196,7 +2284,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetVolumeResponse(res.json())
-
+        
     def update_volume(
         self,
         *,
@@ -2215,18 +2303,18 @@ class InstanceV1API(API):
         :param tags: Tags of the volume.
         :param size: Volume disk size, must be a multiple of 512.
         :return: :class:`UpdateVolumeResponse <UpdateVolumeResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_volume(
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_volume_id = validate_path_param("volume_id", volume_id)
-
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/volumes/{param_volume_id}",
@@ -2244,7 +2332,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdateVolumeResponse(res.json())
-
+        
     def delete_volume(
         self,
         *,
@@ -2256,25 +2344,24 @@ class InstanceV1API(API):
         Delete the volume with the specified ID.
         :param volume_id: UUID of the volume you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_volume(
                 volume_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_volume_id = validate_path_param("volume_id", volume_id)
-
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/volumes/{param_volume_id}",
         )
 
         self._throw_on_error(res)
-
     def list_security_groups(
         self,
         *,
@@ -2299,15 +2386,15 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`ListSecurityGroupsResponse <ListSecurityGroupsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_security_groups()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/security_groups",
@@ -2324,7 +2411,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSecurityGroupsResponse(res.json())
-
+        
     def list_security_groups_all(
         self,
         *,
@@ -2349,14 +2436,14 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`List[SecurityGroup] <List[SecurityGroup]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_security_groups_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSecurityGroupsResponse,
             key="security_groups",
             fetcher=self.list_security_groups,
@@ -2371,7 +2458,7 @@ class InstanceV1API(API):
                 "page": page,
             },
         )
-
+        
     def create_security_group(
         self,
         *,
@@ -2408,18 +2495,18 @@ class InstanceV1API(API):
         :param outbound_default_policy: Default policy for outbound rules.
         :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
         :return: :class:`CreateSecurityGroupResponse <CreateSecurityGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_security_group(
                 description="example",
                 stateful=false,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/security_groups",
@@ -2444,7 +2531,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateSecurityGroupResponse(res.json())
-
+        
     def get_security_group(
         self,
         *,
@@ -2457,20 +2544,18 @@ class InstanceV1API(API):
         :param security_group_id: UUID of the security group you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetSecurityGroupResponse <GetSecurityGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_security_group(
                 security_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}",
@@ -2478,7 +2563,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetSecurityGroupResponse(res.json())
-
+        
     def delete_security_group(
         self,
         *,
@@ -2490,27 +2575,24 @@ class InstanceV1API(API):
         Delete a security group with the specified ID.
         :param security_group_id: UUID of the security group you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_security_group(
                 security_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}",
         )
 
         self._throw_on_error(res)
-
     def _set_security_group(
         self,
         *,
@@ -2551,10 +2633,10 @@ class InstanceV1API(API):
         :param organization_default: Please use project_default instead.
         :param servers: Instances attached to this security group.
         :return: :class:`_SetSecurityGroupResponse <_SetSecurityGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api._set_security_group(
                 id="example",
                 name="example",
@@ -2564,10 +2646,10 @@ class InstanceV1API(API):
                 stateful=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_id = validate_path_param("id", id)
-
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_id}",
@@ -2596,7 +2678,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetSecurityGroupResponse(res.json())
-
+        
     def update_security_group(
         self,
         *,
@@ -2627,20 +2709,18 @@ class InstanceV1API(API):
         :param outbound_default_policy: Default outbound policy.
         :param stateful: True to set the security group as stateful.
         :return: :class:`UpdateSecurityGroupResponse <UpdateSecurityGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_security_group(
                 security_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}",
@@ -2664,7 +2744,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdateSecurityGroupResponse(res.json())
-
+        
     def list_default_security_group_rules(
         self,
         *,
@@ -2675,15 +2755,15 @@ class InstanceV1API(API):
         Lists the default rules applied to all the security groups.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListSecurityGroupRulesResponse <ListSecurityGroupRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_default_security_group_rules()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/security_groups/default/rules",
@@ -2691,7 +2771,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSecurityGroupRulesResponse(res.json())
-
+        
     def list_security_group_rules(
         self,
         *,
@@ -2708,20 +2788,18 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`ListSecurityGroupRulesResponse <ListSecurityGroupRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_security_group_rules(
                 security_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules",
@@ -2733,7 +2811,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListSecurityGroupRulesResponse(res.json())
-
+        
     def list_security_group_rules_all(
         self,
         *,
@@ -2750,16 +2828,16 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`List[SecurityGroupRule] <List[SecurityGroupRule]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_security_group_rules_all(
                 security_group_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListSecurityGroupRulesResponse,
             key="rules",
             fetcher=self.list_security_group_rules,
@@ -2770,7 +2848,7 @@ class InstanceV1API(API):
                 "page": page,
             },
         )
-
+        
     def create_security_group_rule(
         self,
         *,
@@ -2789,20 +2867,20 @@ class InstanceV1API(API):
         Create rule.
         Create a rule in the specified security group ID.
         :param security_group_id: UUID of the security group.
-        :param protocol:
-        :param direction:
-        :param action:
-        :param ip_range:
+        :param protocol: 
+        :param direction: 
+        :param action: 
+        :param ip_range: 
         :param position: Position of this rule in the security group rules list.
         :param editable: Indicates if this rule is editable (will be ignored).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dest_port_from: Beginning of the range of ports to apply this rule to (inclusive).
         :param dest_port_to: End of the range of ports to apply this rule to (inclusive).
         :return: :class:`CreateSecurityGroupRuleResponse <CreateSecurityGroupRuleResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_security_group_rule(
                 security_group_id="example",
                 protocol=SecurityGroupRuleProtocol.unknown_protocol,
@@ -2813,12 +2891,10 @@ class InstanceV1API(API):
                 editable=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules",
@@ -2841,7 +2917,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateSecurityGroupRuleResponse(res.json())
-
+        
     def set_security_group_rules(
         self,
         *,
@@ -2856,20 +2932,18 @@ class InstanceV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param rules: List of rules to update in the security group.
         :return: :class:`SetSecurityGroupRulesResponse <SetSecurityGroupRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_security_group_rules(
                 security_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules",
@@ -2885,7 +2959,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetSecurityGroupRulesResponse(res.json())
-
+        
     def delete_security_group_rule(
         self,
         *,
@@ -2896,34 +2970,29 @@ class InstanceV1API(API):
         """
         Delete rule.
         Delete a security group rule with the specified ID.
-        :param security_group_id:
-        :param security_group_rule_id:
+        :param security_group_id: 
+        :param security_group_rule_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_security_group_rule(
                 security_group_id="example",
                 security_group_rule_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-        param_security_group_rule_id = validate_path_param(
-            "security_group_rule_id", security_group_rule_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        param_security_group_rule_id = validate_path_param("security_group_rule_id", security_group_rule_id)
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules/{param_security_group_rule_id}",
         )
 
         self._throw_on_error(res)
-
     def get_security_group_rule(
         self,
         *,
@@ -2934,28 +3003,24 @@ class InstanceV1API(API):
         """
         Get rule.
         Get details of a security group rule with the specified ID.
-        :param security_group_id:
-        :param security_group_rule_id:
+        :param security_group_id: 
+        :param security_group_rule_id: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetSecurityGroupRuleResponse <GetSecurityGroupRuleResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_security_group_rule(
                 security_group_id="example",
                 security_group_rule_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-        param_security_group_rule_id = validate_path_param(
-            "security_group_rule_id", security_group_rule_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        param_security_group_rule_id = validate_path_param("security_group_rule_id", security_group_rule_id)
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules/{param_security_group_rule_id}",
@@ -2963,7 +3028,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetSecurityGroupRuleResponse(res.json())
-
+        
     def _set_security_group_rule(
         self,
         *,
@@ -2983,23 +3048,23 @@ class InstanceV1API(API):
         """
         Set security group rule.
         Replace all the properties of a rule from a specified security group.
-        :param security_group_id:
-        :param security_group_rule_id:
-        :param id:
-        :param ip_range:
-        :param position:
-        :param editable:
+        :param security_group_id: 
+        :param security_group_rule_id: 
+        :param id: 
+        :param ip_range: 
+        :param position: 
+        :param editable: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param protocol:
-        :param direction:
-        :param action:
-        :param dest_port_from:
-        :param dest_port_to:
+        :param protocol: 
+        :param direction: 
+        :param action: 
+        :param dest_port_from: 
+        :param dest_port_to: 
         :return: :class:`_SetSecurityGroupRuleResponse <_SetSecurityGroupRuleResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api._set_security_group_rule(
                 security_group_id="example",
                 security_group_rule_id="example",
@@ -3009,15 +3074,11 @@ class InstanceV1API(API):
                 editable=False,
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-        param_security_group_rule_id = validate_path_param(
-            "security_group_rule_id", security_group_rule_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        param_security_group_rule_id = validate_path_param("security_group_rule_id", security_group_rule_id)
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules/{param_security_group_rule_id}",
@@ -3042,7 +3103,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetSecurityGroupRuleResponse(res.json())
-
+        
     def update_security_group_rule(
         self,
         *,
@@ -3071,24 +3132,20 @@ class InstanceV1API(API):
         :param dest_port_to: End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.
         :param position: Position of this rule in the security group rules list.
         :return: :class:`UpdateSecurityGroupRuleResponse <UpdateSecurityGroupRuleResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_security_group_rule(
                 security_group_id="example",
                 security_group_rule_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_security_group_id = validate_path_param(
-            "security_group_id", security_group_id
-        )
-        param_security_group_rule_id = validate_path_param(
-            "security_group_rule_id", security_group_rule_id
-        )
-
+        param_security_group_id = validate_path_param("security_group_id", security_group_id)
+        param_security_group_rule_id = validate_path_param("security_group_rule_id", security_group_rule_id)
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules/{param_security_group_rule_id}",
@@ -3111,7 +3168,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdateSecurityGroupRuleResponse(res.json())
-
+        
     def list_placement_groups(
         self,
         *,
@@ -3134,15 +3191,15 @@ class InstanceV1API(API):
         :param tags: List placement groups with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
         :return: :class:`ListPlacementGroupsResponse <ListPlacementGroupsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_placement_groups()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/placement_groups",
@@ -3158,7 +3215,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPlacementGroupsResponse(res.json())
-
+        
     def list_placement_groups_all(
         self,
         *,
@@ -3181,14 +3238,14 @@ class InstanceV1API(API):
         :param tags: List placement groups with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
         :return: :class:`List[PlacementGroup] <List[PlacementGroup]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_placement_groups_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPlacementGroupsResponse,
             key="placement_groups",
             fetcher=self.list_placement_groups,
@@ -3202,7 +3259,7 @@ class InstanceV1API(API):
                 "name": name,
             },
         )
-
+        
     def create_placement_group(
         self,
         *,
@@ -3227,15 +3284,15 @@ class InstanceV1API(API):
         :param policy_mode: Operating mode of the placement group.
         :param policy_type: Policy type of the placement group.
         :return: :class:`CreatePlacementGroupResponse <CreatePlacementGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_placement_group()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/placement_groups",
@@ -3255,7 +3312,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreatePlacementGroupResponse(res.json())
-
+        
     def get_placement_group(
         self,
         *,
@@ -3268,20 +3325,18 @@ class InstanceV1API(API):
         :param placement_group_id: UUID of the placement group you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetPlacementGroupResponse <GetPlacementGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_placement_group(
                 placement_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_placement_group_id = validate_path_param(
-            "placement_group_id", placement_group_id
-        )
-
+        param_placement_group_id = validate_path_param("placement_group_id", placement_group_id)
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}",
@@ -3289,7 +3344,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetPlacementGroupResponse(res.json())
-
+        
     def set_placement_group(
         self,
         *,
@@ -3305,30 +3360,28 @@ class InstanceV1API(API):
         """
         Set placement group.
         Set all parameters of the specified placement group.
-        :param placement_group_id:
-        :param name:
+        :param placement_group_id: 
+        :param name: 
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-        :param policy_mode:
-        :param policy_type:
-        :param project:
-        :param tags:
+        :param organization: 
+        :param policy_mode: 
+        :param policy_type: 
+        :param project: 
+        :param tags: 
         :return: :class:`SetPlacementGroupResponse <SetPlacementGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_placement_group(
                 placement_group_id="example",
                 name="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_placement_group_id = validate_path_param(
-            "placement_group_id", placement_group_id
-        )
-
+        param_placement_group_id = validate_path_param("placement_group_id", placement_group_id)
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}",
@@ -3349,7 +3402,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetPlacementGroupResponse(res.json())
-
+        
     def update_placement_group(
         self,
         *,
@@ -3370,20 +3423,18 @@ class InstanceV1API(API):
         :param policy_mode: Operating mode of the placement group.
         :param policy_type: Policy type of the placement group.
         :return: :class:`UpdatePlacementGroupResponse <UpdatePlacementGroupResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_placement_group(
                 placement_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_placement_group_id = validate_path_param(
-            "placement_group_id", placement_group_id
-        )
-
+        param_placement_group_id = validate_path_param("placement_group_id", placement_group_id)
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}",
@@ -3402,7 +3453,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdatePlacementGroupResponse(res.json())
-
+        
     def delete_placement_group(
         self,
         *,
@@ -3413,27 +3464,24 @@ class InstanceV1API(API):
         Delete the specified placement group.
         :param placement_group_id: UUID of the placement group you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_placement_group(
                 placement_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_placement_group_id = validate_path_param(
-            "placement_group_id", placement_group_id
-        )
-
+        param_placement_group_id = validate_path_param("placement_group_id", placement_group_id)
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}",
         )
 
         self._throw_on_error(res)
-
     def get_placement_group_servers(
         self,
         *,
@@ -3446,20 +3494,18 @@ class InstanceV1API(API):
         :param placement_group_id: UUID of the placement group you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetPlacementGroupServersResponse <GetPlacementGroupServersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_placement_group_servers(
                 placement_group_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_placement_group_id = validate_path_param(
-            "placement_group_id", placement_group_id
-        )
-
+        param_placement_group_id = validate_path_param("placement_group_id", placement_group_id)
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}/servers",
@@ -3467,7 +3513,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetPlacementGroupServersResponse(res.json())
-
+        
     def set_placement_group_servers(
         self,
         *,
@@ -3482,21 +3528,19 @@ class InstanceV1API(API):
         :param servers: An array of the Instances' UUIDs you want to configure.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetPlacementGroupServersResponse <SetPlacementGroupServersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_placement_group_servers(
                 placement_group_id="example",
                 servers=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_placement_group_id = validate_path_param(
-            "placement_group_id", placement_group_id
-        )
-
+        param_placement_group_id = validate_path_param("placement_group_id", placement_group_id)
+        
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}/servers",
@@ -3512,7 +3556,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetPlacementGroupServersResponse(res.json())
-
+        
     def update_placement_group_servers(
         self,
         *,
@@ -3527,21 +3571,19 @@ class InstanceV1API(API):
         :param servers: An array of the Instances' UUIDs you want to configure.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`UpdatePlacementGroupServersResponse <UpdatePlacementGroupServersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_placement_group_servers(
                 placement_group_id="example",
                 servers=[],
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_placement_group_id = validate_path_param(
-            "placement_group_id", placement_group_id
-        )
-
+        param_placement_group_id = validate_path_param("placement_group_id", placement_group_id)
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}/servers",
@@ -3557,7 +3599,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdatePlacementGroupServersResponse(res.json())
-
+        
     def list_ips(
         self,
         *,
@@ -3582,15 +3624,15 @@ class InstanceV1API(API):
         :param page: A positive integer to choose the page to return.
         :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`ListIpsResponse <ListIpsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_ips()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/ips",
@@ -3607,7 +3649,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListIpsResponse(res.json())
-
+        
     def list_ips_all(
         self,
         *,
@@ -3632,14 +3674,14 @@ class InstanceV1API(API):
         :param page: A positive integer to choose the page to return.
         :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`List[Ip] <List[Ip]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_ips_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListIpsResponse,
             key="ips",
             fetcher=self.list_ips,
@@ -3654,7 +3696,7 @@ class InstanceV1API(API):
                 "type_": type_,
             },
         )
-
+        
     def create_ip(
         self,
         *,
@@ -3677,15 +3719,15 @@ class InstanceV1API(API):
         :param server: UUID of the Instance you want to attach the IP to.
         :param type_: IP type to reserve (either 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`CreateIpResponse <CreateIpResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_ip()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/ips",
@@ -3704,7 +3746,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateIpResponse(res.json())
-
+        
     def get_ip(
         self,
         *,
@@ -3717,18 +3759,18 @@ class InstanceV1API(API):
         :param ip: IP ID or address to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetIpResponse <GetIpResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_ip(
                 ip="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip = validate_path_param("ip", ip)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/ips/{param_ip}",
@@ -3736,7 +3778,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetIpResponse(res.json())
-
+        
     def update_ip(
         self,
         *,
@@ -3755,20 +3797,20 @@ class InstanceV1API(API):
         :param reverse: Reverse domain name.
         :param type_: Should have no effect.
         :param tags: An array of keywords you want to tag this IP with.
-        :param server:
+        :param server: 
         :return: :class:`UpdateIpResponse <UpdateIpResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_ip(
                 ip="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip = validate_path_param("ip", ip)
-
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/ips/{param_ip}",
@@ -3787,7 +3829,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_UpdateIpResponse(res.json())
-
+        
     def delete_ip(
         self,
         *,
@@ -3799,25 +3841,24 @@ class InstanceV1API(API):
         Delete the IP with the specified ID.
         :param ip: ID or address of the IP to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_ip(
                 ip="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip = validate_path_param("ip", ip)
-
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/ips/{param_ip}",
         )
 
         self._throw_on_error(res)
-
     def list_private_ni_cs(
         self,
         *,
@@ -3836,18 +3877,18 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`ListPrivateNICsResponse <ListPrivateNICsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_private_ni_cs(
                 server_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics",
@@ -3860,7 +3901,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPrivateNICsResponse(res.json())
-
+        
     def list_private_ni_cs_all(
         self,
         *,
@@ -3879,16 +3920,16 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`List[PrivateNIC] <List[PrivateNIC]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_private_ni_cs_all(
                 server_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPrivateNICsResponse,
             key="private_nics",
             fetcher=self.list_private_ni_cs,
@@ -3900,7 +3941,7 @@ class InstanceV1API(API):
                 "page": page,
             },
         )
-
+        
     def create_private_nic(
         self,
         *,
@@ -3920,19 +3961,19 @@ class InstanceV1API(API):
         :param ip_ids: Ip_ids defined from IPAM.
         :param ipam_ip_ids: UUID of IPAM ips, to be attached to the instance in the requested private network.
         :return: :class:`CreatePrivateNICResponse <CreatePrivateNICResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_private_nic(
                 server_id="example",
                 private_network_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics",
@@ -3951,7 +3992,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreatePrivateNICResponse(res.json())
-
+        
     def get_private_nic(
         self,
         *,
@@ -3966,20 +4007,20 @@ class InstanceV1API(API):
         :param private_nic_id: Private NIC unique ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetPrivateNICResponse <GetPrivateNICResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_private_nic(
                 server_id="example",
                 private_nic_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
         param_private_nic_id = validate_path_param("private_nic_id", private_nic_id)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics/{param_private_nic_id}",
@@ -3987,7 +4028,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetPrivateNICResponse(res.json())
-
+        
     def update_private_nic(
         self,
         *,
@@ -4004,20 +4045,20 @@ class InstanceV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Tags used to select private NIC/s.
         :return: :class:`PrivateNIC <PrivateNIC>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_private_nic(
                 server_id="example",
                 private_nic_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
         param_private_nic_id = validate_path_param("private_nic_id", private_nic_id)
-
+        
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics/{param_private_nic_id}",
@@ -4034,7 +4075,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_PrivateNIC(res.json())
-
+        
     def delete_private_nic(
         self,
         *,
@@ -4047,27 +4088,26 @@ class InstanceV1API(API):
         :param server_id: Instance to which the private NIC is attached.
         :param private_nic_id: Private NIC unique ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_private_nic(
                 server_id="example",
                 private_nic_id="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
         param_private_nic_id = validate_path_param("private_nic_id", private_nic_id)
-
+        
         res = self._request(
             "DELETE",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics/{param_private_nic_id}",
         )
 
         self._throw_on_error(res)
-
     def get_dashboard(
         self,
         *,
@@ -4077,18 +4117,18 @@ class InstanceV1API(API):
     ) -> GetDashboardResponse:
         """
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-        :param project:
+        :param organization: 
+        :param project: 
         :return: :class:`GetDashboardResponse <GetDashboardResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_dashboard()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/dashboard",
@@ -4100,7 +4140,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetDashboardResponse(res.json())
-
+        
     def plan_block_migration(
         self,
         *,
@@ -4121,15 +4161,15 @@ class InstanceV1API(API):
         :param snapshot_id: The snapshot for which the migration plan will be generated.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
         :return: :class:`MigrationPlan <MigrationPlan>`
-
+        
         Usage:
         ::
-
+        
             result = api.plan_block_migration()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/block-migration/plan",
@@ -4145,7 +4185,7 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_MigrationPlan(res.json())
-
+        
     def apply_block_migration(
         self,
         *,
@@ -4163,17 +4203,17 @@ class InstanceV1API(API):
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
         :param snapshot_id: The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
-
+        
         Usage:
         ::
-
+        
             result = api.apply_block_migration(
                 validation_key="example",
             )
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/block-migration/apply",
@@ -4189,7 +4229,6 @@ class InstanceV1API(API):
         )
 
         self._throw_on_error(res)
-
     def check_block_migration_organization_quotas(
         self,
         *,
@@ -4198,16 +4237,16 @@ class InstanceV1API(API):
     ) -> None:
         """
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-
+        :param organization: 
+        
         Usage:
         ::
-
+        
             result = api.check_block_migration_organization_quotas()
         """
-
+        
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
+        
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/block-migration/check-organization-quotas",

@@ -10,7 +10,6 @@ from .types import (
     TokenStatus,
     TriggerStatus,
 )
-
 CONTAINER_TRANSIENT_STATUSES: List[ContainerStatus] = [
     ContainerStatus.DELETING,
     ContainerStatus.CREATING,

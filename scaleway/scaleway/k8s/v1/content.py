@@ -7,7 +7,6 @@ from .types import (
     NodeStatus,
     PoolStatus,
 )
-
 CLUSTER_TRANSIENT_STATUSES: List[ClusterStatus] = [
     ClusterStatus.CREATING,
     ClusterStatus.DELETING,

@@ -1,36 +1,68 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
     ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
     unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
+    DeploymentStatus,
     ListDeploymentsRequestOrderBy,
     ListModelsRequestOrderBy,
+    ModelStatus,
+    NodeTypeStock,
     CreateDeploymentRequest,
     CreateEndpointRequest,
     CreateModelRequest,
+    DeleteDeploymentRequest,
+    DeleteEndpointRequest,
+    DeleteModelRequest,
     Deployment,
     DeploymentQuantization,
     Endpoint,
+    EndpointPrivateNetworkDetails,
+    EndpointPublicNetworkDetails,
     EndpointSpec,
+    GetDeploymentCertificateRequest,
+    GetDeploymentRequest,
+    GetModelRequest,
+    ListDeploymentsRequest,
     ListDeploymentsResponse,
+    ListModelsRequest,
     ListModelsResponse,
+    ListNodeTypesRequest,
     ListNodeTypesResponse,
     Model,
     ModelSource,
+    ModelSupportInfo,
+    ModelSupportedNode,
+    ModelSupportedQuantization,
     NodeType,
     UpdateDeploymentRequest,
     UpdateEndpointRequest,
@@ -41,6 +73,7 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_Endpoint,
+    unmarshal_ModelSupportInfo,
     unmarshal_Deployment,
     unmarshal_Model,
     unmarshal_ListDeploymentsResponse,
@@ -53,12 +86,10 @@ from .marshalling import (
     marshal_UpdateEndpointRequest,
 )
 
-
 class InferenceV1API(API):
     """
     This API allows you to handle your Managed Inference services.
     """
-
     def list_deployments(
         self,
         *,
@@ -83,25 +114,22 @@ class InferenceV1API(API):
         :param name: Filter by deployment name.
         :param tags: Filter by tags.
         :return: :class:`ListDeploymentsResponse <ListDeploymentsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_deployments()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/inference/v1/regions/{param_region}/deployments",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -111,7 +139,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDeploymentsResponse(res.json())
-
+        
     def list_deployments_all(
         self,
         *,
@@ -136,14 +164,14 @@ class InferenceV1API(API):
         :param name: Filter by deployment name.
         :param tags: Filter by tags.
         :return: :class:`List[Deployment] <List[Deployment]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_deployments_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListDeploymentsResponse,
             key="deployments",
             fetcher=self.list_deployments,
@@ -158,7 +186,7 @@ class InferenceV1API(API):
                 "tags": tags,
             },
         )
-
+        
     def get_deployment(
         self,
         *,
@@ -171,20 +199,18 @@ class InferenceV1API(API):
         :param deployment_id: ID of the deployment to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Deployment <Deployment>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_deployment(
                 deployment_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_deployment_id = validate_path_param("deployment_id", deployment_id)
-
+        
         res = self._request(
             "GET",
             f"/inference/v1/regions/{param_region}/deployments/{param_deployment_id}",
@@ -192,7 +218,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Deployment(res.json())
-
+        
     def wait_for_deployment(
         self,
         *,
@@ -206,10 +232,10 @@ class InferenceV1API(API):
         :param deployment_id: ID of the deployment to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Deployment <Deployment>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_deployment(
                 deployment_id="example",
             )
@@ -229,7 +255,7 @@ class InferenceV1API(API):
                 "region": region,
             },
         )
-
+        
     def create_deployment(
         self,
         *,
@@ -261,21 +287,19 @@ class InferenceV1API(API):
         :param max_size: Defines the maximum size of the pool.
         :param quantization: Quantization settings to apply to this deployment.
         :return: :class:`Deployment <Deployment>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_deployment(
                 model_id="example",
                 node_type_name="example",
                 endpoints=[],
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/inference/v1/regions/{param_region}/deployments",
@@ -299,7 +323,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Deployment(res.json())
-
+        
     def update_deployment(
         self,
         *,
@@ -324,20 +348,18 @@ class InferenceV1API(API):
         :param model_id: Id of the model to set to the deployment.
         :param quantization: Quantization to use to the deployment.
         :return: :class:`Deployment <Deployment>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_deployment(
                 deployment_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_deployment_id = validate_path_param("deployment_id", deployment_id)
-
+        
         res = self._request(
             "PATCH",
             f"/inference/v1/regions/{param_region}/deployments/{param_deployment_id}",
@@ -358,7 +380,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Deployment(res.json())
-
+        
     def delete_deployment(
         self,
         *,
@@ -371,20 +393,18 @@ class InferenceV1API(API):
         :param deployment_id: ID of the deployment to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Deployment <Deployment>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_deployment(
                 deployment_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_deployment_id = validate_path_param("deployment_id", deployment_id)
-
+        
         res = self._request(
             "DELETE",
             f"/inference/v1/regions/{param_region}/deployments/{param_deployment_id}",
@@ -392,7 +412,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Deployment(res.json())
-
+        
     def get_deployment_certificate(
         self,
         *,
@@ -403,23 +423,21 @@ class InferenceV1API(API):
         Get the CA certificate.
         Get the CA certificate used for the deployment of private endpoints.
         The CA certificate will be returned as a PEM file.
-        :param deployment_id:
+        :param deployment_id: 
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ScwFile <ScwFile>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_deployment_certificate(
                 deployment_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_deployment_id = validate_path_param("deployment_id", deployment_id)
-
+        
         res = self._request(
             "GET",
             f"/inference/v1/regions/{param_region}/deployments/{param_deployment_id}/certificate",
@@ -427,7 +445,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-
+        
     def create_endpoint(
         self,
         *,
@@ -442,20 +460,18 @@ class InferenceV1API(API):
         :param endpoint: Specification of the endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Endpoint <Endpoint>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_endpoint(
                 deployment_id="example",
                 endpoint=EndpointSpec(),
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/inference/v1/regions/{param_region}/endpoints",
@@ -471,7 +487,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
-
+        
     def update_endpoint(
         self,
         *,
@@ -487,20 +503,18 @@ class InferenceV1API(API):
         :param disable_auth: By default, deployments are protected by IAM authentication.
         When setting this field to true, the authentication will be disabled.
         :return: :class:`Endpoint <Endpoint>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_endpoint(
                 endpoint_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-
+        
         res = self._request(
             "PATCH",
             f"/inference/v1/regions/{param_region}/endpoints/{param_endpoint_id}",
@@ -516,7 +530,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
-
+        
     def delete_endpoint(
         self,
         *,
@@ -528,27 +542,24 @@ class InferenceV1API(API):
         Delete an existing Endpoint.
         :param endpoint_id: ID of the endpoint to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_endpoint(
                 endpoint_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
-
+        
         res = self._request(
             "DELETE",
             f"/inference/v1/regions/{param_region}/endpoints/{param_endpoint_id}",
         )
 
         self._throw_on_error(res)
-
     def list_models(
         self,
         *,
@@ -571,17 +582,15 @@ class InferenceV1API(API):
         :param name: Filter by model name.
         :param tags: Filter by tags.
         :return: :class:`ListModelsResponse <ListModelsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_models()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/inference/v1/regions/{param_region}/models",
@@ -597,7 +606,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListModelsResponse(res.json())
-
+        
     def list_models_all(
         self,
         *,
@@ -620,14 +629,14 @@ class InferenceV1API(API):
         :param name: Filter by model name.
         :param tags: Filter by tags.
         :return: :class:`List[Model] <List[Model]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_models_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListModelsResponse,
             key="models",
             fetcher=self.list_models,
@@ -641,7 +650,7 @@ class InferenceV1API(API):
                 "tags": tags,
             },
         )
-
+        
     def get_model(
         self,
         *,
@@ -654,20 +663,18 @@ class InferenceV1API(API):
         :param model_id: ID of the model to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Model <Model>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_model(
                 model_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_model_id = validate_path_param("model_id", model_id)
-
+        
         res = self._request(
             "GET",
             f"/inference/v1/regions/{param_region}/models/{param_model_id}",
@@ -675,7 +682,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Model(res.json())
-
+        
     def wait_for_model(
         self,
         *,
@@ -689,10 +696,10 @@ class InferenceV1API(API):
         :param model_id: ID of the model to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Model <Model>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_model(
                 model_id="example",
             )
@@ -712,7 +719,7 @@ class InferenceV1API(API):
                 "region": region,
             },
         )
-
+        
     def create_model(
         self,
         *,
@@ -729,19 +736,17 @@ class InferenceV1API(API):
         :param name: Name of the model.
         :param project_id: ID of the Project to import the model in.
         :return: :class:`Model <Model>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_model(
                 source=ModelSource(),
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/inference/v1/regions/{param_region}/models",
@@ -758,7 +763,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Model(res.json())
-
+        
     def delete_model(
         self,
         *,
@@ -770,27 +775,24 @@ class InferenceV1API(API):
         Delete an existing model from your model library.
         :param model_id: ID of the model to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_model(
                 model_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_model_id = validate_path_param("model_id", model_id)
-
+        
         res = self._request(
             "DELETE",
             f"/inference/v1/regions/{param_region}/models/{param_model_id}",
         )
 
         self._throw_on_error(res)
-
     def list_node_types(
         self,
         *,
@@ -807,19 +809,17 @@ class InferenceV1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of node types to return per page.
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_node_types(
                 include_disabled_types=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/inference/v1/regions/{param_region}/node-types",
@@ -832,7 +832,7 @@ class InferenceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNodeTypesResponse(res.json())
-
+        
     def list_node_types_all(
         self,
         *,
@@ -849,16 +849,16 @@ class InferenceV1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of node types to return per page.
         :return: :class:`List[NodeType] <List[NodeType]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_node_types_all(
                 include_disabled_types=False,
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListNodeTypesResponse,
             key="node_types",
             fetcher=self.list_node_types,
@@ -869,3 +869,4 @@ class InferenceV1API(API):
                 "page_size": page_size,
             },
         )
+        

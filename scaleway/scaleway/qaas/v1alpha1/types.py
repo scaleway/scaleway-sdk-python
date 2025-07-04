@@ -3,17 +3,23 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from decimal import Decimal
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from scaleway_core.bridge import (
     Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
 )
-
 
 class ApplicationType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
@@ -21,7 +27,6 @@ class ApplicationType(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class BookingStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -35,7 +40,6 @@ class BookingStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class JobStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     WAITING = "waiting"
@@ -48,7 +52,6 @@ class JobStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class ListApplicationsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -57,7 +60,6 @@ class ListApplicationsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class ListBookingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
@@ -68,14 +70,12 @@ class ListBookingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class ListJobResultsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class ListJobsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
@@ -92,7 +92,6 @@ class ListJobsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class ListPlatformsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -108,14 +107,12 @@ class ListPlatformsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class ListProcessResultsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class ListProcessesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
@@ -130,14 +127,12 @@ class ListProcessesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class ListSessionACLsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     ACCESS_ASC = "access_asc"
     ACCESS_DESC = "access_desc"
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class ListSessionsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
@@ -152,7 +147,6 @@ class ListSessionsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class PlatformAvailability(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_AVAILABILITY = "unknown_availability"
     AVAILABLE = "available"
@@ -162,7 +156,6 @@ class PlatformAvailability(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class PlatformTechnology(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TECHNOLOGY = "unknown_technology"
@@ -175,7 +168,6 @@ class PlatformTechnology(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class PlatformType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     SIMULATOR = "simulator"
@@ -183,7 +175,6 @@ class PlatformType(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class ProcessStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -196,7 +187,6 @@ class ProcessStatus(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class SessionAccess(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ACCESS = "unknown_access"
@@ -211,7 +201,6 @@ class SessionAccess(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 class SessionOriginType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ORIGIN_TYPE = "unknown_origin_type"
     CUSTOMER = "customer"
@@ -219,7 +208,6 @@ class SessionOriginType(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
 
 class SessionStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -231,29 +219,28 @@ class SessionStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
-
 @dataclass
 class PlatformBookingRequirement:
     min_duration: Optional[str]
     """
     Minimal duration of any booking based on this platform.
     """
-
+    
     max_duration: Optional[str]
     """
     Maximal duration of any bookings based on this platform.
     """
-
+    
     max_cancellation_duration: Optional[str]
     """
     Allowed time to cancel a booking attached to this platform before the beginning of the session.
     """
-
+    
     max_planification_duration: Optional[str]
     """
     Allowed planification time from now where the platform can be booked in the future.
     """
-
+    
 
 @dataclass
 class PlatformHardware:
@@ -261,48 +248,48 @@ class PlatformHardware:
     """
     Product name of the hardware.
     """
-
+    
     vcpus: int
     """
     Number of vCPUs available.
     """
-
+    
     gpus: int
     """
     Number of GPUs available (0 if no GPU).
     """
-
+    
     gpus_network: str
     """
     Network topology of GPUs (PCIe, NVLink...).
     """
-
+    
     ram: int
     """
     Amount of RAM available in byte.
     """
-
+    
     vram: int
     """
     Amount of VRAM available in byte (0 if no GPU).
     """
-
+    
 
 @dataclass
 class JobCircuit:
     perceval_circuit: Optional[str]
-
+    
     qiskit_circuit: Optional[str]
-
+    
 
 @dataclass
 class CreateSessionRequestBookingDemand:
     started_at: Optional[datetime]
-
+    
     finished_at: Optional[datetime]
-
+    
     description: Optional[str]
-
+    
 
 @dataclass
 class Application:
@@ -310,27 +297,27 @@ class Application:
     """
     Unique ID of the application.
     """
-
+    
     name: str
     """
     Name of the application.
     """
-
+    
     type_: ApplicationType
     """
     Type of the application.
     """
-
+    
     compatible_platform_ids: List[str]
     """
     List of compatible platform (by IDs) able to run this application.
     """
-
+    
     input_template: str
     """
     JSON format describing the expected input.
     """
-
+    
 
 @dataclass
 class Booking:
@@ -338,42 +325,42 @@ class Booking:
     """
     Unique ID of the booking.
     """
-
+    
     status: BookingStatus
     """
     Status of the booking.
     """
-
+    
     description: str
     """
     Description of the booking slot.
     """
-
+    
     progress_message: str
     """
     Any progress message of the booking.
     """
-
+    
     created_at: Optional[datetime]
     """
     Time at which the booking was created.
     """
-
+    
     started_at: Optional[datetime]
     """
     Time at which the booking starts.
     """
-
+    
     updated_at: Optional[datetime]
     """
     Time at which the booking was updated.
     """
-
+    
     finished_at: Optional[datetime]
     """
     Time at which the booking finishes.
     """
-
+    
 
 @dataclass
 class JobResult:
@@ -381,22 +368,22 @@ class JobResult:
     """
     ID of the parent job.
     """
-
+    
     result: Optional[str]
     """
     Result in JSON format.
     """
-
+    
     url: Optional[str]
     """
     URL to download a large result (optional).
     """
-
+    
     created_at: Optional[datetime]
     """
     Creation time of the result.
     """
-
+    
 
 @dataclass
 class Job:
@@ -404,57 +391,57 @@ class Job:
     """
     Unique ID of the job.
     """
-
+    
     name: str
     """
     Job name.
     """
-
+    
     session_id: str
     """
     Session ID in which the job is executed.
     """
-
+    
     status: JobStatus
     """
     Job status.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the job.
     """
-
+    
     created_at: Optional[datetime]
     """
     Time at which the job was created.
     """
-
+    
     started_at: Optional[datetime]
     """
     Time at which the job was started.
     """
-
+    
     updated_at: Optional[datetime]
     """
     Time at which the job was updated.
     """
-
+    
     progress_message: Optional[str]
     """
     Last progress message, if the job has started.
     """
-
+    
     job_duration: Optional[str]
     """
     Duration of the job, if the job is finished.
     """
-
+    
     result_distribution: Optional[str]
     """
     Result of the job, if the job is finished.
     """
-
+    
 
 @dataclass
 class Platform:
@@ -462,102 +449,102 @@ class Platform:
     """
     Unique ID of the platform.
     """
-
+    
     version: str
     """
     Version of the platform.
     """
-
+    
     name: str
     """
     Name of the platform.
     """
-
+    
     provider_name: str
     """
     Provider name of the platform.
     """
-
+    
     backend_name: str
     """
     Name of the running backend over the platform (ascella, qsim, aer...).
     """
-
+    
     type_: PlatformType
     """
     Type of the platform.
     """
-
+    
     technology: PlatformTechnology
     """
     Technology used by the platform.
     """
-
+    
     max_qubit_count: int
     """
     Estimated maximum number of qubits supported by the platform.
     """
-
+    
     max_shot_count: int
     """
     Maximum number of shots during a circuit execution.
     """
-
+    
     max_circuit_count: int
     """
     Maximum number of circuit that can be executed in one call.
     """
-
+    
     availability: PlatformAvailability
     """
     Availability of the platform.
     """
-
+    
     metadata: str
     """
     Metadata provided by the platform.
     """
-
+    
     description: str
     """
     English description of the platform.
     """
-
+    
     documentation_url: str
     """
     Documentation link to external documentation to learn more on this platform.
     """
-
+    
     is_bookable: bool
     """
     Specify if the platform is bookable.
     """
-
+    
     price_per_hour: Optional[Money]
     """
     Price to be paid per hour (excluding free tiers).
     """
-
+    
     price_per_shot: Optional[Money]
     """
     Price to be paid per shot (excluding free tiers).
     """
-
+    
     price_per_circuit: Optional[Money]
     """
     Price to be paid per circuit setup before its execution (excluding free tiers).
     """
-
+    
     hardware: Optional[PlatformHardware]
     """
     Specifications of the underlying hardware.
     """
-
+    
     booking_requirement: Optional[PlatformBookingRequirement]
     """
     Booking constraints to fit if the platform is bookable.
     """
-
+    
 
 @dataclass
 class ProcessResult:
@@ -565,17 +552,17 @@ class ProcessResult:
     """
     ID of the parent process.
     """
-
+    
     result: str
     """
     Result in JSON format.
     """
-
+    
     created_at: Optional[datetime]
     """
     Creation time of the result.
     """
-
+    
 
 @dataclass
 class Process:
@@ -583,77 +570,77 @@ class Process:
     """
     Unique ID of the process.
     """
-
+    
     name: str
     """
     Name of the process.
     """
-
+    
     attached_session_ids: List[str]
     """
     List of sessions generated by the process.
     """
-
+    
     application_id: Optional[str]
     """
     Application ID for which the process has been created.
     """
-
+    
     status: ProcessStatus
     """
     Status of the process.
     """
-
+    
     project_id: str
     """
     Project ID in which the process has been created.
     """
-
+    
     tags: List[str]
     """
     Tags of the process.
     """
-
+    
     platform_id: Optional[str]
     """
     Platform ID for which the process has been created.
     """
-
+    
     created_at: Optional[datetime]
     """
     Time at which the process was created.
     """
-
+    
     started_at: Optional[datetime]
     """
     Time at which the process started.
     """
-
+    
     updated_at: Optional[datetime]
     """
     Time at which the process was updated.
     """
-
+    
     finished_at: Optional[datetime]
     """
     Time at which the process was finished.
     """
-
+    
     progress: Optional[int]
     """
     Progress of the process, from 0 to 1.
     """
-
+    
     progress_message: Optional[str]
     """
     Any progress of the process.
     """
-
+    
     input: Optional[str]
     """
     Input payload of the process as JSON string.
     """
-
+    
 
 @dataclass
 class Session:
@@ -661,97 +648,97 @@ class Session:
     """
     Unique ID of the session.
     """
-
+    
     name: str
     """
     Name of the session.
     """
-
+    
     platform_id: str
     """
     Platform ID for which the session has been created.
     """
-
+    
     waiting_job_count: int
     """
     Number of waiting jobs linked to the session.
     """
-
+    
     created_at: Optional[datetime]
     """
     The time at which the session was created.
     """
-
+    
     finished_job_count: int
     """
     Number of finished jobs linked to the session.
     """
-
+    
     status: SessionStatus
     """
     Status of the session.
     """
-
+    
     project_id: str
     """
     Project ID in which the session has been created.
     """
-
+    
     deduplication_id: str
     """
     Deduplication ID of the session.
     """
-
+    
     origin_type: SessionOriginType
     """
     Resource type that creates the session.
     """
-
+    
     started_at: Optional[datetime]
     """
     The time at which the session started.
     """
-
+    
     updated_at: Optional[datetime]
     """
     The time at which the session was updated.
     """
-
+    
     terminated_at: Optional[datetime]
     """
     The time at which the session was terminated.
     """
-
+    
     max_idle_duration: Optional[str]
     """
     Maximum idle time before the session ends.
     """
-
+    
     max_duration: Optional[str]
     """
     Maximum duration before the session ends.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the session.
     """
-
+    
     origin_id: Optional[str]
     """
     Unique ID of the session's origin resource (if exists).
     """
-
+    
     progress_message: Optional[str]
     """
     Any progress of the session.
     """
-
+    
     booking_id: Optional[str]
     """
     An optional booking unique ID of an attached booking.
     """
-
+    
 
 @dataclass
 class CancelJobRequest:
@@ -759,7 +746,7 @@ class CancelJobRequest:
     """
     Unique ID of the job.
     """
-
+    
 
 @dataclass
 class CancelProcessRequest:
@@ -767,7 +754,7 @@ class CancelProcessRequest:
     """
     Unique ID of the process.
     """
-
+    
 
 @dataclass
 class CreateJobRequest:
@@ -775,27 +762,27 @@ class CreateJobRequest:
     """
     Name of the job.
     """
-
+    
     session_id: str
     """
     Session in which the job is executed.
     """
-
+    
     circuit: JobCircuit
     """
     Quantum circuit that should be executed.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the job.
     """
-
+    
     max_duration: Optional[str]
     """
     Maximum duration of the job.
     """
-
+    
 
 @dataclass
 class CreateProcessRequest:
@@ -803,32 +790,32 @@ class CreateProcessRequest:
     """
     Name of the process.
     """
-
+    
     project_id: Optional[str]
     """
     ID of the project in which the process was created.
     """
-
+    
     platform_id: Optional[str]
     """
     ID of the platform for which the process was created.
     """
-
+    
     application_id: Optional[str]
     """
     ID of the application for which the process was created.
     """
-
+    
     input: Optional[str]
     """
     Process parameters in JSON format.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the process.
     """
-
+    
 
 @dataclass
 class CreateSessionRequest:
@@ -836,42 +823,42 @@ class CreateSessionRequest:
     """
     ID of the Platform for which the session was created.
     """
-
+    
     project_id: Optional[str]
     """
     ID of the Project in which the session was created.
     """
-
+    
     name: Optional[str]
     """
     Name of the session.
     """
-
+    
     max_idle_duration: Optional[str]
     """
     Maximum idle duration before the session ends.
     """
-
+    
     max_duration: Optional[str]
     """
     Maximum duration before the session ends.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the session.
     """
-
+    
     deduplication_id: Optional[str]
     """
     Deduplication ID of the session.
     """
-
+    
     booking_demand: Optional[CreateSessionRequestBookingDemand]
     """
     A booking demand to schedule the session, only applicable if the platform is bookable.
     """
-
+    
 
 @dataclass
 class DeleteJobRequest:
@@ -879,7 +866,7 @@ class DeleteJobRequest:
     """
     Unique ID of the job.
     """
-
+    
 
 @dataclass
 class DeleteProcessRequest:
@@ -887,7 +874,7 @@ class DeleteProcessRequest:
     """
     Unique ID of the process.
     """
-
+    
 
 @dataclass
 class DeleteSessionRequest:
@@ -895,7 +882,7 @@ class DeleteSessionRequest:
     """
     Unique ID of the session.
     """
-
+    
 
 @dataclass
 class GetApplicationRequest:
@@ -903,7 +890,7 @@ class GetApplicationRequest:
     """
     Unique ID of the application.
     """
-
+    
 
 @dataclass
 class GetBookingRequest:
@@ -911,7 +898,7 @@ class GetBookingRequest:
     """
     Unique ID of the booking.
     """
-
+    
 
 @dataclass
 class GetJobCircuitRequest:
@@ -919,7 +906,7 @@ class GetJobCircuitRequest:
     """
     Unique ID of the job.
     """
-
+    
 
 @dataclass
 class GetJobRequest:
@@ -927,7 +914,7 @@ class GetJobRequest:
     """
     Unique ID of the job you want to get.
     """
-
+    
 
 @dataclass
 class GetPlatformRequest:
@@ -935,7 +922,7 @@ class GetPlatformRequest:
     """
     Unique ID of the platform.
     """
-
+    
 
 @dataclass
 class GetProcessRequest:
@@ -943,7 +930,7 @@ class GetProcessRequest:
     """
     Unique ID of the process.
     """
-
+    
 
 @dataclass
 class GetSessionRequest:
@@ -951,7 +938,7 @@ class GetSessionRequest:
     """
     Unique ID of the session.
     """
-
+    
 
 @dataclass
 class ListApplicationsRequest:
@@ -959,27 +946,27 @@ class ListApplicationsRequest:
     """
     List applications with this name.
     """
-
+    
     application_type: Optional[ApplicationType]
     """
     List applications with this type.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of applications a to return per page.
     """
-
+    
     order_by: Optional[ListApplicationsRequestOrderBy]
     """
     Sort order of the returned applications.
     """
-
+    
 
 @dataclass
 class ListApplicationsResponse:
@@ -987,12 +974,12 @@ class ListApplicationsResponse:
     """
     Total number of applications.
     """
-
+    
     applications: List[Application]
     """
     List of applications.
     """
-
+    
 
 @dataclass
 class ListBookingsRequest:
@@ -1000,27 +987,27 @@ class ListBookingsRequest:
     """
     List bookings belonging to this project ID.
     """
-
+    
     platform_id: Optional[str]
     """
     List bookings attached to this platform ID.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of results to return per page.
     """
-
+    
     order_by: Optional[ListBookingsRequestOrderBy]
     """
     Sort order of the returned results.
     """
-
+    
 
 @dataclass
 class ListBookingsResponse:
@@ -1028,12 +1015,12 @@ class ListBookingsResponse:
     """
     Total number of bookings.
     """
-
+    
     bookings: List[Booking]
     """
     List of bookings.
     """
-
+    
 
 @dataclass
 class ListJobResultsRequest:
@@ -1041,22 +1028,22 @@ class ListJobResultsRequest:
     """
     ID of the job.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of results to return per page.
     """
-
+    
     order_by: Optional[ListJobResultsRequestOrderBy]
     """
     Sort order of the returned results.
     """
-
+    
 
 @dataclass
 class ListJobResultsResponse:
@@ -1064,12 +1051,12 @@ class ListJobResultsResponse:
     """
     Total number of results.
     """
-
+    
     job_results: List[JobResult]
     """
     List of results.
     """
-
+    
 
 @dataclass
 class ListJobsRequest:
@@ -1077,26 +1064,26 @@ class ListJobsRequest:
     """
     List jobs with these tags.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of jobs to return per page.
     """
-
+    
     order_by: Optional[ListJobsRequestOrderBy]
     """
     Sort order of the returned jobs.
     """
-
+    
     session_id: Optional[str]
-
+    
     project_id: Optional[str]
-
+    
 
 @dataclass
 class ListJobsResponse:
@@ -1104,12 +1091,12 @@ class ListJobsResponse:
     """
     Total number of jobs.
     """
-
+    
     jobs: List[Job]
     """
     List of jobs.
     """
-
+    
 
 @dataclass
 class ListPlatformsRequest:
@@ -1117,42 +1104,42 @@ class ListPlatformsRequest:
     """
     List platforms with this provider name.
     """
-
+    
     backend_name: Optional[str]
     """
     List platforms with this backend name.
     """
-
+    
     name: Optional[str]
     """
     List platforms with this name.
     """
-
+    
     platform_type: Optional[PlatformType]
     """
     List platforms with this type.
     """
-
+    
     platform_technology: Optional[PlatformTechnology]
     """
     List platforms with this technology.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of platforms to return per page.
     """
-
+    
     order_by: Optional[ListPlatformsRequestOrderBy]
     """
     Sort order of the returned platforms.
     """
-
+    
 
 @dataclass
 class ListPlatformsResponse:
@@ -1160,12 +1147,12 @@ class ListPlatformsResponse:
     """
     Total number of platforms.
     """
-
+    
     platforms: List[Platform]
     """
     List of platforms.
     """
-
+    
 
 @dataclass
 class ListProcessResultsRequest:
@@ -1173,22 +1160,22 @@ class ListProcessResultsRequest:
     """
     ID of the process.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of results to return per page.
     """
-
+    
     order_by: Optional[ListProcessResultsRequestOrderBy]
     """
     Sort order of the returned results.
     """
-
+    
 
 @dataclass
 class ListProcessResultsResponse:
@@ -1196,12 +1183,12 @@ class ListProcessResultsResponse:
     """
     Total number of results.
     """
-
+    
     process_results: List[ProcessResult]
     """
     List of results.
     """
-
+    
 
 @dataclass
 class ListProcessesRequest:
@@ -1209,32 +1196,32 @@ class ListProcessesRequest:
     """
     List processes that have been created for this application.
     """
-
+    
     tags: Optional[List[str]]
     """
     List processes with these tags.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of processes to return per page.
     """
-
+    
     order_by: Optional[ListProcessesRequestOrderBy]
     """
     Sort order of the returned processes.
     """
-
+    
     project_id: Optional[str]
     """
     List processes belonging to this project ID.
     """
-
+    
 
 @dataclass
 class ListProcessesResponse:
@@ -1242,30 +1229,30 @@ class ListProcessesResponse:
     """
     Total number of processes.
     """
-
+    
     processes: List[Process]
     """
     List of processes.
     """
-
+    
 
 @dataclass
 class ListSessionACLsRequest:
     session_id: str
-
+    
     page: Optional[int]
-
+    
     page_size: Optional[int]
-
+    
     order_by: Optional[ListSessionACLsRequestOrderBy]
-
+    
 
 @dataclass
 class ListSessionACLsResponse:
     total_count: int
-
+    
     acls: List[SessionAccess]
-
+    
 
 @dataclass
 class ListSessionsRequest:
@@ -1273,32 +1260,32 @@ class ListSessionsRequest:
     """
     List sessions that have been created for this platform.
     """
-
+    
     tags: Optional[List[str]]
     """
     List sessions with these tags.
     """
-
+    
     page: Optional[int]
     """
     Page number.
     """
-
+    
     page_size: Optional[int]
     """
     Maximum number of sessions to return per page.
     """
-
+    
     order_by: Optional[ListSessionsRequestOrderBy]
     """
     Sort order of the returned sessions.
     """
-
+    
     project_id: Optional[str]
     """
     List sessions belonging to this project ID.
     """
-
+    
 
 @dataclass
 class ListSessionsResponse:
@@ -1306,12 +1293,12 @@ class ListSessionsResponse:
     """
     Total number of sessions.
     """
-
+    
     sessions: List[Session]
     """
     List of sessions.
     """
-
+    
 
 @dataclass
 class TerminateSessionRequest:
@@ -1319,7 +1306,7 @@ class TerminateSessionRequest:
     """
     Unique ID of the session.
     """
-
+    
 
 @dataclass
 class UpdateBookingRequest:
@@ -1327,12 +1314,12 @@ class UpdateBookingRequest:
     """
     Unique ID of the booking.
     """
-
+    
     description: Optional[str]
     """
     Description of the booking slot.
     """
-
+    
 
 @dataclass
 class UpdateJobRequest:
@@ -1340,17 +1327,17 @@ class UpdateJobRequest:
     """
     Unique ID of the job.
     """
-
+    
     name: Optional[str]
     """
     Name of the job.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the job.
     """
-
+    
 
 @dataclass
 class UpdateProcessRequest:
@@ -1358,17 +1345,17 @@ class UpdateProcessRequest:
     """
     Unique ID of the process.
     """
-
+    
     name: Optional[str]
     """
     Name of the process.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the process.
     """
-
+    
 
 @dataclass
 class UpdateSessionRequest:
@@ -1376,23 +1363,24 @@ class UpdateSessionRequest:
     """
     Unique ID of the session.
     """
-
+    
     name: Optional[str]
     """
     Name of the session.
     """
-
+    
     max_idle_duration: Optional[str]
     """
     Maximum idle duration before the session ends.
     """
-
+    
     max_duration: Optional[str]
     """
     Maximum time before the session ends.
     """
-
+    
     tags: Optional[List[str]]
     """
     Tags of the session.
     """
+    

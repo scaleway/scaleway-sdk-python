@@ -1,28 +1,47 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Dict, List, Optional
+from datetime import datetime
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
     ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
     Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
     unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    project_or_organization_id,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
+    AutoscalerEstimator,
+    AutoscalerExpander,
     CNI,
     ClusterStatus,
+    ClusterTypeAvailability,
+    ClusterTypeResiliency,
     ListClustersRequestOrderBy,
     ListNodesRequestOrderBy,
     ListPoolsRequestOrderBy,
+    MaintenanceWindowDayOfTheWeek,
     NodeStatus,
     PoolStatus,
     PoolVolumeType,
@@ -31,29 +50,60 @@ from .types import (
     ACLRuleRequest,
     AddClusterACLRulesRequest,
     AddClusterACLRulesResponse,
+    AuthExternalNodeRequest,
     Cluster,
+    ClusterAutoUpgrade,
+    ClusterAutoscalerConfig,
+    ClusterOpenIDConnectConfig,
     ClusterType,
     CreateClusterRequest,
     CreateClusterRequestAutoUpgrade,
     CreateClusterRequestAutoscalerConfig,
     CreateClusterRequestOpenIDConnectConfig,
     CreateClusterRequestPoolConfig,
+    CreateClusterRequestPoolConfigUpgradePolicy,
+    CreateExternalNodeRequest,
     CreatePoolRequest,
     CreatePoolRequestUpgradePolicy,
+    DeleteACLRuleRequest,
+    DeleteClusterRequest,
+    DeleteNodeRequest,
+    DeletePoolRequest,
     ExternalNode,
     ExternalNodeAuth,
+    ExternalNodeCoreV1Taint,
+    GetClusterKubeConfigRequest,
+    GetClusterRequest,
+    GetNodeMetadataRequest,
+    GetNodeRequest,
+    GetPoolRequest,
+    GetVersionRequest,
+    ListClusterACLRulesRequest,
     ListClusterACLRulesResponse,
+    ListClusterAvailableTypesRequest,
     ListClusterAvailableTypesResponse,
+    ListClusterAvailableVersionsRequest,
     ListClusterAvailableVersionsResponse,
+    ListClusterTypesRequest,
     ListClusterTypesResponse,
+    ListClustersRequest,
     ListClustersResponse,
+    ListNodesRequest,
     ListNodesResponse,
+    ListPoolsRequest,
     ListPoolsResponse,
+    ListVersionsRequest,
     ListVersionsResponse,
+    MaintenanceWindow,
     MigratePoolsToNewImagesRequest,
     Node,
     NodeMetadata,
+    NodeMetadataCoreV1Taint,
     Pool,
+    PoolUpgradePolicy,
+    RebootNodeRequest,
+    ReplaceNodeRequest,
+    ResetClusterAdminTokenRequest,
     SetClusterACLRulesRequest,
     SetClusterACLRulesResponse,
     SetClusterTypeRequest,
@@ -102,12 +152,10 @@ from .marshalling import (
     marshal_UpgradePoolRequest,
 )
 
-
 class K8SV1API(API):
     """
     This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
     """
-
     def list_clusters(
         self,
         *,
@@ -136,25 +184,22 @@ class K8SV1API(API):
         :param type_: Type to filter on, only clusters with this type will be returned.
         :param private_network_id: Private Network ID to filter on, only clusters within this Private Network will be returned.
         :return: :class:`ListClustersResponse <ListClustersResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_clusters()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
+                "organization_id": organization_id or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "private_network_id": private_network_id,
@@ -166,7 +211,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClustersResponse(res.json())
-
+        
     def list_clusters_all(
         self,
         *,
@@ -195,14 +240,14 @@ class K8SV1API(API):
         :param type_: Type to filter on, only clusters with this type will be returned.
         :param private_network_id: Private Network ID to filter on, only clusters within this Private Network will be returned.
         :return: :class:`List[Cluster] <List[Cluster]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_clusters_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListClustersResponse,
             key="clusters",
             fetcher=self.list_clusters,
@@ -219,7 +264,7 @@ class K8SV1API(API):
                 "private_network_id": private_network_id,
             },
         )
-
+        
     def create_cluster(
         self,
         *,
@@ -237,9 +282,7 @@ class K8SV1API(API):
         auto_upgrade: Optional[CreateClusterRequestAutoUpgrade] = None,
         feature_gates: Optional[List[str]] = None,
         admission_plugins: Optional[List[str]] = None,
-        open_id_connect_config: Optional[
-            CreateClusterRequestOpenIDConnectConfig
-        ] = None,
+        open_id_connect_config: Optional[CreateClusterRequestOpenIDConnectConfig] = None,
         apiserver_cert_sans: Optional[List[str]] = None,
         private_network_id: Optional[str] = None,
     ) -> Cluster:
@@ -266,10 +309,10 @@ class K8SV1API(API):
         :param apiserver_cert_sans: Additional Subject Alternative Names for the Kubernetes API server certificate.
         :param private_network_id: Private network ID for internal cluster communication (cannot be changed later).
         :return: :class:`Cluster <Cluster>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_cluster(
                 type="example",
                 description="example",
@@ -277,11 +320,9 @@ class K8SV1API(API):
                 cni=CNI.unknown_cni,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/clusters",
@@ -311,7 +352,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-
+        
     def get_cluster(
         self,
         *,
@@ -324,20 +365,18 @@ class K8SV1API(API):
         :param cluster_id: ID of the requested cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cluster <Cluster>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_cluster(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}",
@@ -345,7 +384,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-
+        
     def wait_for_cluster(
         self,
         *,
@@ -359,10 +398,10 @@ class K8SV1API(API):
         :param cluster_id: ID of the requested cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cluster <Cluster>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_cluster(
                 cluster_id="example",
             )
@@ -382,7 +421,7 @@ class K8SV1API(API):
                 "region": region,
             },
         )
-
+        
     def update_cluster(
         self,
         *,
@@ -395,9 +434,7 @@ class K8SV1API(API):
         auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade] = None,
         feature_gates: Optional[List[str]] = None,
         admission_plugins: Optional[List[str]] = None,
-        open_id_connect_config: Optional[
-            UpdateClusterRequestOpenIDConnectConfig
-        ] = None,
+        open_id_connect_config: Optional[UpdateClusterRequestOpenIDConnectConfig] = None,
         apiserver_cert_sans: Optional[List[str]] = None,
     ) -> Cluster:
         """
@@ -415,20 +452,18 @@ class K8SV1API(API):
         :param open_id_connect_config: OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
         :param apiserver_cert_sans: Additional Subject Alternative Names for the Kubernetes API server certificate.
         :return: :class:`Cluster <Cluster>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_cluster(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "PATCH",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}",
@@ -452,7 +487,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-
+        
     def delete_cluster(
         self,
         *,
@@ -467,21 +502,19 @@ class K8SV1API(API):
         :param with_additional_resources: Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cluster <Cluster>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_cluster(
                 cluster_id="example",
                 with_additional_resources=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "DELETE",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}",
@@ -492,7 +525,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-
+        
     def upgrade_cluster(
         self,
         *,
@@ -509,22 +542,20 @@ class K8SV1API(API):
         :param upgrade_pools: Defines whether pools will also be upgraded once the control plane is upgraded.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cluster <Cluster>`
-
+        
         Usage:
         ::
-
+        
             result = api.upgrade_cluster(
                 cluster_id="example",
                 version="example",
                 upgrade_pools=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/upgrade",
@@ -541,7 +572,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-
+        
     def set_cluster_type(
         self,
         *,
@@ -556,21 +587,19 @@ class K8SV1API(API):
         :param type_: Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cluster <Cluster>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_cluster_type(
                 cluster_id="example",
                 type="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/set-type",
@@ -586,7 +615,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
-
+        
     def list_cluster_available_versions(
         self,
         *,
@@ -599,20 +628,18 @@ class K8SV1API(API):
         :param cluster_id: Cluster ID for which the available Kubernetes versions will be listed.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListClusterAvailableVersionsResponse <ListClusterAvailableVersionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cluster_available_versions(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/available-versions",
@@ -620,7 +647,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClusterAvailableVersionsResponse(res.json())
-
+        
     def list_cluster_available_types(
         self,
         *,
@@ -633,20 +660,18 @@ class K8SV1API(API):
         :param cluster_id: Cluster ID for which the available Kubernetes types will be listed.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListClusterAvailableTypesResponse <ListClusterAvailableTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cluster_available_types(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/available-types",
@@ -654,7 +679,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClusterAvailableTypesResponse(res.json())
-
+        
     def _get_cluster_kube_config(
         self,
         *,
@@ -670,20 +695,18 @@ class K8SV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param redacted: Hide the legacy token from the kubeconfig.
         :return: :class:`ScwFile <ScwFile>`
-
+        
         Usage:
         ::
-
+        
             result = api._get_cluster_kube_config(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/kubeconfig",
@@ -694,7 +717,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-
+        
     def reset_cluster_admin_token(
         self,
         *,
@@ -706,20 +729,18 @@ class K8SV1API(API):
         Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download the kubeconfig again to keep interacting with the cluster.
         :param cluster_id: Cluster ID on which the admin token will be renewed.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.reset_cluster_admin_token(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/reset-admin-token",
@@ -727,7 +748,6 @@ class K8SV1API(API):
         )
 
         self._throw_on_error(res)
-
     def list_cluster_acl_rules(
         self,
         *,
@@ -744,20 +764,18 @@ class K8SV1API(API):
         :param page: Page number for the returned ACLs.
         :param page_size: Maximum number of ACLs per page.
         :return: :class:`ListClusterACLRulesResponse <ListClusterACLRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cluster_acl_rules(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/acls",
@@ -769,7 +787,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClusterACLRulesResponse(res.json())
-
+        
     def list_cluster_acl_rules_all(
         self,
         *,
@@ -786,16 +804,16 @@ class K8SV1API(API):
         :param page: Page number for the returned ACLs.
         :param page_size: Maximum number of ACLs per page.
         :return: :class:`List[ACLRule] <List[ACLRule]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cluster_acl_rules_all(
                 cluster_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListClusterACLRulesResponse,
             key="rules",
             fetcher=self.list_cluster_acl_rules,
@@ -806,7 +824,7 @@ class K8SV1API(API):
                 "page_size": page_size,
             },
         )
-
+        
     def add_cluster_acl_rules(
         self,
         *,
@@ -821,20 +839,18 @@ class K8SV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param acls: ACLs to add.
         :return: :class:`AddClusterACLRulesResponse <AddClusterACLRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.add_cluster_acl_rules(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/acls",
@@ -850,7 +866,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddClusterACLRulesResponse(res.json())
-
+        
     def set_cluster_acl_rules(
         self,
         *,
@@ -865,20 +881,18 @@ class K8SV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param acls: ACLs to set.
         :return: :class:`SetClusterACLRulesResponse <SetClusterACLRulesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.set_cluster_acl_rules(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "PUT",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/acls",
@@ -894,7 +908,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetClusterACLRulesResponse(res.json())
-
+        
     def delete_acl_rule(
         self,
         *,
@@ -905,27 +919,24 @@ class K8SV1API(API):
         Delete an existing ACL.
         :param acl_id: ID of the ACL rule to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-
+        
         Usage:
         ::
-
+        
             result = api.delete_acl_rule(
                 acl_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_acl_id = validate_path_param("acl_id", acl_id)
-
+        
         res = self._request(
             "DELETE",
             f"/k8s/v1/regions/{param_region}/acls/{param_acl_id}",
         )
 
         self._throw_on_error(res)
-
     def list_pools(
         self,
         *,
@@ -948,20 +959,18 @@ class K8SV1API(API):
         :param name: Name to filter on, only pools containing this substring in their name will be returned.
         :param status: Status to filter on, only pools with this status will be returned.
         :return: :class:`ListPoolsResponse <ListPoolsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pools(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/pools",
@@ -976,7 +985,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPoolsResponse(res.json())
-
+        
     def list_pools_all(
         self,
         *,
@@ -999,16 +1008,16 @@ class K8SV1API(API):
         :param name: Name to filter on, only pools containing this substring in their name will be returned.
         :param status: Status to filter on, only pools with this status will be returned.
         :return: :class:`List[Pool] <List[Pool]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_pools_all(
                 cluster_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListPoolsResponse,
             key="pools",
             fetcher=self.list_pools,
@@ -1022,7 +1031,7 @@ class K8SV1API(API):
                 "status": status,
             },
         )
-
+        
     def create_pool(
         self,
         *,
@@ -1072,10 +1081,10 @@ class K8SV1API(API):
         :param root_volume_size: System volume disk size.
         :param security_group_id: Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
         :return: :class:`Pool <Pool>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_pool(
                 cluster_id="example",
                 node_type="example",
@@ -1085,12 +1094,10 @@ class K8SV1API(API):
                 public_ip_disabled=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/pools",
@@ -1122,7 +1129,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
-
+        
     def get_pool(
         self,
         *,
@@ -1135,20 +1142,18 @@ class K8SV1API(API):
         :param pool_id: ID of the requested pool.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Pool <Pool>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_pool(
                 pool_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_pool_id = validate_path_param("pool_id", pool_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}",
@@ -1156,7 +1161,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
-
+        
     def wait_for_pool(
         self,
         *,
@@ -1170,10 +1175,10 @@ class K8SV1API(API):
         :param pool_id: ID of the requested pool.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Pool <Pool>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_pool(
                 pool_id="example",
             )
@@ -1193,7 +1198,7 @@ class K8SV1API(API):
                 "region": region,
             },
         )
-
+        
     def upgrade_pool(
         self,
         *,
@@ -1209,21 +1214,19 @@ class K8SV1API(API):
         :param version: New Kubernetes version for the pool.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Pool <Pool>`
-
+        
         Usage:
         ::
-
+        
             result = api.upgrade_pool(
                 pool_id="example",
                 version="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_pool_id = validate_path_param("pool_id", pool_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/upgrade",
@@ -1239,7 +1242,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
-
+        
     def update_pool(
         self,
         *,
@@ -1268,20 +1271,18 @@ class K8SV1API(API):
         :param kubelet_args: New Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: New upgrade policy for the pool.
         :return: :class:`Pool <Pool>`
-
+        
         Usage:
         ::
-
+        
             result = api.update_pool(
                 pool_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_pool_id = validate_path_param("pool_id", pool_id)
-
+        
         res = self._request(
             "PATCH",
             f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}",
@@ -1304,7 +1305,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
-
+        
     def delete_pool(
         self,
         *,
@@ -1317,20 +1318,18 @@ class K8SV1API(API):
         :param pool_id: ID of the pool to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Pool <Pool>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_pool(
                 pool_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_pool_id = validate_path_param("pool_id", pool_id)
-
+        
         res = self._request(
             "DELETE",
             f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}",
@@ -1338,7 +1337,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
-
+        
     def migrate_pools_to_new_images(
         self,
         *,
@@ -1349,23 +1348,21 @@ class K8SV1API(API):
         """
         Migrate specific pools or all pools of a cluster to new images.
         If no pool is specified, all pools of the cluster will be migrated to new images.
-        :param cluster_id:
+        :param cluster_id: 
         :param region: Region to target. If none is passed will use default region from the config.
-        :param pool_ids:
-
+        :param pool_ids: 
+        
         Usage:
         ::
-
+        
             result = api.migrate_pools_to_new_images(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/migrate-pools-to-new-images",
@@ -1380,7 +1377,6 @@ class K8SV1API(API):
         )
 
         self._throw_on_error(res)
-
     def get_node_metadata(
         self,
         *,
@@ -1391,17 +1387,15 @@ class K8SV1API(API):
         Rerieve metadata to instantiate a Kapsule/Kosmos node. This method is not intended to be called by end users but rather programmatically by the node-installer.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`NodeMetadata <NodeMetadata>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_node_metadata()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/node-metadata",
@@ -1409,7 +1403,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_NodeMetadata(res.json())
-
+        
     def auth_external_node(
         self,
         *,
@@ -1422,20 +1416,18 @@ class K8SV1API(API):
         :param pool_id: Pool the node will be attached to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ExternalNodeAuth <ExternalNodeAuth>`
-
+        
         Usage:
         ::
-
+        
             result = api.auth_external_node(
                 pool_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_pool_id = validate_path_param("pool_id", pool_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/external-nodes/auth",
@@ -1444,7 +1436,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ExternalNodeAuth(res.json())
-
+        
     def create_external_node(
         self,
         *,
@@ -1454,23 +1446,21 @@ class K8SV1API(API):
         """
         Create a Kosmos node.
         Retrieve metadata for a Kosmos node. This method is not intended to be called by end users but rather programmatically by the kapsule-node-agent.
-        :param pool_id:
+        :param pool_id: 
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ExternalNode <ExternalNode>`
-
+        
         Usage:
         ::
-
+        
             result = api.create_external_node(
                 pool_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_pool_id = validate_path_param("pool_id", pool_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/external-nodes",
@@ -1479,7 +1469,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ExternalNode(res.json())
-
+        
     def list_nodes(
         self,
         *,
@@ -1504,20 +1494,18 @@ class K8SV1API(API):
         :param name: Name to filter on, only nodes containing this substring in their name will be returned.
         :param status: Status to filter on, only nodes with this status will be returned.
         :return: :class:`ListNodesResponse <ListNodesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_nodes(
                 cluster_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/nodes",
@@ -1533,7 +1521,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNodesResponse(res.json())
-
+        
     def list_nodes_all(
         self,
         *,
@@ -1558,16 +1546,16 @@ class K8SV1API(API):
         :param name: Name to filter on, only nodes containing this substring in their name will be returned.
         :param status: Status to filter on, only nodes with this status will be returned.
         :return: :class:`List[Node] <List[Node]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_nodes_all(
                 cluster_id="example",
             )
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListNodesResponse,
             key="nodes",
             fetcher=self.list_nodes,
@@ -1582,7 +1570,7 @@ class K8SV1API(API):
                 "status": status,
             },
         )
-
+        
     def get_node(
         self,
         *,
@@ -1595,20 +1583,18 @@ class K8SV1API(API):
         :param node_id: ID of the requested node.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_node(
                 node_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_node_id = validate_path_param("node_id", node_id)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/nodes/{param_node_id}",
@@ -1616,7 +1602,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Node(res.json())
-
+        
     def wait_for_node(
         self,
         *,
@@ -1630,10 +1616,10 @@ class K8SV1API(API):
         :param node_id: ID of the requested node.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_node(
                 node_id="example",
             )
@@ -1653,7 +1639,7 @@ class K8SV1API(API):
                 "region": region,
             },
         )
-
+        
     def replace_node(
         self,
         *,
@@ -1667,20 +1653,18 @@ class K8SV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
         :deprecated
-
+        
         Usage:
         ::
-
+        
             result = api.replace_node(
                 node_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_node_id = validate_path_param("node_id", node_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/nodes/{param_node_id}/replace",
@@ -1689,7 +1673,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Node(res.json())
-
+        
     def reboot_node(
         self,
         *,
@@ -1702,20 +1686,18 @@ class K8SV1API(API):
         :param node_id: ID of the node to reboot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
-
+        
         Usage:
         ::
-
+        
             result = api.reboot_node(
                 node_id="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_node_id = validate_path_param("node_id", node_id)
-
+        
         res = self._request(
             "POST",
             f"/k8s/v1/regions/{param_region}/nodes/{param_node_id}/reboot",
@@ -1724,7 +1706,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Node(res.json())
-
+        
     def delete_node(
         self,
         *,
@@ -1741,22 +1723,20 @@ class K8SV1API(API):
         :param replace: Add a new node after the deletion of this node.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
-
+        
         Usage:
         ::
-
+        
             result = api.delete_node(
                 node_id="example",
                 skip_drain=False,
                 replace=False,
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_node_id = validate_path_param("node_id", node_id)
-
+        
         res = self._request(
             "DELETE",
             f"/k8s/v1/regions/{param_region}/nodes/{param_node_id}",
@@ -1768,7 +1748,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Node(res.json())
-
+        
     def list_versions(
         self,
         *,
@@ -1779,17 +1759,15 @@ class K8SV1API(API):
         List all available versions for the creation of a new Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListVersionsResponse <ListVersionsResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_versions()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/versions",
@@ -1797,7 +1775,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListVersionsResponse(res.json())
-
+        
     def get_version(
         self,
         *,
@@ -1810,20 +1788,18 @@ class K8SV1API(API):
         :param version_name: Requested version name.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Version <Version>`
-
+        
         Usage:
         ::
-
+        
             result = api.get_version(
                 version_name="example",
             )
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
         param_version_name = validate_path_param("version_name", version_name)
-
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/versions/{param_version_name}",
@@ -1831,7 +1807,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Version(res.json())
-
+        
     def list_cluster_types(
         self,
         *,
@@ -1846,17 +1822,15 @@ class K8SV1API(API):
         :param page: Page number, from the paginated results, to return for cluster-types.
         :param page_size: Maximum number of clusters per page.
         :return: :class:`ListClusterTypesResponse <ListClusterTypesResponse>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cluster_types()
         """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
+        
+        param_region = validate_path_param("region", region or self.client.default_region)
+        
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/cluster-types",
@@ -1868,7 +1842,7 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClusterTypesResponse(res.json())
-
+        
     def list_cluster_types_all(
         self,
         *,
@@ -1883,14 +1857,14 @@ class K8SV1API(API):
         :param page: Page number, from the paginated results, to return for cluster-types.
         :param page_size: Maximum number of clusters per page.
         :return: :class:`List[ClusterType] <List[ClusterType]>`
-
+        
         Usage:
         ::
-
+        
             result = api.list_cluster_types_all()
         """
 
-        return fetch_all_pages(
+        return  fetch_all_pages(
             type=ListClusterTypesResponse,
             key="cluster_types",
             fetcher=self.list_cluster_types,
@@ -1900,3 +1874,4 @@ class K8SV1API(API):
                 "page_size": page_size,
             },
         )
+        
