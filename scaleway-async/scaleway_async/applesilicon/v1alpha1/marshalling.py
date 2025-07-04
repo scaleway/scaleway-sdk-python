@@ -17,6 +17,7 @@ from .types import (
     ServerTypeMemory,
     ServerTypeNetwork,
     ServerType,
+    BatchCreateServersResponse,
     ConnectivityDiagnosticServerHealth,
     ConnectivityDiagnostic,
     ListOSResponse,
@@ -25,6 +26,8 @@ from .types import (
     ListServersResponse,
     SetServerPrivateNetworksResponse,
     StartConnectivityDiagnosticResponse,
+    BatchCreateServersRequestBatchInnerCreateServerRequest,
+    BatchCreateServersRequest,
     CreateServerRequest,
     PrivateNetworkApiAddServerPrivateNetworkRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
@@ -417,6 +420,23 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     return ServerType(**args)
 
 
+def unmarshal_BatchCreateServersResponse(data: Any) -> BatchCreateServersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BatchCreateServersResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("servers", None)
+    if field is not None:
+        args["servers"] = (
+            [unmarshal_Server(v) for v in field] if field is not None else None
+        )
+
+    return BatchCreateServersResponse(**args)
+
+
 def unmarshal_ConnectivityDiagnosticServerHealth(
     data: Any,
 ) -> ConnectivityDiagnosticServerHealth:
@@ -617,6 +637,53 @@ def unmarshal_StartConnectivityDiagnosticResponse(
         args["diagnostic_id"] = field
 
     return StartConnectivityDiagnosticResponse(**args)
+
+
+def marshal_BatchCreateServersRequestBatchInnerCreateServerRequest(
+    request: BatchCreateServersRequestBatchInnerCreateServerRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
+
+
+def marshal_BatchCreateServersRequest(
+    request: BatchCreateServersRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    if request.enable_vpc is not None:
+        output["enable_vpc"] = request.enable_vpc
+
+    if request.public_bandwidth_bps is not None:
+        output["public_bandwidth_bps"] = request.public_bandwidth_bps
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.os_id is not None:
+        output["os_id"] = request.os_id
+
+    if request.commitment_type is not None:
+        output["commitment_type"] = str(request.commitment_type)
+
+    if request.requests is not None:
+        output["requests"] = [
+            marshal_BatchCreateServersRequestBatchInnerCreateServerRequest(
+                item, defaults
+            )
+            for item in request.requests
+        ]
+
+    return output
 
 
 def marshal_CreateServerRequest(
