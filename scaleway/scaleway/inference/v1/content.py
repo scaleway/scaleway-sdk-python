@@ -6,6 +6,7 @@ from .types import (
     DeploymentStatus,
     ModelStatus,
 )
+
 DEPLOYMENT_TRANSIENT_STATUSES: List[DeploymentStatus] = [
     DeploymentStatus.CREATING,
     DeploymentStatus.DEPLOYING,

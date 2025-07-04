@@ -1,78 +1,34 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
     ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
     unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
     random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
     ContractType,
     ListContractSignaturesRequestOrderBy,
     ListProjectsRequestOrderBy,
-    QualificationAiMachineSubUseCase,
-    QualificationArchitectureType,
-    QualificationArchiveDataSubUseCase,
-    QualificationContainerSubUseCase,
-    QualificationDeploySoftwareSubUseCase,
-    QualificationHostApplicationSubUseCase,
-    QualificationHostWebsiteSubUseCase,
-    QualificationOtherUseCaseSubUseCase,
-    QualificationSetScalewayEnvironmentSubUseCase,
-    QualificationShareDataSubUseCase,
     CheckContractSignatureResponse,
-    Contract,
     ContractApiCheckContractSignatureRequest,
     ContractApiCreateContractSignatureRequest,
-    ContractApiDownloadContractSignatureRequest,
-    ContractApiListContractSignaturesRequest,
-    ContractApiValidateContractSignatureRequest,
     ContractSignature,
     ListContractSignaturesResponse,
     ListProjectsResponse,
     Project,
     ProjectApiCreateProjectRequest,
-    ProjectApiDeleteProjectRequest,
-    ProjectApiGetProjectRequest,
-    ProjectApiListProjectsRequest,
     ProjectApiSetProjectQualificationRequest,
     ProjectApiUpdateProjectRequest,
     ProjectQualification,
     Qualification,
-    QualificationAiMachine,
-    QualificationArchiveData,
-    QualificationContainer,
-    QualificationDeploySoftware,
-    QualificationHostApplication,
-    QualificationHostWebsite,
-    QualificationOtherUseCase,
-    QualificationSetScalewayEnvironment,
-    QualificationShareData,
 )
 from .marshalling import (
     unmarshal_ContractSignature,
@@ -91,10 +47,12 @@ from ...std.types import (
     LanguageCode as StdLanguageCode,
 )
 
+
 class AccountV3ContractAPI(API):
     """
     The Contract API allows you to manage contracts.
     """
+
     def download_contract_signature(
         self,
         *,
@@ -106,17 +64,19 @@ class AccountV3ContractAPI(API):
         :param contract_signature_id: The contract signature ID.
         :param locale: The locale requested for the content of the contract.
         :return: :class:`ScwFile <ScwFile>`
-        
+
         Usage:
         ::
-        
+
             result = api.download_contract_signature(
                 contract_signature_id="example",
             )
         """
-        
-        param_contract_signature_id = validate_path_param("contract_signature_id", contract_signature_id)
-        
+
+        param_contract_signature_id = validate_path_param(
+            "contract_signature_id", contract_signature_id
+        )
+
         res = self._request(
             "GET",
             f"/account/v3/contract-signatures/{param_contract_signature_id}/download",
@@ -127,7 +87,7 @@ class AccountV3ContractAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-        
+
     def create_contract_signature(
         self,
         *,
@@ -143,20 +103,19 @@ class AccountV3ContractAPI(API):
         :param contract_type: The type of the contract.
         :param organization_id: ID of the Organization.
         :return: :class:`ContractSignature <ContractSignature>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_contract_signature(
                 contract_name="example",
                 validated=False,
             )
         """
-        
-        
+
         res = self._request(
             "POST",
-            f"/account/v3/contract-signatures",
+            "/account/v3/contract-signatures",
             body=marshal_ContractApiCreateContractSignatureRequest(
                 ContractApiCreateContractSignatureRequest(
                     contract_name=contract_name,
@@ -170,7 +129,7 @@ class AccountV3ContractAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ContractSignature(res.json())
-        
+
     def validate_contract_signature(
         self,
         *,
@@ -180,17 +139,19 @@ class AccountV3ContractAPI(API):
         Sign a contract for your Organization.
         :param contract_signature_id: The contract linked to your Organization you want to sign.
         :return: :class:`ContractSignature <ContractSignature>`
-        
+
         Usage:
         ::
-        
+
             result = api.validate_contract_signature(
                 contract_signature_id="example",
             )
         """
-        
-        param_contract_signature_id = validate_path_param("contract_signature_id", contract_signature_id)
-        
+
+        param_contract_signature_id = validate_path_param(
+            "contract_signature_id", contract_signature_id
+        )
+
         res = self._request(
             "POST",
             f"/account/v3/contract-signatures/{param_contract_signature_id}/validate",
@@ -199,7 +160,7 @@ class AccountV3ContractAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ContractSignature(res.json())
-        
+
     def check_contract_signature(
         self,
         *,
@@ -213,19 +174,18 @@ class AccountV3ContractAPI(API):
         :param organization_id: ID of the Organization to check the contract signature for.
         :param contract_type: Filter on contract type.
         :return: :class:`CheckContractSignatureResponse <CheckContractSignatureResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.check_contract_signature(
                 contract_name="example",
             )
         """
-        
-        
+
         res = self._request(
             "POST",
-            f"/account/v3/contract-signatures/check",
+            "/account/v3/contract-signatures/check",
             body=marshal_ContractApiCheckContractSignatureRequest(
                 ContractApiCheckContractSignatureRequest(
                     contract_name=contract_name,
@@ -238,7 +198,7 @@ class AccountV3ContractAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckContractSignatureResponse(res.json())
-        
+
     def list_contract_signatures(
         self,
         *,
@@ -254,20 +214,20 @@ class AccountV3ContractAPI(API):
         :param order_by: How the contracts are ordered in the response.
         :param organization_id: Filter on Organization ID.
         :return: :class:`ListContractSignaturesResponse <ListContractSignaturesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_contract_signatures()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/account/v3/contract-signatures",
+            "/account/v3/contract-signatures",
             params={
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -275,7 +235,7 @@ class AccountV3ContractAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListContractSignaturesResponse(res.json())
-        
+
     def list_contract_signatures_all(
         self,
         *,
@@ -291,14 +251,14 @@ class AccountV3ContractAPI(API):
         :param order_by: How the contracts are ordered in the response.
         :param organization_id: Filter on Organization ID.
         :return: :class:`List[ContractSignature] <List[ContractSignature]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_contract_signatures_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListContractSignaturesResponse,
             key="contract_signatures",
             fetcher=self.list_contract_signatures,
@@ -309,12 +269,13 @@ class AccountV3ContractAPI(API):
                 "organization_id": organization_id,
             },
         )
-        
+
 
 class AccountV3ProjectAPI(API):
     """
     This API allows you to manage your Scaleway Projects.
     """
+
     def create_project(
         self,
         *,
@@ -329,19 +290,18 @@ class AccountV3ProjectAPI(API):
         :param name: Name of the Project.
         :param organization_id: Organization ID of the Project.
         :return: :class:`Project <Project>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_project(
                 description="example",
             )
         """
-        
-        
+
         res = self._request(
             "POST",
-            f"/account/v3/projects",
+            "/account/v3/projects",
             body=marshal_ProjectApiCreateProjectRequest(
                 ProjectApiCreateProjectRequest(
                     description=description,
@@ -354,7 +314,7 @@ class AccountV3ProjectAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Project(res.json())
-        
+
     def list_projects(
         self,
         *,
@@ -375,21 +335,21 @@ class AccountV3ProjectAPI(API):
         :param order_by: Sort order of the returned Projects.
         :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
         :return: :class:`ListProjectsResponse <ListProjectsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_projects()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/account/v3/projects",
+            "/account/v3/projects",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_ids": project_ids,
@@ -398,7 +358,7 @@ class AccountV3ProjectAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListProjectsResponse(res.json())
-        
+
     def list_projects_all(
         self,
         *,
@@ -419,14 +379,14 @@ class AccountV3ProjectAPI(API):
         :param order_by: Sort order of the returned Projects.
         :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
         :return: :class:`List[Project] <List[Project]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_projects_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListProjectsResponse,
             key="projects",
             fetcher=self.list_projects,
@@ -439,7 +399,7 @@ class AccountV3ProjectAPI(API):
                 "project_ids": project_ids,
             },
         )
-        
+
     def get_project(
         self,
         *,
@@ -450,15 +410,17 @@ class AccountV3ProjectAPI(API):
         Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
         :param project_id: Project ID of the Project.
         :return: :class:`Project <Project>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_project()
         """
-        
-        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
-        
+
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
         res = self._request(
             "GET",
             f"/account/v3/projects/{param_project_id}",
@@ -466,7 +428,7 @@ class AccountV3ProjectAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Project(res.json())
-        
+
     def delete_project(
         self,
         *,
@@ -476,21 +438,24 @@ class AccountV3ProjectAPI(API):
         Delete an existing Project.
         Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
         :param project_id: Project ID of the Project.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_project()
         """
-        
-        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
-        
+
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
         res = self._request(
             "DELETE",
             f"/account/v3/projects/{param_project_id}",
         )
 
         self._throw_on_error(res)
+
     def update_project(
         self,
         *,
@@ -505,15 +470,17 @@ class AccountV3ProjectAPI(API):
         :param name: Name of the Project.
         :param description: Description of the Project.
         :return: :class:`Project <Project>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_project()
         """
-        
-        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
-        
+
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
         res = self._request(
             "PATCH",
             f"/account/v3/projects/{param_project_id}",
@@ -529,7 +496,7 @@ class AccountV3ProjectAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Project(res.json())
-        
+
     def set_project_qualification(
         self,
         *,
@@ -542,15 +509,17 @@ class AccountV3ProjectAPI(API):
         :param project_id: Project ID.
         :param qualification: Use case chosen for the Project.
         :return: :class:`ProjectQualification <ProjectQualification>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_project_qualification()
         """
-        
-        param_project_id = validate_path_param("project_id", project_id or self.client.default_project_id)
-        
+
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
         res = self._request(
             "POST",
             f"/account/v3/projects/{param_project_id}/project-qualification",
@@ -565,4 +534,3 @@ class AccountV3ProjectAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ProjectQualification(res.json())
-        

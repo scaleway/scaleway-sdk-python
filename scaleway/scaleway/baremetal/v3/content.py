@@ -5,6 +5,7 @@ from typing import List
 from .types import (
     ServerPrivateNetworkStatus,
 )
+
 SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES: List[ServerPrivateNetworkStatus] = [
     ServerPrivateNetworkStatus.ATTACHING,
     ServerPrivateNetworkStatus.DETACHING,

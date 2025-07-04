@@ -1,32 +1,15 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
     Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
     WaitForOptions,
-    project_or_organization_id,
     random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -45,31 +28,15 @@ from .types import (
     CreateGatewayRequest,
     CreateIPRequest,
     CreatePatRuleRequest,
-    DeleteBastionAllowedIPsRequest,
-    DeleteGatewayNetworkRequest,
-    DeleteGatewayRequest,
-    DeleteIPRequest,
-    DeletePatRuleRequest,
     Gateway,
     GatewayNetwork,
-    GatewayType,
-    GetGatewayNetworkRequest,
-    GetGatewayRequest,
-    GetIPRequest,
-    GetPatRuleRequest,
     IP,
-    ListGatewayNetworksRequest,
     ListGatewayNetworksResponse,
-    ListGatewayTypesRequest,
     ListGatewayTypesResponse,
-    ListGatewaysRequest,
     ListGatewaysResponse,
-    ListIPsRequest,
     ListIPsResponse,
-    ListPatRulesRequest,
     ListPatRulesResponse,
     PatRule,
-    RefreshSSHKeysRequest,
     SetBastionAllowedIPsRequest,
     SetBastionAllowedIPsResponse,
     SetPatRulesRequest,
@@ -112,10 +79,12 @@ from .marshalling import (
     marshal_UpgradeGatewayRequest,
 )
 
+
 class VpcgwV2API(API):
     """
     This API allows you to manage your Public Gateways.
     """
+
     def list_gateways(
         self,
         *,
@@ -148,15 +117,15 @@ class VpcgwV2API(API):
         :param private_network_ids: Filter for gateways attached to these Private Networks.
         :param include_legacy: Include also legacy gateways.
         :return: :class:`ListGatewaysResponse <ListGatewaysResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_gateways()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/gateways",
@@ -164,7 +133,8 @@ class VpcgwV2API(API):
                 "include_legacy": include_legacy,
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "private_network_ids": private_network_ids,
@@ -177,7 +147,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListGatewaysResponse(res.json())
-        
+
     def list_gateways_all(
         self,
         *,
@@ -210,14 +180,14 @@ class VpcgwV2API(API):
         :param private_network_ids: Filter for gateways attached to these Private Networks.
         :param include_legacy: Include also legacy gateways.
         :return: :class:`List[Gateway] <List[Gateway]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_gateways_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListGatewaysResponse,
             key="gateways",
             fetcher=self.list_gateways,
@@ -236,7 +206,7 @@ class VpcgwV2API(API):
                 "include_legacy": include_legacy,
             },
         )
-        
+
     def get_gateway(
         self,
         *,
@@ -249,18 +219,18 @@ class VpcgwV2API(API):
         :param gateway_id: ID of the gateway to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_gateway(
                 gateway_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}",
@@ -268,7 +238,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
-        
+
     def wait_for_gateway(
         self,
         *,
@@ -282,10 +252,10 @@ class VpcgwV2API(API):
         :param gateway_id: ID of the gateway to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_gateway(
                 gateway_id="example",
             )
@@ -305,7 +275,7 @@ class VpcgwV2API(API):
                 "zone": zone,
             },
         )
-        
+
     def create_gateway(
         self,
         *,
@@ -332,19 +302,19 @@ class VpcgwV2API(API):
         :param ip_id: Existing IP address to attach to the gateway.
         :param bastion_port: Port of the SSH bastion.
         :return: :class:`Gateway <Gateway>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_gateway(
                 type="example",
                 enable_smtp=False,
                 enable_bastion=False,
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "POST",
             f"/vpc-gw/v2/zones/{param_zone}/gateways",
@@ -366,7 +336,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
-        
+
     def update_gateway(
         self,
         *,
@@ -389,18 +359,18 @@ class VpcgwV2API(API):
         :param bastion_port: Port of the SSH bastion.
         :param enable_smtp: Defines whether SMTP traffic should be allowed to pass through the gateway.
         :return: :class:`Gateway <Gateway>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_gateway(
                 gateway_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
-        
+
         res = self._request(
             "PATCH",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}",
@@ -420,7 +390,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
-        
+
     def delete_gateway(
         self,
         *,
@@ -435,19 +405,19 @@ class VpcgwV2API(API):
         :param delete_ip: Defines whether the PGW's IP should be deleted.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_gateway(
                 gateway_id="example",
                 delete_ip=False,
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
-        
+
         res = self._request(
             "DELETE",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}",
@@ -458,7 +428,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
-        
+
     def upgrade_gateway(
         self,
         *,
@@ -473,18 +443,18 @@ class VpcgwV2API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param type_: Gateway type (commercial offer).
         :return: :class:`Gateway <Gateway>`
-        
+
         Usage:
         ::
-        
+
             result = api.upgrade_gateway(
                 gateway_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
-        
+
         res = self._request(
             "POST",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/upgrade",
@@ -500,7 +470,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
-        
+
     def list_gateway_networks(
         self,
         *,
@@ -525,15 +495,15 @@ class VpcgwV2API(API):
         :param private_network_ids: Filter for GatewayNetworks connected to these Private Networks.
         :param masquerade_enabled: Filter for GatewayNetworks with this `enable_masquerade` setting.
         :return: :class:`ListGatewayNetworksResponse <ListGatewayNetworksResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_gateway_networks()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/gateway-networks",
@@ -550,7 +520,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListGatewayNetworksResponse(res.json())
-        
+
     def list_gateway_networks_all(
         self,
         *,
@@ -575,14 +545,14 @@ class VpcgwV2API(API):
         :param private_network_ids: Filter for GatewayNetworks connected to these Private Networks.
         :param masquerade_enabled: Filter for GatewayNetworks with this `enable_masquerade` setting.
         :return: :class:`List[GatewayNetwork] <List[GatewayNetwork]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_gateway_networks_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListGatewayNetworksResponse,
             key="gateway_networks",
             fetcher=self.list_gateway_networks,
@@ -597,7 +567,7 @@ class VpcgwV2API(API):
                 "masquerade_enabled": masquerade_enabled,
             },
         )
-        
+
     def get_gateway_network(
         self,
         *,
@@ -610,18 +580,20 @@ class VpcgwV2API(API):
         :param gateway_network_id: ID of the GatewayNetwork to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_gateway_network(
                 gateway_network_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_gateway_network_id = validate_path_param("gateway_network_id", gateway_network_id)
-        
+        param_gateway_network_id = validate_path_param(
+            "gateway_network_id", gateway_network_id
+        )
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/gateway-networks/{param_gateway_network_id}",
@@ -629,7 +601,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_GatewayNetwork(res.json())
-        
+
     def wait_for_gateway_network(
         self,
         *,
@@ -643,10 +615,10 @@ class VpcgwV2API(API):
         :param gateway_network_id: ID of the GatewayNetwork to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_gateway_network(
                 gateway_network_id="example",
             )
@@ -656,7 +628,9 @@ class VpcgwV2API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = lambda res: res.status not in GATEWAY_NETWORK_TRANSIENT_STATUSES
+            options.stop = (
+                lambda res: res.status not in GATEWAY_NETWORK_TRANSIENT_STATUSES
+            )
 
         return wait_for_resource(
             fetcher=self.get_gateway_network,
@@ -666,7 +640,7 @@ class VpcgwV2API(API):
                 "zone": zone,
             },
         )
-        
+
     def create_gateway_network(
         self,
         *,
@@ -687,10 +661,10 @@ class VpcgwV2API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ipam_ip_id: Use this IPAM-booked IP ID as the Gateway's IP in this Private Network.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_gateway_network(
                 gateway_id="example",
                 private_network_id="example",
@@ -698,9 +672,9 @@ class VpcgwV2API(API):
                 push_default_route=False,
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "POST",
             f"/vpc-gw/v2/zones/{param_zone}/gateway-networks",
@@ -719,7 +693,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_GatewayNetwork(res.json())
-        
+
     def update_gateway_network(
         self,
         *,
@@ -738,18 +712,20 @@ class VpcgwV2API(API):
         :param push_default_route: Enabling the default route also enables masquerading.
         :param ipam_ip_id: Use this IPAM-booked IP ID as the Gateway's IP in this Private Network.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_gateway_network(
                 gateway_network_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_gateway_network_id = validate_path_param("gateway_network_id", gateway_network_id)
-        
+        param_gateway_network_id = validate_path_param(
+            "gateway_network_id", gateway_network_id
+        )
+
         res = self._request(
             "PATCH",
             f"/vpc-gw/v2/zones/{param_zone}/gateway-networks/{param_gateway_network_id}",
@@ -767,7 +743,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_GatewayNetwork(res.json())
-        
+
     def delete_gateway_network(
         self,
         *,
@@ -780,18 +756,20 @@ class VpcgwV2API(API):
         :param gateway_network_id: ID of the GatewayNetwork to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_gateway_network(
                 gateway_network_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_gateway_network_id = validate_path_param("gateway_network_id", gateway_network_id)
-        
+        param_gateway_network_id = validate_path_param(
+            "gateway_network_id", gateway_network_id
+        )
+
         res = self._request(
             "DELETE",
             f"/vpc-gw/v2/zones/{param_zone}/gateway-networks/{param_gateway_network_id}",
@@ -799,7 +777,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_GatewayNetwork(res.json())
-        
+
     def list_pat_rules(
         self,
         *,
@@ -822,15 +800,15 @@ class VpcgwV2API(API):
         :param private_ips: Filter for PAT rules targeting these private ips.
         :param protocol: Filter for PAT rules with this protocol.
         :return: :class:`ListPatRulesResponse <ListPatRulesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_pat_rules()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/pat-rules",
@@ -846,7 +824,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPatRulesResponse(res.json())
-        
+
     def list_pat_rules_all(
         self,
         *,
@@ -869,14 +847,14 @@ class VpcgwV2API(API):
         :param private_ips: Filter for PAT rules targeting these private ips.
         :param protocol: Filter for PAT rules with this protocol.
         :return: :class:`List[PatRule] <List[PatRule]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_pat_rules_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListPatRulesResponse,
             key="pat_rules",
             fetcher=self.list_pat_rules,
@@ -890,7 +868,7 @@ class VpcgwV2API(API):
                 "protocol": protocol,
             },
         )
-        
+
     def get_pat_rule(
         self,
         *,
@@ -903,18 +881,18 @@ class VpcgwV2API(API):
         :param pat_rule_id: ID of the PAT rule to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`PatRule <PatRule>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_pat_rule(
                 pat_rule_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_pat_rule_id = validate_path_param("pat_rule_id", pat_rule_id)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/pat-rules/{param_pat_rule_id}",
@@ -922,7 +900,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_PatRule(res.json())
-        
+
     def create_pat_rule(
         self,
         *,
@@ -943,10 +921,10 @@ class VpcgwV2API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param protocol: Protocol the rule should apply to.
         :return: :class:`PatRule <PatRule>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_pat_rule(
                 gateway_id="example",
                 public_port=1,
@@ -954,9 +932,9 @@ class VpcgwV2API(API):
                 private_port=1,
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "POST",
             f"/vpc-gw/v2/zones/{param_zone}/pat-rules",
@@ -975,7 +953,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_PatRule(res.json())
-        
+
     def update_pat_rule(
         self,
         *,
@@ -996,18 +974,18 @@ class VpcgwV2API(API):
         :param private_port: Private port to translate to.
         :param protocol: Protocol the rule should apply to.
         :return: :class:`PatRule <PatRule>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_pat_rule(
                 pat_rule_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_pat_rule_id = validate_path_param("pat_rule_id", pat_rule_id)
-        
+
         res = self._request(
             "PATCH",
             f"/vpc-gw/v2/zones/{param_zone}/pat-rules/{param_pat_rule_id}",
@@ -1026,7 +1004,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_PatRule(res.json())
-        
+
     def set_pat_rules(
         self,
         *,
@@ -1041,18 +1019,18 @@ class VpcgwV2API(API):
         :param pat_rules: New list of PAT rules.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetPatRulesResponse <SetPatRulesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_pat_rules(
                 gateway_id="example",
                 pat_rules=[],
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "PUT",
             f"/vpc-gw/v2/zones/{param_zone}/pat-rules",
@@ -1068,7 +1046,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetPatRulesResponse(res.json())
-        
+
     def delete_pat_rule(
         self,
         *,
@@ -1080,24 +1058,25 @@ class VpcgwV2API(API):
         Delete a PAT rule, identified by its PAT rule ID. This action is irreversible.
         :param pat_rule_id: ID of the PAT rule to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_pat_rule(
                 pat_rule_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_pat_rule_id = validate_path_param("pat_rule_id", pat_rule_id)
-        
+
         res = self._request(
             "DELETE",
             f"/vpc-gw/v2/zones/{param_zone}/pat-rules/{param_pat_rule_id}",
         )
 
         self._throw_on_error(res)
+
     def list_gateway_types(
         self,
         *,
@@ -1108,15 +1087,15 @@ class VpcgwV2API(API):
         List the different Public Gateway commercial offer types available at Scaleway. The response is an array of objects describing the name and technical details of each available gateway type.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListGatewayTypesResponse <ListGatewayTypesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_gateway_types()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/gateway-types",
@@ -1124,7 +1103,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListGatewayTypesResponse(res.json())
-        
+
     def list_i_ps(
         self,
         *,
@@ -1151,22 +1130,23 @@ class VpcgwV2API(API):
         :param reverse: Filter for IP addresses that have a reverse containing this string.
         :param is_free: Filter based on whether the IP is attached to a gateway or not.
         :return: :class:`ListIPsResponse <ListIPsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_i_ps()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/ips",
             params={
                 "is_free": is_free,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -1177,7 +1157,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListIPsResponse(res.json())
-        
+
     def list_i_ps_all(
         self,
         *,
@@ -1204,14 +1184,14 @@ class VpcgwV2API(API):
         :param reverse: Filter for IP addresses that have a reverse containing this string.
         :param is_free: Filter based on whether the IP is attached to a gateway or not.
         :return: :class:`List[IP] <List[IP]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_i_ps_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListIPsResponse,
             key="ips",
             fetcher=self.list_i_ps,
@@ -1227,7 +1207,7 @@ class VpcgwV2API(API):
                 "is_free": is_free,
             },
         )
-        
+
     def get_ip(
         self,
         *,
@@ -1240,18 +1220,18 @@ class VpcgwV2API(API):
         :param ip_id: ID of the IP address to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`IP <IP>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_ip(
                 ip_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-        
+
         res = self._request(
             "GET",
             f"/vpc-gw/v2/zones/{param_zone}/ips/{param_ip_id}",
@@ -1259,7 +1239,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-        
+
     def create_ip(
         self,
         *,
@@ -1274,15 +1254,15 @@ class VpcgwV2API(API):
         :param project_id: Project to create the IP address in.
         :param tags: Tags to give to the IP address.
         :return: :class:`IP <IP>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_ip()
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        
+
         res = self._request(
             "POST",
             f"/vpc-gw/v2/zones/{param_zone}/ips",
@@ -1298,7 +1278,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-        
+
     def update_ip(
         self,
         *,
@@ -1317,18 +1297,18 @@ class VpcgwV2API(API):
         :param reverse: Reverse to set on the address. Empty string to unset.
         :param gateway_id: Gateway to attach the IP address to. Empty string to detach.
         :return: :class:`IP <IP>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_ip(
                 ip_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-        
+
         res = self._request(
             "PATCH",
             f"/vpc-gw/v2/zones/{param_zone}/ips/{param_ip_id}",
@@ -1346,7 +1326,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_IP(res.json())
-        
+
     def delete_ip(
         self,
         *,
@@ -1358,24 +1338,25 @@ class VpcgwV2API(API):
         Delete a flexible IP address from your account. This action is irreversible.
         :param ip_id: ID of the IP address to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_ip(
                 ip_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_ip_id = validate_path_param("ip_id", ip_id)
-        
+
         res = self._request(
             "DELETE",
             f"/vpc-gw/v2/zones/{param_zone}/ips/{param_ip_id}",
         )
 
         self._throw_on_error(res)
+
     def refresh_ssh_keys(
         self,
         *,
@@ -1388,18 +1369,18 @@ class VpcgwV2API(API):
         :param gateway_id: ID of the gateway to refresh SSH keys on.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
-        
+
         Usage:
         ::
-        
+
             result = api.refresh_ssh_keys(
                 gateway_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
-        
+
         res = self._request(
             "POST",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/refresh-ssh-keys",
@@ -1408,7 +1389,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
-        
+
     def add_bastion_allowed_i_ps(
         self,
         *,
@@ -1423,19 +1404,19 @@ class VpcgwV2API(API):
         :param ip_range: IP range allowed to connect to the SSH bastion.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`AddBastionAllowedIPsResponse <AddBastionAllowedIPsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.add_bastion_allowed_i_ps(
                 gateway_id="example",
                 ip_range="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
-        
+
         res = self._request(
             "POST",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/bastion-allowed-ips",
@@ -1451,7 +1432,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddBastionAllowedIPsResponse(res.json())
-        
+
     def set_bastion_allowed_i_ps(
         self,
         *,
@@ -1466,18 +1447,18 @@ class VpcgwV2API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_ranges: New list of IP ranges (each range in CIDR notation) allowed to connect to the SSH bastion.
         :return: :class:`SetBastionAllowedIPsResponse <SetBastionAllowedIPsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.set_bastion_allowed_i_ps(
                 gateway_id="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
-        
+
         res = self._request(
             "PUT",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/bastion-allowed-ips",
@@ -1493,7 +1474,7 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetBastionAllowedIPsResponse(res.json())
-        
+
     def delete_bastion_allowed_i_ps(
         self,
         *,
@@ -1507,20 +1488,20 @@ class VpcgwV2API(API):
         :param gateway_id: ID of the gateway on which to delete the allowed IP range.
         :param ip_range: IP range to delete from SSH bastion's list of allowed IPs.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_bastion_allowed_i_ps(
                 gateway_id="example",
                 ip_range="example",
             )
         """
-        
+
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_gateway_id = validate_path_param("gateway_id", gateway_id)
         param_ip_range = validate_path_param("ip_range", ip_range)
-        
+
         res = self._request(
             "DELETE",
             f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/bastion-allowed-ips/{param_ip_range}",

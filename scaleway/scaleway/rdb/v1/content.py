@@ -10,6 +10,7 @@ from .types import (
     ReadReplicaStatus,
     SnapshotStatus,
 )
+
 DATABASE_BACKUP_TRANSIENT_STATUSES: List[DatabaseBackupStatus] = [
     DatabaseBackupStatus.CREATING,
     DatabaseBackupStatus.RESTORING,

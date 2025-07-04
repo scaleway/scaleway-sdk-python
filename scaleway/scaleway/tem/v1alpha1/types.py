@@ -3,23 +3,18 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from decimal import Decimal
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
     Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
 
 class BlocklistType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
@@ -29,6 +24,7 @@ class BlocklistType(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class DomainLastStatusAutoconfigStateReason(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_REASON = "unknown_reason"
     PERMISSION_DENIED = "permission_denied"
@@ -36,6 +32,7 @@ class DomainLastStatusAutoconfigStateReason(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RECORD_STATUS = "unknown_record_status"
@@ -46,6 +43,7 @@ class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class DomainReputationStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     EXCELLENT = "excellent"
@@ -55,6 +53,7 @@ class DomainReputationStatus(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
@@ -68,6 +67,7 @@ class DomainStatus(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class EmailFlag(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_FLAG = "unknown_flag"
@@ -83,6 +83,7 @@ class EmailFlag(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class EmailRcptType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RCPT_TYPE = "unknown_rcpt_type"
     TO = "to"
@@ -91,6 +92,7 @@ class EmailRcptType(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class EmailStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
@@ -103,6 +105,7 @@ class EmailStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class ListBlocklistsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -111,6 +114,7 @@ class ListBlocklistsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class ListEmailsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
@@ -129,12 +133,14 @@ class ListEmailsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class ListWebhookEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class ListWebhooksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
@@ -143,6 +149,7 @@ class ListWebhooksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class OfferName(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_NAME = "unknown_name"
     ESSENTIAL = "essential"
@@ -150,6 +157,7 @@ class OfferName(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class PoolStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -161,6 +169,7 @@ class PoolStatus(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class ProjectSettingsPeriodicReportFrequency(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_FREQUENCY = "unknown_frequency"
     MONTHLY = "monthly"
@@ -170,6 +179,7 @@ class ProjectSettingsPeriodicReportFrequency(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 class WebhookEventStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     SENDING = "sending"
@@ -178,6 +188,7 @@ class WebhookEventStatus(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class WebhookEventType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
@@ -193,18 +204,19 @@ class WebhookEventType(str, Enum, metaclass=StrEnumMeta):
     def __str__(self) -> str:
         return str(self.value)
 
+
 @dataclass
 class DomainRecordsDMARC:
     name: str
     """
     Name of the DMARC TXT record.
     """
-    
+
     value: str
     """
     Value of the DMARC TXT record.
     """
-    
+
 
 @dataclass
 class EmailTry:
@@ -212,22 +224,22 @@ class EmailTry:
     """
     Rank number of this attempt to send the email.
     """
-    
+
     code: int
     """
     The SMTP status code received after the attempt. 0 if the attempt did not reach an SMTP server.
     """
-    
+
     message: str
     """
     The SMTP message received. If the attempt did not reach an SMTP server, the message returned explains what happened.
     """
-    
+
     tried_at: Optional[datetime]
     """
     Date of the attempt to send the email.
     """
-    
+
 
 @dataclass
 class DomainRecords:
@@ -235,7 +247,7 @@ class DomainRecords:
     """
     DMARC TXT record specification.
     """
-    
+
 
 @dataclass
 class DomainReputation:
@@ -243,38 +255,38 @@ class DomainReputation:
     """
     Status of your domain's reputation.
     """
-    
+
     score: int
     """
     A range from 0 to 100 that determines your domain's reputation score. A score of `0` means a bad domain reputation and a score of `100` means an excellent domain reputation.
     """
-    
+
     scored_at: Optional[datetime]
     """
     Time and date the score was calculated.
     """
-    
+
     previous_score: Optional[int]
     """
     The previously-calculated domain's reputation score.
     """
-    
+
     previous_scored_at: Optional[datetime]
     """
     Time and date the previous reputation score was calculated.
     """
-    
+
 
 @dataclass
 class DomainStatistics:
     total_count: int
-    
+
     sent_count: int
-    
+
     failed_count: int
-    
+
     canceled_count: int
-    
+
 
 @dataclass
 class Blocklist:
@@ -282,47 +294,47 @@ class Blocklist:
     """
     ID of the blocklist.
     """
-    
+
     domain_id: str
     """
     Domain ID linked to the blocklist.
     """
-    
+
     email: str
     """
     Email blocked by the blocklist.
     """
-    
+
     type_: BlocklistType
     """
     Type of block for this email.
     """
-    
+
     reason: str
     """
     Reason to block this email.
     """
-    
+
     custom: bool
     """
     True if this blocklist was created manually. False for an automatic Transactional Email blocklist.
     """
-    
+
     created_at: Optional[datetime]
     """
     Date and time of the blocklist creation.
     """
-    
+
     updated_at: Optional[datetime]
     """
     Date and time of the blocklist's last update.
     """
-    
+
     ends_at: Optional[datetime]
     """
     Date and time when the blocklist ends. Empty if the blocklist has no end.
     """
-    
+
 
 @dataclass
 class CreateEmailRequestAddress:
@@ -330,12 +342,12 @@ class CreateEmailRequestAddress:
     """
     Email address.
     """
-    
+
     name: Optional[str]
     """
     (Optional) Name displayed.
     """
-    
+
 
 @dataclass
 class CreateEmailRequestAttachment:
@@ -343,17 +355,17 @@ class CreateEmailRequestAttachment:
     """
     Filename of the attachment.
     """
-    
+
     type_: str
     """
     MIME type of the attachment.
     """
-    
+
     content: str
     """
     Content of the attachment encoded in base64.
     """
-    
+
 
 @dataclass
 class CreateEmailRequestHeader:
@@ -361,12 +373,12 @@ class CreateEmailRequestHeader:
     """
     Email header key.
     """
-    
+
     value: str
     """
     Email header value.
     """
-    
+
 
 @dataclass
 class Email:
@@ -374,77 +386,77 @@ class Email:
     """
     Technical ID of the email.
     """
-    
+
     message_id: str
     """
     Message ID of the email.
     """
-    
+
     project_id: str
     """
     ID of the Project to which the email belongs.
     """
-    
+
     mail_from: str
     """
     Email address of the sender.
     """
-    
+
     mail_rcpt: str
     """
     Email address of the recipient.
     """
-    
+
     rcpt_to: Optional[str]
     """
     Deprecated. Email address of the recipient.
     """
-    
+
     rcpt_type: EmailRcptType
     """
     Type of recipient.
     """
-    
+
     subject: str
     """
     Subject of the email.
     """
-    
+
     status: EmailStatus
     """
     Status of the email.
     """
-    
+
     try_count: int
     """
     Number of attempts to send the email.
     """
-    
+
     last_tries: List[EmailTry]
     """
     Information about the last three attempts to send the email.
     """
-    
+
     flags: List[EmailFlag]
     """
     Flags categorize emails. They allow you to obtain more information about recurring errors, for example.
     """
-    
+
     created_at: Optional[datetime]
     """
     Creation date of the email object.
     """
-    
+
     updated_at: Optional[datetime]
     """
     Last update of the email object.
     """
-    
+
     status_details: Optional[str]
     """
     Additional status information.
     """
-    
+
 
 @dataclass
 class DomainLastStatusAutoconfigState:
@@ -452,17 +464,17 @@ class DomainLastStatusAutoconfigState:
     """
     Enable or disable the auto-configuration of domain DNS records.
     """
-    
+
     autoconfigurable: bool
     """
     Whether the domain can be auto-configured or not.
     """
-    
+
     reason: Optional[DomainLastStatusAutoconfigStateReason]
     """
     The reason that the domain cannot be auto-configurable.
     """
-    
+
 
 @dataclass
 class DomainLastStatusDkimRecord:
@@ -470,17 +482,17 @@ class DomainLastStatusDkimRecord:
     """
     Status of the DKIM record's configuration.
     """
-    
+
     last_valid_at: Optional[datetime]
     """
     Time and date the DKIM record was last valid.
     """
-    
+
     error: Optional[str]
     """
     An error text displays in case the record is not valid.
     """
-    
+
 
 @dataclass
 class DomainLastStatusDmarcRecord:
@@ -488,17 +500,17 @@ class DomainLastStatusDmarcRecord:
     """
     Status of the DMARC record's configuration.
     """
-    
+
     last_valid_at: Optional[datetime]
     """
     Time and date the DMARC record was last valid.
     """
-    
+
     error: Optional[str]
     """
     An error text displays in case the record is not valid.
     """
-    
+
 
 @dataclass
 class DomainLastStatusSpfRecord:
@@ -506,17 +518,17 @@ class DomainLastStatusSpfRecord:
     """
     Status of the SPF record's configuration.
     """
-    
+
     last_valid_at: Optional[datetime]
     """
     Time and date the SPF record was last valid.
     """
-    
+
     error: Optional[str]
     """
     An error text displays in case the record is not valid.
     """
-    
+
 
 @dataclass
 class Domain:
@@ -524,87 +536,87 @@ class Domain:
     """
     ID of the domain.
     """
-    
+
     organization_id: str
     """
     ID of the domain's Organization.
     """
-    
+
     project_id: str
     """
     ID of the domain's Project.
     """
-    
+
     name: str
     """
     Domain name (example.com).
     """
-    
+
     status: DomainStatus
     """
     Status of the domain.
     """
-    
+
     spf_config: str
     """
     Snippet of the SPF record to register in the DNS zone.
     """
-    
+
     dkim_config: str
     """
     DKIM public key to record in the DNS zone.
     """
-    
+
     created_at: Optional[datetime]
     """
     Date and time of domain creation.
     """
-    
+
     next_check_at: Optional[datetime]
     """
     Date and time of the next scheduled check.
     """
-    
+
     last_valid_at: Optional[datetime]
     """
     Date and time the domain was last valid.
     """
-    
+
     autoconfig: bool
     """
     Status of auto-configuration for the domain's DNS zone.
     """
-    
+
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     revoked_at: Optional[datetime]
     """
     Date and time of the domain's deletion.
     """
-    
+
     last_error: Optional[str]
     """
     Deprecated. Error message returned if the last check failed.
     """
-    
+
     statistics: Optional[DomainStatistics]
     """
     Domain's statistics.
     """
-    
+
     reputation: Optional[DomainReputation]
     """
     The domain's reputation is available when your domain is checked and has sent enough emails.
     """
-    
+
     records: Optional[DomainRecords]
     """
     List of records to configure to validate a domain.
     """
-    
+
 
 @dataclass
 class OfferSubscription:
@@ -612,57 +624,57 @@ class OfferSubscription:
     """
     ID of the offer-subscription Organization.
     """
-    
+
     project_id: str
     """
     ID of the offer-subscription Project.
     """
-    
+
     offer_name: OfferName
     """
     Name of the offer associated with the Project.
     """
-    
+
     sla: float
     """
     Service Level Agreement percentage of the offer-subscription.
     """
-    
+
     max_domains: int
     """
     Max number of domains that can be associated with the offer-subscription for a particular Project.
     """
-    
+
     max_dedicated_ips: int
     """
     Max number of dedicated IPs that can be associated with the offer-subscription for a particular Project.
     """
-    
+
     max_webhooks_per_domain: int
     """
     Max number of webhooks that can be associated with the offer-subscription for a particular Project.
     """
-    
+
     max_custom_blocklists_per_domain: int
     """
     Max number of custom blocklists that can be associated with the offer-subscription for a particular Project.
     """
-    
+
     included_monthly_emails: int
     """
     Number of emails included in the offer-subscription per month.
     """
-    
+
     subscribed_at: Optional[datetime]
     """
     Date and time of the subscription.
     """
-    
+
     cancellation_available_at: Optional[datetime]
     """
     Date and time of the end of the offer-subscription commitment.
     """
-    
+
 
 @dataclass
 class Offer:
@@ -670,47 +682,47 @@ class Offer:
     """
     Name of the offer.
     """
-    
+
     sla: float
     """
     Service Level Agreement percentage of the offer.
     """
-    
+
     max_domains: int
     """
     Max number of checked domains that can be associated with the offer.
     """
-    
+
     max_dedicated_ips: int
     """
     Max number of dedicated IPs that can be associated with the offer.
     """
-    
+
     included_monthly_emails: int
     """
     Number of emails included in the offer per month.
     """
-    
+
     max_webhooks_per_domain: int
     """
     Max number of webhooks that can be associated with the offer.
     """
-    
+
     max_custom_blocklists_per_domain: int
     """
     Max number of active custom blocklists that can be associated with the offer.
     """
-    
+
     created_at: Optional[datetime]
     """
     Date and time of the offer creation.
     """
-    
+
     commitment_period: Optional[str]
     """
     Period of commitment.
     """
-    
+
 
 @dataclass
 class Pool:
@@ -718,32 +730,32 @@ class Pool:
     """
     ID of the Project.
     """
-    
+
     status: PoolStatus
     """
     Status of the pool.
     """
-    
+
     ips: List[str]
     """
     IPs of the pool.
     """
-    
+
     details: Optional[str]
     """
     Details of the pool.
     """
-    
+
     zone: Optional[ScwZone]
     """
     Zone of the pool.
     """
-    
+
     reverse: Optional[str]
     """
     Reverse hostname of all IPs of the pool.
     """
-    
+
 
 @dataclass
 class WebhookEvent:
@@ -751,57 +763,57 @@ class WebhookEvent:
     """
     ID of the Webhook Event.
     """
-    
+
     webhook_id: str
     """
     ID of the Webhook that triggers the Event.
     """
-    
+
     organization_id: str
     """
     ID of the Webhook Event Organization.
     """
-    
+
     project_id: str
     """
     ID of the Webhook Event Project.
     """
-    
+
     domain_id: str
     """
     ID of the webhook event domain.
     """
-    
+
     type_: WebhookEventType
     """
     Type of the Webhook Event.
     """
-    
+
     status: WebhookEventStatus
     """
     Status of the Webhook Event.
     """
-    
+
     data: str
     """
     Data sent to the Webhook destination.
     """
-    
+
     created_at: Optional[datetime]
     """
     Date and time of the Webhook Event creation.
     """
-    
+
     updated_at: Optional[datetime]
     """
     Date and time of last Webhook Event updates.
     """
-    
+
     email_id: Optional[str]
     """
     Optional Email ID if the event is triggered by an Email resource.
     """
-    
+
 
 @dataclass
 class Webhook:
@@ -809,47 +821,47 @@ class Webhook:
     """
     ID of the Webhook.
     """
-    
+
     domain_id: str
     """
     ID of the Domain to watch for triggering events.
     """
-    
+
     organization_id: str
     """
     ID of the Webhook Organization.
     """
-    
+
     project_id: str
     """
     ID of the Webhook Project.
     """
-    
+
     name: str
     """
     Name of the Webhook.
     """
-    
+
     event_types: List[WebhookEventType]
     """
     List of event types that will trigger a Webhook Event.
     """
-    
+
     sns_arn: str
     """
     Scaleway SNS ARN topic to push the events to.
     """
-    
+
     created_at: Optional[datetime]
     """
     Date and time of the Webhook creation.
     """
-    
+
     updated_at: Optional[datetime]
     """
     Date and time of last Webhook updates.
     """
-    
+
 
 @dataclass
 class ProjectSettingsPeriodicReport:
@@ -857,22 +869,22 @@ class ProjectSettingsPeriodicReport:
     """
     Enable or disable periodic report notifications.
     """
-    
+
     frequency: ProjectSettingsPeriodicReportFrequency
     """
     At which frequency you receive periodic report notifications.
     """
-    
+
     sending_hour: int
     """
     At which hour you receive periodic report notifications.
     """
-    
+
     sending_day: int
     """
     On which day you receive periodic report notifications (1-7 weekly, 1-28 monthly).
     """
-    
+
 
 @dataclass
 class UpdateProjectSettingsRequestUpdatePeriodicReport:
@@ -880,22 +892,22 @@ class UpdateProjectSettingsRequestUpdatePeriodicReport:
     """
     (Optional) Enable or disable periodic report notifications.
     """
-    
+
     frequency: Optional[ProjectSettingsPeriodicReportFrequency]
     """
     (Optional) Frequency at which you receive periodic report notifications.
     """
-    
+
     sending_hour: Optional[int]
     """
     (Optional) Hour at which you receive periodic report notifications.
     """
-    
+
     sending_day: Optional[int]
     """
     (Optional) On which day you receive periodic report notifications (1-7 weekly, 1-28 monthly).
     """
-    
+
 
 @dataclass
 class BulkCreateBlocklistsRequest:
@@ -903,27 +915,27 @@ class BulkCreateBlocklistsRequest:
     """
     Domain ID linked to the blocklist.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     emails: Optional[List[str]]
     """
     Email blocked by the blocklist.
     """
-    
+
     type_: Optional[BlocklistType]
     """
     Type of blocklist.
     """
-    
+
     reason: Optional[str]
     """
     Reason to block the email.
     """
-    
+
 
 @dataclass
 class BulkCreateBlocklistsResponse:
@@ -931,7 +943,7 @@ class BulkCreateBlocklistsResponse:
     """
     List of blocklist created.
     """
-    
+
 
 @dataclass
 class CancelEmailRequest:
@@ -939,12 +951,12 @@ class CancelEmailRequest:
     """
     ID of the email to cancel.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class CheckDomainRequest:
@@ -952,12 +964,12 @@ class CheckDomainRequest:
     """
     ID of the domain to check.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class CreateDomainRequest:
@@ -965,27 +977,27 @@ class CreateDomainRequest:
     """
     Fully qualified domain dame.
     """
-    
+
     autoconfig: bool
     """
     Activate auto-configuration of the domain's DNS zone.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the project to which the domain belongs.
     """
-    
+
     accept_tos: Optional[bool]
     """
     Deprecated. Accept Scaleway's Terms of Service.
     """
-    
+
 
 @dataclass
 class CreateEmailRequest:
@@ -993,62 +1005,62 @@ class CreateEmailRequest:
     """
     Sender information. Must be from a checked domain declared in the Project.
     """
-    
+
     subject: str
     """
     Subject of the email.
     """
-    
+
     text: str
     """
     Text content.
     """
-    
+
     html: str
     """
     HTML content.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     to: Optional[List[CreateEmailRequestAddress]]
     """
     An array of the primary recipient's information.
     """
-    
+
     cc: Optional[List[CreateEmailRequestAddress]]
     """
     An array of the carbon copy recipient's information.
     """
-    
+
     bcc: Optional[List[CreateEmailRequestAddress]]
     """
     An array of the blind carbon copy recipient's information.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the Project in which to create the email.
     """
-    
+
     attachments: Optional[List[CreateEmailRequestAttachment]]
     """
     Array of attachments.
     """
-    
+
     send_before: Optional[datetime]
     """
     Maximum date to deliver the email.
     """
-    
+
     additional_headers: Optional[List[CreateEmailRequestHeader]]
     """
     Array of additional headers as key-value.
     """
-    
+
 
 @dataclass
 class CreateEmailResponse:
@@ -1056,7 +1068,7 @@ class CreateEmailResponse:
     """
     Single page of emails matching the requested criteria.
     """
-    
+
 
 @dataclass
 class CreateWebhookRequest:
@@ -1064,32 +1076,32 @@ class CreateWebhookRequest:
     """
     ID of the Domain to watch for triggering events.
     """
-    
+
     name: str
     """
     Name of the Webhook.
     """
-    
+
     sns_arn: str
     """
     Scaleway SNS ARN topic to push the events to.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the project to which the Webhook belongs.
     """
-    
+
     event_types: Optional[List[WebhookEventType]]
     """
     List of event types that will trigger an event.
     """
-    
+
 
 @dataclass
 class DeleteBlocklistRequest:
@@ -1097,12 +1109,12 @@ class DeleteBlocklistRequest:
     """
     ID of the blocklist to delete.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class DeleteWebhookRequest:
@@ -1110,12 +1122,12 @@ class DeleteWebhookRequest:
     """
     ID of the Webhook to delete.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class DomainLastStatus:
@@ -1123,32 +1135,32 @@ class DomainLastStatus:
     """
     The ID of the domain.
     """
-    
+
     domain_name: str
     """
     The domain name (example.com).
     """
-    
+
     spf_record: Optional[DomainLastStatusSpfRecord]
     """
     The SPF record verification data.
     """
-    
+
     dkim_record: Optional[DomainLastStatusDkimRecord]
     """
     The DKIM record verification data.
     """
-    
+
     dmarc_record: Optional[DomainLastStatusDmarcRecord]
     """
     The DMARC record verification data.
     """
-    
+
     autoconfig_state: Optional[DomainLastStatusAutoconfigState]
     """
     The verification state of domain auto-configuration.
     """
-    
+
 
 @dataclass
 class GetDomainLastStatusRequest:
@@ -1156,12 +1168,12 @@ class GetDomainLastStatusRequest:
     """
     ID of the domain to delete.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class GetDomainRequest:
@@ -1169,12 +1181,12 @@ class GetDomainRequest:
     """
     ID of the domain.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class GetEmailRequest:
@@ -1182,12 +1194,12 @@ class GetEmailRequest:
     """
     ID of the email to retrieve.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class GetProjectConsumptionRequest:
@@ -1195,12 +1207,12 @@ class GetProjectConsumptionRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the project.
     """
-    
+
 
 @dataclass
 class GetProjectSettingsRequest:
@@ -1208,12 +1220,12 @@ class GetProjectSettingsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the project.
     """
-    
+
 
 @dataclass
 class GetStatisticsRequest:
@@ -1221,32 +1233,32 @@ class GetStatisticsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     (Optional) Number of emails for this Project.
     """
-    
+
     domain_id: Optional[str]
     """
     (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
     """
-    
+
     since: Optional[datetime]
     """
     (Optional) Number of emails created after this date.
     """
-    
+
     until: Optional[datetime]
     """
     (Optional) Number of emails created before this date.
     """
-    
+
     mail_from: Optional[str]
     """
     (Optional) Number of emails sent with this sender's email address.
     """
-    
+
 
 @dataclass
 class GetWebhookRequest:
@@ -1254,12 +1266,12 @@ class GetWebhookRequest:
     """
     ID of the Webhook to check.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class ListBlocklistsRequest:
@@ -1267,42 +1279,42 @@ class ListBlocklistsRequest:
     """
     (Optional) Filter by a domain ID.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     order_by: Optional[ListBlocklistsRequestOrderBy]
     """
     (Optional) List blocklist corresponding to specific criteria.
     """
-    
+
     page: Optional[int]
     """
     (Optional) Requested page number. Value must be greater or equal to 1.
     """
-    
+
     page_size: Optional[int]
     """
     (Optional) Requested page size. Value must be between 1 and 100.
     """
-    
+
     email: Optional[str]
     """
     (Optional) Filter by an email address.
     """
-    
+
     type_: Optional[BlocklistType]
     """
     (Optional) Filter by a blocklist type.
     """
-    
+
     custom: Optional[bool]
     """
     (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
     """
-    
+
 
 @dataclass
 class ListBlocklistsResponse:
@@ -1310,12 +1322,12 @@ class ListBlocklistsResponse:
     """
     Number of blocklists matching the requested criteria.
     """
-    
+
     blocklists: List[Blocklist]
     """
     Single page of blocklists matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ListDomainsRequest:
@@ -1323,37 +1335,37 @@ class ListDomainsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     page: Optional[int]
     """
     Requested page number. Value must be greater or equal to 1.
     """
-    
+
     page_size: Optional[int]
     """
     Requested page size. Value must be between 1 and 1000.
     """
-    
+
     project_id: Optional[str]
     """
     (Optional) ID of the Project in which to list the domains.
     """
-    
+
     status: Optional[List[DomainStatus]]
     """
     (Optional) List domains under specific statuses.
     """
-    
+
     organization_id: Optional[str]
     """
     (Optional) ID of the Organization in which to list the domains.
     """
-    
+
     name: Optional[str]
     """
     (Optional) Names of the domains to list.
     """
-    
+
 
 @dataclass
 class ListDomainsResponse:
@@ -1361,12 +1373,12 @@ class ListDomainsResponse:
     """
     Number of domains that match the request (without pagination).
     """
-    
+
     domains: List[Domain]
     """
     Single page of domains matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ListEmailsRequest:
@@ -1374,76 +1386,76 @@ class ListEmailsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     page: Optional[int]
-    
+
     page_size: Optional[int]
-    
+
     project_id: Optional[str]
     """
     (Optional) ID of the Project in which to list the emails.
     """
-    
+
     domain_id: Optional[str]
     """
     (Optional) ID of the domain for which to list the emails.
     """
-    
+
     message_id: Optional[str]
     """
     (Optional) ID of the message for which to list the emails.
     """
-    
+
     since: Optional[datetime]
     """
     (Optional) List emails created after this date.
     """
-    
+
     until: Optional[datetime]
     """
     (Optional) List emails created before this date.
     """
-    
+
     mail_from: Optional[str]
     """
     (Optional) List emails sent with this sender's email address.
     """
-    
+
     mail_to: Optional[str]
     """
     Deprecated. List emails sent to this recipient's email address.
     """
-    
+
     mail_rcpt: Optional[str]
     """
     (Optional) List emails sent to this recipient's email address.
     """
-    
+
     statuses: Optional[List[EmailStatus]]
     """
     (Optional) List emails with any of these statuses.
     """
-    
+
     subject: Optional[str]
     """
     (Optional) List emails with this subject.
     """
-    
+
     search: Optional[str]
     """
     (Optional) List emails by searching to all fields.
     """
-    
+
     order_by: Optional[ListEmailsRequestOrderBy]
     """
     (Optional) List emails corresponding to specific criteria.
     """
-    
+
     flags: Optional[List[EmailFlag]]
     """
     (Optional) List emails containing only specific flags.
     """
-    
+
 
 @dataclass
 class ListEmailsResponse:
@@ -1451,12 +1463,12 @@ class ListEmailsResponse:
     """
     Number of emails matching the requested criteria.
     """
-    
+
     emails: List[Email]
     """
     Single page of emails matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ListOfferSubscriptionsRequest:
@@ -1464,12 +1476,12 @@ class ListOfferSubscriptionsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the Project.
     """
-    
+
 
 @dataclass
 class ListOfferSubscriptionsResponse:
@@ -1477,12 +1489,12 @@ class ListOfferSubscriptionsResponse:
     """
     Number of offer-subscriptions matching the requested criteria.
     """
-    
+
     offer_subscriptions: List[OfferSubscription]
     """
     Single page of offer-subscriptions matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ListOffersRequest:
@@ -1490,7 +1502,7 @@ class ListOffersRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class ListOffersResponse:
@@ -1498,12 +1510,12 @@ class ListOffersResponse:
     """
     Number of offers matching the requested criteria.
     """
-    
+
     offers: List[Offer]
     """
     Single page of offers matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ListPoolsRequest:
@@ -1511,22 +1523,22 @@ class ListPoolsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     page: Optional[int]
     """
     Requested page number. Value must be greater or equal to 1.
     """
-    
+
     page_size: Optional[int]
     """
     Requested page size. Value must be between 1 and 1000.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the Project.
     """
-    
+
 
 @dataclass
 class ListPoolsResponse:
@@ -1534,12 +1546,12 @@ class ListPoolsResponse:
     """
     Number of pools matching the requested criteria.
     """
-    
+
     pools: List[Pool]
     """
     Single page of pools matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ListWebhookEventsRequest:
@@ -1547,57 +1559,57 @@ class ListWebhookEventsRequest:
     """
     ID of the Webhook linked to the events.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     order_by: Optional[ListWebhookEventsRequestOrderBy]
     """
     (Optional) List Webhook events corresponding to specific criteria.
     """
-    
+
     page: Optional[int]
     """
     Requested page number. Value must be greater or equal to 1.
     """
-    
+
     page_size: Optional[int]
     """
     Requested page size. Value must be between 1 and 100.
     """
-    
+
     email_id: Optional[str]
     """
     ID of the email linked to the events.
     """
-    
+
     event_types: Optional[List[WebhookEventType]]
     """
     List of event types linked to the events.
     """
-    
+
     statuses: Optional[List[WebhookEventStatus]]
     """
     List of event statuses.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the webhook Project.
     """
-    
+
     organization_id: Optional[str]
     """
     ID of the webhook Organization.
     """
-    
+
     domain_id: Optional[str]
     """
     ID of the domain to watch for triggering events.
     """
-    
+
 
 @dataclass
 class ListWebhookEventsResponse:
@@ -1605,12 +1617,12 @@ class ListWebhookEventsResponse:
     """
     Number of Webhook events matching the requested criteria.
     """
-    
+
     webhook_events: List[WebhookEvent]
     """
     Single page of Webhook events matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ListWebhooksRequest:
@@ -1618,37 +1630,37 @@ class ListWebhooksRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     order_by: Optional[ListWebhooksRequestOrderBy]
     """
     (Optional) List Webhooks corresponding to specific criteria.
     """
-    
+
     page: Optional[int]
     """
     (Optional) Requested page number. Value must be greater or equal to 1.
     """
-    
+
     page_size: Optional[int]
     """
     (Optional) Requested page size. Value must be between 1 and 100.
     """
-    
+
     project_id: Optional[str]
     """
     (Optional) ID of the Project for which to list the Webhooks.
     """
-    
+
     organization_id: Optional[str]
     """
     (Optional) ID of the Organization for which to list the Webhooks.
     """
-    
+
     domain_id: Optional[str]
     """
     (Optional) ID of the Domain for which to list the Webhooks.
     """
-    
+
 
 @dataclass
 class ListWebhooksResponse:
@@ -1656,12 +1668,12 @@ class ListWebhooksResponse:
     """
     Number of Webhooks matching the requested criteria.
     """
-    
+
     webhooks: List[Webhook]
     """
     Single page of Webhooks matching the requested criteria.
     """
-    
+
 
 @dataclass
 class ProjectConsumption:
@@ -1669,32 +1681,32 @@ class ProjectConsumption:
     """
     ID of the project.
     """
-    
+
     domains_count: int
     """
     Number of domains in the project.
     """
-    
+
     dedicated_ips_count: int
     """
     Number of dedicated IP in the project.
     """
-    
+
     monthly_emails_count: int
     """
     Number of emails sent during the current month in the project.
     """
-    
+
     webhooks_count: int
     """
     Number of webhooks in the project.
     """
-    
+
     custom_blocklists_count: int
     """
     Number of custom blocklists in the project.
     """
-    
+
 
 @dataclass
 class ProjectSettings:
@@ -1702,7 +1714,7 @@ class ProjectSettings:
     """
     Information about your periodic report.
     """
-    
+
 
 @dataclass
 class RevokeDomainRequest:
@@ -1710,12 +1722,12 @@ class RevokeDomainRequest:
     """
     ID of the domain to delete.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
 
 @dataclass
 class Statistics:
@@ -1723,32 +1735,32 @@ class Statistics:
     """
     Total number of emails matching the requested criteria.
     """
-    
+
     new_count: int
     """
     Number of emails still in the `new` transient state. This means emails received from the API but not yet processed.
     """
-    
+
     sending_count: int
     """
     Number of emails still in the `sending` transient state. This means emails received from the API but not yet in their final status.
     """
-    
+
     sent_count: int
     """
     Number of emails in the final `sent` state. This means emails that have been delivered to the target mail system.
     """
-    
+
     failed_count: int
     """
     Number of emails in the final `failed` state. This means emails that have been refused by the target mail system with a final error status.
     """
-    
+
     canceled_count: int
     """
     Number of emails in the final `canceled` state. This means emails that have been canceled upon request.
     """
-    
+
 
 @dataclass
 class UpdateDomainRequest:
@@ -1756,17 +1768,17 @@ class UpdateDomainRequest:
     """
     ID of the domain to update.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     autoconfig: Optional[bool]
     """
     (Optional) If set to true, activate auto-configuration of the domain's DNS zone.
     """
-    
+
 
 @dataclass
 class UpdateOfferSubscriptionRequest:
@@ -1774,17 +1786,17 @@ class UpdateOfferSubscriptionRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the Project.
     """
-    
+
     name: Optional[OfferName]
     """
     Name of the offer-subscription.
     """
-    
+
 
 @dataclass
 class UpdateProjectSettingsRequest:
@@ -1792,17 +1804,17 @@ class UpdateProjectSettingsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     project_id: Optional[str]
     """
     ID of the project.
     """
-    
+
     periodic_report: Optional[UpdateProjectSettingsRequestUpdatePeriodicReport]
     """
     Periodic report update details - all fields are optional.
     """
-    
+
 
 @dataclass
 class UpdateWebhookRequest:
@@ -1810,24 +1822,23 @@ class UpdateWebhookRequest:
     """
     ID of the Webhook to update.
     """
-    
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
-    
+
     name: Optional[str]
     """
     Name of the Webhook to update.
     """
-    
+
     event_types: Optional[List[WebhookEventType]]
     """
     List of event types to update.
     """
-    
+
     sns_arn: Optional[str]
     """
     Scaleway SNS ARN topic to update.
     """
-    

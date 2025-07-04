@@ -1,35 +1,15 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
-    random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
     AlertState,
@@ -42,8 +22,6 @@ from .types import (
     ListTokensRequestOrderBy,
     PlanName,
     TokenScope,
-    UsageUnit,
-    Alert,
     AlertManager,
     ContactPoint,
     ContactPointEmail,
@@ -51,15 +29,8 @@ from .types import (
     DisableAlertRulesResponse,
     EnableAlertRulesResponse,
     GetConfigResponse,
-    GetConfigResponseRetention,
+    GetRulesCountResponse,
     GlobalApiCreateGrafanaUserRequest,
-    GlobalApiDeleteGrafanaUserRequest,
-    GlobalApiGetCurrentPlanRequest,
-    GlobalApiGetGrafanaProductDashboardRequest,
-    GlobalApiGetGrafanaRequest,
-    GlobalApiListGrafanaProductDashboardsRequest,
-    GlobalApiListGrafanaUsersRequest,
-    GlobalApiListPlansRequest,
     GlobalApiResetGrafanaUserPasswordRequest,
     GlobalApiSelectPlanRequest,
     GlobalApiSyncGrafanaDataSourcesRequest,
@@ -74,33 +45,20 @@ from .types import (
     ListPlansResponse,
     ListTokensResponse,
     Plan,
-    PreconfiguredAlertData,
     RegionalApiCreateContactPointRequest,
     RegionalApiCreateDataSourceRequest,
     RegionalApiCreateTokenRequest,
     RegionalApiDeleteContactPointRequest,
-    RegionalApiDeleteDataSourceRequest,
-    RegionalApiDeleteTokenRequest,
     RegionalApiDisableAlertManagerRequest,
     RegionalApiDisableAlertRulesRequest,
     RegionalApiDisableManagedAlertsRequest,
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableAlertRulesRequest,
     RegionalApiEnableManagedAlertsRequest,
-    RegionalApiGetAlertManagerRequest,
-    RegionalApiGetConfigRequest,
-    RegionalApiGetDataSourceRequest,
-    RegionalApiGetTokenRequest,
-    RegionalApiGetUsageOverviewRequest,
-    RegionalApiListAlertsRequest,
-    RegionalApiListContactPointsRequest,
-    RegionalApiListDataSourcesRequest,
-    RegionalApiListTokensRequest,
     RegionalApiTriggerTestAlertRequest,
     RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
     Token,
-    Usage,
     UsageOverview,
 )
 from .marshalling import (
@@ -114,6 +72,7 @@ from .marshalling import (
     unmarshal_DisableAlertRulesResponse,
     unmarshal_EnableAlertRulesResponse,
     unmarshal_GetConfigResponse,
+    unmarshal_GetRulesCountResponse,
     unmarshal_Grafana,
     unmarshal_ListAlertsResponse,
     unmarshal_ListContactPointsResponse,
@@ -142,10 +101,12 @@ from .marshalling import (
     marshal_RegionalApiUpdateDataSourceRequest,
 )
 
+
 class CockpitV1GlobalAPI(API):
     """
     The Cockpit Global API allows you to manage your Cockpit's Grafana.
     """
+
     def get_grafana(
         self,
         *,
@@ -157,17 +118,16 @@ class CockpitV1GlobalAPI(API):
         The output returned displays the URL to access your Cockpit's Grafana.
         :param project_id: ID of the Project.
         :return: :class:`Grafana <Grafana>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_grafana()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/cockpit/v1/grafana",
+            "/cockpit/v1/grafana",
             params={
                 "project_id": project_id or self.client.default_project_id,
             },
@@ -175,7 +135,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Grafana(res.json())
-        
+
     def sync_grafana_data_sources(
         self,
         *,
@@ -185,17 +145,16 @@ class CockpitV1GlobalAPI(API):
         Synchronize Grafana data sources.
         Trigger the synchronization of all your data sources and the alert manager in the relevant regions. The alert manager will only be synchronized if you have enabled it.
         :param project_id: ID of the Project to target.
-        
+
         Usage:
         ::
-        
+
             result = api.sync_grafana_data_sources()
         """
-        
-        
+
         res = self._request(
             "POST",
-            f"/cockpit/v1/grafana/sync-data-sources",
+            "/cockpit/v1/grafana/sync-data-sources",
             body=marshal_GlobalApiSyncGrafanaDataSourcesRequest(
                 GlobalApiSyncGrafanaDataSourcesRequest(
                     project_id=project_id,
@@ -205,6 +164,7 @@ class CockpitV1GlobalAPI(API):
         )
 
         self._throw_on_error(res)
+
     def create_grafana_user(
         self,
         *,
@@ -220,19 +180,18 @@ class CockpitV1GlobalAPI(API):
         :param project_id: ID of the Project in which to create the Grafana user.
         :param role: Role assigned to the Grafana user.
         :return: :class:`GrafanaUser <GrafanaUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_grafana_user(
                 login="example",
             )
         """
-        
-        
+
         res = self._request(
             "POST",
-            f"/cockpit/v1/grafana/users",
+            "/cockpit/v1/grafana/users",
             body=marshal_GlobalApiCreateGrafanaUserRequest(
                 GlobalApiCreateGrafanaUserRequest(
                     login=login,
@@ -245,7 +204,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_GrafanaUser(res.json())
-        
+
     def list_grafana_users(
         self,
         *,
@@ -262,17 +221,16 @@ class CockpitV1GlobalAPI(API):
         :param order_by: Order of the Grafana users.
         :param project_id: ID of the Project to target.
         :return: :class:`ListGrafanaUsersResponse <ListGrafanaUsersResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_grafana_users()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/cockpit/v1/grafana/users",
+            "/cockpit/v1/grafana/users",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -283,7 +241,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListGrafanaUsersResponse(res.json())
-        
+
     def list_grafana_users_all(
         self,
         *,
@@ -300,14 +258,14 @@ class CockpitV1GlobalAPI(API):
         :param order_by: Order of the Grafana users.
         :param project_id: ID of the Project to target.
         :return: :class:`List[GrafanaUser] <List[GrafanaUser]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_grafana_users_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListGrafanaUsersResponse,
             key="grafana_users",
             fetcher=self.list_grafana_users,
@@ -318,7 +276,7 @@ class CockpitV1GlobalAPI(API):
                 "project_id": project_id,
             },
         )
-        
+
     def delete_grafana_user(
         self,
         *,
@@ -330,17 +288,17 @@ class CockpitV1GlobalAPI(API):
         Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
         :param project_id: ID of the Project to target.
         :param grafana_user_id: ID of the Grafana user.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_grafana_user(
                 grafana_user_id=1,
             )
         """
-        
+
         param_grafana_user_id = validate_path_param("grafana_user_id", grafana_user_id)
-        
+
         res = self._request(
             "DELETE",
             f"/cockpit/v1/grafana/users/{param_grafana_user_id}",
@@ -350,6 +308,7 @@ class CockpitV1GlobalAPI(API):
         )
 
         self._throw_on_error(res)
+
     def reset_grafana_user_password(
         self,
         *,
@@ -363,17 +322,17 @@ class CockpitV1GlobalAPI(API):
         :param project_id: ID of the Project to target.
         :param grafana_user_id: ID of the Grafana user.
         :return: :class:`GrafanaUser <GrafanaUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.reset_grafana_user_password(
                 grafana_user_id=1,
             )
         """
-        
+
         param_grafana_user_id = validate_path_param("grafana_user_id", grafana_user_id)
-        
+
         res = self._request(
             "POST",
             f"/cockpit/v1/grafana/users/{param_grafana_user_id}/reset-password",
@@ -388,7 +347,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_GrafanaUser(res.json())
-        
+
     def list_grafana_product_dashboards(
         self,
         *,
@@ -405,17 +364,16 @@ class CockpitV1GlobalAPI(API):
         :param page_size: Page size.
         :param tags: Tags to filter for.
         :return: :class:`ListGrafanaProductDashboardsResponse <ListGrafanaProductDashboardsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_grafana_product_dashboards()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/cockpit/v1/grafana/product-dashboards",
+            "/cockpit/v1/grafana/product-dashboards",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -426,7 +384,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListGrafanaProductDashboardsResponse(res.json())
-        
+
     def list_grafana_product_dashboards_all(
         self,
         *,
@@ -443,14 +401,14 @@ class CockpitV1GlobalAPI(API):
         :param page_size: Page size.
         :param tags: Tags to filter for.
         :return: :class:`List[GrafanaProductDashboard] <List[GrafanaProductDashboard]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_grafana_product_dashboards_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListGrafanaProductDashboardsResponse,
             key="dashboards",
             fetcher=self.list_grafana_product_dashboards,
@@ -461,7 +419,7 @@ class CockpitV1GlobalAPI(API):
                 "tags": tags,
             },
         )
-        
+
     def get_grafana_product_dashboard(
         self,
         *,
@@ -474,17 +432,17 @@ class CockpitV1GlobalAPI(API):
         :param project_id: ID of the Project the dashboard belongs to.
         :param dashboard_name: Name of the dashboard.
         :return: :class:`GrafanaProductDashboard <GrafanaProductDashboard>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_grafana_product_dashboard(
                 dashboard_name="example",
             )
         """
-        
+
         param_dashboard_name = validate_path_param("dashboard_name", dashboard_name)
-        
+
         res = self._request(
             "GET",
             f"/cockpit/v1/grafana/product-dashboards/{param_dashboard_name}",
@@ -495,7 +453,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_GrafanaProductDashboard(res.json())
-        
+
     def list_plans(
         self,
         *,
@@ -509,20 +467,19 @@ class CockpitV1GlobalAPI(API):
         Deprecated: retention is now managed at the data source level.
         :param page: Page number.
         :param page_size: Page size.
-        :param order_by: 
+        :param order_by:
         :return: :class:`ListPlansResponse <ListPlansResponse>`
         :deprecated
-        
+
         Usage:
         ::
-        
+
             result = api.list_plans()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/cockpit/v1/plans",
+            "/cockpit/v1/plans",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -532,7 +489,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListPlansResponse(res.json())
-        
+
     def list_plans_all(
         self,
         *,
@@ -546,17 +503,17 @@ class CockpitV1GlobalAPI(API):
         Deprecated: retention is now managed at the data source level.
         :param page: Page number.
         :param page_size: Page size.
-        :param order_by: 
+        :param order_by:
         :return: :class:`List[Plan] <List[Plan]>`
         :deprecated
-        
+
         Usage:
         ::
-        
+
             result = api.list_plans_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListPlansResponse,
             key="plans",
             fetcher=self.list_plans,
@@ -566,7 +523,7 @@ class CockpitV1GlobalAPI(API):
                 "order_by": order_by,
             },
         )
-        
+
     def select_plan(
         self,
         *,
@@ -581,17 +538,16 @@ class CockpitV1GlobalAPI(API):
         :param plan_name: Name of the pricing plan.
         :return: :class:`Plan <Plan>`
         :deprecated
-        
+
         Usage:
         ::
-        
+
             result = api.select_plan()
         """
-        
-        
+
         res = self._request(
             "PATCH",
-            f"/cockpit/v1/plans",
+            "/cockpit/v1/plans",
             body=marshal_GlobalApiSelectPlanRequest(
                 GlobalApiSelectPlanRequest(
                     project_id=project_id,
@@ -603,7 +559,7 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Plan(res.json())
-        
+
     def get_current_plan(
         self,
         *,
@@ -616,17 +572,16 @@ class CockpitV1GlobalAPI(API):
         :param project_id: ID of the Project.
         :return: :class:`Plan <Plan>`
         :deprecated
-        
+
         Usage:
         ::
-        
+
             result = api.get_current_plan()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/cockpit/v1/current-plan",
+            "/cockpit/v1/current-plan",
             params={
                 "project_id": project_id or self.client.default_project_id,
             },
@@ -634,12 +589,13 @@ class CockpitV1GlobalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Plan(res.json())
-        
+
 
 class CockpitV1RegionalAPI(API):
     """
     The Cockpit API allows you to create data sources and Cockpit tokens to store and query data types such as metrics, logs, and traces. You can also push your data into Cockpit, and send alerts to your contact points when your resources may require your attention, using the regional Alert manager.
     """
+
     def get_config(
         self,
         *,
@@ -649,15 +605,17 @@ class CockpitV1RegionalAPI(API):
         Get the Cockpit configuration.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`GetConfigResponse <GetConfigResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_config()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/config",
@@ -665,7 +623,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_GetConfigResponse(res.json())
-        
+
     def create_data_source(
         self,
         *,
@@ -685,17 +643,19 @@ class CockpitV1RegionalAPI(API):
         :param type_: Data source type.
         :param retention_days: Default values are 31 days for metrics, 7 days for logs and traces.
         :return: :class:`DataSource <DataSource>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_data_source(
                 name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/data-sources",
@@ -713,7 +673,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DataSource(res.json())
-        
+
     def get_data_source(
         self,
         *,
@@ -726,18 +686,20 @@ class CockpitV1RegionalAPI(API):
         :param data_source_id: ID of the relevant data source.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DataSource <DataSource>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_data_source(
                 data_source_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_data_source_id = validate_path_param("data_source_id", data_source_id)
-        
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/data-sources/{param_data_source_id}",
@@ -745,7 +707,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DataSource(res.json())
-        
+
     def delete_data_source(
         self,
         *,
@@ -757,24 +719,27 @@ class CockpitV1RegionalAPI(API):
         Delete a given data source. Note that this action will permanently delete this data source and any data associated with it.
         :param data_source_id: ID of the data source to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_data_source(
                 data_source_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_data_source_id = validate_path_param("data_source_id", data_source_id)
-        
+
         res = self._request(
             "DELETE",
             f"/cockpit/v1/regions/{param_region}/data-sources/{param_data_source_id}",
         )
 
         self._throw_on_error(res)
+
     def list_data_sources(
         self,
         *,
@@ -797,15 +762,17 @@ class CockpitV1RegionalAPI(API):
         :param origin: Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
         :param types: Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
         :return: :class:`ListDataSourcesResponse <ListDataSourcesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_data_sources()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/data-sources",
@@ -821,7 +788,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDataSourcesResponse(res.json())
-        
+
     def list_data_sources_all(
         self,
         *,
@@ -844,14 +811,14 @@ class CockpitV1RegionalAPI(API):
         :param origin: Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
         :param types: Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
         :return: :class:`List[DataSource] <List[DataSource]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_data_sources_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListDataSourcesResponse,
             key="data_sources",
             fetcher=self.list_data_sources,
@@ -865,7 +832,7 @@ class CockpitV1RegionalAPI(API):
                 "types": types,
             },
         )
-        
+
     def update_data_source(
         self,
         *,
@@ -882,18 +849,20 @@ class CockpitV1RegionalAPI(API):
         :param name: Updated name of the data source.
         :param retention_days: Duration for which the data will be retained in the data source.
         :return: :class:`DataSource <DataSource>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_data_source(
                 data_source_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_data_source_id = validate_path_param("data_source_id", data_source_id)
-        
+
         res = self._request(
             "PATCH",
             f"/cockpit/v1/regions/{param_region}/data-sources/{param_data_source_id}",
@@ -910,7 +879,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DataSource(res.json())
-        
+
     def get_usage_overview(
         self,
         *,
@@ -922,18 +891,20 @@ class CockpitV1RegionalAPI(API):
         Get data source usage overview.
         Retrieve the volume of data ingested for each of your data sources in the specified project and region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: 
-        :param interval: 
+        :param project_id:
+        :param interval:
         :return: :class:`UsageOverview <UsageOverview>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_usage_overview()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/usage-overview",
@@ -945,7 +916,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_UsageOverview(res.json())
-        
+
     def create_token(
         self,
         *,
@@ -963,17 +934,19 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project the token belongs to.
         :param token_scopes: Token permission scopes.
         :return: :class:`Token <Token>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_token(
                 name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/tokens",
@@ -990,7 +963,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Token(res.json())
-        
+
     def list_tokens(
         self,
         *,
@@ -1012,15 +985,17 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project the tokens belong to.
         :param token_scopes: Token scopes to filter for.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_tokens()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/tokens",
@@ -1035,7 +1010,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListTokensResponse(res.json())
-        
+
     def list_tokens_all(
         self,
         *,
@@ -1057,14 +1032,14 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project the tokens belong to.
         :param token_scopes: Token scopes to filter for.
         :return: :class:`List[Token] <List[Token]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_tokens_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListTokensResponse,
             key="tokens",
             fetcher=self.list_tokens,
@@ -1077,7 +1052,7 @@ class CockpitV1RegionalAPI(API):
                 "token_scopes": token_scopes,
             },
         )
-        
+
     def get_token(
         self,
         *,
@@ -1090,18 +1065,20 @@ class CockpitV1RegionalAPI(API):
         :param token_id: Token ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_token(
                 token_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_token_id = validate_path_param("token_id", token_id)
-        
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/tokens/{param_token_id}",
@@ -1109,7 +1086,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Token(res.json())
-        
+
     def delete_token(
         self,
         *,
@@ -1121,24 +1098,27 @@ class CockpitV1RegionalAPI(API):
         Delete a given token, specified by the token ID. Deleting a token is irreversible and cannot be undone.
         :param token_id: ID of the token to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_token(
                 token_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_token_id = validate_path_param("token_id", token_id)
-        
+
         res = self._request(
             "DELETE",
             f"/cockpit/v1/regions/{param_region}/tokens/{param_token_id}",
         )
 
         self._throw_on_error(res)
+
     def get_alert_manager(
         self,
         *,
@@ -1152,15 +1132,17 @@ class CockpitV1RegionalAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project ID of the requested Alert manager.
         :return: :class:`AlertManager <AlertManager>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_alert_manager()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/alert-manager",
@@ -1171,7 +1153,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
-        
+
     def enable_alert_manager(
         self,
         *,
@@ -1184,15 +1166,17 @@ class CockpitV1RegionalAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to enable the Alert manager in.
         :return: :class:`AlertManager <AlertManager>`
-        
+
         Usage:
         ::
-        
+
             result = api.enable_alert_manager()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/enable",
@@ -1207,7 +1191,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
-        
+
     def disable_alert_manager(
         self,
         *,
@@ -1220,15 +1204,17 @@ class CockpitV1RegionalAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to disable the Alert manager in.
         :return: :class:`AlertManager <AlertManager>`
-        
+
         Usage:
         ::
-        
+
             result = api.disable_alert_manager()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/disable",
@@ -1243,7 +1229,40 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
-        
+
+    def get_rules_count(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> GetRulesCountResponse:
+        """
+        Get a detailed count of enabled rules in the specified Project. Includes preconfigured and custom alerting and recording rules.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to retrieve the rule count for.
+        :return: :class:`GetRulesCountResponse <GetRulesCountResponse>`
+
+        Usage:
+        ::
+
+            result = api.get_rules_count()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/rules/count",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetRulesCountResponse(res.json())
+
     def create_contact_point(
         self,
         *,
@@ -1263,15 +1282,17 @@ class CockpitV1RegionalAPI(API):
         One-Of ('configuration'): at most one of 'email' could be set.
         :param send_resolved_notifications: Send an email notification when an alert is marked as resolved.
         :return: :class:`ContactPoint <ContactPoint>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_contact_point()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/contact-points",
@@ -1288,7 +1309,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ContactPoint(res.json())
-        
+
     def list_contact_points(
         self,
         *,
@@ -1305,15 +1326,17 @@ class CockpitV1RegionalAPI(API):
         :param page_size: Total count of contact points to return per page.
         :param project_id: ID of the Project containing the contact points to list.
         :return: :class:`ListContactPointsResponse <ListContactPointsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_contact_points()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/alert-manager/contact-points",
@@ -1326,7 +1349,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListContactPointsResponse(res.json())
-        
+
     def list_contact_points_all(
         self,
         *,
@@ -1343,14 +1366,14 @@ class CockpitV1RegionalAPI(API):
         :param page_size: Total count of contact points to return per page.
         :param project_id: ID of the Project containing the contact points to list.
         :return: :class:`List[ContactPoint] <List[ContactPoint]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_contact_points_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListContactPointsResponse,
             key="contact_points",
             fetcher=self.list_contact_points,
@@ -1361,7 +1384,7 @@ class CockpitV1RegionalAPI(API):
                 "project_id": project_id,
             },
         )
-        
+
     def update_contact_point(
         self,
         *,
@@ -1377,15 +1400,17 @@ class CockpitV1RegionalAPI(API):
         One-Of ('configuration'): at most one of 'email' could be set.
         :param send_resolved_notifications: Enable or disable notifications when alert is resolved.
         :return: :class:`ContactPoint <ContactPoint>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_contact_point()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "PATCH",
             f"/cockpit/v1/regions/{param_region}/alert-manager/contact-points",
@@ -1402,7 +1427,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ContactPoint(res.json())
-        
+
     def delete_contact_point(
         self,
         *,
@@ -1417,15 +1442,17 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project containing the contact point to delete.
         :param email: Email address of the contact point to delete.
         One-Of ('configuration'): at most one of 'email' could be set.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_contact_point()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/contact-points/delete",
@@ -1440,6 +1467,7 @@ class CockpitV1RegionalAPI(API):
         )
 
         self._throw_on_error(res)
+
     def list_alerts(
         self,
         *,
@@ -1460,15 +1488,17 @@ class CockpitV1RegionalAPI(API):
         :param state: Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
         :param data_source_id: If omitted, only alerts from the default Scaleway metrics data source will be listed.
         :return: :class:`ListAlertsResponse <ListAlertsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_alerts()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/cockpit/v1/regions/{param_region}/alerts",
@@ -1483,7 +1513,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListAlertsResponse(res.json())
-        
+
     def enable_managed_alerts(
         self,
         *,
@@ -1496,15 +1526,17 @@ class CockpitV1RegionalAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project.
         :return: :class:`AlertManager <AlertManager>`
-        
+
         Usage:
         ::
-        
+
             result = api.enable_managed_alerts()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/managed-alerts/enable",
@@ -1519,7 +1551,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
-        
+
     def disable_managed_alerts(
         self,
         *,
@@ -1532,15 +1564,17 @@ class CockpitV1RegionalAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project.
         :return: :class:`AlertManager <AlertManager>`
-        
+
         Usage:
         ::
-        
+
             result = api.disable_managed_alerts()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/managed-alerts/disable",
@@ -1555,7 +1589,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
-        
+
     def enable_alert_rules(
         self,
         *,
@@ -1570,15 +1604,17 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project.
         :param rule_ids: List of IDs of the rules to enable. If empty, enables all preconfigured rules.
         :return: :class:`EnableAlertRulesResponse <EnableAlertRulesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.enable_alert_rules()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/enable-alert-rules",
@@ -1594,7 +1630,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_EnableAlertRulesResponse(res.json())
-        
+
     def disable_alert_rules(
         self,
         *,
@@ -1609,15 +1645,17 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project.
         :param rule_ids: List of IDs of the rules to enable. If empty, disables all preconfigured rules.
         :return: :class:`DisableAlertRulesResponse <DisableAlertRulesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.disable_alert_rules()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/disable-alert-rules",
@@ -1633,7 +1671,7 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DisableAlertRulesResponse(res.json())
-        
+
     def trigger_test_alert(
         self,
         *,
@@ -1645,15 +1683,17 @@ class CockpitV1RegionalAPI(API):
         Send a test alert to the Alert manager to make sure your contact points get notified.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project.
-        
+
         Usage:
         ::
-        
+
             result = api.trigger_test_alert()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/cockpit/v1/regions/{param_region}/alert-manager/trigger-test-alert",

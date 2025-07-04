@@ -1,35 +1,16 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
     random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
     JobRunState,
@@ -40,37 +21,19 @@ from .types import (
     CreateJobDefinitionSecretsRequest,
     CreateJobDefinitionSecretsRequestSecretConfig,
     CreateJobDefinitionSecretsResponse,
-    CronSchedule,
-    DeleteJobDefinitionRequest,
-    DeleteJobDefinitionSecretRequest,
-    GetJobDefinitionRequest,
-    GetJobDefinitionSecretRequest,
-    GetJobRunRequest,
-    GetJobsLimitsRequest,
     JobDefinition,
     JobRun,
     JobsLimits,
-    ListJobDefinitionSecretsRequest,
     ListJobDefinitionSecretsResponse,
-    ListJobDefinitionsRequest,
     ListJobDefinitionsResponse,
-    ListJobRunsRequest,
     ListJobRunsResponse,
-    ListJobsResourcesRequest,
     ListJobsResourcesResponse,
-    Resource,
     Secret,
-    SecretEnvVar,
-    SecretFile,
     StartJobDefinitionRequest,
     StartJobDefinitionResponse,
-    StopJobRunRequest,
     UpdateJobDefinitionRequest,
     UpdateJobDefinitionRequestCronScheduleConfig,
     UpdateJobDefinitionSecretRequest,
-)
-from .content import (
-    JOB_RUN_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_Secret,
@@ -90,10 +53,12 @@ from .marshalling import (
     marshal_UpdateJobDefinitionSecretRequest,
 )
 
+
 class JobsV1Alpha1API(API):
     """
     This API allows you to manage your Serverless Jobs.
     """
+
     def create_job_definition(
         self,
         *,
@@ -125,10 +90,10 @@ class JobsV1Alpha1API(API):
         :param job_timeout: Timeout of the job in seconds.
         :param cron_schedule: Configure a cron for the job.
         :return: :class:`JobDefinition <JobDefinition>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_job_definition(
                 cpu_limit=1,
                 memory_limit=1,
@@ -137,9 +102,11 @@ class JobsV1Alpha1API(API):
                 description="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions",
@@ -164,7 +131,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_JobDefinition(res.json())
-        
+
     def get_job_definition(
         self,
         *,
@@ -176,18 +143,22 @@ class JobsV1Alpha1API(API):
         :param job_definition_id: UUID of the job definition to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`JobDefinition <JobDefinition>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_job_definition(
                 job_definition_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}",
@@ -195,7 +166,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_JobDefinition(res.json())
-        
+
     def list_job_definitions(
         self,
         *,
@@ -209,27 +180,30 @@ class JobsV1Alpha1API(API):
         """
         List all your job definitions with filters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: 
-        :param page_size: 
-        :param order_by: 
-        :param project_id: 
-        :param organization_id: 
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param project_id:
+        :param organization_id:
         :return: :class:`ListJobDefinitionsResponse <ListJobDefinitionsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_job_definitions()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions",
             params={
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -238,7 +212,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListJobDefinitionsResponse(res.json())
-        
+
     def list_job_definitions_all(
         self,
         *,
@@ -252,20 +226,20 @@ class JobsV1Alpha1API(API):
         """
         List all your job definitions with filters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: 
-        :param page_size: 
-        :param order_by: 
-        :param project_id: 
-        :param organization_id: 
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param project_id:
+        :param organization_id:
         :return: :class:`List[JobDefinition] <List[JobDefinition]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_job_definitions_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListJobDefinitionsResponse,
             key="job_definitions",
             fetcher=self.list_job_definitions,
@@ -278,7 +252,7 @@ class JobsV1Alpha1API(API):
                 "organization_id": organization_id,
             },
         )
-        
+
     def update_job_definition(
         self,
         *,
@@ -308,20 +282,24 @@ class JobsV1Alpha1API(API):
         :param environment_variables: Environment variables of the job.
         :param description: Description of the job.
         :param job_timeout: Timeout of the job in seconds.
-        :param cron_schedule: 
+        :param cron_schedule:
         :return: :class:`JobDefinition <JobDefinition>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_job_definition(
                 job_definition_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
         res = self._request(
             "PATCH",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}",
@@ -346,7 +324,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_JobDefinition(res.json())
-        
+
     def delete_job_definition(
         self,
         *,
@@ -357,24 +335,29 @@ class JobsV1Alpha1API(API):
         Delete an exsisting job definition by its unique identifier.
         :param job_definition_id: UUID of the job definition to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_job_definition(
                 job_definition_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
         res = self._request(
             "DELETE",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}",
         )
 
         self._throw_on_error(res)
+
     def start_job_definition(
         self,
         *,
@@ -392,18 +375,22 @@ class JobsV1Alpha1API(API):
         :param environment_variables: Contextual environment variables for this specific job run.
         :param replicas: Number of jobs to run.
         :return: :class:`StartJobDefinitionResponse <StartJobDefinitionResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.start_job_definition(
                 job_definition_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/start",
@@ -421,7 +408,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_StartJobDefinitionResponse(res.json())
-        
+
     def create_job_definition_secrets(
         self,
         *,
@@ -435,19 +422,23 @@ class JobsV1Alpha1API(API):
         :param secrets: List of secrets to inject into the job.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`CreateJobDefinitionSecretsResponse <CreateJobDefinitionSecretsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_job_definition_secrets(
                 job_definition_id="example",
                 secrets=[],
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets",
@@ -463,7 +454,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CreateJobDefinitionSecretsResponse(res.json())
-        
+
     def get_job_definition_secret(
         self,
         *,
@@ -477,20 +468,24 @@ class JobsV1Alpha1API(API):
         :param secret_id: UUID of the secret reference within the job.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Secret <Secret>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_job_definition_secret(
                 job_definition_id="example",
                 secret_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
         param_secret_id = validate_path_param("secret_id", secret_id)
-        
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets/{param_secret_id}",
@@ -498,7 +493,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Secret(res.json())
-        
+
     def list_job_definition_secrets(
         self,
         *,
@@ -510,18 +505,22 @@ class JobsV1Alpha1API(API):
         :param job_definition_id: UUID of the job definition.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListJobDefinitionSecretsResponse <ListJobDefinitionSecretsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_job_definition_secrets(
                 job_definition_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets",
@@ -529,7 +528,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListJobDefinitionSecretsResponse(res.json())
-        
+
     def update_job_definition_secret(
         self,
         *,
@@ -551,20 +550,24 @@ class JobsV1Alpha1API(API):
         :param env_var_name: Environment variable name used to expose the secret inside the job (either `path` or `env_var_name` must be set).
         One-Of ('secret_config'): at most one of 'path', 'env_var_name' could be set.
         :return: :class:`Secret <Secret>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_job_definition_secret(
                 job_definition_id="example",
                 secret_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
         param_secret_id = validate_path_param("secret_id", secret_id)
-        
+
         res = self._request(
             "PATCH",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets/{param_secret_id}",
@@ -583,7 +586,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Secret(res.json())
-        
+
     def delete_job_definition_secret(
         self,
         *,
@@ -596,26 +599,31 @@ class JobsV1Alpha1API(API):
         :param job_definition_id: UUID of the job definition.
         :param secret_id: UUID of the secret reference within the job.
         :param region: Region to target. If none is passed will use default region from the config.
-        
+
         Usage:
         ::
-        
+
             result = api.delete_job_definition_secret(
                 job_definition_id="example",
                 secret_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        param_job_definition_id = validate_path_param("job_definition_id", job_definition_id)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
         param_secret_id = validate_path_param("secret_id", secret_id)
-        
+
         res = self._request(
             "DELETE",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets/{param_secret_id}",
         )
 
         self._throw_on_error(res)
+
     def get_job_run(
         self,
         *,
@@ -627,18 +635,20 @@ class JobsV1Alpha1API(API):
         :param job_run_id: UUID of the job run to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`JobRun <JobRun>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_job_run(
                 job_run_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_job_run_id = validate_path_param("job_run_id", job_run_id)
-        
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_job_run_id}",
@@ -646,7 +656,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_JobRun(res.json())
-        
+
     def stop_job_run(
         self,
         *,
@@ -658,18 +668,20 @@ class JobsV1Alpha1API(API):
         :param job_run_id: UUID of the job run to stop.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`JobRun <JobRun>`
-        
+
         Usage:
         ::
-        
+
             result = api.stop_job_run(
                 job_run_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_job_run_id = validate_path_param("job_run_id", job_run_id)
-        
+
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_job_run_id}/stop",
@@ -678,7 +690,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_JobRun(res.json())
-        
+
     def list_job_runs(
         self,
         *,
@@ -695,31 +707,34 @@ class JobsV1Alpha1API(API):
         """
         List all job runs with filters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: 
-        :param page_size: 
-        :param order_by: 
-        :param job_definition_id: 
-        :param project_id: 
-        :param organization_id: 
-        :param state: 
-        :param states: 
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param job_definition_id:
+        :param project_id:
+        :param organization_id:
+        :param state:
+        :param states:
         :return: :class:`ListJobRunsResponse <ListJobRunsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_job_runs()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs",
             params={
                 "job_definition_id": job_definition_id,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -730,7 +745,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListJobRunsResponse(res.json())
-        
+
     def list_job_runs_all(
         self,
         *,
@@ -747,23 +762,23 @@ class JobsV1Alpha1API(API):
         """
         List all job runs with filters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: 
-        :param page_size: 
-        :param order_by: 
-        :param job_definition_id: 
-        :param project_id: 
-        :param organization_id: 
-        :param state: 
-        :param states: 
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param job_definition_id:
+        :param project_id:
+        :param organization_id:
+        :param state:
+        :param states:
         :return: :class:`List[JobRun] <List[JobRun]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_job_runs_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListJobRunsResponse,
             key="job_runs",
             fetcher=self.list_job_runs,
@@ -779,7 +794,7 @@ class JobsV1Alpha1API(API):
                 "states": states,
             },
         )
-        
+
     def list_jobs_resources(
         self,
         *,
@@ -789,15 +804,17 @@ class JobsV1Alpha1API(API):
         List jobs resources for the console.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListJobsResourcesResponse <ListJobsResourcesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_jobs_resources()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/jobs-resources",
@@ -805,7 +822,7 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListJobsResourcesResponse(res.json())
-        
+
     def get_jobs_limits(
         self,
         *,
@@ -815,15 +832,17 @@ class JobsV1Alpha1API(API):
         Get jobs limits for the console.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`JobsLimits <JobsLimits>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_jobs_limits()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/jobs-limits",
@@ -831,4 +850,3 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_JobsLimits(res.json())
-        

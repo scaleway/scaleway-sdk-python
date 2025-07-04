@@ -7,6 +7,7 @@ from .types import (
     ServerPrivateNetworkStatus,
     ServerStatus,
 )
+
 SERVER_INSTALL_TRANSIENT_STATUSES: List[ServerInstallStatus] = [
     ServerInstallStatus.TO_INSTALL,
     ServerInstallStatus.INSTALLING,

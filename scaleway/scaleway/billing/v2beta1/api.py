@@ -2,38 +2,20 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
-    Region as ScwRegion,
     ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
     unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
-    WaitForOptions,
-    project_or_organization_id,
-    random_name,
     resolve_one_of,
     validate_path_param,
     fetch_all_pages,
-    wait_for_resource,
 )
 from .types import (
-    DiscountDiscountMode,
-    DiscountFilterType,
     DownloadInvoiceRequestFileType,
     ExportInvoicesRequestFileType,
     ExportInvoicesRequestOrderBy,
@@ -43,23 +25,13 @@ from .types import (
     ListInvoicesRequestOrderBy,
     ListTaxesRequestOrderBy,
     Discount,
-    DiscountCoupon,
-    DiscountFilter,
-    DownloadInvoiceRequest,
-    ExportInvoicesRequest,
-    GetInvoiceRequest,
     Invoice,
-    ListConsumptionsRequest,
     ListConsumptionsResponse,
     ListConsumptionsResponseConsumption,
-    ListDiscountsRequest,
     ListDiscountsResponse,
-    ListInvoicesRequest,
     ListInvoicesResponse,
-    ListTaxesRequest,
     ListTaxesResponse,
     ListTaxesResponseTax,
-    RedeemCouponRequest,
 )
 from .marshalling import (
     unmarshal_Discount,
@@ -70,10 +42,12 @@ from .marshalling import (
     unmarshal_ListTaxesResponse,
 )
 
+
 class BillingV2Beta1API(API):
     """
     This API allows you to manage and query your Scaleway billing and consumption.
     """
+
     def list_consumptions(
         self,
         *,
@@ -98,33 +72,34 @@ class BillingV2Beta1API(API):
         :param category_name: Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability).
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
         :return: :class:`ListConsumptionsResponse <ListConsumptionsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_consumptions()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/billing/v2beta1/consumptions",
+            "/billing/v2beta1/consumptions",
             params={
                 "billing_period": billing_period,
                 "category_name": category_name,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
-                **resolve_one_of([
-                    OneOfPossibility("organization_id", organization_id),
-                    OneOfPossibility("project_id", project_id),
-                ]),
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("organization_id", organization_id),
+                        OneOfPossibility("project_id", project_id),
+                    ]
+                ),
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListConsumptionsResponse(res.json())
-        
+
     def list_consumptions_all(
         self,
         *,
@@ -149,14 +124,14 @@ class BillingV2Beta1API(API):
         :param category_name: Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability).
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
         :return: :class:`List[ListConsumptionsResponseConsumption] <List[ListConsumptionsResponseConsumption]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_consumptions_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListConsumptionsResponse,
             key="consumptions",
             fetcher=self.list_consumptions,
@@ -170,7 +145,7 @@ class BillingV2Beta1API(API):
                 "project_id": project_id,
             },
         )
-        
+
     def list_taxes(
         self,
         *,
@@ -189,21 +164,21 @@ class BillingV2Beta1API(API):
         :param organization_id: Filter by Organization ID.
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
         :return: :class:`ListTaxesResponse <ListTaxesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_taxes()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/billing/v2beta1/taxes",
+            "/billing/v2beta1/taxes",
             params={
                 "billing_period": billing_period,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -211,7 +186,7 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListTaxesResponse(res.json())
-        
+
     def list_taxes_all(
         self,
         *,
@@ -230,14 +205,14 @@ class BillingV2Beta1API(API):
         :param organization_id: Filter by Organization ID.
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
         :return: :class:`List[ListTaxesResponseTax] <List[ListTaxesResponseTax]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_taxes_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListTaxesResponse,
             key="taxes",
             fetcher=self.list_taxes,
@@ -249,7 +224,7 @@ class BillingV2Beta1API(API):
                 "billing_period": billing_period,
             },
         )
-        
+
     def list_invoices(
         self,
         *,
@@ -272,23 +247,23 @@ class BillingV2Beta1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
         :return: :class:`ListInvoicesResponse <ListInvoicesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_invoices()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/billing/v2beta1/invoices",
+            "/billing/v2beta1/invoices",
             params={
                 "billing_period_start_after": billing_period_start_after,
                 "billing_period_start_before": billing_period_start_before,
                 "invoice_type": invoice_type,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -296,7 +271,7 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListInvoicesResponse(res.json())
-        
+
     def list_invoices_all(
         self,
         *,
@@ -319,14 +294,14 @@ class BillingV2Beta1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
         :return: :class:`List[Invoice] <List[Invoice]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_invoices_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListInvoicesResponse,
             key="invoices",
             fetcher=self.list_invoices,
@@ -340,7 +315,7 @@ class BillingV2Beta1API(API):
                 "order_by": order_by,
             },
         )
-        
+
     def export_invoices(
         self,
         *,
@@ -365,24 +340,24 @@ class BillingV2Beta1API(API):
         :param order_by: How invoices are ordered in the response.
         :param file_type: File format for exporting the invoice list.
         :return: :class:`ScwFile <ScwFile>`
-        
+
         Usage:
         ::
-        
+
             result = api.export_invoices()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/billing/v2beta1/export-invoices",
+            "/billing/v2beta1/export-invoices",
             params={
                 "billing_period_start_after": billing_period_start_after,
                 "billing_period_start_before": billing_period_start_before,
                 "file_type": file_type,
                 "invoice_type": invoice_type,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -390,7 +365,7 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-        
+
     def get_invoice(
         self,
         *,
@@ -401,17 +376,17 @@ class BillingV2Beta1API(API):
         Get a specific invoice, specified by its ID.
         :param invoice_id: Invoice ID.
         :return: :class:`Invoice <Invoice>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_invoice(
                 invoice_id="example",
             )
         """
-        
+
         param_invoice_id = validate_path_param("invoice_id", invoice_id)
-        
+
         res = self._request(
             "GET",
             f"/billing/v2beta1/invoices/{param_invoice_id}",
@@ -419,7 +394,7 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Invoice(res.json())
-        
+
     def download_invoice(
         self,
         *,
@@ -432,17 +407,17 @@ class BillingV2Beta1API(API):
         :param invoice_id: Invoice ID.
         :param file_type: File type. PDF by default.
         :return: :class:`ScwFile <ScwFile>`
-        
+
         Usage:
         ::
-        
+
             result = api.download_invoice(
                 invoice_id="example",
             )
         """
-        
+
         param_invoice_id = validate_path_param("invoice_id", invoice_id)
-        
+
         res = self._request(
             "GET",
             f"/billing/v2beta1/invoices/{param_invoice_id}/download",
@@ -453,7 +428,7 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
-        
+
     def list_discounts(
         self,
         *,
@@ -473,20 +448,20 @@ class BillingV2Beta1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: ID of the organization.
         :return: :class:`ListDiscountsResponse <ListDiscountsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_discounts()
         """
-        
-        
+
         res = self._request(
             "GET",
-            f"/billing/v2beta1/discounts",
+            "/billing/v2beta1/discounts",
             params={
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -494,7 +469,7 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDiscountsResponse(res.json())
-        
+
     def list_discounts_all(
         self,
         *,
@@ -514,14 +489,14 @@ class BillingV2Beta1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: ID of the organization.
         :return: :class:`List[Discount] <List[Discount]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_discounts_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListDiscountsResponse,
             key="discounts",
             fetcher=self.list_discounts,
@@ -532,7 +507,7 @@ class BillingV2Beta1API(API):
                 "organization_id": organization_id,
             },
         )
-        
+
     def redeem_coupon(
         self,
         *,
@@ -545,25 +520,24 @@ class BillingV2Beta1API(API):
         :param code: The code of the coupon to redeem.
         :param organization_id: The Organization ID of the discount.
         :return: :class:`Discount <Discount>`
-        
+
         Usage:
         ::
-        
+
             result = api.redeem_coupon(
                 code="example",
             )
         """
-        
-        
+
         res = self._request(
             "POST",
-            f"/billing/v2beta1/redeem-coupon",
+            "/billing/v2beta1/redeem-coupon",
             params={
                 "code": code,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_Discount(res.json())
-        

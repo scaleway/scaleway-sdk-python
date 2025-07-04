@@ -1,57 +1,28 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
     WaitForOptions,
-    project_or_organization_id,
     random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
-    ImageStatus,
     ImageVisibility,
     ListImagesRequestOrderBy,
     ListNamespacesRequestOrderBy,
     ListTagsRequestOrderBy,
-    NamespaceStatus,
-    TagStatus,
     CreateNamespaceRequest,
-    DeleteImageRequest,
-    DeleteNamespaceRequest,
-    DeleteTagRequest,
-    GetImageRequest,
-    GetNamespaceRequest,
-    GetTagRequest,
     Image,
-    ListImagesRequest,
     ListImagesResponse,
-    ListNamespacesRequest,
     ListNamespacesResponse,
-    ListTagsRequest,
     ListTagsResponse,
     Namespace,
     Tag,
@@ -75,10 +46,12 @@ from .marshalling import (
     marshal_UpdateNamespaceRequest,
 )
 
+
 class RegistryV1API(API):
     """
     This API allows you to manage your Container Registry resources.
     """
+
     def list_namespaces(
         self,
         *,
@@ -101,22 +74,25 @@ class RegistryV1API(API):
         :param project_id: Filter by Project ID.
         :param name: Filter by the namespace name (exact match).
         :return: :class:`ListNamespacesResponse <ListNamespacesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_namespaces()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/registry/v1/regions/{param_region}/namespaces",
             params={
                 "name": name,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -125,7 +101,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListNamespacesResponse(res.json())
-        
+
     def list_namespaces_all(
         self,
         *,
@@ -148,14 +124,14 @@ class RegistryV1API(API):
         :param project_id: Filter by Project ID.
         :param name: Filter by the namespace name (exact match).
         :return: :class:`List[Namespace] <List[Namespace]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_namespaces_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListNamespacesResponse,
             key="namespaces",
             fetcher=self.list_namespaces,
@@ -169,7 +145,7 @@ class RegistryV1API(API):
                 "name": name,
             },
         )
-        
+
     def get_namespace(
         self,
         *,
@@ -182,18 +158,20 @@ class RegistryV1API(API):
         :param namespace_id: UUID of the namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_namespace(
                 namespace_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_namespace_id = validate_path_param("namespace_id", namespace_id)
-        
+
         res = self._request(
             "GET",
             f"/registry/v1/regions/{param_region}/namespaces/{param_namespace_id}",
@@ -201,7 +179,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-        
+
     def wait_for_namespace(
         self,
         *,
@@ -215,10 +193,10 @@ class RegistryV1API(API):
         :param namespace_id: UUID of the namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_namespace(
                 namespace_id="example",
             )
@@ -238,7 +216,7 @@ class RegistryV1API(API):
                 "region": region,
             },
         )
-        
+
     def create_namespace(
         self,
         *,
@@ -261,18 +239,20 @@ class RegistryV1API(API):
         :param project_id: Project ID on which the namespace will be created.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :return: :class:`Namespace <Namespace>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_namespace(
                 description="example",
                 is_public=False,
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/registry/v1/regions/{param_region}/namespaces",
@@ -291,7 +271,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-        
+
     def update_namespace(
         self,
         *,
@@ -308,18 +288,20 @@ class RegistryV1API(API):
         :param description: Namespace description.
         :param is_public: Defines whether or not the namespace is public.
         :return: :class:`Namespace <Namespace>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_namespace(
                 namespace_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_namespace_id = validate_path_param("namespace_id", namespace_id)
-        
+
         res = self._request(
             "PATCH",
             f"/registry/v1/regions/{param_region}/namespaces/{param_namespace_id}",
@@ -336,7 +318,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-        
+
     def delete_namespace(
         self,
         *,
@@ -349,18 +331,20 @@ class RegistryV1API(API):
         :param namespace_id: UUID of the namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_namespace(
                 namespace_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_namespace_id = validate_path_param("namespace_id", namespace_id)
-        
+
         res = self._request(
             "DELETE",
             f"/registry/v1/regions/{param_region}/namespaces/{param_namespace_id}",
@@ -368,7 +352,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Namespace(res.json())
-        
+
     def list_images(
         self,
         *,
@@ -393,15 +377,17 @@ class RegistryV1API(API):
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
         :return: :class:`ListImagesResponse <ListImagesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_images()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/registry/v1/regions/{param_region}/images",
@@ -409,7 +395,8 @@ class RegistryV1API(API):
                 "name": name,
                 "namespace_id": namespace_id,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -418,7 +405,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListImagesResponse(res.json())
-        
+
     def list_images_all(
         self,
         *,
@@ -443,14 +430,14 @@ class RegistryV1API(API):
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
         :return: :class:`List[Image] <List[Image]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_images_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListImagesResponse,
             key="images",
             fetcher=self.list_images,
@@ -465,7 +452,7 @@ class RegistryV1API(API):
                 "project_id": project_id,
             },
         )
-        
+
     def get_image(
         self,
         *,
@@ -478,18 +465,20 @@ class RegistryV1API(API):
         :param image_id: UUID of the image.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Image <Image>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_image(
                 image_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_image_id = validate_path_param("image_id", image_id)
-        
+
         res = self._request(
             "GET",
             f"/registry/v1/regions/{param_region}/images/{param_image_id}",
@@ -497,7 +486,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Image(res.json())
-        
+
     def wait_for_image(
         self,
         *,
@@ -511,10 +500,10 @@ class RegistryV1API(API):
         :param image_id: UUID of the image.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Image <Image>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_image(
                 image_id="example",
             )
@@ -534,7 +523,7 @@ class RegistryV1API(API):
                 "region": region,
             },
         )
-        
+
     def update_image(
         self,
         *,
@@ -549,18 +538,20 @@ class RegistryV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
         :return: :class:`Image <Image>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_image(
                 image_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_image_id = validate_path_param("image_id", image_id)
-        
+
         res = self._request(
             "PATCH",
             f"/registry/v1/regions/{param_region}/images/{param_image_id}",
@@ -576,7 +567,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Image(res.json())
-        
+
     def delete_image(
         self,
         *,
@@ -589,18 +580,20 @@ class RegistryV1API(API):
         :param image_id: UUID of the image.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Image <Image>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_image(
                 image_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_image_id = validate_path_param("image_id", image_id)
-        
+
         res = self._request(
             "DELETE",
             f"/registry/v1/regions/{param_region}/images/{param_image_id}",
@@ -608,7 +601,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Image(res.json())
-        
+
     def list_tags(
         self,
         *,
@@ -629,18 +622,20 @@ class RegistryV1API(API):
         :param order_by: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
         :param name: Filter by the tag name (exact match).
         :return: :class:`ListTagsResponse <ListTagsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_tags(
                 image_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_image_id = validate_path_param("image_id", image_id)
-        
+
         res = self._request(
             "GET",
             f"/registry/v1/regions/{param_region}/images/{param_image_id}/tags",
@@ -654,7 +649,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListTagsResponse(res.json())
-        
+
     def list_tags_all(
         self,
         *,
@@ -675,16 +670,16 @@ class RegistryV1API(API):
         :param order_by: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
         :param name: Filter by the tag name (exact match).
         :return: :class:`List[Tag] <List[Tag]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_tags_all(
                 image_id="example",
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListTagsResponse,
             key="tags",
             fetcher=self.list_tags,
@@ -697,7 +692,7 @@ class RegistryV1API(API):
                 "name": name,
             },
         )
-        
+
     def get_tag(
         self,
         *,
@@ -710,18 +705,20 @@ class RegistryV1API(API):
         :param tag_id: UUID of the tag.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Tag <Tag>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_tag(
                 tag_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_tag_id = validate_path_param("tag_id", tag_id)
-        
+
         res = self._request(
             "GET",
             f"/registry/v1/regions/{param_region}/tags/{param_tag_id}",
@@ -729,7 +726,7 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Tag(res.json())
-        
+
     def wait_for_tag(
         self,
         *,
@@ -743,10 +740,10 @@ class RegistryV1API(API):
         :param tag_id: UUID of the tag.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Tag <Tag>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_tag(
                 tag_id="example",
             )
@@ -766,7 +763,7 @@ class RegistryV1API(API):
                 "region": region,
             },
         )
-        
+
     def delete_tag(
         self,
         *,
@@ -781,18 +778,20 @@ class RegistryV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param force: If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
         :return: :class:`Tag <Tag>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_tag(
                 tag_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_tag_id = validate_path_param("tag_id", tag_id)
-        
+
         res = self._request(
             "DELETE",
             f"/registry/v1/regions/{param_region}/tags/{param_tag_id}",
@@ -803,4 +802,3 @@ class RegistryV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Tag(res.json())
-        

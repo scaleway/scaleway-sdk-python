@@ -1,46 +1,19 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
-    Zone as ScwZone,
-    marshal_Money,
-    unmarshal_Money,
-    marshal_ScwFile,
-    unmarshal_ScwFile,
-    unmarshal_ServiceInfo,
-    marshal_TimeSeries,
-    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
     WaitForOptions,
-    project_or_organization_id,
-    random_name,
-    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
-    DnsRecordStatus,
-    DnsRecordType,
-    DnsRecordsStatus,
-    DomainAction,
-    DomainAvailabilityAction,
-    DomainAvailabilityStatus,
-    DomainDnsAction,
-    DomainStatus,
-    DomainZoneOwner,
     HostingStatus,
     ListDatabaseUsersRequestOrderBy,
     ListDatabasesRequestOrderBy,
@@ -49,14 +22,9 @@ from .types import (
     ListMailAccountsRequestOrderBy,
     ListOffersRequestOrderBy,
     ListWebsitesRequestOrderBy,
-    NameserverStatus,
-    OfferOptionName,
-    OfferOptionWarning,
-    PlatformPlatformGroup,
     AutoConfigDomainDns,
     CheckUserOwnsDomainResponse,
     ControlPanel,
-    ControlPanelApiListControlPanelsRequest,
     CreateDatabaseRequestUser,
     CreateHostingRequestDomainConfiguration,
     Database,
@@ -64,39 +32,19 @@ from .types import (
     DatabaseApiChangeDatabaseUserPasswordRequest,
     DatabaseApiCreateDatabaseRequest,
     DatabaseApiCreateDatabaseUserRequest,
-    DatabaseApiDeleteDatabaseRequest,
-    DatabaseApiDeleteDatabaseUserRequest,
-    DatabaseApiGetDatabaseRequest,
-    DatabaseApiGetDatabaseUserRequest,
-    DatabaseApiListDatabaseUsersRequest,
-    DatabaseApiListDatabasesRequest,
     DatabaseApiUnassignDatabaseUserRequest,
     DatabaseUser,
     DnsApiCheckUserOwnsDomainRequest,
-    DnsApiGetDomainDnsRecordsRequest,
-    DnsApiGetDomainRequest,
-    DnsApiSearchDomainsRequest,
     DnsApiSyncDomainDnsRecordsRequest,
-    DnsRecord,
     DnsRecords,
     Domain,
-    DomainAvailability,
     FtpAccount,
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
-    FtpAccountApiListFtpAccountsRequest,
-    FtpAccountApiRemoveFtpAccountRequest,
     Hosting,
     HostingApiCreateHostingRequest,
-    HostingApiCreateSessionRequest,
-    HostingApiDeleteHostingRequest,
-    HostingApiGetHostingRequest,
-    HostingApiGetResourceSummaryRequest,
-    HostingApiListHostingsRequest,
-    HostingApiResetHostingPasswordRequest,
     HostingApiUpdateHostingRequest,
     HostingSummary,
-    HostingUser,
     ListControlPanelsResponse,
     ListDatabaseUsersResponse,
     ListDatabasesResponse,
@@ -108,26 +56,17 @@ from .types import (
     MailAccount,
     MailAccountApiChangeMailAccountPasswordRequest,
     MailAccountApiCreateMailAccountRequest,
-    MailAccountApiListMailAccountsRequest,
     MailAccountApiRemoveMailAccountRequest,
-    Nameserver,
     Offer,
-    OfferApiListOffersRequest,
-    OfferOption,
     OfferOptionRequest,
-    Platform,
-    PlatformControlPanel,
-    PlatformControlPanelUrls,
     ResetHostingPasswordResponse,
     ResourceSummary,
     SearchDomainsResponse,
     Session,
     SyncDomainDnsRecordsRequestRecord,
     Website,
-    WebsiteApiListWebsitesRequest,
 )
 from .content import (
-    DOMAIN_AVAILABILITY_TRANSIENT_STATUSES,
     DOMAIN_TRANSIENT_STATUSES,
     HOSTING_TRANSIENT_STATUSES,
 )
@@ -171,10 +110,12 @@ from ...std.types import (
     LanguageCode as StdLanguageCode,
 )
 
+
 class WebhostingV1ControlPanelAPI(API):
     """
     This API allows you to manage your Web Hosting services.
     """
+
     def list_control_panels(
         self,
         *,
@@ -188,15 +129,17 @@ class WebhostingV1ControlPanelAPI(API):
         :param page: Page number (must be a positive integer).
         :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
         :return: :class:`ListControlPanelsResponse <ListControlPanelsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_control_panels()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/control-panels",
@@ -208,7 +151,7 @@ class WebhostingV1ControlPanelAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListControlPanelsResponse(res.json())
-        
+
     def list_control_panels_all(
         self,
         *,
@@ -222,14 +165,14 @@ class WebhostingV1ControlPanelAPI(API):
         :param page: Page number (must be a positive integer).
         :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
         :return: :class:`List[ControlPanel] <List[ControlPanel]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_control_panels_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListControlPanelsResponse,
             key="control_panels",
             fetcher=self.list_control_panels,
@@ -239,12 +182,13 @@ class WebhostingV1ControlPanelAPI(API):
                 "page_size": page_size,
             },
         )
-        
+
 
 class WebhostingV1DatabaseAPI(API):
     """
     This API allows you to manage your databases and database users for your Web Hosting services.
     """
+
     def create_database(
         self,
         *,
@@ -264,19 +208,21 @@ class WebhostingV1DatabaseAPI(API):
         :param existing_username: (Optional) Username to link an existing user to the database.
         One-Of ('user'): at most one of 'new_user', 'existing_username' could be set.
         :return: :class:`Database <Database>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_database(
                 hosting_id="example",
                 database_name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases",
@@ -294,7 +240,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-        
+
     def list_databases(
         self,
         *,
@@ -312,18 +258,20 @@ class WebhostingV1DatabaseAPI(API):
         :param page_size: Number of databases to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of databases in the response.
         :return: :class:`ListDatabasesResponse <ListDatabasesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_databases(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases",
@@ -336,7 +284,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDatabasesResponse(res.json())
-        
+
     def list_databases_all(
         self,
         *,
@@ -354,16 +302,16 @@ class WebhostingV1DatabaseAPI(API):
         :param page_size: Number of databases to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of databases in the response.
         :return: :class:`List[Database] <List[Database]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_databases_all(
                 hosting_id="example",
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListDatabasesResponse,
             key="databases",
             fetcher=self.list_databases,
@@ -375,7 +323,7 @@ class WebhostingV1DatabaseAPI(API):
                 "order_by": order_by,
             },
         )
-        
+
     def get_database(
         self,
         *,
@@ -389,20 +337,22 @@ class WebhostingV1DatabaseAPI(API):
         :param database_name: Name of the database.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_database(
                 hosting_id="example",
                 database_name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_database_name = validate_path_param("database_name", database_name)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases/{param_database_name}",
@@ -410,7 +360,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-        
+
     def delete_database(
         self,
         *,
@@ -424,20 +374,22 @@ class WebhostingV1DatabaseAPI(API):
         :param database_name: Name of the database to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_database(
                 hosting_id="example",
                 database_name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_database_name = validate_path_param("database_name", database_name)
-        
+
         res = self._request(
             "DELETE",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases/{param_database_name}",
@@ -445,7 +397,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Database(res.json())
-        
+
     def create_database_user(
         self,
         *,
@@ -461,20 +413,22 @@ class WebhostingV1DatabaseAPI(API):
         :param password: Password of the user to create.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseUser <DatabaseUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_database_user(
                 hosting_id="example",
                 username="example",
                 password="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases-users",
@@ -491,7 +445,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseUser(res.json())
-        
+
     def list_database_users(
         self,
         *,
@@ -509,18 +463,20 @@ class WebhostingV1DatabaseAPI(API):
         :param page_size: Number of database users to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of database users in the response.
         :return: :class:`ListDatabaseUsersResponse <ListDatabaseUsersResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_database_users(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/database-users",
@@ -533,7 +489,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListDatabaseUsersResponse(res.json())
-        
+
     def list_database_users_all(
         self,
         *,
@@ -551,16 +507,16 @@ class WebhostingV1DatabaseAPI(API):
         :param page_size: Number of database users to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of database users in the response.
         :return: :class:`List[DatabaseUser] <List[DatabaseUser]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_database_users_all(
                 hosting_id="example",
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListDatabaseUsersResponse,
             key="users",
             fetcher=self.list_database_users,
@@ -572,7 +528,7 @@ class WebhostingV1DatabaseAPI(API):
                 "order_by": order_by,
             },
         )
-        
+
     def get_database_user(
         self,
         *,
@@ -586,20 +542,22 @@ class WebhostingV1DatabaseAPI(API):
         :param username: Name of the database user to retrieve details.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseUser <DatabaseUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_database_user(
                 hosting_id="example",
                 username="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_username = validate_path_param("username", username)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases-users/{param_username}",
@@ -607,7 +565,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseUser(res.json())
-        
+
     def delete_database_user(
         self,
         *,
@@ -621,20 +579,22 @@ class WebhostingV1DatabaseAPI(API):
         :param username: Name of the database user to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseUser <DatabaseUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_database_user(
                 hosting_id="example",
                 username="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_username = validate_path_param("username", username)
-        
+
         res = self._request(
             "DELETE",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/database-users/{param_username}",
@@ -642,7 +602,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseUser(res.json())
-        
+
     def change_database_user_password(
         self,
         *,
@@ -658,21 +618,23 @@ class WebhostingV1DatabaseAPI(API):
         :param password: New password.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseUser <DatabaseUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.change_database_user_password(
                 hosting_id="example",
                 username="example",
                 password="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_username = validate_path_param("username", username)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases-users/{param_username}/change-password",
@@ -689,7 +651,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseUser(res.json())
-        
+
     def assign_database_user(
         self,
         *,
@@ -705,21 +667,23 @@ class WebhostingV1DatabaseAPI(API):
         :param database_name: Name of the database to be assigned.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseUser <DatabaseUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.assign_database_user(
                 hosting_id="example",
                 username="example",
                 database_name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_database_name = validate_path_param("database_name", database_name)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases/{param_database_name}/assign-user",
@@ -736,7 +700,7 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseUser(res.json())
-        
+
     def unassign_database_user(
         self,
         *,
@@ -752,21 +716,23 @@ class WebhostingV1DatabaseAPI(API):
         :param database_name: Name of the database to be unassigned.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseUser <DatabaseUser>`
-        
+
         Usage:
         ::
-        
+
             result = api.unassign_database_user(
                 hosting_id="example",
                 username="example",
                 database_name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_database_name = validate_path_param("database_name", database_name)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/databases/{param_database_name}/unassign-user",
@@ -783,12 +749,13 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseUser(res.json())
-        
+
 
 class WebhostingV1DnsAPI(API):
     """
     This API allows you to manage your Web Hosting services.
     """
+
     def get_domain_dns_records(
         self,
         *,
@@ -801,18 +768,20 @@ class WebhostingV1DnsAPI(API):
         :param domain: Domain associated with the DNS records.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DnsRecords <DnsRecords>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_domain_dns_records(
                 domain="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_domain = validate_path_param("domain", domain)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/dns-records",
@@ -820,7 +789,7 @@ class WebhostingV1DnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DnsRecords(res.json())
-        
+
     def check_user_owns_domain(
         self,
         *,
@@ -834,18 +803,20 @@ class WebhostingV1DnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project currently in use.
         :return: :class:`CheckUserOwnsDomainResponse <CheckUserOwnsDomainResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.check_user_owns_domain(
                 domain="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_domain = validate_path_param("domain", domain)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/check-ownership",
@@ -861,7 +832,7 @@ class WebhostingV1DnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckUserOwnsDomainResponse(res.json())
-        
+
     def sync_domain_dns_records(
         self,
         *,
@@ -885,18 +856,20 @@ class WebhostingV1DnsAPI(API):
         :param custom_records: Custom records to synchronize.
         :param auto_config_domain_dns: Whether or not to synchronize each types of records.
         :return: :class:`DnsRecords <DnsRecords>`
-        
+
         Usage:
         ::
-        
+
             result = api.sync_domain_dns_records(
                 domain="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_domain = validate_path_param("domain", domain)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/sync-domain-dns-records",
@@ -917,7 +890,7 @@ class WebhostingV1DnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DnsRecords(res.json())
-        
+
     def search_domains(
         self,
         *,
@@ -931,17 +904,19 @@ class WebhostingV1DnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Scaleway Project in which to search the domain to create the Web Hosting plan.
         :return: :class:`SearchDomainsResponse <SearchDomainsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.search_domains(
                 domain_name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/search-domains",
@@ -953,7 +928,7 @@ class WebhostingV1DnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_SearchDomainsResponse(res.json())
-        
+
     def get_domain(
         self,
         *,
@@ -967,18 +942,20 @@ class WebhostingV1DnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Scaleway Project in which to get the domain to create the Web Hosting plan.
         :return: :class:`Domain <Domain>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_domain(
                 domain_name="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_domain_name = validate_path_param("domain_name", domain_name)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/domains/{param_domain_name}",
@@ -989,7 +966,7 @@ class WebhostingV1DnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
-        
+
     def wait_for_domain(
         self,
         *,
@@ -1004,10 +981,10 @@ class WebhostingV1DnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Scaleway Project in which to get the domain to create the Web Hosting plan.
         :return: :class:`Domain <Domain>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_domain(
                 domain_name="example",
             )
@@ -1028,12 +1005,13 @@ class WebhostingV1DnsAPI(API):
                 "project_id": project_id,
             },
         )
-        
+
 
 class WebhostingV1OfferAPI(API):
     """
     This API allows you to manage your offer for your Web Hosting services.
     """
+
     def list_offers(
         self,
         *,
@@ -1053,15 +1031,17 @@ class WebhostingV1OfferAPI(API):
         :param hosting_id: UUID of the hosting plan.
         :param control_panels: Name of the control panel(s) to filter for.
         :return: :class:`ListOffersResponse <ListOffersResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_offers()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/offers",
@@ -1076,7 +1056,7 @@ class WebhostingV1OfferAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListOffersResponse(res.json())
-        
+
     def list_offers_all(
         self,
         *,
@@ -1096,14 +1076,14 @@ class WebhostingV1OfferAPI(API):
         :param hosting_id: UUID of the hosting plan.
         :param control_panels: Name of the control panel(s) to filter for.
         :return: :class:`List[Offer] <List[Offer]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_offers_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListOffersResponse,
             key="offers",
             fetcher=self.list_offers,
@@ -1116,12 +1096,13 @@ class WebhostingV1OfferAPI(API):
                 "control_panels": control_panels,
             },
         )
-        
+
 
 class WebhostingV1HostingAPI(API):
     """
     This API allows you to manage your Web Hosting services.
     """
+
     def create_hosting(
         self,
         *,
@@ -1152,19 +1133,21 @@ class WebhostingV1HostingAPI(API):
         :param skip_welcome_email: Indicates whether to skip a welcome email to the contact email containing hosting info.
         :param auto_config_domain_dns: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_update_* fields instead).
         :return: :class:`Hosting <Hosting>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_hosting(
                 offer_id="example",
                 email="example",
                 domain="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings",
@@ -1188,7 +1171,7 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Hosting(res.json())
-        
+
     def list_hostings(
         self,
         *,
@@ -1217,15 +1200,17 @@ class WebhostingV1HostingAPI(API):
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
         :return: :class:`ListHostingsResponse <ListHostingsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_hostings()
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
-        
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings",
@@ -1233,7 +1218,8 @@ class WebhostingV1HostingAPI(API):
                 "control_panels": control_panels,
                 "domain": domain,
                 "order_by": order_by,
-                "organization_id": organization_id or self.client.default_organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -1244,7 +1230,7 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListHostingsResponse(res.json())
-        
+
     def list_hostings_all(
         self,
         *,
@@ -1273,14 +1259,14 @@ class WebhostingV1HostingAPI(API):
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
         :return: :class:`List[HostingSummary] <List[HostingSummary]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_hostings_all()
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListHostingsResponse,
             key="hostings",
             fetcher=self.list_hostings,
@@ -1297,7 +1283,7 @@ class WebhostingV1HostingAPI(API):
                 "control_panels": control_panels,
             },
         )
-        
+
     def get_hosting(
         self,
         *,
@@ -1310,18 +1296,20 @@ class WebhostingV1HostingAPI(API):
         :param hosting_id: Hosting ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hosting <Hosting>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_hosting(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}",
@@ -1329,7 +1317,7 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Hosting(res.json())
-        
+
     def wait_for_hosting(
         self,
         *,
@@ -1343,10 +1331,10 @@ class WebhostingV1HostingAPI(API):
         :param hosting_id: Hosting ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hosting <Hosting>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_hosting(
                 hosting_id="example",
             )
@@ -1366,7 +1354,7 @@ class WebhostingV1HostingAPI(API):
                 "region": region,
             },
         )
-        
+
     def update_hosting(
         self,
         *,
@@ -1389,18 +1377,20 @@ class WebhostingV1HostingAPI(API):
         :param offer_id: ID of the new offer for the Web Hosting plan.
         :param protected: Whether the hosting is protected or not.
         :return: :class:`Hosting <Hosting>`
-        
+
         Usage:
         ::
-        
+
             result = api.update_hosting(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "PATCH",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}",
@@ -1420,7 +1410,7 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Hosting(res.json())
-        
+
     def delete_hosting(
         self,
         *,
@@ -1433,18 +1423,20 @@ class WebhostingV1HostingAPI(API):
         :param hosting_id: Hosting ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hosting <Hosting>`
-        
+
         Usage:
         ::
-        
+
             result = api.delete_hosting(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "DELETE",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}",
@@ -1452,7 +1444,7 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Hosting(res.json())
-        
+
     def create_session(
         self,
         *,
@@ -1464,18 +1456,20 @@ class WebhostingV1HostingAPI(API):
         :param hosting_id: Hosting ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Session <Session>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_session(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/sessions",
@@ -1484,7 +1478,7 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Session(res.json())
-        
+
     def reset_hosting_password(
         self,
         *,
@@ -1496,18 +1490,20 @@ class WebhostingV1HostingAPI(API):
         :param hosting_id: UUID of the hosting.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ResetHostingPasswordResponse <ResetHostingPasswordResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.reset_hosting_password(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/reset-password",
@@ -1516,7 +1512,7 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ResetHostingPasswordResponse(res.json())
-        
+
     def get_resource_summary(
         self,
         *,
@@ -1528,18 +1524,20 @@ class WebhostingV1HostingAPI(API):
         :param hosting_id: Hosting ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ResourceSummary <ResourceSummary>`
-        
+
         Usage:
         ::
-        
+
             result = api.get_resource_summary(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/resource-summary",
@@ -1547,12 +1545,13 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ResourceSummary(res.json())
-        
+
 
 class WebhostingV1FtpAccountAPI(API):
     """
     This API allows you to manage your FTP accounts for your Web Hosting services.
     """
+
     def create_ftp_account(
         self,
         *,
@@ -1570,10 +1569,10 @@ class WebhostingV1FtpAccountAPI(API):
         :param password: Password for the new FTP account.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`FtpAccount <FtpAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_ftp_account(
                 hosting_id="example",
                 username="example",
@@ -1581,10 +1580,12 @@ class WebhostingV1FtpAccountAPI(API):
                 password="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/ftp-accounts",
@@ -1602,7 +1603,7 @@ class WebhostingV1FtpAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_FtpAccount(res.json())
-        
+
     def list_ftp_accounts(
         self,
         *,
@@ -1622,18 +1623,20 @@ class WebhostingV1FtpAccountAPI(API):
         :param order_by: Sort order of FTP accounts in the response.
         :param domain: Domain to filter the FTP accounts.
         :return: :class:`ListFtpAccountsResponse <ListFtpAccountsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_ftp_accounts(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/ftp-accounts",
@@ -1647,7 +1650,7 @@ class WebhostingV1FtpAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListFtpAccountsResponse(res.json())
-        
+
     def list_ftp_accounts_all(
         self,
         *,
@@ -1667,16 +1670,16 @@ class WebhostingV1FtpAccountAPI(API):
         :param order_by: Sort order of FTP accounts in the response.
         :param domain: Domain to filter the FTP accounts.
         :return: :class:`List[FtpAccount] <List[FtpAccount]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_ftp_accounts_all(
                 hosting_id="example",
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListFtpAccountsResponse,
             key="ftp_accounts",
             fetcher=self.list_ftp_accounts,
@@ -1689,7 +1692,7 @@ class WebhostingV1FtpAccountAPI(API):
                 "domain": domain,
             },
         )
-        
+
     def remove_ftp_account(
         self,
         *,
@@ -1703,20 +1706,22 @@ class WebhostingV1FtpAccountAPI(API):
         :param username: Username of the FTP account to be deleted.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`FtpAccount <FtpAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.remove_ftp_account(
                 hosting_id="example",
                 username="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_username = validate_path_param("username", username)
-        
+
         res = self._request(
             "DELETE",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/ftp-accounts/{param_username}",
@@ -1724,7 +1729,7 @@ class WebhostingV1FtpAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_FtpAccount(res.json())
-        
+
     def change_ftp_account_password(
         self,
         *,
@@ -1739,21 +1744,23 @@ class WebhostingV1FtpAccountAPI(API):
         :param password: New password for the FTP account.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`FtpAccount <FtpAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.change_ftp_account_password(
                 hosting_id="example",
                 username="example",
                 password="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
         param_username = validate_path_param("username", username)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/ftp-accounts/{param_username}/change-password",
@@ -1770,12 +1777,13 @@ class WebhostingV1FtpAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_FtpAccount(res.json())
-        
+
 
 class WebhostingV1MailAccountAPI(API):
     """
     This API allows you to manage your mail accounts for your Web Hosting services.
     """
+
     def create_mail_account(
         self,
         *,
@@ -1793,10 +1801,10 @@ class WebhostingV1MailAccountAPI(API):
         :param password: Password for the new mail account.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`MailAccount <MailAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.create_mail_account(
                 hosting_id="example",
                 domain="example",
@@ -1804,10 +1812,12 @@ class WebhostingV1MailAccountAPI(API):
                 password="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/mail-accounts",
@@ -1825,7 +1835,7 @@ class WebhostingV1MailAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_MailAccount(res.json())
-        
+
     def list_mail_accounts(
         self,
         *,
@@ -1845,18 +1855,20 @@ class WebhostingV1MailAccountAPI(API):
         :param order_by: Sort order of mail accounts in the response.
         :param domain: Domain to filter the mail accounts.
         :return: :class:`ListMailAccountsResponse <ListMailAccountsResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_mail_accounts(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/mail-accounts",
@@ -1870,7 +1882,7 @@ class WebhostingV1MailAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListMailAccountsResponse(res.json())
-        
+
     def list_mail_accounts_all(
         self,
         *,
@@ -1890,16 +1902,16 @@ class WebhostingV1MailAccountAPI(API):
         :param order_by: Sort order of mail accounts in the response.
         :param domain: Domain to filter the mail accounts.
         :return: :class:`List[MailAccount] <List[MailAccount]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_mail_accounts_all(
                 hosting_id="example",
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListMailAccountsResponse,
             key="mail_accounts",
             fetcher=self.list_mail_accounts,
@@ -1912,7 +1924,7 @@ class WebhostingV1MailAccountAPI(API):
                 "domain": domain,
             },
         )
-        
+
     def remove_mail_account(
         self,
         *,
@@ -1928,20 +1940,22 @@ class WebhostingV1MailAccountAPI(API):
         :param username: Username part of the mail account address.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`MailAccount <MailAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.remove_mail_account(
                 hosting_id="example",
                 domain="example",
                 username="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/remove-mail-account",
@@ -1958,7 +1972,7 @@ class WebhostingV1MailAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_MailAccount(res.json())
-        
+
     def change_mail_account_password(
         self,
         *,
@@ -1976,10 +1990,10 @@ class WebhostingV1MailAccountAPI(API):
         :param password: New password for the mail account.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`MailAccount <MailAccount>`
-        
+
         Usage:
         ::
-        
+
             result = api.change_mail_account_password(
                 hosting_id="example",
                 domain="example",
@@ -1987,10 +2001,12 @@ class WebhostingV1MailAccountAPI(API):
                 password="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/change-mail-password",
@@ -2008,12 +2024,13 @@ class WebhostingV1MailAccountAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_MailAccount(res.json())
-        
+
 
 class WebhostingV1WebsiteAPI(API):
     """
     This API allows you to manage your websites for your Web Hosting services.
     """
+
     def list_websites(
         self,
         *,
@@ -2031,18 +2048,20 @@ class WebhostingV1WebsiteAPI(API):
         :param page_size: Number of websites to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order for Web Hosting websites in the response.
         :return: :class:`ListWebsitesResponse <ListWebsitesResponse>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_websites(
                 hosting_id="example",
             )
         """
-        
-        param_region = validate_path_param("region", region or self.client.default_region)
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
         param_hosting_id = validate_path_param("hosting_id", hosting_id)
-        
+
         res = self._request(
             "GET",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/websites",
@@ -2055,7 +2074,7 @@ class WebhostingV1WebsiteAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListWebsitesResponse(res.json())
-        
+
     def list_websites_all(
         self,
         *,
@@ -2073,16 +2092,16 @@ class WebhostingV1WebsiteAPI(API):
         :param page_size: Number of websites to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order for Web Hosting websites in the response.
         :return: :class:`List[Website] <List[Website]>`
-        
+
         Usage:
         ::
-        
+
             result = api.list_websites_all(
                 hosting_id="example",
             )
         """
 
-        return  fetch_all_pages(
+        return fetch_all_pages(
             type=ListWebsitesResponse,
             key="websites",
             fetcher=self.list_websites,
@@ -2094,4 +2113,3 @@ class WebhostingV1WebsiteAPI(API):
                 "order_by": order_by,
             },
         )
-        

@@ -3,23 +3,19 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from decimal import Decimal
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from scaleway_core.bridge import (
     Money,
     Region as ScwRegion,
-    ScwFile,
-    ServiceInfo,
-    TimeSeries,
-    TimeSeriesPoint,
     Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
 
 class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_PRODUCT_TYPE = "unknown_product_type"
@@ -32,6 +28,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     def __str__(self) -> str:
         return str(self.value)
 
+
 class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCH = "unknown_arch"
     X64 = "x64"
@@ -41,6 +38,7 @@ class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnum
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class PublicCatalogProductStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -52,6 +50,7 @@ class PublicCatalogProductStatus(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
 
 class PublicCatalogProductUnitOfMeasureCountableUnit(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_COUNTABLE_UNIT = "unknown_countable_unit"
@@ -84,33 +83,34 @@ class PublicCatalogProductUnitOfMeasureCountableUnit(str, Enum, metaclass=StrEnu
     def __str__(self) -> str:
         return str(self.value)
 
+
 @dataclass
 class PublicCatalogProductPropertiesHardwareCPUPhysical:
     sockets: int
     """
     The number of sockets of the CPU.
     """
-    
+
     cores_per_socket: int
     """
     The number of cores per socket.
     """
-    
+
     threads_per_core: int
     """
     The number of threads per core.
     """
-    
+
     frequency: int
     """
     The frequency of the CPU in Hertz.
     """
-    
+
     benchmark: int
     """
     The benchmark score of the CPU.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesHardwareCPUVirtual:
@@ -118,7 +118,7 @@ class PublicCatalogProductPropertiesHardwareCPUVirtual:
     """
     The number of vCPUs.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesHardwareCPU:
@@ -126,26 +126,26 @@ class PublicCatalogProductPropertiesHardwareCPU:
     """
     A human readable description of the CPU.
     """
-    
+
     arch: PublicCatalogProductPropertiesHardwareCPUArch
     """
     The architecture of the CPU.
     """
-    
+
     type_: str
     """
     The type of the CPU.
     """
-    
+
     threads: int
     """
     The total number of threads.
     """
-    
+
     virtual: Optional[PublicCatalogProductPropertiesHardwareCPUVirtual]
-    
+
     physical: Optional[PublicCatalogProductPropertiesHardwareCPUPhysical]
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesHardwareGPU:
@@ -153,17 +153,17 @@ class PublicCatalogProductPropertiesHardwareGPU:
     """
     A human-readable description of the GPU.
     """
-    
+
     count: int
     """
     The number of GPUs.
     """
-    
+
     type_: str
     """
     The type of the GPU.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesHardwareNetwork:
@@ -171,22 +171,22 @@ class PublicCatalogProductPropertiesHardwareNetwork:
     """
     A human-readable description of the network.
     """
-    
+
     internal_bandwidth: int
     """
     The internal bandwidth in bits per second.
     """
-    
+
     public_bandwidth: int
     """
     The default public bandwidth in bits per second.
     """
-    
+
     max_public_bandwidth: int
     """
     The maximum public bandwidth in bits per second (may require subscription to options).
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesHardwareRAM:
@@ -194,17 +194,17 @@ class PublicCatalogProductPropertiesHardwareRAM:
     """
     A human-readable description of the RAM.
     """
-    
+
     size: int
     """
     The size of the RAM in bytes.
     """
-    
+
     type_: str
     """
     The type of the RAM.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesHardwareStorage:
@@ -212,12 +212,12 @@ class PublicCatalogProductPropertiesHardwareStorage:
     """
     A human-readable description of the storage.
     """
-    
+
     total: int
     """
     The total size of the storage in bytes.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesAppleSilicon:
@@ -225,7 +225,7 @@ class PublicCatalogProductPropertiesAppleSilicon:
     """
     The range of the Apple Silicon server.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesDedibox:
@@ -233,7 +233,7 @@ class PublicCatalogProductPropertiesDedibox:
     """
     The range of the Dedibox server.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesElasticMetal:
@@ -241,7 +241,7 @@ class PublicCatalogProductPropertiesElasticMetal:
     """
     The range of the Elastic Metal server.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesHardware:
@@ -249,27 +249,27 @@ class PublicCatalogProductPropertiesHardware:
     """
     The CPU hardware properties.
     """
-    
+
     ram: Optional[PublicCatalogProductPropertiesHardwareRAM]
     """
     The RAM hardware properties.
     """
-    
+
     storage: Optional[PublicCatalogProductPropertiesHardwareStorage]
     """
     The storage hardware properties.
     """
-    
+
     network: Optional[PublicCatalogProductPropertiesHardwareNetwork]
     """
     The network hardware properties.
     """
-    
+
     gpu: Optional[PublicCatalogProductPropertiesHardwareGPU]
     """
     The GPU hardware properties.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductPropertiesInstance:
@@ -277,35 +277,35 @@ class PublicCatalogProductPropertiesInstance:
     """
     The range of the Instance server.
     """
-    
+
     offer_id: str
     """
     The offer ID of the Instance server.
     """
-    
+
     recommended_replacement_offer_ids: List[str]
     """
     The recommended replacement offer IDs of the Instance server.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
     kg_co2_equivalent: Optional[float]
-    
+
     m3_water_usage: Optional[float]
-    
+
 
 @dataclass
 class PublicCatalogProductLocality:
     global_: Optional[bool]
-    
+
     region: Optional[ScwRegion]
-    
+
     zone: Optional[ScwZone]
-    
+
     datacenter: Optional[str]
-    
+
 
 @dataclass
 class PublicCatalogProductPrice:
@@ -313,7 +313,7 @@ class PublicCatalogProductPrice:
     """
     The retail price of the product.
     """
-    
+
 
 @dataclass
 class PublicCatalogProductProperties:
@@ -321,22 +321,22 @@ class PublicCatalogProductProperties:
     """
     The hardware properties of the product (if supported).
     """
-    
+
     dedibox: Optional[PublicCatalogProductPropertiesDedibox]
-    
+
     elastic_metal: Optional[PublicCatalogProductPropertiesElasticMetal]
-    
+
     apple_silicon: Optional[PublicCatalogProductPropertiesAppleSilicon]
-    
+
     instance: Optional[PublicCatalogProductPropertiesInstance]
-    
+
 
 @dataclass
 class PublicCatalogProductUnitOfMeasure:
     unit: PublicCatalogProductUnitOfMeasureCountableUnit
-    
+
     size: int
-    
+
 
 @dataclass
 class PublicCatalogProduct:
@@ -344,62 +344,64 @@ class PublicCatalogProduct:
     """
     The unique identifier of the product.
     """
-    
+
     service_category: str
     """
     The category of the product.
     """
-    
+
     product: str
     """
     The product name.
     """
-    
+
     variant: str
     """
     The product variant.
     """
-    
+
     description: str
     """
     The product description.
     """
-    
+
     status: PublicCatalogProductStatus
     """
     The status of the product.
     """
-    
+
     locality: Optional[PublicCatalogProductLocality]
     """
     The locality of the product.
     """
-    
+
     price: Optional[PublicCatalogProductPrice]
     """
     The price of the product.
     """
-    
+
     properties: Optional[PublicCatalogProductProperties]
     """
     The properties of the product.
     """
-    
-    environmental_impact_estimation: Optional[PublicCatalogProductEnvironmentalImpactEstimation]
+
+    environmental_impact_estimation: Optional[
+        PublicCatalogProductEnvironmentalImpactEstimation
+    ]
     """
     The environmental impact estimation of the product.
     """
-    
+
     unit_of_measure: Optional[PublicCatalogProductUnitOfMeasure]
     """
     The unit of measure of the product.
     """
-    
+
     end_of_life_at: Optional[datetime]
     """
     The end of life date of the product.
     """
-    
+
 
 @dataclass
 class ListPublicCatalogProductsResponse:
@@ -407,12 +409,12 @@ class ListPublicCatalogProductsResponse:
     """
     The list of products.
     """
-    
+
     total_count: int
     """
     The total number of products in the catalog.
     """
-    
+
 
 @dataclass
 class PublicCatalogApiListPublicCatalogProductsRequest:
@@ -420,22 +422,21 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
     """
     Number of the page. Value must be greater or equal to 1.
     """
-    
+
     page_size: Optional[int]
     """
     The number of products per page. Value must be greater or equal to 1.
     """
-    
+
     product_types: Optional[List[ListPublicCatalogProductsRequestProductType]]
     """
     The list of filtered product categories.
     """
-    
+
     global_: Optional[bool]
-    
+
     region: Optional[ScwRegion]
-    
+
     zone: Optional[ScwZone]
-    
+
     datacenter: Optional[str]
-    
