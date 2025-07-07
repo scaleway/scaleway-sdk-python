@@ -22,6 +22,7 @@ from .types import (
     ListWafStagesRequestOrderBy,
     PlanName,
     SearchBackendStagesRequestOrderBy,
+    SearchRouteRulesRequestOrderBy,
     SearchWafStagesRequestOrderBy,
     WafStageMode,
     AddRouteRulesRequest,
@@ -2215,6 +2216,47 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AddRouteRulesResponse(res.json())
+
+    def search_route_rules(
+        self,
+        *,
+        order_by: Optional[SearchRouteRulesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+    ) -> ListRouteRulesResponse:
+        """
+        List route rules.
+        List all route rules of an organization or project.
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param organization_id:
+        :param project_id:
+        :return: :class:`ListRouteRulesResponse <ListRouteRulesResponse>`
+
+        Usage:
+        ::
+
+            result = api.search_route_rules()
+        """
+
+        res = self._request(
+            "GET",
+            "/edge-services/v1beta1/search-route-rules",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListRouteRulesResponse(res.json())
 
     def check_domain(
         self,
