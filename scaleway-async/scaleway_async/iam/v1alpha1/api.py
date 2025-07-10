@@ -26,15 +26,18 @@ from .types import (
     ListUsersRequestOrderBy,
     LogAction,
     LogResourceType,
+    SamlCertificateType,
     UserType,
     APIKey,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
+    AddSamlCertificateRequest,
     Application,
     CreateAPIKeyRequest,
     CreateApplicationRequest,
     CreateGroupRequest,
     CreateJWTRequest,
+    CreateOrganizationSamlRequest,
     CreatePolicyRequest,
     CreateSSHKeyRequest,
     CreateUserRequest,
@@ -56,6 +59,7 @@ from .types import (
     ListQuotaResponse,
     ListRulesResponse,
     ListSSHKeysResponse,
+    ListSamlCertificatesResponse,
     ListUsersResponse,
     Log,
     MFAOTP,
@@ -69,6 +73,8 @@ from .types import (
     Rule,
     RuleSpecs,
     SSHKey,
+    Saml,
+    SamlCertificate,
     SetGroupMembersRequest,
     SetOrganizationAliasRequest,
     SetRulesRequest,
@@ -76,6 +82,7 @@ from .types import (
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
+    UpdateOrganizationSamlRequest,
     UpdateOrganizationSecuritySettingsRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
@@ -95,6 +102,7 @@ from .marshalling import (
     unmarshal_Policy,
     unmarshal_Quotum,
     unmarshal_SSHKey,
+    unmarshal_SamlCertificate,
     unmarshal_User,
     unmarshal_EncodedJWT,
     unmarshal_GetUserConnectionsResponse,
@@ -110,18 +118,22 @@ from .marshalling import (
     unmarshal_ListQuotaResponse,
     unmarshal_ListRulesResponse,
     unmarshal_ListSSHKeysResponse,
+    unmarshal_ListSamlCertificatesResponse,
     unmarshal_ListUsersResponse,
     unmarshal_MFAOTP,
     unmarshal_Organization,
     unmarshal_OrganizationSecuritySettings,
+    unmarshal_Saml,
     unmarshal_SetRulesResponse,
     unmarshal_ValidateUserMFAOTPResponse,
     marshal_AddGroupMemberRequest,
     marshal_AddGroupMembersRequest,
+    marshal_AddSamlCertificateRequest,
     marshal_CreateAPIKeyRequest,
     marshal_CreateApplicationRequest,
     marshal_CreateGroupRequest,
     marshal_CreateJWTRequest,
+    marshal_CreateOrganizationSamlRequest,
     marshal_CreatePolicyRequest,
     marshal_CreateSSHKeyRequest,
     marshal_CreateUserRequest,
@@ -134,6 +146,7 @@ from .marshalling import (
     marshal_UpdateAPIKeyRequest,
     marshal_UpdateApplicationRequest,
     marshal_UpdateGroupRequest,
+    marshal_UpdateOrganizationSamlRequest,
     marshal_UpdateOrganizationSecuritySettingsRequest,
     marshal_UpdatePolicyRequest,
     marshal_UpdateSSHKeyRequest,
@@ -3025,6 +3038,239 @@ class IamV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/iam/v1alpha1/organizations/{param_organization_id}/migrate-guests",
+        )
+
+        self._throw_on_error(res)
+
+    async def get_organization_saml(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+    ) -> Saml:
+        """
+        Get SAML Identity Provider configuration of an Organization.
+        :param organization_id: ID of the Organization.
+        :return: :class:`Saml <Saml>`
+
+        Usage:
+        ::
+
+            result = await api.get_organization_saml()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/saml",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Saml(res.json())
+
+    async def create_organization_saml(
+        self,
+        *,
+        entity_id: str,
+        single_sign_on_url: str,
+        organization_id: Optional[str] = None,
+    ) -> Saml:
+        """
+        Create a SAML Identity Provider configuration for an Organization.
+        :param entity_id: Entity ID of the SAML Identity Provider.
+        :param single_sign_on_url: Single Sign-On URL of the SAML Identity Provider.
+        :param organization_id: ID of the Organization.
+        :return: :class:`Saml <Saml>`
+
+        Usage:
+        ::
+
+            result = await api.create_organization_saml(
+                entity_id="example",
+                single_sign_on_url="example",
+            )
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/saml",
+            body=marshal_CreateOrganizationSamlRequest(
+                CreateOrganizationSamlRequest(
+                    entity_id=entity_id,
+                    single_sign_on_url=single_sign_on_url,
+                    organization_id=organization_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Saml(res.json())
+
+    async def update_organization_saml(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+        entity_id: Optional[str] = None,
+        single_sign_on_url: Optional[str] = None,
+    ) -> Saml:
+        """
+        Update a SAML Identity Provider configuration for an Organization.
+        :param organization_id: ID of the Organization.
+        :param entity_id: Entity ID of the SAML Identity Provider.
+        :param single_sign_on_url: Single Sign-On URL of the SAML Identity Provider.
+        :return: :class:`Saml <Saml>`
+
+        Usage:
+        ::
+
+            result = await api.update_organization_saml()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/saml",
+            body=marshal_UpdateOrganizationSamlRequest(
+                UpdateOrganizationSamlRequest(
+                    organization_id=organization_id,
+                    entity_id=entity_id,
+                    single_sign_on_url=single_sign_on_url,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Saml(res.json())
+
+    async def delete_organization_saml(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+    ) -> None:
+        """
+        Delete a SAML Identity Provider configuration for an Organization.
+        :param organization_id: ID of the Organization.
+
+        Usage:
+        ::
+
+            result = await api.delete_organization_saml()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "DELETE",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/saml",
+        )
+
+        self._throw_on_error(res)
+
+    async def list_saml_certificates(
+        self,
+        *,
+        saml_id: str,
+    ) -> ListSamlCertificatesResponse:
+        """
+        List SAML certificates.
+        :param saml_id: ID of the SAML configuration.
+        :return: :class:`ListSamlCertificatesResponse <ListSamlCertificatesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_saml_certificates(
+                saml_id="example",
+            )
+        """
+
+        param_saml_id = validate_path_param("saml_id", saml_id)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/saml/{param_saml_id}/certificates",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListSamlCertificatesResponse(res.json())
+
+    async def add_saml_certificate(
+        self,
+        *,
+        saml_id: str,
+        type_: SamlCertificateType,
+        content: str,
+    ) -> SamlCertificate:
+        """
+        Add a SAML certificate.
+        :param saml_id: ID of the SAML configuration.
+        :param type_: Type of the SAML certificate.
+        :param content: Content of the SAML certificate.
+        :return: :class:`SamlCertificate <SamlCertificate>`
+
+        Usage:
+        ::
+
+            result = await api.add_saml_certificate(
+                saml_id="example",
+                type=SamlCertificateType.unknown_certificate_type,
+                content="example",
+            )
+        """
+
+        param_saml_id = validate_path_param("saml_id", saml_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/saml/{param_saml_id}/certificates",
+            body=marshal_AddSamlCertificateRequest(
+                AddSamlCertificateRequest(
+                    saml_id=saml_id,
+                    type_=type_,
+                    content=content,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SamlCertificate(res.json())
+
+    async def delete_saml_certificate(
+        self,
+        *,
+        certificate_id: str,
+    ) -> None:
+        """
+        Delete a SAML certificate.
+        :param certificate_id: ID of the certificate to delete.
+
+        Usage:
+        ::
+
+            result = await api.delete_saml_certificate(
+                certificate_id="example",
+            )
+        """
+
+        param_certificate_id = validate_path_param("certificate_id", certificate_id)
+
+        res = self._request(
+            "DELETE",
+            f"/iam/v1alpha1/saml-certificates/{param_certificate_id}",
         )
 
         self._throw_on_error(res)
