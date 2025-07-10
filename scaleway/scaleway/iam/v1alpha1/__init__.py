@@ -16,6 +16,8 @@ from .types import LocalityType
 from .types import LogAction
 from .types import LogResourceType
 from .types import PermissionSetScopeType
+from .types import SamlCertificateOrigin
+from .types import SamlCertificateType
 from .types import UserStatus
 from .types import UserType
 from .types import ConnectionConnectedOrganization
@@ -35,14 +37,17 @@ from .types import Policy
 from .types import Quotum
 from .types import Rule
 from .types import SSHKey
+from .types import SamlCertificate
 from .types import User
 from .types import AddGroupMemberRequest
 from .types import AddGroupMembersRequest
+from .types import AddSamlCertificateRequest
 from .types import ClonePolicyRequest
 from .types import CreateAPIKeyRequest
 from .types import CreateApplicationRequest
 from .types import CreateGroupRequest
 from .types import CreateJWTRequest
+from .types import CreateOrganizationSamlRequest
 from .types import CreatePolicyRequest
 from .types import CreateSSHKeyRequest
 from .types import CreateUserMFAOTPRequest
@@ -51,8 +56,10 @@ from .types import DeleteAPIKeyRequest
 from .types import DeleteApplicationRequest
 from .types import DeleteGroupRequest
 from .types import DeleteJWTRequest
+from .types import DeleteOrganizationSamlRequest
 from .types import DeletePolicyRequest
 from .types import DeleteSSHKeyRequest
+from .types import DeleteSamlCertificateRequest
 from .types import DeleteUserMFAOTPRequest
 from .types import DeleteUserRequest
 from .types import EncodedJWT
@@ -62,6 +69,7 @@ from .types import GetGroupRequest
 from .types import GetJWTRequest
 from .types import GetLogRequest
 from .types import GetOrganizationRequest
+from .types import GetOrganizationSamlRequest
 from .types import GetOrganizationSecuritySettingsRequest
 from .types import GetPolicyRequest
 from .types import GetQuotumRequest
@@ -94,6 +102,8 @@ from .types import ListRulesRequest
 from .types import ListRulesResponse
 from .types import ListSSHKeysRequest
 from .types import ListSSHKeysResponse
+from .types import ListSamlCertificatesRequest
+from .types import ListSamlCertificatesResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
@@ -103,6 +113,7 @@ from .types import Organization
 from .types import OrganizationSecuritySettings
 from .types import RemoveGroupMemberRequest
 from .types import RemoveUserConnectionRequest
+from .types import Saml
 from .types import SetGroupMembersRequest
 from .types import SetOrganizationAliasRequest
 from .types import SetRulesRequest
@@ -111,6 +122,7 @@ from .types import UnlockUserRequest
 from .types import UpdateAPIKeyRequest
 from .types import UpdateApplicationRequest
 from .types import UpdateGroupRequest
+from .types import UpdateOrganizationSamlRequest
 from .types import UpdateOrganizationSecuritySettingsRequest
 from .types import UpdatePolicyRequest
 from .types import UpdateSSHKeyRequest
@@ -138,6 +150,8 @@ __all__ = [
     "LogAction",
     "LogResourceType",
     "PermissionSetScopeType",
+    "SamlCertificateOrigin",
+    "SamlCertificateType",
     "UserStatus",
     "UserType",
     "ConnectionConnectedOrganization",
@@ -157,14 +171,17 @@ __all__ = [
     "Quotum",
     "Rule",
     "SSHKey",
+    "SamlCertificate",
     "User",
     "AddGroupMemberRequest",
     "AddGroupMembersRequest",
+    "AddSamlCertificateRequest",
     "ClonePolicyRequest",
     "CreateAPIKeyRequest",
     "CreateApplicationRequest",
     "CreateGroupRequest",
     "CreateJWTRequest",
+    "CreateOrganizationSamlRequest",
     "CreatePolicyRequest",
     "CreateSSHKeyRequest",
     "CreateUserMFAOTPRequest",
@@ -173,8 +190,10 @@ __all__ = [
     "DeleteApplicationRequest",
     "DeleteGroupRequest",
     "DeleteJWTRequest",
+    "DeleteOrganizationSamlRequest",
     "DeletePolicyRequest",
     "DeleteSSHKeyRequest",
+    "DeleteSamlCertificateRequest",
     "DeleteUserMFAOTPRequest",
     "DeleteUserRequest",
     "EncodedJWT",
@@ -184,6 +203,7 @@ __all__ = [
     "GetJWTRequest",
     "GetLogRequest",
     "GetOrganizationRequest",
+    "GetOrganizationSamlRequest",
     "GetOrganizationSecuritySettingsRequest",
     "GetPolicyRequest",
     "GetQuotumRequest",
@@ -216,6 +236,8 @@ __all__ = [
     "ListRulesResponse",
     "ListSSHKeysRequest",
     "ListSSHKeysResponse",
+    "ListSamlCertificatesRequest",
+    "ListSamlCertificatesResponse",
     "ListUsersRequest",
     "ListUsersResponse",
     "LockUserRequest",
@@ -225,6 +247,7 @@ __all__ = [
     "OrganizationSecuritySettings",
     "RemoveGroupMemberRequest",
     "RemoveUserConnectionRequest",
+    "Saml",
     "SetGroupMembersRequest",
     "SetOrganizationAliasRequest",
     "SetRulesRequest",
@@ -233,6 +256,7 @@ __all__ = [
     "UpdateAPIKeyRequest",
     "UpdateApplicationRequest",
     "UpdateGroupRequest",
+    "UpdateOrganizationSamlRequest",
     "UpdateOrganizationSecuritySettingsRequest",
     "UpdatePolicyRequest",
     "UpdateSSHKeyRequest",

@@ -19,6 +19,7 @@ from .types import (
     QuotumLimit,
     Quotum,
     SSHKey,
+    SamlCertificate,
     User,
     EncodedJWT,
     ConnectionConnectedOrganization,
@@ -40,18 +41,22 @@ from .types import (
     Rule,
     ListRulesResponse,
     ListSSHKeysResponse,
+    ListSamlCertificatesResponse,
     ListUsersResponse,
     MFAOTP,
     Organization,
     OrganizationSecuritySettings,
+    Saml,
     SetRulesResponse,
     ValidateUserMFAOTPResponse,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
+    AddSamlCertificateRequest,
     CreateAPIKeyRequest,
     CreateApplicationRequest,
     CreateGroupRequest,
     CreateJWTRequest,
+    CreateOrganizationSamlRequest,
     RuleSpecs,
     CreatePolicyRequest,
     CreateSSHKeyRequest,
@@ -66,6 +71,7 @@ from .types import (
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
+    UpdateOrganizationSamlRequest,
     UpdateOrganizationSecuritySettingsRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
@@ -601,6 +607,39 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
         args["updated_at"] = None
 
     return SSHKey(**args)
+
+
+def unmarshal_SamlCertificate(data: Any) -> SamlCertificate:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SamlCertificate' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("origin", None)
+    if field is not None:
+        args["origin"] = field
+
+    field = data.get("content", None)
+    if field is not None:
+        args["content"] = field
+
+    field = data.get("expires_at", None)
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
+
+    return SamlCertificate(**args)
 
 
 def unmarshal_User(data: Any) -> User:
@@ -1160,6 +1199,23 @@ def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
     return ListSSHKeysResponse(**args)
 
 
+def unmarshal_ListSamlCertificatesResponse(data: Any) -> ListSamlCertificatesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListSamlCertificatesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("certificates", None)
+    if field is not None:
+        args["certificates"] = (
+            [unmarshal_SamlCertificate(v) for v in field] if field is not None else None
+        )
+
+    return ListSamlCertificatesResponse(**args)
+
+
 def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1244,6 +1300,29 @@ def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySet
     return OrganizationSecuritySettings(**args)
 
 
+def unmarshal_Saml(data: Any) -> Saml:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Saml' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("entity_id", None)
+    if field is not None:
+        args["entity_id"] = field
+
+    field = data.get("single_sign_on_url", None)
+    if field is not None:
+        args["single_sign_on_url"] = field
+
+    return Saml(**args)
+
+
 def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1304,6 +1383,21 @@ def marshal_AddGroupMembersRequest(
 
     if request.application_ids is not None:
         output["application_ids"] = request.application_ids
+
+    return output
+
+
+def marshal_AddSamlCertificateRequest(
+    request: AddSamlCertificateRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
+
+    if request.content is not None:
+        output["content"] = request.content
 
     return output
 
@@ -1391,6 +1485,21 @@ def marshal_CreateJWTRequest(
 
     if request.referrer is not None:
         output["referrer"] = request.referrer
+
+    return output
+
+
+def marshal_CreateOrganizationSamlRequest(
+    request: CreateOrganizationSamlRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.entity_id is not None:
+        output["entity_id"] = request.entity_id
+
+    if request.single_sign_on_url is not None:
+        output["single_sign_on_url"] = request.single_sign_on_url
 
     return output
 
@@ -1667,6 +1776,21 @@ def marshal_UpdateGroupRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    return output
+
+
+def marshal_UpdateOrganizationSamlRequest(
+    request: UpdateOrganizationSamlRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.entity_id is not None:
+        output["entity_id"] = request.entity_id
+
+    if request.single_sign_on_url is not None:
+        output["single_sign_on_url"] = request.single_sign_on_url
 
     return output
 
