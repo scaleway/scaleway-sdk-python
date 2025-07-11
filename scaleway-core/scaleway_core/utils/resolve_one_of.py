@@ -17,7 +17,7 @@ class OneOfPossibility(Generic[T]):
 
 def resolve_one_of(
     possibilities: List[OneOfPossibility[Any]], is_required: bool = False
-) -> dict[str, Any | None] | str | dict[Any, Any]:
+) -> dict[Any | Any, None] | str | dict[Any, Any]:
     """
     Resolves the ideal parameter and value amongst an optional list.
     Uses marshal_func if provided.
