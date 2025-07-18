@@ -1042,6 +1042,14 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
             else None
         )
 
+    field = data.get("provider_id", None)
+    if field is not None:
+        args["provider_id"] = field
+
+    field = data.get("resolvconf_path", None)
+    if field is not None:
+        args["resolvconf_path"] = field
+
     field = data.get("has_gpu", None)
     if field is not None:
         args["has_gpu"] = field
@@ -1053,6 +1061,22 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
     field = data.get("repo_uri", None)
     if field is not None:
         args["repo_uri"] = field
+
+    field = data.get("installer_tags", None)
+    if field is not None:
+        args["installer_tags"] = field
+
+    field = data.get("updater_bin_url", None)
+    if field is not None:
+        args["updater_bin_url"] = field
+
+    field = data.get("updater_bin_version", None)
+    if field is not None:
+        args["updater_bin_version"] = field
+
+    field = data.get("updater_bin_path", None)
+    if field is not None:
+        args["updater_bin_path"] = field
 
     return NodeMetadata(**args)
 
