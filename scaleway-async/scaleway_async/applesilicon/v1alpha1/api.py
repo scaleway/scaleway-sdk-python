@@ -205,7 +205,7 @@ class ApplesiliconV1Alpha1API(API):
     ) -> BatchCreateServersResponse:
         """
         Create multiple servers atomically.
-        Create multiple servers in the targeted zone specifying their configurations. If the request cannot entirely be fulfilled, no servers are created.
+        Create multiple servers in the targeted zone specifying their configurations. If the request cannot entirely be fullfilled, no servers are created.
         :param type_: Create servers of the given type.
         :param enable_vpc: Activate the Private Network feature for these servers. This feature is configured through the Apple Silicon - Private Networks API.
         :param public_bandwidth_bps: Public bandwidth to configure for these servers. This defaults to the minimum bandwidth for the corresponding server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
