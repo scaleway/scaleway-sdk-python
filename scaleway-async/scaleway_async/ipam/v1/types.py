@@ -23,6 +23,10 @@ class ListIPsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     UPDATED_AT_ASC = "updated_at_asc"
     ATTACHED_AT_DESC = "attached_at_desc"
     ATTACHED_AT_ASC = "attached_at_asc"
+    IP_ADDRESS_DESC = "ip_address_desc"
+    IP_ADDRESS_ASC = "ip_address_asc"
+    MAC_ADDRESS_DESC = "mac_address_desc"
+    MAC_ADDRESS_ASC = "mac_address_asc"
 
     def __str__(self) -> str:
         return str(self.value)
