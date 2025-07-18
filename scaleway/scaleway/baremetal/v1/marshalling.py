@@ -1055,6 +1055,14 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["status"] = field
 
+    field = data.get("offer_id", None)
+    if field is not None:
+        args["offer_id"] = field
+
+    field = data.get("offer_name", None)
+    if field is not None:
+        args["offer_name"] = field
+
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -1066,14 +1074,6 @@ def unmarshal_Server(data: Any) -> Server:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["created_at"] = None
-
-    field = data.get("offer_id", None)
-    if field is not None:
-        args["offer_id"] = field
-
-    field = data.get("offer_name", None)
-    if field is not None:
-        args["offer_name"] = field
 
     field = data.get("tags", None)
     if field is not None:
@@ -1104,6 +1104,10 @@ def unmarshal_Server(data: Any) -> Server:
         args["options"] = (
             [unmarshal_ServerOption(v) for v in field] if field is not None else None
         )
+
+    field = data.get("protected", None)
+    if field is not None:
+        args["protected"] = field
 
     field = data.get("install", None)
     if field is not None:
@@ -1603,6 +1607,9 @@ def marshal_CreateServerRequest(
     if request.description is not None:
         output["description"] = request.description
 
+    if request.protected is not None:
+        output["protected"] = request.protected
+
     if request.tags is not None:
         output["tags"] = request.tags
 
@@ -1738,6 +1745,9 @@ def marshal_UpdateServerRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.protected is not None:
+        output["protected"] = request.protected
 
     return output
 
