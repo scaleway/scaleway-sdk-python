@@ -70,6 +70,7 @@ class KeyState(str, Enum, metaclass=StrEnumMeta):
     ENABLED = "enabled"
     DISABLED = "disabled"
     PENDING_KEY_MATERIAL = "pending_key_material"
+    SCHEDULED_FOR_DELETION = "scheduled_for_deletion"
 
     def __str__(self) -> str:
         return str(self.value)
