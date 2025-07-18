@@ -959,16 +959,6 @@ class Server:
     Status of the server.
     """
 
-    updated_at: Optional[datetime]
-    """
-    Last modification date of the server.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the server.
-    """
-
     offer_id: str
     """
     Offer ID of the server.
@@ -977,6 +967,16 @@ class Server:
     offer_name: str
     """
     Offer name of the server.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last modification date of the server.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date of the server.
     """
 
     tags: List[str]
@@ -1012,6 +1012,11 @@ class Server:
     options: List[ServerOption]
     """
     Options enabled on the server.
+    """
+
+    protected: bool
+    """
+    If enabled, the server can not be deleted.
     """
 
     install: Optional[ServerInstall]
@@ -1109,6 +1114,11 @@ class CreateServerRequest:
     description: str
     """
     Description associated with the server, max 255 characters.
+    """
+
+    protected: bool
+    """
+    If enabled, the server can not be deleted.
     """
 
     zone: Optional[ScwZone]
@@ -1840,6 +1850,11 @@ class UpdateServerRequest:
     tags: Optional[List[str]]
     """
     Tags associated with the server, not updated if null.
+    """
+
+    protected: Optional[bool]
+    """
+    If enabled, the server can not be deleted.
     """
 
 
