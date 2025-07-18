@@ -239,6 +239,14 @@ class SearchBackendStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class SearchRouteRulesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class SearchWafStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -1487,6 +1495,11 @@ class ListRouteRulesResponse:
     List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
     """
 
+    total_count: int
+    """
+    Count of all route rules matching the requested criteria.
+    """
+
 
 @dataclass
 class ListRouteStagesRequest:
@@ -1626,6 +1639,19 @@ class SearchBackendStagesRequest:
     bucket_region: Optional[str]
 
     lb_id: Optional[str]
+
+
+@dataclass
+class SearchRouteRulesRequest:
+    order_by: Optional[SearchRouteRulesRequestOrderBy]
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    organization_id: Optional[str]
+
+    project_id: Optional[str]
 
 
 @dataclass

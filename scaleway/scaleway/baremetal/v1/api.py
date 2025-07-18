@@ -281,6 +281,7 @@ class BaremetalV1API(API):
         offer_id: str,
         name: str,
         description: str,
+        protected: bool,
         zone: Optional[ScwZone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -294,6 +295,7 @@ class BaremetalV1API(API):
         :param offer_id: Offer ID of the new server.
         :param name: Name of the server (≠hostname).
         :param description: Description associated with the server, max 255 characters.
+        :param protected: If enabled, the server can not be deleted.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization_id: Organization ID with which the server will be created.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
@@ -311,6 +313,7 @@ class BaremetalV1API(API):
                 offer_id="example",
                 name="example",
                 description="example",
+                protected=False,
             )
         """
 
@@ -324,6 +327,7 @@ class BaremetalV1API(API):
                     offer_id=offer_id,
                     name=name,
                     description=description,
+                    protected=protected,
                     zone=zone,
                     tags=tags,
                     install=install,
@@ -346,15 +350,17 @@ class BaremetalV1API(API):
         name: Optional[str] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        protected: Optional[bool] = None,
     ) -> Server:
         """
         Update an Elastic Metal server.
-        Update the server associated with the ID. You can update parameters such as the server's name, tags and description. Any parameters left null in the request body are not updated.
+        Update the server associated with the ID. You can update parameters such as the server's name, tags, description and protection flag. Any parameters left null in the request body are not updated.
         :param server_id: ID of the server to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the server (≠hostname), not updated if null.
         :param description: Description associated with the server, max 255 characters, not updated if null.
         :param tags: Tags associated with the server, not updated if null.
+        :param protected: If enabled, the server can not be deleted.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -378,6 +384,7 @@ class BaremetalV1API(API):
                     name=name,
                     description=description,
                     tags=tags,
+                    protected=protected,
                 ),
                 self.client,
             ),
