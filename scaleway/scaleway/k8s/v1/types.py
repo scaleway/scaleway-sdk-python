@@ -1886,7 +1886,7 @@ class NodeMetadata:
 
     repo_uri: str
 
-    installer_tags: str
+    installer_tags: List[str]
 
     updater_bin_url: str
 
