@@ -32,7 +32,7 @@ jobs:
           poetry run sphinx-apidoc -f -o ./source ../scaleway
           poetry run sphinx-apidoc -f -o ./source ../scaleway-async
       - name: Generate documentation
-        run: poetry run sphinx-build -b html ./ ./_build
+        run: poetry run sphinx-build -j auto -b html ./ ./_build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
