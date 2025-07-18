@@ -228,6 +228,19 @@ class PublicCatalogProductPropertiesAppleSilicon:
 
 
 @dataclass
+class PublicCatalogProductPropertiesBlockStorage:
+    min_volume_size: int
+    """
+    The minimum size of storage volume for this product in bytes.
+    """
+
+    max_volume_size: int
+    """
+    The maximum size of storage volume for this product in bytes.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesDedibox:
     range: str
     """
@@ -329,6 +342,8 @@ class PublicCatalogProductProperties:
     apple_silicon: Optional[PublicCatalogProductPropertiesAppleSilicon]
 
     instance: Optional[PublicCatalogProductPropertiesInstance]
+
+    block_storage: Optional[PublicCatalogProductPropertiesBlockStorage]
 
 
 @dataclass

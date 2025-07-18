@@ -1133,6 +1133,11 @@ class Domain:
     Zone owner of the domain.
     """
 
+    zone_domain_name: str
+    """
+    Main domain for this zone.
+    """
+
     available_actions: List[DomainAction]
     """
     A list of actions that can be performed on the domain.
