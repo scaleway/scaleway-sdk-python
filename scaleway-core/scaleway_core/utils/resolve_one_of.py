@@ -15,8 +15,6 @@ class OneOfPossibility(Generic[T]):
     default: Optional[T | ProfileDefaults] = None
     marshal_func: Optional[Callable[[T, T | None], Dict[str, Any]]] = None
 
-    marshal_func: Optional[T] = None
-
 
 def resolve_one_of(
     possibilities: List[OneOfPossibility[Any]], is_required: bool = False
