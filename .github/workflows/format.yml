@@ -1,4 +1,8 @@
 name: format
+
+permissions:
+  contents: read
+
 on:
   push:
     branches:
