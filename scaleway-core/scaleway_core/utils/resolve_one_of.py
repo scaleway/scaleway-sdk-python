@@ -16,6 +16,7 @@ class OneOfPossibility(Generic[T]):
     marshal_func: Optional[Callable[[T, T | None], Dict[str, Any]]] = None
 
 
+
 def resolve_one_of(
     possibilities: List[OneOfPossibility[Any]], is_required: bool = False
 ) -> SupportsKeysAndGetItem[str, Any]:
