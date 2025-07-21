@@ -16,6 +16,8 @@ jobs:
         working-directory: ./docs
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -25,10 +27,6 @@ jobs:
         uses: actions/setup-cache@v4
         with:
           path: ./source
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
       - name: Install dependencies and library
         run: poetry install --no-root
       - name: Generate documentation sources
