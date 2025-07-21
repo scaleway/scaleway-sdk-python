@@ -50,6 +50,7 @@ bad-assignment = false
 bad-return = false
 missing-argument = false
 bad-argument-type = false
+invalid-argument = false
 
 [tool.ty.rules]
 invalid-assignment = "ignore"

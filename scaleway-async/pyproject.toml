@@ -48,3 +48,4 @@ invalid-argument-type = "ignore"
 import-error = false
 missing-argument = false
 bad-argument-type = false
+invalid-argument = false
