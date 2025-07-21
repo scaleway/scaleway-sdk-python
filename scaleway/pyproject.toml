@@ -25,11 +25,14 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.10"
 scaleway-core = "*"
+pyrefly = "^0.24.2"
 
 [tool.poetry.group.dev.dependencies]
 scaleway-core = { path = "../scaleway-core", develop = true }
 ruff = ">=0.5.0,<0.12.5"
 mypy = "^1.5.1"
+ty = "^0.0.1a15"
+pyrefly = "^0.24.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -37,3 +40,19 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff.lint]
 ignore = ["E501"]
+
+[tool.pyrefly.errors]
+missing-attribute = false
+no-access = false
+no-matching-overload = false
+import-error = false
+bad-assignment = false
+bad-return = false
+missing-argument = false
+bad-argument-type = false
+
+[tool.ty.rules]
+invalid-assignment = "ignore"
+invalid-argument-type = "ignore"
+missing-argument = "ignore"
+unresolved-reference = "ignore"
