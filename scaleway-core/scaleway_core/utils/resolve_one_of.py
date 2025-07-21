@@ -1,6 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any, Dict, Generic, List, Optional, TypeVar
+from _typeshed import SupportsKeysAndGetItem
 
 from scaleway_core.profile import ProfileDefaults
 
@@ -17,7 +18,7 @@ class OneOfPossibility(Generic[T]):
 
 def resolve_one_of(
     possibilities: List[OneOfPossibility[Any]], is_required: bool = False
-) -> dict[str, Any] | str | dict[Any, Any]:
+) -> SupportsKeysAndGetItem[str, Any]:
     """
     Resolves the ideal parameter and value amongst an optional list.
     Uses marshal_func if provided.
