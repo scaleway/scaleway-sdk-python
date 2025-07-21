@@ -38,6 +38,7 @@ def resolve_one_of(
     for possibility in possibilities:
         if possibility.default is not None:
             if possibility.marshal_func is not None:
+                # When no actual value, call with None as value
                 return {
                     possibility.param: possibility.marshal_func(
                         None, possibility.default

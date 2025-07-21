@@ -21,14 +21,13 @@ jobs:
         working-directory: ${{ matrix.lib }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
+          cache: "poetry"
       - name: Install dependencies and library
         run: poetry install
       - name: Check format
@@ -47,14 +46,13 @@ jobs:
         working-directory: ${{ matrix.lib }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
+          cache: "poetry"
       - name: Install dependencies and library
         run: poetry install
       - name: Check typing
@@ -73,14 +71,13 @@ jobs:
         working-directory: ${{ matrix.lib }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
+          cache: "poetry"
       - name: Install dependencies and library
         run: poetry install
       # We ignore the following rules for now:
@@ -102,14 +99,13 @@ jobs:
         working-directory: ${{ matrix.lib }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
+          cache: "poetry"
       - name: Install dependencies and library
         run: poetry install
       - name: Run tests
