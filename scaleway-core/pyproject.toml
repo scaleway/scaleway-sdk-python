@@ -48,3 +48,6 @@ not-callable = false
 bad-return = false
 bad-assignment = false
 bad-argument-type = false
+
+[tool.ty.rules]
+unsupported-operator = "ignore"
