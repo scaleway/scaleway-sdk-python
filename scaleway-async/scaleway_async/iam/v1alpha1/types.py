@@ -938,11 +938,6 @@ class User:
     Type of user.
     """
 
-    status: UserStatus
-    """
-    Status of user invitation.
-    """
-
     mfa: bool
     """
     Defines whether MFA is enabled.
@@ -966,6 +961,11 @@ class User:
     two_factor_enabled: Optional[bool]
     """
     Deprecated, use "mfa" instead.
+    """
+
+    status: Optional[UserStatus]
+    """
+    Status of user invitation.
     """
 
 
