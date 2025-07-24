@@ -1097,6 +1097,7 @@ class InstanceV1API(API):
         boot: Optional[bool] = None,
     ) -> AttachServerVolumeResponse:
         """
+        Attach a volume to an Instance.
         :param server_id:
         :param volume_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -1142,6 +1143,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
     ) -> DetachServerVolumeResponse:
         """
+        Detach a volume from an Instance.
         :param server_id:
         :param volume_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -1225,7 +1227,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
     ) -> DetachServerFileSystemResponse:
         """
-        Detach a filesystem volume to an Instance.
+        Detach a filesystem volume from an Instance.
         :param server_id:
         :param filesystem_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
