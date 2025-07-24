@@ -125,6 +125,7 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     LOCKED = "locked"
     MIGRATING = "migrating"
+    UPDATING = "updating"
 
     def __str__(self) -> str:
         return str(self.value)
