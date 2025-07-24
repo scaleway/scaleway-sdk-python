@@ -6,8 +6,11 @@ from dateutil import parser
 
 from .types import (
     AccountOrganizationInfo,
+    AccountProjectInfo,
     AccountUserInfo,
     AppleSiliconServerInfo,
+    BaremetalServerInfo,
+    BaremetalSettingInfo,
     InstanceServerInfo,
     KeyManagerKeyInfo,
     KubernetesACLInfo,
@@ -35,6 +38,21 @@ def unmarshal_AccountOrganizationInfo(data: Any) -> AccountOrganizationInfo:
     args: Dict[str, Any] = {}
 
     return AccountOrganizationInfo(**args)
+
+
+def unmarshal_AccountProjectInfo(data: Any) -> AccountProjectInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AccountProjectInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    return AccountProjectInfo(**args)
 
 
 def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
@@ -75,6 +93,40 @@ def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
         args["name"] = field
 
     return AppleSiliconServerInfo(**args)
+
+
+def unmarshal_BaremetalServerInfo(data: Any) -> BaremetalServerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BaremetalServerInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
+    return BaremetalServerInfo(**args)
+
+
+def unmarshal_BaremetalSettingInfo(data: Any) -> BaremetalSettingInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BaremetalSettingInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    return BaremetalSettingInfo(**args)
 
 
 def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
@@ -343,6 +395,24 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["apple_silicon_server_info"] = unmarshal_AppleSiliconServerInfo(field)
     else:
         args["apple_silicon_server_info"] = None
+
+    field = data.get("account_project_info", None)
+    if field is not None:
+        args["account_project_info"] = unmarshal_AccountProjectInfo(field)
+    else:
+        args["account_project_info"] = None
+
+    field = data.get("baremetal_server_info", None)
+    if field is not None:
+        args["baremetal_server_info"] = unmarshal_BaremetalServerInfo(field)
+    else:
+        args["baremetal_server_info"] = None
+
+    field = data.get("baremetal_setting_info", None)
+    if field is not None:
+        args["baremetal_setting_info"] = unmarshal_BaremetalSettingInfo(field)
+    else:
+        args["baremetal_setting_info"] = None
 
     return Resource(**args)
 

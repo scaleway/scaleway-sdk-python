@@ -44,8 +44,11 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     KEY_MANAGER_KEY = "key_manager_key"
     ACCOUNT_USER = "account_user"
     ACCOUNT_ORGANIZATION = "account_organization"
+    ACCOUNT_PROJECT = "account_project"
     INSTANCE_SERVER = "instance_server"
     APPLE_SILICON_SERVER = "apple_silicon_server"
+    BAREMETAL_SERVER = "baremetal_server"
+    BAREMETAL_SETTING = "baremetal_setting"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -54,6 +57,11 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class AccountOrganizationInfo:
     pass
+
+
+@dataclass
+class AccountProjectInfo:
+    description: str
 
 
 @dataclass
@@ -68,6 +76,18 @@ class AppleSiliconServerInfo:
     id: str
 
     name: str
+
+
+@dataclass
+class BaremetalServerInfo:
+    description: str
+
+    tags: List[str]
+
+
+@dataclass
+class BaremetalSettingInfo:
+    type_: str
 
 
 @dataclass
@@ -162,6 +182,12 @@ class Resource:
     instance_server_info: Optional[InstanceServerInfo]
 
     apple_silicon_server_info: Optional[AppleSiliconServerInfo]
+
+    account_project_info: Optional[AccountProjectInfo]
+
+    baremetal_server_info: Optional[BaremetalServerInfo]
+
+    baremetal_setting_info: Optional[BaremetalSettingInfo]
 
 
 @dataclass
