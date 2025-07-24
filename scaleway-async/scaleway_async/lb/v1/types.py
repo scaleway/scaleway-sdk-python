@@ -936,7 +936,7 @@ class Frontend:
 
     enable_access_logs: bool
     """
-    Defines wether to enable access logs on the frontend.
+    Defines whether to enable access logs on the frontend.
     """
 
     certificate: Optional[Certificate]
@@ -1070,7 +1070,7 @@ class Acl:
 
     match: Optional[AclMatch]
     """
-    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
+    ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
     action: Optional[AclAction]
@@ -1218,7 +1218,7 @@ class AclSpec:
 
     match: Optional[AclMatch]
     """
-    ACL match filter object. One of `ip_subnet` or `http_filter` and `http_filter_value` are required.
+    ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` and `http_filter_value` are required.
     """
 
 
@@ -1307,7 +1307,7 @@ class CreateAclRequest:
 
     match: Optional[AclMatch]
     """
-    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
+    ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
 
@@ -1475,7 +1475,7 @@ class CreateFrontendRequest:
 
     enable_access_logs: bool
     """
-    Defines wether to enable access logs on the frontend.
+    Defines whether to enable access logs on the frontend.
     """
 
     region: Optional[ScwRegion]
@@ -2530,7 +2530,7 @@ class UpdateAclRequest:
 
     match: Optional[AclMatch]
     """
-    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
+    ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
     description: Optional[str]
@@ -2719,7 +2719,7 @@ class UpdateFrontendRequest:
 
     enable_access_logs: Optional[bool]
     """
-    Defines wether to enable access logs on the frontend.
+    Defines whether to enable access logs on the frontend.
     """
 
 
@@ -2971,7 +2971,7 @@ class ZonedApiCreateAclRequest:
 
     match: Optional[AclMatch]
     """
-    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
+    ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
 
@@ -3139,7 +3139,7 @@ class ZonedApiCreateFrontendRequest:
 
     enable_access_logs: bool
     """
-    Defines wether to enable access logs on the frontend.
+    Defines whether to enable access logs on the frontend.
     """
 
     zone: Optional[ScwZone]
@@ -4048,7 +4048,7 @@ class ZonedApiUpdateAclRequest:
 
     match: Optional[AclMatch]
     """
-    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
+    ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
     description: Optional[str]
@@ -4237,7 +4237,7 @@ class ZonedApiUpdateFrontendRequest:
 
     enable_access_logs: Optional[bool]
     """
-    Defines wether to enable access logs on the frontend.
+    Defines whether to enable access logs on the frontend.
     """
 
 
