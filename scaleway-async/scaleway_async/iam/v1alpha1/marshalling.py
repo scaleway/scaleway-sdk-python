@@ -710,10 +710,6 @@ def unmarshal_User(data: Any) -> User:
     if field is not None:
         args["type_"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
     field = data.get("mfa", None)
     if field is not None:
         args["mfa"] = field
@@ -735,6 +731,12 @@ def unmarshal_User(data: Any) -> User:
         args["two_factor_enabled"] = field
     else:
         args["two_factor_enabled"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = None
 
     return User(**args)
 
