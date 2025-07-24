@@ -24,6 +24,7 @@ HOSTING_TRANSIENT_STATUSES: List[HostingStatus] = [
     HostingStatus.DELIVERING,
     HostingStatus.DELETING,
     HostingStatus.MIGRATING,
+    HostingStatus.UPDATING,
 ]
 """
 Lists transient statutes of the enum :class:`HostingStatus <HostingStatus>`.
