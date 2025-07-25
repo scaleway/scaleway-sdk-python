@@ -37,7 +37,11 @@ typing:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
 		poetry run mypy --version && \
-		poetry run mypy --install-types --non-interactive --strict $$(echo $$lib | tr "-" "_"); \
+		poetry run mypy --install-types --non-interactive --strict $$(echo $$lib | tr "-" "_") && \
+		poetry run ty version && \
+		poetry run ty check && \
+		poetry run pyrefly --version && \
+		poetry run pyrefly check; \
 	done
 
 lint:

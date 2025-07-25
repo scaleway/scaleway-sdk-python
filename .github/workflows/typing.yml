@@ -36,3 +36,55 @@ jobs:
         run: poetry install
       - name: Check typing
         run: poetry run mypy --install-types --non-interactive --strict --no-warn-unused-ignores $(echo "${{ matrix.lib }}" | tr "-" "_")
+
+  ty:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lib:
+          - scaleway-core
+          - scaleway
+          - scaleway-async
+        python-version: [ '3.10' ,'3.11', '3.12', '3.13' ]
+    defaults:
+      run:
+        working-directory: ${{ matrix.lib }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "poetry"
+      - name: Install dependencies and library
+        run: poetry install
+      - name: Check typing
+        run: poetry run ty check
+
+  pyrefly:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lib:
+          - scaleway-core
+          - scaleway
+          - scaleway-async
+        python-version: [ '3.10' ,'3.11', '3.12', '3.13' ]
+    defaults:
+      run:
+        working-directory: ${{ matrix.lib }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "poetry"
+      - name: Install dependencies and library
+        run: poetry install
+      - name: Check typing with pyrefly
+        run: poetry run pyrefly check
