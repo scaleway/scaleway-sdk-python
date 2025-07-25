@@ -12,6 +12,7 @@ from .types import PublicCatalogProductPropertiesHardwareNetwork
 from .types import PublicCatalogProductPropertiesHardwareRAM
 from .types import PublicCatalogProductPropertiesHardwareStorage
 from .types import PublicCatalogProductPropertiesAppleSilicon
+from .types import PublicCatalogProductPropertiesBlockStorage
 from .types import PublicCatalogProductPropertiesDedibox
 from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesHardware
@@ -39,6 +40,7 @@ __all__ = [
     "PublicCatalogProductPropertiesHardwareRAM",
     "PublicCatalogProductPropertiesHardwareStorage",
     "PublicCatalogProductPropertiesAppleSilicon",
+    "PublicCatalogProductPropertiesBlockStorage",
     "PublicCatalogProductPropertiesDedibox",
     "PublicCatalogProductPropertiesElasticMetal",
     "PublicCatalogProductPropertiesHardware",

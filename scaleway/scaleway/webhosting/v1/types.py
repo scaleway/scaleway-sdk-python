@@ -125,6 +125,7 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     LOCKED = "locked"
     MIGRATING = "migrating"
+    UPDATING = "updating"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1131,6 +1132,11 @@ class Domain:
     owner: DomainZoneOwner
     """
     Zone owner of the domain.
+    """
+
+    zone_domain_name: str
+    """
+    Main domain for this zone.
     """
 
     available_actions: List[DomainAction]

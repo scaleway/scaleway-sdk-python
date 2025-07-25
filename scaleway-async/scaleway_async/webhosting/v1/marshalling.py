@@ -320,6 +320,10 @@ def unmarshal_Domain(data: Any) -> Domain:
     if field is not None:
         args["owner"] = field
 
+    field = data.get("zone_domain_name", None)
+    if field is not None:
+        args["zone_domain_name"] = field
+
     field = data.get("available_actions", None)
     if field is not None:
         args["available_actions"] = (

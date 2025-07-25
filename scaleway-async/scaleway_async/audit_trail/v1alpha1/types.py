@@ -44,7 +44,11 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     KEY_MANAGER_KEY = "key_manager_key"
     ACCOUNT_USER = "account_user"
     ACCOUNT_ORGANIZATION = "account_organization"
+    ACCOUNT_PROJECT = "account_project"
     INSTANCE_SERVER = "instance_server"
+    APPLE_SILICON_SERVER = "apple_silicon_server"
+    BAREMETAL_SERVER = "baremetal_server"
+    BAREMETAL_SETTING = "baremetal_setting"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -56,10 +60,34 @@ class AccountOrganizationInfo:
 
 
 @dataclass
+class AccountProjectInfo:
+    description: str
+
+
+@dataclass
 class AccountUserInfo:
     email: str
 
     phone_number: Optional[str]
+
+
+@dataclass
+class AppleSiliconServerInfo:
+    id: str
+
+    name: str
+
+
+@dataclass
+class BaremetalServerInfo:
+    description: str
+
+    tags: List[str]
+
+
+@dataclass
+class BaremetalSettingInfo:
+    type_: str
 
 
 @dataclass
@@ -153,6 +181,14 @@ class Resource:
 
     instance_server_info: Optional[InstanceServerInfo]
 
+    apple_silicon_server_info: Optional[AppleSiliconServerInfo]
+
+    account_project_info: Optional[AccountProjectInfo]
+
+    baremetal_server_info: Optional[BaremetalServerInfo]
+
+    baremetal_setting_info: Optional[BaremetalSettingInfo]
+
 
 @dataclass
 class ProductService:
@@ -183,6 +219,11 @@ class Event:
     IP address at the origin of the event.
     """
 
+    product_name: str
+    """
+    Product name of the resource attached to the event.
+    """
+
     recorded_at: Optional[datetime]
     """
     Timestamp of the event.
@@ -201,11 +242,6 @@ class Event:
     user_agent: Optional[str]
     """
     User Agent at the origin of the event.
-    """
-
-    product_name: str
-    """
-    Product name of the resource attached to the event.
     """
 
     service_name: str
@@ -231,11 +267,6 @@ class Event:
     status_code: int
     """
     HTTP status code resulting of the API call.
-    """
-
-    resource: Optional[Resource]
-    """
-    Resource attached to the event.
     """
 
     request_body: Optional[Dict[str, Any]]

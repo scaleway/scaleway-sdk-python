@@ -22,13 +22,17 @@ from .types import (
     SchemaZFS,
     Schema,
     IP,
-    OSOSField,
-    OS,
     CertificationOption,
     LicenseOption,
     PrivateNetworkOption,
     PublicBandwidthOption,
     RemoteAccessOption,
+    ServerInstall,
+    ServerOption,
+    ServerRescueServer,
+    Server,
+    OSOSField,
+    OS,
     CPU,
     Disk,
     GPU,
@@ -39,10 +43,6 @@ from .types import (
     Offer,
     Option,
     ServerPrivateNetwork,
-    ServerInstall,
-    ServerOption,
-    ServerRescueServer,
-    Server,
     Setting,
     BMCAccess,
     GetServerMetricsResponse,
@@ -55,9 +55,9 @@ from .types import (
     ListServersResponse,
     ListSettingsResponse,
     SetServerPrivateNetworksResponse,
-    AddOptionServerRequest,
     CreateServerRequestInstall,
     CreateServerRequest,
+    AddOptionServerRequest,
     InstallServerRequest,
     PrivateNetworkApiAddServerPrivateNetworkRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
@@ -285,6 +285,301 @@ def unmarshal_IP(data: Any) -> IP:
     return IP(**args)
 
 
+def unmarshal_CertificationOption(data: Any) -> CertificationOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CertificationOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return CertificationOption(**args)
+
+
+def unmarshal_LicenseOption(data: Any) -> LicenseOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LicenseOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("os_id", None)
+    if field is not None:
+        args["os_id"] = field
+
+    return LicenseOption(**args)
+
+
+def unmarshal_PrivateNetworkOption(data: Any) -> PrivateNetworkOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PrivateNetworkOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("bandwidth_in_bps", None)
+    if field is not None:
+        args["bandwidth_in_bps"] = field
+
+    return PrivateNetworkOption(**args)
+
+
+def unmarshal_PublicBandwidthOption(data: Any) -> PublicBandwidthOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicBandwidthOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("bandwidth_in_bps", None)
+    if field is not None:
+        args["bandwidth_in_bps"] = field
+
+    return PublicBandwidthOption(**args)
+
+
+def unmarshal_RemoteAccessOption(data: Any) -> RemoteAccessOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RemoteAccessOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return RemoteAccessOption(**args)
+
+
+def unmarshal_ServerInstall(data: Any) -> ServerInstall:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerInstall' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("os_id", None)
+    if field is not None:
+        args["os_id"] = field
+
+    field = data.get("hostname", None)
+    if field is not None:
+        args["hostname"] = field
+
+    field = data.get("ssh_key_ids", None)
+    if field is not None:
+        args["ssh_key_ids"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("user", None)
+    if field is not None:
+        args["user"] = field
+
+    field = data.get("service_user", None)
+    if field is not None:
+        args["service_user"] = field
+
+    field = data.get("service_url", None)
+    if field is not None:
+        args["service_url"] = field
+
+    field = data.get("partitioning_schema", None)
+    if field is not None:
+        args["partitioning_schema"] = unmarshal_Schema(field)
+    else:
+        args["partitioning_schema"] = None
+
+    return ServerInstall(**args)
+
+
+def unmarshal_ServerOption(data: Any) -> ServerOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("manageable", None)
+    if field is not None:
+        args["manageable"] = field
+
+    field = data.get("expires_at", None)
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
+
+    field = data.get("license", None)
+    if field is not None:
+        args["license"] = unmarshal_LicenseOption(field)
+    else:
+        args["license"] = None
+
+    field = data.get("public_bandwidth", None)
+    if field is not None:
+        args["public_bandwidth"] = unmarshal_PublicBandwidthOption(field)
+    else:
+        args["public_bandwidth"] = None
+
+    field = data.get("private_network", None)
+    if field is not None:
+        args["private_network"] = unmarshal_PrivateNetworkOption(field)
+    else:
+        args["private_network"] = None
+
+    field = data.get("remote_access", None)
+    if field is not None:
+        args["remote_access"] = unmarshal_RemoteAccessOption(field)
+    else:
+        args["remote_access"] = None
+
+    field = data.get("certification", None)
+    if field is not None:
+        args["certification"] = unmarshal_CertificationOption(field)
+    else:
+        args["certification"] = None
+
+    return ServerOption(**args)
+
+
+def unmarshal_ServerRescueServer(data: Any) -> ServerRescueServer:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerRescueServer' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("user", None)
+    if field is not None:
+        args["user"] = field
+
+    field = data.get("password", None)
+    if field is not None:
+        args["password"] = field
+
+    return ServerRescueServer(**args)
+
+
+def unmarshal_Server(data: Any) -> Server:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Server' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("offer_id", None)
+    if field is not None:
+        args["offer_id"] = field
+
+    field = data.get("offer_name", None)
+    if field is not None:
+        args["offer_name"] = field
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
+    field = data.get("ips", None)
+    if field is not None:
+        args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
+
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+
+    field = data.get("boot_type", None)
+    if field is not None:
+        args["boot_type"] = field
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+
+    field = data.get("ping_status", None)
+    if field is not None:
+        args["ping_status"] = field
+
+    field = data.get("options", None)
+    if field is not None:
+        args["options"] = (
+            [unmarshal_ServerOption(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("protected", None)
+    if field is not None:
+        args["protected"] = field
+
+    field = data.get("install", None)
+    if field is not None:
+        args["install"] = unmarshal_ServerInstall(field)
+    else:
+        args["install"] = None
+
+    field = data.get("rescue_server", None)
+    if field is not None:
+        args["rescue_server"] = unmarshal_ServerRescueServer(field)
+    else:
+        args["rescue_server"] = None
+
+    return Server(**args)
+
+
 def unmarshal_OSOSField(data: Any) -> OSOSField:
     if not isinstance(data, dict):
         raise TypeError(
@@ -381,73 +676,6 @@ def unmarshal_OS(data: Any) -> OS:
         args["custom_partitioning_supported"] = field
 
     return OS(**args)
-
-
-def unmarshal_CertificationOption(data: Any) -> CertificationOption:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'CertificationOption' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    return CertificationOption(**args)
-
-
-def unmarshal_LicenseOption(data: Any) -> LicenseOption:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'LicenseOption' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("os_id", None)
-    if field is not None:
-        args["os_id"] = field
-
-    return LicenseOption(**args)
-
-
-def unmarshal_PrivateNetworkOption(data: Any) -> PrivateNetworkOption:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'PrivateNetworkOption' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("bandwidth_in_bps", None)
-    if field is not None:
-        args["bandwidth_in_bps"] = field
-
-    return PrivateNetworkOption(**args)
-
-
-def unmarshal_PublicBandwidthOption(data: Any) -> PublicBandwidthOption:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'PublicBandwidthOption' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("bandwidth_in_bps", None)
-    if field is not None:
-        args["bandwidth_in_bps"] = field
-
-    return PublicBandwidthOption(**args)
-
-
-def unmarshal_RemoteAccessOption(data: Any) -> RemoteAccessOption:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'RemoteAccessOption' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    return RemoteAccessOption(**args)
 
 
 def unmarshal_CPU(data: Any) -> CPU:
@@ -896,230 +1124,6 @@ def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
     return ServerPrivateNetwork(**args)
 
 
-def unmarshal_ServerInstall(data: Any) -> ServerInstall:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ServerInstall' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("os_id", None)
-    if field is not None:
-        args["os_id"] = field
-
-    field = data.get("hostname", None)
-    if field is not None:
-        args["hostname"] = field
-
-    field = data.get("ssh_key_ids", None)
-    if field is not None:
-        args["ssh_key_ids"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
-    field = data.get("user", None)
-    if field is not None:
-        args["user"] = field
-
-    field = data.get("service_user", None)
-    if field is not None:
-        args["service_user"] = field
-
-    field = data.get("service_url", None)
-    if field is not None:
-        args["service_url"] = field
-
-    field = data.get("partitioning_schema", None)
-    if field is not None:
-        args["partitioning_schema"] = unmarshal_Schema(field)
-    else:
-        args["partitioning_schema"] = None
-
-    return ServerInstall(**args)
-
-
-def unmarshal_ServerOption(data: Any) -> ServerOption:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ServerOption' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
-    field = data.get("manageable", None)
-    if field is not None:
-        args["manageable"] = field
-
-    field = data.get("expires_at", None)
-    if field is not None:
-        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["expires_at"] = None
-
-    field = data.get("license", None)
-    if field is not None:
-        args["license"] = unmarshal_LicenseOption(field)
-    else:
-        args["license"] = None
-
-    field = data.get("public_bandwidth", None)
-    if field is not None:
-        args["public_bandwidth"] = unmarshal_PublicBandwidthOption(field)
-    else:
-        args["public_bandwidth"] = None
-
-    field = data.get("private_network", None)
-    if field is not None:
-        args["private_network"] = unmarshal_PrivateNetworkOption(field)
-    else:
-        args["private_network"] = None
-
-    field = data.get("remote_access", None)
-    if field is not None:
-        args["remote_access"] = unmarshal_RemoteAccessOption(field)
-    else:
-        args["remote_access"] = None
-
-    field = data.get("certification", None)
-    if field is not None:
-        args["certification"] = unmarshal_CertificationOption(field)
-    else:
-        args["certification"] = None
-
-    return ServerOption(**args)
-
-
-def unmarshal_ServerRescueServer(data: Any) -> ServerRescueServer:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ServerRescueServer' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("user", None)
-    if field is not None:
-        args["user"] = field
-
-    field = data.get("password", None)
-    if field is not None:
-        args["password"] = field
-
-    return ServerRescueServer(**args)
-
-
-def unmarshal_Server(data: Any) -> Server:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Server' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("offer_id", None)
-    if field is not None:
-        args["offer_id"] = field
-
-    field = data.get("offer_name", None)
-    if field is not None:
-        args["offer_name"] = field
-
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-
-    field = data.get("ips", None)
-    if field is not None:
-        args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
-
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-
-    field = data.get("boot_type", None)
-    if field is not None:
-        args["boot_type"] = field
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-
-    field = data.get("ping_status", None)
-    if field is not None:
-        args["ping_status"] = field
-
-    field = data.get("options", None)
-    if field is not None:
-        args["options"] = (
-            [unmarshal_ServerOption(v) for v in field] if field is not None else None
-        )
-
-    field = data.get("install", None)
-    if field is not None:
-        args["install"] = unmarshal_ServerInstall(field)
-    else:
-        args["install"] = None
-
-    field = data.get("rescue_server", None)
-    if field is not None:
-        args["rescue_server"] = unmarshal_ServerRescueServer(field)
-    else:
-        args["rescue_server"] = None
-
-    return Server(**args)
-
-
 def unmarshal_Setting(data: Any) -> Setting:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1394,18 +1398,6 @@ def unmarshal_SetServerPrivateNetworksResponse(
     return SetServerPrivateNetworksResponse(**args)
 
 
-def marshal_AddOptionServerRequest(
-    request: AddOptionServerRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.expires_at is not None:
-        output["expires_at"] = request.expires_at.isoformat()
-
-    return output
-
-
 def marshal_SchemaPartition(
     request: SchemaPartition,
     defaults: ProfileDefaults,
@@ -1603,6 +1595,9 @@ def marshal_CreateServerRequest(
     if request.description is not None:
         output["description"] = request.description
 
+    if request.protected is not None:
+        output["protected"] = request.protected
+
     if request.tags is not None:
         output["tags"] = request.tags
 
@@ -1613,6 +1608,18 @@ def marshal_CreateServerRequest(
 
     if request.option_ids is not None:
         output["option_ids"] = request.option_ids
+
+    return output
+
+
+def marshal_AddOptionServerRequest(
+    request: AddOptionServerRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 
@@ -1738,6 +1745,9 @@ def marshal_UpdateServerRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.protected is not None:
+        output["protected"] = request.protected
 
     return output
 

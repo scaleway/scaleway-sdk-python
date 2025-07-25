@@ -545,7 +545,7 @@ class InstanceV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
         :param name: Instance name.
-        :param dynamic_ip_required: Define if a dynamic IPv4 is required for the Instance.
+        :param dynamic_ip_required: By default, `dynamic_ip_required` is true, a dynamic ip is attached to the instance (if no flexible ip is already attached).
         :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
         :param image: Instance image ID or label.
         :param volumes: Volumes attached to the server.
@@ -1097,6 +1097,7 @@ class InstanceV1API(API):
         boot: Optional[bool] = None,
     ) -> AttachServerVolumeResponse:
         """
+        Attach a volume to an Instance.
         :param server_id:
         :param volume_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -1142,6 +1143,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
     ) -> DetachServerVolumeResponse:
         """
+        Detach a volume from an Instance.
         :param server_id:
         :param volume_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -1225,7 +1227,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
     ) -> DetachServerFileSystemResponse:
         """
-        Detach a filesystem volume to an Instance.
+        Detach a filesystem volume from an Instance.
         :param server_id:
         :param filesystem_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.

@@ -13,6 +13,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     AlertState,
+    AlertStatus,
     DataSourceOrigin,
     DataSourceType,
     GrafanaUserRole,
@@ -29,6 +30,7 @@ from .types import (
     DisableAlertRulesResponse,
     EnableAlertRulesResponse,
     GetConfigResponse,
+    GetRulesCountResponse,
     GlobalApiCreateGrafanaUserRequest,
     GlobalApiResetGrafanaUserPasswordRequest,
     GlobalApiSelectPlanRequest,
@@ -71,6 +73,7 @@ from .marshalling import (
     unmarshal_DisableAlertRulesResponse,
     unmarshal_EnableAlertRulesResponse,
     unmarshal_GetConfigResponse,
+    unmarshal_GetRulesCountResponse,
     unmarshal_Grafana,
     unmarshal_ListAlertsResponse,
     unmarshal_ListContactPointsResponse,
@@ -1228,6 +1231,39 @@ class CockpitV1RegionalAPI(API):
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
 
+    async def get_rules_count(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> GetRulesCountResponse:
+        """
+        Get a detailed count of enabled rules in the specified Project. Includes preconfigured and custom alerting and recording rules.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to retrieve the rule count for.
+        :return: :class:`GetRulesCountResponse <GetRulesCountResponse>`
+
+        Usage:
+        ::
+
+            result = await api.get_rules_count()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/rules/count",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetRulesCountResponse(res.json())
+
     async def create_contact_point(
         self,
         *,
@@ -1438,7 +1474,7 @@ class CockpitV1RegionalAPI(API):
         *,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        is_enabled: Optional[bool] = None,
+        rule_status: Optional[AlertStatus] = None,
         is_preconfigured: Optional[bool] = None,
         state: Optional[AlertState] = None,
         data_source_id: Optional[str] = None,
@@ -1448,7 +1484,7 @@ class CockpitV1RegionalAPI(API):
         List preconfigured and/or custom alerts for the specified Project and data source.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project ID to filter for, only alerts from this Project will be returned.
-        :param is_enabled: True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
+        :param rule_status: Returns only alerts with the given activation status. If omitted, no alert filtering is applied. Other filters may still apply.
         :param is_preconfigured: True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
         :param state: Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
         :param data_source_id: If omitted, only alerts from the default Scaleway metrics data source will be listed.
@@ -1469,9 +1505,9 @@ class CockpitV1RegionalAPI(API):
             f"/cockpit/v1/regions/{param_region}/alerts",
             params={
                 "data_source_id": data_source_id,
-                "is_enabled": is_enabled,
                 "is_preconfigured": is_preconfigured,
                 "project_id": project_id or self.client.default_project_id,
+                "rule_status": rule_status,
                 "state": state,
             },
         )

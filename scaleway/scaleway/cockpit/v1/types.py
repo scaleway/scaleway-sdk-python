@@ -25,6 +25,17 @@ class AlertState(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class AlertStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    ENABLED = "enabled"
+    DISABLED = "disabled"
+    ENABLING = "enabling"
+    DISABLING = "disabling"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DataSourceOrigin(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ORIGIN = "unknown_origin"
     SCALEWAY = "scaleway"
@@ -174,6 +185,24 @@ class GetConfigResponseRetention:
 
 
 @dataclass
+class RulesCount:
+    data_source_id: str
+    """
+    ID of the data source.
+    """
+
+    data_source_name: str
+    """
+    Name of the data source.
+    """
+
+    rules_count: int
+    """
+    Total count of rules associated with this data source.
+    """
+
+
+@dataclass
 class Alert:
     """
     Structure representing an alert.
@@ -204,9 +233,9 @@ class Alert:
     Duration for which the alert must be active before firing. The format of this duration follows the prometheus duration format.
     """
 
-    enabled: bool
+    rule_status: AlertStatus
     """
-    Indicates if the alert is enabled or disabled. Only preconfigured alerts can be disabled.
+    Indicates if the alert is enabled, enabling, disabled or disabling. Preconfigured alerts can have any of these values, whereas custom alerts can only have the status "enabled".
     """
 
     annotations: Dict[str, str]
@@ -591,6 +620,24 @@ class GetConfigResponse:
     product_logs_retention: Optional[GetConfigResponseRetention]
     """
     Scaleway logs retention configuration.
+    """
+
+
+@dataclass
+class GetRulesCountResponse:
+    rules_count_by_datasource: List[RulesCount]
+    """
+    Total count of rules grouped by data source.
+    """
+
+    preconfigured_rules_count: int
+    """
+    Total count of preconfigured rules.
+    """
+
+    custom_rules_count: int
+    """
+    Total count of custom rules.
     """
 
 
@@ -1221,6 +1268,19 @@ class RegionalApiGetDataSourceRequest:
 
 
 @dataclass
+class RegionalApiGetRulesCountRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to retrieve the rule count for.
+    """
+
+
+@dataclass
 class RegionalApiGetTokenRequest:
     """
     Get a token.
@@ -1265,9 +1325,9 @@ class RegionalApiListAlertsRequest:
     Project ID to filter for, only alerts from this Project will be returned.
     """
 
-    is_enabled: Optional[bool]
+    rule_status: Optional[AlertStatus]
     """
-    True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
+    Returns only alerts with the given activation status. If omitted, no alert filtering is applied. Other filters may still apply.
     """
 
     is_preconfigured: Optional[bool]

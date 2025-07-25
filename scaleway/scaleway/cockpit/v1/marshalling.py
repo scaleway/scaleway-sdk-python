@@ -23,6 +23,8 @@ from .types import (
     EnableAlertRulesResponse,
     GetConfigResponseRetention,
     GetConfigResponse,
+    RulesCount,
+    GetRulesCountResponse,
     Grafana,
     PreconfiguredAlertData,
     Alert,
@@ -435,6 +437,54 @@ def unmarshal_GetConfigResponse(data: Any) -> GetConfigResponse:
     return GetConfigResponse(**args)
 
 
+def unmarshal_RulesCount(data: Any) -> RulesCount:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RulesCount' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("data_source_id", None)
+    if field is not None:
+        args["data_source_id"] = field
+
+    field = data.get("data_source_name", None)
+    if field is not None:
+        args["data_source_name"] = field
+
+    field = data.get("rules_count", None)
+    if field is not None:
+        args["rules_count"] = field
+
+    return RulesCount(**args)
+
+
+def unmarshal_GetRulesCountResponse(data: Any) -> GetRulesCountResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetRulesCountResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("rules_count_by_datasource", None)
+    if field is not None:
+        args["rules_count_by_datasource"] = (
+            [unmarshal_RulesCount(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("preconfigured_rules_count", None)
+    if field is not None:
+        args["preconfigured_rules_count"] = field
+
+    field = data.get("custom_rules_count", None)
+    if field is not None:
+        args["custom_rules_count"] = field
+
+    return GetRulesCountResponse(**args)
+
+
 def unmarshal_Grafana(data: Any) -> Grafana:
     if not isinstance(data, dict):
         raise TypeError(
@@ -509,9 +559,9 @@ def unmarshal_Alert(data: Any) -> Alert:
     if field is not None:
         args["duration"] = field
 
-    field = data.get("enabled", None)
+    field = data.get("rule_status", None)
     if field is not None:
-        args["enabled"] = field
+        args["rule_status"] = field
 
     field = data.get("annotations", None)
     if field is not None:

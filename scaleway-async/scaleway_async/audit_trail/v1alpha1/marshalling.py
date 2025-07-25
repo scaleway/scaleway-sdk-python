@@ -6,7 +6,11 @@ from dateutil import parser
 
 from .types import (
     AccountOrganizationInfo,
+    AccountProjectInfo,
     AccountUserInfo,
+    AppleSiliconServerInfo,
+    BaremetalServerInfo,
+    BaremetalSettingInfo,
     InstanceServerInfo,
     KeyManagerKeyInfo,
     KubernetesACLInfo,
@@ -36,6 +40,21 @@ def unmarshal_AccountOrganizationInfo(data: Any) -> AccountOrganizationInfo:
     return AccountOrganizationInfo(**args)
 
 
+def unmarshal_AccountProjectInfo(data: Any) -> AccountProjectInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AccountProjectInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    return AccountProjectInfo(**args)
+
+
 def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -55,6 +74,59 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
         args["phone_number"] = None
 
     return AccountUserInfo(**args)
+
+
+def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AppleSiliconServerInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    return AppleSiliconServerInfo(**args)
+
+
+def unmarshal_BaremetalServerInfo(data: Any) -> BaremetalServerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BaremetalServerInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
+    return BaremetalServerInfo(**args)
+
+
+def unmarshal_BaremetalSettingInfo(data: Any) -> BaremetalSettingInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BaremetalSettingInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    return BaremetalSettingInfo(**args)
 
 
 def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
@@ -318,6 +390,30 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["instance_server_info"] = None
 
+    field = data.get("apple_silicon_server_info", None)
+    if field is not None:
+        args["apple_silicon_server_info"] = unmarshal_AppleSiliconServerInfo(field)
+    else:
+        args["apple_silicon_server_info"] = None
+
+    field = data.get("account_project_info", None)
+    if field is not None:
+        args["account_project_info"] = unmarshal_AccountProjectInfo(field)
+    else:
+        args["account_project_info"] = None
+
+    field = data.get("baremetal_server_info", None)
+    if field is not None:
+        args["baremetal_server_info"] = unmarshal_BaremetalServerInfo(field)
+    else:
+        args["baremetal_server_info"] = None
+
+    field = data.get("baremetal_setting_info", None)
+    if field is not None:
+        args["baremetal_setting_info"] = unmarshal_BaremetalSettingInfo(field)
+    else:
+        args["baremetal_setting_info"] = None
+
     return Resource(**args)
 
 
@@ -345,6 +441,10 @@ def unmarshal_Event(data: Any) -> Event:
     if field is not None:
         args["source_ip"] = field
 
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+
     field = data.get("recorded_at", None)
     if field is not None:
         args["recorded_at"] = (
@@ -371,10 +471,6 @@ def unmarshal_Event(data: Any) -> Event:
     else:
         args["user_agent"] = None
 
-    field = data.get("product_name", None)
-    if field is not None:
-        args["product_name"] = field
-
     field = data.get("service_name", None)
     if field is not None:
         args["service_name"] = field
@@ -396,12 +492,6 @@ def unmarshal_Event(data: Any) -> Event:
     field = data.get("status_code", None)
     if field is not None:
         args["status_code"] = field
-
-    field = data.get("resource", None)
-    if field is not None:
-        args["resource"] = unmarshal_Resource(field)
-    else:
-        args["resource"] = None
 
     field = data.get("request_body", None)
     if field is not None:

@@ -1,4 +1,4 @@
-name: Tests
+name: Check linters
 
 permissions:
   contents: read
@@ -11,7 +11,7 @@ on:
   merge_group:
 
 jobs:
-  tests:
+  ruff:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,12 +34,8 @@ jobs:
           cache: "poetry"
       - name: Install dependencies and library
         run: poetry install
-      - name: Run tests
-        env:
-          SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
-          SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
-          SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
-          SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
-          SCW_DEFAULT_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
-        run: poetry run python -m unittest discover -s tests -v
-       
+      # We ignore the following rules for now:
+      #   E721 (https://docs.astral.sh/ruff/rules/type-comparison)
+      #   F541 (https://docs.astral.sh/ruff/rules/f-string-missing-placeholders)
+      - name: Check linting
+        run: poetry run ruff check . --ignore E721 --ignore F541

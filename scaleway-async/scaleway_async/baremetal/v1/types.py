@@ -272,6 +272,17 @@ class SchemaZFS:
 
 
 @dataclass
+class Schema:
+    disks: List[SchemaDisk]
+
+    raids: List[SchemaRAID]
+
+    filesystems: List[SchemaFilesystem]
+
+    zfs: Optional[SchemaZFS]
+
+
+@dataclass
 class CertificationOption:
     pass
 
@@ -297,14 +308,173 @@ class RemoteAccessOption:
 
 
 @dataclass
-class Schema:
-    disks: List[SchemaDisk]
+class CreateServerRequestInstall:
+    os_id: str
+    """
+    ID of the OS to installation on the server.
+    """
 
-    raids: List[SchemaRAID]
+    hostname: str
+    """
+    Hostname of the server.
+    """
 
-    filesystems: List[SchemaFilesystem]
+    ssh_key_ids: List[str]
+    """
+    SSH key IDs authorized on the server.
+    """
 
-    zfs: Optional[SchemaZFS]
+    user: Optional[str]
+    """
+    User for the installation.
+    """
+
+    password: Optional[str]
+    """
+    Password for the installation.
+    """
+
+    service_user: Optional[str]
+    """
+    Regular user that runs the service to be installed on the server.
+    """
+
+    service_password: Optional[str]
+    """
+    Password used for the service to install.
+    """
+
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
+    """
+
+
+@dataclass
+class IP:
+    id: str
+    """
+    ID of the IP.
+    """
+
+    address: str
+    """
+    Address of the IP.
+    """
+
+    reverse: str
+    """
+    Reverse IP value.
+    """
+
+    version: IPVersion
+    """
+    Version of IP (v4 or v6).
+    """
+
+    reverse_status: IPReverseStatus
+    """
+    Status of the reverse.
+    """
+
+    reverse_status_message: str
+    """
+    A message related to the reverse status, e.g. in case of an error.
+    """
+
+
+@dataclass
+class ServerInstall:
+    os_id: str
+    """
+    ID of the OS.
+    """
+
+    hostname: str
+    """
+    Host defined during the server installation.
+    """
+
+    ssh_key_ids: List[str]
+    """
+    SSH public key IDs defined during server installation.
+    """
+
+    status: ServerInstallStatus
+    """
+    Status of the server installation.
+    """
+
+    user: str
+    """
+    User defined in the server installation, or the default user if none were specified.
+    """
+
+    service_user: str
+    """
+    Service user defined in the server installation, or the default user if none were specified.
+    """
+
+    service_url: str
+    """
+    Address of the installed service.
+    """
+
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
+    """
+
+
+@dataclass
+class ServerOption:
+    id: str
+    """
+    ID of the option.
+    """
+
+    name: str
+    """
+    Name of the option.
+    """
+
+    status: ServerOptionOptionStatus
+    """
+    Status of the option on this server.
+    """
+
+    manageable: bool
+    """
+    Defines whether the option can be managed (added or removed).
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Auto expiration date for compatible options.
+    """
+
+    license: Optional[LicenseOption]
+
+    public_bandwidth: Optional[PublicBandwidthOption]
+
+    private_network: Optional[PrivateNetworkOption]
+
+    remote_access: Optional[RemoteAccessOption]
+
+    certification: Optional[CertificationOption]
+
+
+@dataclass
+class ServerRescueServer:
+    user: str
+    """
+    Rescue user name.
+    """
+
+    password: str
+    """
+    Rescue password.
+    """
 
 
 @dataclass
@@ -468,172 +638,152 @@ class RaidController:
 
 
 @dataclass
-class IP:
-    id: str
+class CreateServerRequest:
+    offer_id: str
     """
-    ID of the IP.
-    """
-
-    address: str
-    """
-    Address of the IP.
-    """
-
-    reverse: str
-    """
-    Reverse IP value.
-    """
-
-    version: IPVersion
-    """
-    Version of IP (v4 or v6).
-    """
-
-    reverse_status: IPReverseStatus
-    """
-    Status of the reverse.
-    """
-
-    reverse_status_message: str
-    """
-    A message related to the reverse status, e.g. in case of an error.
-    """
-
-
-@dataclass
-class ServerInstall:
-    os_id: str
-    """
-    ID of the OS.
-    """
-
-    hostname: str
-    """
-    Host defined during the server installation.
-    """
-
-    ssh_key_ids: List[str]
-    """
-    SSH public key IDs defined during server installation.
-    """
-
-    status: ServerInstallStatus
-    """
-    Status of the server installation.
-    """
-
-    user: str
-    """
-    User defined in the server installation, or the default user if none were specified.
-    """
-
-    service_user: str
-    """
-    Service user defined in the server installation, or the default user if none were specified.
-    """
-
-    service_url: str
-    """
-    Address of the installed service.
-    """
-
-    partitioning_schema: Optional[Schema]
-    """
-    Partitioning schema.
-    """
-
-
-@dataclass
-class ServerOption:
-    id: str
-    """
-    ID of the option.
+    Offer ID of the new server.
     """
 
     name: str
     """
-    Name of the option.
+    Name of the server (≠hostname).
     """
 
-    status: ServerOptionOptionStatus
+    description: str
     """
-    Status of the option on this server.
-    """
-
-    manageable: bool
-    """
-    Defines whether the option can be managed (added or removed).
+    Description associated with the server, max 255 characters.
     """
 
-    expires_at: Optional[datetime]
+    protected: bool
     """
-    Auto expiration date for compatible options.
-    """
-
-    license: Optional[LicenseOption]
-
-    public_bandwidth: Optional[PublicBandwidthOption]
-
-    private_network: Optional[PrivateNetworkOption]
-
-    remote_access: Optional[RemoteAccessOption]
-
-    certification: Optional[CertificationOption]
-
-
-@dataclass
-class ServerRescueServer:
-    user: str
-    """
-    Rescue user name.
+    If enabled, the server can not be deleted.
     """
 
-    password: str
+    zone: Optional[ScwZone]
     """
-    Rescue password.
+    Zone to target. If none is passed will use default zone from the config.
     """
+
+    tags: Optional[List[str]]
+    """
+    Tags to associate to the server.
+    """
+
+    install: Optional[CreateServerRequestInstall]
+    """
+    Object describing the configuration details of the OS installation on the server.
+    """
+
+    option_ids: Optional[List[str]]
+    """
+    IDs of options to enable on server.
+    """
+
+    project_id: Optional[str]
+
+    organization_id: Optional[str]
 
 
 @dataclass
-class CreateServerRequestInstall:
-    os_id: str
+class Server:
+    id: str
     """
-    ID of the OS to installation on the server.
-    """
-
-    hostname: str
-    """
-    Hostname of the server.
+    ID of the server.
     """
 
-    ssh_key_ids: List[str]
+    organization_id: str
     """
-    SSH key IDs authorized on the server.
-    """
-
-    user: Optional[str]
-    """
-    User for the installation.
+    Organization ID the server is attached to.
     """
 
-    password: Optional[str]
+    project_id: str
     """
-    Password for the installation.
-    """
-
-    service_user: Optional[str]
-    """
-    Regular user that runs the service to be installed on the server.
+    Project ID the server is attached to.
     """
 
-    service_password: Optional[str]
+    name: str
     """
-    Password used for the service to install.
+    Name of the server.
     """
 
-    partitioning_schema: Optional[Schema]
+    description: str
     """
-    Partitioning schema.
+    Description of the server.
+    """
+
+    status: ServerStatus
+    """
+    Status of the server.
+    """
+
+    offer_id: str
+    """
+    Offer ID of the server.
+    """
+
+    offer_name: str
+    """
+    Offer name of the server.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last modification date of the server.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date of the server.
+    """
+
+    tags: List[str]
+    """
+    Array of custom tags attached to the server.
+    """
+
+    ips: List[IP]
+    """
+    Array of IPs attached to the server.
+    """
+
+    domain: str
+    """
+    Domain of the server.
+    """
+
+    boot_type: ServerBootType
+    """
+    Boot type of the server.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which is the server located.
+    """
+
+    ping_status: ServerPingStatus
+    """
+    Status of server ping.
+    """
+
+    options: List[ServerOption]
+    """
+    Options enabled on the server.
+    """
+
+    protected: bool
+    """
+    If enabled, the server can not be deleted.
+    """
+
+    install: Optional[ServerInstall]
+    """
+    Configuration of the installation.
+    """
+
+    rescue_server: Optional[ServerRescueServer]
+    """
+    Configuration of rescue boot.
     """
 
 
@@ -928,104 +1078,6 @@ class ServerPrivateNetwork:
 
 
 @dataclass
-class Server:
-    id: str
-    """
-    ID of the server.
-    """
-
-    organization_id: str
-    """
-    Organization ID the server is attached to.
-    """
-
-    project_id: str
-    """
-    Project ID the server is attached to.
-    """
-
-    name: str
-    """
-    Name of the server.
-    """
-
-    description: str
-    """
-    Description of the server.
-    """
-
-    status: ServerStatus
-    """
-    Status of the server.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last modification date of the server.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the server.
-    """
-
-    offer_id: str
-    """
-    Offer ID of the server.
-    """
-
-    offer_name: str
-    """
-    Offer name of the server.
-    """
-
-    tags: List[str]
-    """
-    Array of custom tags attached to the server.
-    """
-
-    ips: List[IP]
-    """
-    Array of IPs attached to the server.
-    """
-
-    domain: str
-    """
-    Domain of the server.
-    """
-
-    boot_type: ServerBootType
-    """
-    Boot type of the server.
-    """
-
-    zone: ScwZone
-    """
-    Zone in which is the server located.
-    """
-
-    ping_status: ServerPingStatus
-    """
-    Status of server ping.
-    """
-
-    options: List[ServerOption]
-    """
-    Options enabled on the server.
-    """
-
-    install: Optional[ServerInstall]
-    """
-    Configuration of the installation.
-    """
-
-    rescue_server: Optional[ServerRescueServer]
-    """
-    Configuration of rescue boot.
-    """
-
-
-@dataclass
 class Setting:
     id: str
     """
@@ -1092,48 +1144,6 @@ class BMCAccess:
     """
     The date after which the BMC (Baseboard Management Controller) access will be closed.
     """
-
-
-@dataclass
-class CreateServerRequest:
-    offer_id: str
-    """
-    Offer ID of the new server.
-    """
-
-    name: str
-    """
-    Name of the server (≠hostname).
-    """
-
-    description: str
-    """
-    Description associated with the server, max 255 characters.
-    """
-
-    zone: Optional[ScwZone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags to associate to the server.
-    """
-
-    install: Optional[CreateServerRequestInstall]
-    """
-    Object describing the configuration details of the OS installation on the server.
-    """
-
-    option_ids: Optional[List[str]]
-    """
-    IDs of options to enable on server.
-    """
-
-    project_id: Optional[str]
-
-    organization_id: Optional[str]
 
 
 @dataclass
@@ -1840,6 +1850,11 @@ class UpdateServerRequest:
     tags: Optional[List[str]]
     """
     Tags associated with the server, not updated if null.
+    """
+
+    protected: Optional[bool]
+    """
+    If enabled, the server can not be deleted.
     """
 
 

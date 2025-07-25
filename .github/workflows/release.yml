@@ -12,14 +12,13 @@ jobs:
         working-directory: scaleway-core
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
+          cache: "poetry"
       - name: Update lock file
         run: poetry lock
       - name: Install dependencies and library
@@ -49,14 +48,13 @@ jobs:
         working-directory: ${{ matrix.lib }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
+          cache: "poetry"
       - name: Set local scaleway-core version
         run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
         working-directory: scaleway-core

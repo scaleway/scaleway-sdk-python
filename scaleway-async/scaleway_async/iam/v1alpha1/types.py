@@ -187,6 +187,24 @@ class PermissionSetScopeType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class SamlCertificateOrigin(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_CERTIFICATE_ORIGIN = "unknown_certificate_origin"
+    SCALEWAY = "scaleway"
+    IDENTITY_PROVIDER = "identity_provider"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class SamlCertificateType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_CERTIFICATE_TYPE = "unknown_certificate_type"
+    SIGNING = "signing"
+    ENCRYPTION = "encryption"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class UserStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     INVITATION_PENDING = "invitation_pending"
@@ -826,6 +844,34 @@ class SSHKey:
 
 
 @dataclass
+class SamlCertificate:
+    id: str
+    """
+    ID of the SAML certificate.
+    """
+
+    type_: SamlCertificateType
+    """
+    Type of the SAML certificate.
+    """
+
+    origin: SamlCertificateOrigin
+    """
+    Origin of the SAML certificate.
+    """
+
+    content: str
+    """
+    Content of the SAML certificate.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Date and time of the SAML certificate expiration.
+    """
+
+
+@dataclass
 class User:
     id: str
     """
@@ -892,11 +938,6 @@ class User:
     Type of user.
     """
 
-    status: UserStatus
-    """
-    Status of user invitation.
-    """
-
     mfa: bool
     """
     Defines whether MFA is enabled.
@@ -920,6 +961,11 @@ class User:
     two_factor_enabled: Optional[bool]
     """
     Deprecated, use "mfa" instead.
+    """
+
+    status: Optional[UserStatus]
+    """
+    Status of user invitation.
     """
 
 
@@ -950,6 +996,24 @@ class AddGroupMembersRequest:
     application_ids: Optional[List[str]]
     """
     IDs of the applications to add.
+    """
+
+
+@dataclass
+class AddSamlCertificateRequest:
+    saml_id: str
+    """
+    ID of the SAML configuration.
+    """
+
+    type_: SamlCertificateType
+    """
+    Type of the SAML certificate.
+    """
+
+    content: str
+    """
+    Content of the SAML certificate.
     """
 
 
@@ -1036,6 +1100,24 @@ class CreateJWTRequest:
     referrer: str
     """
     Referrer of the JWT.
+    """
+
+
+@dataclass
+class CreateOrganizationSamlRequest:
+    entity_id: str
+    """
+    Entity ID of the SAML Identity Provider.
+    """
+
+    single_sign_on_url: str
+    """
+    Single Sign-On URL of the SAML Identity Provider.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
     """
 
 
@@ -1151,6 +1233,14 @@ class DeleteJWTRequest:
 
 
 @dataclass
+class DeleteOrganizationSamlRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+
+@dataclass
 class DeletePolicyRequest:
     policy_id: str
     """
@@ -1161,6 +1251,14 @@ class DeletePolicyRequest:
 @dataclass
 class DeleteSSHKeyRequest:
     ssh_key_id: str
+
+
+@dataclass
+class DeleteSamlCertificateRequest:
+    certificate_id: str
+    """
+    ID of the certificate to delete.
+    """
 
 
 @dataclass
@@ -1239,6 +1337,14 @@ class GetLogRequest:
 
 @dataclass
 class GetOrganizationRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+
+@dataclass
+class GetOrganizationSamlRequest:
     organization_id: Optional[str]
     """
     ID of the Organization.
@@ -1875,6 +1981,22 @@ class ListSSHKeysResponse:
 
 
 @dataclass
+class ListSamlCertificatesRequest:
+    saml_id: str
+    """
+    ID of the SAML configuration.
+    """
+
+
+@dataclass
+class ListSamlCertificatesResponse:
+    certificates: List[SamlCertificate]
+    """
+    List of SAML certificates.
+    """
+
+
+@dataclass
 class ListUsersRequest:
     order_by: Optional[ListUsersRequestOrderBy]
     """
@@ -2013,6 +2135,24 @@ class RemoveUserConnectionRequest:
 
 
 @dataclass
+class Saml:
+    id: str
+    """
+    ID of the SAML configuration.
+    """
+
+    entity_id: str
+    """
+    Entity ID of the SAML Identity Provider.
+    """
+
+    single_sign_on_url: str
+    """
+    Single Sign-On URL of the SAML Identity Provider.
+    """
+
+
+@dataclass
 class SetGroupMembersRequest:
     group_id: str
 
@@ -2124,6 +2264,24 @@ class UpdateGroupRequest:
     tags: Optional[List[str]]
     """
     New tags for the group (maximum of 10 tags).
+    """
+
+
+@dataclass
+class UpdateOrganizationSamlRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+    entity_id: Optional[str]
+    """
+    Entity ID of the SAML Identity Provider.
+    """
+
+    single_sign_on_url: Optional[str]
+    """
+    Single Sign-On URL of the SAML Identity Provider.
     """
 
 

@@ -1187,6 +1187,10 @@ def unmarshal_ListRouteRulesResponse(data: Any) -> ListRouteRulesResponse:
             [unmarshal_RouteRule(v) for v in field] if field is not None else None
         )
 
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
     return ListRouteRulesResponse(**args)
 
 

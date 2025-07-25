@@ -28,12 +28,17 @@ from .types import SchemaDisk
 from .types import SchemaFilesystem
 from .types import SchemaRAID
 from .types import SchemaZFS
+from .types import Schema
 from .types import CertificationOption
 from .types import LicenseOption
 from .types import PrivateNetworkOption
 from .types import PublicBandwidthOption
 from .types import RemoteAccessOption
-from .types import Schema
+from .types import CreateServerRequestInstall
+from .types import IP
+from .types import ServerInstall
+from .types import ServerOption
+from .types import ServerRescueServer
 from .types import OSOSField
 from .types import CPU
 from .types import Disk
@@ -42,21 +47,16 @@ from .types import Memory
 from .types import OfferOptionOffer
 from .types import PersistentMemory
 from .types import RaidController
-from .types import IP
-from .types import ServerInstall
-from .types import ServerOption
-from .types import ServerRescueServer
-from .types import CreateServerRequestInstall
+from .types import CreateServerRequest
+from .types import Server
 from .types import OS
 from .types import Offer
 from .types import Option
 from .types import ServerEvent
 from .types import ServerPrivateNetwork
-from .types import Server
 from .types import Setting
 from .types import AddOptionServerRequest
 from .types import BMCAccess
-from .types import CreateServerRequest
 from .types import DeleteOptionServerRequest
 from .types import DeleteServerRequest
 from .types import GetBMCAccessRequest
@@ -128,12 +128,17 @@ __all__ = [
     "SchemaFilesystem",
     "SchemaRAID",
     "SchemaZFS",
+    "Schema",
     "CertificationOption",
     "LicenseOption",
     "PrivateNetworkOption",
     "PublicBandwidthOption",
     "RemoteAccessOption",
-    "Schema",
+    "CreateServerRequestInstall",
+    "IP",
+    "ServerInstall",
+    "ServerOption",
+    "ServerRescueServer",
     "OSOSField",
     "CPU",
     "Disk",
@@ -142,21 +147,16 @@ __all__ = [
     "OfferOptionOffer",
     "PersistentMemory",
     "RaidController",
-    "IP",
-    "ServerInstall",
-    "ServerOption",
-    "ServerRescueServer",
-    "CreateServerRequestInstall",
+    "CreateServerRequest",
+    "Server",
     "OS",
     "Offer",
     "Option",
     "ServerEvent",
     "ServerPrivateNetwork",
-    "Server",
     "Setting",
     "AddOptionServerRequest",
     "BMCAccess",
-    "CreateServerRequest",
     "DeleteOptionServerRequest",
     "DeleteServerRequest",
     "GetBMCAccessRequest",
