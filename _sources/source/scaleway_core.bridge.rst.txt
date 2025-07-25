@@ -1,0 +1,69 @@
+scaleway\_core.bridge package
+=============================
+
+Submodules
+----------
+
+scaleway\_core.bridge.decimal module
+------------------------------------
+
+.. automodule:: scaleway_core.bridge.decimal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.bridge.money module
+----------------------------------
+
+.. automodule:: scaleway_core.bridge.money
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.bridge.region module
+-----------------------------------
+
+.. automodule:: scaleway_core.bridge.region
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.bridge.scwfile module
+------------------------------------
+
+.. automodule:: scaleway_core.bridge.scwfile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.bridge.serviceinfo module
+----------------------------------------
+
+.. automodule:: scaleway_core.bridge.serviceinfo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.bridge.timeseries module
+---------------------------------------
+
+.. automodule:: scaleway_core.bridge.timeseries
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.bridge.zone module
+---------------------------------
+
+.. automodule:: scaleway_core.bridge.zone
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_core.bridge
+   :members:
+   :undoc-members:
+   :show-inheritance:
