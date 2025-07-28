@@ -1,7 +1,6 @@
-import unittest
-
 import pytest
 from vcr.unittest import VCRTestCase
+
 from scaleway.vpc.v2 import VpcV2API
 from scaleway_core.api import ScalewayException
 from scaleway_core.client import Client

@@ -2,9 +2,11 @@ import json
 import logging
 from dataclasses import dataclass
 from typing import IO, Any, Dict, Iterable, List, Mapping, Optional, Tuple, Union
+from urllib3.util import Retry
 
 import requests
 from requests import Response
+from requests.adapters import HTTPAdapter
 
 from .client import Client
 
@@ -13,9 +15,6 @@ Body = Union[
 ]
 
 Params = Mapping[str, Any]
-
-from requests.adapters import HTTPAdapter
-from urllib3.util import Retry
 
 
 @dataclass
