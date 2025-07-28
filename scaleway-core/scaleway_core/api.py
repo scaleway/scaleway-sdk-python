@@ -14,6 +14,10 @@ Body = Union[
 
 Params = Mapping[str, Any]
 
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
+
+
 
 @dataclass
 class APILogger:
@@ -154,6 +158,20 @@ class API:
 
         logger = APILogger(self._log, self.client._increment_request_count())
 
+        # define the retry strategy
+        retry_strategy = Retry(
+            total=3,  # maximum number of retries
+            status_forcelist=[
+                500,
+            ],  # the HTTP status codes to retry on
+        )
+
+        # create an HTTP adapter with the retry strategy and mount it to the session
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        # create a new session object
+        session = requests.Session()
+        session.mount("https://", adapter)
+
         logger.log_request(
             method=method,
             url=url,
@@ -163,7 +181,7 @@ class API:
             if isinstance(raw_body, bytes)
             else raw_body,
         )
-        response = requests.request(
+        response = session.request(
             method=method,
             url=url,
             params=request_params,
