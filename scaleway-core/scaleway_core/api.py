@@ -18,7 +18,6 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
 
-
 @dataclass
 class APILogger:
     logger: logging.Logger
