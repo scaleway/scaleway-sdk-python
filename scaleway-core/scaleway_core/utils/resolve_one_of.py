@@ -3,6 +3,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any, Dict, Generic, List, Optional, TypeVar
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from _typeshed import SupportsKeysAndGetItem
 
