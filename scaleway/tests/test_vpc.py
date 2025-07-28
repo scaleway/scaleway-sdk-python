@@ -1,4 +1,7 @@
 import unittest
+
+import pytest
+from vcr.unittest import VCRTestCase
 from scaleway.vpc.v2 import VpcV2API
 from scaleway_core.api import ScalewayException
 from scaleway_core.client import Client
@@ -10,7 +13,8 @@ created_pn_count = 5
 created_vpc_count = 1
 
 
-class TestScalewayVPCV2(unittest.TestCase):
+@pytest.mark.vcr()
+class TestScalewayVPCV2(VCRTestCase):
     @classmethod
     def setUpClass(self):
         self.client = Client.from_config_file_and_env()
