@@ -2,20 +2,62 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Optional
+from typing import Any, Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    Money,
     Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    marshal_Money,
+    unmarshal_Money,
+    marshal_ScwFile,
+    unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
+    WaitForOptions,
+    project_or_organization_id,
+    random_name,
+    resolve_one_of,
     validate_path_param,
+    fetch_all_pages_async,
+    wait_for_resource_async,
 )
 from .types import (
     ListEventsRequestOrderBy,
     ResourceType,
+    AccountOrganizationInfo,
+    AccountProjectInfo,
+    AccountUserInfo,
+    AppleSiliconServerInfo,
+    BaremetalServerInfo,
+    BaremetalSettingInfo,
+    Event,
+    EventPrincipal,
+    EventSystem,
+    InstanceServerInfo,
+    KeyManagerKeyInfo,
+    KubernetesACLInfo,
+    KubernetesClusterInfo,
+    KubernetesNodeInfo,
+    KubernetesPoolInfo,
+    ListEventsRequest,
     ListEventsResponse,
+    ListProductsRequest,
     ListProductsResponse,
+    Product,
+    ProductService,
+    Resource,
+    SecretManagerSecretInfo,
+    SecretManagerSecretVersionInfo,
 )
 from .marshalling import (
     unmarshal_ListEventsResponse,
