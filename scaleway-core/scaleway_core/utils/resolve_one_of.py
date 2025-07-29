@@ -1,3 +1,4 @@
+from __future__ import annotations
 from collections.abc import Callable
 from scaleway_core.profile.profile import ProfileDefaults
 from dataclasses import dataclass
@@ -6,17 +7,18 @@ from _typeshed import SupportsKeysAndGetItem
 
 T = TypeVar("T")
 
+
 @dataclass
-class OneOfPossibility:
+class OneOfPossibility(Generic[T]):
     param: str
-    value: Optional[Any]
+    value: Optional[T]
     default: Optional[T] = None
     marshal_func: Optional[Callable[[T, Optional[ProfileDefaults]], Dict[str, Any]]] = None
 
-def resolve_one_of(
-        possibilities: List[OneOfPossibility], is_required: bool = False
-) -> SupportsKeysAndGetItem[str, Any]:
 
+def resolve_one_of(
+        possibilities: List[OneOfPossibility[Any]], is_required: bool = False
+) -> SupportsKeysAndGetItem[str, Any]:
     for possibility in possibilities:
         if possibility.value is not None:
             if possibility.marshal_func is not None:
@@ -42,4 +44,3 @@ def resolve_one_of(
         raise ValueError(f"one of ${possibilities_keys} must be present")
 
     return {}
-
