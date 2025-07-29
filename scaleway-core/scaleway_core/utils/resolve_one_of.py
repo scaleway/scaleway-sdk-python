@@ -1,30 +1,22 @@
 from collections.abc import Callable
+from scaleway_core.profile.profile import ProfileDefaults
 from dataclasses import dataclass
 from typing import Any, Dict, Generic, List, Optional, TypeVar
 from _typeshed import SupportsKeysAndGetItem
 
-from scaleway_core.profile import ProfileDefaults
-
 T = TypeVar("T")
 
-
 @dataclass
-class OneOfPossibility(Generic[T]):
+class OneOfPossibility:
     param: str
-    value: Optional[T]
-    default: Optional[T | ProfileDefaults] = None
-    marshal_func: Optional[Callable[[T, T | None], Dict[str, Any]]] = None
-
+    value: Optional[Any]
+    default: Optional[ProfileDefaults] = None
+    marshal_func: Optional[Callable[[T, Optional[ProfileDefaults]], Dict[str, Any]]] = None
 
 def resolve_one_of(
-    possibilities: List[OneOfPossibility[Any]], is_required: bool = False
+        possibilities: List[OneOfPossibility], is_required: bool = False
 ) -> SupportsKeysAndGetItem[str, Any]:
-    """
-    Resolves the ideal parameter and value amongst an optional list.
-    Uses marshal_func if provided.
-    """
 
-    # Try to resolve using non-None value
     for possibility in possibilities:
         if possibility.value is not None:
             if possibility.marshal_func is not None:
@@ -35,24 +27,19 @@ def resolve_one_of(
                 }
             return {possibility.param: possibility.value}
 
-    # Try to resolve using non-None default
     for possibility in possibilities:
         if possibility.default is not None:
             if possibility.marshal_func is not None:
-                # When no actual value, call with None as value
-                return {
-                    possibility.param: possibility.marshal_func(
-                        None, possibility.default
-                    )
-                }
+                raise ValueError(
+                    f"{possibility.param} is missing a required value for marshal_func"
+                )
             return {possibility.param: possibility.default}
 
-    # If required but unresolved, raise an error
     if is_required:
         possibilities_keys = " or ".join(
             [possibility.param for possibility in possibilities]
         )
         raise ValueError(f"one of ${possibilities_keys} must be present")
 
-    # Else, return empty dict
     return {}
+
