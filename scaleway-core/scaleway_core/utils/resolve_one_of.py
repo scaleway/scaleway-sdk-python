@@ -12,8 +12,8 @@ T = TypeVar("T")
 class OneOfPossibility(Generic[T]):
     param: str
     value: Optional[T]
-    default: Optional[T] = None
-    marshal_func: Optional[Callable[[T, ProfileDefaults], Dict[str, Any]]] = None
+    default: T
+    marshal_func: Optional[Callable[[T, T], Dict[str, Any]]] = None
 
 
 def resolve_one_of(
