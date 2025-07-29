@@ -226,12 +226,12 @@ class K8SV1API(API):
         type_: str,
         description: str,
         version: str,
+        cni: CNI,
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
-        cni: CNI,
         pools: Optional[List[CreateClusterRequestPoolConfig]] = None,
         autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig] = None,
         auto_upgrade: Optional[CreateClusterRequestAutoUpgrade] = None,
@@ -242,6 +242,9 @@ class K8SV1API(API):
         ] = None,
         apiserver_cert_sans: Optional[List[str]] = None,
         private_network_id: Optional[str] = None,
+        pod_cidr: Optional[str] = None,
+        service_cidr: Optional[str] = None,
+        service_dns_ip: Optional[str] = None,
     ) -> Cluster:
         """
         Create a new Cluster.
@@ -249,6 +252,7 @@ class K8SV1API(API):
         :param type_: Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types.
         :param description: Cluster description.
         :param version: Kubernetes version of the cluster.
+        :param cni: Container Network Interface (CNI) plugin running in the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Organization ID in which the cluster will be created.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
@@ -256,7 +260,6 @@ class K8SV1API(API):
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param name: Cluster name.
         :param tags: Tags associated with the cluster.
-        :param cni: Container Network Interface (CNI) plugin running in the cluster.
         :param pools: Pools created along with the cluster.
         :param autoscaler_config: Autoscaler configuration for the cluster. It allows you to set (to an extent) your preferred autoscaler configuration, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
         :param auto_upgrade: Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
@@ -265,6 +268,9 @@ class K8SV1API(API):
         :param open_id_connect_config: OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
         :param apiserver_cert_sans: Additional Subject Alternative Names for the Kubernetes API server certificate.
         :param private_network_id: Private network ID for internal cluster communication (cannot be changed later).
+        :param pod_cidr: Subnet used for the Pod CIDR (cannot be changed later).
+        :param service_cidr: Subnet used for the Service CIDR (cannot be changed later).
+        :param service_dns_ip: IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -290,10 +296,10 @@ class K8SV1API(API):
                     type_=type_,
                     description=description,
                     version=version,
+                    cni=cni,
                     region=region,
                     name=name or random_name(prefix="k8s"),
                     tags=tags,
-                    cni=cni,
                     pools=pools,
                     autoscaler_config=autoscaler_config,
                     auto_upgrade=auto_upgrade,
@@ -302,6 +308,9 @@ class K8SV1API(API):
                     open_id_connect_config=open_id_connect_config,
                     apiserver_cert_sans=apiserver_cert_sans,
                     private_network_id=private_network_id,
+                    pod_cidr=pod_cidr,
+                    service_cidr=service_cidr,
+                    service_dns_ip=service_dns_ip,
                     project_id=project_id,
                     organization_id=organization_id,
                 ),
