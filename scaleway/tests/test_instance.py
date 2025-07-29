@@ -77,7 +77,7 @@ class TestE2EServerCreation(unittest.TestCase):
     def create_test_from_empty_volume(self, number) -> List[Volume]:
         volumes: List[Volume] = {}
 
-        for i in range(number):
+        for _i in range(number):
             volume = self.blockAPI.create_volume(
                 from_empty=CreateVolumeRequestFromEmpty(size=10),
             )
