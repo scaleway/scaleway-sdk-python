@@ -17,7 +17,7 @@ class OneOfPossibility(Generic[T]):
 
 
 def resolve_one_of(
-        possibilities: List[OneOfPossibility[Any]], is_required: bool = False
+    possibilities: List[OneOfPossibility[Any]], is_required: bool = False
 ) -> SupportsKeysAndGetItem[str, Any]:
     for possibility in possibilities:
         if possibility.value is not None:
