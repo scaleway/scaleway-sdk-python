@@ -12,7 +12,7 @@ T = TypeVar("T")
 class OneOfPossibility(Generic[T]):
     param: str
     value: Optional[T]
-    default: T
+    default: Optional[T] = None
     marshal_func: Optional[Callable[[T, T], Dict[str, Any]]] = None
 
 
