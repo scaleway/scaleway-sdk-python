@@ -447,6 +447,10 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     if field is not None:
         args["feature_gates"] = field
 
+    field = data.get("admission_plugins", None)
+    if field is not None:
+        args["admission_plugins"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -471,9 +475,11 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["auto_upgrade"] = None
 
-    field = data.get("admission_plugins", None)
+    field = data.get("open_id_connect_config", None)
     if field is not None:
-        args["admission_plugins"] = field
+        args["open_id_connect_config"] = unmarshal_ClusterOpenIDConnectConfig(field)
+    else:
+        args["open_id_connect_config"] = None
 
     field = data.get("apiserver_cert_sans", None)
     if field is not None:
@@ -483,11 +489,17 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     if field is not None:
         args["iam_nodes_group_id"] = field
 
-    field = data.get("open_id_connect_config", None)
+    field = data.get("pod_cidr", None)
     if field is not None:
-        args["open_id_connect_config"] = unmarshal_ClusterOpenIDConnectConfig(field)
-    else:
-        args["open_id_connect_config"] = None
+        args["pod_cidr"] = field
+
+    field = data.get("service_cidr", None)
+    if field is not None:
+        args["service_cidr"] = field
+
+    field = data.get("service_dns_ip", None)
+    if field is not None:
+        args["service_dns_ip"] = field
 
     field = data.get("private_network_id", None)
     if field is not None:
@@ -1106,8 +1118,12 @@ def marshal_ACLRuleRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("ip", request.ip),
-                OneOfPossibility("scaleway_ranges", request.scaleway_ranges),
+                OneOfPossibility(param="ip", value=request.ip, marshal_func=None),
+                OneOfPossibility(
+                    param="scaleway_ranges",
+                    value=request.scaleway_ranges,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1325,12 +1341,16 @@ def marshal_CreateClusterRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -1345,14 +1365,14 @@ def marshal_CreateClusterRequest(
     if request.version is not None:
         output["version"] = request.version
 
+    if request.cni is not None:
+        output["cni"] = str(request.cni)
+
     if request.name is not None:
         output["name"] = request.name
 
     if request.tags is not None:
         output["tags"] = request.tags
-
-    if request.cni is not None:
-        output["cni"] = str(request.cni)
 
     if request.pools is not None:
         output["pools"] = [
@@ -1388,6 +1408,15 @@ def marshal_CreateClusterRequest(
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
+
+    if request.pod_cidr is not None:
+        output["pod_cidr"] = request.pod_cidr
+
+    if request.service_cidr is not None:
+        output["service_cidr"] = request.service_cidr
+
+    if request.service_dns_ip is not None:
+        output["service_dns_ip"] = request.service_dns_ip
 
     return output
 
