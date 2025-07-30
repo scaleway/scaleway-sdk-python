@@ -4,6 +4,7 @@ import sys
 import tempfile
 import unittest
 import uuid
+from pathlib import Path
 from unittest import mock
 
 import utils
@@ -56,7 +57,7 @@ profiles:\n\
         fp.close()
 
     def tearDown(self) -> None:
-        os.unlink(self.profile_file_name)
+        Path.unlink(self.profile_file_name)
 
     def test_load_profile_from_config_file(self) -> None:
         profile = Profile.from_config_file(self.profile_file_name)
