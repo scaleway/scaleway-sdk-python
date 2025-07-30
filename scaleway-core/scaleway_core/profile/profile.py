@@ -4,6 +4,7 @@ import dataclasses
 import logging
 import os
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional, Type, TypeVar
 
 import yaml
@@ -110,23 +111,23 @@ class Profile(ProfileDefaults, ProfileConfig):
         return profile
 
     @classmethod
-    def get_default_config_directory(cls) -> str:
+    def get_default_config_directory(cls) -> Path:
         xdg_config_path = os.environ.get("XDG_CONFIG_HOME")
         if xdg_config_path is not None and xdg_config_path != "":
-            return os.path.join(xdg_config_path, "scw")
+            return Path(xdg_config_path) / "scw"
 
-        return os.path.join(os.path.expanduser("~"), ".config", "scw")
+        return Path.expanduser("~") / ".config" / "scw"
 
     @classmethod
-    def get_default_config_file_path(cls, filepath: Optional[str] = None) -> str:
+    def get_default_config_file_path(cls, filepath: Optional[str] = None) -> Path:
         if filepath is not None:
-            return filepath
+            return Path(filepath)
 
         filepath = os.environ.get(ENV_KEY_SCW_CONFIG_PATH)
         if filepath is not None and filepath != "":
-            return filepath
+            return Path(filepath)
 
-        return os.path.join(Profile.get_default_config_directory(), "config.yaml")
+        return Profile.get_default_config_directory() / "config.yaml"
 
     @classmethod
     def from_config_file(
@@ -137,7 +138,7 @@ class Profile(ProfileDefaults, ProfileConfig):
     ) -> ProfileSelf:
         filepath = cls.get_default_config_file_path(filepath)
 
-        with open(filepath, "r") as f:
+        with Path(filepath).open("r") as f:
             config = yaml.safe_load(f)
 
             if not isinstance(config, dict):
