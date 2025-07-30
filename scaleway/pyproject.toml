@@ -48,6 +48,7 @@ select = [
     "FIX", # https://docs.astral.sh/ruff/rules/#flake8-fixme-fix
     "FURB", # https://docs.astral.sh/ruff/rules/#refurb-furb
     "PTH", # https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth
+    "RET", # https://docs.astral.sh/ruff/rules/#flake8-return-ret
     "T10", # https://docs.astral.sh/ruff/rules/#flake8-debugger-t10
     "YTT", # https://docs.astral.sh/ruff/rules/#flake8-2020-ytt
 ]
