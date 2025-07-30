@@ -5,6 +5,7 @@ import time
 
 from scaleway_core.client import Client
 from scaleway.instance.v1.api import InstanceV1API
+from scaleway.instance.v1.types import VolumeVolumeType, BootType
 from scaleway.block.v1alpha1 import BlockV1Alpha1API
 from scaleway.instance.v1.types import Server, VolumeServerTemplate
 from scaleway.block.v1alpha1.types import Volume, CreateVolumeRequestFromEmpty
@@ -12,17 +13,16 @@ from scaleway.block.v1alpha1.types import Volume, CreateVolumeRequestFromEmpty
 
 server_name = f"test-sdk-python-{uuid.uuid4().hex[:6]}"
 max_retry = 10
-interval = 0.1
-volume_size = 10
+interval = 0.01
+volume_size = 10000000000
 commercial_type = "DEV1-S"
 zone = "fr-par-1"
 
 
-@unittest.skip("Skipping this test temporarily")
 class TestE2EServerCreation(unittest.TestCase):
     def setUp(self) -> None:
         self.zone = zone
-        self.client = Client.from_env()
+        self.client = Client.from_config_file_and_env()
         self.instanceAPI = InstanceV1API(self.client, bypass_validation=True)
         self.blockAPI = BlockV1Alpha1API(self.client, bypass_validation=True)
         self._server = None
@@ -33,39 +33,44 @@ class TestE2EServerCreation(unittest.TestCase):
             self.instanceAPI.detach_server_volume(
                 server_id=self._server.id, volume_id=volume.id
             )
-
+            self.blockAPI.wait_for_volume(volume_id=volume.id)
             self.blockAPI.delete_volume(volume_id=volume.id)
 
         if self._server:
             self.instanceAPI.delete_server(zone=self.zone, server_id=self._server.id)
 
     def wait_test_instance_server(self, server_id):
-        interval = interval
+        int = interval
 
         for i in range(1, max_retry):
-            interval *= i
+            int *= i
             s = self.instanceAPI.get_server(zone=self.zone, server_id=server_id)
 
-            if s.state == "running":
-                break
+            if s.server.state == "running" or s.server.state == "stopped":
+                return s
 
-            time.sleep(interval)
+            time.sleep(int)
 
         self.fail("Server did not reach 'running' state in time.")
 
     def create_test_instance_server(self) -> Server:
-        volume = {
+        volumes = dict[str, VolumeServerTemplate]()
+        volumes = {
             "0": VolumeServerTemplate(
-                volume_type="sbs_volume", name="my-volume", size=volume_size
+                volume_type=VolumeVolumeType.L_SSD,
+                size=volume_size,
+                boot=False,
             )
         }
-
         server = self.instanceAPI._create_server(
             commercial_type=commercial_type,
             zone=self.zone,
             name=server_name,
-            dynamic_ip_required=True,
-            volumes=volume,
+            dynamic_ip_required=False,
+            volumes=volumes,
+            protected=False,
+            boot_type=BootType.LOCAL,
+            image="c00ae53c-1e29-4087-a384-47f3c5c1cd84",
         )
 
         self._server = server.server
@@ -77,31 +82,33 @@ class TestE2EServerCreation(unittest.TestCase):
     def create_test_from_empty_volume(self, number) -> List[Volume]:
         volumes: List[Volume] = {}
 
-        for _i in range(number):
+        for i in range(number):
             volume = self.blockAPI.create_volume(
-                from_empty=CreateVolumeRequestFromEmpty(size=10),
+                from_empty=CreateVolumeRequestFromEmpty(size=1000000000),
             )
 
             self.blockAPI.wait_for_volume(volume_id=volume.id, zone=self.zone)
 
             self._volumes.append(volume)  # Ensure cleanup in tearDown
-            volumes.append(volume)
+            volumes[i] = volume
 
         return volumes
 
     def test_attach_aditionnal_volume(self):
         server = self.create_test_instance_server()
         additional_volumes = self.create_test_from_empty_volume(1)
-        additional_volume = additional_volumes.values()[0]
+        additional_volume = additional_volumes[0]
 
         self.assertIsNotNone(server.id)
         self.assertEqual(server.zone, self.zone)
 
         self.assertIsNotNone(additional_volume.id)
-        self.assertEqual(additional_volume.size, 10)
+        self.assertEqual(additional_volume.size, 1000000000)
 
         self.instanceAPI.attach_server_volume(
-            server_id=server.id, volume_id=additional_volume.id
+            server_id=server.id,
+            volume_id=additional_volume.id,
+            volume_type=VolumeVolumeType.SBS_VOLUME,
         )
 
         self.blockAPI.wait_for_volume(volume_id=additional_volume.id, zone=self.zone)
@@ -109,6 +116,6 @@ class TestE2EServerCreation(unittest.TestCase):
         updated_server = self.instanceAPI.get_server(
             zone=self.zone, server_id=server.id
         )
-        attached_volumes = updated_server.volumes or {}
-        attached_volume_ids = [v.volume.id for v in attached_volumes.values()]
+        attached_volumes = updated_server.server.volumes or {}
+        attached_volume_ids = [v.id for v in attached_volumes.values()]
         self.assertIn(additional_volume.id, attached_volume_ids)
