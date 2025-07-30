@@ -1,6 +1,6 @@
 import random
 import uuid
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import Union
 
 from scaleway_core.profile import ProfileDefaults
@@ -19,7 +19,7 @@ def random_access_key() -> str:
 
 
 def string_to_datetime(date: str) -> datetime:
-    return datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ").astimezone(UTC)
+    return datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ").astimezone(timezone.utc)
 
 
 def random_date(min: Union[str, datetime], max: Union[str, datetime]) -> datetime:
