@@ -839,8 +839,16 @@ def marshal_ContainerHealthCheckSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("http", request.http),
-                OneOfPossibility("tcp", request.tcp),
+                OneOfPossibility(
+                    param="http",
+                    value=request.http,
+                    marshal_func=marshal_ContainerHealthCheckSpecHTTPProbe,
+                ),
+                OneOfPossibility(
+                    param="tcp",
+                    value=request.tcp,
+                    marshal_func=marshal_ContainerHealthCheckSpecTCPProbe,
+                ),
             ]
         ),
     )
@@ -863,12 +871,19 @@ def marshal_ContainerScalingOption(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "concurrent_requests_threshold",
-                    request.concurrent_requests_threshold,
+                    param="concurrent_requests_threshold",
+                    value=request.concurrent_requests_threshold,
+                    marshal_func=None,
                 ),
-                OneOfPossibility("cpu_usage_threshold", request.cpu_usage_threshold),
                 OneOfPossibility(
-                    "memory_usage_threshold", request.memory_usage_threshold
+                    param="cpu_usage_threshold",
+                    value=request.cpu_usage_threshold,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="memory_usage_threshold",
+                    value=request.memory_usage_threshold,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -1057,8 +1072,12 @@ def marshal_CreateTokenRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("container_id", request.container_id),
-                OneOfPossibility("namespace_id", request.namespace_id),
+                OneOfPossibility(
+                    param="container_id", value=request.container_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="namespace_id", value=request.namespace_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1140,9 +1159,21 @@ def marshal_CreateTriggerRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("scw_sqs_config", request.scw_sqs_config),
-                OneOfPossibility("scw_nats_config", request.scw_nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
+                OneOfPossibility(
+                    param="scw_sqs_config",
+                    value=request.scw_sqs_config,
+                    marshal_func=marshal_CreateTriggerRequestMnqSqsClientConfig,
+                ),
+                OneOfPossibility(
+                    param="scw_nats_config",
+                    value=request.scw_nats_config,
+                    marshal_func=marshal_CreateTriggerRequestMnqNatsClientConfig,
+                ),
+                OneOfPossibility(
+                    param="sqs_config",
+                    value=request.sqs_config,
+                    marshal_func=marshal_CreateTriggerRequestSqsClientConfig,
+                ),
             ]
         ),
     )
@@ -1312,7 +1343,11 @@ def marshal_UpdateTriggerRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("sqs_config", request.sqs_config),
+                OneOfPossibility(
+                    param="sqs_config",
+                    value=request.sqs_config,
+                    marshal_func=marshal_UpdateTriggerRequestSqsClientConfig,
+                ),
             ]
         ),
     )

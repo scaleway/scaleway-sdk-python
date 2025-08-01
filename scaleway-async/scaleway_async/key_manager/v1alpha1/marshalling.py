@@ -354,11 +354,21 @@ def marshal_KeyUsage(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("symmetric_encryption", request.symmetric_encryption),
                 OneOfPossibility(
-                    "asymmetric_encryption", request.asymmetric_encryption
+                    param="symmetric_encryption",
+                    value=request.symmetric_encryption,
+                    marshal_func=None,
                 ),
-                OneOfPossibility("asymmetric_signing", request.asymmetric_signing),
+                OneOfPossibility(
+                    param="asymmetric_encryption",
+                    value=request.asymmetric_encryption,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="asymmetric_signing",
+                    value=request.asymmetric_signing,
+                    marshal_func=None,
+                ),
             ]
         ),
     )

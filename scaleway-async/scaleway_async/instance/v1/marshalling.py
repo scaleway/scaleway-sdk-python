@@ -2824,8 +2824,12 @@ def marshal_ApplyBlockMigrationRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("volume_id", request.volume_id),
-                OneOfPossibility("snapshot_id", request.snapshot_id),
+                OneOfPossibility(
+                    param="volume_id", value=request.volume_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="snapshot_id", value=request.snapshot_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -2889,12 +2893,16 @@ def marshal_VolumeTemplate(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2924,12 +2932,16 @@ def marshal_CreateImageRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2968,12 +2980,16 @@ def marshal_CreateIpRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -3000,12 +3016,16 @@ def marshal_CreatePlacementGroupRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -3056,12 +3076,16 @@ def marshal_CreateSecurityGroupRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -3069,8 +3093,16 @@ def marshal_CreateSecurityGroupRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("organization_default", request.organization_default),
-                OneOfPossibility("project_default", request.project_default),
+                OneOfPossibility(
+                    param="organization_default",
+                    value=request.organization_default,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="project_default",
+                    value=request.project_default,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -3174,12 +3206,16 @@ def marshal_CreateServerRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -3247,12 +3283,16 @@ def marshal_CreateSnapshotRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -3291,12 +3331,16 @@ def marshal_CreateVolumeRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    param="project",
+                    value=request.project,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
+                    param="organization",
+                    value=request.organization,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -3304,8 +3348,12 @@ def marshal_CreateVolumeRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("size", request.size),
-                OneOfPossibility("base_snapshot", request.base_snapshot),
+                OneOfPossibility(param="size", value=request.size, marshal_func=None),
+                OneOfPossibility(
+                    param="base_snapshot",
+                    value=request.base_snapshot,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -3369,8 +3417,12 @@ def marshal_PlanBlockMigrationRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("volume_id", request.volume_id),
-                OneOfPossibility("snapshot_id", request.snapshot_id),
+                OneOfPossibility(
+                    param="volume_id", value=request.volume_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="snapshot_id", value=request.snapshot_id, marshal_func=None
+                ),
             ]
         ),
     )

@@ -1577,9 +1577,21 @@ def marshal_AttachPrivateNetworkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("static_config", request.static_config),
-                OneOfPossibility("dhcp_config", request.dhcp_config),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    param="static_config",
+                    value=request.static_config,
+                    marshal_func=marshal_PrivateNetworkStaticConfig,
+                ),
+                OneOfPossibility(
+                    param="dhcp_config",
+                    value=request.dhcp_config,
+                    marshal_func=marshal_PrivateNetworkDHCPConfig,
+                ),
+                OneOfPossibility(
+                    param="ipam_config",
+                    value=request.ipam_config,
+                    marshal_func=marshal_PrivateNetworkIpamConfig,
+                ),
             ]
         ),
     )
@@ -1778,13 +1790,41 @@ def marshal_HealthCheck(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
+                OneOfPossibility(
+                    param="tcp_config",
+                    value=request.tcp_config,
+                    marshal_func=marshal_HealthCheckTcpConfig,
+                ),
+                OneOfPossibility(
+                    param="mysql_config",
+                    value=request.mysql_config,
+                    marshal_func=marshal_HealthCheckMysqlConfig,
+                ),
+                OneOfPossibility(
+                    param="pgsql_config",
+                    value=request.pgsql_config,
+                    marshal_func=marshal_HealthCheckPgsqlConfig,
+                ),
+                OneOfPossibility(
+                    param="ldap_config",
+                    value=request.ldap_config,
+                    marshal_func=marshal_HealthCheckLdapConfig,
+                ),
+                OneOfPossibility(
+                    param="redis_config",
+                    value=request.redis_config,
+                    marshal_func=marshal_HealthCheckRedisConfig,
+                ),
+                OneOfPossibility(
+                    param="http_config",
+                    value=request.http_config,
+                    marshal_func=marshal_HealthCheckHttpConfig,
+                ),
+                OneOfPossibility(
+                    param="https_config",
+                    value=request.https_config,
+                    marshal_func=marshal_HealthCheckHttpsConfig,
+                ),
             ]
         ),
     )
@@ -1917,8 +1957,16 @@ def marshal_CreateCertificateRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("letsencrypt", request.letsencrypt),
-                OneOfPossibility("custom_certificate", request.custom_certificate),
+                OneOfPossibility(
+                    param="letsencrypt",
+                    value=request.letsencrypt,
+                    marshal_func=marshal_CreateCertificateRequestLetsencryptConfig,
+                ),
+                OneOfPossibility(
+                    param="custom_certificate",
+                    value=request.custom_certificate,
+                    marshal_func=marshal_CreateCertificateRequestCustomCertificate,
+                ),
             ]
         ),
     )
@@ -1974,12 +2022,16 @@ def marshal_CreateIpRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2006,12 +2058,16 @@ def marshal_CreateLbRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2055,9 +2111,13 @@ def marshal_RouteMatch(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("sni", request.sni),
-                OneOfPossibility("host_header", request.host_header),
-                OneOfPossibility("path_begin", request.path_begin),
+                OneOfPossibility(param="sni", value=request.sni, marshal_func=None),
+                OneOfPossibility(
+                    param="host_header", value=request.host_header, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="path_begin", value=request.path_begin, marshal_func=None
+                ),
             ]
         ),
     )
@@ -2119,12 +2179,16 @@ def marshal_CreateSubscriberRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2132,8 +2196,16 @@ def marshal_CreateSubscriberRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
+                OneOfPossibility(
+                    param="email_config",
+                    value=request.email_config,
+                    marshal_func=marshal_SubscriberEmailConfig,
+                ),
+                OneOfPossibility(
+                    param="webhook_config",
+                    value=request.webhook_config,
+                    marshal_func=marshal_SubscriberWebhookConfig,
+                ),
             ]
         ),
     )
@@ -2338,13 +2410,41 @@ def marshal_UpdateHealthCheckRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
+                OneOfPossibility(
+                    param="tcp_config",
+                    value=request.tcp_config,
+                    marshal_func=marshal_HealthCheckTcpConfig,
+                ),
+                OneOfPossibility(
+                    param="mysql_config",
+                    value=request.mysql_config,
+                    marshal_func=marshal_HealthCheckMysqlConfig,
+                ),
+                OneOfPossibility(
+                    param="pgsql_config",
+                    value=request.pgsql_config,
+                    marshal_func=marshal_HealthCheckPgsqlConfig,
+                ),
+                OneOfPossibility(
+                    param="ldap_config",
+                    value=request.ldap_config,
+                    marshal_func=marshal_HealthCheckLdapConfig,
+                ),
+                OneOfPossibility(
+                    param="redis_config",
+                    value=request.redis_config,
+                    marshal_func=marshal_HealthCheckRedisConfig,
+                ),
+                OneOfPossibility(
+                    param="http_config",
+                    value=request.http_config,
+                    marshal_func=marshal_HealthCheckHttpConfig,
+                ),
+                OneOfPossibility(
+                    param="https_config",
+                    value=request.https_config,
+                    marshal_func=marshal_HealthCheckHttpsConfig,
+                ),
             ]
         ),
     )
@@ -2432,8 +2532,16 @@ def marshal_UpdateSubscriberRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
+                OneOfPossibility(
+                    param="email_config",
+                    value=request.email_config,
+                    marshal_func=marshal_SubscriberEmailConfig,
+                ),
+                OneOfPossibility(
+                    param="webhook_config",
+                    value=request.webhook_config,
+                    marshal_func=marshal_SubscriberWebhookConfig,
+                ),
             ]
         ),
     )
@@ -2464,9 +2572,21 @@ def marshal_ZonedApiAttachPrivateNetworkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("static_config", request.static_config),
-                OneOfPossibility("dhcp_config", request.dhcp_config),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    param="static_config",
+                    value=request.static_config,
+                    marshal_func=marshal_PrivateNetworkStaticConfig,
+                ),
+                OneOfPossibility(
+                    param="dhcp_config",
+                    value=request.dhcp_config,
+                    marshal_func=marshal_PrivateNetworkDHCPConfig,
+                ),
+                OneOfPossibility(
+                    param="ipam_config",
+                    value=request.ipam_config,
+                    marshal_func=marshal_PrivateNetworkIpamConfig,
+                ),
             ]
         ),
     )
@@ -2584,8 +2704,16 @@ def marshal_ZonedApiCreateCertificateRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("letsencrypt", request.letsencrypt),
-                OneOfPossibility("custom_certificate", request.custom_certificate),
+                OneOfPossibility(
+                    param="letsencrypt",
+                    value=request.letsencrypt,
+                    marshal_func=marshal_CreateCertificateRequestLetsencryptConfig,
+                ),
+                OneOfPossibility(
+                    param="custom_certificate",
+                    value=request.custom_certificate,
+                    marshal_func=marshal_CreateCertificateRequestCustomCertificate,
+                ),
             ]
         ),
     )
@@ -2641,12 +2769,16 @@ def marshal_ZonedApiCreateIpRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2673,12 +2805,16 @@ def marshal_ZonedApiCreateLbRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2741,12 +2877,16 @@ def marshal_ZonedApiCreateSubscriberRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2754,8 +2894,16 @@ def marshal_ZonedApiCreateSubscriberRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
+                OneOfPossibility(
+                    param="email_config",
+                    value=request.email_config,
+                    marshal_func=marshal_SubscriberEmailConfig,
+                ),
+                OneOfPossibility(
+                    param="webhook_config",
+                    value=request.webhook_config,
+                    marshal_func=marshal_SubscriberWebhookConfig,
+                ),
             ]
         ),
     )
@@ -3008,13 +3156,41 @@ def marshal_ZonedApiUpdateHealthCheckRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
+                OneOfPossibility(
+                    param="tcp_config",
+                    value=request.tcp_config,
+                    marshal_func=marshal_HealthCheckTcpConfig,
+                ),
+                OneOfPossibility(
+                    param="mysql_config",
+                    value=request.mysql_config,
+                    marshal_func=marshal_HealthCheckMysqlConfig,
+                ),
+                OneOfPossibility(
+                    param="pgsql_config",
+                    value=request.pgsql_config,
+                    marshal_func=marshal_HealthCheckPgsqlConfig,
+                ),
+                OneOfPossibility(
+                    param="ldap_config",
+                    value=request.ldap_config,
+                    marshal_func=marshal_HealthCheckLdapConfig,
+                ),
+                OneOfPossibility(
+                    param="redis_config",
+                    value=request.redis_config,
+                    marshal_func=marshal_HealthCheckRedisConfig,
+                ),
+                OneOfPossibility(
+                    param="http_config",
+                    value=request.http_config,
+                    marshal_func=marshal_HealthCheckHttpConfig,
+                ),
+                OneOfPossibility(
+                    param="https_config",
+                    value=request.https_config,
+                    marshal_func=marshal_HealthCheckHttpsConfig,
+                ),
             ]
         ),
     )
@@ -3102,8 +3278,16 @@ def marshal_ZonedApiUpdateSubscriberRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
+                OneOfPossibility(
+                    param="email_config",
+                    value=request.email_config,
+                    marshal_func=marshal_SubscriberEmailConfig,
+                ),
+                OneOfPossibility(
+                    param="webhook_config",
+                    value=request.webhook_config,
+                    marshal_func=marshal_SubscriberWebhookConfig,
+                ),
             ]
         ),
     )

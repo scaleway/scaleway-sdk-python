@@ -796,10 +796,22 @@ def marshal_CreateGatewayNetworkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("dhcp_id", request.dhcp_id),
-                OneOfPossibility("dhcp", request.dhcp),
-                OneOfPossibility("address", request.address),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    param="dhcp_id", value=request.dhcp_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="dhcp",
+                    value=request.dhcp,
+                    marshal_func=marshal_CreateDHCPRequest,
+                ),
+                OneOfPossibility(
+                    param="address", value=request.address, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="ipam_config",
+                    value=request.ipam_config,
+                    marshal_func=marshal_CreateGatewayNetworkRequestIpamConfig,
+                ),
             ]
         ),
     )
@@ -1048,9 +1060,17 @@ def marshal_UpdateGatewayNetworkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("dhcp_id", request.dhcp_id),
-                OneOfPossibility("address", request.address),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    param="dhcp_id", value=request.dhcp_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="address", value=request.address, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="ipam_config",
+                    value=request.ipam_config,
+                    marshal_func=marshal_UpdateGatewayNetworkRequestIpamConfig,
+                ),
             ]
         ),
     )

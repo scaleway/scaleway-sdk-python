@@ -610,8 +610,16 @@ def marshal_Metric(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("managed_metric", request.managed_metric),
-                OneOfPossibility("cockpit_metric_name", request.cockpit_metric_name),
+                OneOfPossibility(
+                    param="managed_metric",
+                    value=request.managed_metric,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="cockpit_metric_name",
+                    value=request.cockpit_metric_name,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -642,7 +650,9 @@ def marshal_CreateInstancePolicyRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("metric", request.metric),
+                OneOfPossibility(
+                    param="metric", value=request.metric, marshal_func=marshal_Metric
+                ),
             ]
         ),
     )
@@ -703,15 +713,25 @@ def marshal_VolumeInstanceTemplate(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("from_empty", request.from_empty),
-                OneOfPossibility("from_snapshot", request.from_snapshot),
+                OneOfPossibility(
+                    param="from_empty",
+                    value=request.from_empty,
+                    marshal_func=marshal_VolumeInstanceTemplateFromEmpty,
+                ),
+                OneOfPossibility(
+                    param="from_snapshot",
+                    value=request.from_snapshot,
+                    marshal_func=marshal_VolumeInstanceTemplateFromSnapshot,
+                ),
             ]
         ),
     )
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("perf_iops", request.perf_iops),
+                OneOfPossibility(
+                    param="perf_iops", value=request.perf_iops, marshal_func=None
+                ),
             ]
         ),
     )
@@ -842,8 +862,16 @@ def marshal_UpdateInstancePolicyRequestMetric(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("managed_metric", request.managed_metric),
-                OneOfPossibility("cockpit_metric_name", request.cockpit_metric_name),
+                OneOfPossibility(
+                    param="managed_metric",
+                    value=request.managed_metric,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="cockpit_metric_name",
+                    value=request.cockpit_metric_name,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -874,7 +902,11 @@ def marshal_UpdateInstancePolicyRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("metric", request.metric),
+                OneOfPossibility(
+                    param="metric",
+                    value=request.metric,
+                    marshal_func=marshal_UpdateInstancePolicyRequestMetric,
+                ),
             ]
         ),
     )

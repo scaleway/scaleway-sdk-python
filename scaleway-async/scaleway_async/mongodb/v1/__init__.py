@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import InstanceStatus
 from .content import INSTANCE_TRANSIENT_STATUSES
+from .types import ListDatabasesRequestOrderBy
 from .types import ListInstancesRequestOrderBy
 from .types import ListSnapshotsRequestOrderBy
 from .types import ListUsersRequestOrderBy
@@ -20,6 +21,7 @@ from .types import Volume
 from .types import NodeTypeVolumeType
 from .types import UserRole
 from .types import EndpointSpec
+from .types import Database
 from .types import Instance
 from .types import NodeType
 from .types import Snapshot
@@ -36,6 +38,8 @@ from .types import DeleteUserRequest
 from .types import GetInstanceCertificateRequest
 from .types import GetInstanceRequest
 from .types import GetSnapshotRequest
+from .types import ListDatabasesRequest
+from .types import ListDatabasesResponse
 from .types import ListInstancesRequest
 from .types import ListInstancesResponse
 from .types import ListNodeTypesRequest
@@ -57,6 +61,7 @@ from .api import MongodbV1API
 __all__ = [
     "InstanceStatus",
     "INSTANCE_TRANSIENT_STATUSES",
+    "ListDatabasesRequestOrderBy",
     "ListInstancesRequestOrderBy",
     "ListSnapshotsRequestOrderBy",
     "ListUsersRequestOrderBy",
@@ -75,6 +80,7 @@ __all__ = [
     "NodeTypeVolumeType",
     "UserRole",
     "EndpointSpec",
+    "Database",
     "Instance",
     "NodeType",
     "Snapshot",
@@ -91,6 +97,8 @@ __all__ = [
     "GetInstanceCertificateRequest",
     "GetInstanceRequest",
     "GetSnapshotRequest",
+    "ListDatabasesRequest",
+    "ListDatabasesResponse",
     "ListInstancesRequest",
     "ListInstancesResponse",
     "ListNodeTypesRequest",
