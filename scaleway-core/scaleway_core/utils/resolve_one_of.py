@@ -1,9 +1,8 @@
+from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any, Dict, Generic, List, Optional, TypeVar
-from _typeshed import SupportsKeysAndGetItem
 
-from scaleway_core.profile import ProfileDefaults
 
 T = TypeVar("T")
 
