@@ -1,10 +1,34 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from decimal import Decimal
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 from dateutil import parser
 
+from scaleway_core.profile import ProfileDefaults
+from scaleway_core.bridge import (
+    Money,
+    Region as ScwRegion,
+    ScwFile,
+    ServiceInfo,
+    TimeSeries,
+    TimeSeriesPoint,
+    Zone as ScwZone,
+    unmarshal_Money,
+    marshal_Money,
+    marshal_ScwFile,
+    marshal_ServiceInfo,
+    marshal_TimeSeries,
+    unmarshal_TimeSeries,
+)
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from .types import (
+    ListEventsRequestOrderBy,
+    ResourceType,
     AccountOrganizationInfo,
     AccountProjectInfo,
     AccountUserInfo,
@@ -20,6 +44,7 @@ from .types import (
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
     EventPrincipal,
+    EventSystem,
     Resource,
     Event,
     ListEventsResponse,
@@ -268,6 +293,21 @@ def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
     return EventPrincipal(**args)
 
 
+def unmarshal_EventSystem(data: Any) -> EventSystem:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EventSystem' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    return EventSystem(**args)
+
+
 def unmarshal_Resource(data: Any) -> Resource:
     if not isinstance(data, dict):
         raise TypeError(
@@ -445,6 +485,14 @@ def unmarshal_Event(data: Any) -> Event:
     if field is not None:
         args["product_name"] = field
 
+    field = data.get("service_name", None)
+    if field is not None:
+        args["service_name"] = field
+
+    field = data.get("method_name", None)
+    if field is not None:
+        args["method_name"] = field
+
     field = data.get("recorded_at", None)
     if field is not None:
         args["recorded_at"] = (
@@ -459,26 +507,6 @@ def unmarshal_Event(data: Any) -> Event:
     else:
         args["principal"] = None
 
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-    else:
-        args["project_id"] = None
-
-    field = data.get("user_agent", None)
-    if field is not None:
-        args["user_agent"] = field
-    else:
-        args["user_agent"] = None
-
-    field = data.get("service_name", None)
-    if field is not None:
-        args["service_name"] = field
-
-    field = data.get("method_name", None)
-    if field is not None:
-        args["method_name"] = field
-
     field = data.get("resources", None)
     if field is not None:
         args["resources"] = (
@@ -492,6 +520,24 @@ def unmarshal_Event(data: Any) -> Event:
     field = data.get("status_code", None)
     if field is not None:
         args["status_code"] = field
+
+    field = data.get("system", None)
+    if field is not None:
+        args["system"] = unmarshal_EventSystem(field)
+    else:
+        args["system"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("user_agent", None)
+    if field is not None:
+        args["user_agent"] = field
+    else:
+        args["user_agent"] = None
 
     field = data.get("request_body", None)
     if field is not None:

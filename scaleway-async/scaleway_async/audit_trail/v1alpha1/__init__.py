@@ -17,6 +17,7 @@ from .types import KubernetesPoolInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
 from .types import EventPrincipal
+from .types import EventSystem
 from .types import Resource
 from .types import ProductService
 from .types import Event
@@ -45,6 +46,7 @@ __all__ = [
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
     "EventPrincipal",
+    "EventSystem",
     "Resource",
     "ProductService",
     "Event",
