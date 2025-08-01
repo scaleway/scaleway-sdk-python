@@ -2,9 +2,11 @@ import json
 import logging
 from dataclasses import dataclass
 from typing import IO, Any, Dict, Iterable, List, Mapping, Optional, Tuple, Union
+from urllib3.util import Retry
 
 import requests
 from requests import Response
+from requests.adapters import HTTPAdapter
 
 from .client import Client
 
@@ -154,6 +156,20 @@ class API:
 
         logger = APILogger(self._log, self.client._increment_request_count())
 
+        # define the retry strategy
+        retry_strategy = Retry(
+            total=3,  # maximum number of retries
+            status_forcelist=[
+                500,
+            ],  # the HTTP status codes to retry on
+        )
+
+        # create an HTTP adapter with the retry strategy and mount it to the session
+        adapter = HTTPAdapter(max_retries=retry_strategy)
+        # create a new session object
+        session = requests.Session()
+        session.mount("https://", adapter)
+
         logger.log_request(
             method=method,
             url=url,
@@ -163,7 +179,7 @@ class API:
             if isinstance(raw_body, bytes)
             else raw_body,
         )
-        response = requests.request(
+        response = session.request(
             method=method,
             url=url,
             params=request_params,
