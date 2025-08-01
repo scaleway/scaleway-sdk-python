@@ -33,7 +33,7 @@ types-python-dateutil = "^2.8.19"
 ruff = ">=0.5.0,<0.12.5"
 mypy = "^1.5.1"
 ty = "^0.0.1a15"
-pyrefly = "^0.24.2"
+pyrefly = ">=0.24.2,<0.27.0"
 
 [build-system]
 requires = ["poetry-core"]
