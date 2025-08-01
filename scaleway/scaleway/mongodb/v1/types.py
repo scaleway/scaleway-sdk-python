@@ -30,6 +30,14 @@ class InstanceStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListDatabasesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListInstancesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -232,6 +240,11 @@ class EndpointSpec:
     public_network: Optional[EndpointSpecPublicNetworkDetails]
 
     private_network: Optional[EndpointSpecPrivateNetworkDetails]
+
+
+@dataclass
+class Database:
+    name: str
 
 
 @dataclass
@@ -659,6 +672,41 @@ class GetSnapshotRequest:
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListDatabasesRequest:
+    instance_id: str
+    """
+    UUID of the Database Instance.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListDatabasesRequestOrderBy]
+    """
+    Criteria to use when requesting user listing.
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+
+@dataclass
+class ListDatabasesResponse:
+    databases: List[Database]
+    """
+    List of the databases.
+    """
+
+    total_count: int
+    """
+    Total count of databases present on a Database Instance.
     """
 
 

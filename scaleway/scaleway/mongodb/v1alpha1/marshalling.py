@@ -707,8 +707,16 @@ def marshal_EndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("public", request.public),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    param="public",
+                    value=request.public,
+                    marshal_func=marshal_EndpointSpecPublicDetails,
+                ),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_EndpointSpecPrivateNetworkDetails,
+                ),
             ]
         ),
     )
@@ -862,8 +870,12 @@ def marshal_UserRole(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("database", request.database),
-                OneOfPossibility("any_database", request.any_database),
+                OneOfPossibility(
+                    param="database", value=request.database, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="any_database", value=request.any_database, marshal_func=None
+                ),
             ]
         ),
     )
@@ -939,7 +951,9 @@ def marshal_UpgradeInstanceRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("volume_size", request.volume_size),
+                OneOfPossibility(
+                    param="volume_size", value=request.volume_size, marshal_func=None
+                ),
             ]
         ),
     )

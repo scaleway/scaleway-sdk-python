@@ -1329,14 +1329,22 @@ def marshal_SetRouteRulesRequestRouteRule(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("rule_http_match", request.rule_http_match),
+                OneOfPossibility(
+                    param="rule_http_match",
+                    value=request.rule_http_match,
+                    marshal_func=marshal_RuleHttpMatch,
+                ),
             ]
         ),
     )
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1352,8 +1360,16 @@ def marshal_AddRouteRulesRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("after_position", request.after_position),
-                OneOfPossibility("before_position", request.before_position),
+                OneOfPossibility(
+                    param="after_position",
+                    value=request.after_position,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="before_position",
+                    value=request.before_position,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1444,8 +1460,12 @@ def marshal_CheckPEMChainRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("secret", request.secret),
-                OneOfPossibility("raw", request.raw),
+                OneOfPossibility(
+                    param="secret",
+                    value=request.secret,
+                    marshal_func=marshal_CheckPEMChainRequestSecretChain,
+                ),
+                OneOfPossibility(param="raw", value=request.raw, marshal_func=None),
             ]
         ),
     )
@@ -1497,8 +1517,16 @@ def marshal_CreateBackendStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("scaleway_s3", request.scaleway_s3),
-                OneOfPossibility("scaleway_lb", request.scaleway_lb),
+                OneOfPossibility(
+                    param="scaleway_s3",
+                    value=request.scaleway_s3,
+                    marshal_func=marshal_ScalewayS3BackendConfig,
+                ),
+                OneOfPossibility(
+                    param="scaleway_lb",
+                    value=request.scaleway_lb,
+                    marshal_func=marshal_ScalewayLbBackendConfig,
+                ),
             ]
         ),
     )
@@ -1514,9 +1542,19 @@ def marshal_CreateCacheStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="route_stage_id",
+                    value=request.route_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1538,9 +1576,19 @@ def marshal_CreateDNSStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("tls_stage_id", request.tls_stage_id),
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
+                OneOfPossibility(
+                    param="tls_stage_id", value=request.tls_stage_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="cache_stage_id",
+                    value=request.cache_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1577,8 +1625,10 @@ def marshal_CreatePurgeRequestRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("assets", request.assets),
-                OneOfPossibility("all", request.all),
+                OneOfPossibility(
+                    param="assets", value=request.assets, marshal_func=None
+                ),
+                OneOfPossibility(param="all", value=request.all, marshal_func=None),
             ]
         ),
     )
@@ -1597,7 +1647,9 @@ def marshal_CreateRouteStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1628,10 +1680,24 @@ def marshal_CreateTLSStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
+                OneOfPossibility(
+                    param="cache_stage_id",
+                    value=request.cache_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="route_stage_id",
+                    value=request.route_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1655,7 +1721,11 @@ def marshal_CreateWafStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1731,9 +1801,21 @@ def marshal_SetHeadStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("add_new_head_stage", request.add_new_head_stage),
-                OneOfPossibility("remove_head_stage", request.remove_head_stage),
-                OneOfPossibility("swap_head_stage", request.swap_head_stage),
+                OneOfPossibility(
+                    param="add_new_head_stage",
+                    value=request.add_new_head_stage,
+                    marshal_func=marshal_SetHeadStageRequestAddNewHeadStage,
+                ),
+                OneOfPossibility(
+                    param="remove_head_stage",
+                    value=request.remove_head_stage,
+                    marshal_func=marshal_SetHeadStageRequestRemoveHeadStage,
+                ),
+                OneOfPossibility(
+                    param="swap_head_stage",
+                    value=request.swap_head_stage,
+                    marshal_func=marshal_SetHeadStageRequestSwapHeadStage,
+                ),
             ]
         ),
     )
@@ -1764,8 +1846,16 @@ def marshal_UpdateBackendStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("scaleway_s3", request.scaleway_s3),
-                OneOfPossibility("scaleway_lb", request.scaleway_lb),
+                OneOfPossibility(
+                    param="scaleway_s3",
+                    value=request.scaleway_s3,
+                    marshal_func=marshal_ScalewayS3BackendConfig,
+                ),
+                OneOfPossibility(
+                    param="scaleway_lb",
+                    value=request.scaleway_lb,
+                    marshal_func=marshal_ScalewayLbBackendConfig,
+                ),
             ]
         ),
     )
@@ -1784,9 +1874,19 @@ def marshal_UpdateCacheStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="route_stage_id",
+                    value=request.route_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1808,9 +1908,19 @@ def marshal_UpdateDNSStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("tls_stage_id", request.tls_stage_id),
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
+                OneOfPossibility(
+                    param="tls_stage_id", value=request.tls_stage_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="cache_stage_id",
+                    value=request.cache_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1844,7 +1954,9 @@ def marshal_UpdateRouteStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1874,10 +1986,24 @@ def marshal_UpdateTLSStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("cache_stage_id", request.cache_stage_id),
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
-                OneOfPossibility("route_stage_id", request.route_stage_id),
-                OneOfPossibility("waf_stage_id", request.waf_stage_id),
+                OneOfPossibility(
+                    param="cache_stage_id",
+                    value=request.cache_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="route_stage_id",
+                    value=request.route_stage_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1901,7 +2027,11 @@ def marshal_UpdateWafStageRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("backend_stage_id", request.backend_stage_id),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )

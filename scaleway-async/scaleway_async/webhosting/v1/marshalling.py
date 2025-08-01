@@ -1083,8 +1083,16 @@ def marshal_DatabaseApiCreateDatabaseRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("new_user", request.new_user),
-                OneOfPossibility("existing_username", request.existing_username),
+                OneOfPossibility(
+                    param="new_user",
+                    value=request.new_user,
+                    marshal_func=marshal_CreateDatabaseRequestUser,
+                ),
+                OneOfPossibility(
+                    param="existing_username",
+                    value=request.existing_username,
+                    marshal_func=None,
+                ),
             ]
         ),
     )

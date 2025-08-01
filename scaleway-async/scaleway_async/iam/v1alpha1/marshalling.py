@@ -1365,8 +1365,14 @@ def marshal_AddGroupMemberRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("application_id", request.application_id),
+                OneOfPossibility(
+                    param="user_id", value=request.user_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="application_id",
+                    value=request.application_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1412,8 +1418,14 @@ def marshal_CreateAPIKeyRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("user_id", request.user_id),
+                OneOfPossibility(
+                    param="application_id",
+                    value=request.application_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="user_id", value=request.user_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1514,11 +1526,14 @@ def marshal_RuleSpecs(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("project_ids", request.project_ids),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="project_ids", value=request.project_ids, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -1541,10 +1556,20 @@ def marshal_CreatePolicyRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
+                OneOfPossibility(
+                    param="user_id", value=request.user_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="group_id", value=request.group_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="application_id",
+                    value=request.application_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="no_principal", value=request.no_principal, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1631,8 +1656,12 @@ def marshal_CreateUserRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email", request.email),
-                OneOfPossibility("member", request.member),
+                OneOfPossibility(param="email", value=request.email, marshal_func=None),
+                OneOfPossibility(
+                    param="member",
+                    value=request.member,
+                    marshal_func=marshal_CreateUserRequestMember,
+                ),
             ]
         ),
     )
@@ -1668,8 +1697,14 @@ def marshal_RemoveGroupMemberRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("application_id", request.application_id),
+                OneOfPossibility(
+                    param="user_id", value=request.user_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="application_id",
+                    value=request.application_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1823,10 +1858,20 @@ def marshal_UpdatePolicyRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
+                OneOfPossibility(
+                    param="user_id", value=request.user_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="group_id", value=request.group_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="application_id",
+                    value=request.application_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="no_principal", value=request.no_principal, marshal_func=None
+                ),
             ]
         ),
     )
