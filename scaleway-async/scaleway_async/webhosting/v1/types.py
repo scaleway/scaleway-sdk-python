@@ -20,6 +20,34 @@ from ...std.types import (
 )
 
 
+class BackupItemType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BACKUP_ITEM_TYPE = "unknown_backup_item_type"
+    FULL = "full"
+    WEB = "web"
+    MAIL = "mail"
+    DB = "db"
+    DB_USER = "db_user"
+    FTP_USER = "ftp_user"
+    DNS_ZONE = "dns_zone"
+    CRON_JOB = "cron_job"
+    SSL_CERTIFICATE = "ssl_certificate"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class BackupStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BACKUP_STATUS = "unknown_backup_status"
+    ACTIVE = "active"
+    LOCKED = "locked"
+    DISABLED = "disabled"
+    DAMAGED = "damaged"
+    RESTORING = "restoring"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
@@ -131,6 +159,14 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListBackupsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListDatabaseUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     USERNAME_ASC = "username_asc"
     USERNAME_DESC = "username_desc"
@@ -233,6 +269,34 @@ class PlatformPlatformGroup(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class AutoConfigDomainDns:
+    nameservers: bool
+    """
+    Whether or not to synchronize domain nameservers.
+    """
+
+    web_records: bool
+    """
+    Whether or not to synchronize web records.
+    """
+
+    mail_records: bool
+    """
+    Whether or not to synchronize mail records.
+    """
+
+    all_records: bool
+    """
+    Whether or not to synchronize all types of records. Takes priority over the other fields.
+    """
+
+    none: bool
+    """
+    No automatic domain configuration. Users must configure their domain for the Web Hosting to work.
+    """
+
+
+@dataclass
 class PlatformControlPanelUrls:
     dashboard: str
     """
@@ -242,6 +306,29 @@ class PlatformControlPanelUrls:
     webmail: str
     """
     URL to connect to the hosting Webmail interface.
+    """
+
+
+@dataclass
+class HostingDomainCustomDomain:
+    domain: str
+    """
+    Custom domain linked to the hosting plan.
+    """
+
+    domain_status: DomainStatus
+    """
+    Status of the custom domain verification.
+    """
+
+    dns_status: DnsRecordsStatus
+    """
+    Status of the DNS configuration for the custom domain.
+    """
+
+    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    """
+    Indicates whether to auto-configure DNS for this domain.
     """
 
 
@@ -302,38 +389,56 @@ class PlatformControlPanel:
 
 
 @dataclass
+class BackupItem:
+    id: str
+    """
+    ID of the item.
+    """
+
+    name: str
+    """
+    Name of the item (e.g., `database name`, `email address`).
+    """
+
+    type_: BackupItemType
+    """
+    Type of the item (e.g., email, database, FTP).
+    """
+
+    size: int
+    """
+    Size of the item in bytes.
+    """
+
+    status: BackupStatus
+    """
+    Status of the item. Available values are `active`, `damaged`, and `restoring`.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time at which this item was backed up.
+    """
+
+
+@dataclass
+class HostingDomain:
+    subdomain: str
+    """
+    Optional free subdomain linked to the Web Hosting plan.
+    """
+
+    custom_domain: Optional[HostingDomainCustomDomain]
+    """
+    Optional custom domain linked to the Web Hosting plan.
+    """
+
+
+@dataclass
 class CreateDatabaseRequestUser:
     username: str
 
     password: str
-
-
-@dataclass
-class AutoConfigDomainDns:
-    nameservers: bool
-    """
-    Whether or not to synchronize domain nameservers.
-    """
-
-    web_records: bool
-    """
-    Whether or not to synchronize web records.
-    """
-
-    mail_records: bool
-    """
-    Whether or not to synchronize mail records.
-    """
-
-    all_records: bool
-    """
-    Whether or not to synchronize all types of records. Takes priority over the other fields.
-    """
-
-    none: bool
-    """
-    No automatic domain configuration. Users must configure their domain for the Web Hosting to work.
-    """
 
 
 @dataclass
@@ -528,6 +633,47 @@ class Platform:
 
 
 @dataclass
+class BackupItemGroup:
+    type_: BackupItemType
+    """
+    Type of items (e.g., email, database, FTP).
+    """
+
+    items: List[BackupItem]
+    """
+    List of individual backup items of this type.
+    """
+
+
+@dataclass
+class Backup:
+    id: str
+    """
+    ID of the backup.
+    """
+
+    size: int
+    """
+    Total size of the backup in bytes.
+    """
+
+    status: BackupStatus
+    """
+    Status of the backup. Available values are `active`, `locked`, and `restoring`.
+    """
+
+    total_items: int
+    """
+    Total number of restorable items in the backup.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date of the backup.
+    """
+
+
+@dataclass
 class ControlPanel:
     name: str
     """
@@ -606,11 +752,6 @@ class HostingSummary:
     Status of the Web Hosting plan.
     """
 
-    domain: str
-    """
-    Main domain associated with the Web Hosting plan.
-    """
-
     protected: bool
     """
     Whether the hosting is protected or not.
@@ -619,11 +760,6 @@ class HostingSummary:
     offer_name: str
     """
     Name of the active offer for the Web Hosting plan.
-    """
-
-    domain_status: DomainStatus
-    """
-    Main domain status of the Web Hosting plan.
     """
 
     region: ScwRegion
@@ -641,9 +777,24 @@ class HostingSummary:
     Date on which the Web Hosting plan was last updated.
     """
 
+    domain: Optional[str]
+    """
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
+    """
+
     dns_status: Optional[DnsRecordsStatus]
     """
     DNS status of the Web Hosting plan.
+    """
+
+    domain_status: Optional[DomainStatus]
+    """
+    Main domain status of the Web Hosting plan.
+    """
+
+    domain_info: Optional[HostingDomain]
+    """
+    Domain configuration block (subdomain, optional custom domain, and DNS settings).
     """
 
 
@@ -708,6 +859,106 @@ class DomainAvailability:
     price: Optional[Money]
     """
     Price for registering the domain.
+    """
+
+
+@dataclass
+class BackupApiGetBackupRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to retrieve.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class BackupApiListBackupItemsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to list items from.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class BackupApiListBackupsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number to retrieve.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of backups to return per page.
+    """
+
+    order_by: Optional[ListBackupsRequestOrderBy]
+    """
+    Order in which to return the list of backups.
+    """
+
+
+@dataclass
+class BackupApiRestoreBackupItemsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    item_ids: Optional[List[str]]
+    """
+    List of backup item IDs to restore individually.
+    """
+
+
+@dataclass
+class BackupApiRestoreBackupRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to fully restore.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -1274,21 +1525,6 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
-    domain: str
-    """
-    Main domain associated with the Web Hosting plan.
-    """
-
-    tags: List[str]
-    """
-    List of tags associated with the Web Hosting plan.
-    """
-
-    ipv4: str
-    """
-    Current IPv4 address of the hosting.
-    """
-
     updated_at: Optional[datetime]
     """
     Date on which the Web Hosting plan was last updated.
@@ -1299,19 +1535,9 @@ class Hosting:
     Date on which the Web Hosting plan was created.
     """
 
-    protected: bool
+    domain: Optional[str]
     """
-    Whether the hosting is protected or not.
-    """
-
-    domain_status: DomainStatus
-    """
-    Main domain status of the Web Hosting plan.
-    """
-
-    region: ScwRegion
-    """
-    Region where the Web Hosting plan is hosted.
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
     """
 
     offer: Optional[Offer]
@@ -1324,14 +1550,44 @@ class Hosting:
     Details of the hosting platform.
     """
 
+    tags: List[str]
+    """
+    List of tags associated with the Web Hosting plan.
+    """
+
+    ipv4: str
+    """
+    Current IPv4 address of the hosting.
+    """
+
+    protected: bool
+    """
+    Whether the hosting is protected or not.
+    """
+
+    region: ScwRegion
+    """
+    Region where the Web Hosting plan is hosted.
+    """
+
     dns_status: Optional[DnsRecordsStatus]
     """
-    DNS status of the Web Hosting plan.
+    DNS status of the Web Hosting plan (deprecated, use domain_info).
     """
 
     user: Optional[HostingUser]
     """
     Details of the hosting user.
+    """
+
+    domain_status: Optional[DomainStatus]
+    """
+    Main domain status of the Web Hosting plan (deprecated, use domain_info).
+    """
+
+    domain_info: Optional[HostingDomain]
+    """
+    Domain configuration block (subdomain, optional custom domain, and DNS settings).
     """
 
 
@@ -1365,6 +1621,11 @@ class HostingApiCreateHostingRequest:
     tags: Optional[List[str]]
     """
     List of tags for the Web Hosting plan.
+    """
+
+    subdomain: Optional[str]
+    """
+    The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself.
     """
 
     offer_options: Optional[List[OfferOptionRequest]]
@@ -1497,6 +1758,11 @@ class HostingApiListHostingsRequest:
     Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
     """
 
+    subdomain: Optional[str]
+    """
+    Optional free subdomain linked to the Web Hosting plan.
+    """
+
 
 @dataclass
 class HostingApiResetHostingPasswordRequest:
@@ -1546,6 +1812,32 @@ class HostingApiUpdateHostingRequest:
     protected: Optional[bool]
     """
     Whether the hosting is protected or not.
+    """
+
+
+@dataclass
+class ListBackupItemsResponse:
+    total_count: int
+    """
+    Total number of backup item groups.
+    """
+
+    groups: List[BackupItemGroup]
+    """
+    List of backup item groups categorized by type.
+    """
+
+
+@dataclass
+class ListBackupsResponse:
+    total_count: int
+    """
+    Total number of available backups.
+    """
+
+    backups: List[Backup]
+    """
+    List of available backups.
     """
 
 
@@ -1832,6 +2124,16 @@ class ResourceSummary:
     """
     Total number of active domains in the Web Hosting plan.
     """
+
+
+@dataclass
+class RestoreBackupItemsResponse:
+    pass
+
+
+@dataclass
+class RestoreBackupResponse:
+    pass
 
 
 @dataclass

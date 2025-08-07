@@ -16,6 +16,7 @@ from .types import (
     DomainAction,
     DomainAvailabilityAction,
     DomainDnsAction,
+    Backup,
     DatabaseUser,
     Database,
     FtpAccount,
@@ -27,12 +28,18 @@ from .types import (
     DnsRecords,
     Domain,
     PlatformControlPanelUrls,
+    HostingDomainCustomDomain,
     OfferOption,
     PlatformControlPanel,
+    HostingDomain,
     HostingUser,
     Offer,
     Platform,
     Hosting,
+    BackupItem,
+    BackupItemGroup,
+    ListBackupItemsResponse,
+    ListBackupsResponse,
     ControlPanel,
     ListControlPanelsResponse,
     ListDatabaseUsersResponse,
@@ -46,9 +53,12 @@ from .types import (
     ListWebsitesResponse,
     ResetHostingPasswordResponse,
     ResourceSummary,
+    RestoreBackupItemsResponse,
+    RestoreBackupResponse,
     DomainAvailability,
     SearchDomainsResponse,
     Session,
+    BackupApiRestoreBackupItemsRequest,
     DatabaseApiAssignDatabaseUserRequest,
     DatabaseApiChangeDatabaseUserPasswordRequest,
     CreateDatabaseRequestUser,
@@ -71,6 +81,39 @@ from .types import (
 from ...std.types import (
     LanguageCode as StdLanguageCode,
 )
+
+
+def unmarshal_Backup(data: Any) -> Backup:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Backup' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("total_items", None)
+    if field is not None:
+        args["total_items"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    return Backup(**args)
 
 
 def unmarshal_DatabaseUser(data: Any) -> DatabaseUser:
@@ -366,6 +409,35 @@ def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
     return PlatformControlPanelUrls(**args)
 
 
+def unmarshal_HostingDomainCustomDomain(data: Any) -> HostingDomainCustomDomain:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'HostingDomainCustomDomain' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+
+    field = data.get("domain_status", None)
+    if field is not None:
+        args["domain_status"] = field
+
+    field = data.get("dns_status", None)
+    if field is not None:
+        args["dns_status"] = field
+
+    field = data.get("auto_config_domain_dns", None)
+    if field is not None:
+        args["auto_config_domain_dns"] = unmarshal_AutoConfigDomainDns(field)
+    else:
+        args["auto_config_domain_dns"] = None
+
+    return HostingDomainCustomDomain(**args)
+
+
 def unmarshal_OfferOption(data: Any) -> OfferOption:
     if not isinstance(data, dict):
         raise TypeError(
@@ -430,6 +502,27 @@ def unmarshal_PlatformControlPanel(data: Any) -> PlatformControlPanel:
         args["urls"] = None
 
     return PlatformControlPanel(**args)
+
+
+def unmarshal_HostingDomain(data: Any) -> HostingDomain:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'HostingDomain' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("subdomain", None)
+    if field is not None:
+        args["subdomain"] = field
+
+    field = data.get("custom_domain", None)
+    if field is not None:
+        args["custom_domain"] = unmarshal_HostingDomainCustomDomain(field)
+    else:
+        args["custom_domain"] = None
+
+    return HostingDomain(**args)
 
 
 def unmarshal_HostingUser(data: Any) -> HostingUser:
@@ -571,18 +664,6 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     if field is not None:
         args["status"] = field
 
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-
-    field = data.get("ipv4", None)
-    if field is not None:
-        args["ipv4"] = field
-
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -595,17 +676,11 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     else:
         args["created_at"] = None
 
-    field = data.get("protected", None)
+    field = data.get("domain", None)
     if field is not None:
-        args["protected"] = field
-
-    field = data.get("domain_status", None)
-    if field is not None:
-        args["domain_status"] = field
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
+        args["domain"] = field
+    else:
+        args["domain"] = None
 
     field = data.get("offer", None)
     if field is not None:
@@ -619,6 +694,22 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     else:
         args["platform"] = None
 
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
+    field = data.get("ipv4", None)
+    if field is not None:
+        args["ipv4"] = field
+
+    field = data.get("protected", None)
+    if field is not None:
+        args["protected"] = field
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+
     field = data.get("dns_status", None)
     if field is not None:
         args["dns_status"] = field
@@ -631,7 +722,119 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     else:
         args["user"] = None
 
+    field = data.get("domain_status", None)
+    if field is not None:
+        args["domain_status"] = field
+    else:
+        args["domain_status"] = None
+
+    field = data.get("domain_info", None)
+    if field is not None:
+        args["domain_info"] = unmarshal_HostingDomain(field)
+    else:
+        args["domain_info"] = None
+
     return Hosting(**args)
+
+
+def unmarshal_BackupItem(data: Any) -> BackupItem:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BackupItem' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    return BackupItem(**args)
+
+
+def unmarshal_BackupItemGroup(data: Any) -> BackupItemGroup:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BackupItemGroup' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("items", None)
+    if field is not None:
+        args["items"] = (
+            [unmarshal_BackupItem(v) for v in field] if field is not None else None
+        )
+
+    return BackupItemGroup(**args)
+
+
+def unmarshal_ListBackupItemsResponse(data: Any) -> ListBackupItemsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListBackupItemsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("groups", None)
+    if field is not None:
+        args["groups"] = (
+            [unmarshal_BackupItemGroup(v) for v in field] if field is not None else None
+        )
+
+    return ListBackupItemsResponse(**args)
+
+
+def unmarshal_ListBackupsResponse(data: Any) -> ListBackupsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListBackupsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("backups", None)
+    if field is not None:
+        args["backups"] = (
+            [unmarshal_Backup(v) for v in field] if field is not None else None
+        )
+
+    return ListBackupsResponse(**args)
 
 
 def unmarshal_ControlPanel(data: Any) -> ControlPanel:
@@ -767,10 +970,6 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     if field is not None:
         args["status"] = field
 
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
@@ -778,10 +977,6 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     field = data.get("offer_name", None)
     if field is not None:
         args["offer_name"] = field
-
-    field = data.get("domain_status", None)
-    if field is not None:
-        args["domain_status"] = field
 
     field = data.get("region", None)
     if field is not None:
@@ -799,11 +994,29 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     else:
         args["updated_at"] = None
 
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+    else:
+        args["domain"] = None
+
     field = data.get("dns_status", None)
     if field is not None:
         args["dns_status"] = field
     else:
         args["dns_status"] = None
+
+    field = data.get("domain_status", None)
+    if field is not None:
+        args["domain_status"] = field
+    else:
+        args["domain_status"] = None
+
+    field = data.get("domain_info", None)
+    if field is not None:
+        args["domain_info"] = unmarshal_HostingDomain(field)
+    else:
+        args["domain_info"] = None
 
     return HostingSummary(**args)
 
@@ -963,6 +1176,28 @@ def unmarshal_ResourceSummary(data: Any) -> ResourceSummary:
     return ResourceSummary(**args)
 
 
+def unmarshal_RestoreBackupItemsResponse(data: Any) -> RestoreBackupItemsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RestoreBackupItemsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return RestoreBackupItemsResponse(**args)
+
+
+def unmarshal_RestoreBackupResponse(data: Any) -> RestoreBackupResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RestoreBackupResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return RestoreBackupResponse(**args)
+
+
 def unmarshal_DomainAvailability(data: Any) -> DomainAvailability:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1036,6 +1271,18 @@ def unmarshal_Session(data: Any) -> Session:
     return Session(**args)
 
 
+def marshal_BackupApiRestoreBackupItemsRequest(
+    request: BackupApiRestoreBackupItemsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.item_ids is not None:
+        output["item_ids"] = request.item_ids
+
+    return output
+
+
 def marshal_DatabaseApiAssignDatabaseUserRequest(
     request: DatabaseApiAssignDatabaseUserRequest,
     defaults: ProfileDefaults,
@@ -1083,8 +1330,16 @@ def marshal_DatabaseApiCreateDatabaseRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("new_user", request.new_user),
-                OneOfPossibility("existing_username", request.existing_username),
+                OneOfPossibility(
+                    param="new_user",
+                    value=request.new_user,
+                    marshal_func=marshal_CreateDatabaseRequestUser,
+                ),
+                OneOfPossibility(
+                    param="existing_username",
+                    value=request.existing_username,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -1291,6 +1546,9 @@ def marshal_HostingApiCreateHostingRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.subdomain is not None:
+        output["subdomain"] = request.subdomain
 
     if request.offer_options is not None:
         output["offer_options"] = [
