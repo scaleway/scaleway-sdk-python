@@ -877,6 +877,11 @@ class Cluster:
     List of enabled feature gates.
     """
 
+    admission_plugins: List[str]
+    """
+    List of enabled admission plugins.
+    """
+
     created_at: Optional[datetime]
     """
     Date on which the cluster was created.
@@ -897,9 +902,9 @@ class Cluster:
     Auto upgrade Kubernetes version of the cluster.
     """
 
-    admission_plugins: List[str]
+    open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
     """
-    List of enabled admission plugins.
+    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
     apiserver_cert_sans: List[str]
@@ -912,9 +917,19 @@ class Cluster:
     IAM group that nodes are members of (this field might be empty during early stage of cluster creation).
     """
 
-    open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
+    pod_cidr: str
     """
-    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+    Subnet used for the Pod CIDR.
+    """
+
+    service_cidr: str
+    """
+    Subnet used for the Service CIDR.
+    """
+
+    service_dns_ip: str
+    """
+    IP used for the DNS Service.
     """
 
     private_network_id: Optional[str]
@@ -1182,6 +1197,11 @@ class CreateClusterRequest:
     Kubernetes version of the cluster.
     """
 
+    cni: CNI
+    """
+    Container Network Interface (CNI) plugin running in the cluster.
+    """
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1195,11 +1215,6 @@ class CreateClusterRequest:
     tags: Optional[List[str]]
     """
     Tags associated with the cluster.
-    """
-
-    cni: CNI
-    """
-    Container Network Interface (CNI) plugin running in the cluster.
     """
 
     pools: Optional[List[CreateClusterRequestPoolConfig]]
@@ -1240,6 +1255,21 @@ class CreateClusterRequest:
     private_network_id: Optional[str]
     """
     Private network ID for internal cluster communication (cannot be changed later).
+    """
+
+    pod_cidr: Optional[str]
+    """
+    Subnet used for the Pod CIDR (cannot be changed later).
+    """
+
+    service_cidr: Optional[str]
+    """
+    Subnet used for the Service CIDR (cannot be changed later).
+    """
+
+    service_dns_ip: Optional[str]
+    """
+    IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10.
     """
 
     project_id: Optional[str]
