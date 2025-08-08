@@ -637,17 +637,51 @@ def marshal_Qualification(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("host_website", request.host_website),
-                OneOfPossibility("host_application", request.host_application),
-                OneOfPossibility("deploy_software", request.deploy_software),
                 OneOfPossibility(
-                    "set_scaleway_environment", request.set_scaleway_environment
+                    param="host_website",
+                    value=request.host_website,
+                    marshal_func=marshal_QualificationHostWebsite,
                 ),
-                OneOfPossibility("ai_machine", request.ai_machine),
-                OneOfPossibility("container", request.container),
-                OneOfPossibility("archive_data", request.archive_data),
-                OneOfPossibility("share_data", request.share_data),
-                OneOfPossibility("other_use_case", request.other_use_case),
+                OneOfPossibility(
+                    param="host_application",
+                    value=request.host_application,
+                    marshal_func=marshal_QualificationHostApplication,
+                ),
+                OneOfPossibility(
+                    param="deploy_software",
+                    value=request.deploy_software,
+                    marshal_func=marshal_QualificationDeploySoftware,
+                ),
+                OneOfPossibility(
+                    param="set_scaleway_environment",
+                    value=request.set_scaleway_environment,
+                    marshal_func=marshal_QualificationSetScalewayEnvironment,
+                ),
+                OneOfPossibility(
+                    param="ai_machine",
+                    value=request.ai_machine,
+                    marshal_func=marshal_QualificationAiMachine,
+                ),
+                OneOfPossibility(
+                    param="container",
+                    value=request.container,
+                    marshal_func=marshal_QualificationContainer,
+                ),
+                OneOfPossibility(
+                    param="archive_data",
+                    value=request.archive_data,
+                    marshal_func=marshal_QualificationArchiveData,
+                ),
+                OneOfPossibility(
+                    param="share_data",
+                    value=request.share_data,
+                    marshal_func=marshal_QualificationShareData,
+                ),
+                OneOfPossibility(
+                    param="other_use_case",
+                    value=request.other_use_case,
+                    marshal_func=marshal_QualificationOtherUseCase,
+                ),
             ]
         ),
     )
