@@ -572,8 +572,14 @@ def marshal_CreateLinkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("connection_id", request.connection_id),
-                OneOfPossibility("partner_id", request.partner_id),
+                OneOfPossibility(
+                    param="connection_id",
+                    value=request.connection_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="partner_id", value=request.partner_id, marshal_func=None
+                ),
             ]
         ),
     )
