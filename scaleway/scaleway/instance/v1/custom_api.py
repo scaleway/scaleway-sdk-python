@@ -95,9 +95,7 @@ class InstanceUtilsV1API(InstanceV1API):
             print("value: ", value)
             user_data[key] = value.content
 
-        res = GetAllServerUserDataResponse(user_data=user_data)
-
-        return res
+        return GetAllServerUserDataResponse(user_data=user_data)
 
     def set_all_server_user_data(
         self,

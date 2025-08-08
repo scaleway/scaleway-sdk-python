@@ -26,8 +26,7 @@ def random_date(min: Union[str, datetime], max: Union[str, datetime]) -> datetim
     min_time = min if isinstance(min, datetime) else string_to_datetime(min)
     max_time = max if isinstance(max, datetime) else string_to_datetime(max)
 
-    random_time = min_time + system_random.random() * (max_time - min_time)
-    return random_time
+    return min_time + system_random.random() * (max_time - min_time)
 
 
 def datetime_to_string(date: datetime) -> str:
