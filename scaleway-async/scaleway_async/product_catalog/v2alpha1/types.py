@@ -47,6 +47,7 @@ class PublicCatalogProductStatus(str, Enum, metaclass=StrEnumMeta):
     GENERAL_AVAILABILITY = "general_availability"
     END_OF_DEPLOYMENT = "end_of_deployment"
     END_OF_SUPPORT = "end_of_support"
+    END_OF_SALE = "end_of_sale"
 
     def __str__(self) -> str:
         return str(self.value)
