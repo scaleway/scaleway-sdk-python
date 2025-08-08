@@ -3,11 +3,18 @@
 from typing import List
 
 from .types import (
+    BackupStatus,
     DomainAvailabilityStatus,
     DomainStatus,
     HostingStatus,
 )
 
+BACKUP_TRANSIENT_STATUSES: List[BackupStatus] = [
+    BackupStatus.RESTORING,
+]
+"""
+Lists transient statutes of the enum :class:`BackupStatus <BackupStatus>`.
+"""
 DOMAIN_AVAILABILITY_TRANSIENT_STATUSES: List[DomainAvailabilityStatus] = [
     DomainAvailabilityStatus.VALIDATING,
 ]

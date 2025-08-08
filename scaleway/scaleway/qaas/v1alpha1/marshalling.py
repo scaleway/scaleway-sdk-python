@@ -18,6 +18,7 @@ from .types import (
     Application,
     Booking,
     Job,
+    Model,
     PlatformBookingRequirement,
     PlatformHardware,
     Platform,
@@ -28,6 +29,7 @@ from .types import (
     JobResult,
     ListJobResultsResponse,
     ListJobsResponse,
+    ListModelsResponse,
     ListPlatformsResponse,
     ProcessResult,
     ListProcessResultsResponse,
@@ -35,6 +37,7 @@ from .types import (
     ListSessionACLsResponse,
     ListSessionsResponse,
     CreateJobRequest,
+    CreateModelRequest,
     CreateProcessRequest,
     CreateSessionRequestBookingDemand,
     CreateSessionRequest,
@@ -172,10 +175,6 @@ def unmarshal_Job(data: Any) -> Job:
     if field is not None:
         args["session_id"] = field
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -193,6 +192,10 @@ def unmarshal_Job(data: Any) -> Job:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["started_at"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
 
     field = data.get("updated_at", None)
     if field is not None:
@@ -218,7 +221,50 @@ def unmarshal_Job(data: Any) -> Job:
     else:
         args["result_distribution"] = None
 
+    field = data.get("model_id", None)
+    if field is not None:
+        args["model_id"] = field
+    else:
+        args["model_id"] = None
+
+    field = data.get("parameters", None)
+    if field is not None:
+        args["parameters"] = field
+    else:
+        args["parameters"] = None
+
     return Job(**args)
+
+
+def unmarshal_Model(data: Any) -> Model:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Model' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("url", None)
+    if field is not None:
+        args["url"] = field
+    else:
+        args["url"] = None
+
+    return Model(**args)
 
 
 def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequirement:
@@ -507,12 +553,6 @@ def unmarshal_Session(data: Any) -> Session:
     if field is not None:
         args["waiting_job_count"] = field
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
     field = data.get("finished_job_count", None)
     if field is not None:
         args["finished_job_count"] = field
@@ -529,9 +569,11 @@ def unmarshal_Session(data: Any) -> Session:
     if field is not None:
         args["deduplication_id"] = field
 
-    field = data.get("origin_type", None)
+    field = data.get("created_at", None)
     if field is not None:
-        args["origin_type"] = field
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("started_at", None)
     if field is not None:
@@ -571,6 +613,10 @@ def unmarshal_Session(data: Any) -> Session:
     else:
         args["tags"] = None
 
+    field = data.get("origin_type", None)
+    if field is not None:
+        args["origin_type"] = field
+
     field = data.get("origin_id", None)
     if field is not None:
         args["origin_id"] = field
@@ -588,6 +634,12 @@ def unmarshal_Session(data: Any) -> Session:
         args["booking_id"] = field
     else:
         args["booking_id"] = None
+
+    field = data.get("model_id", None)
+    if field is not None:
+        args["model_id"] = field
+    else:
+        args["model_id"] = None
 
     return Session(**args)
 
@@ -705,6 +757,27 @@ def unmarshal_ListJobsResponse(data: Any) -> ListJobsResponse:
         args["jobs"] = [unmarshal_Job(v) for v in field] if field is not None else None
 
     return ListJobsResponse(**args)
+
+
+def unmarshal_ListModelsResponse(data: Any) -> ListModelsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListModelsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("models", None)
+    if field is not None:
+        args["models"] = (
+            [unmarshal_Model(v) for v in field] if field is not None else None
+        )
+
+    return ListModelsResponse(**args)
 
 
 def unmarshal_ListPlatformsResponse(data: Any) -> ListPlatformsResponse:
@@ -881,6 +954,27 @@ def marshal_CreateJobRequest(
     if request.max_duration is not None:
         output["max_duration"] = request.max_duration
 
+    if request.model_id is not None:
+        output["model_id"] = request.model_id
+
+    if request.parameters is not None:
+        output["parameters"] = request.parameters
+
+    return output
+
+
+def marshal_CreateModelRequest(
+    request: CreateModelRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.payload is not None:
+        output["payload"] = request.payload
+
     return output
 
 
@@ -960,6 +1054,9 @@ def marshal_CreateSessionRequest(
         output["booking_demand"] = marshal_CreateSessionRequestBookingDemand(
             request.booking_demand, defaults
         )
+
+    if request.model_id is not None:
+        output["model_id"] = request.model_id
 
     return output
 
