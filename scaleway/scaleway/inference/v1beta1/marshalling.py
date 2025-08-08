@@ -565,8 +565,16 @@ def marshal_EndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("public", request.public),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    param="public",
+                    value=request.public,
+                    marshal_func=marshal_EndpointSpecPublic,
+                ),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_EndpointSpecPrivateNetwork,
+                ),
             ]
         ),
     )

@@ -667,8 +667,16 @@ def marshal_EndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("private_network", request.private_network),
-                OneOfPossibility("public_network", request.public_network),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_EndpointSpecPrivateNetworkSpec,
+                ),
+                OneOfPossibility(
+                    param="public_network",
+                    value=request.public_network,
+                    marshal_func=marshal_EndpointSpecPublicNetworkSpec,
+                ),
             ]
         ),
     )
@@ -749,9 +757,15 @@ def marshal_MigrateClusterRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("version", request.version),
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("cluster_size", request.cluster_size),
+                OneOfPossibility(
+                    param="version", value=request.version, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="node_type", value=request.node_type, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="cluster_size", value=request.cluster_size, marshal_func=None
+                ),
             ]
         ),
     )
@@ -830,8 +844,16 @@ def marshal_UpdateEndpointRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("private_network", request.private_network),
-                OneOfPossibility("public_network", request.public_network),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_EndpointSpecPrivateNetworkSpec,
+                ),
+                OneOfPossibility(
+                    param="public_network",
+                    value=request.public_network,
+                    marshal_func=marshal_EndpointSpecPublicNetworkSpec,
+                ),
             ]
         ),
     )

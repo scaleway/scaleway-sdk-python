@@ -24,11 +24,13 @@ from .types import NameserverStatus
 from .types import OfferOptionName
 from .types import OfferOptionWarning
 from .types import PlatformPlatformGroup
+from .types import AutoConfigDomainDns
 from .types import PlatformControlPanelUrls
+from .types import HostingDomainCustomDomain
 from .types import OfferOption
 from .types import PlatformControlPanel
+from .types import HostingDomain
 from .types import CreateDatabaseRequestUser
-from .types import AutoConfigDomainDns
 from .types import CreateHostingRequestDomainConfiguration
 from .types import OfferOptionRequest
 from .types import SyncDomainDnsRecordsRequestRecord
@@ -130,11 +132,13 @@ __all__ = [
     "OfferOptionName",
     "OfferOptionWarning",
     "PlatformPlatformGroup",
+    "AutoConfigDomainDns",
     "PlatformControlPanelUrls",
+    "HostingDomainCustomDomain",
     "OfferOption",
     "PlatformControlPanel",
+    "HostingDomain",
     "CreateDatabaseRequestUser",
-    "AutoConfigDomainDns",
     "CreateHostingRequestDomainConfiguration",
     "OfferOptionRequest",
     "SyncDomainDnsRecordsRequestRecord",

@@ -19,6 +19,8 @@ from .types import (
     Snapshot,
     UserRole,
     User,
+    Database,
+    ListDatabasesResponse,
     ListInstancesResponse,
     NodeTypeVolumeType,
     NodeType,
@@ -350,6 +352,42 @@ def unmarshal_User(data: Any) -> User:
     return User(**args)
 
 
+def unmarshal_Database(data: Any) -> Database:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Database' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    return Database(**args)
+
+
+def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListDatabasesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("databases", None)
+    if field is not None:
+        args["databases"] = (
+            [unmarshal_Database(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    return ListDatabasesResponse(**args)
+
+
 def unmarshal_ListInstancesResponse(data: Any) -> ListInstancesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -589,8 +627,16 @@ def marshal_EndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("public_network", request.public_network),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    param="public_network",
+                    value=request.public_network,
+                    marshal_func=marshal_EndpointSpecPublicNetworkDetails,
+                ),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_EndpointSpecPrivateNetworkDetails,
+                ),
             ]
         ),
     )
@@ -731,8 +777,14 @@ def marshal_UserRole(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("database_name", request.database_name),
-                OneOfPossibility("any_database", request.any_database),
+                OneOfPossibility(
+                    param="database_name",
+                    value=request.database_name,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="any_database", value=request.any_database, marshal_func=None
+                ),
             ]
         ),
     )
@@ -821,7 +873,11 @@ def marshal_UpgradeInstanceRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("volume_size_bytes", request.volume_size_bytes),
+                OneOfPossibility(
+                    param="volume_size_bytes",
+                    value=request.volume_size_bytes,
+                    marshal_func=None,
+                ),
             ]
         ),
     )

@@ -923,7 +923,9 @@ def marshal_CreateHubRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "twins_graphite_config", request.twins_graphite_config
+                    param="twins_graphite_config",
+                    value=request.twins_graphite_config,
+                    marshal_func=marshal_HubTwinsGraphiteConfig,
                 ),
             ]
         ),
@@ -1045,9 +1047,21 @@ def marshal_CreateRouteRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
+                OneOfPossibility(
+                    param="s3_config",
+                    value=request.s3_config,
+                    marshal_func=marshal_CreateRouteRequestS3Config,
+                ),
+                OneOfPossibility(
+                    param="db_config",
+                    value=request.db_config,
+                    marshal_func=marshal_CreateRouteRequestDatabaseConfig,
+                ),
+                OneOfPossibility(
+                    param="rest_config",
+                    value=request.rest_config,
+                    marshal_func=marshal_CreateRouteRequestRestConfig,
+                ),
             ]
         ),
     )
@@ -1156,7 +1170,9 @@ def marshal_UpdateHubRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "twins_graphite_config", request.twins_graphite_config
+                    param="twins_graphite_config",
+                    value=request.twins_graphite_config,
+                    marshal_func=marshal_HubTwinsGraphiteConfig,
                 ),
             ]
         ),
@@ -1259,9 +1275,21 @@ def marshal_UpdateRouteRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
+                OneOfPossibility(
+                    param="s3_config",
+                    value=request.s3_config,
+                    marshal_func=marshal_UpdateRouteRequestS3Config,
+                ),
+                OneOfPossibility(
+                    param="db_config",
+                    value=request.db_config,
+                    marshal_func=marshal_UpdateRouteRequestDatabaseConfig,
+                ),
+                OneOfPossibility(
+                    param="rest_config",
+                    value=request.rest_config,
+                    marshal_func=marshal_UpdateRouteRequestRestConfig,
+                ),
             ]
         ),
     )

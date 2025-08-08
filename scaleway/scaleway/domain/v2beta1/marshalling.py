@@ -2251,7 +2251,11 @@ def marshal_ImportProviderDNSZoneRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("online_v1", request.online_v1),
+                OneOfPossibility(
+                    param="online_v1",
+                    value=request.online_v1,
+                    marshal_func=marshal_ImportProviderDNSZoneRequestOnlineV1,
+                ),
             ]
         ),
     )
@@ -2314,8 +2318,16 @@ def marshal_ImportRawDNSZoneRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("bind_source", request.bind_source),
-                OneOfPossibility("axfr_source", request.axfr_source),
+                OneOfPossibility(
+                    param="bind_source",
+                    value=request.bind_source,
+                    marshal_func=marshal_ImportRawDNSZoneRequestBindSource,
+                ),
+                OneOfPossibility(
+                    param="axfr_source",
+                    value=request.axfr_source,
+                    marshal_func=marshal_ImportRawDNSZoneRequestAXFRSource,
+                ),
             ]
         ),
     )
@@ -2433,11 +2445,31 @@ def marshal_ContactExtensionFR(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("individual_info", request.individual_info),
-                OneOfPossibility("duns_info", request.duns_info),
-                OneOfPossibility("association_info", request.association_info),
-                OneOfPossibility("trademark_info", request.trademark_info),
-                OneOfPossibility("code_auth_afnic_info", request.code_auth_afnic_info),
+                OneOfPossibility(
+                    param="individual_info",
+                    value=request.individual_info,
+                    marshal_func=marshal_ContactExtensionFRIndividualInfo,
+                ),
+                OneOfPossibility(
+                    param="duns_info",
+                    value=request.duns_info,
+                    marshal_func=marshal_ContactExtensionFRDunsInfo,
+                ),
+                OneOfPossibility(
+                    param="association_info",
+                    value=request.association_info,
+                    marshal_func=marshal_ContactExtensionFRAssociationInfo,
+                ),
+                OneOfPossibility(
+                    param="trademark_info",
+                    value=request.trademark_info,
+                    marshal_func=marshal_ContactExtensionFRTrademarkInfo,
+                ),
+                OneOfPossibility(
+                    param="code_auth_afnic_info",
+                    value=request.code_auth_afnic_info,
+                    marshal_func=marshal_ContactExtensionFRCodeAuthAfnicInfo,
+                ),
             ]
         ),
     )
@@ -2574,19 +2606,15 @@ def marshal_RegistrarApiBuyDomainsRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-    )
-    output.update(
-        resolve_one_of(
-            [
                 OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
+                    param="owner_contact_id",
+                    value=request.owner_contact_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
+                    param="owner_contact",
+                    value=request.owner_contact,
+                    marshal_func=marshal_NewContact,
                 ),
             ]
         ),
@@ -2594,8 +2622,32 @@ def marshal_RegistrarApiBuyDomainsRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
+                OneOfPossibility(
+                    param="administrative_contact_id",
+                    value=request.administrative_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="administrative_contact",
+                    value=request.administrative_contact,
+                    marshal_func=marshal_NewContact,
+                ),
+            ]
+        ),
+    )
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="technical_contact_id",
+                    value=request.technical_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="technical_contact",
+                    value=request.technical_contact,
+                    marshal_func=marshal_NewContact,
+                ),
             ]
         ),
     )
@@ -2620,19 +2672,15 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-    )
-    output.update(
-        resolve_one_of(
-            [
                 OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
+                    param="owner_contact_id",
+                    value=request.owner_contact_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
+                    param="owner_contact",
+                    value=request.owner_contact,
+                    marshal_func=marshal_NewContact,
                 ),
             ]
         ),
@@ -2640,8 +2688,32 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
+                OneOfPossibility(
+                    param="administrative_contact_id",
+                    value=request.administrative_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="administrative_contact",
+                    value=request.administrative_contact,
+                    marshal_func=marshal_NewContact,
+                ),
+            ]
+        ),
+    )
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="technical_contact_id",
+                    value=request.technical_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="technical_contact",
+                    value=request.technical_contact,
+                    marshal_func=marshal_NewContact,
+                ),
             ]
         ),
     )
@@ -2708,8 +2780,16 @@ def marshal_DSRecord(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("digest", request.digest),
-                OneOfPossibility("public_key", request.public_key),
+                OneOfPossibility(
+                    param="digest",
+                    value=request.digest,
+                    marshal_func=marshal_DSRecordDigest,
+                ),
+                OneOfPossibility(
+                    param="public_key",
+                    value=request.public_key,
+                    marshal_func=marshal_DSRecordPublicKey,
+                ),
             ]
         ),
     )
@@ -2776,8 +2856,16 @@ def marshal_RegistrarApiTradeDomainRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("new_owner_contact_id", request.new_owner_contact_id),
-                OneOfPossibility("new_owner_contact", request.new_owner_contact),
+                OneOfPossibility(
+                    param="new_owner_contact_id",
+                    value=request.new_owner_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="new_owner_contact",
+                    value=request.new_owner_contact,
+                    marshal_func=marshal_NewContact,
+                ),
             ]
         ),
     )
@@ -2811,19 +2899,15 @@ def marshal_RegistrarApiTransferInDomainRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-    )
-    output.update(
-        resolve_one_of(
-            [
                 OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
+                    param="owner_contact_id",
+                    value=request.owner_contact_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
+                    param="owner_contact",
+                    value=request.owner_contact,
+                    marshal_func=marshal_NewContact,
                 ),
             ]
         ),
@@ -2831,8 +2915,32 @@ def marshal_RegistrarApiTransferInDomainRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
+                OneOfPossibility(
+                    param="administrative_contact_id",
+                    value=request.administrative_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="administrative_contact",
+                    value=request.administrative_contact,
+                    marshal_func=marshal_NewContact,
+                ),
+            ]
+        ),
+    )
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="technical_contact_id",
+                    value=request.technical_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="technical_contact",
+                    value=request.technical_contact,
+                    marshal_func=marshal_NewContact,
+                ),
             ]
         ),
     )
@@ -2959,27 +3067,47 @@ def marshal_RegistrarApiUpdateDomainRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-    )
-    output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-    )
-    output.update(
-        resolve_one_of(
-            [
                 OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
+                    param="technical_contact_id",
+                    value=request.technical_contact_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
+                    param="technical_contact",
+                    value=request.technical_contact,
+                    marshal_func=marshal_NewContact,
+                ),
+            ]
+        ),
+    )
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="owner_contact_id",
+                    value=request.owner_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="owner_contact",
+                    value=request.owner_contact,
+                    marshal_func=marshal_NewContact,
+                ),
+            ]
+        ),
+    )
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="administrative_contact_id",
+                    value=request.administrative_contact_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="administrative_contact",
+                    value=request.administrative_contact,
+                    marshal_func=marshal_NewContact,
                 ),
             ]
         ),
@@ -3141,10 +3269,26 @@ def marshal_Record(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("geo_ip_config", request.geo_ip_config),
-                OneOfPossibility("http_service_config", request.http_service_config),
-                OneOfPossibility("weighted_config", request.weighted_config),
-                OneOfPossibility("view_config", request.view_config),
+                OneOfPossibility(
+                    param="geo_ip_config",
+                    value=request.geo_ip_config,
+                    marshal_func=marshal_RecordGeoIPConfig,
+                ),
+                OneOfPossibility(
+                    param="http_service_config",
+                    value=request.http_service_config,
+                    marshal_func=marshal_RecordHTTPServiceConfig,
+                ),
+                OneOfPossibility(
+                    param="weighted_config",
+                    value=request.weighted_config,
+                    marshal_func=marshal_RecordWeightedConfig,
+                ),
+                OneOfPossibility(
+                    param="view_config",
+                    value=request.view_config,
+                    marshal_func=marshal_RecordViewConfig,
+                ),
             ]
         ),
     )
@@ -3223,8 +3367,12 @@ def marshal_RecordChangeDelete(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("id", request.id),
-                OneOfPossibility("id_fields", request.id_fields),
+                OneOfPossibility(param="id", value=request.id, marshal_func=None),
+                OneOfPossibility(
+                    param="id_fields",
+                    value=request.id_fields,
+                    marshal_func=marshal_RecordIdentifier,
+                ),
             ]
         ),
     )
@@ -3240,8 +3388,12 @@ def marshal_RecordChangeSet(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("id", request.id),
-                OneOfPossibility("id_fields", request.id_fields),
+                OneOfPossibility(param="id", value=request.id, marshal_func=None),
+                OneOfPossibility(
+                    param="id_fields",
+                    value=request.id_fields,
+                    marshal_func=marshal_RecordIdentifier,
+                ),
             ]
         ),
     )
@@ -3260,10 +3412,24 @@ def marshal_RecordChange(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("add", request.add),
-                OneOfPossibility("set", request.set_),
-                OneOfPossibility("delete", request.delete),
-                OneOfPossibility("clear", request.clear),
+                OneOfPossibility(
+                    param="add", value=request.add, marshal_func=marshal_RecordChangeAdd
+                ),
+                OneOfPossibility(
+                    param="set",
+                    value=request.set_,
+                    marshal_func=marshal_RecordChangeSet,
+                ),
+                OneOfPossibility(
+                    param="delete",
+                    value=request.delete,
+                    marshal_func=marshal_RecordChangeDelete,
+                ),
+                OneOfPossibility(
+                    param="clear",
+                    value=request.clear,
+                    marshal_func=marshal_RecordChangeClear,
+                ),
             ]
         ),
     )

@@ -508,8 +508,10 @@ def marshal_CreateJobDefinitionSecretsRequestSecretConfig(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("path", request.path),
-                OneOfPossibility("env_var_name", request.env_var_name),
+                OneOfPossibility(param="path", value=request.path, marshal_func=None),
+                OneOfPossibility(
+                    param="env_var_name", value=request.env_var_name, marshal_func=None
+                ),
             ]
         ),
     )
@@ -620,8 +622,10 @@ def marshal_UpdateJobDefinitionSecretRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("path", request.path),
-                OneOfPossibility("env_var_name", request.env_var_name),
+                OneOfPossibility(param="path", value=request.path, marshal_func=None),
+                OneOfPossibility(
+                    param="env_var_name", value=request.env_var_name, marshal_func=None
+                ),
             ]
         ),
     )

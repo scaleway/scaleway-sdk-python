@@ -843,8 +843,16 @@ def marshal_JobCircuit(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("perceval_circuit", request.perceval_circuit),
-                OneOfPossibility("qiskit_circuit", request.qiskit_circuit),
+                OneOfPossibility(
+                    param="perceval_circuit",
+                    value=request.perceval_circuit,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="qiskit_circuit",
+                    value=request.qiskit_circuit,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
