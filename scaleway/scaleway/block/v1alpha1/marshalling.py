@@ -419,15 +419,25 @@ def marshal_CreateVolumeRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("from_empty", request.from_empty),
-                OneOfPossibility("from_snapshot", request.from_snapshot),
+                OneOfPossibility(
+                    param="from_empty",
+                    value=request.from_empty,
+                    marshal_func=marshal_CreateVolumeRequestFromEmpty,
+                ),
+                OneOfPossibility(
+                    param="from_snapshot",
+                    value=request.from_snapshot,
+                    marshal_func=marshal_CreateVolumeRequestFromSnapshot,
+                ),
             ]
         ),
     )
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("perf_iops", request.perf_iops),
+                OneOfPossibility(
+                    param="perf_iops", value=request.perf_iops, marshal_func=None
+                ),
             ]
         ),
     )
