@@ -507,8 +507,16 @@ def marshal_EndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("public_network", request.public_network),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    param="public_network",
+                    value=request.public_network,
+                    marshal_func=marshal_EndpointPublicNetworkDetails,
+                ),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_EndpointPrivateNetworkDetails,
+                ),
             ]
         ),
     )
@@ -585,7 +593,9 @@ def marshal_ModelSource(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("secret", request.secret),
+                OneOfPossibility(
+                    param="secret", value=request.secret, marshal_func=None
+                ),
             ]
         ),
     )
