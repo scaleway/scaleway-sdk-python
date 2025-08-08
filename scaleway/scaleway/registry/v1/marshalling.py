@@ -263,12 +263,16 @@ def marshal_CreateNamespaceRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),

@@ -1,9 +1,10 @@
-from collections.abc import Callable
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import Any, Dict, Generic, List, Optional, TypeVar
-from _typeshed import SupportsKeysAndGetItem
+from typing import Any, Dict, Generic, List, Optional, TypeVar, TYPE_CHECKING
 
-from scaleway_core.profile import ProfileDefaults
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from _typeshed import SupportsKeysAndGetItem
 
 T = TypeVar("T")
 
@@ -12,8 +13,8 @@ T = TypeVar("T")
 class OneOfPossibility(Generic[T]):
     param: str
     value: Optional[T]
-    default: Optional[T | ProfileDefaults] = None
-    marshal_func: Optional[Callable[[T, T | None], Dict[str, Any]]] = None
+    default: Optional[T] = None
+    marshal_func: Optional[Callable[[T, T], Dict[str, Any]]] = None
 
 
 def resolve_one_of(
@@ -35,7 +36,6 @@ def resolve_one_of(
                 }
             return {possibility.param: possibility.value}
 
-    # Try to resolve using non-None default
     for possibility in possibilities:
         if possibility.default is not None:
             if possibility.marshal_func is not None:
