@@ -39,6 +39,35 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff.lint]
 ignore = ["E501"]
+select = [
+    "ASYNC", # https://docs.astral.sh/ruff/rules/#flake8-async-async
+    "B", # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
+    "ERA", # https://docs.astral.sh/ruff/rules/#eradicate-era
+    "EXE",# https://docs.astral.sh/ruff/rules/#flake8-executable-exe
+    "F",# https://docs.astral.sh/ruff/rules/#pyflakes-f
+    "FBT", # https://docs.astral.sh/ruff/rules/#flake8-boolean-trap-fbt
+    "FIX", # https://docs.astral.sh/ruff/rules/#flake8-fixme-fix
+    "FLY",# https://docs.astral.sh/ruff/rules/#flynt-fly
+    "FURB", # https://docs.astral.sh/ruff/rules/#refurb-furb
+    "G",# https://docs.astral.sh/ruff/rules/#flake8-logging-format-g
+    "ICN",# https://docs.astral.sh/ruff/rules/#flake8-import-conventions-icn
+    "INT",# https://docs.astral.sh/ruff/rules/#flake8-gettext-int
+    "ISC",# https://docs.astral.sh/ruff/rules/#flake8-implicit-str-concat-isc
+    "LOG",# https://docs.astral.sh/ruff/rules/#flake8-logging-log
+    "PERF",# https://docs.astral.sh/ruff/rules/#perflint-perf
+    "PGH",# https://docs.astral.sh/ruff/rules/#pygrep-hooks-pgh
+    "PYI",# https://docs.astral.sh/ruff/rules/#flake8-pyi-pyi
+    "Q",# https://docs.astral.sh/ruff/rules/#flake8-quotes-q
+    "RET", # https://docs.astral.sh/ruff/rules/#flake8-return-ret
+    "RSE",# https://docs.astral.sh/ruff/rules/#flake8-raise-rse
+    "SIM",# https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
+    "SLF",# https://docs.astral.sh/ruff/rules/#flake8-self-slf
+    "SLOT",# https://docs.astral.sh/ruff/rules/#flake8-slots-slot
+    "T10", # https://docs.astral.sh/ruff/rules/#flake8-debugger-t10
+    "T20",# https://docs.astral.sh/ruff/rules/#flake8-print-t20
+    "TD",# https://docs.astral.sh/ruff/rules/#flake8-todos-td
+    "YTT", # https://docs.astral.sh/ruff/rules/#flake8-2020-ytt
+]
 
 [tool.ty.rules]
 missing-argument = "ignore"
