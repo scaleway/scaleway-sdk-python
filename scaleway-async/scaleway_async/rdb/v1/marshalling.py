@@ -1669,8 +1669,14 @@ def marshal_EndpointSpecPrivateNetwork(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("service_ip", request.service_ip),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    param="service_ip", value=request.service_ip, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="ipam_config",
+                    value=request.ipam_config,
+                    marshal_func=marshal_EndpointSpecPrivateNetworkIpamConfig,
+                ),
             ]
         ),
     )
@@ -1689,8 +1695,16 @@ def marshal_EndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("load_balancer", request.load_balancer),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    param="load_balancer",
+                    value=request.load_balancer,
+                    marshal_func=marshal_EndpointSpecLoadBalancer,
+                ),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_EndpointSpecPrivateNetwork,
+                ),
             ]
         ),
     )
@@ -1749,12 +1763,16 @@ def marshal_CreateInstanceRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    param="project_id",
+                    value=request.project_id,
+                    default=defaults.default_project_id,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
+                    param="organization_id",
+                    value=request.organization_id,
+                    default=defaults.default_organization_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -1835,8 +1853,14 @@ def marshal_ReadReplicaEndpointSpecPrivateNetwork(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("service_ip", request.service_ip),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    param="service_ip", value=request.service_ip, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="ipam_config",
+                    value=request.ipam_config,
+                    marshal_func=marshal_ReadReplicaEndpointSpecPrivateNetworkIpamConfig,
+                ),
             ]
         ),
     )
@@ -1855,8 +1879,16 @@ def marshal_ReadReplicaEndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("direct_access", request.direct_access),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    param="direct_access",
+                    value=request.direct_access,
+                    marshal_func=marshal_ReadReplicaEndpointSpecDirectAccess,
+                ),
+                OneOfPossibility(
+                    param="private_network",
+                    value=request.private_network,
+                    marshal_func=marshal_ReadReplicaEndpointSpecPrivateNetwork,
+                ),
             ]
         ),
     )
@@ -2173,17 +2205,33 @@ def marshal_UpgradeInstanceRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("enable_ha", request.enable_ha),
-                OneOfPossibility("volume_size", request.volume_size),
-                OneOfPossibility("volume_type", request.volume_type),
                 OneOfPossibility(
-                    "upgradable_version_id", request.upgradable_version_id
+                    param="node_type", value=request.node_type, marshal_func=None
                 ),
                 OneOfPossibility(
-                    "major_upgrade_workflow", request.major_upgrade_workflow
+                    param="enable_ha", value=request.enable_ha, marshal_func=None
                 ),
-                OneOfPossibility("enable_encryption", request.enable_encryption),
+                OneOfPossibility(
+                    param="volume_size", value=request.volume_size, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="volume_type", value=request.volume_type, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="upgradable_version_id",
+                    value=request.upgradable_version_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="major_upgrade_workflow",
+                    value=request.major_upgrade_workflow,
+                    marshal_func=marshal_UpgradeInstanceRequestMajorUpgradeWorkflow,
+                ),
+                OneOfPossibility(
+                    param="enable_encryption",
+                    value=request.enable_encryption,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
