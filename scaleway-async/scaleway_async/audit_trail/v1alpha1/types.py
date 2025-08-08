@@ -142,6 +142,11 @@ class EventPrincipal:
 
 
 @dataclass
+class EventSystem:
+    name: str
+
+
+@dataclass
 class Resource:
     id: str
 
@@ -224,14 +229,14 @@ class Event:
     Product name of the resource attached to the event.
     """
 
+    service_name: str
+    """
+    API name called to trigger the event.
+    """
+
     recorded_at: Optional[datetime]
     """
     Timestamp of the event.
-    """
-
-    principal: Optional[EventPrincipal]
-    """
-    User or IAM application at the origin of the event.
     """
 
     project_id: Optional[str]
@@ -242,11 +247,6 @@ class Event:
     user_agent: Optional[str]
     """
     User Agent at the origin of the event.
-    """
-
-    service_name: str
-    """
-    API name called to trigger the event.
     """
 
     method_name: str
@@ -273,6 +273,10 @@ class Event:
     """
     Request at the origin of the event.
     """
+
+    principal: Optional[EventPrincipal]
+
+    system: Optional[EventSystem]
 
 
 @dataclass
