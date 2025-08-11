@@ -18,6 +18,7 @@ from scaleway_core.utils import (
     wait_for_resource_async,
 )
 from .types import (
+    ListDatabasesRequestOrderBy,
     ListInstancesRequestOrderBy,
     ListSnapshotsRequestOrderBy,
     ListUsersRequestOrderBy,
@@ -26,9 +27,11 @@ from .types import (
     CreateInstanceRequest,
     CreateSnapshotRequest,
     CreateUserRequest,
+    Database,
     Endpoint,
     EndpointSpec,
     Instance,
+    ListDatabasesResponse,
     ListInstancesResponse,
     ListNodeTypesResponse,
     ListSnapshotsResponse,
@@ -56,6 +59,7 @@ from .marshalling import (
     unmarshal_Instance,
     unmarshal_Snapshot,
     unmarshal_User,
+    unmarshal_ListDatabasesResponse,
     unmarshal_ListInstancesResponse,
     unmarshal_ListNodeTypesResponse,
     unmarshal_ListSnapshotsResponse,
@@ -1268,6 +1272,91 @@ class MongodbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
+
+    async def list_databases(
+        self,
+        *,
+        instance_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListDatabasesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListDatabasesResponse:
+        """
+        List databases in a Database Instance.
+        List all databases of a given Database Instance.
+        :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Criteria to use when requesting user listing.
+        :param page:
+        :param page_size:
+        :return: :class:`ListDatabasesResponse <ListDatabasesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_databases(
+                instance_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+
+        res = self._request(
+            "GET",
+            f"/mongodb/v1/regions/{param_region}/instances/{param_instance_id}/databases",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListDatabasesResponse(res.json())
+
+    async def list_databases_all(
+        self,
+        *,
+        instance_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListDatabasesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[Database]:
+        """
+        List databases in a Database Instance.
+        List all databases of a given Database Instance.
+        :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Criteria to use when requesting user listing.
+        :param page:
+        :param page_size:
+        :return: :class:`List[Database] <List[Database]>`
+
+        Usage:
+        ::
+
+            result = await api.list_databases_all(
+                instance_id="example",
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListDatabasesResponse,
+            key="databases",
+            fetcher=self.list_databases,
+            args={
+                "instance_id": instance_id,
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
 
     async def delete_endpoint(
         self,
