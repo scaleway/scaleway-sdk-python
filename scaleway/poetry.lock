@@ -216,21 +216,21 @@ files = [
 
 [[package]]
 name = "pyrefly"
-version = "0.24.2"
+version = "0.26.1"
 description = "A fast Python type checker written in Rust"
 optional = false
 python-versions = ">=3.8"
 groups = ["main", "dev"]
 files = [
-    {file = "pyrefly-0.24.2-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:7e6bd1b88ec53b3f1ce2ece844016d7e7f0848a77022857a7fa6674a49abcc13"},
-    {file = "pyrefly-0.24.2-py3-none-macosx_11_0_arm64.whl", hash = "sha256:83aa9013f2299dfc8ce11adec30a63be71528484c45e603375efe7496cb0538e"},
-    {file = "pyrefly-0.24.2-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3bf1689032b78f8f653244cd323ee1e06a0efb6192c4d7a415d1e85aedd37905"},
-    {file = "pyrefly-0.24.2-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8404b804a5a1bc4a54cc8e58bceacdf49d7221531843c068547241d8f476af24"},
-    {file = "pyrefly-0.24.2-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:14d09f166a46e43655ea812611887ca16a0c54386296f4c9333f3f5fc7236709"},
-    {file = "pyrefly-0.24.2-py3-none-win32.whl", hash = "sha256:6c602df48dcfa3240f9076c7d1e9cf9dc2d94c90ee5b4c6745f3734125a2cf3a"},
-    {file = "pyrefly-0.24.2-py3-none-win_amd64.whl", hash = "sha256:9ed4690716eb47077082d4e99624e0a1165b9ac93300c8d823f42cae12ec1ef4"},
-    {file = "pyrefly-0.24.2-py3-none-win_arm64.whl", hash = "sha256:96ba49c02f374d716b8674409aa653093dad5263cf4e429a1d5ec603064db715"},
-    {file = "pyrefly-0.24.2.tar.gz", hash = "sha256:671b9933c2a3f646983de68bc0422736f7ce364c4f645f742559423b0b9b5150"},
+    {file = "pyrefly-0.26.1-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:d81e737125d7a5f64bc378dc699f28b33182e803d25ec74f1b59007baacb6b70"},
+    {file = "pyrefly-0.26.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:c0e0956065e4b45d026175adcb992472368a864ece889752b9397906d4d3ec11"},
+    {file = "pyrefly-0.26.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:be24b8550a4890beea7e8843c9e4b469f70d204a73c0f38652f61d0f4edc6f23"},
+    {file = "pyrefly-0.26.1-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:2ab3ed0cadd2de0f986925f72c7ca422b5a418d9416d614012565feb56e74d3a"},
+    {file = "pyrefly-0.26.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4885ec86b7d500a808adbd9f8541971e13fa3d3babe8bb48d9d20a5ece71a3f9"},
+    {file = "pyrefly-0.26.1-py3-none-win32.whl", hash = "sha256:1b997e4c201c2104008fc214256a3fe0de741fbf13d54c41fe5de6dd4f62f5bd"},
+    {file = "pyrefly-0.26.1-py3-none-win_amd64.whl", hash = "sha256:3856d5f2a37a2c0f59ddab2f0ab175d338f361ee1003c357cf8c2e409cd59b22"},
+    {file = "pyrefly-0.26.1-py3-none-win_arm64.whl", hash = "sha256:8a1a85e6d04649d1f0ade12e4424a0f08b27be963aba99958ee377e565b80714"},
+    {file = "pyrefly-0.26.1.tar.gz", hash = "sha256:f598b8fa29200e9cfa2c6d53d66bc4c7278b254192429d36bd0b49b32a553d82"},
 ]
 
 [[package]]
@@ -496,4 +496,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "551876b160ec13ed8cdbef4200c0f5a436f19e7340f7c70f1c11f42fc4451a96"
+content-hash = "51ef107db85f1e2f1769fd7db7049ab86509f6eae2fb923b6f803ef7ebab6071"
