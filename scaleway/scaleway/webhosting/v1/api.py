@@ -1112,6 +1112,7 @@ class WebhostingV1HostingAPI(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        subdomain: Optional[str] = None,
         offer_options: Optional[List[OfferOptionRequest]] = None,
         language: Optional[StdLanguageCode] = None,
         domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None,
@@ -1127,6 +1128,7 @@ class WebhostingV1HostingAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Scaleway Project in which to create the Web Hosting plan.
         :param tags: List of tags for the Web Hosting plan.
+        :param subdomain: The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself.
         :param offer_options: List of the Web Hosting plan options IDs with their quantities.
         :param language: Default language for the control panel interface.
         :param domain_configuration: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_config_domain_dns instead).
@@ -1159,6 +1161,7 @@ class WebhostingV1HostingAPI(API):
                     region=region,
                     project_id=project_id,
                     tags=tags,
+                    subdomain=subdomain,
                     offer_options=offer_options,
                     language=language,
                     domain_configuration=domain_configuration,
@@ -1185,6 +1188,7 @@ class WebhostingV1HostingAPI(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         control_panels: Optional[List[str]] = None,
+        subdomain: Optional[str] = None,
     ) -> ListHostingsResponse:
         """
         List all Web Hosting plans.
@@ -1199,6 +1203,7 @@ class WebhostingV1HostingAPI(API):
         :param project_id: Project ID to filter for, only Web Hosting plans from this Project will be returned.
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
+        :param subdomain: Optional free subdomain linked to the Web Hosting plan.
         :return: :class:`ListHostingsResponse <ListHostingsResponse>`
 
         Usage:
@@ -1224,6 +1229,7 @@ class WebhostingV1HostingAPI(API):
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "statuses": statuses,
+                "subdomain": subdomain,
                 "tags": tags,
             },
         )
@@ -1244,6 +1250,7 @@ class WebhostingV1HostingAPI(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         control_panels: Optional[List[str]] = None,
+        subdomain: Optional[str] = None,
     ) -> List[HostingSummary]:
         """
         List all Web Hosting plans.
@@ -1258,6 +1265,7 @@ class WebhostingV1HostingAPI(API):
         :param project_id: Project ID to filter for, only Web Hosting plans from this Project will be returned.
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
+        :param subdomain: Optional free subdomain linked to the Web Hosting plan.
         :return: :class:`List[HostingSummary] <List[HostingSummary]>`
 
         Usage:
@@ -1281,6 +1289,7 @@ class WebhostingV1HostingAPI(API):
                 "project_id": project_id,
                 "organization_id": organization_id,
                 "control_panels": control_panels,
+                "subdomain": subdomain,
             },
         )
 
