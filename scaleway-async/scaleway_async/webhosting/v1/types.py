@@ -233,6 +233,34 @@ class PlatformPlatformGroup(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class AutoConfigDomainDns:
+    nameservers: bool
+    """
+    Whether or not to synchronize domain nameservers.
+    """
+
+    web_records: bool
+    """
+    Whether or not to synchronize web records.
+    """
+
+    mail_records: bool
+    """
+    Whether or not to synchronize mail records.
+    """
+
+    all_records: bool
+    """
+    Whether or not to synchronize all types of records. Takes priority over the other fields.
+    """
+
+    none: bool
+    """
+    No automatic domain configuration. Users must configure their domain for the Web Hosting to work.
+    """
+
+
+@dataclass
 class PlatformControlPanelUrls:
     dashboard: str
     """
@@ -242,6 +270,29 @@ class PlatformControlPanelUrls:
     webmail: str
     """
     URL to connect to the hosting Webmail interface.
+    """
+
+
+@dataclass
+class HostingDomainCustomDomain:
+    domain: str
+    """
+    Custom domain linked to the hosting plan.
+    """
+
+    domain_status: DomainStatus
+    """
+    Status of the custom domain verification.
+    """
+
+    dns_status: DnsRecordsStatus
+    """
+    Status of the DNS configuration for the custom domain.
+    """
+
+    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    """
+    Indicates whether to auto-configure DNS for this domain.
     """
 
 
@@ -302,38 +353,23 @@ class PlatformControlPanel:
 
 
 @dataclass
+class HostingDomain:
+    subdomain: str
+    """
+    Optional free subdomain linked to the Web Hosting plan.
+    """
+
+    custom_domain: Optional[HostingDomainCustomDomain]
+    """
+    Optional custom domain linked to the Web Hosting plan.
+    """
+
+
+@dataclass
 class CreateDatabaseRequestUser:
     username: str
 
     password: str
-
-
-@dataclass
-class AutoConfigDomainDns:
-    nameservers: bool
-    """
-    Whether or not to synchronize domain nameservers.
-    """
-
-    web_records: bool
-    """
-    Whether or not to synchronize web records.
-    """
-
-    mail_records: bool
-    """
-    Whether or not to synchronize mail records.
-    """
-
-    all_records: bool
-    """
-    Whether or not to synchronize all types of records. Takes priority over the other fields.
-    """
-
-    none: bool
-    """
-    No automatic domain configuration. Users must configure their domain for the Web Hosting to work.
-    """
 
 
 @dataclass
@@ -606,11 +642,6 @@ class HostingSummary:
     Status of the Web Hosting plan.
     """
 
-    domain: str
-    """
-    Main domain associated with the Web Hosting plan.
-    """
-
     protected: bool
     """
     Whether the hosting is protected or not.
@@ -619,11 +650,6 @@ class HostingSummary:
     offer_name: str
     """
     Name of the active offer for the Web Hosting plan.
-    """
-
-    domain_status: DomainStatus
-    """
-    Main domain status of the Web Hosting plan.
     """
 
     region: ScwRegion
@@ -641,9 +667,24 @@ class HostingSummary:
     Date on which the Web Hosting plan was last updated.
     """
 
+    domain: Optional[str]
+    """
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
+    """
+
     dns_status: Optional[DnsRecordsStatus]
     """
     DNS status of the Web Hosting plan.
+    """
+
+    domain_status: Optional[DomainStatus]
+    """
+    Main domain status of the Web Hosting plan.
+    """
+
+    domain_info: Optional[HostingDomain]
+    """
+    Domain configuration block (subdomain, optional custom domain, and DNS settings).
     """
 
 
@@ -1274,21 +1315,6 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
-    domain: str
-    """
-    Main domain associated with the Web Hosting plan.
-    """
-
-    tags: List[str]
-    """
-    List of tags associated with the Web Hosting plan.
-    """
-
-    ipv4: str
-    """
-    Current IPv4 address of the hosting.
-    """
-
     updated_at: Optional[datetime]
     """
     Date on which the Web Hosting plan was last updated.
@@ -1299,19 +1325,9 @@ class Hosting:
     Date on which the Web Hosting plan was created.
     """
 
-    protected: bool
+    domain: Optional[str]
     """
-    Whether the hosting is protected or not.
-    """
-
-    domain_status: DomainStatus
-    """
-    Main domain status of the Web Hosting plan.
-    """
-
-    region: ScwRegion
-    """
-    Region where the Web Hosting plan is hosted.
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
     """
 
     offer: Optional[Offer]
@@ -1324,14 +1340,44 @@ class Hosting:
     Details of the hosting platform.
     """
 
+    tags: List[str]
+    """
+    List of tags associated with the Web Hosting plan.
+    """
+
+    ipv4: str
+    """
+    Current IPv4 address of the hosting.
+    """
+
+    protected: bool
+    """
+    Whether the hosting is protected or not.
+    """
+
+    region: ScwRegion
+    """
+    Region where the Web Hosting plan is hosted.
+    """
+
     dns_status: Optional[DnsRecordsStatus]
     """
-    DNS status of the Web Hosting plan.
+    DNS status of the Web Hosting plan (deprecated, use domain_info).
     """
 
     user: Optional[HostingUser]
     """
     Details of the hosting user.
+    """
+
+    domain_status: Optional[DomainStatus]
+    """
+    Main domain status of the Web Hosting plan (deprecated, use domain_info).
+    """
+
+    domain_info: Optional[HostingDomain]
+    """
+    Domain configuration block (subdomain, optional custom domain, and DNS settings).
     """
 
 
@@ -1365,6 +1411,11 @@ class HostingApiCreateHostingRequest:
     tags: Optional[List[str]]
     """
     List of tags for the Web Hosting plan.
+    """
+
+    subdomain: Optional[str]
+    """
+    The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself.
     """
 
     offer_options: Optional[List[OfferOptionRequest]]
@@ -1495,6 +1546,11 @@ class HostingApiListHostingsRequest:
     control_panels: Optional[List[str]]
     """
     Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
+    """
+
+    subdomain: Optional[str]
+    """
+    Optional free subdomain linked to the Web Hosting plan.
     """
 
 
