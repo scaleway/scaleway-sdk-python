@@ -910,7 +910,11 @@ def marshal_RegionalApiCreateContactPointRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email", request.email),
+                OneOfPossibility(
+                    param="email",
+                    value=request.email,
+                    marshal_func=marshal_ContactPointEmail,
+                ),
             ]
         ),
     )
@@ -971,7 +975,11 @@ def marshal_RegionalApiDeleteContactPointRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email", request.email),
+                OneOfPossibility(
+                    param="email",
+                    value=request.email,
+                    marshal_func=marshal_ContactPointEmail,
+                ),
             ]
         ),
     )
@@ -1080,7 +1088,11 @@ def marshal_RegionalApiUpdateContactPointRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("email", request.email),
+                OneOfPossibility(
+                    param="email",
+                    value=request.email,
+                    marshal_func=marshal_ContactPointEmail,
+                ),
             ]
         ),
     )
