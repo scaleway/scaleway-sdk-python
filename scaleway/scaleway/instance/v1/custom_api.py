@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Mapping
+from typing import Optional, Dict, cast
 
 from requests import Response
 
@@ -92,7 +92,7 @@ class InstanceUtilsV1API(InstanceV1API):
             value = InstanceUtilsV1API.get_server_user_data(
                 self, server_id=param_server_id, key=key
             )
-            user_data[key] = value.content
+            user_data[key] = cast(bytes, value.content)
 
         return GetAllServerUserDataResponse(user_data=user_data)
 
