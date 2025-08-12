@@ -135,7 +135,7 @@ class ListTaxesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class DiscountCoupon:
-    description: Optional[str]
+    description: Optional[str] = None
     """
     The description of the coupon.
     """
@@ -196,7 +196,7 @@ class ListConsumptionsResponseConsumption:
     Consumed quantity.
     """
 
-    value: Optional[Money]
+    value: Optional[Money] = None
     """
     Monetary value of the consumption.
     """
@@ -244,22 +244,22 @@ class Discount:
     List of the discount scopes.
     """
 
-    creation_date: Optional[datetime]
+    creation_date: Optional[datetime] = None
     """
     The creation date of the discount.
     """
 
-    start_date: Optional[datetime]
+    start_date: Optional[datetime] = None
     """
     The start date of the discount.
     """
 
-    stop_date: Optional[datetime]
+    stop_date: Optional[datetime] = None
     """
     The stop date of the discount.
     """
 
-    coupon: Optional[DiscountCoupon]
+    coupon: Optional[DiscountCoupon] = None
     """
     The description of the coupon.
     """
@@ -273,31 +273,7 @@ class Invoice:
     """
 
     organization_id: str
-
     organization_name: str
-
-    start_date: Optional[datetime]
-    """
-    Start date of the billing period.
-    """
-
-    stop_date: Optional[datetime]
-
-    billing_period: Optional[datetime]
-    """
-    The billing period of the invoice in the YYYY-MM format.
-    """
-
-    issued_date: Optional[datetime]
-    """
-    Date when the invoice was sent to the customer.
-    """
-
-    due_date: Optional[datetime]
-    """
-    Payment time limit, set according to the Organization's payment conditions.
-    """
-
     type_: InvoiceType
     """
     Type of invoice, either periodic or purchase.
@@ -318,27 +294,48 @@ class Invoice:
     The name of the seller (Scaleway).
     """
 
-    total_untaxed: Optional[Money]
+    start_date: Optional[datetime] = None
+    """
+    Start date of the billing period.
+    """
+
+    stop_date: Optional[datetime] = None
+    billing_period: Optional[datetime] = None
+    """
+    The billing period of the invoice in the YYYY-MM format.
+    """
+
+    issued_date: Optional[datetime] = None
+    """
+    Date when the invoice was sent to the customer.
+    """
+
+    due_date: Optional[datetime] = None
+    """
+    Payment time limit, set according to the Organization's payment conditions.
+    """
+
+    total_untaxed: Optional[Money] = None
     """
     Total amount, untaxed.
     """
 
-    total_taxed: Optional[Money]
+    total_taxed: Optional[Money] = None
     """
     Total amount, taxed.
     """
 
-    total_tax: Optional[Money]
+    total_tax: Optional[Money] = None
     """
     The total tax amount of the invoice.
     """
 
-    total_discount: Optional[Money]
+    total_discount: Optional[Money] = None
     """
     The total discount amount of the invoice.
     """
 
-    total_undiscount: Optional[Money]
+    total_undiscount: Optional[Money] = None
     """
     The total amount of the invoice before applying the discount.
     """
@@ -356,12 +353,12 @@ class ListTaxesResponseTax:
     The three-letter currency code.
     """
 
-    rate: Optional[float]
+    rate: Optional[float] = 0.0
     """
     Applied tax rate (0.2 means a VAT of 20%).
     """
 
-    total_tax_value: Optional[float]
+    total_tax_value: Optional[float] = 0.0
     """
     The total tax value of the consumption.
     """
@@ -374,7 +371,9 @@ class DownloadInvoiceRequest:
     Invoice ID.
     """
 
-    file_type: Optional[DownloadInvoiceRequestFileType]
+    file_type: Optional[DownloadInvoiceRequestFileType] = (
+        DownloadInvoiceRequestFileType.PDF
+    )
     """
     File type. PDF by default.
     """
@@ -382,42 +381,46 @@ class DownloadInvoiceRequest:
 
 @dataclass
 class ExportInvoicesRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID. If specified, only invoices from this Organization will be returned.
     """
 
-    billing_period_start_after: Optional[datetime]
+    billing_period_start_after: Optional[datetime] = None
     """
     Return only invoice with start date greater than billing_period_start.
     """
 
-    billing_period_start_before: Optional[datetime]
+    billing_period_start_before: Optional[datetime] = None
     """
     Return only invoice with start date less than billing_period_start.
     """
 
-    invoice_type: Optional[InvoiceType]
+    invoice_type: Optional[InvoiceType] = InvoiceType.UNKNOWN_TYPE
     """
     Invoice type. It can either be `periodic` or `purchase`.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    order_by: Optional[ExportInvoicesRequestOrderBy]
+    order_by: Optional[ExportInvoicesRequestOrderBy] = (
+        ExportInvoicesRequestOrderBy.INVOICE_NUMBER_DESC
+    )
     """
     How invoices are ordered in the response.
     """
 
-    file_type: Optional[ExportInvoicesRequestFileType]
+    file_type: Optional[ExportInvoicesRequestFileType] = (
+        ExportInvoicesRequestFileType.CSV
+    )
     """
     File format for exporting the invoice list.
     """
@@ -433,34 +436,36 @@ class GetInvoiceRequest:
 
 @dataclass
 class ListConsumptionsRequest:
-    order_by: Optional[ListConsumptionsRequestOrderBy]
+    order_by: Optional[ListConsumptionsRequestOrderBy] = (
+        ListConsumptionsRequestOrderBy.UPDATED_AT_DESC
+    )
     """
     Order consumptions list in the response by their update date.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Positive integer to choose the page to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    category_name: Optional[str]
+    category_name: Optional[str] = None
     """
     Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability).
     """
 
-    billing_period: Optional[str]
+    billing_period: Optional[str] = None
     """
     Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -480,7 +485,7 @@ class ListConsumptionsResponse:
     Sum of all discounts, displayed only when no category or project ID filter is applied.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last consumption update date.
     """
@@ -488,22 +493,24 @@ class ListConsumptionsResponse:
 
 @dataclass
 class ListDiscountsRequest:
-    order_by: Optional[ListDiscountsRequestOrderBy]
+    order_by: Optional[ListDiscountsRequestOrderBy] = (
+        ListDiscountsRequestOrderBy.CREATION_DATE_DESC
+    )
     """
     Order discounts in the response by their description.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Positive integer to choose the page to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the organization.
     """
@@ -524,37 +531,39 @@ class ListDiscountsResponse:
 
 @dataclass
 class ListInvoicesRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID. If specified, only invoices from this Organization will be returned.
     """
 
-    billing_period_start_after: Optional[datetime]
+    billing_period_start_after: Optional[datetime] = None
     """
     Return only invoice with start date greater than billing_period_start.
     """
 
-    billing_period_start_before: Optional[datetime]
+    billing_period_start_before: Optional[datetime] = None
     """
     Return only invoice with start date less than billing_period_start.
     """
 
-    invoice_type: Optional[InvoiceType]
+    invoice_type: Optional[InvoiceType] = InvoiceType.UNKNOWN_TYPE
     """
     Invoice type. It can either be `periodic` or `purchase`.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    order_by: Optional[ListInvoicesRequestOrderBy]
+    order_by: Optional[ListInvoicesRequestOrderBy] = (
+        ListInvoicesRequestOrderBy.INVOICE_NUMBER_DESC
+    )
     """
     How invoices are ordered in the response.
     """
@@ -575,27 +584,29 @@ class ListInvoicesResponse:
 
 @dataclass
 class ListTaxesRequest:
-    order_by: Optional[ListTaxesRequestOrderBy]
+    order_by: Optional[ListTaxesRequestOrderBy] = (
+        ListTaxesRequestOrderBy.UPDATED_AT_DESC
+    )
     """
     Order consumed taxes list in the response by their update date.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    billing_period: Optional[str]
+    billing_period: Optional[str] = None
     """
     Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
     """
@@ -613,7 +624,7 @@ class ListTaxesResponse:
     Total number of returned items.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last consumption update date.
     """
@@ -626,7 +637,7 @@ class RedeemCouponRequest:
     The code of the coupon to redeem.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     The Organization ID of the discount.
     """

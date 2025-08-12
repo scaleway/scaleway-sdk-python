@@ -6,6 +6,8 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    DatabaseBackupStatus,
+    DatabaseStatus,
     DatabaseBackup,
     Database,
     ListDatabaseBackupsResponse,
@@ -27,26 +29,38 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DatabaseBackupStatus.UNKNOWN_STATUS
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("database_id", None)
     if field is not None:
         args["database_id"] = field
+    else:
+        args["database_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -64,13 +78,13 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     if field is not None:
         args["size"] = field
     else:
-        args["size"] = None
+        args["size"] = 0
 
     field = data.get("db_size", None)
     if field is not None:
         args["db_size"] = field
     else:
-        args["db_size"] = None
+        args["db_size"] = 0
 
     field = data.get("download_url", None)
     if field is not None:
@@ -100,50 +114,74 @@ def unmarshal_Database(data: Any) -> Database:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DatabaseStatus.UNKNOWN_STATUS
 
     field = data.get("endpoint", None)
     if field is not None:
         args["endpoint"] = field
+    else:
+        args["endpoint"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("cpu_min", None)
     if field is not None:
         args["cpu_min"] = field
+    else:
+        args["cpu_min"] = 0
 
     field = data.get("cpu_max", None)
     if field is not None:
         args["cpu_max"] = field
+    else:
+        args["cpu_max"] = 0
 
     field = data.get("cpu_current", None)
     if field is not None:
         args["cpu_current"] = field
+    else:
+        args["cpu_current"] = 0
 
     field = data.get("started", None)
     if field is not None:
         args["started"] = field
+    else:
+        args["started"] = False
 
     field = data.get("engine_major_version", None)
     if field is not None:
         args["engine_major_version"] = field
+    else:
+        args["engine_major_version"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -167,10 +205,14 @@ def unmarshal_ListDatabaseBackupsResponse(data: Any) -> ListDatabaseBackupsRespo
         args["backups"] = (
             [unmarshal_DatabaseBackup(v) for v in field] if field is not None else None
         )
+    else:
+        args["backups"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListDatabaseBackupsResponse(**args)
 
@@ -188,10 +230,14 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
         args["databases"] = (
             [unmarshal_Database(v) for v in field] if field is not None else None
         )
+    else:
+        args["databases"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListDatabasesResponse(**args)
 
@@ -212,7 +258,9 @@ def marshal_CreateDatabaseRequest(
         output["cpu_max"] = request.cpu_max
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.from_backup_id is not None:
         output["from_backup_id"] = request.from_backup_id

@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -112,7 +112,6 @@ class ServerTypeStock(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class Commitment:
     type_: CommitmentType
-
     cancelled: bool
 
 
@@ -167,16 +166,13 @@ class OS:
 @dataclass
 class ServerTypeCPU:
     name: str
-
     core_count: int
-
     frequency: int
 
 
 @dataclass
 class ServerTypeDisk:
     capacity: int
-
     type_: str
 
 
@@ -188,14 +184,12 @@ class ServerTypeGPU:
 @dataclass
 class ServerTypeMemory:
     capacity: int
-
     type_: str
 
 
 @dataclass
 class ServerTypeNetwork:
     public_bandwidth_bps: int
-
     supported_bandwidth: List[int]
 
 
@@ -261,26 +255,6 @@ class Server:
     Current status of the server.
     """
 
-    os: Optional[OS]
-    """
-    Initially installed OS, this does not necessarily reflect the current OS version.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the server was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the server was last updated.
-    """
-
-    deletable_at: Optional[datetime]
-    """
-    Date from which the server can be deleted.
-    """
-
     deletion_scheduled: bool
     """
     Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
@@ -306,7 +280,27 @@ class Server:
     Public bandwidth configured for this server. Expressed in bits per second.
     """
 
-    commitment: Optional[Commitment]
+    os: Optional[OS] = None
+    """
+    Initially installed OS, this does not necessarily reflect the current OS version.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date on which the server was created.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date on which the server was last updated.
+    """
+
+    deletable_at: Optional[datetime] = None
+    """
+    Date from which the server can be deleted.
+    """
+
+    commitment: Optional[Commitment] = None
     """
     Commitment scheme applied to this server.
     """
@@ -315,16 +309,11 @@ class Server:
 @dataclass
 class ConnectivityDiagnosticServerHealth:
     is_server_alive: bool
-
     is_agent_alive: bool
-
     is_mdm_alive: bool
-
     is_ssh_port_up: bool
-
     is_vnc_port_up: bool
-
-    last_checkin_date: Optional[datetime]
+    last_checkin_date: Optional[datetime] = None
 
 
 @dataclass
@@ -359,17 +348,17 @@ class ServerPrivateNetwork:
     IPAM IP IDs of the server, if it has any.
     """
 
-    vlan: Optional[int]
+    vlan: Optional[int] = 0
     """
     ID of the VLAN associated with the Private Network.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Private Network creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the Private Network was last modified.
     """
@@ -387,37 +376,37 @@ class ServerType:
     Current stock.
     """
 
-    cpu: Optional[ServerTypeCPU]
+    cpu: Optional[ServerTypeCPU] = None
     """
     CPU description.
     """
 
-    disk: Optional[ServerTypeDisk]
+    disk: Optional[ServerTypeDisk] = None
     """
     Size of the local disk of the server.
     """
 
-    memory: Optional[ServerTypeMemory]
+    memory: Optional[ServerTypeMemory] = None
     """
     Size of memory available.
     """
 
-    minimum_lease_duration: Optional[str]
+    minimum_lease_duration: Optional[str] = None
     """
     Minimum duration of the lease in seconds (example. 3.4s).
     """
 
-    gpu: Optional[ServerTypeGPU]
+    gpu: Optional[ServerTypeGPU] = None
     """
     GPU description.
     """
 
-    network: Optional[ServerTypeNetwork]
+    network: Optional[ServerTypeNetwork] = None
     """
     Network description.
     """
 
-    default_os: Optional[OS]
+    default_os: Optional[OS] = None
     """
     The default OS for this server type.
     """
@@ -445,27 +434,29 @@ class BatchCreateServersRequest:
     Public bandwidth to configure for these servers. This defaults to the minimum bandwidth for the corresponding server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Create servers in the given project ID.
     """
 
-    os_id: Optional[str]
+    os_id: Optional[str] = None
     """
     Create servers & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
     """
 
-    commitment_type: Optional[CommitmentType]
+    commitment_type: Optional[CommitmentType] = CommitmentType.DURATION_24H
     """
     Activate commitment for these servers. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
     """
 
-    requests: Optional[List[BatchCreateServersRequestBatchInnerCreateServerRequest]]
+    requests: Optional[List[BatchCreateServersRequestBatchInnerCreateServerRequest]] = (
+        field(default_factory=list)
+    )
     """
     List of servers to create.
     """
@@ -482,16 +473,11 @@ class BatchCreateServersResponse:
 @dataclass
 class ConnectivityDiagnostic:
     id: str
-
     status: ConnectivityDiagnosticDiagnosticStatus
-
     is_healthy: bool
-
     supported_actions: List[ConnectivityDiagnosticActionType]
-
     error_message: str
-
-    health_details: Optional[ConnectivityDiagnosticServerHealth]
+    health_details: Optional[ConnectivityDiagnosticServerHealth] = None
 
 
 @dataclass
@@ -511,27 +497,27 @@ class CreateServerRequest:
     Public bandwidth to configure for this server. This defaults to the minimum bandwidth for this server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Create a server with this given name.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Create a server in the given project ID.
     """
 
-    os_id: Optional[str]
+    os_id: Optional[str] = None
     """
     Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
     """
 
-    commitment_type: Optional[CommitmentType]
+    commitment_type: Optional[CommitmentType] = CommitmentType.DURATION_24H
     """
     Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
     """
@@ -544,7 +530,7 @@ class DeleteServerRequest:
     UUID of the server you want to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -553,8 +539,7 @@ class DeleteServerRequest:
 @dataclass
 class GetConnectivityDiagnosticRequest:
     diagnostic_id: str
-
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -567,7 +552,7 @@ class GetOSRequest:
     UUID of the OS you want to get.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -580,7 +565,7 @@ class GetServerRequest:
     UUID of the server you want to get.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -593,7 +578,7 @@ class GetServerTypeRequest:
     Server type identifier.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -601,27 +586,27 @@ class GetServerTypeRequest:
 
 @dataclass
 class ListOSRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Positive integer to choose the page to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    server_type: Optional[str]
+    server_type: Optional[str] = None
     """
     List of compatible server types.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
     """
@@ -643,13 +628,12 @@ class ListOSResponse:
 @dataclass
 class ListServerPrivateNetworksResponse:
     server_private_networks: List[ServerPrivateNetwork]
-
     total_count: int
 
 
 @dataclass
 class ListServerTypesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -665,32 +649,34 @@ class ListServerTypesResponse:
 
 @dataclass
 class ListServersRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListServersRequestOrderBy]
+    order_by: Optional[ListServersRequestOrderBy] = (
+        ListServersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of the returned servers.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Only list servers of this project ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Only list servers of this Organization ID.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Positive integer to choose the page to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Positive integer lower or equal to 100 to select the number of items to return.
     """
@@ -721,12 +707,12 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     ID of the Private Network.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ipam_ip_ids: Optional[List[str]]
+    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
     """
     IPAM IDs of IPs to attach to the server.
     """
@@ -744,7 +730,7 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
     ID of the Private Network.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -753,10 +739,8 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
 @dataclass
 class PrivateNetworkApiGetServerPrivateNetworkRequest:
     server_id: str
-
     private_network_id: str
-
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -764,47 +748,49 @@ class PrivateNetworkApiGetServerPrivateNetworkRequest:
 
 @dataclass
 class PrivateNetworkApiListServerPrivateNetworksRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListServerPrivateNetworksRequestOrderBy]
+    order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = (
+        ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order for the returned Private Networks.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number for the returned Private Networks.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of Private Networks per page.
     """
 
-    server_id: Optional[str]
+    server_id: Optional[str] = None
     """
     Filter Private Networks by server ID.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     Filter Private Networks by Private Network ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter Private Networks by Organization ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter Private Networks by Project ID.
     """
 
-    ipam_ip_ids: Optional[List[str]]
+    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter Private Networks by IPAM IP IDs.
     """
@@ -822,7 +808,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -835,7 +821,7 @@ class RebootServerRequest:
     UUID of the server you want to reboot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -848,12 +834,12 @@ class ReinstallServerRequest:
     UUID of the server you want to reinstall.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    os_id: Optional[str]
+    os_id: Optional[str] = None
     """
     Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
     """
@@ -867,8 +853,7 @@ class SetServerPrivateNetworksResponse:
 @dataclass
 class StartConnectivityDiagnosticRequest:
     server_id: str
-
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -886,32 +871,32 @@ class UpdateServerRequest:
     UUID of the server you want to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Updated name for your server.
     """
 
-    schedule_deletion: Optional[bool]
+    schedule_deletion: Optional[bool] = False
     """
     Specify whether the server should be flagged for automatic deletion.
     """
 
-    enable_vpc: Optional[bool]
+    enable_vpc: Optional[bool] = False
     """
     Activate or deactivate Private Network support for this server.
     """
 
-    commitment_type: Optional[CommitmentTypeValue]
+    commitment_type: Optional[CommitmentTypeValue] = None
     """
     Change commitment. Use 'none' to automatically cancel a renewing commitment.
     """
 
-    public_bandwidth_bps: Optional[int]
+    public_bandwidth_bps: Optional[int] = 0
     """
     Public bandwidth to configure for this server. Setting an higher bandwidth incurs additional costs. Supported bandwidth levels depends on server type and can be queried using the `/server-types` endpoint.
     """

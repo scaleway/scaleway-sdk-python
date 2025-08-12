@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
@@ -67,21 +67,18 @@ class AccountProjectInfo:
 @dataclass
 class AccountUserInfo:
     email: str
-
-    phone_number: Optional[str]
+    phone_number: Optional[str] = None
 
 
 @dataclass
 class AppleSiliconServerInfo:
     id: str
-
     name: str
 
 
 @dataclass
 class BaremetalServerInfo:
     description: str
-
     tags: List[str]
 
 
@@ -113,22 +110,19 @@ class KubernetesClusterInfo:
 @dataclass
 class KubernetesNodeInfo:
     id: str
-
     name: str
 
 
 @dataclass
 class KubernetesPoolInfo:
     id: str
-
     name: str
 
 
 @dataclass
 class SecretManagerSecretInfo:
     path: str
-
-    key_id: Optional[str]
+    key_id: Optional[str] = None
 
 
 @dataclass
@@ -142,58 +136,56 @@ class EventPrincipal:
 
 
 @dataclass
+class EventSystem:
+    name: str
+
+
+@dataclass
 class Resource:
     id: str
-
     type_: ResourceType
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    deleted_at: Optional[datetime] = None
+    name: Optional[str] = None
+    secm_secret_info: Optional[SecretManagerSecretInfo] = None
 
-    created_at: Optional[datetime]
+    secm_secret_version_info: Optional[SecretManagerSecretVersionInfo] = None
 
-    updated_at: Optional[datetime]
+    kube_cluster_info: Optional[KubernetesClusterInfo] = None
 
-    deleted_at: Optional[datetime]
+    kube_pool_info: Optional[KubernetesPoolInfo] = None
 
-    name: Optional[str]
+    kube_node_info: Optional[KubernetesNodeInfo] = None
 
-    secm_secret_info: Optional[SecretManagerSecretInfo]
+    kube_acl_info: Optional[KubernetesACLInfo] = None
 
-    secm_secret_version_info: Optional[SecretManagerSecretVersionInfo]
+    keym_key_info: Optional[KeyManagerKeyInfo] = None
 
-    kube_cluster_info: Optional[KubernetesClusterInfo]
+    secret_manager_secret_info: Optional[SecretManagerSecretInfo] = None
 
-    kube_pool_info: Optional[KubernetesPoolInfo]
+    secret_manager_version_info: Optional[SecretManagerSecretVersionInfo] = None
 
-    kube_node_info: Optional[KubernetesNodeInfo]
+    key_manager_key_info: Optional[KeyManagerKeyInfo] = None
 
-    kube_acl_info: Optional[KubernetesACLInfo]
+    account_user_info: Optional[AccountUserInfo] = None
 
-    keym_key_info: Optional[KeyManagerKeyInfo]
+    account_organization_info: Optional[AccountOrganizationInfo] = None
 
-    secret_manager_secret_info: Optional[SecretManagerSecretInfo]
+    instance_server_info: Optional[InstanceServerInfo] = None
 
-    secret_manager_version_info: Optional[SecretManagerSecretVersionInfo]
+    apple_silicon_server_info: Optional[AppleSiliconServerInfo] = None
 
-    key_manager_key_info: Optional[KeyManagerKeyInfo]
+    account_project_info: Optional[AccountProjectInfo] = None
 
-    account_user_info: Optional[AccountUserInfo]
+    baremetal_server_info: Optional[BaremetalServerInfo] = None
 
-    account_organization_info: Optional[AccountOrganizationInfo]
-
-    instance_server_info: Optional[InstanceServerInfo]
-
-    apple_silicon_server_info: Optional[AppleSiliconServerInfo]
-
-    account_project_info: Optional[AccountProjectInfo]
-
-    baremetal_server_info: Optional[BaremetalServerInfo]
-
-    baremetal_setting_info: Optional[BaremetalSettingInfo]
+    baremetal_setting_info: Optional[BaremetalSettingInfo] = None
 
 
 @dataclass
 class ProductService:
     name: str
-
     methods: List[str]
 
 
@@ -224,26 +216,6 @@ class Event:
     Product name of the resource attached to the event.
     """
 
-    recorded_at: Optional[datetime]
-    """
-    Timestamp of the event.
-    """
-
-    principal: Optional[EventPrincipal]
-    """
-    User or IAM application at the origin of the event.
-    """
-
-    project_id: Optional[str]
-    """
-    (Optional) Project of the resource attached to the event.
-    """
-
-    user_agent: Optional[str]
-    """
-    User Agent at the origin of the event.
-    """
-
     service_name: str
     """
     API name called to trigger the event.
@@ -269,10 +241,29 @@ class Event:
     HTTP status code resulting of the API call.
     """
 
-    request_body: Optional[Dict[str, Any]]
+    recorded_at: Optional[datetime] = None
+    """
+    Timestamp of the event.
+    """
+
+    project_id: Optional[str] = None
+    """
+    (Optional) Project of the resource attached to the event.
+    """
+
+    user_agent: Optional[str] = None
+    """
+    User Agent at the origin of the event.
+    """
+
+    request_body: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     Request at the origin of the event.
     """
+
+    principal: Optional[EventPrincipal] = None
+
+    system: Optional[EventSystem] = None
 
 
 @dataclass
@@ -295,58 +286,57 @@ class Product:
 
 @dataclass
 class ListEventsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     (Optional) ID of the Project containing the Audit Trail events.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization containing the Audit Trail events.
     """
 
-    resource_type: Optional[ResourceType]
+    resource_type: Optional[ResourceType] = ResourceType.UNKNOWN_TYPE
     """
     (Optional) Returns a paginated list of Scaleway resources' features.
     """
 
-    method_name: Optional[str]
+    method_name: Optional[str] = None
     """
     (Optional) Name of the method of the API call performed.
     """
 
-    status: Optional[int]
+    status: Optional[int] = 0
     """
     (Optional) HTTP status code of the request. Returns either `200` if the request was successful or `403` if the permission was denied.
     """
 
-    recorded_after: Optional[datetime]
+    recorded_after: Optional[datetime] = None
     """
     (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail events are retrieved. Returns `one hour ago` by default.
     """
 
-    recorded_before: Optional[datetime]
+    recorded_before: Optional[datetime] = None
     """
     (Optional) The `recorded_before` parameter defines the latest timestamp up to which Audit Trail events are retrieved. Returns `now` by default.
     """
 
-    order_by: Optional[ListEventsRequestOrderBy]
-
-    page_size: Optional[int]
-
-    page_token: Optional[str]
-
-    product_name: Optional[str]
+    order_by: Optional[ListEventsRequestOrderBy] = (
+        ListEventsRequestOrderBy.RECORDED_AT_DESC
+    )
+    page_size: Optional[int] = 0
+    page_token: Optional[str] = None
+    product_name: Optional[str] = None
     """
     (Optional) Name of the Scaleway resource in a hyphenated format.
     """
 
-    service_name: Optional[str]
+    service_name: Optional[str] = None
     """
     (Optional) Name of the service of the API call performed.
     """
@@ -359,7 +349,7 @@ class ListEventsResponse:
     Single page of events matching the requested criteria.
     """
 
-    next_page_token: Optional[str]
+    next_page_token: Optional[str] = None
     """
     Page token to use in following calls to keep listing.
     """
@@ -367,12 +357,12 @@ class ListEventsResponse:
 
 @dataclass
 class ListProductsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization containing the Audit Trail events.
     """

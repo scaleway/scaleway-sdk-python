@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -89,12 +89,12 @@ class Subnet:
     VPC the subnet belongs to.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Subnet creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Subnet last modification date.
     """
@@ -152,12 +152,12 @@ class PrivateNetwork:
     Defines whether default v4 and v6 routes are propagated for this Private Network.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the Private Network was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the Private Network was last modified.
     """
@@ -200,22 +200,22 @@ class Route:
     Region of the Route.
     """
 
-    nexthop_resource_id: Optional[str]
+    nexthop_resource_id: Optional[str] = None
     """
     ID of the nexthop resource.
     """
 
-    nexthop_private_network_id: Optional[str]
+    nexthop_private_network_id: Optional[str] = None
     """
     ID of the nexthop private network.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the Route was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the Route was last modified.
     """
@@ -263,7 +263,7 @@ class AclRule:
     Policy to apply to the packet.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Rule description.
     """
@@ -321,12 +321,12 @@ class VPC:
     Defines whether the VPC advertises custom routes between its Private Networks.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the VPC was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the VPC was last modified.
     """
@@ -339,12 +339,12 @@ class AddSubnetsRequest:
     Private Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    subnets: Optional[List[str]]
+    subnets: Optional[List[str]] = field(default_factory=list)
     """
     Private Network subnets CIDR.
     """
@@ -362,32 +362,32 @@ class CreatePrivateNetworkRequest:
     Defines whether default v4 and v6 routes are propagated for this Private Network.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the Private Network.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Scaleway Project in which to create the Private Network.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags for the Private Network.
     """
 
-    subnets: Optional[List[str]]
+    subnets: Optional[List[str]] = field(default_factory=list)
     """
     Private Network subnets CIDR.
     """
 
-    vpc_id: Optional[str]
+    vpc_id: Optional[str] = None
     """
     VPC in which to create the Private Network.
     """
@@ -410,22 +410,22 @@ class CreateRouteRequest:
     Destination of the Route.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Route.
     """
 
-    nexthop_resource_id: Optional[str]
+    nexthop_resource_id: Optional[str] = None
     """
     ID of the nexthop resource.
     """
 
-    nexthop_private_network_id: Optional[str]
+    nexthop_private_network_id: Optional[str] = None
     """
     ID of the nexthop private network.
     """
@@ -438,22 +438,22 @@ class CreateVPCRequest:
     Enable routing between Private Networks in the VPC.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the VPC.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Scaleway Project in which to create the VPC.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags for the VPC.
     """
@@ -466,7 +466,7 @@ class DeletePrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -479,7 +479,7 @@ class DeleteRouteRequest:
     Route ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -492,12 +492,12 @@ class DeleteSubnetsRequest:
     Private Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    subnets: Optional[List[str]]
+    subnets: Optional[List[str]] = field(default_factory=list)
     """
     Private Network subnets CIDR.
     """
@@ -515,7 +515,7 @@ class DeleteVPCRequest:
     VPC ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -528,7 +528,7 @@ class EnableCustomRoutesPropagationRequest:
     VPC ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -541,7 +541,7 @@ class EnableDHCPRequest:
     Private Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -554,7 +554,7 @@ class EnableRoutingRequest:
     VPC ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -572,7 +572,7 @@ class GetAclRequest:
     Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -581,7 +581,6 @@ class GetAclRequest:
 @dataclass
 class GetAclResponse:
     rules: List[AclRule]
-
     default_policy: Action
 
 
@@ -592,7 +591,7 @@ class GetPrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -605,7 +604,7 @@ class GetRouteRequest:
     Route ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -618,7 +617,7 @@ class GetVPCRequest:
     VPC ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -626,57 +625,59 @@ class GetVPCRequest:
 
 @dataclass
 class ListPrivateNetworksRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListPrivateNetworksRequestOrderBy]
+    order_by: Optional[ListPrivateNetworksRequestOrderBy] = (
+        ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of the returned Private Networks.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of Private Networks to return per page.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name to filter for. Only Private Networks with names containing this string will be returned.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for. Only Private Networks with one or more matching tags will be returned.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for. Only Private Networks belonging to this Project will be returned.
     """
 
-    private_network_ids: Optional[List[str]]
+    private_network_ids: Optional[List[str]] = field(default_factory=list)
     """
     Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
     """
 
-    vpc_id: Optional[str]
+    vpc_id: Optional[str] = None
     """
     VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
     """
 
-    dhcp_enabled: Optional[bool]
+    dhcp_enabled: Optional[bool] = False
     """
     DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
     """
@@ -685,48 +686,49 @@ class ListPrivateNetworksRequest:
 @dataclass
 class ListPrivateNetworksResponse:
     private_networks: List[PrivateNetwork]
-
     total_count: int
 
 
 @dataclass
 class ListSubnetsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListSubnetsRequestOrderBy]
+    order_by: Optional[ListSubnetsRequestOrderBy] = (
+        ListSubnetsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of the returned subnets.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of Private Networks to return per page.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for. Only subnets belonging to this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for. Only subnets belonging to this Project will be returned.
     """
 
-    subnet_ids: Optional[List[str]]
+    subnet_ids: Optional[List[str]] = field(default_factory=list)
     """
     Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
     """
 
-    vpc_id: Optional[str]
+    vpc_id: Optional[str] = None
     """
     VPC ID to filter for. Only subnets belonging to this VPC will be returned.
     """
@@ -735,58 +737,57 @@ class ListSubnetsRequest:
 @dataclass
 class ListSubnetsResponse:
     subnets: List[Subnet]
-
     total_count: int
 
 
 @dataclass
 class ListVPCsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListVPCsRequestOrderBy]
+    order_by: Optional[ListVPCsRequestOrderBy] = ListVPCsRequestOrderBy.CREATED_AT_ASC
     """
     Sort order of the returned VPCs.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of VPCs to return per page.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name to filter for. Only VPCs with names containing this string will be returned.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for. Only VPCs with one or more matching tags will be returned.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for. Only VPCs belonging to this Project will be returned.
     """
 
-    is_default: Optional[bool]
+    is_default: Optional[bool] = False
     """
     Defines whether to filter only for VPCs which are the default one for their Project.
     """
 
-    routing_enabled: Optional[bool]
+    routing_enabled: Optional[bool] = False
     """
     Defines whether to filter only for VPCs which route traffic between their Private Networks.
     """
@@ -795,7 +796,6 @@ class ListVPCsRequest:
 @dataclass
 class ListVPCsResponse:
     vpcs: List[VPC]
-
     total_count: int
 
 
@@ -821,7 +821,7 @@ class SetAclRequest:
     Action to take for packets which do not match any rules.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -830,7 +830,6 @@ class SetAclRequest:
 @dataclass
 class SetAclResponse:
     rules: List[AclRule]
-
     default_policy: Action
 
 
@@ -841,22 +840,22 @@ class UpdatePrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the Private Network.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags for the Private Network.
     """
 
-    default_route_propagation_enabled: Optional[bool]
+    default_route_propagation_enabled: Optional[bool] = False
     """
     Defines whether default v4 and v6 routes are propagated for this Private Network.
     """
@@ -869,32 +868,32 @@ class UpdateRouteRequest:
     Route ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Route description.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Route.
     """
 
-    destination: Optional[str]
+    destination: Optional[str] = None
     """
     Destination of the Route.
     """
 
-    nexthop_resource_id: Optional[str]
+    nexthop_resource_id: Optional[str] = None
     """
     ID of the nexthop resource.
     """
 
-    nexthop_private_network_id: Optional[str]
+    nexthop_private_network_id: Optional[str] = None
     """
     ID of the nexthop private network.
     """
@@ -907,17 +906,17 @@ class UpdateVPCRequest:
     VPC ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the VPC.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags for the VPC.
     """

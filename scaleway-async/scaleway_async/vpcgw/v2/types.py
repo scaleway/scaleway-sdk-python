@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -140,17 +140,17 @@ class GatewayNetwork:
     Zone of the GatewayNetwork connection.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Connection creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Connection last modification date.
     """
 
-    mac_address: Optional[str]
+    mac_address: Optional[str] = None
     """
     MAC address of the gateway in the Private Network (if the gateway is up and running).
     """
@@ -188,22 +188,22 @@ class IP:
     Zone of the IP address.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     IP address creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     IP address last modification date.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Reverse domain name for the IP address.
     """
 
-    gateway_id: Optional[str]
+    gateway_id: Optional[str] = None
     """
     Public Gateway associated with the IP address.
     """
@@ -264,16 +264,6 @@ class Gateway:
     Name of the gateway.
     """
 
-    created_at: Optional[datetime]
-    """
-    Gateway creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Gateway last modification date.
-    """
-
     tags: List[str]
     """
     Tags associated with the gateway.
@@ -287,21 +277,6 @@ class Gateway:
     bastion_enabled: bool
     """
     Defines whether SSH bastion is enabled on the gateway.
-    """
-
-    ipv4: Optional[IP]
-    """
-    Public IPv4 address of the gateway.
-    """
-
-    version: Optional[str]
-    """
-    Version of the running gateway software.
-    """
-
-    can_upgrade_to: Optional[str]
-    """
-    Newly available gateway software version that can be updated to.
     """
 
     bastion_port: int
@@ -327,6 +302,31 @@ class Gateway:
     zone: ScwZone
     """
     Zone of the gateway.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Gateway creation date.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Gateway last modification date.
+    """
+
+    ipv4: Optional[IP] = None
+    """
+    Public IPv4 address of the gateway.
+    """
+
+    version: Optional[str] = None
+    """
+    Version of the running gateway software.
+    """
+
+    can_upgrade_to: Optional[str] = None
+    """
+    Newly available gateway software version that can be updated to.
     """
 
 
@@ -367,12 +367,12 @@ class PatRule:
     Zone of the PAT rule.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     PAT rule creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     PAT rule last modification date.
     """
@@ -413,7 +413,7 @@ class AddBastionAllowedIPsRequest:
     IP range allowed to connect to the SSH bastion.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -449,12 +449,12 @@ class CreateGatewayNetworkRequest:
     Enabling the default route also enables masquerading.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ipam_ip_id: Optional[str]
+    ipam_ip_id: Optional[str] = None
     """
     Use this IPAM-booked IP ID as the Gateway's IP in this Private Network.
     """
@@ -477,32 +477,32 @@ class CreateGatewayRequest:
     Defines whether SSH bastion should be enabled the gateway.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Scaleway Project to create the gateway in.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the gateway.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags for the gateway.
     """
 
-    ip_id: Optional[str]
+    ip_id: Optional[str] = None
     """
     Existing IP address to attach to the gateway.
     """
 
-    bastion_port: Optional[int]
+    bastion_port: Optional[int] = 0
     """
     Port of the SSH bastion.
     """
@@ -510,17 +510,17 @@ class CreateGatewayRequest:
 
 @dataclass
 class CreateIPRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project to create the IP address in.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to give to the IP address.
     """
@@ -548,12 +548,12 @@ class CreatePatRuleRequest:
     Private port to translate to.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    protocol: Optional[PatRuleProtocol]
+    protocol: Optional[PatRuleProtocol] = PatRuleProtocol.UNKNOWN_PROTOCOL
     """
     Protocol the rule should apply to.
     """
@@ -571,7 +571,7 @@ class DeleteBastionAllowedIPsRequest:
     IP range to delete from SSH bastion's list of allowed IPs.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -584,7 +584,7 @@ class DeleteGatewayNetworkRequest:
     ID of the GatewayNetwork to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -602,7 +602,7 @@ class DeleteGatewayRequest:
     Defines whether the PGW's IP should be deleted.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -615,7 +615,7 @@ class DeleteIPRequest:
     ID of the IP address to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -628,7 +628,7 @@ class DeletePatRuleRequest:
     ID of the PAT rule to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -641,7 +641,7 @@ class GetGatewayNetworkRequest:
     ID of the GatewayNetwork to fetch.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -654,7 +654,7 @@ class GetGatewayRequest:
     ID of the gateway to fetch.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -667,7 +667,7 @@ class GetIPRequest:
     ID of the IP address to get.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -680,7 +680,7 @@ class GetPatRuleRequest:
     ID of the PAT rule to get.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -688,42 +688,44 @@ class GetPatRuleRequest:
 
 @dataclass
 class ListGatewayNetworksRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListGatewayNetworksRequestOrderBy]
+    order_by: Optional[ListGatewayNetworksRequestOrderBy] = (
+        ListGatewayNetworksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     GatewayNetworks per page.
     """
 
-    status: Optional[List[GatewayNetworkStatus]]
+    status: Optional[List[GatewayNetworkStatus]] = field(default_factory=list)
     """
     Filter for GatewayNetworks with these status. Use `unknown` to include all statuses.
     """
 
-    gateway_ids: Optional[List[str]]
+    gateway_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter for GatewayNetworks connected to these gateways.
     """
 
-    private_network_ids: Optional[List[str]]
+    private_network_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter for GatewayNetworks connected to these Private Networks.
     """
 
-    masquerade_enabled: Optional[bool]
+    masquerade_enabled: Optional[bool] = False
     """
     Filter for GatewayNetworks with this `enable_masquerade` setting.
     """
@@ -744,7 +746,7 @@ class ListGatewayNetworksResponse:
 
 @dataclass
 class ListGatewayTypesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -760,62 +762,64 @@ class ListGatewayTypesResponse:
 
 @dataclass
 class ListGatewaysRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListGatewaysRequestOrderBy]
+    order_by: Optional[ListGatewaysRequestOrderBy] = (
+        ListGatewaysRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Gateways per page.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Include only gateways in this Organization.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Include only gateways in this Project.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter for gateways which have this search term in their name.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter for gateways with these tags.
     """
 
-    types: Optional[List[str]]
+    types: Optional[List[str]] = field(default_factory=list)
     """
     Filter for gateways of these types.
     """
 
-    status: Optional[List[GatewayStatus]]
+    status: Optional[List[GatewayStatus]] = field(default_factory=list)
     """
     Filter for gateways with these status. Use `unknown` to include all statuses.
     """
 
-    private_network_ids: Optional[List[str]]
+    private_network_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter for gateways attached to these Private Networks.
     """
 
-    include_legacy: Optional[bool]
+    include_legacy: Optional[bool] = False
     """
     Include also legacy gateways.
     """
@@ -836,47 +840,47 @@ class ListGatewaysResponse:
 
 @dataclass
 class ListIPsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListIPsRequestOrderBy]
+    order_by: Optional[ListIPsRequestOrderBy] = ListIPsRequestOrderBy.CREATED_AT_ASC
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     IP addresses per page.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Include only gateways in this Organization.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter for IP addresses in this Project.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter for IP addresses with these tags.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Filter for IP addresses that have a reverse containing this string.
     """
 
-    is_free: Optional[bool]
+    is_free: Optional[bool] = False
     """
     Filter based on whether the IP is attached to a gateway or not.
     """
@@ -897,37 +901,39 @@ class ListIPsResponse:
 
 @dataclass
 class ListPatRulesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListPatRulesRequestOrderBy]
+    order_by: Optional[ListPatRulesRequestOrderBy] = (
+        ListPatRulesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     PAT rules per page.
     """
 
-    gateway_ids: Optional[List[str]]
+    gateway_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter for PAT rules on these gateways.
     """
 
-    private_ips: Optional[List[str]]
+    private_ips: Optional[List[str]] = field(default_factory=list)
     """
     Filter for PAT rules targeting these private ips.
     """
 
-    protocol: Optional[PatRuleProtocol]
+    protocol: Optional[PatRuleProtocol] = PatRuleProtocol.UNKNOWN_PROTOCOL
     """
     Filter for PAT rules with this protocol.
     """
@@ -953,7 +959,7 @@ class RefreshSSHKeysRequest:
     ID of the gateway to refresh SSH keys on.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -966,12 +972,12 @@ class SetBastionAllowedIPsRequest:
     ID of the gateway on which to set the allowed IP range.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ip_ranges: Optional[List[str]]
+    ip_ranges: Optional[List[str]] = field(default_factory=list)
     """
     New list of IP ranges (each range in CIDR notation) allowed to connect to the SSH bastion.
     """
@@ -997,7 +1003,7 @@ class SetPatRulesRequest:
     New list of PAT rules.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1018,22 +1024,22 @@ class UpdateGatewayNetworkRequest:
     ID of the GatewayNetwork to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    enable_masquerade: Optional[bool]
+    enable_masquerade: Optional[bool] = False
     """
     Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
     """
 
-    push_default_route: Optional[bool]
+    push_default_route: Optional[bool] = False
     """
     Enabling the default route also enables masquerading.
     """
 
-    ipam_ip_id: Optional[str]
+    ipam_ip_id: Optional[str] = None
     """
     Use this IPAM-booked IP ID as the Gateway's IP in this Private Network.
     """
@@ -1046,32 +1052,32 @@ class UpdateGatewayRequest:
     ID of the gateway to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the gateway.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags for the gateway.
     """
 
-    enable_bastion: Optional[bool]
+    enable_bastion: Optional[bool] = False
     """
     Defines whether SSH bastion should be enabled the gateway.
     """
 
-    bastion_port: Optional[int]
+    bastion_port: Optional[int] = 0
     """
     Port of the SSH bastion.
     """
 
-    enable_smtp: Optional[bool]
+    enable_smtp: Optional[bool] = False
     """
     Defines whether SMTP traffic should be allowed to pass through the gateway.
     """
@@ -1084,22 +1090,22 @@ class UpdateIPRequest:
     ID of the IP address to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to give to the IP address.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Reverse to set on the address. Empty string to unset.
     """
 
-    gateway_id: Optional[str]
+    gateway_id: Optional[str] = None
     """
     Gateway to attach the IP address to. Empty string to detach.
     """
@@ -1112,27 +1118,27 @@ class UpdatePatRuleRequest:
     ID of the PAT rule to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    public_port: Optional[int]
+    public_port: Optional[int] = 0
     """
     Public port to listen on.
     """
 
-    private_ip: Optional[str]
+    private_ip: Optional[str] = None
     """
     Private IP to forward data to.
     """
 
-    private_port: Optional[int]
+    private_port: Optional[int] = 0
     """
     Private port to translate to.
     """
 
-    protocol: Optional[PatRuleProtocol]
+    protocol: Optional[PatRuleProtocol] = PatRuleProtocol.UNKNOWN_PROTOCOL
     """
     Protocol the rule should apply to.
     """
@@ -1145,12 +1151,12 @@ class UpgradeGatewayRequest:
     ID of the gateway to upgrade.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    type_: Optional[str]
+    type_: Optional[str] = None
     """
     Gateway type (commercial offer).
     """

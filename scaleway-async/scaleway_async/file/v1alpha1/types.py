@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -71,7 +71,7 @@ class Attachment:
     The type of the attached resource.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     The zone where the resource is located.
     """
@@ -128,12 +128,12 @@ class FileSystem:
     Region where the filesystem is located.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the filesystem.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update date of the properties of the filesystem.
     """
@@ -155,17 +155,17 @@ class CreateFileSystemRequest:
     Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the project the filesystem belongs to.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags assigned to the filesystem.
     """
@@ -182,7 +182,7 @@ class DeleteFileSystemRequest:
     UUID of the filesystem.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -199,7 +199,7 @@ class GetFileSystemRequest:
     UUID of the filesystem.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -211,37 +211,39 @@ class ListAttachmentsRequest:
     Request to list filesystem attachments with filtering and pagination options.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    filesystem_id: Optional[str]
+    filesystem_id: Optional[str] = None
     """
     UUID of the File Storage volume.
     """
 
-    resource_id: Optional[str]
+    resource_id: Optional[str] = None
     """
     Filter by resource ID.
     """
 
-    resource_type: Optional[AttachmentResourceType]
+    resource_type: Optional[AttachmentResourceType] = (
+        AttachmentResourceType.UNKNOWN_RESOURCE_TYPE
+    )
     """
     Filter by resource type.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Filter by resource zone.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (starting at 1).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of entries per page (default: 20, max: 100).
     """
@@ -270,42 +272,44 @@ class ListFileSystemsRequest:
     Request to list filesystems with filtering and pagination options.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListFileSystemsRequestOrderBy]
+    order_by: Optional[ListFileSystemsRequestOrderBy] = (
+        ListFileSystemsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria to use when ordering the list.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by project ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by organization ID.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (starting at 1).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of entries per page (default: 20, max: 100).
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter the returned filesystems by their names.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tags. Only filesystems with one or more matching tags will be returned.
     """
@@ -339,23 +343,23 @@ class UpdateFileSystemRequest:
     UUID of the filesystem.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     When defined, is the new name of the filesystem.
     """
 
-    size: Optional[int]
+    size: Optional[int] = 0
     """
     Size in bytes, with a granularity of 100 GB (10^11 bytes).
 Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags assigned to the filesystem.
     """

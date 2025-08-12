@@ -57,9 +57,7 @@ class LocalImageType(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class Category:
     id: str
-
     name: str
-
     description: str
 
 
@@ -96,17 +94,17 @@ class Image:
 This label can be used in the image field of the server creation request.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of this image.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date of the last modification of this image.
     """
 
-    valid_until: Optional[datetime]
+    valid_until: Optional[datetime] = None
     """
     Expiration date of this image.
     """
@@ -157,17 +155,17 @@ class Version:
     Name of this version.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of this image version.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date of the last modification of this version.
     """
 
-    published_at: Optional[datetime]
+    published_at: Optional[datetime] = None
     """
     Date this version was officially published.
     """
@@ -198,15 +196,13 @@ class GetVersionRequest:
 
 @dataclass
 class ListCategoriesRequest:
-    page_size: Optional[int]
-
-    page: Optional[int]
+    page_size: Optional[int] = None
+    page: Optional[int] = None
 
 
 @dataclass
 class ListCategoriesResponse:
     categories: List[Category]
-
     total_count: int
 
 
@@ -217,27 +213,27 @@ class ListImagesRequest:
     Choose to include end-of-life images.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     A positive integer lower or equal to 100 to select the number of items to display.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     A positive integer to choose the page to display.
     """
 
-    order_by: Optional[ListImagesRequestOrderBy]
+    order_by: Optional[ListImagesRequestOrderBy] = ListImagesRequestOrderBy.NAME_ASC
     """
     Ordering to use.
     """
 
-    arch: Optional[str]
+    arch: Optional[str] = None
     """
     Choose for which machine architecture to return images.
     """
 
-    category: Optional[str]
+    category: Optional[str] = None
     """
     Choose the category of images to get.
     """
@@ -246,64 +242,60 @@ class ListImagesRequest:
 @dataclass
 class ListImagesResponse:
     images: List[Image]
-
     total_count: int
 
 
 @dataclass
 class ListLocalImagesRequest:
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     A positive integer lower or equal to 100 to select the number of items to display.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     A positive integer to choose the page to display.
     """
 
-    order_by: Optional[ListLocalImagesRequestOrderBy]
+    order_by: Optional[ListLocalImagesRequestOrderBy] = (
+        ListLocalImagesRequestOrderBy.TYPE_ASC
+    )
     """
     Ordering to use.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Filter local images available on this Availability Zone.
     """
 
-    type_: Optional[LocalImageType]
+    type_: Optional[LocalImageType] = LocalImageType.UNKNOWN_TYPE
     """
     Filter by type.
     """
 
-    image_id: Optional[str]
+    image_id: Optional[str] = None
 
-    version_id: Optional[str]
+    version_id: Optional[str] = None
 
-    image_label: Optional[str]
+    image_label: Optional[str] = None
 
 
 @dataclass
 class ListLocalImagesResponse:
     local_images: List[LocalImage]
-
     total_count: int
 
 
 @dataclass
 class ListVersionsRequest:
     image_id: str
-
-    page_size: Optional[int]
-
-    page: Optional[int]
-
-    order_by: Optional[ListVersionsRequestOrderBy]
+    page_size: Optional[int] = None
+    page: Optional[int] = None
+    order_by: Optional[ListVersionsRequestOrderBy] = None
 
 
 @dataclass
 class ListVersionsResponse:
     versions: List[Version]
-
     total_count: int

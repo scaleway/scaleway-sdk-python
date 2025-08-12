@@ -51,59 +51,36 @@ class ListHumansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class Human:
     id: str
-
     organization_id: str
-
     height: float
-
     shoe_size: float
-
     altitude_in_meter: int
-
     altitude_in_millimeter: int
-
     fingers_count: int
-
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
     hair_count: int
-
     is_happy: bool
-
     eyes_color: EyeColors
-
     status: HumanStatus
-
     name: str
-
     project_id: str
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
 
 @dataclass
 class CreateHumanRequest:
     height: float
-
     shoe_size: float
-
     altitude_in_meter: int
-
     altitude_in_millimeter: int
-
     fingers_count: int
-
     hair_count: int
-
     is_happy: bool
-
     name: str
+    eyes_color: Optional[EyeColors] = None
+    project_id: Optional[str] = None
 
-    eyes_color: Optional[EyeColors]
-
-    project_id: Optional[str]
-
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -124,21 +101,16 @@ class GetHumanRequest:
 
 @dataclass
 class ListHumansRequest:
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListHumansRequestOrderBy]
-
-    organization_id: Optional[str]
-
-    project_id: Optional[str]
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListHumansRequestOrderBy] = None
+    organization_id: Optional[str] = None
+    project_id: Optional[str] = None
 
 
 @dataclass
 class ListHumansResponse:
     total_count: int
-
     humans: List[Human]
 
 
@@ -150,7 +122,6 @@ class RegisterRequest:
 @dataclass
 class RegisterResponse:
     secret_key: str
-
     access_key: str
 
 
@@ -177,23 +148,16 @@ class UpdateHumanRequest:
     UUID of the human you want to update.
     """
 
-    height: Optional[float]
+    height: Optional[float] = 0.0
     """
     Height of the human in meters.
     """
 
-    shoe_size: Optional[float]
-
-    altitude_in_meter: Optional[int]
-
-    altitude_in_millimeter: Optional[int]
-
-    fingers_count: Optional[int]
-
-    hair_count: Optional[int]
-
-    is_happy: Optional[bool]
-
-    eyes_color: Optional[EyeColors]
-
-    name: Optional[str]
+    shoe_size: Optional[float] = 0.0
+    altitude_in_meter: Optional[int] = 0
+    altitude_in_millimeter: Optional[int] = 0
+    fingers_count: Optional[int] = 0
+    hair_count: Optional[int] = 0
+    is_happy: Optional[bool] = False
+    eyes_color: Optional[EyeColors] = EyeColors.UNKNOWN
+    name: Optional[str] = None

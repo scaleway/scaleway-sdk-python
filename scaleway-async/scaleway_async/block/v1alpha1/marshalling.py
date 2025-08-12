@@ -13,6 +13,11 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ReferenceStatus,
+    ReferenceType,
+    SnapshotStatus,
+    StorageClass,
+    VolumeStatus,
     Reference,
     SnapshotParentVolume,
     Snapshot,
@@ -45,22 +50,32 @@ def unmarshal_Reference(data: Any) -> Reference:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("product_resource_type", None)
     if field is not None:
         args["product_resource_type"] = field
+    else:
+        args["product_resource_type"] = None
 
     field = data.get("product_resource_id", None)
     if field is not None:
         args["product_resource_id"] = field
+    else:
+        args["product_resource_id"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = ReferenceType.UNKNOWN_TYPE
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = ReferenceStatus.UNKNOWN_STATUS
 
     field = data.get("created_at", None)
     if field is not None:
@@ -82,18 +97,26 @@ def unmarshal_SnapshotParentVolume(data: Any) -> SnapshotParentVolume:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = VolumeStatus.UNKNOWN_STATUS
 
     return SnapshotParentVolume(**args)
 
@@ -109,40 +132,58 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("references", None)
     if field is not None:
         args["references"] = (
             [unmarshal_Reference(v) for v in field] if field is not None else None
         )
+    else:
+        args["references"] = field(default_factory=list)
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = SnapshotStatus.UNKNOWN_STATUS
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("class", None)
     if field is not None:
         args["class_"] = field
+    else:
+        args["class_"] = StorageClass.UNKNOWN_STORAGE_CLASS
 
     field = data.get("parent_volume", None)
     if field is not None:
@@ -176,12 +217,14 @@ def unmarshal_VolumeSpecifications(data: Any) -> VolumeSpecifications:
     field = data.get("class", None)
     if field is not None:
         args["class_"] = field
+    else:
+        args["class_"] = StorageClass.UNKNOWN_STORAGE_CLASS
 
     field = data.get("perf_iops", None)
     if field is not None:
         args["perf_iops"] = field
     else:
-        args["perf_iops"] = None
+        args["perf_iops"] = 0
 
     return VolumeSpecifications(**args)
 
@@ -197,28 +240,40 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("references", None)
     if field is not None:
         args["references"] = (
             [unmarshal_Reference(v) for v in field] if field is not None else None
         )
+    else:
+        args["references"] = field(default_factory=list)
 
     field = data.get("created_at", None)
     if field is not None:
@@ -241,14 +296,20 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = VolumeStatus.UNKNOWN_STATUS
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("specs", None)
     if field is not None:
@@ -280,10 +341,14 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
         args["snapshots"] = (
             [unmarshal_Snapshot(v) for v in field] if field is not None else None
         )
+    else:
+        args["snapshots"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListSnapshotsResponse(**args)
 
@@ -299,6 +364,8 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("pricing", None)
     if field is not None:
@@ -334,10 +401,14 @@ def unmarshal_ListVolumeTypesResponse(data: Any) -> ListVolumeTypesResponse:
         args["volume_types"] = (
             [unmarshal_VolumeType(v) for v in field] if field is not None else None
         )
+    else:
+        args["volume_types"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListVolumeTypesResponse(**args)
 
@@ -355,10 +426,14 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
         args["volumes"] = (
             [unmarshal_Volume(v) for v in field] if field is not None else None
         )
+    else:
+        args["volumes"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListVolumesResponse(**args)
 
@@ -376,7 +451,9 @@ def marshal_CreateSnapshotRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -446,7 +523,9 @@ def marshal_CreateVolumeRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -485,7 +564,9 @@ def marshal_ImportSnapshotFromObjectStorageRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -512,7 +593,9 @@ def marshal_ImportSnapshotFromS3Request(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags

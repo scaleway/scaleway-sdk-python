@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -707,7 +707,6 @@ class OfferSANInfo:
 @dataclass
 class OfferStorageInfo:
     max_quota: int
-
     size: int
 
 
@@ -781,34 +780,34 @@ class Offer:
     Payment frequency of the offer.
     """
 
-    pricing: Optional[Money]
+    pricing: Optional[Money] = None
     """
     Price of the offer.
     """
 
-    server_info: Optional[OfferServerInfo]
+    server_info: Optional[OfferServerInfo] = None
 
-    service_level_info: Optional[OfferServiceLevelInfo]
+    service_level_info: Optional[OfferServiceLevelInfo] = None
 
-    rpn_info: Optional[OfferRPNInfo]
+    rpn_info: Optional[OfferRPNInfo] = None
 
-    san_info: Optional[OfferSANInfo]
+    san_info: Optional[OfferSANInfo] = None
 
-    antidos_info: Optional[OfferAntiDosInfo]
+    antidos_info: Optional[OfferAntiDosInfo] = None
 
-    backup_info: Optional[OfferBackupInfo]
+    backup_info: Optional[OfferBackupInfo] = None
 
-    usb_storage_info: Optional[OfferStorageInfo]
+    usb_storage_info: Optional[OfferStorageInfo] = None
 
-    storage_info: Optional[OfferStorageInfo]
+    storage_info: Optional[OfferStorageInfo] = None
 
-    license_info: Optional[OfferLicenseInfo]
+    license_info: Optional[OfferLicenseInfo] = None
 
-    failover_ip_info: Optional[OfferFailoverIpInfo]
+    failover_ip_info: Optional[OfferFailoverIpInfo] = None
 
-    failover_block_info: Optional[OfferFailoverBlockInfo]
+    failover_block_info: Optional[OfferFailoverBlockInfo] = None
 
-    bandwidth_info: Optional[OfferBandwidthInfo]
+    bandwidth_info: Optional[OfferBandwidthInfo] = None
 
 
 @dataclass
@@ -921,27 +920,27 @@ class OS:
     Hostname max length.
     """
 
-    max_partitions: Optional[int]
+    max_partitions: Optional[int] = 0
     """
     Maximum number of partitions which can be created.
     """
 
-    panel_password_regex: Optional[str]
+    panel_password_regex: Optional[str] = None
     """
     Regex used to validate the panel installation password.
     """
 
-    requires_valid_hostname: Optional[bool]
+    requires_valid_hostname: Optional[bool] = False
     """
     If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
     """
 
-    hostname_regex: Optional[str]
+    hostname_regex: Optional[str] = None
     """
     If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
     """
 
-    released_at: Optional[datetime]
+    released_at: Optional[datetime] = None
     """
     OS release date.
     """
@@ -950,23 +949,17 @@ class OS:
 @dataclass
 class ServerLocation:
     rack: str
-
     room: str
-
     datacenter_name: str
 
 
 @dataclass
 class ServerOption:
     options: List[ServerOption]
-
-    offer: Optional[Offer]
-
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
-    expired_at: Optional[datetime]
+    offer: Optional[Offer] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    expired_at: Optional[datetime] = None
 
 
 @dataclass
@@ -1019,11 +1012,6 @@ class RpnSan:
     Offer ID.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date of creation of the RPN SAN.
-    """
-
     offer_name: str
     """
     Offer description.
@@ -1040,7 +1028,6 @@ class RpnSan:
     """
 
     iqn: str
-
     rpnv1_compatible: bool
     """
     True if the SAN is compatible with the RPNv1 technology.
@@ -1051,19 +1038,23 @@ class RpnSan:
     True if the offer supports the RPNv1 implicitly, false if it must to be added to a group to support RPNv1.
     """
 
-    offer: Optional[Offer]
+    created_at: Optional[datetime] = None
+    """
+    Date of creation of the RPN SAN.
+    """
 
-    delivered_at: Optional[datetime]
+    offer: Optional[Offer] = None
+    delivered_at: Optional[datetime] = None
     """
     RPN SAN delivery date.
     """
 
-    terminated_at: Optional[datetime]
+    terminated_at: Optional[datetime] = None
     """
     RPN SAN termination date.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     RPN SAN expiration date.
     """
@@ -1111,7 +1102,7 @@ class RpnGroup:
     Rpn group project ID.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Rpn group creation date.
     """
@@ -1120,7 +1111,6 @@ class RpnGroup:
 @dataclass
 class RpnV2GroupSubnet:
     address: str
-
     cidr: int
 
 
@@ -1149,11 +1139,6 @@ class Server:
     status: ServerStatus
     """
     Status of the server.
-    """
-
-    rebooted_at: Optional[datetime]
-    """
-    Date of last reboot of the server.
     """
 
     abuse_contact: str
@@ -1211,42 +1196,47 @@ class Server:
     Whether or not the server is HDS.
     """
 
-    created_at: Optional[datetime]
+    rebooted_at: Optional[datetime] = None
+    """
+    Date of last reboot of the server.
+    """
+
+    created_at: Optional[datetime] = None
     """
     Date of creation of the server.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date of last modification of the server.
     """
 
-    expired_at: Optional[datetime]
+    expired_at: Optional[datetime] = None
     """
     Date of release of the server.
     """
 
-    offer: Optional[Offer]
+    offer: Optional[Offer] = None
     """
     Offer of the server.
     """
 
-    location: Optional[ServerLocation]
+    location: Optional[ServerLocation] = None
     """
     Location of the server.
     """
 
-    os: Optional[OS]
+    os: Optional[OS] = None
     """
     OS installed on the server.
     """
 
-    level: Optional[ServiceLevel]
+    level: Optional[ServiceLevel] = None
     """
     Service level of the server.
     """
 
-    rescue_os: Optional[OS]
+    rescue_os: Optional[OS] = None
     """
     Rescue OS of the server.
     """
@@ -1293,16 +1283,13 @@ class FailoverBlock:
 @dataclass
 class RpnSanIpRpnV2Group:
     id: int
-
     name: str
 
 
 @dataclass
 class RpnSanIpServer:
     id: int
-
     hostname: str
-
     datacenter_name: str
 
 
@@ -1386,12 +1373,12 @@ class RpnV2Group:
     RPN V2 gateway.
     """
 
-    subnet: Optional[RpnV2GroupSubnet]
+    subnet: Optional[RpnV2GroupSubnet] = None
     """
     RPN V2 subnet.
     """
 
-    rpnv1_group: Optional[RpnGroup]
+    rpnv1_group: Optional[RpnGroup] = None
     """
     The RPNv1 group (if the compatibility was enabled).
     """
@@ -1414,26 +1401,22 @@ class RpnV2Member:
     RPN V2 member VLAN.
     """
 
-    speed: Optional[int]
+    speed: Optional[int] = 0
     """
     RPN speed.
     """
 
-    server: Optional[Server]
+    server: Optional[Server] = None
 
-    rpnv1_group: Optional[RpnGroup]
+    rpnv1_group: Optional[RpnGroup] = None
 
 
 @dataclass
 class ServerDisk:
     id: int
-
     connector: str
-
     type_: ServerDiskType
-
     capacity: int
-
     is_addon: bool
 
 
@@ -1454,32 +1437,32 @@ class Service:
     Service type, either order or service.
     """
 
-    resource_id: Optional[int]
+    resource_id: Optional[int] = 0
     """
     Resource ID of the service.
     """
 
-    offer: Optional[Offer]
+    offer: Optional[Offer] = None
     """
     Offer of the service.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the service.
     """
 
-    delivered_at: Optional[datetime]
+    delivered_at: Optional[datetime] = None
     """
     Delivery date of the service.
     """
 
-    terminated_at: Optional[datetime]
+    terminated_at: Optional[datetime] = None
     """
     Terminatation date of the service.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiration date of the service.
     """
@@ -1488,7 +1471,6 @@ class Service:
 @dataclass
 class GetIPv6BlockQuotasResponseQuota:
     quota: int
-
     cidr: int
 
 
@@ -1514,7 +1496,7 @@ class InstallPartition:
     Connectors of the installation partition.
     """
 
-    mount_point: Optional[str]
+    mount_point: Optional[str] = None
     """
     Mount point of the installation partition.
     """
@@ -1567,22 +1549,22 @@ class FailoverIP:
     The interface type.
     """
 
-    mac: Optional[str]
+    mac: Optional[str] = None
     """
     MAC address of the IP failover.
     """
 
-    server_id: Optional[int]
+    server_id: Optional[int] = 0
     """
     Server ID linked to the IP failover.
     """
 
-    block: Optional[FailoverBlock]
+    block: Optional[FailoverBlock] = None
     """
     Block of the IP failover.
     """
 
-    server_zone: Optional[str]
+    server_zone: Optional[str] = None
     """
     The server zone (if assigned).
     """
@@ -1591,27 +1573,19 @@ class FailoverIP:
 @dataclass
 class ListIPv6BlockSubnetsAvailableResponseSubnet:
     address: str
-
     cidr: int
 
 
 @dataclass
 class InvoiceSummary:
     id: int
-
     status: InvoiceStatus
-
     payment_method: InvoicePaymentMethod
-
     transaction_id: int
-
-    total_with_taxes: Optional[Money]
-
-    total_without_taxes: Optional[Money]
-
-    created_at: Optional[datetime]
-
-    paid_at: Optional[datetime]
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    paid_at: Optional[datetime] = None
 
 
 @dataclass
@@ -1621,31 +1595,25 @@ class RpnSanIp:
     IP type (server | rpnv2_subnet).
     """
 
-    ip: Optional[IP]
+    ip: Optional[IP] = None
     """
     An IP object.
     """
 
-    server: Optional[RpnSanIpServer]
+    server: Optional[RpnSanIpServer] = None
 
-    rpnv2_group: Optional[RpnSanIpRpnV2Group]
+    rpnv2_group: Optional[RpnSanIpRpnV2Group] = None
 
 
 @dataclass
 class RefundSummary:
     id: int
-
     status: RefundStatus
-
     method: RefundMethod
-
-    total_with_taxes: Optional[Money]
-
-    total_without_taxes: Optional[Money]
-
-    created_at: Optional[datetime]
-
-    refunded_at: Optional[datetime]
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    refunded_at: Optional[datetime] = None
 
 
 @dataclass
@@ -1680,17 +1648,17 @@ class RpnGroupMember:
     RPN member owner.
     """
 
-    san_server: Optional[RpnSanServer]
+    san_server: Optional[RpnSanServer] = None
     """
     Authorized RPN SAN server.
     """
 
-    server: Optional[Server]
+    server: Optional[Server] = None
     """
     Authorized rpn v1 capable server.
     """
 
-    speed: Optional[int]
+    speed: Optional[int] = 0
     """
     RPN speed.
     """
@@ -1733,11 +1701,6 @@ class RpnSanSummary:
     Offer ID.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date of creation of the RPN SAN.
-    """
-
     offer_name: str
     """
     Offer description.
@@ -1763,17 +1726,22 @@ class RpnSanSummary:
     True if the offer supports the RPNv1 implicitly, false if it must to be added to a group to support RPNv1.
     """
 
-    delivered_at: Optional[datetime]
+    created_at: Optional[datetime] = None
+    """
+    Date of creation of the RPN SAN.
+    """
+
+    delivered_at: Optional[datetime] = None
     """
     RPN SAN delivery date.
     """
 
-    terminated_at: Optional[datetime]
+    terminated_at: Optional[datetime] = None
     """
     RPN SAN termination date.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     RPN SAN expiration date.
     """
@@ -1826,12 +1794,12 @@ class RpnServerCapability:
     True if server can join an rpnv2 group.
     """
 
-    ip_address: Optional[str]
+    ip_address: Optional[str] = None
     """
     Private IP address (if rpn compatiblle).
     """
 
-    rpn_version: Optional[int]
+    rpn_version: Optional[int] = 0
     """
     Supported rpn version.
     """
@@ -1854,22 +1822,22 @@ class Log:
     Action status.
     """
 
-    group: Optional[RpnV2Group]
+    group: Optional[RpnV2Group] = None
     """
     RPN V2 group.
     """
 
-    member: Optional[RpnV2Member]
+    member: Optional[RpnV2Member] = None
     """
     RPN V2 member (if appliable).
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date.
     """
 
-    finished_at: Optional[datetime]
+    finished_at: Optional[datetime] = None
     """
     Completion date.
     """
@@ -1887,7 +1855,7 @@ class ServerEvent:
     Description of the event.
     """
 
-    date: Optional[datetime]
+    date: Optional[datetime] = None
     """
     Date of the event.
     """
@@ -1918,21 +1886,6 @@ class ServerSummary:
     hostname: str
     """
     Hostname of the server.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date of creation of the server.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date of last modification of the server.
-    """
-
-    expired_at: Optional[datetime]
-    """
-    Date of release of the server.
     """
 
     offer_id: int
@@ -1975,17 +1928,32 @@ class ServerSummary:
     Whether or not the server is HDS.
     """
 
-    os_id: Optional[int]
+    created_at: Optional[datetime] = None
+    """
+    Date of creation of the server.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date of last modification of the server.
+    """
+
+    expired_at: Optional[datetime] = None
+    """
+    Date of release of the server.
+    """
+
+    os_id: Optional[int] = 0
     """
     OS ID installed on server.
     """
 
-    level: Optional[ServiceLevel]
+    level: Optional[ServiceLevel] = None
     """
     Service level of the server.
     """
 
-    rpn_version: Optional[int]
+    rpn_version: Optional[int] = 0
     """
     Supported RPN version.
     """
@@ -2121,7 +2089,7 @@ class Partition:
     Connectors of the partition.
     """
 
-    mount_point: Optional[str]
+    mount_point: Optional[str] = None
     """
     Mount point of the partition.
     """
@@ -2147,17 +2115,19 @@ class AttachFailoverIPToMacAddressRequest:
     ID of the failover IP.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    type_: Optional[AttachFailoverIPToMacAddressRequestMacType]
+    type_: Optional[AttachFailoverIPToMacAddressRequestMacType] = (
+        AttachFailoverIPToMacAddressRequestMacType.MAC_TYPE_UNKNOWN
+    )
     """
     A mac type.
     """
 
-    mac: Optional[str]
+    mac: Optional[str] = None
     """
     A valid mac address (existing or not).
     """
@@ -2175,7 +2145,7 @@ class AttachFailoverIPsRequest:
     List of ID of failovers IP to attach.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2203,7 +2173,7 @@ class BMCAccess:
     Status of the connection.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     The date after which the BMC (Baseboard Management Controller) access will be closed.
     """
@@ -2264,7 +2234,7 @@ class Backup:
 
 @dataclass
 class BillingApiCanOrderRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -2289,43 +2259,30 @@ class BillingApiGetRefundRequest:
 
 @dataclass
 class BillingApiListInvoicesRequest:
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListInvoicesRequestOrderBy]
-
-    project_id: Optional[str]
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListInvoicesRequestOrderBy] = None
+    project_id: Optional[str] = None
 
 
 @dataclass
 class BillingApiListRefundsRequest:
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListRefundsRequestOrderBy]
-
-    project_id: Optional[str]
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListRefundsRequestOrderBy] = None
+    project_id: Optional[str] = None
 
 
 @dataclass
 class CanOrderResponse:
     can_order: bool
-
     quota_ok: bool
-
     phone_confirmed: bool
-
     email_confirmed: bool
-
     user_confirmed: bool
-
     payment_mode: bool
-
     billing_ok: bool
-
-    message: Optional[str]
+    message: Optional[str] = None
 
 
 @dataclass
@@ -2335,7 +2292,7 @@ class CancelServerInstallRequest:
     Server ID of the server to cancel install.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2353,12 +2310,12 @@ class CreateFailoverIPsRequest:
     Quantity.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
@@ -2367,7 +2324,6 @@ class CreateFailoverIPsRequest:
 @dataclass
 class CreateFailoverIPsResponse:
     total_count: int
-
     services: List[Service]
 
 
@@ -2383,17 +2339,17 @@ class CreateServerRequest:
     Server option IDs of the new server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID of the new server.
     """
 
-    datacenter_name: Optional[str]
+    datacenter_name: Optional[str] = None
     """
     Datacenter name of the new server.
     """
@@ -2406,7 +2362,7 @@ class DeleteFailoverIPRequest:
     ID of the failover IP to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2419,7 +2375,7 @@ class DeleteServerRequest:
     Server ID to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2432,7 +2388,7 @@ class DeleteServiceRequest:
     ID of the service.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2445,7 +2401,7 @@ class DetachFailoverIPFromMacAddressRequest:
     ID of the failover IP.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2458,7 +2414,7 @@ class DetachFailoverIPsRequest:
     List of IDs of failovers IP to detach.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2471,7 +2427,7 @@ class GetBMCAccessRequest:
     ID of the server to get BMC access.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2484,7 +2440,7 @@ class GetFailoverIPRequest:
     ID of the failover IP.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2515,12 +2471,12 @@ class GetOSRequest:
     ID of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
@@ -2533,12 +2489,12 @@ class GetOfferRequest:
     ID of offer.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
@@ -2547,8 +2503,7 @@ class GetOfferRequest:
 @dataclass
 class GetOrderedServiceRequest:
     ordered_service_id: int
-
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2561,7 +2516,7 @@ class GetRaidRequest:
     ID of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2569,12 +2524,12 @@ class GetRaidRequest:
 
 @dataclass
 class GetRemainingQuotaRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
@@ -2610,7 +2565,7 @@ class GetRescueRequest:
     ID of the server to get rescue.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2623,7 +2578,7 @@ class GetRpnStatusResponse:
     If status = 'operational', you can perform rpn actions in write.
     """
 
-    operations_left: Optional[int]
+    operations_left: Optional[int] = 0
     """
     Number of operations left to perform before being operational.
     """
@@ -2636,7 +2591,7 @@ class GetServerBackupRequest:
     Server ID of the backup.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2654,7 +2609,7 @@ class GetServerDefaultPartitioningRequest:
     OS ID of the default partitioning.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2667,7 +2622,7 @@ class GetServerInstallRequest:
     Server ID of the server to install.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2680,7 +2635,7 @@ class GetServerRequest:
     ID of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2693,7 +2648,7 @@ class GetServiceRequest:
     ID of the service.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2739,7 +2694,7 @@ class IPv6Block:
 
 @dataclass
 class IPv6BlockApiCreateIPv6BlockRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the project.
     """
@@ -2773,7 +2728,7 @@ class IPv6BlockApiDeleteIPv6BlockRequest:
 
 @dataclass
 class IPv6BlockApiGetIPv6BlockQuotasRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the project.
     """
@@ -2781,7 +2736,7 @@ class IPv6BlockApiGetIPv6BlockQuotasRequest:
 
 @dataclass
 class IPv6BlockApiGetIPv6BlockRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the project.
     """
@@ -2802,7 +2757,7 @@ class IPv6BlockApiUpdateIPv6BlockRequest:
     ID of the IPv6 block.
     """
 
-    nameservers: Optional[List[str]]
+    nameservers: Optional[List[str]] = field(default_factory=list)
     """
     DNS to link to the IPv6.
     """
@@ -2825,47 +2780,47 @@ class InstallServerRequest:
     Hostname of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    user_login: Optional[str]
+    user_login: Optional[str] = None
     """
     User to install on the server.
     """
 
-    user_password: Optional[str]
+    user_password: Optional[str] = None
     """
     User password to install on the server.
     """
 
-    panel_password: Optional[str]
+    panel_password: Optional[str] = None
     """
     Panel password to install on the server.
     """
 
-    root_password: Optional[str]
+    root_password: Optional[str] = None
     """
     Root password to install on the server.
     """
 
-    partitions: Optional[List[InstallPartition]]
+    partitions: Optional[List[InstallPartition]] = field(default_factory=list)
     """
     Partitions to install on the server.
     """
 
-    ssh_key_ids: Optional[List[str]]
+    ssh_key_ids: Optional[List[str]] = field(default_factory=list)
     """
     SSH key IDs authorized on the server.
     """
 
-    license_offer_id: Optional[int]
+    license_offer_id: Optional[int] = 0
     """
     Offer ID of license to install on server.
     """
 
-    ip_id: Optional[int]
+    ip_id: Optional[int] = 0
     """
     IP to link at the license to install on server.
     """
@@ -2874,57 +2829,51 @@ class InstallServerRequest:
 @dataclass
 class Invoice:
     id: int
-
     status: InvoiceStatus
-
     payment_method: InvoicePaymentMethod
-
     content: str
-
     transaction_id: int
-
-    total_with_taxes: Optional[Money]
-
-    total_without_taxes: Optional[Money]
-
-    created_at: Optional[datetime]
-
-    paid_at: Optional[datetime]
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    paid_at: Optional[datetime] = None
 
 
 @dataclass
 class ListFailoverIPsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of failovers IP per page.
     """
 
-    order_by: Optional[ListFailoverIPsRequestOrderBy]
+    order_by: Optional[ListFailoverIPsRequestOrderBy] = (
+        ListFailoverIPsRequestOrderBy.IP_ASC
+    )
     """
     Order of the failovers IP.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter failovers IP by project ID.
     """
 
-    search: Optional[str]
+    search: Optional[str] = None
     """
     Filter failovers IP which matching with this field.
     """
 
-    only_available: Optional[bool]
+    only_available: Optional[bool] = False
     """
     True: return all failovers IP not attached on server
 false: return all failovers IP attached on server.
@@ -2960,7 +2909,6 @@ class ListIPv6BlockSubnetsAvailableResponse:
 @dataclass
 class ListInvoicesResponse:
     total_count: int
-
     invoices: List[InvoiceSummary]
 
 
@@ -2984,32 +2932,32 @@ class ListOSRequest:
     Filter OS by compatible server ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of OS per page.
     """
 
-    order_by: Optional[ListOSRequestOrderBy]
+    order_by: Optional[ListOSRequestOrderBy] = ListOSRequestOrderBy.CREATED_AT_ASC
     """
     Order of the OS.
     """
 
-    type_: Optional[OSType]
+    type_: Optional[OSType] = OSType.UNKNOWN_TYPE
     """
     Type of the OS.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
@@ -3030,62 +2978,64 @@ class ListOSResponse:
 
 @dataclass
 class ListOffersRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of offer per page.
     """
 
-    order_by: Optional[ListOffersRequestOrderBy]
+    order_by: Optional[ListOffersRequestOrderBy] = (
+        ListOffersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the offers.
     """
 
-    commercial_range: Optional[str]
+    commercial_range: Optional[str] = None
     """
     Filter on commercial range.
     """
 
-    catalog: Optional[OfferCatalog]
+    catalog: Optional[OfferCatalog] = OfferCatalog.ALL
     """
     Filter on catalog.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
 
-    is_failover_ip: Optional[bool]
+    is_failover_ip: Optional[bool] = False
     """
     Get the current failover IP offer.
     """
 
-    is_failover_block: Optional[bool]
+    is_failover_block: Optional[bool] = False
     """
     Get the current failover IP block offer.
     """
 
-    sold_in: Optional[List[str]]
+    sold_in: Optional[List[str]] = None
     """
     Filter offers depending on their datacenter.
     """
 
-    available_only: Optional[bool]
+    available_only: Optional[bool] = False
     """
     Set this filter to true to only return available offers.
     """
 
-    is_rpn_san: Optional[bool]
+    is_rpn_san: Optional[bool] = False
     """
     Get the RPN SAN offers.
     """
@@ -3107,7 +3057,6 @@ class ListOffersResponse:
 @dataclass
 class ListRefundsResponse:
     total_count: int
-
     refunds: List[RefundSummary]
 
 
@@ -3261,22 +3210,24 @@ class ListServerDisksRequest:
     Server ID of the server disks.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of server disk per page.
     """
 
-    order_by: Optional[ListServerDisksRequestOrderBy]
+    order_by: Optional[ListServerDisksRequestOrderBy] = (
+        ListServerDisksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the server disks.
     """
@@ -3302,22 +3253,24 @@ class ListServerEventsRequest:
     Server ID of the server events.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of server event per page.
     """
 
-    order_by: Optional[ListServerEventsRequestOrderBy]
+    order_by: Optional[ListServerEventsRequestOrderBy] = (
+        ListServerEventsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the server events.
     """
@@ -3338,32 +3291,34 @@ class ListServerEventsResponse:
 
 @dataclass
 class ListServersRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of server per page.
     """
 
-    order_by: Optional[ListServersRequestOrderBy]
+    order_by: Optional[ListServersRequestOrderBy] = (
+        ListServersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the servers.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter servers by project ID.
     """
 
-    search: Optional[str]
+    search: Optional[str] = None
     """
     Filter servers by hostname.
     """
@@ -3384,27 +3339,29 @@ class ListServersResponse:
 
 @dataclass
 class ListServicesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of service per page.
     """
 
-    order_by: Optional[ListServicesRequestOrderBy]
+    order_by: Optional[ListServicesRequestOrderBy] = (
+        ListServicesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the services.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
@@ -3430,17 +3387,17 @@ class ListSubscribableServerOptionsRequest:
     Server ID of the subscribable server options.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of subscribable server option per page.
     """
@@ -3461,65 +3418,43 @@ class ListSubscribableServerOptionsResponse:
 
 @dataclass
 class OfferFailoverBlockInfo:
-    onetime_fees: Optional[Offer]
+    onetime_fees: Optional[Offer] = None
 
 
 @dataclass
 class OfferFailoverIpInfo:
-    onetime_fees: Optional[Offer]
+    onetime_fees: Optional[Offer] = None
 
 
 @dataclass
 class OfferServerInfo:
     bandwidth: int
-
     stock: OfferServerInfoStock
-
     commercial_range: str
-
     disks: List[Disk]
-
     cpus: List[CPU]
-
     memories: List[Memory]
-
     persistent_memories: List[PersistentMemory]
-
     raid_controllers: List[RaidController]
-
     available_options: List[Offer]
-
     connectivity: int
-
     stock_by_datacenter: Dict[str, OfferServerInfoStock]
-
-    rpn_version: Optional[int]
-
-    onetime_fees: Optional[Offer]
+    rpn_version: Optional[int] = None
+    onetime_fees: Optional[Offer] = None
 
 
 @dataclass
 class OfferServiceLevelInfo:
     support_ticket: bool
-
     support_phone: bool
-
     sales_support: bool
-
     git: str
-
     sla: float
-
     priority_support: bool
-
     high_rpn_bandwidth: bool
-
     customization: bool
-
     antidos: bool
-
     extra_failover_quota: int
-
     available_options: List[Offer]
 
 
@@ -3538,7 +3473,7 @@ class RebootServerRequest:
     Server ID to reboot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3547,20 +3482,13 @@ class RebootServerRequest:
 @dataclass
 class Refund:
     id: int
-
     status: RefundStatus
-
     method: RefundMethod
-
     content: str
-
-    total_with_taxes: Optional[Money]
-
-    total_without_taxes: Optional[Money]
-
-    created_at: Optional[datetime]
-
-    refunded_at: Optional[datetime]
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    refunded_at: Optional[datetime] = None
 
 
 @dataclass
@@ -3588,17 +3516,17 @@ class Rescue:
 
 @dataclass
 class RpnApiGetRpnStatusRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     A project ID.
     """
 
-    rpnv1_group_id: Optional[int]
+    rpnv1_group_id: Optional[int] = 0
     """
     An RPN v1 group ID.
     """
 
-    rpnv2_group_id: Optional[int]
+    rpnv2_group_id: Optional[int] = 0
     """
     An RPN v2 group ID.
     """
@@ -3606,22 +3534,24 @@ class RpnApiGetRpnStatusRequest:
 
 @dataclass
 class RpnApiListRpnServerCapabilitiesRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of servers per page.
     """
 
-    order_by: Optional[ListRpnServerCapabilitiesRequestOrderBy]
+    order_by: Optional[ListRpnServerCapabilitiesRequestOrderBy] = (
+        ListRpnServerCapabilitiesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the servers.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter servers by project ID.
     """
@@ -3647,7 +3577,7 @@ class RpnSanApiCreateRpnSanRequest:
     Offer ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Your project ID.
     """
@@ -3676,7 +3606,7 @@ class RpnSanApiListAvailableIpsRequest:
     RPN SAN ID.
     """
 
-    type_: Optional[RpnSanIpType]
+    type_: Optional[RpnSanIpType] = RpnSanIpType.UNKNOWN
     """
     Filter by IP type (server | rpnv2_subnet).
     """
@@ -3689,7 +3619,7 @@ class RpnSanApiListIpsRequest:
     RPN SAN ID.
     """
 
-    type_: Optional[RpnSanIpType]
+    type_: Optional[RpnSanIpType] = RpnSanIpType.UNKNOWN
     """
     Filter by IP type (server | rpnv2_subnet).
     """
@@ -3697,22 +3627,24 @@ class RpnSanApiListIpsRequest:
 
 @dataclass
 class RpnSanApiListRpnSansRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of RPN SANs per page.
     """
 
-    order_by: Optional[ListRpnSansRequestOrderBy]
+    order_by: Optional[ListRpnSansRequestOrderBy] = (
+        ListRpnSansRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the RPN SANs.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter RPN SANs by project ID.
     """
@@ -3746,12 +3678,12 @@ class RpnV1ApiAddRpnGroupMembersRequest:
     The rpn v1 group ID.
     """
 
-    server_ids: Optional[List[int]]
+    server_ids: Optional[List[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable server IDs.
     """
 
-    san_server_ids: Optional[List[int]]
+    san_server_ids: Optional[List[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable RPN SAN server IDs.
     """
@@ -3764,17 +3696,17 @@ class RpnV1ApiCreateRpnGroupRequest:
     Rpn v1 group name.
     """
 
-    server_ids: Optional[List[int]]
+    server_ids: Optional[List[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable servers.
     """
 
-    san_server_ids: Optional[List[int]]
+    san_server_ids: Optional[List[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable rpn sans servers.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     A project ID.
     """
@@ -3821,7 +3753,7 @@ class RpnV1ApiLeaveRpnGroupRequest:
     A collection of rpn v1 group members IDs.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     A project ID.
     """
@@ -3829,22 +3761,24 @@ class RpnV1ApiLeaveRpnGroupRequest:
 
 @dataclass
 class RpnV1ApiListRpnCapableSanServersRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of rpn capable resources per page.
     """
 
-    order_by: Optional[ListRpnCapableSanServersRequestOrderBy]
+    order_by: Optional[ListRpnCapableSanServersRequestOrderBy] = (
+        ListRpnCapableSanServersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the rpn capable resources.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter rpn capable resources by project ID.
     """
@@ -3852,22 +3786,24 @@ class RpnV1ApiListRpnCapableSanServersRequest:
 
 @dataclass
 class RpnV1ApiListRpnCapableServersRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of rpn capable resources per page.
     """
 
-    order_by: Optional[ListRpnCapableServersRequestOrderBy]
+    order_by: Optional[ListRpnCapableServersRequestOrderBy] = (
+        ListRpnCapableServersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the rpn capable resources.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter rpn capable resources by project ID.
     """
@@ -3875,27 +3811,29 @@ class RpnV1ApiListRpnCapableServersRequest:
 
 @dataclass
 class RpnV1ApiListRpnGroupMembersRequest:
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of rpn v1 group members per page.
-    """
-
-    order_by: Optional[ListRpnGroupMembersRequestOrderBy]
-    """
-    Order of the rpn v1 group members.
-    """
-
     group_id: int
     """
     Filter rpn v1 group members by group ID.
     """
 
-    project_id: Optional[str]
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v1 group members per page.
+    """
+
+    order_by: Optional[ListRpnGroupMembersRequestOrderBy] = (
+        ListRpnGroupMembersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v1 group members.
+    """
+
+    project_id: Optional[str] = None
     """
     A project ID.
     """
@@ -3903,22 +3841,24 @@ class RpnV1ApiListRpnGroupMembersRequest:
 
 @dataclass
 class RpnV1ApiListRpnGroupsRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of rpn v1 groups per page.
     """
 
-    order_by: Optional[ListRpnGroupsRequestOrderBy]
+    order_by: Optional[ListRpnGroupsRequestOrderBy] = (
+        ListRpnGroupsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the rpn v1 groups.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter rpn v1 groups by project ID.
     """
@@ -3926,22 +3866,24 @@ class RpnV1ApiListRpnGroupsRequest:
 
 @dataclass
 class RpnV1ApiListRpnInvitesRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of rpn capable resources per page.
     """
 
-    order_by: Optional[ListRpnInvitesRequestOrderBy]
+    order_by: Optional[ListRpnInvitesRequestOrderBy] = (
+        ListRpnInvitesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the rpn capable resources.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter rpn capable resources by project ID.
     """
@@ -3967,7 +3909,7 @@ class RpnV1ApiRpnGroupInviteRequest:
     A collection of external server IDs.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     A project ID.
     """
@@ -3980,7 +3922,7 @@ class RpnV1ApiUpdateRpnGroupNameRequest:
     Rpn v1 group ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     New rpn v1 group name.
     """
@@ -4011,12 +3953,12 @@ class RpnV2ApiCreateRpnV2GroupRequest:
     A collection of server IDs.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID of the RPN V2 group.
     """
 
-    type_: Optional[RpnV2GroupType]
+    type_: Optional[RpnV2GroupType] = RpnV2GroupType.UNKNOWN_TYPE
     """
     RPN V2 group type (qing / standard).
     """
@@ -4074,22 +4016,24 @@ class RpnV2ApiGetRpnV2GroupRequest:
 
 @dataclass
 class RpnV2ApiListRpnV2CapableResourcesRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of rpn v2 capable resources per page.
     """
 
-    order_by: Optional[ListRpnV2CapableResourcesRequestOrderBy]
+    order_by: Optional[ListRpnV2CapableResourcesRequestOrderBy] = (
+        ListRpnV2CapableResourcesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the rpn v2 capable resources.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter rpn v2 capable resources by project ID.
     """
@@ -4097,45 +4041,49 @@ class RpnV2ApiListRpnV2CapableResourcesRequest:
 
 @dataclass
 class RpnV2ApiListRpnV2GroupLogsRequest:
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of rpn v2 group logs per page.
-    """
-
-    order_by: Optional[ListRpnV2GroupLogsRequestOrderBy]
-    """
-    Order of the rpn v2 group logs.
-    """
-
     group_id: int
     """
     RPN V2 group ID.
     """
 
-
-@dataclass
-class RpnV2ApiListRpnV2GroupsRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v2 group logs per page.
+    """
+
+    order_by: Optional[ListRpnV2GroupLogsRequestOrderBy] = (
+        ListRpnV2GroupLogsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v2 group logs.
+    """
+
+
+@dataclass
+class RpnV2ApiListRpnV2GroupsRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
     """
     Number of rpn v2 groups per page.
     """
 
-    order_by: Optional[ListRpnV2GroupsRequestOrderBy]
+    order_by: Optional[ListRpnV2GroupsRequestOrderBy] = (
+        ListRpnV2GroupsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the rpn v2 groups.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter rpn v2 groups by project ID.
     """
@@ -4143,27 +4091,31 @@ class RpnV2ApiListRpnV2GroupsRequest:
 
 @dataclass
 class RpnV2ApiListRpnV2MembersRequest:
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of rpn v2 group members per page.
-    """
-
-    order_by: Optional[ListRpnV2MembersRequestOrderBy]
-    """
-    Order of the rpn v2 group members.
-    """
-
     group_id: int
     """
     RPN V2 group ID.
     """
 
-    type_: Optional[ListRpnV2MembersRequestType]
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v2 group members per page.
+    """
+
+    order_by: Optional[ListRpnV2MembersRequestOrderBy] = (
+        ListRpnV2MembersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v2 group members.
+    """
+
+    type_: Optional[ListRpnV2MembersRequestType] = (
+        ListRpnV2MembersRequestType.UNKNOWN_TYPE
+    )
     """
     Filter members by type.
     """
@@ -4176,7 +4128,7 @@ class RpnV2ApiUpdateRpnV2GroupNameRequest:
     RPN V2 group ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     RPN V2 group name.
     """
@@ -4194,7 +4146,7 @@ class RpnV2ApiUpdateRpnV2VlanForMembersRequest:
     RPN V2 member IDs.
     """
 
-    vlan: Optional[int]
+    vlan: Optional[int] = 0
     """
     Min: 0.
 Max: 3967.
@@ -4212,18 +4164,12 @@ class ServerDefaultPartitioning:
 @dataclass
 class ServerInstall:
     os_id: int
-
     hostname: str
-
     partitions: List[Partition]
-
     ssh_key_ids: List[str]
-
     status: ServerInstallStatus
-
-    user_login: Optional[str]
-
-    panel_url: Optional[str]
+    user_login: Optional[str] = None
+    panel_url: Optional[str] = None
 
 
 @dataclass
@@ -4238,7 +4184,7 @@ class StartBMCAccessRequest:
     The IP authorized to connect to the given server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4256,7 +4202,7 @@ class StartRescueRequest:
     OS ID to use to start rescue.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4269,7 +4215,7 @@ class StartServerRequest:
     Server ID to start.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4282,7 +4228,7 @@ class StopBMCAccessRequest:
     ID of the server to stop BMC access.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4295,7 +4241,7 @@ class StopRescueRequest:
     ID of the server to stop rescue.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4308,7 +4254,7 @@ class StopServerRequest:
     Server ID to stop.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4326,7 +4272,7 @@ class SubscribeServerOptionRequest:
     Option ID to subscribe.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4344,7 +4290,7 @@ class SubscribeStorageOptionsRequest:
     Option IDs of the storage options to subscribe.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4370,7 +4316,7 @@ class UpdateRaidRequest:
     RAIDs to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4388,7 +4334,7 @@ class UpdateReverseRequest:
     Reverse to apply on the IP.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4401,22 +4347,22 @@ class UpdateServerBackupRequest:
     Server ID to update backup.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    password: Optional[str]
+    password: Optional[str] = None
     """
     Password of the server backup.
     """
 
-    autologin: Optional[bool]
+    autologin: Optional[bool] = False
     """
     Autologin of the server backup.
     """
 
-    acl_enabled: Optional[bool]
+    acl_enabled: Optional[bool] = False
     """
     Boolean to enable or disable ACL.
     """
@@ -4429,17 +4375,17 @@ class UpdateServerRequest:
     Server ID to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    hostname: Optional[str]
+    hostname: Optional[str] = None
     """
     Hostname of the server to update.
     """
 
-    enable_ipv6: Optional[bool]
+    enable_ipv6: Optional[bool] = False
     """
     Flag to enable or not the IPv6 of server.
     """
@@ -4452,12 +4398,12 @@ class UpdateServerTagsRequest:
     Server ID to update the tags.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of server to update.
     """

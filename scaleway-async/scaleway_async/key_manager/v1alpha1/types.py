@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -100,12 +100,12 @@ class ListKeysRequestUsage(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class KeyRotationPolicy:
-    rotation_period: Optional[str]
+    rotation_period: Optional[str] = None
     """
     Time interval between two key rotations. The minimum duration is 24 hours and the maximum duration is 1 year (876000 hours).
     """
 
-    next_rotation_at: Optional[datetime]
+    next_rotation_at: Optional[datetime] = None
     """
     Timestamp indicating the next scheduled rotation.
     """
@@ -113,11 +113,13 @@ class KeyRotationPolicy:
 
 @dataclass
 class KeyUsage:
-    symmetric_encryption: Optional[KeyAlgorithmSymmetricEncryption]
+    symmetric_encryption: Optional[KeyAlgorithmSymmetricEncryption] = (
+        KeyAlgorithmSymmetricEncryption.UNKNOWN_SYMMETRIC_ENCRYPTION
+    )
 
-    asymmetric_encryption: Optional[KeyAlgorithmAsymmetricEncryption]
+    asymmetric_encryption: Optional[KeyAlgorithmAsymmetricEncryption] = None
 
-    asymmetric_signing: Optional[KeyAlgorithmAsymmetricSigning]
+    asymmetric_signing: Optional[KeyAlgorithmAsymmetricSigning] = None
 
 
 @dataclass
@@ -147,21 +149,6 @@ class Key:
     The rotation count tracks the number of times the key has been rotated.
     """
 
-    usage: Optional[KeyUsage]
-    """
-    Keys with a usage set to `symmetric_encryption` can encrypt and decrypt data using the `AES-256-GCM` key algorithm. Key Manager currently only supports `AES-256-GCM`.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Key creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Key last modification date.
-    """
-
     protected: bool
     """
     Returns `true` if key protection is applied to the key.
@@ -187,22 +174,37 @@ class Key:
     Region where the key is stored.
     """
 
-    description: Optional[str]
+    usage: Optional[KeyUsage] = None
+    """
+    Keys with a usage set to `symmetric_encryption` can encrypt and decrypt data using the `AES-256-GCM` key algorithm. Key Manager currently only supports `AES-256-GCM`.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Key creation date.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Key last modification date.
+    """
+
+    description: Optional[str] = None
     """
     Description of the key.
     """
 
-    rotated_at: Optional[datetime]
+    rotated_at: Optional[datetime] = None
     """
     Key last rotation date.
     """
 
-    rotation_policy: Optional[KeyRotationPolicy]
+    rotation_policy: Optional[KeyRotationPolicy] = None
     """
     Key rotation policy.
     """
 
-    deletion_requested_at: Optional[datetime]
+    deletion_requested_at: Optional[datetime] = None
     """
     Returns the time at which deletion was requested.
     """
@@ -215,42 +217,42 @@ class CreateKeyRequest:
     Default value is `false`.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project containing the key.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     (Optional) Name of the key.
     """
 
-    usage: Optional[KeyUsage]
+    usage: Optional[KeyUsage] = None
     """
     See the `Key.Algorithm.SymmetricEncryption` enum for a description of values.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     (Optional) Description of the key.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     (Optional) List of the key's tags.
     """
 
-    rotation_policy: Optional[KeyRotationPolicy]
+    rotation_policy: Optional[KeyRotationPolicy] = None
     """
     If not specified, no rotation policy will be applied to the key.
     """
 
-    origin: Optional[KeyOrigin]
+    origin: Optional[KeyOrigin] = KeyOrigin.UNKNOWN_ORIGIN
     """
     Refer to the `Key.Origin` enum for a description of values.
     """
@@ -273,12 +275,12 @@ class DataKey:
     Your data encryption key's ciphertext can be stored safely. It can only be decrypted through the keys you create in Key Manager, using the relevant key ID.
     """
 
-    plaintext: Optional[str]
+    plaintext: Optional[str] = None
     """
     (Optional) Your data encryption key's plaintext allows you to use the key immediately upon creation. It must neither be stored or shared.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Data encryption key creation date.
     """
@@ -296,12 +298,12 @@ class DecryptRequest:
     Data size must be between 1 and 131071 bytes.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    associated_data: Optional[str]
+    associated_data: Optional[str] = None
     """
     The additional data must match the value passed in the encryption request. Only supported by keys with a usage set to `symmetric_encryption`.
     """
@@ -319,7 +321,7 @@ class DecryptResponse:
     Key's decrypted data.
     """
 
-    ciphertext: Optional[str]
+    ciphertext: Optional[str] = None
     """
     If the data was already encrypted with the latest key rotation, no output will be returned in the response object.
     """
@@ -332,7 +334,7 @@ class DeleteKeyMaterialRequest:
     ID of the key of which to delete the key material.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -345,7 +347,7 @@ class DeleteKeyRequest:
     ID of the key to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -358,7 +360,7 @@ class DisableKeyRequest:
     ID of the key to disable.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -371,7 +373,7 @@ class EnableKeyRequest:
     ID of the key to enable.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -389,12 +391,12 @@ class EncryptRequest:
     Data size must be between 1 and 65535 bytes.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    associated_data: Optional[str]
+    associated_data: Optional[str] = None
     """
     Additional data which will not be encrypted, but authenticated and appended to the encrypted payload. Only supported by keys with a usage set to `symmetric_encryption`.
     """
@@ -426,12 +428,14 @@ class GenerateDataKeyRequest:
 Set it to `true` if you do not wish the plaintext to be returned in the response object.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    algorithm: Optional[DataKeyAlgorithmSymmetricEncryption]
+    algorithm: Optional[DataKeyAlgorithmSymmetricEncryption] = (
+        DataKeyAlgorithmSymmetricEncryption.UNKNOWN_SYMMETRIC_ENCRYPTION
+    )
     """
     See the `DataKey.Algorithm.SymmetricEncryption` enum for a description of values.
     """
@@ -444,7 +448,7 @@ class GetKeyRequest:
     ID of the key to target.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -457,7 +461,7 @@ class GetPublicKeyRequest:
     ID of the key.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -475,12 +479,12 @@ class ImportKeyMaterialRequest:
     The key material The key material is a random sequence of bytes used to derive a cryptographic key.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    salt: Optional[str]
+    salt: Optional[str] = None
     """
     A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
     """
@@ -493,38 +497,35 @@ class ListKeysRequest:
     Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     (Optional) Filter by Organization ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     (Optional) Filter by Project ID.
     """
 
-    order_by: Optional[ListKeysRequestOrderBy]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    tags: Optional[List[str]]
+    order_by: Optional[ListKeysRequestOrderBy] = ListKeysRequestOrderBy.NAME_ASC
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     (Optional) List of tags to filter on.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     (Optional) Filter by key name.
     """
 
-    usage: Optional[ListKeysRequestUsage]
+    usage: Optional[ListKeysRequestUsage] = ListKeysRequestUsage.UNKNOWN_USAGE
     """
     Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
     """
@@ -550,7 +551,7 @@ class ProtectKeyRequest:
     ID of the key to apply key protection to.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -564,8 +565,7 @@ class PublicKey:
 @dataclass
 class RestoreKeyRequest:
     key_id: str
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -578,7 +578,7 @@ class RotateKeyRequest:
     ID of the key to rotate.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -596,7 +596,7 @@ class SignRequest:
     The digest must be generated using the same algorithm defined in the key’s algorithm settings.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -622,7 +622,7 @@ class UnprotectKeyRequest:
     ID of the key to remove key protection from.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -635,27 +635,27 @@ class UpdateKeyRequest:
     ID of the key to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     (Optional) Updated name of the key.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     (Optional) Updated description of the key.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     (Optional) Updated list of the key's tags.
     """
 
-    rotation_policy: Optional[KeyRotationPolicy]
+    rotation_policy: Optional[KeyRotationPolicy] = None
     """
     If not specified, the key's existing rotation policy applies.
     """
@@ -678,7 +678,7 @@ class VerifyRequest:
     The message signature to verify.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """

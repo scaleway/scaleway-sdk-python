@@ -10,6 +10,8 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ContractType,
+    QualificationArchitectureType,
     Contract,
     ContractSignature,
     QualificationAiMachine,
@@ -46,18 +48,26 @@ def unmarshal_Contract(data: Any) -> Contract:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = ContractType.UNKNOWN_TYPE
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -85,10 +95,14 @@ def unmarshal_ContractSignature(data: Any) -> ContractSignature:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -128,6 +142,8 @@ def unmarshal_QualificationAiMachine(data: Any) -> QualificationAiMachine:
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationAiMachine(**args)
 
@@ -143,6 +159,8 @@ def unmarshal_QualificationArchiveData(data: Any) -> QualificationArchiveData:
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationArchiveData(**args)
 
@@ -158,6 +176,8 @@ def unmarshal_QualificationContainer(data: Any) -> QualificationContainer:
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationContainer(**args)
 
@@ -173,6 +193,8 @@ def unmarshal_QualificationDeploySoftware(data: Any) -> QualificationDeploySoftw
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationDeploySoftware(**args)
 
@@ -188,6 +210,8 @@ def unmarshal_QualificationHostApplication(data: Any) -> QualificationHostApplic
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationHostApplication(**args)
 
@@ -203,6 +227,8 @@ def unmarshal_QualificationHostWebsite(data: Any) -> QualificationHostWebsite:
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationHostWebsite(**args)
 
@@ -218,6 +244,8 @@ def unmarshal_QualificationOtherUseCase(data: Any) -> QualificationOtherUseCase:
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationOtherUseCase(**args)
 
@@ -235,6 +263,8 @@ def unmarshal_QualificationSetScalewayEnvironment(
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationSetScalewayEnvironment(**args)
 
@@ -250,6 +280,8 @@ def unmarshal_QualificationShareData(data: Any) -> QualificationShareData:
     field = data.get("sub_use_case", None)
     if field is not None:
         args["sub_use_case"] = field
+    else:
+        args["sub_use_case"] = None
 
     return QualificationShareData(**args)
 
@@ -265,6 +297,10 @@ def unmarshal_Qualification(data: Any) -> Qualification:
     field = data.get("architecture_type", None)
     if field is not None:
         args["architecture_type"] = field
+    else:
+        args["architecture_type"] = (
+            QualificationArchitectureType.UNKNOWN_ARCHITECTURE_TYPE
+        )
 
     field = data.get("host_website", None)
     if field is not None:
@@ -336,18 +372,26 @@ def unmarshal_Project(data: Any) -> Project:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -383,10 +427,14 @@ def unmarshal_CheckContractSignatureResponse(
     field = data.get("created", None)
     if field is not None:
         args["created"] = field
+    else:
+        args["created"] = False
 
     field = data.get("validated", None)
     if field is not None:
         args["validated"] = field
+    else:
+        args["validated"] = False
 
     return CheckContractSignatureResponse(**args)
 
@@ -404,6 +452,8 @@ def unmarshal_ListContractSignaturesResponse(
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("contract_signatures", None)
     if field is not None:
@@ -412,6 +462,8 @@ def unmarshal_ListContractSignaturesResponse(
             if field is not None
             else None
         )
+    else:
+        args["contract_signatures"] = field(default_factory=list)
 
     return ListContractSignaturesResponse(**args)
 
@@ -427,12 +479,16 @@ def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("projects", None)
     if field is not None:
         args["projects"] = (
             [unmarshal_Project(v) for v in field] if field is not None else None
         )
+    else:
+        args["projects"] = field(default_factory=list)
 
     return ListProjectsResponse(**args)
 
@@ -448,6 +504,8 @@ def unmarshal_ProjectQualification(data: Any) -> ProjectQualification:
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("qualification", None)
     if field is not None:
@@ -468,12 +526,12 @@ def marshal_ContractApiCheckContractSignatureRequest(
         output["contract_name"] = request.contract_name
 
     if request.organization_id is not None:
-        output["organization_id"] = (
-            request.organization_id or defaults.default_organization_id
-        )
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
 
     if request.contract_type is not None:
-        output["contract_type"] = str(request.contract_type)
+        output["contract_type"] = request.contract_type
 
     return output
 
@@ -491,12 +549,12 @@ def marshal_ContractApiCreateContractSignatureRequest(
         output["validated"] = request.validated
 
     if request.contract_type is not None:
-        output["contract_type"] = str(request.contract_type)
+        output["contract_type"] = request.contract_type
 
     if request.organization_id is not None:
-        output["organization_id"] = (
-            request.organization_id or defaults.default_organization_id
-        )
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
 
     return output
 
@@ -514,9 +572,9 @@ def marshal_ProjectApiCreateProjectRequest(
         output["name"] = request.name
 
     if request.organization_id is not None:
-        output["organization_id"] = (
-            request.organization_id or defaults.default_organization_id
-        )
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
 
     return output
 
@@ -528,7 +586,7 @@ def marshal_QualificationAiMachine(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -540,7 +598,7 @@ def marshal_QualificationArchiveData(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -552,7 +610,7 @@ def marshal_QualificationContainer(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -564,7 +622,7 @@ def marshal_QualificationDeploySoftware(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -576,7 +634,7 @@ def marshal_QualificationHostApplication(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -588,7 +646,7 @@ def marshal_QualificationHostWebsite(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -600,7 +658,7 @@ def marshal_QualificationOtherUseCase(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -612,7 +670,7 @@ def marshal_QualificationSetScalewayEnvironment(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -624,7 +682,7 @@ def marshal_QualificationShareData(
     output: Dict[str, Any] = {}
 
     if request.sub_use_case is not None:
-        output["sub_use_case"] = str(request.sub_use_case)
+        output["sub_use_case"] = request.sub_use_case
 
     return output
 
@@ -687,7 +745,7 @@ def marshal_Qualification(
     )
 
     if request.architecture_type is not None:
-        output["architecture_type"] = str(request.architecture_type)
+        output["architecture_type"] = request.architecture_type
 
     return output
 

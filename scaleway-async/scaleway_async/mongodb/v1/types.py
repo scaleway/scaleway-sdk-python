@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -164,22 +164,18 @@ class Endpoint:
     TCP port of the endpoint.
     """
 
-    private_network: Optional[EndpointPrivateNetworkDetails]
+    private_network: Optional[EndpointPrivateNetworkDetails] = None
 
-    public_network: Optional[EndpointPublicNetworkDetails]
+    public_network: Optional[EndpointPublicNetworkDetails] = None
 
 
 @dataclass
 class InstanceSnapshotSchedule:
     frequency_hours: int
-
     retention_days: int
-
     enabled: bool
-
-    next_update: Optional[datetime]
-
-    last_run: Optional[datetime]
+    next_update: Optional[datetime] = None
+    last_run: Optional[datetime] = None
 
 
 @dataclass
@@ -230,16 +226,16 @@ class UserRole:
     Name of the preset role.
     """
 
-    database_name: Optional[str]
+    database_name: Optional[str] = None
 
-    any_database: Optional[bool]
+    any_database: Optional[bool] = False
 
 
 @dataclass
 class EndpointSpec:
-    public_network: Optional[EndpointSpecPublicNetworkDetails]
+    public_network: Optional[EndpointSpecPublicNetworkDetails] = None
 
-    private_network: Optional[EndpointSpecPrivateNetworkDetails]
+    private_network: Optional[EndpointSpecPrivateNetworkDetails] = None
 
 
 @dataclass
@@ -304,17 +300,17 @@ class Instance:
     Region the Database Instance is in.
     """
 
-    volume: Optional[Volume]
+    volume: Optional[Volume] = None
     """
     Volumes of the Database Instance.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date (must follow the ISO 8601 format).
     """
 
-    snapshot_schedule: Optional[InstanceSnapshotSchedule]
+    snapshot_schedule: Optional[InstanceSnapshotSchedule] = None
     """
     Snapshot schedule configuration of the Database Instance.
     """
@@ -410,22 +406,22 @@ class Snapshot:
     Region of the snapshot.
     """
 
-    instance_id: Optional[str]
+    instance_id: Optional[str] = None
     """
     UUID of the Database Instance.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiration date (must follow the ISO 8601 format).
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date (must follow the ISO 8601 format).
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Updated date (must follow the ISO 8601 format).
     """
@@ -451,7 +447,7 @@ class Version:
     MongoDB® major engine version.
     """
 
-    end_of_life_at: Optional[datetime]
+    end_of_life_at: Optional[datetime] = None
     """
     Date of End of Life.
     """
@@ -469,7 +465,7 @@ class CreateEndpointRequest:
     EndpointSpec used to expose your Database Instance.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -502,32 +498,32 @@ class CreateInstanceRequest:
     Password of the initial user.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     The Project ID on which the Database Instance will be created.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to apply to the Database Instance.
     """
 
-    volume: Optional[Volume]
+    volume: Optional[Volume] = None
     """
     Instance volume information.
     """
 
-    endpoints: Optional[List[EndpointSpec]]
+    endpoints: Optional[List[EndpointSpec]] = field(default_factory=list)
     """
     One or multiple EndpointSpec used to expose your Database Instance.
     """
@@ -545,12 +541,12 @@ class CreateSnapshotRequest:
     Name of the snapshot.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiration date of the snapshot (must follow the ISO 8601 format).
     """
@@ -573,7 +569,7 @@ class CreateUserRequest:
     Password of the database user.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -586,7 +582,7 @@ class DeleteEndpointRequest:
     UUID of the Endpoint to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -599,7 +595,7 @@ class DeleteInstanceRequest:
     UUID of the Database Instance to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -612,7 +608,7 @@ class DeleteSnapshotRequest:
     UUID of the snapshot.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -630,7 +626,7 @@ class DeleteUserRequest:
     Name of the database user.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -643,7 +639,7 @@ class GetInstanceCertificateRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -656,7 +652,7 @@ class GetInstanceRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -669,7 +665,7 @@ class GetSnapshotRequest:
     UUID of the snapshot.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -682,19 +678,20 @@ class ListDatabasesRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListDatabasesRequestOrderBy]
+    order_by: Optional[ListDatabasesRequestOrderBy] = (
+        ListDatabasesRequestOrderBy.NAME_ASC
+    )
     """
     Criteria to use when requesting user listing.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -712,39 +709,40 @@ class ListDatabasesResponse:
 
 @dataclass
 class ListInstancesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List Database Instances that have a given tag.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Lists Database Instances that match a name pattern.
     """
 
-    order_by: Optional[ListInstancesRequestOrderBy]
+    order_by: Optional[ListInstancesRequestOrderBy] = (
+        ListInstancesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria to use when ordering Database Instance listings.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID of the Database Instance.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to list the instances of.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -762,19 +760,18 @@ class ListInstancesResponse:
 
 @dataclass
 class ListNodeTypesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    include_disabled: Optional[bool]
+    include_disabled: Optional[bool] = False
     """
     Defines whether or not to include disabled types.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -792,39 +789,40 @@ class ListNodeTypesResponse:
 
 @dataclass
 class ListSnapshotsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    instance_id: Optional[str]
+    instance_id: Optional[str] = None
     """
     Instance ID the snapshots belongs to.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Lists database snapshots that match a name pattern.
     """
 
-    order_by: Optional[ListSnapshotsRequestOrderBy]
+    order_by: Optional[ListSnapshotsRequestOrderBy] = (
+        ListSnapshotsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria to use when ordering snapshot listings.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID the snapshots belongs to.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to list the snapshots of.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -847,24 +845,23 @@ class ListUsersRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the user.
     """
 
-    order_by: Optional[ListUsersRequestOrderBy]
+    order_by: Optional[ListUsersRequestOrderBy] = ListUsersRequestOrderBy.NAME_ASC
     """
     Criteria to use when requesting user listing.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -882,16 +879,14 @@ class ListUsersResponse:
 
 @dataclass
 class ListVersionsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    version: Optional[str]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
+    version: Optional[str] = None
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -934,7 +929,7 @@ class RestoreSnapshotRequest:
     Instance volume type.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -952,12 +947,12 @@ class SetUserRoleRequest:
     Name of the database user.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    roles: Optional[List[UserRole]]
+    roles: Optional[List[UserRole]] = field(default_factory=list)
     """
     List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
@@ -970,32 +965,32 @@ class UpdateInstanceRequest:
     UUID of the Database Instance to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of a Database Instance.
     """
 
-    snapshot_schedule_frequency_hours: Optional[int]
+    snapshot_schedule_frequency_hours: Optional[int] = 0
     """
     In hours.
     """
 
-    snapshot_schedule_retention_days: Optional[int]
+    snapshot_schedule_retention_days: Optional[int] = 0
     """
     In days.
     """
 
-    is_snapshot_schedule_enabled: Optional[bool]
+    is_snapshot_schedule_enabled: Optional[bool] = False
     """
     Defines whether or not the snapshot schedule is enabled.
     """
@@ -1008,17 +1003,17 @@ class UpdateSnapshotRequest:
     UUID of the Snapshot.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the snapshot.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiration date of the snapshot (must follow the ISO 8601 format).
     """
@@ -1036,12 +1031,12 @@ class UpdateUserRequest:
     Name of the database user.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    password: Optional[str]
+    password: Optional[str] = None
     """
     Password of the database user.
     """
@@ -1054,9 +1049,9 @@ class UpgradeInstanceRequest:
     UUID of the Database Instance you want to upgrade.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    volume_size_bytes: Optional[int]
+    volume_size_bytes: Optional[int] = 0

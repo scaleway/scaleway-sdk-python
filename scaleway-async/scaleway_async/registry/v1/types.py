@@ -127,17 +127,17 @@ class Image:
     List of docker tags of the image.
     """
 
-    status_message: Optional[str]
+    status_message: Optional[str] = None
     """
     Details of the image status.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of image creation.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date and time of last update.
     """
@@ -205,12 +205,12 @@ class Namespace:
     Region the namespace belongs to.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of creation.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date and time of last update.
     """
@@ -243,12 +243,12 @@ class Tag:
     Hash of the tag content. Several tags of a same image may have the same digest.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of creation.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date and time of last update.
     """
@@ -266,19 +266,19 @@ class CreateNamespaceRequest:
     Defines whether or not namespace is public.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the namespace.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -288,7 +288,7 @@ class DeleteImageRequest:
     UUID of the image.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -301,7 +301,7 @@ class DeleteNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -314,12 +314,12 @@ class DeleteTagRequest:
     UUID of the tag.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    force: Optional[bool]
+    force: Optional[bool] = False
     """
     If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
     """
@@ -332,7 +332,7 @@ class GetImageRequest:
     UUID of the image.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -345,7 +345,7 @@ class GetNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -358,7 +358,7 @@ class GetTagRequest:
     UUID of the tag.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -366,42 +366,44 @@ class GetTagRequest:
 
 @dataclass
 class ListImagesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     A positive integer to choose the page to display.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     A positive integer lower or equal to 100 to select the number of items to display.
     """
 
-    order_by: Optional[ListImagesRequestOrderBy]
+    order_by: Optional[ListImagesRequestOrderBy] = (
+        ListImagesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
     """
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
     """
     Filter by the namespace ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter by the image name (exact match).
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID.
     """
@@ -422,37 +424,39 @@ class ListImagesResponse:
 
 @dataclass
 class ListNamespacesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     A positive integer to choose the page to display.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     A positive integer lower or equal to 100 to select the number of items to display.
     """
 
-    order_by: Optional[ListNamespacesRequestOrderBy]
+    order_by: Optional[ListNamespacesRequestOrderBy] = (
+        ListNamespacesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter by the namespace name (exact match).
     """
@@ -478,27 +482,27 @@ class ListTagsRequest:
     UUID of the image.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     A positive integer to choose the page to display.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     A positive integer lower or equal to 100 to select the number of items to display.
     """
 
-    order_by: Optional[ListTagsRequestOrderBy]
+    order_by: Optional[ListTagsRequestOrderBy] = ListTagsRequestOrderBy.CREATED_AT_ASC
     """
     Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter by the tag name (exact match).
     """
@@ -524,12 +528,12 @@ class UpdateImageRequest:
     ID of the image to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    visibility: Optional[ImageVisibility]
+    visibility: Optional[ImageVisibility] = ImageVisibility.VISIBILITY_UNKNOWN
     """
     Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
     """
@@ -542,17 +546,17 @@ class UpdateNamespaceRequest:
     ID of the namespace to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Namespace description.
     """
 
-    is_public: Optional[bool]
+    is_public: Optional[bool] = False
     """
     Defines whether or not the namespace is public.
     """

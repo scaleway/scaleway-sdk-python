@@ -88,32 +88,32 @@ class DatabaseBackup:
     Region of the database backup.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiration date.
     """
 
-    size: Optional[int]
+    size: Optional[int] = 0
     """
     Size (in bytes) of the database backup file.
     """
 
-    db_size: Optional[int]
+    db_size: Optional[int] = 0
     """
     Size (in bytes) of the database when backup has been done.
     """
 
-    download_url: Optional[str]
+    download_url: Optional[str] = None
     """
     Download URL of the exported database backup.
     """
 
-    download_url_expires_at: Optional[datetime]
+    download_url_expires_at: Optional[datetime] = None
     """
     Expiration date of the download URL.
     """
@@ -181,7 +181,7 @@ class Database:
     The major version of the underlying database engine.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date.
     """
@@ -204,17 +204,17 @@ class CreateDatabaseRequest:
     The maximum number of CPU units for your Serverless SQL Database.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     The ID of your Scaleway project.
     """
 
-    from_backup_id: Optional[str]
+    from_backup_id: Optional[str] = None
     """
     The ID of the backup to create the database from.
     """
@@ -227,7 +227,7 @@ class DeleteDatabaseRequest:
     UUID of the Serverless SQL Database.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -240,7 +240,7 @@ class ExportDatabaseBackupRequest:
     UUID of the Serverless SQL Database backup.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -253,7 +253,7 @@ class GetDatabaseBackupRequest:
     UUID of the Serverless SQL Database backup.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -266,7 +266,7 @@ class GetDatabaseRequest:
     UUID of the Serverless SQL DB database.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -279,32 +279,34 @@ class ListDatabaseBackupsRequest:
     Filter by the UUID of the Serverless SQL Database.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by the UUID of the Scaleway organization.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by the UUID of the Scaleway project.
     """
 
-    page: Optional[int]
+    page: Optional[int] = None
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = None
     """
     Page size.
     """
 
-    order_by: Optional[ListDatabaseBackupsRequestOrderBy]
+    order_by: Optional[ListDatabaseBackupsRequestOrderBy] = (
+        ListDatabaseBackupsRequestOrderBy.CREATED_AT_DESC
+    )
     """
     Sorting criteria. One of `created_at_asc`, `created_at_desc`.
     """
@@ -325,37 +327,39 @@ class ListDatabaseBackupsResponse:
 
 @dataclass
 class ListDatabasesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by the UUID of the Scaleway organization.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Scaleway project.
     """
 
-    page: Optional[int]
+    page: Optional[int] = None
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = None
     """
     Page size.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter by the name of the database.
     """
 
-    order_by: Optional[ListDatabasesRequestOrderBy]
+    order_by: Optional[ListDatabasesRequestOrderBy] = (
+        ListDatabasesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`.
     """
@@ -386,7 +390,7 @@ class RestoreDatabaseFromBackupRequest:
     UUID of the Serverless SQL Database backup to restore.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -399,17 +403,17 @@ class UpdateDatabaseRequest:
     UUID of the Serverless SQL Database.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    cpu_min: Optional[int]
+    cpu_min: Optional[int] = 0
     """
     The minimum number of CPU units for your Serverless SQL Database.
     """
 
-    cpu_max: Optional[int]
+    cpu_max: Optional[int] = 0
     """
     The maximum number of CPU units for your Serverless SQL Database.
     """

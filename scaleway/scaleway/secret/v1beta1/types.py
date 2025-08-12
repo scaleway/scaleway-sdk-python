@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -96,12 +96,12 @@ class EphemeralPolicy:
     See the `EphemeralPolicy.Action` enum for a description of values.
     """
 
-    time_to_live: Optional[str]
+    time_to_live: Optional[str] = None
     """
     Time frame, from one second and up to one year, during which the secret's versions are valid.
     """
 
-    expires_once_accessed: Optional[bool]
+    expires_once_accessed: Optional[bool] = False
     """
     Returns `true` if the version expires after a single user access.
     """
@@ -115,16 +115,11 @@ class BrowseSecretsResponseItemFolderDetails:
 @dataclass
 class BrowseSecretsResponseItemSecretDetails:
     id: str
-
     tags: List[str]
-
     version_count: int
-
     protected: bool
-
     type_: SecretType
-
-    ephemeral_policy: Optional[EphemeralPolicy]
+    ephemeral_policy: Optional[EphemeralPolicy] = None
 
 
 @dataclass
@@ -134,12 +129,12 @@ class EphemeralProperties:
     See `EphemeralPolicy.Action` enum for a description of values.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     (Optional.) If not specified, the version does not have an expiration date.
     """
 
-    expires_once_accessed: Optional[bool]
+    expires_once_accessed: Optional[bool] = False
     """
     (Optional.) If not specified, the version can be accessed an unlimited amount of times.
     """
@@ -148,14 +143,11 @@ class EphemeralProperties:
 @dataclass
 class BrowseSecretsResponseItem:
     name: str
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    secret: Optional[BrowseSecretsResponseItemSecretDetails] = None
 
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
-    secret: Optional[BrowseSecretsResponseItemSecretDetails]
-
-    folder: Optional[BrowseSecretsResponseItemFolderDetails]
+    folder: Optional[BrowseSecretsResponseItemFolderDetails] = None
 
 
 @dataclass
@@ -184,32 +176,32 @@ class SecretVersion:
     Returns `true` if the version is the latest.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of the version's creation.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update of the version.
     """
 
-    deleted_at: Optional[datetime]
+    deleted_at: Optional[datetime] = None
     """
     Date and time of the version's deletion.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the version.
     """
 
-    ephemeral_properties: Optional[EphemeralProperties]
+    ephemeral_properties: Optional[EphemeralProperties] = None
     """
     Returns the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
     """
 
-    deletion_requested_at: Optional[datetime]
+    deletion_requested_at: Optional[datetime] = None
     """
     Returns the time at which deletion was requested.
     """
@@ -278,32 +270,32 @@ class Secret:
     Region of the secret.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of the secret's creation.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update of the secret.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Updated description of the secret.
     """
 
-    ephemeral_policy: Optional[EphemeralPolicy]
+    ephemeral_policy: Optional[EphemeralPolicy] = None
     """
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
     """
 
-    deletion_requested_at: Optional[datetime]
+    deletion_requested_at: Optional[datetime] = None
     """
     Returns the time at which deletion was requested.
     """
 
-    key_id: Optional[str]
+    key_id: Optional[str] = None
     """
     (Optional.) The Scaleway Key Manager key ID used to encrypt and decrypt secret versions.
     """
@@ -329,12 +321,12 @@ class AccessSecretVersionByPathRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to target.
     """
@@ -355,7 +347,7 @@ class AccessSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -383,7 +375,7 @@ class AccessSecretVersionResponse:
     See the `Secret.Type` enum for a description of values.
     """
 
-    data_crc32: Optional[int]
+    data_crc32: Optional[int] = 0
     """
     This field is only available if a CRC32 was supplied during the creation of the version.
     """
@@ -396,12 +388,12 @@ class AddSecretOwnerRequest:
     ID of the secret.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    product: Optional[Product]
+    product: Optional[Product] = Product.UNKNOWN_PRODUCT
     """
     See `Product` enum for description of values.
     """
@@ -427,28 +419,27 @@ class BrowseSecretsRequest:
     Filter secrets and folders for a given prefix (default /).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID (optional).
     """
 
-    order_by: Optional[BrowseSecretsRequestOrderBy]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    tags: Optional[List[str]]
+    order_by: Optional[BrowseSecretsRequestOrderBy] = (
+        BrowseSecretsRequestOrderBy.NAME_ASC
+    )
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter secrets by tags.
     """
 
-    type_: Optional[SecretType]
+    type_: Optional[SecretType] = SecretType.UNKNOWN_TYPE
     """
     Filter by secret type (optional).
     """
@@ -484,42 +475,42 @@ class CreateSecretRequest:
     A protected secret cannot be deleted.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project containing the secret.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of the secret's tags.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the secret.
     """
 
-    type_: Optional[SecretType]
+    type_: Optional[SecretType] = SecretType.UNKNOWN_TYPE
     """
     (Optional.) See the `Secret.Type` enum for a description of values. If not specified, the type is `Opaque`.
     """
 
-    path: Optional[str]
+    path: Optional[str] = None
     """
     (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
     """
 
-    ephemeral_policy: Optional[EphemeralPolicy]
+    ephemeral_policy: Optional[EphemeralPolicy] = None
     """
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
     """
 
-    key_id: Optional[str]
+    key_id: Optional[str] = None
     """
     (Optional.) The Scaleway Key Manager key ID will be used to encrypt and decrypt secret versions. If not specified, Secret Manager will use a Key Manager internal key.
     """
@@ -537,22 +528,22 @@ class CreateSecretVersionRequest:
     The base64-encoded secret payload of the version.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the version.
     """
 
-    disable_previous: Optional[bool]
+    disable_previous: Optional[bool] = False
     """
     (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
     """
 
-    data_crc32: Optional[int]
+    data_crc32: Optional[int] = 0
     """
     If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
     """
@@ -598,7 +589,7 @@ class DeleteSecretRequest:
     ID of the secret.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -619,7 +610,7 @@ class DeleteSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -640,7 +631,7 @@ class DisableSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -661,7 +652,7 @@ class EnableSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -674,7 +665,7 @@ class GetSecretRequest:
     ID of the secret.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -695,7 +686,7 @@ class GetSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -703,19 +694,18 @@ class GetSecretVersionRequest:
 
 @dataclass
 class ListSecretTypesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to target.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -738,16 +728,14 @@ class ListSecretVersionsRequest:
     ID of the secret.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    status: Optional[List[SecretVersionStatus]]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+    status: Optional[List[SecretVersionStatus]] = field(default_factory=list)
     """
     Filter results by status.
     """
@@ -773,48 +761,45 @@ class ListSecretsRequest:
     Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID (optional).
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID (optional).
     """
 
-    order_by: Optional[ListSecretsRequestOrderBy]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    tags: Optional[List[str]]
+    order_by: Optional[ListSecretsRequestOrderBy] = ListSecretsRequestOrderBy.NAME_ASC
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags to filter on (optional).
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter by secret name (optional).
     """
 
-    path: Optional[str]
+    path: Optional[str] = None
     """
     Filter by exact path (optional).
     """
 
-    ephemeral: Optional[bool]
+    ephemeral: Optional[bool] = False
     """
     Filter by ephemeral / not ephemeral (optional).
     """
 
-    type_: Optional[SecretType]
+    type_: Optional[SecretType] = SecretType.UNKNOWN_TYPE
     """
     Filter by secret type (optional).
     """
@@ -835,19 +820,18 @@ class ListSecretsResponse:
 
 @dataclass
 class ListTagsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to target.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
 
 
 @dataclass
@@ -870,7 +854,7 @@ class ProtectSecretRequest:
     ID of the secret to enable secret protection for.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -879,8 +863,7 @@ class ProtectSecretRequest:
 @dataclass
 class RestoreSecretRequest:
     secret_id: str
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -889,10 +872,8 @@ class RestoreSecretRequest:
 @dataclass
 class RestoreSecretVersionRequest:
     secret_id: str
-
     revision: str
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -913,7 +894,7 @@ class UnprotectSecretRequest:
     ID of the secret to disable secret protection for.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -926,32 +907,32 @@ class UpdateSecretRequest:
     ID of the secret.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Secret's updated name (optional).
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Secret's updated list of tags (optional).
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the secret.
     """
 
-    path: Optional[str]
+    path: Optional[str] = None
     """
     (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
     """
 
-    ephemeral_policy: Optional[EphemeralPolicy]
+    ephemeral_policy: Optional[EphemeralPolicy] = None
     """
     (Optional.) Policy that defines whether/when a secret's versions expire.
     """
@@ -972,17 +953,17 @@ class UpdateSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the version.
     """
 
-    ephemeral_properties: Optional[EphemeralProperties]
+    ephemeral_properties: Optional[EphemeralProperties] = None
     """
     (Optional.) Properties that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
     """

@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -220,49 +220,37 @@ class SettingType(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class SchemaPartition:
     label: SchemaPartitionLabel
-
     number: int
-
     size: int
-
     use_all_available_space: bool
 
 
 @dataclass
 class SchemaPool:
     name: str
-
     type_: SchemaPoolType
-
     devices: List[str]
-
     options: List[str]
-
     filesystem_options: List[str]
 
 
 @dataclass
 class SchemaDisk:
     device: str
-
     partitions: List[SchemaPartition]
 
 
 @dataclass
 class SchemaFilesystem:
     device: str
-
     format: SchemaFilesystemFormat
-
     mountpoint: str
 
 
 @dataclass
 class SchemaRAID:
     name: str
-
     level: SchemaRAIDLevel
-
     devices: List[str]
 
 
@@ -274,12 +262,9 @@ class SchemaZFS:
 @dataclass
 class Schema:
     disks: List[SchemaDisk]
-
     raids: List[SchemaRAID]
-
     filesystems: List[SchemaFilesystem]
-
-    zfs: Optional[SchemaZFS]
+    zfs: Optional[SchemaZFS] = None
 
 
 @dataclass
@@ -324,27 +309,27 @@ class CreateServerRequestInstall:
     SSH key IDs authorized on the server.
     """
 
-    user: Optional[str]
+    user: Optional[str] = None
     """
     User for the installation.
     """
 
-    password: Optional[str]
+    password: Optional[str] = None
     """
     Password for the installation.
     """
 
-    service_user: Optional[str]
+    service_user: Optional[str] = None
     """
     Regular user that runs the service to be installed on the server.
     """
 
-    service_password: Optional[str]
+    service_password: Optional[str] = None
     """
     Password used for the service to install.
     """
 
-    partitioning_schema: Optional[Schema]
+    partitioning_schema: Optional[Schema] = None
     """
     Partitioning schema.
     """
@@ -420,7 +405,7 @@ class ServerInstall:
     Address of the installed service.
     """
 
-    partitioning_schema: Optional[Schema]
+    partitioning_schema: Optional[Schema] = None
     """
     Partitioning schema.
     """
@@ -448,20 +433,20 @@ class ServerOption:
     Defines whether the option can be managed (added or removed).
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Auto expiration date for compatible options.
     """
 
-    license: Optional[LicenseOption]
+    license: Optional[LicenseOption] = None
 
-    public_bandwidth: Optional[PublicBandwidthOption]
+    public_bandwidth: Optional[PublicBandwidthOption] = None
 
-    private_network: Optional[PrivateNetworkOption]
+    private_network: Optional[PrivateNetworkOption] = None
 
-    remote_access: Optional[RemoteAccessOption]
+    remote_access: Optional[RemoteAccessOption] = None
 
-    certification: Optional[CertificationOption]
+    certification: Optional[CertificationOption] = None
 
 
 @dataclass
@@ -480,10 +465,8 @@ class ServerRescueServer:
 @dataclass
 class OSOSField:
     editable: bool
-
     required: bool
-
-    default_value: Optional[str]
+    default_value: Optional[str] = None
 
 
 @dataclass
@@ -591,25 +574,25 @@ If false the option is available for the offer but not included by default.
     Boolean to know if option could be managed.
     """
 
-    price: Optional[Money]
+    price: Optional[Money] = None
     """
     Price of the option.
     """
 
-    os_id: Optional[str]
+    os_id: Optional[str] = None
     """
     Deprecated, use LicenseOptionVars.os_id instead.
     """
 
-    license: Optional[LicenseOption]
+    license: Optional[LicenseOption] = None
 
-    public_bandwidth: Optional[PublicBandwidthOption]
+    public_bandwidth: Optional[PublicBandwidthOption] = None
 
-    private_network: Optional[PrivateNetworkOption]
+    private_network: Optional[PrivateNetworkOption] = None
 
-    remote_access: Optional[RemoteAccessOption]
+    remote_access: Optional[RemoteAccessOption] = None
 
-    certification: Optional[CertificationOption]
+    certification: Optional[CertificationOption] = None
 
 
 @dataclass
@@ -633,7 +616,6 @@ class PersistentMemory:
 @dataclass
 class RaidController:
     model: str
-
     raid_level: List[str]
 
 
@@ -659,29 +641,29 @@ class CreateServerRequest:
     If enabled, the server can not be deleted.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to associate to the server.
     """
 
-    install: Optional[CreateServerRequestInstall]
+    install: Optional[CreateServerRequestInstall] = None
     """
     Object describing the configuration details of the OS installation on the server.
     """
 
-    option_ids: Optional[List[str]]
+    option_ids: Optional[List[str]] = field(default_factory=list)
     """
     IDs of options to enable on server.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -726,16 +708,6 @@ class Server:
     Offer name of the server.
     """
 
-    updated_at: Optional[datetime]
-    """
-    Last modification date of the server.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the server.
-    """
-
     tags: List[str]
     """
     Array of custom tags attached to the server.
@@ -776,12 +748,22 @@ class Server:
     If enabled, the server can not be deleted.
     """
 
-    install: Optional[ServerInstall]
+    updated_at: Optional[datetime] = None
+    """
+    Last modification date of the server.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation date of the server.
+    """
+
+    install: Optional[ServerInstall] = None
     """
     Configuration of the installation.
     """
 
-    rescue_server: Optional[ServerRescueServer]
+    rescue_server: Optional[ServerRescueServer] = None
     """
     Configuration of rescue boot.
     """
@@ -809,31 +791,6 @@ class OS:
     URL of this OS's logo.
     """
 
-    ssh: Optional[OSOSField]
-    """
-    Object defining the SSH requirements to install the OS.
-    """
-
-    user: Optional[OSOSField]
-    """
-    Object defining the username requirements to install the OS.
-    """
-
-    password: Optional[OSOSField]
-    """
-    Object defining the password requirements to install the OS.
-    """
-
-    service_user: Optional[OSOSField]
-    """
-    Object defining the username requirements to install the service.
-    """
-
-    service_password: Optional[OSOSField]
-    """
-    Object defining the password requirements to install the service.
-    """
-
     enabled: bool
     """
     Defines if the operating system is enabled or not.
@@ -852,6 +809,31 @@ class OS:
     custom_partitioning_supported: bool
     """
     Defines if custom partitioning is supported by this OS.
+    """
+
+    ssh: Optional[OSOSField] = None
+    """
+    Object defining the SSH requirements to install the OS.
+    """
+
+    user: Optional[OSOSField] = None
+    """
+    Object defining the username requirements to install the OS.
+    """
+
+    password: Optional[OSOSField] = None
+    """
+    Object defining the password requirements to install the OS.
+    """
+
+    service_user: Optional[OSOSField] = None
+    """
+    Object defining the username requirements to install the service.
+    """
+
+    service_password: Optional[OSOSField] = None
+    """
+    Object defining the password requirements to install the service.
     """
 
 
@@ -905,16 +887,6 @@ class Offer:
     memories: List[Memory]
     """
     Memory specifications of the offer.
-    """
-
-    price_per_hour: Optional[Money]
-    """
-    Price of the offer for the next 60 minutes (a server order at 11h32 will be paid until 12h32).
-    """
-
-    price_per_month: Optional[Money]
-    """
-    Monthly price of the offer, if subscribing on a monthly basis.
     """
 
     quota_name: str
@@ -972,12 +944,22 @@ class Offer:
     GPU specifications of the offer.
     """
 
-    fee: Optional[Money]
+    price_per_hour: Optional[Money] = None
+    """
+    Price of the offer for the next 60 minutes (a server order at 11h32 will be paid until 12h32).
+    """
+
+    price_per_month: Optional[Money] = None
+    """
+    Monthly price of the offer, if subscribing on a monthly basis.
+    """
+
+    fee: Optional[Money] = None
     """
     One time fee invoiced by Scaleway for the setup and activation of the server.
     """
 
-    monthly_offer_id: Optional[str]
+    monthly_offer_id: Optional[str] = None
     """
     Exist only for hourly offers, to migrate to the monthly offer.
     """
@@ -1000,15 +982,15 @@ class Option:
     Defines whether the option is manageable (could be added or removed).
     """
 
-    license: Optional[LicenseOption]
+    license: Optional[LicenseOption] = None
 
-    public_bandwidth: Optional[PublicBandwidthOption]
+    public_bandwidth: Optional[PublicBandwidthOption] = None
 
-    private_network: Optional[PrivateNetworkOption]
+    private_network: Optional[PrivateNetworkOption] = None
 
-    remote_access: Optional[RemoteAccessOption]
+    remote_access: Optional[RemoteAccessOption] = None
 
-    certification: Optional[CertificationOption]
+    certification: Optional[CertificationOption] = None
 
 
 @dataclass
@@ -1023,12 +1005,12 @@ class ServerEvent:
     The action that will be applied to the server.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date of last modification of the action.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date of creation of the action.
     """
@@ -1061,17 +1043,17 @@ class ServerPrivateNetwork:
     The configuration status of the Private Network.
     """
 
-    vlan: Optional[int]
+    vlan: Optional[int] = 0
     """
     The VLAN ID associated to the Private Network.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     The Private Network creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     The date the Private Network was last modified.
     """
@@ -1112,12 +1094,12 @@ class AddOptionServerRequest:
     ID of the option to add.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Auto expire the option after this date.
     """
@@ -1140,7 +1122,7 @@ class BMCAccess:
     The password to use for the BMC (Baseboard Management Controller) access authentification.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     The date after which the BMC (Baseboard Management Controller) access will be closed.
     """
@@ -1158,7 +1140,7 @@ class DeleteOptionServerRequest:
     ID of the option to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1171,7 +1153,7 @@ class DeleteServerRequest:
     ID of the server to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1184,7 +1166,7 @@ class GetBMCAccessRequest:
     ID of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1202,7 +1184,7 @@ class GetDefaultPartitioningSchemaRequest:
     ID of the OS.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1215,7 +1197,7 @@ class GetOSRequest:
     ID of the OS.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1228,7 +1210,7 @@ class GetOfferRequest:
     ID of the researched Offer.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1241,7 +1223,7 @@ class GetOptionRequest:
     ID of the option.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1254,7 +1236,7 @@ class GetServerMetricsRequest:
     Server ID to get the metrics.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1262,7 +1244,7 @@ class GetServerMetricsRequest:
 
 @dataclass
 class GetServerMetricsResponse:
-    pings: Optional[TimeSeries]
+    pings: Optional[TimeSeries] = None
     """
     Timeseries object representing pings on the server.
     """
@@ -1275,7 +1257,7 @@ class GetServerRequest:
     ID of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1303,32 +1285,32 @@ class InstallServerRequest:
     SSH key IDs authorized on the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    user: Optional[str]
+    user: Optional[str] = None
     """
     User used for the installation.
     """
 
-    password: Optional[str]
+    password: Optional[str] = None
     """
     Password used for the installation.
     """
 
-    service_user: Optional[str]
+    service_user: Optional[str] = None
     """
     User used for the service to install.
     """
 
-    service_password: Optional[str]
+    service_password: Optional[str] = None
     """
     Password used for the service to install.
     """
 
-    partitioning_schema: Optional[Schema]
+    partitioning_schema: Optional[Schema] = None
     """
     Partitioning schema.
     """
@@ -1336,22 +1318,22 @@ class InstallServerRequest:
 
 @dataclass
 class ListOSRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of OS per page.
     """
 
-    offer_id: Optional[str]
+    offer_id: Optional[str] = None
     """
     Offer IDs to filter OSes for.
     """
@@ -1372,27 +1354,29 @@ class ListOSResponse:
 
 @dataclass
 class ListOffersRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of offers per page.
     """
 
-    subscription_period: Optional[OfferSubscriptionPeriod]
+    subscription_period: Optional[OfferSubscriptionPeriod] = (
+        OfferSubscriptionPeriod.UNKNOWN_SUBSCRIPTION_PERIOD
+    )
     """
     Subscription period type to filter offers by.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Offer name to filter offers by.
     """
@@ -1413,27 +1397,27 @@ class ListOffersResponse:
 
 @dataclass
 class ListOptionsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of options per page.
     """
 
-    offer_id: Optional[str]
+    offer_id: Optional[str] = None
     """
     Offer ID to filter options for.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name to filter options for.
     """
@@ -1459,22 +1443,24 @@ class ListServerEventsRequest:
     ID of the server events searched.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of server events per page.
     """
 
-    order_by: Optional[ListServerEventsRequestOrderBy]
+    order_by: Optional[ListServerEventsRequestOrderBy] = (
+        ListServerEventsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the server events.
     """
@@ -1496,58 +1482,59 @@ class ListServerEventsResponse:
 @dataclass
 class ListServerPrivateNetworksResponse:
     server_private_networks: List[ServerPrivateNetwork]
-
     total_count: int
 
 
 @dataclass
 class ListServersRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of servers per page.
     """
 
-    order_by: Optional[ListServersRequestOrderBy]
+    order_by: Optional[ListServersRequestOrderBy] = (
+        ListServersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the servers.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
 
-    status: Optional[List[str]]
+    status: Optional[List[str]] = field(default_factory=list)
     """
     Status to filter for.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Names to filter for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for.
     """
 
-    option_id: Optional[str]
+    option_id: Optional[str] = None
     """
     Option ID to filter for.
     """
@@ -1568,27 +1555,29 @@ class ListServersResponse:
 
 @dataclass
 class ListSettingsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Set the maximum list size.
     """
 
-    order_by: Optional[ListSettingsRequestOrderBy]
+    order_by: Optional[ListSettingsRequestOrderBy] = (
+        ListSettingsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order for items in the response.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
@@ -1614,7 +1603,7 @@ class MigrateServerToMonthlyOfferRequest:
     ID of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1632,7 +1621,7 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     The ID of the Private Network.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1650,7 +1639,7 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
     The ID of the Private Network.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1658,42 +1647,44 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
 
 @dataclass
 class PrivateNetworkApiListServerPrivateNetworksRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListServerPrivateNetworksRequestOrderBy]
+    order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = (
+        ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     The sort order for the returned Private Networks.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number for the returned Private Networks.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The maximum number of Private Networks per page.
     """
 
-    server_id: Optional[str]
+    server_id: Optional[str] = None
     """
     Filter Private Networks by server ID.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     Filter Private Networks by Private Network ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter Private Networks by Organization ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter Private Networks by Project ID.
     """
@@ -1711,7 +1702,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     The IDs of the Private Networks.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1724,12 +1715,12 @@ class RebootServerRequest:
     ID of the server to reboot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    boot_type: Optional[ServerBootType]
+    boot_type: Optional[ServerBootType] = ServerBootType.UNKNOWN_BOOT_TYPE
     """
     The type of boot.
     """
@@ -1752,7 +1743,7 @@ class StartBMCAccessRequest:
     The IP authorized to connect to the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1765,12 +1756,12 @@ class StartServerRequest:
     ID of the server to start.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    boot_type: Optional[ServerBootType]
+    boot_type: Optional[ServerBootType] = ServerBootType.UNKNOWN_BOOT_TYPE
     """
     The type of boot.
     """
@@ -1783,7 +1774,7 @@ class StopBMCAccessRequest:
     ID of the server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1796,7 +1787,7 @@ class StopServerRequest:
     ID of the server to stop.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1814,12 +1805,12 @@ class UpdateIPRequest:
     ID of the IP to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     New reverse IP to update, not updated if null.
     """
@@ -1832,27 +1823,27 @@ class UpdateServerRequest:
     ID of the server to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the server (≠hostname), not updated if null.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description associated with the server, max 255 characters, not updated if null.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the server, not updated if null.
     """
 
-    protected: Optional[bool]
+    protected: Optional[bool] = False
     """
     If enabled, the server can not be deleted.
     """
@@ -1865,12 +1856,12 @@ class UpdateSettingRequest:
     ID of the setting.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    enabled: Optional[bool]
+    enabled: Optional[bool] = False
     """
     Defines whether the setting is enabled.
     """
@@ -1888,12 +1879,12 @@ class ValidatePartitioningSchemaRequest:
     OS ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    partitioning_schema: Optional[Schema]
+    partitioning_schema: Optional[Schema] = None
     """
     Partitioning schema.
     """

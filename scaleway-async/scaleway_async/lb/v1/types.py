@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -310,7 +310,7 @@ class HealthCheckHttpConfig:
     The HTTP host header used when performing a health check on backend servers.
     """
 
-    code: Optional[int]
+    code: Optional[int] = 0
     """
     The HTTP response code that should be returned for a health check to be considered successful.
     """
@@ -338,7 +338,7 @@ class HealthCheckHttpsConfig:
     The SNI value used when performing a health check on backend servers over SSL.
     """
 
-    code: Optional[int]
+    code: Optional[int] = 0
     """
     The HTTP response code that should be returned for a health check to be considered successful.
     """
@@ -397,17 +397,17 @@ class Instance:
     The zone the Instance is in.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the Instance was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the Instance was last updated.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     The region the Instance is in.
     """
@@ -450,12 +450,12 @@ class Ip:
     The zone the IP address is in.
     """
 
-    lb_id: Optional[str]
+    lb_id: Optional[str] = None
     """
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     The region the IP address is in.
     """
@@ -477,9 +477,9 @@ class Subscriber:
     Subscriber name.
     """
 
-    email_config: Optional[SubscriberEmailConfig]
+    email_config: Optional[SubscriberEmailConfig] = None
 
-    webhook_config: Optional[SubscriberWebhookConfig]
+    webhook_config: Optional[SubscriberWebhookConfig] = None
 
 
 @dataclass
@@ -499,34 +499,34 @@ class HealthCheck:
     Defines whether proxy protocol should be activated for the health check.
     """
 
-    check_delay: Optional[str]
+    check_delay: Optional[str] = None
     """
     Time to wait between two consecutive health checks.
     """
 
-    check_timeout: Optional[str]
+    check_timeout: Optional[str] = None
     """
     Maximum time a backend server has to reply to the health check.
     """
 
-    transient_check_delay: Optional[str]
+    transient_check_delay: Optional[str] = None
     """
     Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
     """
 
-    tcp_config: Optional[HealthCheckTcpConfig]
+    tcp_config: Optional[HealthCheckTcpConfig] = None
 
-    mysql_config: Optional[HealthCheckMysqlConfig]
+    mysql_config: Optional[HealthCheckMysqlConfig] = None
 
-    pgsql_config: Optional[HealthCheckPgsqlConfig]
+    pgsql_config: Optional[HealthCheckPgsqlConfig] = None
 
-    ldap_config: Optional[HealthCheckLdapConfig]
+    ldap_config: Optional[HealthCheckLdapConfig] = None
 
-    redis_config: Optional[HealthCheckRedisConfig]
+    redis_config: Optional[HealthCheckRedisConfig] = None
 
-    http_config: Optional[HealthCheckHttpConfig]
+    http_config: Optional[HealthCheckHttpConfig] = None
 
-    https_config: Optional[HealthCheckHttpsConfig]
+    https_config: Optional[HealthCheckHttpsConfig] = None
 
 
 @dataclass
@@ -611,22 +611,22 @@ class Lb:
     The zone the Load Balancer is in.
     """
 
-    subscriber: Optional[Subscriber]
+    subscriber: Optional[Subscriber] = None
     """
     Subscriber information.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the Load Balancer was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the Load Balancer was last updated.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     The region the Load Balancer is in.
     """
@@ -644,7 +644,7 @@ class AclActionRedirect:
     Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\}.
     """
 
-    code: Optional[int]
+    code: Optional[int] = 0
     """
     HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
     """
@@ -702,77 +702,77 @@ class Backend:
     Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
     """
 
-    health_check: Optional[HealthCheck]
+    health_check: Optional[HealthCheck] = None
     """
     Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
     """
 
-    lb: Optional[Lb]
+    lb: Optional[Lb] = None
     """
     Load Balancer the backend is attached to.
     """
 
-    send_proxy_v2: Optional[bool]
+    send_proxy_v2: Optional[bool] = False
     """
     Deprecated in favor of proxy_protocol field.
     """
 
-    timeout_server: Optional[str]
+    timeout_server: Optional[str] = None
     """
     Maximum allowed time for a backend server to process a request.
     """
 
-    timeout_connect: Optional[str]
+    timeout_connect: Optional[str] = None
     """
     Maximum allowed time for establishing a connection to a backend server.
     """
 
-    timeout_tunnel: Optional[str]
+    timeout_tunnel: Optional[str] = None
     """
     Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date at which the backend was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date at which the backend was updated.
     """
 
-    failover_host: Optional[str]
+    failover_host: Optional[str] = None
     """
     Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
-    ssl_bridging: Optional[bool]
+    ssl_bridging: Optional[bool] = False
     """
     Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
-    ignore_ssl_server_verify: Optional[bool]
+    ignore_ssl_server_verify: Optional[bool] = False
     """
     Defines whether the server certificate verification should be ignored.
     """
 
-    redispatch_attempt_count: Optional[int]
+    redispatch_attempt_count: Optional[int] = 0
     """
     Whether to use another backend server on each attempt.
     """
 
-    max_retries: Optional[int]
+    max_retries: Optional[int] = 0
     """
     Number of retries when a backend server connection failed.
     """
 
-    max_connections: Optional[int]
+    max_connections: Optional[int] = 0
     """
     Maximum number of connections allowed per backend server.
     """
 
-    timeout_queue: Optional[str]
+    timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
@@ -810,37 +810,37 @@ class Certificate:
     Certificate status.
     """
 
-    not_valid_before: Optional[datetime]
-    """
-    Lower validity bound.
-    """
-
-    not_valid_after: Optional[datetime]
-    """
-    Upper validity bound.
-    """
-
-    lb: Optional[Lb]
-    """
-    Load Balancer object the certificate is attached to.
-    """
-
     name: str
     """
     Certificate name.
     """
 
-    created_at: Optional[datetime]
+    not_valid_before: Optional[datetime] = None
+    """
+    Lower validity bound.
+    """
+
+    not_valid_after: Optional[datetime] = None
+    """
+    Upper validity bound.
+    """
+
+    lb: Optional[Lb] = None
+    """
+    Load Balancer object the certificate is attached to.
+    """
+
+    created_at: Optional[datetime] = None
     """
     Date on which the certificate was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the certificate was last updated.
     """
 
-    status_details: Optional[str]
+    status_details: Optional[str] = None
     """
     Additional information about the certificate status (useful in case of certificate generation failure, for example).
     """
@@ -853,7 +853,7 @@ class AclAction:
     Action to take when incoming traffic matches an ACL filter.
     """
 
-    redirect: Optional[AclActionRedirect]
+    redirect: Optional[AclActionRedirect] = None
     """
     Redirection parameters when using an ACL with a `redirect` action.
     """
@@ -886,7 +886,7 @@ class AclMatch:
     Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
     """
 
-    http_filter_option: Optional[str]
+    http_filter_option: Optional[str] = None
     """
     Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
     """
@@ -914,21 +914,6 @@ class Frontend:
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
-    backend: Optional[Backend]
-    """
-    Backend object the frontend is attached to.
-    """
-
-    lb: Optional[Lb]
-    """
-    Load Balancer object the frontend is attached to.
-    """
-
-    timeout_client: Optional[str]
-    """
-    Maximum allowed inactivity time on the client side.
-    """
-
     enable_http3: bool
     """
     Defines whether to enable HTTP/3 protocol on the frontend.
@@ -939,22 +924,37 @@ class Frontend:
     Defines whether to enable access logs on the frontend.
     """
 
-    certificate: Optional[Certificate]
+    backend: Optional[Backend] = None
+    """
+    Backend object the frontend is attached to.
+    """
+
+    lb: Optional[Lb] = None
+    """
+    Load Balancer object the frontend is attached to.
+    """
+
+    timeout_client: Optional[str] = None
+    """
+    Maximum allowed inactivity time on the client side.
+    """
+
+    certificate: Optional[Certificate] = None
     """
     Certificate, deprecated in favor of certificate_ids array.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the frontend was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the frontend was last updated.
     """
 
-    connection_rate_limit: Optional[int]
+    connection_rate_limit: Optional[int] = 0
     """
     Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
@@ -962,7 +962,7 @@ class Frontend:
 
 @dataclass
 class PrivateNetworkDHCPConfig:
-    ip_id: Optional[str]
+    ip_id: Optional[str] = None
 
 
 @dataclass
@@ -972,7 +972,7 @@ class PrivateNetworkIpamConfig:
 
 @dataclass
 class PrivateNetworkStaticConfig:
-    ip_address: Optional[List[str]]
+    ip_address: Optional[List[str]] = field(default_factory=list)
     """
     Array of a local IP address for the Load Balancer on this Private Network.
     """
@@ -985,11 +985,11 @@ class RouteMatch:
     If true, all subdomains will match.
     """
 
-    sni: Optional[str]
+    sni: Optional[str] = None
 
-    host_header: Optional[str]
+    host_header: Optional[str] = None
 
-    path_begin: Optional[str]
+    path_begin: Optional[str] = None
 
 
 @dataclass
@@ -1040,7 +1040,7 @@ class BackendServerStats:
     Last health check status (unknown/neutral/failed/passed/condpass).
     """
 
-    server_state_changed_at: Optional[datetime]
+    server_state_changed_at: Optional[datetime] = None
     """
     Time since last operational change.
     """
@@ -1068,27 +1068,27 @@ class Acl:
     ACL description.
     """
 
-    match: Optional[AclMatch]
+    match: Optional[AclMatch] = None
     """
     ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
-    action: Optional[AclAction]
+    action: Optional[AclAction] = None
     """
     Action to take when incoming traffic matches an ACL filter.
     """
 
-    frontend: Optional[Frontend]
+    frontend: Optional[Frontend] = None
     """
     ACL is attached to this frontend object.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the ACL was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the ACL was last updated.
     """
@@ -1111,26 +1111,26 @@ class PrivateNetwork:
     Status of Private Network connection.
     """
 
-    lb: Optional[Lb]
+    lb: Optional[Lb] = None
     """
     Load Balancer object which is attached to the Private Network.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the Private Network was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the PN was last updated.
     """
 
-    static_config: Optional[PrivateNetworkStaticConfig]
+    static_config: Optional[PrivateNetworkStaticConfig] = None
 
-    dhcp_config: Optional[PrivateNetworkDHCPConfig]
+    dhcp_config: Optional[PrivateNetworkDHCPConfig] = None
 
-    ipam_config: Optional[PrivateNetworkIpamConfig]
+    ipam_config: Optional[PrivateNetworkIpamConfig] = None
 
 
 @dataclass
@@ -1155,7 +1155,7 @@ class LbType:
     The zone the Load Balancer stock is in.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     The region the Load Balancer stock is in.
     """
@@ -1178,17 +1178,17 @@ class Route:
     ID of the target backend.
     """
 
-    match: Optional[RouteMatch]
+    match: Optional[RouteMatch] = None
     """
     Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the route was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the route was last updated.
     """
@@ -1216,7 +1216,7 @@ class AclSpec:
     ACL description.
     """
 
-    match: Optional[AclMatch]
+    match: Optional[AclMatch] = None
     """
     ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` and `http_filter_value` are required.
     """
@@ -1234,7 +1234,7 @@ class AddBackendServersRequest:
     List of IP addresses to add to backend servers.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1252,21 +1252,21 @@ class AttachPrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    ipam_ids: Optional[List[str]]
+    ipam_ids: Optional[List[str]] = field(default_factory=list)
     """
     IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
     """
 
-    static_config: Optional[PrivateNetworkStaticConfig]
+    static_config: Optional[PrivateNetworkStaticConfig] = None
 
-    dhcp_config: Optional[PrivateNetworkDHCPConfig]
+    dhcp_config: Optional[PrivateNetworkDHCPConfig] = None
 
-    ipam_config: Optional[PrivateNetworkIpamConfig]
+    ipam_config: Optional[PrivateNetworkIpamConfig] = None
 
 
 @dataclass
@@ -1295,17 +1295,17 @@ class CreateAclRequest:
     ACL description.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     ACL name.
     """
 
-    match: Optional[AclMatch]
+    match: Optional[AclMatch] = None
     """
     ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
@@ -1353,77 +1353,79 @@ class CreateBackendRequest:
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the backend.
     """
 
-    send_proxy_v2: Optional[bool]
+    send_proxy_v2: Optional[bool] = False
     """
     Deprecated in favor of proxy_protocol field.
     """
 
-    timeout_server: Optional[str]
+    timeout_server: Optional[str] = None
     """
     Maximum allowed time for a backend server to process a request.
     """
 
-    timeout_connect: Optional[str]
+    timeout_connect: Optional[str] = None
     """
     Maximum allowed time for establishing a connection to a backend server.
     """
 
-    timeout_tunnel: Optional[str]
+    timeout_tunnel: Optional[str] = None
     """
     Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
-    on_marked_down_action: Optional[OnMarkedDownAction]
+    on_marked_down_action: Optional[OnMarkedDownAction] = (
+        OnMarkedDownAction.ON_MARKED_DOWN_ACTION_NONE
+    )
     """
     Action to take when a backend server is marked as down.
     """
 
-    proxy_protocol: Optional[ProxyProtocol]
+    proxy_protocol: Optional[ProxyProtocol] = ProxyProtocol.PROXY_PROTOCOL_UNKNOWN
     """
     Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
     """
 
-    failover_host: Optional[str]
+    failover_host: Optional[str] = None
     """
     Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
-    ssl_bridging: Optional[bool]
+    ssl_bridging: Optional[bool] = False
     """
     Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
-    ignore_ssl_server_verify: Optional[bool]
+    ignore_ssl_server_verify: Optional[bool] = False
     """
     Defines whether the server certificate verification should be ignored.
     """
 
-    redispatch_attempt_count: Optional[int]
+    redispatch_attempt_count: Optional[int] = 0
     """
     Whether to use another backend server on each attempt.
     """
 
-    max_retries: Optional[int]
+    max_retries: Optional[int] = 0
     """
     Number of retries when a backend server connection failed.
     """
 
-    max_connections: Optional[int]
+    max_connections: Optional[int] = 0
     """
     Maximum number of connections allowed per backend server.
     """
 
-    timeout_queue: Optional[str]
+    timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
@@ -1436,19 +1438,19 @@ class CreateCertificateRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the certificate.
     """
 
-    letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig]
+    letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig] = None
 
-    custom_certificate: Optional[CreateCertificateRequestCustomCertificate]
+    custom_certificate: Optional[CreateCertificateRequestCustomCertificate] = None
 
 
 @dataclass
@@ -1478,32 +1480,32 @@ class CreateFrontendRequest:
     Defines whether to enable access logs on the frontend.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the frontend.
     """
 
-    timeout_client: Optional[str]
+    timeout_client: Optional[str] = None
     """
     Maximum allowed inactivity time on the client side.
     """
 
-    certificate_id: Optional[str]
+    certificate_id: Optional[str] = None
     """
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]]
+    certificate_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
-    connection_rate_limit: Optional[int]
+    connection_rate_limit: Optional[int] = 0
     """
     Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
@@ -1516,24 +1518,24 @@ class CreateIpRequest:
     If true, creates a Flexible IP with an ipv6 address.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Reverse DNS (domain name) for the IP address.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -1548,49 +1550,51 @@ class CreateLbRequest:
     Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the Load Balancer.
     """
 
-    ip_id: Optional[str]
+    ip_id: Optional[str] = None
     """
     ID of an existing flexible IP address to attach to the Load Balancer.
     """
 
-    assign_flexible_ip: Optional[bool]
+    assign_flexible_ip: Optional[bool] = False
     """
     Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
     """
 
-    assign_flexible_ipv6: Optional[bool]
+    assign_flexible_ipv6: Optional[bool] = False
     """
     Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
     """
 
-    ip_ids: Optional[List[str]]
+    ip_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of IP IDs to attach to the Load Balancer.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
 
-    ssl_compatibility_level: Optional[SSLCompatibilityLevel]
+    ssl_compatibility_level: Optional[SSLCompatibilityLevel] = (
+        SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
+    )
     """
     Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -1605,12 +1609,12 @@ class CreateRouteRequest:
     ID of the target backend for the route.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    match: Optional[RouteMatch]
+    match: Optional[RouteMatch] = None
     """
     Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
@@ -1627,18 +1631,18 @@ class CreateSubscriberRequest:
     Subscriber name.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
-    email_config: Optional[SubscriberEmailConfig]
+    email_config: Optional[SubscriberEmailConfig] = None
 
-    webhook_config: Optional[SubscriberWebhookConfig]
+    webhook_config: Optional[SubscriberWebhookConfig] = None
 
 
 @dataclass
@@ -1648,7 +1652,7 @@ class DeleteAclRequest:
     ACL ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1661,7 +1665,7 @@ class DeleteBackendRequest:
     ID of the backend to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1674,7 +1678,7 @@ class DeleteCertificateRequest:
     Certificate ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1687,7 +1691,7 @@ class DeleteFrontendRequest:
     ID of the frontend to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1705,7 +1709,7 @@ class DeleteLbRequest:
     Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1718,7 +1722,7 @@ class DeleteRouteRequest:
     Route ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1731,7 +1735,7 @@ class DeleteSubscriberRequest:
     Subscriber ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1749,7 +1753,7 @@ class DetachPrivateNetworkRequest:
     Set your instance private network id.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1762,7 +1766,7 @@ class GetAclRequest:
     ACL ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1775,7 +1779,7 @@ class GetBackendRequest:
     Backend ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1788,7 +1792,7 @@ class GetCertificateRequest:
     Certificate ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1801,7 +1805,7 @@ class GetFrontendRequest:
     Frontend ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1814,7 +1818,7 @@ class GetIpRequest:
     IP address ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1827,7 +1831,7 @@ class GetLbRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1844,12 +1848,12 @@ class GetLbStatsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    backend_id: Optional[str]
+    backend_id: Optional[str] = None
     """
     ID of the backend.
     """
@@ -1862,7 +1866,7 @@ class GetRouteRequest:
     Route ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1875,7 +1879,7 @@ class GetSubscriberRequest:
     Subscriber ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1909,27 +1913,27 @@ class ListAclsRequest:
     Frontend ID (ACLs attached to this frontend will be returned in the response).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListAclRequestOrderBy]
+    order_by: Optional[ListAclRequestOrderBy] = ListAclRequestOrderBy.CREATED_AT_ASC
     """
     Sort order of ACLs in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of ACLs to return.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     ACL name to filter for.
     """
@@ -1942,22 +1946,22 @@ class ListBackendStatsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of items to return.
     """
 
-    backend_id: Optional[str]
+    backend_id: Optional[str] = None
     """
     ID of the backend.
     """
@@ -1983,27 +1987,29 @@ class ListBackendsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the backend to filter for.
     """
 
-    order_by: Optional[ListBackendsRequestOrderBy]
+    order_by: Optional[ListBackendsRequestOrderBy] = (
+        ListBackendsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of backends in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of backends to return.
     """
@@ -2029,27 +2035,29 @@ class ListCertificatesRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListCertificatesRequestOrderBy]
+    order_by: Optional[ListCertificatesRequestOrderBy] = (
+        ListCertificatesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of certificates in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of certificates to return.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Certificate name to filter for, only certificates of this name will be returned.
     """
@@ -2075,27 +2083,29 @@ class ListFrontendsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the frontend to filter for.
     """
 
-    order_by: Optional[ListFrontendsRequestOrderBy]
+    order_by: Optional[ListFrontendsRequestOrderBy] = (
+        ListFrontendsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of frontends in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of frontends to return.
     """
@@ -2116,42 +2126,42 @@ class ListFrontendsResponse:
 
 @dataclass
 class ListIPsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of IP addresses to return.
     """
 
-    ip_address: Optional[str]
+    ip_address: Optional[str] = None
     """
     IP address to filter for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
     """
 
-    ip_type: Optional[ListIpsRequestIpType]
+    ip_type: Optional[ListIpsRequestIpType] = ListIpsRequestIpType.ALL
     """
     IP type to filter for.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tag to filter for, only IPs with one or more matching tags will be returned.
     """
@@ -2177,22 +2187,24 @@ class ListLbPrivateNetworksRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListPrivateNetworksRequestOrderBy]
+    order_by: Optional[ListPrivateNetworksRequestOrderBy] = (
+        ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of Private Network objects in the response.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of objects to return.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
@@ -2213,17 +2225,17 @@ class ListLbPrivateNetworksResponse:
 
 @dataclass
 class ListLbTypesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of items to return.
     """
@@ -2244,42 +2256,42 @@ class ListLbTypesResponse:
 
 @dataclass
 class ListLbsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Load Balancer name to filter for.
     """
 
-    order_by: Optional[ListLbsRequestOrderBy]
+    order_by: Optional[ListLbsRequestOrderBy] = ListLbsRequestOrderBy.CREATED_AT_ASC
     """
     Sort order of Load Balancers in the response.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of Load Balancers to return.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for, only Load Balancers from this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only Load Balancers from this Project will be returned.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tag, only Load Balancers with one or more matching tags will be returned.
     """
@@ -2300,27 +2312,29 @@ class ListLbsResponse:
 
 @dataclass
 class ListRoutesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListRoutesRequestOrderBy]
+    order_by: Optional[ListRoutesRequestOrderBy] = (
+        ListRoutesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of routes in the response.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of route objects to return.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    frontend_id: Optional[str]
+    frontend_id: Optional[str] = None
     """
     Frontend ID to filter for, only Routes from this Frontend will be returned.
     """
@@ -2341,37 +2355,39 @@ class ListRoutesResponse:
 
 @dataclass
 class ListSubscriberRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListSubscriberRequestOrderBy]
+    order_by: Optional[ListSubscriberRequestOrderBy] = (
+        ListSubscriberRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of subscribers in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of items to return.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Subscriber name to search for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter subscribers by Organization ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter subscribers by Project ID.
     """
@@ -2402,7 +2418,7 @@ class MigrateLbRequest:
     Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2415,7 +2431,7 @@ class ReleaseIpRequest:
     IP address ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2433,7 +2449,7 @@ class RemoveBackendServersRequest:
     List of IP addresses to remove from backend servers.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2464,7 +2480,7 @@ class SetBackendServersRequest:
     List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2482,7 +2498,7 @@ class SubscribeToLbRequest:
     Subscriber ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2495,7 +2511,7 @@ class UnsubscribeFromLbRequest:
     Load Balancer ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2523,17 +2539,17 @@ class UpdateAclRequest:
     Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    match: Optional[AclMatch]
+    match: Optional[AclMatch] = None
     """
     ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     ACL description.
     """
@@ -2576,72 +2592,74 @@ class UpdateBackendRequest:
     Cookie name for cookie-based sticky sessions.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    send_proxy_v2: Optional[bool]
+    send_proxy_v2: Optional[bool] = False
     """
     Deprecated in favor of proxy_protocol field.
     """
 
-    timeout_server: Optional[str]
+    timeout_server: Optional[str] = None
     """
     Maximum allowed time for a backend server to process a request.
     """
 
-    timeout_connect: Optional[str]
+    timeout_connect: Optional[str] = None
     """
     Maximum allowed time for establishing a connection to a backend server.
     """
 
-    timeout_tunnel: Optional[str]
+    timeout_tunnel: Optional[str] = None
     """
     Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
-    on_marked_down_action: Optional[OnMarkedDownAction]
+    on_marked_down_action: Optional[OnMarkedDownAction] = (
+        OnMarkedDownAction.ON_MARKED_DOWN_ACTION_NONE
+    )
     """
     Action to take when a backend server is marked as down.
     """
 
-    proxy_protocol: Optional[ProxyProtocol]
+    proxy_protocol: Optional[ProxyProtocol] = ProxyProtocol.PROXY_PROTOCOL_UNKNOWN
     """
     Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
     """
 
-    failover_host: Optional[str]
+    failover_host: Optional[str] = None
     """
     Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
-    ssl_bridging: Optional[bool]
+    ssl_bridging: Optional[bool] = False
     """
     Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
-    ignore_ssl_server_verify: Optional[bool]
+    ignore_ssl_server_verify: Optional[bool] = False
     """
     Defines whether the server certificate verification should be ignored.
     """
 
-    redispatch_attempt_count: Optional[int]
+    redispatch_attempt_count: Optional[int] = 0
     """
     Whether to use another backend server on each attempt.
     """
 
-    max_retries: Optional[int]
+    max_retries: Optional[int] = 0
     """
     Number of retries when a backend server connection failed.
     """
 
-    max_connections: Optional[int]
+    max_connections: Optional[int] = 0
     """
     Maximum number of connections allowed per backend server.
     """
 
-    timeout_queue: Optional[str]
+    timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
@@ -2659,7 +2677,7 @@ class UpdateCertificateRequest:
     Certificate name.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2692,32 +2710,32 @@ class UpdateFrontendRequest:
     Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    timeout_client: Optional[str]
+    timeout_client: Optional[str] = None
     """
     Maximum allowed inactivity time on the client side.
     """
 
-    certificate_id: Optional[str]
+    certificate_id: Optional[str] = None
     """
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]]
+    certificate_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
-    connection_rate_limit: Optional[int]
+    connection_rate_limit: Optional[int] = 0
     """
     Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
 
-    enable_access_logs: Optional[bool]
+    enable_access_logs: Optional[bool] = False
     """
     Defines whether to enable access logs on the frontend.
     """
@@ -2745,39 +2763,39 @@ class UpdateHealthCheckRequest:
     Defines whether proxy protocol should be activated for the health check.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    check_delay: Optional[str]
+    check_delay: Optional[str] = None
     """
     Time to wait between two consecutive health checks.
     """
 
-    check_timeout: Optional[str]
+    check_timeout: Optional[str] = None
     """
     Maximum time a backend server has to reply to the health check.
     """
 
-    transient_check_delay: Optional[str]
+    transient_check_delay: Optional[str] = None
     """
     Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
     """
 
-    tcp_config: Optional[HealthCheckTcpConfig]
+    tcp_config: Optional[HealthCheckTcpConfig] = None
 
-    mysql_config: Optional[HealthCheckMysqlConfig]
+    mysql_config: Optional[HealthCheckMysqlConfig] = None
 
-    pgsql_config: Optional[HealthCheckPgsqlConfig]
+    pgsql_config: Optional[HealthCheckPgsqlConfig] = None
 
-    ldap_config: Optional[HealthCheckLdapConfig]
+    ldap_config: Optional[HealthCheckLdapConfig] = None
 
-    redis_config: Optional[HealthCheckRedisConfig]
+    redis_config: Optional[HealthCheckRedisConfig] = None
 
-    http_config: Optional[HealthCheckHttpConfig]
+    http_config: Optional[HealthCheckHttpConfig] = None
 
-    https_config: Optional[HealthCheckHttpsConfig]
+    https_config: Optional[HealthCheckHttpsConfig] = None
 
 
 @dataclass
@@ -2787,22 +2805,22 @@ class UpdateIpRequest:
     IP address ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Reverse DNS (domain name) for the IP address.
     """
 
-    lb_id: Optional[str]
+    lb_id: Optional[str] = None
     """
     ID of the server on which to attach the flexible IP.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
@@ -2825,17 +2843,19 @@ class UpdateLbRequest:
     Load Balancer description.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
 
-    ssl_compatibility_level: Optional[SSLCompatibilityLevel]
+    ssl_compatibility_level: Optional[SSLCompatibilityLevel] = (
+        SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
+    )
     """
     Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
@@ -2853,12 +2873,12 @@ class UpdateRouteRequest:
     ID of the target backend for the route.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    match: Optional[RouteMatch]
+    match: Optional[RouteMatch] = None
     """
     Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
@@ -2876,14 +2896,14 @@ class UpdateSubscriberRequest:
     Subscriber name.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    email_config: Optional[SubscriberEmailConfig]
+    email_config: Optional[SubscriberEmailConfig] = None
 
-    webhook_config: Optional[SubscriberWebhookConfig]
+    webhook_config: Optional[SubscriberWebhookConfig] = None
 
 
 @dataclass
@@ -2898,7 +2918,7 @@ class ZonedApiAddBackendServersRequest:
     List of IP addresses to add to backend servers.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2916,21 +2936,21 @@ class ZonedApiAttachPrivateNetworkRequest:
     Private Network ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ipam_ids: Optional[List[str]]
+    ipam_ids: Optional[List[str]] = field(default_factory=list)
     """
     IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
     """
 
-    static_config: Optional[PrivateNetworkStaticConfig]
+    static_config: Optional[PrivateNetworkStaticConfig] = None
 
-    dhcp_config: Optional[PrivateNetworkDHCPConfig]
+    dhcp_config: Optional[PrivateNetworkDHCPConfig] = None
 
-    ipam_config: Optional[PrivateNetworkIpamConfig]
+    ipam_config: Optional[PrivateNetworkIpamConfig] = None
 
 
 @dataclass
@@ -2959,17 +2979,17 @@ class ZonedApiCreateAclRequest:
     ACL description.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     ACL name.
     """
 
-    match: Optional[AclMatch]
+    match: Optional[AclMatch] = None
     """
     ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
@@ -3017,77 +3037,79 @@ class ZonedApiCreateBackendRequest:
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the backend.
     """
 
-    send_proxy_v2: Optional[bool]
+    send_proxy_v2: Optional[bool] = False
     """
     Deprecated in favor of proxy_protocol field.
     """
 
-    timeout_server: Optional[str]
+    timeout_server: Optional[str] = None
     """
     Maximum allowed time for a backend server to process a request.
     """
 
-    timeout_connect: Optional[str]
+    timeout_connect: Optional[str] = None
     """
     Maximum allowed time for establishing a connection to a backend server.
     """
 
-    timeout_tunnel: Optional[str]
+    timeout_tunnel: Optional[str] = None
     """
     Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
-    on_marked_down_action: Optional[OnMarkedDownAction]
+    on_marked_down_action: Optional[OnMarkedDownAction] = (
+        OnMarkedDownAction.ON_MARKED_DOWN_ACTION_NONE
+    )
     """
     Action to take when a backend server is marked as down.
     """
 
-    proxy_protocol: Optional[ProxyProtocol]
+    proxy_protocol: Optional[ProxyProtocol] = ProxyProtocol.PROXY_PROTOCOL_UNKNOWN
     """
     Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
     """
 
-    failover_host: Optional[str]
+    failover_host: Optional[str] = None
     """
     Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
-    ssl_bridging: Optional[bool]
+    ssl_bridging: Optional[bool] = False
     """
     Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
-    ignore_ssl_server_verify: Optional[bool]
+    ignore_ssl_server_verify: Optional[bool] = False
     """
     Defines whether the server certificate verification should be ignored.
     """
 
-    redispatch_attempt_count: Optional[int]
+    redispatch_attempt_count: Optional[int] = 0
     """
     Whether to use another backend server on each attempt.
     """
 
-    max_retries: Optional[int]
+    max_retries: Optional[int] = 0
     """
     Number of retries when a backend server connection failed.
     """
 
-    max_connections: Optional[int]
+    max_connections: Optional[int] = 0
     """
     Maximum number of connections allowed per backend server.
     """
 
-    timeout_queue: Optional[str]
+    timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
@@ -3100,19 +3122,19 @@ class ZonedApiCreateCertificateRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the certificate.
     """
 
-    letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig]
+    letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig] = None
 
-    custom_certificate: Optional[CreateCertificateRequestCustomCertificate]
+    custom_certificate: Optional[CreateCertificateRequestCustomCertificate] = None
 
 
 @dataclass
@@ -3142,32 +3164,32 @@ class ZonedApiCreateFrontendRequest:
     Defines whether to enable access logs on the frontend.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the frontend.
     """
 
-    timeout_client: Optional[str]
+    timeout_client: Optional[str] = None
     """
     Maximum allowed inactivity time on the client side.
     """
 
-    certificate_id: Optional[str]
+    certificate_id: Optional[str] = None
     """
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]]
+    certificate_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
-    connection_rate_limit: Optional[int]
+    connection_rate_limit: Optional[int] = 0
     """
     Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
@@ -3180,24 +3202,24 @@ class ZonedApiCreateIpRequest:
     If true, creates a Flexible IP with an ipv6 address.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Reverse DNS (domain name) for the IP address.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -3212,49 +3234,51 @@ class ZonedApiCreateLbRequest:
     Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name for the Load Balancer.
     """
 
-    ip_id: Optional[str]
+    ip_id: Optional[str] = None
     """
     ID of an existing flexible IP address to attach to the Load Balancer.
     """
 
-    assign_flexible_ip: Optional[bool]
+    assign_flexible_ip: Optional[bool] = False
     """
     Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
     """
 
-    assign_flexible_ipv6: Optional[bool]
+    assign_flexible_ipv6: Optional[bool] = False
     """
     Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
     """
 
-    ip_ids: Optional[List[str]]
+    ip_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of IP IDs to attach to the Load Balancer.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
 
-    ssl_compatibility_level: Optional[SSLCompatibilityLevel]
+    ssl_compatibility_level: Optional[SSLCompatibilityLevel] = (
+        SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
+    )
     """
     Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -3269,12 +3293,12 @@ class ZonedApiCreateRouteRequest:
     ID of the target backend for the route.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    match: Optional[RouteMatch]
+    match: Optional[RouteMatch] = None
     """
     Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
@@ -3291,18 +3315,18 @@ class ZonedApiCreateSubscriberRequest:
     Subscriber name.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
-    email_config: Optional[SubscriberEmailConfig]
+    email_config: Optional[SubscriberEmailConfig] = None
 
-    webhook_config: Optional[SubscriberWebhookConfig]
+    webhook_config: Optional[SubscriberWebhookConfig] = None
 
 
 @dataclass
@@ -3312,7 +3336,7 @@ class ZonedApiDeleteAclRequest:
     ACL ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3325,7 +3349,7 @@ class ZonedApiDeleteBackendRequest:
     ID of the backend to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3338,7 +3362,7 @@ class ZonedApiDeleteCertificateRequest:
     Certificate ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3351,7 +3375,7 @@ class ZonedApiDeleteFrontendRequest:
     ID of the frontend to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3369,7 +3393,7 @@ class ZonedApiDeleteLbRequest:
     Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3382,7 +3406,7 @@ class ZonedApiDeleteRouteRequest:
     Route ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3395,7 +3419,7 @@ class ZonedApiDeleteSubscriberRequest:
     Subscriber ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3413,7 +3437,7 @@ class ZonedApiDetachPrivateNetworkRequest:
     Set your instance private network id.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3426,7 +3450,7 @@ class ZonedApiGetAclRequest:
     ACL ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3439,7 +3463,7 @@ class ZonedApiGetBackendRequest:
     Backend ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3452,7 +3476,7 @@ class ZonedApiGetCertificateRequest:
     Certificate ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3465,7 +3489,7 @@ class ZonedApiGetFrontendRequest:
     Frontend ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3478,7 +3502,7 @@ class ZonedApiGetIpRequest:
     IP address ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3491,7 +3515,7 @@ class ZonedApiGetLbRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3508,12 +3532,12 @@ class ZonedApiGetLbStatsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    backend_id: Optional[str]
+    backend_id: Optional[str] = None
     """
     ID of the backend.
     """
@@ -3526,7 +3550,7 @@ class ZonedApiGetRouteRequest:
     Route ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3539,7 +3563,7 @@ class ZonedApiGetSubscriberRequest:
     Subscriber ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3552,27 +3576,27 @@ class ZonedApiListAclsRequest:
     Frontend ID (ACLs attached to this frontend will be returned in the response).
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListAclRequestOrderBy]
+    order_by: Optional[ListAclRequestOrderBy] = ListAclRequestOrderBy.CREATED_AT_ASC
     """
     Sort order of ACLs in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of ACLs to return.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     ACL name to filter for.
     """
@@ -3585,22 +3609,22 @@ class ZonedApiListBackendStatsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of items to return.
     """
 
-    backend_id: Optional[str]
+    backend_id: Optional[str] = None
     """
     ID of the backend.
     """
@@ -3613,27 +3637,29 @@ class ZonedApiListBackendsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the backend to filter for.
     """
 
-    order_by: Optional[ListBackendsRequestOrderBy]
+    order_by: Optional[ListBackendsRequestOrderBy] = (
+        ListBackendsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of backends in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of backends to return.
     """
@@ -3646,27 +3672,29 @@ class ZonedApiListCertificatesRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListCertificatesRequestOrderBy]
+    order_by: Optional[ListCertificatesRequestOrderBy] = (
+        ListCertificatesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of certificates in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of certificates to return.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Certificate name to filter for, only certificates of this name will be returned.
     """
@@ -3679,27 +3707,29 @@ class ZonedApiListFrontendsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the frontend to filter for.
     """
 
-    order_by: Optional[ListFrontendsRequestOrderBy]
+    order_by: Optional[ListFrontendsRequestOrderBy] = (
+        ListFrontendsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of frontends in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of frontends to return.
     """
@@ -3707,42 +3737,42 @@ class ZonedApiListFrontendsRequest:
 
 @dataclass
 class ZonedApiListIPsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of IP addresses to return.
     """
 
-    ip_address: Optional[str]
+    ip_address: Optional[str] = None
     """
     IP address to filter for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
     """
 
-    ip_type: Optional[ListIpsRequestIpType]
+    ip_type: Optional[ListIpsRequestIpType] = ListIpsRequestIpType.ALL
     """
     IP type to filter for.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tag to filter for, only IPs with one or more matching tags will be returned.
     """
@@ -3755,22 +3785,24 @@ class ZonedApiListLbPrivateNetworksRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListPrivateNetworksRequestOrderBy]
+    order_by: Optional[ListPrivateNetworksRequestOrderBy] = (
+        ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of Private Network objects in the response.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of objects to return.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
@@ -3778,17 +3810,17 @@ class ZonedApiListLbPrivateNetworksRequest:
 
 @dataclass
 class ZonedApiListLbTypesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of items to return.
     """
@@ -3796,42 +3828,42 @@ class ZonedApiListLbTypesRequest:
 
 @dataclass
 class ZonedApiListLbsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Load Balancer name to filter for.
     """
 
-    order_by: Optional[ListLbsRequestOrderBy]
+    order_by: Optional[ListLbsRequestOrderBy] = ListLbsRequestOrderBy.CREATED_AT_ASC
     """
     Sort order of Load Balancers in the response.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of Load Balancers to return.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for, only Load Balancers from this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only Load Balancers from this Project will be returned.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tag, only Load Balancers with one or more matching tags will be returned.
     """
@@ -3839,27 +3871,29 @@ class ZonedApiListLbsRequest:
 
 @dataclass
 class ZonedApiListRoutesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListRoutesRequestOrderBy]
+    order_by: Optional[ListRoutesRequestOrderBy] = (
+        ListRoutesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of routes in the response.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of route objects to return.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    frontend_id: Optional[str]
+    frontend_id: Optional[str] = None
     """
     Frontend ID to filter for, only Routes from this Frontend will be returned.
     """
@@ -3867,37 +3901,39 @@ class ZonedApiListRoutesRequest:
 
 @dataclass
 class ZonedApiListSubscriberRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListSubscriberRequestOrderBy]
+    order_by: Optional[ListSubscriberRequestOrderBy] = (
+        ListSubscriberRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of subscribers in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of items to return.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Subscriber name to search for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter subscribers by Organization ID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter subscribers by Project ID.
     """
@@ -3915,7 +3951,7 @@ class ZonedApiMigrateLbRequest:
     Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3928,7 +3964,7 @@ class ZonedApiReleaseIpRequest:
     IP address ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3946,7 +3982,7 @@ class ZonedApiRemoveBackendServersRequest:
     List of IP addresses to remove from backend servers.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3964,7 +4000,7 @@ class ZonedApiSetAclsRequest:
     Frontend ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3982,7 +4018,7 @@ class ZonedApiSetBackendServersRequest:
     List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4000,7 +4036,7 @@ class ZonedApiSubscribeToLbRequest:
     Subscriber ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4013,7 +4049,7 @@ class ZonedApiUnsubscribeFromLbRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4041,17 +4077,17 @@ class ZonedApiUpdateAclRequest:
     Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    match: Optional[AclMatch]
+    match: Optional[AclMatch] = None
     """
     ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     ACL description.
     """
@@ -4094,72 +4130,74 @@ class ZonedApiUpdateBackendRequest:
     Cookie name for cookie-based sticky sessions.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    send_proxy_v2: Optional[bool]
+    send_proxy_v2: Optional[bool] = False
     """
     Deprecated in favor of proxy_protocol field.
     """
 
-    timeout_server: Optional[str]
+    timeout_server: Optional[str] = None
     """
     Maximum allowed time for a backend server to process a request.
     """
 
-    timeout_connect: Optional[str]
+    timeout_connect: Optional[str] = None
     """
     Maximum allowed time for establishing a connection to a backend server.
     """
 
-    timeout_tunnel: Optional[str]
+    timeout_tunnel: Optional[str] = None
     """
     Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
-    on_marked_down_action: Optional[OnMarkedDownAction]
+    on_marked_down_action: Optional[OnMarkedDownAction] = (
+        OnMarkedDownAction.ON_MARKED_DOWN_ACTION_NONE
+    )
     """
     Action to take when a backend server is marked as down.
     """
 
-    proxy_protocol: Optional[ProxyProtocol]
+    proxy_protocol: Optional[ProxyProtocol] = ProxyProtocol.PROXY_PROTOCOL_UNKNOWN
     """
     Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
     """
 
-    failover_host: Optional[str]
+    failover_host: Optional[str] = None
     """
     Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
-    ssl_bridging: Optional[bool]
+    ssl_bridging: Optional[bool] = False
     """
     Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
-    ignore_ssl_server_verify: Optional[bool]
+    ignore_ssl_server_verify: Optional[bool] = False
     """
     Defines whether the server certificate verification should be ignored.
     """
 
-    redispatch_attempt_count: Optional[int]
+    redispatch_attempt_count: Optional[int] = 0
     """
     Whether to use another backend server on each attempt.
     """
 
-    max_retries: Optional[int]
+    max_retries: Optional[int] = 0
     """
     Number of retries when a backend server connection failed.
     """
 
-    max_connections: Optional[int]
+    max_connections: Optional[int] = 0
     """
     Maximum number of connections allowed per backend server.
     """
 
-    timeout_queue: Optional[str]
+    timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
@@ -4177,7 +4215,7 @@ class ZonedApiUpdateCertificateRequest:
     Certificate name.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4210,32 +4248,32 @@ class ZonedApiUpdateFrontendRequest:
     Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    timeout_client: Optional[str]
+    timeout_client: Optional[str] = None
     """
     Maximum allowed inactivity time on the client side.
     """
 
-    certificate_id: Optional[str]
+    certificate_id: Optional[str] = None
     """
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]]
+    certificate_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
-    connection_rate_limit: Optional[int]
+    connection_rate_limit: Optional[int] = 0
     """
     Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
 
-    enable_access_logs: Optional[bool]
+    enable_access_logs: Optional[bool] = False
     """
     Defines whether to enable access logs on the frontend.
     """
@@ -4263,39 +4301,39 @@ class ZonedApiUpdateHealthCheckRequest:
     Defines whether proxy protocol should be activated for the health check.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    check_delay: Optional[str]
+    check_delay: Optional[str] = None
     """
     Time to wait between two consecutive health checks.
     """
 
-    check_timeout: Optional[str]
+    check_timeout: Optional[str] = None
     """
     Maximum time a backend server has to reply to the health check.
     """
 
-    transient_check_delay: Optional[str]
+    transient_check_delay: Optional[str] = None
     """
     Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
     """
 
-    tcp_config: Optional[HealthCheckTcpConfig]
+    tcp_config: Optional[HealthCheckTcpConfig] = None
 
-    mysql_config: Optional[HealthCheckMysqlConfig]
+    mysql_config: Optional[HealthCheckMysqlConfig] = None
 
-    pgsql_config: Optional[HealthCheckPgsqlConfig]
+    pgsql_config: Optional[HealthCheckPgsqlConfig] = None
 
-    ldap_config: Optional[HealthCheckLdapConfig]
+    ldap_config: Optional[HealthCheckLdapConfig] = None
 
-    redis_config: Optional[HealthCheckRedisConfig]
+    redis_config: Optional[HealthCheckRedisConfig] = None
 
-    http_config: Optional[HealthCheckHttpConfig]
+    http_config: Optional[HealthCheckHttpConfig] = None
 
-    https_config: Optional[HealthCheckHttpsConfig]
+    https_config: Optional[HealthCheckHttpsConfig] = None
 
 
 @dataclass
@@ -4305,22 +4343,22 @@ class ZonedApiUpdateIpRequest:
     IP address ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Reverse DNS (domain name) for the IP address.
     """
 
-    lb_id: Optional[str]
+    lb_id: Optional[str] = None
     """
     ID of the server on which to attach the flexible IP.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
@@ -4343,17 +4381,19 @@ class ZonedApiUpdateLbRequest:
     Load Balancer description.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
 
-    ssl_compatibility_level: Optional[SSLCompatibilityLevel]
+    ssl_compatibility_level: Optional[SSLCompatibilityLevel] = (
+        SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
+    )
     """
     Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
@@ -4371,12 +4411,12 @@ class ZonedApiUpdateRouteRequest:
     ID of the target backend for the route.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    match: Optional[RouteMatch]
+    match: Optional[RouteMatch] = None
     """
     Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
@@ -4394,11 +4434,11 @@ class ZonedApiUpdateSubscriberRequest:
     Subscriber name.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    email_config: Optional[SubscriberEmailConfig]
+    email_config: Optional[SubscriberEmailConfig] = None
 
-    webhook_config: Optional[SubscriberWebhookConfig]
+    webhook_config: Optional[SubscriberWebhookConfig] = None

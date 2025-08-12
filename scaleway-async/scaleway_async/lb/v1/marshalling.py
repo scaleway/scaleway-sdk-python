@@ -10,6 +10,23 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    AclActionRedirectRedirectType,
+    AclActionType,
+    AclHttpFilter,
+    BackendServerStatsHealthCheckStatus,
+    BackendServerStatsServerState,
+    CertificateStatus,
+    CertificateType,
+    ForwardPortAlgorithm,
+    InstanceStatus,
+    LbStatus,
+    LbTypeStock,
+    OnMarkedDownAction,
+    PrivateNetworkStatus,
+    Protocol,
+    ProxyProtocol,
+    SSLCompatibilityLevel,
+    StickySessionsType,
     Ip,
     SubscriberEmailConfig,
     SubscriberWebhookConfig,
@@ -117,30 +134,44 @@ def unmarshal_Ip(data: Any) -> Ip:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("ip_address", None)
     if field is not None:
         args["ip_address"] = field
+    else:
+        args["ip_address"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("reverse", None)
     if field is not None:
         args["reverse"] = field
+    else:
+        args["reverse"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("lb_id", None)
     if field is not None:
@@ -168,6 +199,8 @@ def unmarshal_SubscriberEmailConfig(data: Any) -> SubscriberEmailConfig:
     field = data.get("email", None)
     if field is not None:
         args["email"] = field
+    else:
+        args["email"] = None
 
     return SubscriberEmailConfig(**args)
 
@@ -183,6 +216,8 @@ def unmarshal_SubscriberWebhookConfig(data: Any) -> SubscriberWebhookConfig:
     field = data.get("uri", None)
     if field is not None:
         args["uri"] = field
+    else:
+        args["uri"] = None
 
     return SubscriberWebhookConfig(**args)
 
@@ -198,10 +233,14 @@ def unmarshal_Subscriber(data: Any) -> Subscriber:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("email_config", None)
     if field is not None:
@@ -229,20 +268,26 @@ def unmarshal_HealthCheckHttpConfig(data: Any) -> HealthCheckHttpConfig:
     field = data.get("uri", None)
     if field is not None:
         args["uri"] = field
+    else:
+        args["uri"] = None
 
     field = data.get("method", None)
     if field is not None:
         args["method"] = field
+    else:
+        args["method"] = None
 
     field = data.get("host_header", None)
     if field is not None:
         args["host_header"] = field
+    else:
+        args["host_header"] = None
 
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
     else:
-        args["code"] = None
+        args["code"] = 0
 
     return HealthCheckHttpConfig(**args)
 
@@ -258,24 +303,32 @@ def unmarshal_HealthCheckHttpsConfig(data: Any) -> HealthCheckHttpsConfig:
     field = data.get("uri", None)
     if field is not None:
         args["uri"] = field
+    else:
+        args["uri"] = None
 
     field = data.get("method", None)
     if field is not None:
         args["method"] = field
+    else:
+        args["method"] = None
 
     field = data.get("host_header", None)
     if field is not None:
         args["host_header"] = field
+    else:
+        args["host_header"] = None
 
     field = data.get("sni", None)
     if field is not None:
         args["sni"] = field
+    else:
+        args["sni"] = None
 
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
     else:
-        args["code"] = None
+        args["code"] = 0
 
     return HealthCheckHttpsConfig(**args)
 
@@ -302,6 +355,8 @@ def unmarshal_HealthCheckMysqlConfig(data: Any) -> HealthCheckMysqlConfig:
     field = data.get("user", None)
     if field is not None:
         args["user"] = field
+    else:
+        args["user"] = None
 
     return HealthCheckMysqlConfig(**args)
 
@@ -317,6 +372,8 @@ def unmarshal_HealthCheckPgsqlConfig(data: Any) -> HealthCheckPgsqlConfig:
     field = data.get("user", None)
     if field is not None:
         args["user"] = field
+    else:
+        args["user"] = None
 
     return HealthCheckPgsqlConfig(**args)
 
@@ -354,10 +411,14 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
     field = data.get("port", None)
     if field is not None:
         args["port"] = field
+    else:
+        args["port"] = 0
 
     field = data.get("check_max_retries", None)
     if field is not None:
         args["check_max_retries"] = field
+    else:
+        args["check_max_retries"] = 0
 
     field = data.get("check_delay", None)
     if field is not None:
@@ -386,6 +447,8 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
     field = data.get("check_send_proxy", None)
     if field is not None:
         args["check_send_proxy"] = field
+    else:
+        args["check_send_proxy"] = False
 
     field = data.get("pgsql_config", None)
     if field is not None:
@@ -437,18 +500,26 @@ def unmarshal_Instance(data: Any) -> Instance:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = InstanceStatus.UNKNOWN
 
     field = data.get("ip_address", None)
     if field is not None:
         args["ip_address"] = field
+    else:
+        args["ip_address"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -482,68 +553,102 @@ def unmarshal_Lb(data: Any) -> Lb:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = LbStatus.UNKNOWN
 
     field = data.get("instances", None)
     if field is not None:
         args["instances"] = (
             [unmarshal_Instance(v) for v in field] if field is not None else None
         )
+    else:
+        args["instances"] = field(default_factory=list)
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = [unmarshal_Ip(v) for v in field] if field is not None else None
+    else:
+        args["ip"] = field(default_factory=list)
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("frontend_count", None)
     if field is not None:
         args["frontend_count"] = field
+    else:
+        args["frontend_count"] = 0
 
     field = data.get("backend_count", None)
     if field is not None:
         args["backend_count"] = field
+    else:
+        args["backend_count"] = 0
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("ssl_compatibility_level", None)
     if field is not None:
         args["ssl_compatibility_level"] = field
+    else:
+        args["ssl_compatibility_level"] = (
+            SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
+        )
 
     field = data.get("private_network_count", None)
     if field is not None:
         args["private_network_count"] = field
+    else:
+        args["private_network_count"] = 0
 
     field = data.get("route_count", None)
     if field is not None:
         args["route_count"] = field
+    else:
+        args["route_count"] = 0
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("subscriber", None)
     if field is not None:
@@ -583,42 +688,62 @@ def unmarshal_Backend(data: Any) -> Backend:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("forward_protocol", None)
     if field is not None:
         args["forward_protocol"] = field
+    else:
+        args["forward_protocol"] = Protocol.TCP
 
     field = data.get("forward_port", None)
     if field is not None:
         args["forward_port"] = field
+    else:
+        args["forward_port"] = 0
 
     field = data.get("forward_port_algorithm", None)
     if field is not None:
         args["forward_port_algorithm"] = field
+    else:
+        args["forward_port_algorithm"] = ForwardPortAlgorithm.ROUNDROBIN
 
     field = data.get("sticky_sessions", None)
     if field is not None:
         args["sticky_sessions"] = field
+    else:
+        args["sticky_sessions"] = StickySessionsType.NONE
 
     field = data.get("sticky_sessions_cookie_name", None)
     if field is not None:
         args["sticky_sessions_cookie_name"] = field
+    else:
+        args["sticky_sessions_cookie_name"] = None
 
     field = data.get("pool", None)
     if field is not None:
         args["pool"] = field
+    else:
+        args["pool"] = field(default_factory=list)
 
     field = data.get("on_marked_down_action", None)
     if field is not None:
         args["on_marked_down_action"] = field
+    else:
+        args["on_marked_down_action"] = OnMarkedDownAction.ON_MARKED_DOWN_ACTION_NONE
 
     field = data.get("proxy_protocol", None)
     if field is not None:
         args["proxy_protocol"] = field
+    else:
+        args["proxy_protocol"] = ProxyProtocol.PROXY_PROTOCOL_UNKNOWN
 
     field = data.get("health_check", None)
     if field is not None:
@@ -636,7 +761,7 @@ def unmarshal_Backend(data: Any) -> Backend:
     if field is not None:
         args["send_proxy_v2"] = field
     else:
-        args["send_proxy_v2"] = None
+        args["send_proxy_v2"] = False
 
     field = data.get("timeout_server", None)
     if field is not None:
@@ -678,31 +803,31 @@ def unmarshal_Backend(data: Any) -> Backend:
     if field is not None:
         args["ssl_bridging"] = field
     else:
-        args["ssl_bridging"] = None
+        args["ssl_bridging"] = False
 
     field = data.get("ignore_ssl_server_verify", None)
     if field is not None:
         args["ignore_ssl_server_verify"] = field
     else:
-        args["ignore_ssl_server_verify"] = None
+        args["ignore_ssl_server_verify"] = False
 
     field = data.get("redispatch_attempt_count", None)
     if field is not None:
         args["redispatch_attempt_count"] = field
     else:
-        args["redispatch_attempt_count"] = None
+        args["redispatch_attempt_count"] = 0
 
     field = data.get("max_retries", None)
     if field is not None:
         args["max_retries"] = field
     else:
-        args["max_retries"] = None
+        args["max_retries"] = 0
 
     field = data.get("max_connections", None)
     if field is not None:
         args["max_connections"] = field
     else:
-        args["max_connections"] = None
+        args["max_connections"] = 0
 
     field = data.get("timeout_queue", None)
     if field is not None:
@@ -724,26 +849,38 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = CertificateType.LETSENCRYT
 
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("common_name", None)
     if field is not None:
         args["common_name"] = field
+    else:
+        args["common_name"] = None
 
     field = data.get("subject_alternative_name", None)
     if field is not None:
         args["subject_alternative_name"] = field
+    else:
+        args["subject_alternative_name"] = field(default_factory=list)
 
     field = data.get("fingerprint", None)
     if field is not None:
         args["fingerprint"] = field
+    else:
+        args["fingerprint"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = CertificateStatus.PENDING
 
     field = data.get("not_valid_before", None)
     if field is not None:
@@ -770,6 +907,8 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -803,18 +942,26 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("inbound_port", None)
     if field is not None:
         args["inbound_port"] = field
+    else:
+        args["inbound_port"] = 0
 
     field = data.get("certificate_ids", None)
     if field is not None:
         args["certificate_ids"] = field
+    else:
+        args["certificate_ids"] = field(default_factory=list)
 
     field = data.get("backend", None)
     if field is not None:
@@ -837,10 +984,14 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     field = data.get("enable_http3", None)
     if field is not None:
         args["enable_http3"] = field
+    else:
+        args["enable_http3"] = False
 
     field = data.get("enable_access_logs", None)
     if field is not None:
         args["enable_access_logs"] = field
+    else:
+        args["enable_access_logs"] = False
 
     field = data.get("certificate", None)
     if field is not None:
@@ -864,7 +1015,7 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     if field is not None:
         args["connection_rate_limit"] = field
     else:
-        args["connection_rate_limit"] = None
+        args["connection_rate_limit"] = 0
 
     return Frontend(**args)
 
@@ -880,16 +1031,20 @@ def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = AclActionRedirectRedirectType.LOCATION
 
     field = data.get("target", None)
     if field is not None:
         args["target"] = field
+    else:
+        args["target"] = None
 
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
     else:
-        args["code"] = None
+        args["code"] = 0
 
     return AclActionRedirect(**args)
 
@@ -905,6 +1060,8 @@ def unmarshal_AclAction(data: Any) -> AclAction:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = AclActionType.ALLOW
 
     field = data.get("redirect", None)
     if field is not None:
@@ -926,22 +1083,32 @@ def unmarshal_AclMatch(data: Any) -> AclMatch:
     field = data.get("ip_subnet", None)
     if field is not None:
         args["ip_subnet"] = field
+    else:
+        args["ip_subnet"] = field(default_factory=list)
 
     field = data.get("ips_edge_services", None)
     if field is not None:
         args["ips_edge_services"] = field
+    else:
+        args["ips_edge_services"] = False
 
     field = data.get("http_filter", None)
     if field is not None:
         args["http_filter"] = field
+    else:
+        args["http_filter"] = AclHttpFilter.ACL_HTTP_FILTER_NONE
 
     field = data.get("http_filter_value", None)
     if field is not None:
         args["http_filter_value"] = field
+    else:
+        args["http_filter_value"] = field(default_factory=list)
 
     field = data.get("invert", None)
     if field is not None:
         args["invert"] = field
+    else:
+        args["invert"] = False
 
     field = data.get("http_filter_option", None)
     if field is not None:
@@ -963,18 +1130,26 @@ def unmarshal_Acl(data: Any) -> Acl:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("index", None)
     if field is not None:
         args["index"] = field
+    else:
+        args["index"] = 0
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("match", None)
     if field is not None:
@@ -1049,7 +1224,7 @@ def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfi
     if field is not None:
         args["ip_address"] = field
     else:
-        args["ip_address"] = None
+        args["ip_address"] = field(default_factory=list)
 
     return PrivateNetworkStaticConfig(**args)
 
@@ -1065,14 +1240,20 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     field = data.get("ipam_ids", None)
     if field is not None:
         args["ipam_ids"] = field
+    else:
+        args["ipam_ids"] = field(default_factory=list)
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = PrivateNetworkStatus.UNKNOWN
 
     field = data.get("lb", None)
     if field is not None:
@@ -1124,6 +1305,8 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
     field = data.get("match_subdomains", None)
     if field is not None:
         args["match_subdomains"] = field
+    else:
+        args["match_subdomains"] = False
 
     field = data.get("sni", None)
     if field is not None:
@@ -1157,14 +1340,20 @@ def unmarshal_Route(data: Any) -> Route:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("frontend_id", None)
     if field is not None:
         args["frontend_id"] = field
+    else:
+        args["frontend_id"] = None
 
     field = data.get("backend_id", None)
     if field is not None:
         args["backend_id"] = field
+    else:
+        args["backend_id"] = None
 
     field = data.get("match", None)
     if field is not None:
@@ -1198,22 +1387,32 @@ def unmarshal_BackendServerStats(data: Any) -> BackendServerStats:
     field = data.get("instance_id", None)
     if field is not None:
         args["instance_id"] = field
+    else:
+        args["instance_id"] = None
 
     field = data.get("backend_id", None)
     if field is not None:
         args["backend_id"] = field
+    else:
+        args["backend_id"] = None
 
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = field
+    else:
+        args["ip"] = None
 
     field = data.get("server_state", None)
     if field is not None:
         args["server_state"] = field
+    else:
+        args["server_state"] = BackendServerStatsServerState.STOPPED
 
     field = data.get("last_health_check_status", None)
     if field is not None:
         args["last_health_check_status"] = field
+    else:
+        args["last_health_check_status"] = BackendServerStatsHealthCheckStatus.UNKNOWN
 
     field = data.get("server_state_changed_at", None)
     if field is not None:
@@ -1241,6 +1440,8 @@ def unmarshal_LbStats(data: Any) -> LbStats:
             if field is not None
             else None
         )
+    else:
+        args["backend_servers_stats"] = field(default_factory=list)
 
     return LbStats(**args)
 
@@ -1256,10 +1457,14 @@ def unmarshal_ListAclResponse(data: Any) -> ListAclResponse:
     field = data.get("acls", None)
     if field is not None:
         args["acls"] = [unmarshal_Acl(v) for v in field] if field is not None else None
+    else:
+        args["acls"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListAclResponse(**args)
 
@@ -1279,10 +1484,14 @@ def unmarshal_ListBackendStatsResponse(data: Any) -> ListBackendStatsResponse:
             if field is not None
             else None
         )
+    else:
+        args["backend_servers_stats"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListBackendStatsResponse(**args)
 
@@ -1300,10 +1509,14 @@ def unmarshal_ListBackendsResponse(data: Any) -> ListBackendsResponse:
         args["backends"] = (
             [unmarshal_Backend(v) for v in field] if field is not None else None
         )
+    else:
+        args["backends"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListBackendsResponse(**args)
 
@@ -1321,10 +1534,14 @@ def unmarshal_ListCertificatesResponse(data: Any) -> ListCertificatesResponse:
         args["certificates"] = (
             [unmarshal_Certificate(v) for v in field] if field is not None else None
         )
+    else:
+        args["certificates"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListCertificatesResponse(**args)
 
@@ -1342,10 +1559,14 @@ def unmarshal_ListFrontendsResponse(data: Any) -> ListFrontendsResponse:
         args["frontends"] = (
             [unmarshal_Frontend(v) for v in field] if field is not None else None
         )
+    else:
+        args["frontends"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListFrontendsResponse(**args)
 
@@ -1361,10 +1582,14 @@ def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
     field = data.get("ips", None)
     if field is not None:
         args["ips"] = [unmarshal_Ip(v) for v in field] if field is not None else None
+    else:
+        args["ips"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListIpsResponse(**args)
 
@@ -1382,10 +1607,14 @@ def unmarshal_ListLbPrivateNetworksResponse(data: Any) -> ListLbPrivateNetworksR
         args["private_network"] = (
             [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
         )
+    else:
+        args["private_network"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListLbPrivateNetworksResponse(**args)
 
@@ -1401,18 +1630,26 @@ def unmarshal_LbType(data: Any) -> LbType:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("stock_status", None)
     if field is not None:
         args["stock_status"] = field
+    else:
+        args["stock_status"] = LbTypeStock.UNKNOWN
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("region", None)
     if field is not None:
@@ -1436,10 +1673,14 @@ def unmarshal_ListLbTypesResponse(data: Any) -> ListLbTypesResponse:
         args["lb_types"] = (
             [unmarshal_LbType(v) for v in field] if field is not None else None
         )
+    else:
+        args["lb_types"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListLbTypesResponse(**args)
 
@@ -1455,10 +1696,14 @@ def unmarshal_ListLbsResponse(data: Any) -> ListLbsResponse:
     field = data.get("lbs", None)
     if field is not None:
         args["lbs"] = [unmarshal_Lb(v) for v in field] if field is not None else None
+    else:
+        args["lbs"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListLbsResponse(**args)
 
@@ -1476,10 +1721,14 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
         args["routes"] = (
             [unmarshal_Route(v) for v in field] if field is not None else None
         )
+    else:
+        args["routes"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListRoutesResponse(**args)
 
@@ -1497,10 +1746,14 @@ def unmarshal_ListSubscriberResponse(data: Any) -> ListSubscriberResponse:
         args["subscribers"] = (
             [unmarshal_Subscriber(v) for v in field] if field is not None else None
         )
+    else:
+        args["subscribers"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListSubscriberResponse(**args)
 
@@ -1516,10 +1769,14 @@ def unmarshal_SetAclsResponse(data: Any) -> SetAclsResponse:
     field = data.get("acls", None)
     if field is not None:
         args["acls"] = [unmarshal_Acl(v) for v in field] if field is not None else None
+    else:
+        args["acls"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return SetAclsResponse(**args)
 
@@ -1609,7 +1866,7 @@ def marshal_AclActionRedirect(
     output: Dict[str, Any] = {}
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.target is not None:
         output["target"] = request.target
@@ -1627,7 +1884,7 @@ def marshal_AclAction(
     output: Dict[str, Any] = {}
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.redirect is not None:
         output["redirect"] = marshal_AclActionRedirect(request.redirect, defaults)
@@ -1648,7 +1905,7 @@ def marshal_AclMatch(
         output["ips_edge_services"] = request.ips_edge_services
 
     if request.http_filter is not None:
-        output["http_filter"] = str(request.http_filter)
+        output["http_filter"] = request.http_filter
 
     if request.http_filter_value is not None:
         output["http_filter_value"] = request.http_filter_value
@@ -1857,16 +2114,16 @@ def marshal_CreateBackendRequest(
     output: Dict[str, Any] = {}
 
     if request.forward_protocol is not None:
-        output["forward_protocol"] = str(request.forward_protocol)
+        output["forward_protocol"] = request.forward_protocol
 
     if request.forward_port is not None:
         output["forward_port"] = request.forward_port
 
     if request.forward_port_algorithm is not None:
-        output["forward_port_algorithm"] = str(request.forward_port_algorithm)
+        output["forward_port_algorithm"] = request.forward_port_algorithm
 
     if request.sticky_sessions is not None:
-        output["sticky_sessions"] = str(request.sticky_sessions)
+        output["sticky_sessions"] = request.sticky_sessions
 
     if request.sticky_sessions_cookie_name is not None:
         output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
@@ -1893,10 +2150,10 @@ def marshal_CreateBackendRequest(
         output["timeout_tunnel"] = request.timeout_tunnel
 
     if request.on_marked_down_action is not None:
-        output["on_marked_down_action"] = str(request.on_marked_down_action)
+        output["on_marked_down_action"] = request.on_marked_down_action
 
     if request.proxy_protocol is not None:
-        output["proxy_protocol"] = str(request.proxy_protocol)
+        output["proxy_protocol"] = request.proxy_protocol
 
     if request.failover_host is not None:
         output["failover_host"] = request.failover_host
@@ -2098,7 +2355,7 @@ def marshal_CreateLbRequest(
         output["tags"] = request.tags
 
     if request.ssl_compatibility_level is not None:
-        output["ssl_compatibility_level"] = str(request.ssl_compatibility_level)
+        output["ssl_compatibility_level"] = request.ssl_compatibility_level
 
     return output
 
@@ -2298,16 +2555,16 @@ def marshal_UpdateBackendRequest(
         output["name"] = request.name
 
     if request.forward_protocol is not None:
-        output["forward_protocol"] = str(request.forward_protocol)
+        output["forward_protocol"] = request.forward_protocol
 
     if request.forward_port is not None:
         output["forward_port"] = request.forward_port
 
     if request.forward_port_algorithm is not None:
-        output["forward_port_algorithm"] = str(request.forward_port_algorithm)
+        output["forward_port_algorithm"] = request.forward_port_algorithm
 
     if request.sticky_sessions is not None:
-        output["sticky_sessions"] = str(request.sticky_sessions)
+        output["sticky_sessions"] = request.sticky_sessions
 
     if request.sticky_sessions_cookie_name is not None:
         output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
@@ -2325,10 +2582,10 @@ def marshal_UpdateBackendRequest(
         output["timeout_tunnel"] = request.timeout_tunnel
 
     if request.on_marked_down_action is not None:
-        output["on_marked_down_action"] = str(request.on_marked_down_action)
+        output["on_marked_down_action"] = request.on_marked_down_action
 
     if request.proxy_protocol is not None:
-        output["proxy_protocol"] = str(request.proxy_protocol)
+        output["proxy_protocol"] = request.proxy_protocol
 
     if request.failover_host is not None:
         output["failover_host"] = request.failover_host
@@ -2504,7 +2761,7 @@ def marshal_UpdateLbRequest(
         output["tags"] = request.tags
 
     if request.ssl_compatibility_level is not None:
-        output["ssl_compatibility_level"] = str(request.ssl_compatibility_level)
+        output["ssl_compatibility_level"] = request.ssl_compatibility_level
 
     return output
 
@@ -2631,16 +2888,16 @@ def marshal_ZonedApiCreateBackendRequest(
     output: Dict[str, Any] = {}
 
     if request.forward_protocol is not None:
-        output["forward_protocol"] = str(request.forward_protocol)
+        output["forward_protocol"] = request.forward_protocol
 
     if request.forward_port is not None:
         output["forward_port"] = request.forward_port
 
     if request.forward_port_algorithm is not None:
-        output["forward_port_algorithm"] = str(request.forward_port_algorithm)
+        output["forward_port_algorithm"] = request.forward_port_algorithm
 
     if request.sticky_sessions is not None:
-        output["sticky_sessions"] = str(request.sticky_sessions)
+        output["sticky_sessions"] = request.sticky_sessions
 
     if request.sticky_sessions_cookie_name is not None:
         output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
@@ -2667,10 +2924,10 @@ def marshal_ZonedApiCreateBackendRequest(
         output["timeout_tunnel"] = request.timeout_tunnel
 
     if request.on_marked_down_action is not None:
-        output["on_marked_down_action"] = str(request.on_marked_down_action)
+        output["on_marked_down_action"] = request.on_marked_down_action
 
     if request.proxy_protocol is not None:
-        output["proxy_protocol"] = str(request.proxy_protocol)
+        output["proxy_protocol"] = request.proxy_protocol
 
     if request.failover_host is not None:
         output["failover_host"] = request.failover_host
@@ -2845,7 +3102,7 @@ def marshal_ZonedApiCreateLbRequest(
         output["tags"] = request.tags
 
     if request.ssl_compatibility_level is not None:
-        output["ssl_compatibility_level"] = str(request.ssl_compatibility_level)
+        output["ssl_compatibility_level"] = request.ssl_compatibility_level
 
     return output
 
@@ -3044,16 +3301,16 @@ def marshal_ZonedApiUpdateBackendRequest(
         output["name"] = request.name
 
     if request.forward_protocol is not None:
-        output["forward_protocol"] = str(request.forward_protocol)
+        output["forward_protocol"] = request.forward_protocol
 
     if request.forward_port is not None:
         output["forward_port"] = request.forward_port
 
     if request.forward_port_algorithm is not None:
-        output["forward_port_algorithm"] = str(request.forward_port_algorithm)
+        output["forward_port_algorithm"] = request.forward_port_algorithm
 
     if request.sticky_sessions is not None:
-        output["sticky_sessions"] = str(request.sticky_sessions)
+        output["sticky_sessions"] = request.sticky_sessions
 
     if request.sticky_sessions_cookie_name is not None:
         output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
@@ -3071,10 +3328,10 @@ def marshal_ZonedApiUpdateBackendRequest(
         output["timeout_tunnel"] = request.timeout_tunnel
 
     if request.on_marked_down_action is not None:
-        output["on_marked_down_action"] = str(request.on_marked_down_action)
+        output["on_marked_down_action"] = request.on_marked_down_action
 
     if request.proxy_protocol is not None:
-        output["proxy_protocol"] = str(request.proxy_protocol)
+        output["proxy_protocol"] = request.proxy_protocol
 
     if request.failover_host is not None:
         output["failover_host"] = request.failover_host
@@ -3250,7 +3507,7 @@ def marshal_ZonedApiUpdateLbRequest(
         output["tags"] = request.tags
 
     if request.ssl_compatibility_level is not None:
-        output["ssl_compatibility_level"] = str(request.ssl_compatibility_level)
+        output["ssl_compatibility_level"] = request.ssl_compatibility_level
 
     return output
 
