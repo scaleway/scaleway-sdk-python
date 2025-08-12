@@ -13,7 +13,13 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    DNSStageType,
+    PipelineStatus,
+    PlanName,
+    PurgeRequestStatus,
     RuleHttpMatchMethodFilter,
+    RuleHttpMatchPathFilterPathFilterType,
+    WafStageMode,
     ScalewayLb,
     ScalewayLbBackendConfig,
     ScalewayS3BackendConfig,
@@ -97,20 +103,26 @@ def unmarshal_ScalewayLb(data: Any) -> ScalewayLb:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("frontend_id", None)
     if field is not None:
         args["frontend_id"] = field
+    else:
+        args["frontend_id"] = None
 
     field = data.get("is_ssl", None)
     if field is not None:
         args["is_ssl"] = field
     else:
-        args["is_ssl"] = None
+        args["is_ssl"] = False
 
     field = data.get("domain_name", None)
     if field is not None:
@@ -134,6 +146,8 @@ def unmarshal_ScalewayLbBackendConfig(data: Any) -> ScalewayLbBackendConfig:
         args["lbs"] = (
             [unmarshal_ScalewayLb(v) for v in field] if field is not None else None
         )
+    else:
+        args["lbs"] = field(default_factory=list)
 
     return ScalewayLbBackendConfig(**args)
 
@@ -162,7 +176,7 @@ def unmarshal_ScalewayS3BackendConfig(data: Any) -> ScalewayS3BackendConfig:
     if field is not None:
         args["is_website"] = field
     else:
-        args["is_website"] = None
+        args["is_website"] = False
 
     return ScalewayS3BackendConfig(**args)
 
@@ -178,10 +192,14 @@ def unmarshal_BackendStage(data: Any) -> BackendStage:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("pipeline_id", None)
     if field is not None:
         args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -221,14 +239,20 @@ def unmarshal_CacheStage(data: Any) -> CacheStage:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("pipeline_id", None)
     if field is not None:
         args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
 
     field = data.get("include_cookies", None)
     if field is not None:
         args["include_cookies"] = field
+    else:
+        args["include_cookies"] = False
 
     field = data.get("fallback_ttl", None)
     if field is not None:
@@ -280,18 +304,26 @@ def unmarshal_DNSStage(data: Any) -> DNSStage:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("fqdns", None)
     if field is not None:
         args["fqdns"] = field
+    else:
+        args["fqdns"] = field(default_factory=list)
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = DNSStageType.UNKNOWN_TYPE
 
     field = data.get("pipeline_id", None)
     if field is not None:
         args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -337,22 +369,32 @@ def unmarshal_PipelineError(data: Any) -> PipelineError:
     field = data.get("stage", None)
     if field is not None:
         args["stage"] = field
+    else:
+        args["stage"] = None
 
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
+    else:
+        args["code"] = None
 
     field = data.get("severity", None)
     if field is not None:
         args["severity"] = field
+    else:
+        args["severity"] = None
 
     field = data.get("message", None)
     if field is not None:
         args["message"] = field
+    else:
+        args["message"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     return PipelineError(**args)
 
@@ -368,32 +410,46 @@ def unmarshal_Pipeline(data: Any) -> Pipeline:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = PipelineStatus.UNKNOWN_STATUS
 
     field = data.get("errors", None)
     if field is not None:
         args["errors"] = (
             [unmarshal_PipelineError(v) for v in field] if field is not None else None
         )
+    else:
+        args["errors"] = field(default_factory=list)
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -421,10 +477,14 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("pipeline_id", None)
     if field is not None:
         args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
 
     field = data.get("waf_stage_id", None)
     if field is not None:
@@ -458,10 +518,14 @@ def unmarshal_TLSSecret(data: Any) -> TLSSecret:
     field = data.get("secret_id", None)
     if field is not None:
         args["secret_id"] = field
+    else:
+        args["secret_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     return TLSSecret(**args)
 
@@ -477,20 +541,28 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("secrets", None)
     if field is not None:
         args["secrets"] = (
             [unmarshal_TLSSecret(v) for v in field] if field is not None else None
         )
+    else:
+        args["secrets"] = field(default_factory=list)
 
     field = data.get("managed_certificate", None)
     if field is not None:
         args["managed_certificate"] = field
+    else:
+        args["managed_certificate"] = False
 
     field = data.get("pipeline_id", None)
     if field is not None:
         args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
 
     field = data.get("certificate_expires_at", None)
     if field is not None:
@@ -550,18 +622,26 @@ def unmarshal_WafStage(data: Any) -> WafStage:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("pipeline_id", None)
     if field is not None:
         args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
 
     field = data.get("mode", None)
     if field is not None:
         args["mode"] = field
+    else:
+        args["mode"] = WafStageMode.UNKNOWN_MODE
 
     field = data.get("paranoia_level", None)
     if field is not None:
         args["paranoia_level"] = field
+    else:
+        args["paranoia_level"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -597,36 +677,48 @@ def unmarshal_PipelineStages(data: Any) -> PipelineStages:
         args["dns_stages"] = (
             [unmarshal_DNSStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["dns_stages"] = None
 
     field = data.get("tls_stages", None)
     if field is not None:
         args["tls_stages"] = (
             [unmarshal_TLSStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["tls_stages"] = None
 
     field = data.get("cache_stages", None)
     if field is not None:
         args["cache_stages"] = (
             [unmarshal_CacheStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["cache_stages"] = None
 
     field = data.get("backend_stages", None)
     if field is not None:
         args["backend_stages"] = (
             [unmarshal_BackendStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["backend_stages"] = None
 
     field = data.get("waf_stages", None)
     if field is not None:
         args["waf_stages"] = (
             [unmarshal_WafStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["waf_stages"] = None
 
     field = data.get("route_stages", None)
     if field is not None:
         args["route_stages"] = (
             [unmarshal_RouteStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["route_stages"] = None
 
     field = data.get("pipeline", None)
     if field is not None:
@@ -648,26 +740,32 @@ def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("pipeline_id", None)
     if field is not None:
         args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = PurgeRequestStatus.UNKNOWN_STATUS
 
     field = data.get("assets", None)
     if field is not None:
         args["assets"] = field
     else:
-        args["assets"] = None
+        args["assets"] = field(default_factory=list)
 
     field = data.get("all", None)
     if field is not None:
         args["all"] = field
     else:
-        args["all"] = None
+        args["all"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -695,10 +793,16 @@ def unmarshal_RuleHttpMatchPathFilter(data: Any) -> RuleHttpMatchPathFilter:
     field = data.get("path_filter_type", None)
     if field is not None:
         args["path_filter_type"] = field
+    else:
+        args["path_filter_type"] = (
+            RuleHttpMatchPathFilterPathFilterType.UNKNOWN_PATH_FILTER
+        )
 
     field = data.get("value", None)
     if field is not None:
         args["value"] = field
+    else:
+        args["value"] = None
 
     return RuleHttpMatchPathFilter(**args)
 
@@ -716,6 +820,8 @@ def unmarshal_RuleHttpMatch(data: Any) -> RuleHttpMatch:
         args["method_filters"] = (
             [RuleHttpMatchMethodFilter(v) for v in field] if field is not None else None
         )
+    else:
+        args["method_filters"] = field(default_factory=list)
 
     field = data.get("path_filter", None)
     if field is not None:
@@ -737,10 +843,14 @@ def unmarshal_RouteRule(data: Any) -> RouteRule:
     field = data.get("position", None)
     if field is not None:
         args["position"] = field
+    else:
+        args["position"] = 0
 
     field = data.get("route_stage_id", None)
     if field is not None:
         args["route_stage_id"] = field
+    else:
+        args["route_stage_id"] = None
 
     field = data.get("rule_http_match", None)
     if field is not None:
@@ -770,6 +880,8 @@ def unmarshal_AddRouteRulesResponse(data: Any) -> AddRouteRulesResponse:
         args["route_rules"] = (
             [unmarshal_RouteRule(v) for v in field] if field is not None else None
         )
+    else:
+        args["route_rules"] = field(default_factory=list)
 
     return AddRouteRulesResponse(**args)
 
@@ -785,6 +897,8 @@ def unmarshal_CheckDomainResponse(data: Any) -> CheckDomainResponse:
     field = data.get("is_valid", None)
     if field is not None:
         args["is_valid"] = field
+    else:
+        args["is_valid"] = None
 
     return CheckDomainResponse(**args)
 
@@ -800,10 +914,14 @@ def unmarshal_CheckLbOriginResponse(data: Any) -> CheckLbOriginResponse:
     field = data.get("is_valid", None)
     if field is not None:
         args["is_valid"] = field
+    else:
+        args["is_valid"] = None
 
     field = data.get("error_type", None)
     if field is not None:
         args["error_type"] = field
+    else:
+        args["error_type"] = None
 
     return CheckLbOriginResponse(**args)
 
@@ -819,6 +937,8 @@ def unmarshal_CheckPEMChainResponse(data: Any) -> CheckPEMChainResponse:
     field = data.get("is_valid", None)
     if field is not None:
         args["is_valid"] = field
+    else:
+        args["is_valid"] = None
 
     return CheckPEMChainResponse(**args)
 
@@ -834,18 +954,26 @@ def unmarshal_PlanDetails(data: Any) -> PlanDetails:
     field = data.get("plan_name", None)
     if field is not None:
         args["plan_name"] = field
+    else:
+        args["plan_name"] = PlanName.UNKNOWN_NAME
 
     field = data.get("package_gb", None)
     if field is not None:
         args["package_gb"] = field
+    else:
+        args["package_gb"] = 0
 
     field = data.get("pipeline_limit", None)
     if field is not None:
         args["pipeline_limit"] = field
+    else:
+        args["pipeline_limit"] = 0
 
     field = data.get("waf_requests", None)
     if field is not None:
         args["waf_requests"] = field
+    else:
+        args["waf_requests"] = 0
 
     return PlanDetails(**args)
 
@@ -884,22 +1012,32 @@ def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
     field = data.get("pipeline_number", None)
     if field is not None:
         args["pipeline_number"] = field
+    else:
+        args["pipeline_number"] = 0
 
     field = data.get("current_plan_cache_usage", None)
     if field is not None:
         args["current_plan_cache_usage"] = field
+    else:
+        args["current_plan_cache_usage"] = 0
 
     field = data.get("extra_cache_usage", None)
     if field is not None:
         args["extra_cache_usage"] = field
+    else:
+        args["extra_cache_usage"] = 0
 
     field = data.get("current_plan_waf_usage", None)
     if field is not None:
         args["current_plan_waf_usage"] = field
+    else:
+        args["current_plan_waf_usage"] = 0
 
     field = data.get("extra_waf_usage", None)
     if field is not None:
         args["extra_waf_usage"] = field
+    else:
+        args["extra_waf_usage"] = 0
 
     field = data.get("plan_cost", None)
     if field is not None:
@@ -920,6 +1058,8 @@ def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
             if field is not None
             else None
         )
+    else:
+        args["plans_usage_details"] = field(default_factory=dict)
 
     field = data.get("extra_cache_cost", None)
     if field is not None:
@@ -995,10 +1135,14 @@ def unmarshal_ListBackendStagesResponse(data: Any) -> ListBackendStagesResponse:
         args["stages"] = (
             [unmarshal_BackendStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["stages"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListBackendStagesResponse(**args)
 
@@ -1016,10 +1160,14 @@ def unmarshal_ListCacheStagesResponse(data: Any) -> ListCacheStagesResponse:
         args["stages"] = (
             [unmarshal_CacheStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["stages"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListCacheStagesResponse(**args)
 
@@ -1037,10 +1185,14 @@ def unmarshal_ListDNSStagesResponse(data: Any) -> ListDNSStagesResponse:
         args["stages"] = (
             [unmarshal_DNSStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["stages"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListDNSStagesResponse(**args)
 
@@ -1079,10 +1231,14 @@ def unmarshal_ListHeadStagesResponse(data: Any) -> ListHeadStagesResponse:
             if field is not None
             else None
         )
+    else:
+        args["head_stages"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListHeadStagesResponse(**args)
 
@@ -1100,10 +1256,14 @@ def unmarshal_ListPipelinesResponse(data: Any) -> ListPipelinesResponse:
         args["pipelines"] = (
             [unmarshal_Pipeline(v) for v in field] if field is not None else None
         )
+    else:
+        args["pipelines"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListPipelinesResponse(**args)
 
@@ -1123,10 +1283,14 @@ def unmarshal_ListPipelinesWithStagesResponse(
         args["pipelines"] = (
             [unmarshal_PipelineStages(v) for v in field] if field is not None else None
         )
+    else:
+        args["pipelines"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListPipelinesWithStagesResponse(**args)
 
@@ -1142,12 +1306,16 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     field = data.get("plans", None)
     if field is not None:
         args["plans"] = (
             [unmarshal_PlanDetails(v) for v in field] if field is not None else None
         )
+    else:
+        args["plans"] = None
 
     return ListPlansResponse(**args)
 
@@ -1165,10 +1333,14 @@ def unmarshal_ListPurgeRequestsResponse(data: Any) -> ListPurgeRequestsResponse:
         args["purge_requests"] = (
             [unmarshal_PurgeRequest(v) for v in field] if field is not None else None
         )
+    else:
+        args["purge_requests"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListPurgeRequestsResponse(**args)
 
@@ -1186,10 +1358,14 @@ def unmarshal_ListRouteRulesResponse(data: Any) -> ListRouteRulesResponse:
         args["route_rules"] = (
             [unmarshal_RouteRule(v) for v in field] if field is not None else None
         )
+    else:
+        args["route_rules"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListRouteRulesResponse(**args)
 
@@ -1207,10 +1383,14 @@ def unmarshal_ListRouteStagesResponse(data: Any) -> ListRouteStagesResponse:
         args["stages"] = (
             [unmarshal_RouteStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["stages"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListRouteStagesResponse(**args)
 
@@ -1228,10 +1408,14 @@ def unmarshal_ListTLSStagesResponse(data: Any) -> ListTLSStagesResponse:
         args["stages"] = (
             [unmarshal_TLSStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["stages"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListTLSStagesResponse(**args)
 
@@ -1249,10 +1433,14 @@ def unmarshal_ListWafStagesResponse(data: Any) -> ListWafStagesResponse:
         args["stages"] = (
             [unmarshal_WafStage(v) for v in field] if field is not None else None
         )
+    else:
+        args["stages"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListWafStagesResponse(**args)
 
@@ -1268,6 +1456,8 @@ def unmarshal_Plan(data: Any) -> Plan:
     field = data.get("plan_name", None)
     if field is not None:
         args["plan_name"] = field
+    else:
+        args["plan_name"] = None
 
     return Plan(**args)
 
@@ -1285,6 +1475,8 @@ def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
         args["route_rules"] = (
             [unmarshal_RouteRule(v) for v in field] if field is not None else None
         )
+    else:
+        args["route_rules"] = field(default_factory=list)
 
     return SetRouteRulesResponse(**args)
 
@@ -1296,7 +1488,7 @@ def marshal_RuleHttpMatchPathFilter(
     output: Dict[str, Any] = {}
 
     if request.path_filter_type is not None:
-        output["path_filter_type"] = str(request.path_filter_type)
+        output["path_filter_type"] = request.path_filter_type
 
     if request.value is not None:
         output["value"] = request.value
@@ -1396,7 +1588,9 @@ def marshal_CheckDomainRequest(
         output["cname"] = request.cname
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1411,7 +1605,9 @@ def marshal_ScalewayLb(
         output["id"] = request.id
 
     if request.zone is not None:
-        output["zone"] = request.zone or defaults.default_zone
+        output["zone"] = request.zone
+    else:
+        output["zone"] = defaults.default_zone
 
     if request.frontend_id is not None:
         output["frontend_id"] = request.frontend_id
@@ -1474,7 +1670,9 @@ def marshal_CheckPEMChainRequest(
         output["fqdn"] = request.fqdn
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1612,7 +1810,9 @@ def marshal_CreatePipelineRequest(
         output["description"] = request.description
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1667,7 +1867,9 @@ def marshal_TLSSecret(
         output["secret_id"] = request.secret_id
 
     if request.region is not None:
-        output["region"] = request.region or defaults.default_region
+        output["region"] = request.region
+    else:
+        output["region"] = defaults.default_region
 
     return output
 
@@ -1734,7 +1936,7 @@ def marshal_CreateWafStageRequest(
         output["paranoia_level"] = request.paranoia_level
 
     if request.mode is not None:
-        output["mode"] = str(request.mode)
+        output["mode"] = request.mode
 
     return output
 
@@ -1746,10 +1948,12 @@ def marshal_SelectPlanRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.plan_name is not None:
-        output["plan_name"] = str(request.plan_name)
+        output["plan_name"] = request.plan_name
 
     return output
 
@@ -2037,7 +2241,7 @@ def marshal_UpdateWafStageRequest(
     )
 
     if request.mode is not None:
-        output["mode"] = str(request.mode)
+        output["mode"] = request.mode
 
     if request.paranoia_level is not None:
         output["paranoia_level"] = request.paranoia_level

@@ -13,9 +13,23 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    BackupItemType,
+    BackupStatus,
+    DnsRecordStatus,
+    DnsRecordType,
+    DnsRecordsStatus,
     DomainAction,
     DomainAvailabilityAction,
+    DomainAvailabilityStatus,
     DomainDnsAction,
+    DomainStatus,
+    DomainZoneOwner,
+    HostingStatus,
+    NameserverStatus,
+    OfferOptionName,
+    OfferOptionWarning,
+    PlatformPlatformGroup,
+    Backup,
     DatabaseUser,
     Database,
     FtpAccount,
@@ -35,6 +49,10 @@ from .types import (
     Offer,
     Platform,
     Hosting,
+    BackupItem,
+    BackupItemGroup,
+    ListBackupItemsResponse,
+    ListBackupsResponse,
     ControlPanel,
     ListControlPanelsResponse,
     ListDatabaseUsersResponse,
@@ -48,9 +66,12 @@ from .types import (
     ListWebsitesResponse,
     ResetHostingPasswordResponse,
     ResourceSummary,
+    RestoreBackupItemsResponse,
+    RestoreBackupResponse,
     DomainAvailability,
     SearchDomainsResponse,
     Session,
+    BackupApiRestoreBackupItemsRequest,
     DatabaseApiAssignDatabaseUserRequest,
     DatabaseApiChangeDatabaseUserPasswordRequest,
     CreateDatabaseRequestUser,
@@ -75,6 +96,47 @@ from ...std.types import (
 )
 
 
+def unmarshal_Backup(data: Any) -> Backup:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Backup' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+    else:
+        args["size"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = BackupStatus.UNKNOWN_BACKUP_STATUS
+
+    field = data.get("total_items", None)
+    if field is not None:
+        args["total_items"] = field
+    else:
+        args["total_items"] = 0
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    return Backup(**args)
+
+
 def unmarshal_DatabaseUser(data: Any) -> DatabaseUser:
     if not isinstance(data, dict):
         raise TypeError(
@@ -86,10 +148,14 @@ def unmarshal_DatabaseUser(data: Any) -> DatabaseUser:
     field = data.get("username", None)
     if field is not None:
         args["username"] = field
+    else:
+        args["username"] = None
 
     field = data.get("databases", None)
     if field is not None:
         args["databases"] = field
+    else:
+        args["databases"] = field(default_factory=list)
 
     return DatabaseUser(**args)
 
@@ -105,10 +171,14 @@ def unmarshal_Database(data: Any) -> Database:
     field = data.get("database_name", None)
     if field is not None:
         args["database_name"] = field
+    else:
+        args["database_name"] = None
 
     field = data.get("users", None)
     if field is not None:
         args["users"] = field
+    else:
+        args["users"] = field(default_factory=list)
 
     return Database(**args)
 
@@ -124,10 +194,14 @@ def unmarshal_FtpAccount(data: Any) -> FtpAccount:
     field = data.get("username", None)
     if field is not None:
         args["username"] = field
+    else:
+        args["username"] = None
 
     field = data.get("path", None)
     if field is not None:
         args["path"] = field
+    else:
+        args["path"] = None
 
     return FtpAccount(**args)
 
@@ -143,10 +217,14 @@ def unmarshal_MailAccount(data: Any) -> MailAccount:
     field = data.get("domain", None)
     if field is not None:
         args["domain"] = field
+    else:
+        args["domain"] = None
 
     field = data.get("username", None)
     if field is not None:
         args["username"] = field
+    else:
+        args["username"] = None
 
     return MailAccount(**args)
 
@@ -162,6 +240,8 @@ def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainRespo
     field = data.get("owns_domain", None)
     if field is not None:
         args["owns_domain"] = field
+    else:
+        args["owns_domain"] = False
 
     return CheckUserOwnsDomainResponse(**args)
 
@@ -177,22 +257,32 @@ def unmarshal_AutoConfigDomainDns(data: Any) -> AutoConfigDomainDns:
     field = data.get("nameservers", None)
     if field is not None:
         args["nameservers"] = field
+    else:
+        args["nameservers"] = False
 
     field = data.get("web_records", None)
     if field is not None:
         args["web_records"] = field
+    else:
+        args["web_records"] = False
 
     field = data.get("mail_records", None)
     if field is not None:
         args["mail_records"] = field
+    else:
+        args["mail_records"] = False
 
     field = data.get("all_records", None)
     if field is not None:
         args["all_records"] = field
+    else:
+        args["all_records"] = False
 
     field = data.get("none", None)
     if field is not None:
         args["none"] = field
+    else:
+        args["none"] = False
 
     return AutoConfigDomainDns(**args)
 
@@ -208,32 +298,44 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = DnsRecordType.UNKNOWN_TYPE
 
     field = data.get("ttl", None)
     if field is not None:
         args["ttl"] = field
+    else:
+        args["ttl"] = 0
 
     field = data.get("value", None)
     if field is not None:
         args["value"] = field
+    else:
+        args["value"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DnsRecordStatus.UNKNOWN_STATUS
 
     field = data.get("raw_data", None)
     if field is not None:
         args["raw_data"] = field
+    else:
+        args["raw_data"] = None
 
     field = data.get("priority", None)
     if field is not None:
         args["priority"] = field
     else:
-        args["priority"] = None
+        args["priority"] = 0
 
     return DnsRecord(**args)
 
@@ -249,14 +351,20 @@ def unmarshal_Nameserver(data: Any) -> Nameserver:
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
+    else:
+        args["hostname"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = NameserverStatus.UNKNOWN_STATUS
 
     field = data.get("is_default", None)
     if field is not None:
         args["is_default"] = field
+    else:
+        args["is_default"] = False
 
     return Nameserver(**args)
 
@@ -274,16 +382,22 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
         args["records"] = (
             [unmarshal_DnsRecord(v) for v in field] if field is not None else None
         )
+    else:
+        args["records"] = field(default_factory=list)
 
     field = data.get("name_servers", None)
     if field is not None:
         args["name_servers"] = (
             [unmarshal_Nameserver(v) for v in field] if field is not None else None
         )
+    else:
+        args["name_servers"] = field(default_factory=list)
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DnsRecordsStatus.UNKNOWN_STATUS
 
     field = data.get("dns_config", None)
     if field is not None:
@@ -291,7 +405,7 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
             [DomainDnsAction(v) for v in field] if field is not None else None
         )
     else:
-        args["dns_config"] = None
+        args["dns_config"] = field(default_factory=list)
 
     field = data.get("auto_config_domain_dns", None)
     if field is not None:
@@ -313,24 +427,34 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainStatus.UNKNOWN_STATUS
 
     field = data.get("owner", None)
     if field is not None:
         args["owner"] = field
+    else:
+        args["owner"] = DomainZoneOwner.UNKNOWN_ZONE_OWNER
 
     field = data.get("zone_domain_name", None)
     if field is not None:
         args["zone_domain_name"] = field
+    else:
+        args["zone_domain_name"] = None
 
     field = data.get("available_actions", None)
     if field is not None:
         args["available_actions"] = (
             [DomainAction(v) for v in field] if field is not None else None
         )
+    else:
+        args["available_actions"] = field(default_factory=list)
 
     field = data.get("available_dns_actions", None)
     if field is not None:
@@ -338,7 +462,7 @@ def unmarshal_Domain(data: Any) -> Domain:
             [DomainDnsAction(v) for v in field] if field is not None else None
         )
     else:
-        args["available_dns_actions"] = None
+        args["available_dns_actions"] = field(default_factory=list)
 
     field = data.get("auto_config_domain_dns", None)
     if field is not None:
@@ -360,10 +484,14 @@ def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
     field = data.get("dashboard", None)
     if field is not None:
         args["dashboard"] = field
+    else:
+        args["dashboard"] = None
 
     field = data.get("webmail", None)
     if field is not None:
         args["webmail"] = field
+    else:
+        args["webmail"] = None
 
     return PlatformControlPanelUrls(**args)
 
@@ -379,14 +507,20 @@ def unmarshal_HostingDomainCustomDomain(data: Any) -> HostingDomainCustomDomain:
     field = data.get("domain", None)
     if field is not None:
         args["domain"] = field
+    else:
+        args["domain"] = None
 
     field = data.get("domain_status", None)
     if field is not None:
         args["domain_status"] = field
+    else:
+        args["domain_status"] = DomainStatus.UNKNOWN_STATUS
 
     field = data.get("dns_status", None)
     if field is not None:
         args["dns_status"] = field
+    else:
+        args["dns_status"] = DnsRecordsStatus.UNKNOWN_STATUS
 
     field = data.get("auto_config_domain_dns", None)
     if field is not None:
@@ -408,30 +542,44 @@ def unmarshal_OfferOption(data: Any) -> OfferOption:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = OfferOptionName.UNKNOWN_NAME
 
     field = data.get("billing_operation_path", None)
     if field is not None:
         args["billing_operation_path"] = field
+    else:
+        args["billing_operation_path"] = None
 
     field = data.get("min_value", None)
     if field is not None:
         args["min_value"] = field
+    else:
+        args["min_value"] = 0
 
     field = data.get("current_value", None)
     if field is not None:
         args["current_value"] = field
+    else:
+        args["current_value"] = 0
 
     field = data.get("max_value", None)
     if field is not None:
         args["max_value"] = field
+    else:
+        args["max_value"] = 0
 
     field = data.get("quota_warning", None)
     if field is not None:
         args["quota_warning"] = field
+    else:
+        args["quota_warning"] = OfferOptionWarning.UNKNOWN_WARNING
 
     field = data.get("price", None)
     if field is not None:
@@ -453,6 +601,8 @@ def unmarshal_PlatformControlPanel(data: Any) -> PlatformControlPanel:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("urls", None)
     if field is not None:
@@ -474,6 +624,8 @@ def unmarshal_HostingDomain(data: Any) -> HostingDomain:
     field = data.get("subdomain", None)
     if field is not None:
         args["subdomain"] = field
+    else:
+        args["subdomain"] = None
 
     field = data.get("custom_domain", None)
     if field is not None:
@@ -495,10 +647,14 @@ def unmarshal_HostingUser(data: Any) -> HostingUser:
     field = data.get("username", None)
     if field is not None:
         args["username"] = field
+    else:
+        args["username"] = None
 
     field = data.get("contact_email", None)
     if field is not None:
         args["contact_email"] = field
+    else:
+        args["contact_email"] = None
 
     field = data.get("one_time_password", None)
     if field is not None:
@@ -526,36 +682,52 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("billing_operation_path", None)
     if field is not None:
         args["billing_operation_path"] = field
+    else:
+        args["billing_operation_path"] = None
 
     field = data.get("options", None)
     if field is not None:
         args["options"] = (
             [unmarshal_OfferOption(v) for v in field] if field is not None else None
         )
+    else:
+        args["options"] = field(default_factory=list)
 
     field = data.get("available", None)
     if field is not None:
         args["available"] = field
+    else:
+        args["available"] = False
 
     field = data.get("control_panel_name", None)
     if field is not None:
         args["control_panel_name"] = field
+    else:
+        args["control_panel_name"] = None
 
     field = data.get("end_of_life", None)
     if field is not None:
         args["end_of_life"] = field
+    else:
+        args["end_of_life"] = False
 
     field = data.get("quota_warning", None)
     if field is not None:
         args["quota_warning"] = field
+    else:
+        args["quota_warning"] = OfferOptionWarning.UNKNOWN_WARNING
 
     field = data.get("price", None)
     if field is not None:
@@ -577,22 +749,32 @@ def unmarshal_Platform(data: Any) -> Platform:
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
+    else:
+        args["hostname"] = None
 
     field = data.get("number", None)
     if field is not None:
         args["number"] = field
+    else:
+        args["number"] = 0
 
     field = data.get("group_name", None)
     if field is not None:
         args["group_name"] = field
+    else:
+        args["group_name"] = PlatformPlatformGroup.UNKNOWN_GROUP
 
     field = data.get("ipv4", None)
     if field is not None:
         args["ipv4"] = field
+    else:
+        args["ipv4"] = None
 
     field = data.get("ipv6", None)
     if field is not None:
         args["ipv6"] = field
+    else:
+        args["ipv6"] = None
 
     field = data.get("control_panel", None)
     if field is not None:
@@ -614,14 +796,20 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = HostingStatus.UNKNOWN_STATUS
 
     field = data.get("updated_at", None)
     if field is not None:
@@ -656,24 +844,32 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("ipv4", None)
     if field is not None:
         args["ipv4"] = field
+    else:
+        args["ipv4"] = None
 
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+    else:
+        args["protected"] = False
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("dns_status", None)
     if field is not None:
         args["dns_status"] = field
     else:
-        args["dns_status"] = None
+        args["dns_status"] = DnsRecordsStatus.UNKNOWN_STATUS
 
     field = data.get("user", None)
     if field is not None:
@@ -685,7 +881,7 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     if field is not None:
         args["domain_status"] = field
     else:
-        args["domain_status"] = None
+        args["domain_status"] = DomainStatus.UNKNOWN_STATUS
 
     field = data.get("domain_info", None)
     if field is not None:
@@ -694,6 +890,128 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["domain_info"] = None
 
     return Hosting(**args)
+
+
+def unmarshal_BackupItem(data: Any) -> BackupItem:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BackupItem' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = BackupItemType.UNKNOWN_BACKUP_ITEM_TYPE
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+    else:
+        args["size"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = BackupStatus.UNKNOWN_BACKUP_STATUS
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    return BackupItem(**args)
+
+
+def unmarshal_BackupItemGroup(data: Any) -> BackupItemGroup:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BackupItemGroup' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = BackupItemType.UNKNOWN_BACKUP_ITEM_TYPE
+
+    field = data.get("items", None)
+    if field is not None:
+        args["items"] = (
+            [unmarshal_BackupItem(v) for v in field] if field is not None else None
+        )
+    else:
+        args["items"] = field(default_factory=list)
+
+    return BackupItemGroup(**args)
+
+
+def unmarshal_ListBackupItemsResponse(data: Any) -> ListBackupItemsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListBackupItemsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("groups", None)
+    if field is not None:
+        args["groups"] = (
+            [unmarshal_BackupItemGroup(v) for v in field] if field is not None else None
+        )
+    else:
+        args["groups"] = field(default_factory=list)
+
+    return ListBackupItemsResponse(**args)
+
+
+def unmarshal_ListBackupsResponse(data: Any) -> ListBackupsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListBackupsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("backups", None)
+    if field is not None:
+        args["backups"] = (
+            [unmarshal_Backup(v) for v in field] if field is not None else None
+        )
+    else:
+        args["backups"] = field(default_factory=list)
+
+    return ListBackupsResponse(**args)
 
 
 def unmarshal_ControlPanel(data: Any) -> ControlPanel:
@@ -707,20 +1025,28 @@ def unmarshal_ControlPanel(data: Any) -> ControlPanel:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("available", None)
     if field is not None:
         args["available"] = field
+    else:
+        args["available"] = False
 
     field = data.get("logo_url", None)
     if field is not None:
         args["logo_url"] = field
+    else:
+        args["logo_url"] = None
 
     field = data.get("available_languages", None)
     if field is not None:
         args["available_languages"] = (
             [StdLanguageCode(v) for v in field] if field is not None else None
         )
+    else:
+        args["available_languages"] = field(default_factory=list)
 
     return ControlPanel(**args)
 
@@ -736,12 +1062,16 @@ def unmarshal_ListControlPanelsResponse(data: Any) -> ListControlPanelsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("control_panels", None)
     if field is not None:
         args["control_panels"] = (
             [unmarshal_ControlPanel(v) for v in field] if field is not None else None
         )
+    else:
+        args["control_panels"] = field(default_factory=list)
 
     return ListControlPanelsResponse(**args)
 
@@ -757,12 +1087,16 @@ def unmarshal_ListDatabaseUsersResponse(data: Any) -> ListDatabaseUsersResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("users", None)
     if field is not None:
         args["users"] = (
             [unmarshal_DatabaseUser(v) for v in field] if field is not None else None
         )
+    else:
+        args["users"] = field(default_factory=list)
 
     return ListDatabaseUsersResponse(**args)
 
@@ -778,12 +1112,16 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("databases", None)
     if field is not None:
         args["databases"] = (
             [unmarshal_Database(v) for v in field] if field is not None else None
         )
+    else:
+        args["databases"] = field(default_factory=list)
 
     return ListDatabasesResponse(**args)
 
@@ -799,12 +1137,16 @@ def unmarshal_ListFtpAccountsResponse(data: Any) -> ListFtpAccountsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("ftp_accounts", None)
     if field is not None:
         args["ftp_accounts"] = (
             [unmarshal_FtpAccount(v) for v in field] if field is not None else None
         )
+    else:
+        args["ftp_accounts"] = field(default_factory=list)
 
     return ListFtpAccountsResponse(**args)
 
@@ -820,26 +1162,38 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = HostingStatus.UNKNOWN_STATUS
 
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+    else:
+        args["protected"] = False
 
     field = data.get("offer_name", None)
     if field is not None:
         args["offer_name"] = field
+    else:
+        args["offer_name"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -863,13 +1217,13 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     if field is not None:
         args["dns_status"] = field
     else:
-        args["dns_status"] = None
+        args["dns_status"] = DnsRecordsStatus.UNKNOWN_STATUS
 
     field = data.get("domain_status", None)
     if field is not None:
         args["domain_status"] = field
     else:
-        args["domain_status"] = None
+        args["domain_status"] = DomainStatus.UNKNOWN_STATUS
 
     field = data.get("domain_info", None)
     if field is not None:
@@ -891,12 +1245,16 @@ def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("hostings", None)
     if field is not None:
         args["hostings"] = (
             [unmarshal_HostingSummary(v) for v in field] if field is not None else None
         )
+    else:
+        args["hostings"] = field(default_factory=list)
 
     return ListHostingsResponse(**args)
 
@@ -912,12 +1270,16 @@ def unmarshal_ListMailAccountsResponse(data: Any) -> ListMailAccountsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("mail_accounts", None)
     if field is not None:
         args["mail_accounts"] = (
             [unmarshal_MailAccount(v) for v in field] if field is not None else None
         )
+    else:
+        args["mail_accounts"] = field(default_factory=list)
 
     return ListMailAccountsResponse(**args)
 
@@ -933,12 +1295,16 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("offers", None)
     if field is not None:
         args["offers"] = (
             [unmarshal_Offer(v) for v in field] if field is not None else None
         )
+    else:
+        args["offers"] = field(default_factory=list)
 
     return ListOffersResponse(**args)
 
@@ -954,14 +1320,20 @@ def unmarshal_Website(data: Any) -> Website:
     field = data.get("domain", None)
     if field is not None:
         args["domain"] = field
+    else:
+        args["domain"] = None
 
     field = data.get("path", None)
     if field is not None:
         args["path"] = field
+    else:
+        args["path"] = None
 
     field = data.get("ssl_status", None)
     if field is not None:
         args["ssl_status"] = field
+    else:
+        args["ssl_status"] = False
 
     return Website(**args)
 
@@ -977,12 +1349,16 @@ def unmarshal_ListWebsitesResponse(data: Any) -> ListWebsitesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("websites", None)
     if field is not None:
         args["websites"] = (
             [unmarshal_Website(v) for v in field] if field is not None else None
         )
+    else:
+        args["websites"] = field(default_factory=list)
 
     return ListWebsitesResponse(**args)
 
@@ -998,6 +1374,8 @@ def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordRes
     field = data.get("one_time_password_b64", None)
     if field is not None:
         args["one_time_password_b64"] = field
+    else:
+        args["one_time_password_b64"] = None
 
     field = data.get("one_time_password", None)
     if field is not None:
@@ -1019,20 +1397,50 @@ def unmarshal_ResourceSummary(data: Any) -> ResourceSummary:
     field = data.get("databases_count", None)
     if field is not None:
         args["databases_count"] = field
+    else:
+        args["databases_count"] = 0
 
     field = data.get("mail_accounts_count", None)
     if field is not None:
         args["mail_accounts_count"] = field
+    else:
+        args["mail_accounts_count"] = 0
 
     field = data.get("ftp_accounts_count", None)
     if field is not None:
         args["ftp_accounts_count"] = field
+    else:
+        args["ftp_accounts_count"] = 0
 
     field = data.get("websites_count", None)
     if field is not None:
         args["websites_count"] = field
+    else:
+        args["websites_count"] = 0
 
     return ResourceSummary(**args)
+
+
+def unmarshal_RestoreBackupItemsResponse(data: Any) -> RestoreBackupItemsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RestoreBackupItemsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return RestoreBackupItemsResponse(**args)
+
+
+def unmarshal_RestoreBackupResponse(data: Any) -> RestoreBackupResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RestoreBackupResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return RestoreBackupResponse(**args)
 
 
 def unmarshal_DomainAvailability(data: Any) -> DomainAvailability:
@@ -1046,24 +1454,34 @@ def unmarshal_DomainAvailability(data: Any) -> DomainAvailability:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("zone_name", None)
     if field is not None:
         args["zone_name"] = field
+    else:
+        args["zone_name"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainAvailabilityStatus.UNKNOWN_STATUS
 
     field = data.get("available_actions", None)
     if field is not None:
         args["available_actions"] = (
             [DomainAvailabilityAction(v) for v in field] if field is not None else None
         )
+    else:
+        args["available_actions"] = field(default_factory=list)
 
     field = data.get("can_create_hosting", None)
     if field is not None:
         args["can_create_hosting"] = field
+    else:
+        args["can_create_hosting"] = False
 
     field = data.get("price", None)
     if field is not None:
@@ -1089,6 +1507,8 @@ def unmarshal_SearchDomainsResponse(data: Any) -> SearchDomainsResponse:
             if field is not None
             else None
         )
+    else:
+        args["domains_available"] = field(default_factory=list)
 
     return SearchDomainsResponse(**args)
 
@@ -1104,8 +1524,22 @@ def unmarshal_Session(data: Any) -> Session:
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     return Session(**args)
+
+
+def marshal_BackupApiRestoreBackupItemsRequest(
+    request: BackupApiRestoreBackupItemsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.item_ids is not None:
+        output["item_ids"] = request.item_ids
+
+    return output
 
 
 def marshal_DatabaseApiAssignDatabaseUserRequest(
@@ -1209,7 +1643,9 @@ def marshal_DnsApiCheckUserOwnsDomainRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1248,7 +1684,7 @@ def marshal_SyncDomainDnsRecordsRequestRecord(
         output["name"] = request.name
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     return output
 
@@ -1367,7 +1803,9 @@ def marshal_HostingApiCreateHostingRequest(
         output["domain"] = request.domain
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -1381,7 +1819,7 @@ def marshal_HostingApiCreateHostingRequest(
         ]
 
     if request.language is not None:
-        output["language"] = str(request.language)
+        output["language"] = request.language
 
     if request.domain_configuration is not None:
         output["domain_configuration"] = (

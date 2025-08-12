@@ -6,6 +6,8 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    AttachmentResourceType,
+    FileSystemStatus,
     FileSystem,
     Attachment,
     ListAttachmentsResponse,
@@ -26,38 +28,56 @@ def unmarshal_FileSystem(data: Any) -> FileSystem:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = FileSystemStatus.UNKNOWN_STATUS
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("number_of_attachments", None)
     if field is not None:
         args["number_of_attachments"] = field
+    else:
+        args["number_of_attachments"] = 0
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -85,18 +105,26 @@ def unmarshal_Attachment(data: Any) -> Attachment:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("filesystem_id", None)
     if field is not None:
         args["filesystem_id"] = field
+    else:
+        args["filesystem_id"] = None
 
     field = data.get("resource_id", None)
     if field is not None:
         args["resource_id"] = field
+    else:
+        args["resource_id"] = None
 
     field = data.get("resource_type", None)
     if field is not None:
         args["resource_type"] = field
+    else:
+        args["resource_type"] = AttachmentResourceType.UNKNOWN_RESOURCE_TYPE
 
     field = data.get("zone", None)
     if field is not None:
@@ -120,10 +148,14 @@ def unmarshal_ListAttachmentsResponse(data: Any) -> ListAttachmentsResponse:
         args["attachments"] = (
             [unmarshal_Attachment(v) for v in field] if field is not None else None
         )
+    else:
+        args["attachments"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListAttachmentsResponse(**args)
 
@@ -141,10 +173,14 @@ def unmarshal_ListFileSystemsResponse(data: Any) -> ListFileSystemsResponse:
         args["filesystems"] = (
             [unmarshal_FileSystem(v) for v in field] if field is not None else None
         )
+    else:
+        args["filesystems"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListFileSystemsResponse(**args)
 
@@ -162,7 +198,9 @@ def marshal_CreateFileSystemRequest(
         output["size"] = request.size
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags

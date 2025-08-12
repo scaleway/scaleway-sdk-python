@@ -6,6 +6,8 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    SnsInfoStatus,
+    SqsInfoStatus,
     NatsAccount,
     File,
     NatsCredentials,
@@ -44,22 +46,32 @@ def unmarshal_NatsAccount(data: Any) -> NatsAccount:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("endpoint", None)
     if field is not None:
         args["endpoint"] = field
+    else:
+        args["endpoint"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -87,10 +99,14 @@ def unmarshal_File(data: Any) -> File:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("content", None)
     if field is not None:
         args["content"] = field
+    else:
+        args["content"] = None
 
     return File(**args)
 
@@ -106,18 +122,26 @@ def unmarshal_NatsCredentials(data: Any) -> NatsCredentials:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("nats_account_id", None)
     if field is not None:
         args["nats_account_id"] = field
+    else:
+        args["nats_account_id"] = None
 
     field = data.get("checksum", None)
     if field is not None:
         args["checksum"] = field
+    else:
+        args["checksum"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -152,19 +176,19 @@ def unmarshal_SnsPermissions(data: Any) -> SnsPermissions:
     if field is not None:
         args["can_publish"] = field
     else:
-        args["can_publish"] = None
+        args["can_publish"] = False
 
     field = data.get("can_receive", None)
     if field is not None:
         args["can_receive"] = field
     else:
-        args["can_receive"] = None
+        args["can_receive"] = False
 
     field = data.get("can_manage", None)
     if field is not None:
         args["can_manage"] = field
     else:
-        args["can_manage"] = None
+        args["can_manage"] = False
 
     return SnsPermissions(**args)
 
@@ -180,30 +204,44 @@ def unmarshal_SnsCredentials(data: Any) -> SnsCredentials:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("access_key", None)
     if field is not None:
         args["access_key"] = field
+    else:
+        args["access_key"] = None
 
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
+    else:
+        args["secret_key"] = None
 
     field = data.get("secret_checksum", None)
     if field is not None:
         args["secret_checksum"] = field
+    else:
+        args["secret_checksum"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -238,19 +276,19 @@ def unmarshal_SqsPermissions(data: Any) -> SqsPermissions:
     if field is not None:
         args["can_publish"] = field
     else:
-        args["can_publish"] = None
+        args["can_publish"] = False
 
     field = data.get("can_receive", None)
     if field is not None:
         args["can_receive"] = field
     else:
-        args["can_receive"] = None
+        args["can_receive"] = False
 
     field = data.get("can_manage", None)
     if field is not None:
         args["can_manage"] = field
     else:
-        args["can_manage"] = None
+        args["can_manage"] = False
 
     return SqsPermissions(**args)
 
@@ -266,30 +304,44 @@ def unmarshal_SqsCredentials(data: Any) -> SqsCredentials:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("access_key", None)
     if field is not None:
         args["access_key"] = field
+    else:
+        args["access_key"] = None
 
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
+    else:
+        args["secret_key"] = None
 
     field = data.get("secret_checksum", None)
     if field is not None:
         args["secret_checksum"] = field
+    else:
+        args["secret_checksum"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -323,12 +375,16 @@ def unmarshal_ListNatsAccountsResponse(data: Any) -> ListNatsAccountsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("nats_accounts", None)
     if field is not None:
         args["nats_accounts"] = (
             [unmarshal_NatsAccount(v) for v in field] if field is not None else None
         )
+    else:
+        args["nats_accounts"] = field(default_factory=list)
 
     return ListNatsAccountsResponse(**args)
 
@@ -344,12 +400,16 @@ def unmarshal_ListNatsCredentialsResponse(data: Any) -> ListNatsCredentialsRespo
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("nats_credentials", None)
     if field is not None:
         args["nats_credentials"] = (
             [unmarshal_NatsCredentials(v) for v in field] if field is not None else None
         )
+    else:
+        args["nats_credentials"] = field(default_factory=list)
 
     return ListNatsCredentialsResponse(**args)
 
@@ -365,12 +425,16 @@ def unmarshal_ListSnsCredentialsResponse(data: Any) -> ListSnsCredentialsRespons
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("sns_credentials", None)
     if field is not None:
         args["sns_credentials"] = (
             [unmarshal_SnsCredentials(v) for v in field] if field is not None else None
         )
+    else:
+        args["sns_credentials"] = field(default_factory=list)
 
     return ListSnsCredentialsResponse(**args)
 
@@ -386,12 +450,16 @@ def unmarshal_ListSqsCredentialsResponse(data: Any) -> ListSqsCredentialsRespons
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("sqs_credentials", None)
     if field is not None:
         args["sqs_credentials"] = (
             [unmarshal_SqsCredentials(v) for v in field] if field is not None else None
         )
+    else:
+        args["sqs_credentials"] = field(default_factory=list)
 
     return ListSqsCredentialsResponse(**args)
 
@@ -407,18 +475,26 @@ def unmarshal_SnsInfo(data: Any) -> SnsInfo:
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = SnsInfoStatus.UNKNOWN_STATUS
 
     field = data.get("sns_endpoint_url", None)
     if field is not None:
         args["sns_endpoint_url"] = field
+    else:
+        args["sns_endpoint_url"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -446,18 +522,26 @@ def unmarshal_SqsInfo(data: Any) -> SqsInfo:
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = SqsInfoStatus.UNKNOWN_STATUS
 
     field = data.get("sqs_endpoint_url", None)
     if field is not None:
         args["sqs_endpoint_url"] = field
+    else:
+        args["sqs_endpoint_url"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -484,7 +568,9 @@ def marshal_NatsApiCreateNatsAccountRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -523,7 +609,9 @@ def marshal_SnsApiActivateSnsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -553,7 +641,9 @@ def marshal_SnsApiCreateSnsCredentialsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.name is not None:
         output["name"] = request.name
@@ -571,7 +661,9 @@ def marshal_SnsApiDeactivateSnsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -598,7 +690,9 @@ def marshal_SqsApiActivateSqsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -628,7 +722,9 @@ def marshal_SqsApiCreateSqsCredentialsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.name is not None:
         output["name"] = request.name
@@ -646,7 +742,9 @@ def marshal_SqsApiDeactivateSqsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 

@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -282,12 +282,12 @@ class ScalewayLb:
     ID of the frontend linked to the Load Balancer.
     """
 
-    is_ssl: Optional[bool]
+    is_ssl: Optional[bool] = False
     """
     Defines whether the Load Balancer's frontend handles SSL connections.
     """
 
-    domain_name: Optional[str]
+    domain_name: Optional[str] = None
     """
     Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer.
     """
@@ -316,17 +316,17 @@ class ScalewayLbBackendConfig:
 
 @dataclass
 class ScalewayS3BackendConfig:
-    bucket_name: Optional[str]
+    bucket_name: Optional[str] = None
     """
     Name of the Bucket.
     """
 
-    bucket_region: Optional[str]
+    bucket_region: Optional[str] = None
     """
     Region of the Bucket.
     """
 
-    is_website: Optional[bool]
+    is_website: Optional[bool] = False
     """
     Defines whether the bucket website feature is enabled.
     """
@@ -335,13 +335,9 @@ class ScalewayS3BackendConfig:
 @dataclass
 class PipelineError:
     stage: PipelineErrorStage
-
     code: PipelineErrorCode
-
     severity: PipelineErrorSeverity
-
     message: str
-
     type_: PipelineErrorType
 
 
@@ -365,7 +361,7 @@ class RuleHttpMatch:
     HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided.
     """
 
-    path_filter: Optional[RuleHttpMatchPathFilter]
+    path_filter: Optional[RuleHttpMatchPathFilter] = None
     """
     HTTP URL path to filter for. A request whose path matches the given filter will be considered to match the rule. All paths will match if none is provided.
     """
@@ -383,19 +379,19 @@ class BackendStage:
     Pipeline ID the backend stage belongs to.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the backend stage was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the backend stage was last updated.
     """
 
-    scaleway_s3: Optional[ScalewayS3BackendConfig]
+    scaleway_s3: Optional[ScalewayS3BackendConfig] = None
 
-    scaleway_lb: Optional[ScalewayLbBackendConfig]
+    scaleway_lb: Optional[ScalewayLbBackendConfig] = None
 
 
 @dataclass
@@ -415,26 +411,26 @@ class CacheStage:
     Defines whether responses to requests with cookies must be stored in the cache.
     """
 
-    fallback_ttl: Optional[str]
+    fallback_ttl: Optional[str] = None
     """
     Time To Live (TTL) in seconds. Defines how long content is cached.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the cache stage was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the cache stage was last updated.
     """
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
-    waf_stage_id: Optional[str]
+    waf_stage_id: Optional[str] = None
 
-    route_stage_id: Optional[str]
+    route_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -459,21 +455,21 @@ class DNSStage:
     Pipeline ID the DNS stage belongs to.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the DNS stage was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the DNS stage was last updated.
     """
 
-    tls_stage_id: Optional[str]
+    tls_stage_id: Optional[str] = None
 
-    cache_stage_id: Optional[str]
+    cache_stage_id: Optional[str] = None
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -513,12 +509,12 @@ class Pipeline:
     Organization ID of the pipeline.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the pipeline was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the pipeline was last updated.
     """
@@ -536,17 +532,17 @@ class RouteStage:
     Pipeline ID the route stage belongs to.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the route stage was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the route stage was last updated.
     """
 
-    waf_stage_id: Optional[str]
+    waf_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -571,28 +567,28 @@ class TLSStage:
     Pipeline ID the TLS stage belongs to.
     """
 
-    certificate_expires_at: Optional[datetime]
+    certificate_expires_at: Optional[datetime] = None
     """
     Expiration date of the certificate.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the TLS stage was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the TLS stage was last updated.
     """
 
-    cache_stage_id: Optional[str]
+    cache_stage_id: Optional[str] = None
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
-    waf_stage_id: Optional[str]
+    waf_stage_id: Optional[str] = None
 
-    route_stage_id: Optional[str]
+    route_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -617,24 +613,24 @@ class WafStage:
     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the WAF stage was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the WAF stage was last updated.
     """
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
 class SetRouteRulesRequestRouteRule:
-    rule_http_match: Optional[RuleHttpMatch]
+    rule_http_match: Optional[RuleHttpMatch] = None
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -649,15 +645,14 @@ class RouteRule:
     Route stage ID the route rule belongs to.
     """
 
-    rule_http_match: Optional[RuleHttpMatch]
+    rule_http_match: Optional[RuleHttpMatch] = None
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
 class CheckPEMChainRequestSecretChain:
     secret_id: str
-
     secret_region: str
 
 
@@ -686,7 +681,7 @@ class PlanDetails:
 
 @dataclass
 class PlanUsageDetails:
-    plan_cost: Optional[Money]
+    plan_cost: Optional[Money] = None
     """
     Cost to date (this month) for the corresponding Edge Services subscription plan.
     """
@@ -694,29 +689,23 @@ class PlanUsageDetails:
 
 @dataclass
 class HeadStageResponseHeadStage:
-    dns_stage_id: Optional[str]
+    dns_stage_id: Optional[str] = None
 
 
 @dataclass
 class ListHeadStagesResponseHeadStage:
-    dns_stage_id: Optional[str]
+    dns_stage_id: Optional[str] = None
 
 
 @dataclass
 class PipelineStages:
     dns_stages: List[DNSStage]
-
     tls_stages: List[TLSStage]
-
     cache_stages: List[CacheStage]
-
     backend_stages: List[BackendStage]
-
     waf_stages: List[WafStage]
-
     route_stages: List[RouteStage]
-
-    pipeline: Optional[Pipeline]
+    pipeline: Optional[Pipeline] = None
 
 
 @dataclass
@@ -736,19 +725,19 @@ class PurgeRequest:
     Status of the purge request.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the purge request was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the purge request was last updated.
     """
 
-    assets: Optional[List[str]]
+    assets: Optional[List[str]] = field(default_factory=list)
 
-    all: Optional[bool]
+    all: Optional[bool] = False
 
 
 @dataclass
@@ -764,7 +753,6 @@ class SetHeadStageRequestRemoveHeadStage:
 @dataclass
 class SetHeadStageRequestSwapHeadStage:
     new_stage_id: str
-
     current_stage_id: str
 
 
@@ -783,14 +771,16 @@ class AddRouteRulesRequest:
     ID of the route stage to update.
     """
 
-    route_rules: Optional[List[SetRouteRulesRequestRouteRule]]
+    route_rules: Optional[List[SetRouteRulesRequestRouteRule]] = field(
+        default_factory=list
+    )
     """
     List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
     """
 
-    after_position: Optional[int]
+    after_position: Optional[int] = 0
 
-    before_position: Optional[int]
+    before_position: Optional[int] = 0
 
 
 @dataclass
@@ -804,10 +794,8 @@ class AddRouteRulesResponse:
 @dataclass
 class CheckDomainRequest:
     fqdn: str
-
     cname: str
-
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -817,25 +805,22 @@ class CheckDomainResponse:
 
 @dataclass
 class CheckLbOriginRequest:
-    lb: Optional[ScalewayLb]
+    lb: Optional[ScalewayLb] = None
 
 
 @dataclass
 class CheckLbOriginResponse:
     is_valid: bool
-
     error_type: LbOriginError
 
 
 @dataclass
 class CheckPEMChainRequest:
     fqdn: str
+    project_id: Optional[str] = None
+    secret: Optional[CheckPEMChainRequestSecretChain] = None
 
-    project_id: Optional[str]
-
-    secret: Optional[CheckPEMChainRequestSecretChain]
-
-    raw: Optional[str]
+    raw: Optional[str] = None
 
 
 @dataclass
@@ -850,52 +835,52 @@ class CreateBackendStageRequest:
     Pipeline ID the Backend stage belongs to.
     """
 
-    scaleway_s3: Optional[ScalewayS3BackendConfig]
+    scaleway_s3: Optional[ScalewayS3BackendConfig] = None
 
-    scaleway_lb: Optional[ScalewayLbBackendConfig]
+    scaleway_lb: Optional[ScalewayLbBackendConfig] = None
 
 
 @dataclass
 class CreateCacheStageRequest:
-    fallback_ttl: Optional[str]
-    """
-    Time To Live (TTL) in seconds. Defines how long content is cached.
-    """
-
-    include_cookies: Optional[bool]
-    """
-    Defines whether responses to requests with cookies must be stored in the cache.
-    """
-
     pipeline_id: str
     """
     Pipeline ID the Cache stage belongs to.
     """
 
-    backend_stage_id: Optional[str]
+    fallback_ttl: Optional[str] = None
+    """
+    Time To Live (TTL) in seconds. Defines how long content is cached.
+    """
 
-    waf_stage_id: Optional[str]
+    include_cookies: Optional[bool] = False
+    """
+    Defines whether responses to requests with cookies must be stored in the cache.
+    """
 
-    route_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
+
+    waf_stage_id: Optional[str] = None
+
+    route_stage_id: Optional[str] = None
 
 
 @dataclass
 class CreateDNSStageRequest:
-    fqdns: Optional[List[str]]
-    """
-    Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
-    """
-
     pipeline_id: str
     """
     Pipeline ID the DNS stage belongs to.
     """
 
-    tls_stage_id: Optional[str]
+    fqdns: Optional[List[str]] = field(default_factory=list)
+    """
+    Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
+    """
 
-    cache_stage_id: Optional[str]
+    tls_stage_id: Optional[str] = None
 
-    backend_stage_id: Optional[str]
+    cache_stage_id: Optional[str] = None
+
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -910,7 +895,7 @@ class CreatePipelineRequest:
     Description of the pipeline.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID in which the pipeline will be created.
     """
@@ -923,9 +908,9 @@ class CreatePurgeRequestRequest:
     Pipeline ID in which the purge request will be created.
     """
 
-    assets: Optional[List[str]]
+    assets: Optional[List[str]] = field(default_factory=list)
 
-    all: Optional[bool]
+    all: Optional[bool] = False
 
 
 @dataclass
@@ -935,33 +920,33 @@ class CreateRouteStageRequest:
     Pipeline ID the route stage belongs to.
     """
 
-    waf_stage_id: Optional[str]
+    waf_stage_id: Optional[str] = None
 
 
 @dataclass
 class CreateTLSStageRequest:
-    secrets: Optional[List[TLSSecret]]
-    """
-    Secret (from Scaleway Secret Manager) containing your custom certificate.
-    """
-
-    managed_certificate: Optional[bool]
-    """
-    True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint.
-    """
-
     pipeline_id: str
     """
     Pipeline ID the TLS stage belongs to.
     """
 
-    cache_stage_id: Optional[str]
+    secrets: Optional[List[TLSSecret]] = field(default_factory=list)
+    """
+    Secret (from Scaleway Secret Manager) containing your custom certificate.
+    """
 
-    backend_stage_id: Optional[str]
+    managed_certificate: Optional[bool] = False
+    """
+    True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint.
+    """
 
-    route_stage_id: Optional[str]
+    cache_stage_id: Optional[str] = None
 
-    waf_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
+
+    route_stage_id: Optional[str] = None
+
+    waf_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -976,12 +961,12 @@ class CreateWafStageRequest:
     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
     """
 
-    mode: Optional[WafStageMode]
+    mode: Optional[WafStageMode] = WafStageMode.UNKNOWN_MODE
     """
     Mode defining WAF behavior (`disable`/`log_only`/`enable`).
     """
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -1002,7 +987,7 @@ class DeleteCacheStageRequest:
 
 @dataclass
 class DeleteCurrentPlanRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -1055,16 +1040,11 @@ class GetBackendStageRequest:
 
 @dataclass
 class GetBillingRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
 class GetBillingResponse:
-    current_plan: Optional[PlanDetails]
-    """
-    Information on the currently-selected, active Edge Services subscription plan.
-    """
-
     pipeline_number: int
     """
     Total number of pipelines currently configured.
@@ -1090,37 +1070,42 @@ class GetBillingResponse:
     Total number of extra requests processed by the WAF from the beginning of the month, not included in the subscription plans.
     """
 
-    plan_cost: Optional[Money]
-    """
-    Cost to date (this month) for Edge Service subscription plans. This comprises the pro-rata cost of the current subscription plan, and any previous subscription plans that were active earlier in the month.
-    """
-
-    extra_pipelines_cost: Optional[Money]
-    """
-    Cost to date (this month) of pipelines not included in the subscription plans.
-    """
-
     plans_usage_details: Dict[str, PlanUsageDetails]
     """
     Detailed costs and usage for all Edge Services subscription plans that were activated during the month.
     """
 
-    extra_cache_cost: Optional[Money]
+    current_plan: Optional[PlanDetails] = None
+    """
+    Information on the currently-selected, active Edge Services subscription plan.
+    """
+
+    plan_cost: Optional[Money] = None
+    """
+    Cost to date (this month) for Edge Service subscription plans. This comprises the pro-rata cost of the current subscription plan, and any previous subscription plans that were active earlier in the month.
+    """
+
+    extra_pipelines_cost: Optional[Money] = None
+    """
+    Cost to date (this month) of pipelines not included in the subscription plans.
+    """
+
+    extra_cache_cost: Optional[Money] = None
     """
     Cost to date (this month) of the data egressed from the cache that is not included in the subscription plans.
     """
 
-    extra_waf_cost: Optional[Money]
+    extra_waf_cost: Optional[Money] = None
     """
     Cost to date (this month) of the extra requests processed by the WAF that were not included in the subscription plans.
     """
 
-    waf_add_on: Optional[Money]
+    waf_add_on: Optional[Money] = None
     """
     Cost of activating WAF add-on (where subscription plan does not include WAF).
     """
 
-    total_cost: Optional[Money]
+    total_cost: Optional[Money] = None
     """
     Total cost to date (this month) of all Edge Services resources including active subscription plan, previously active plans, extra pipelines and extra egress cache data.
     """
@@ -1136,7 +1121,7 @@ class GetCacheStageRequest:
 
 @dataclass
 class GetCurrentPlanRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -1189,7 +1174,7 @@ class GetWafStageRequest:
 
 @dataclass
 class HeadStageResponse:
-    head_stage: Optional[HeadStageResponseHeadStage]
+    head_stage: Optional[HeadStageResponseHeadStage] = None
     """
     Modified or created head stage.
     """
@@ -1197,37 +1182,39 @@ class HeadStageResponse:
 
 @dataclass
 class ListBackendStagesRequest:
-    order_by: Optional[ListBackendStagesRequestOrderBy]
-    """
-    Sort order of backend stages in the response.
-    """
-
-    page: Optional[int]
-    """
-    Page number to return, from the paginated results.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of backend stages to return per page.
-    """
-
     pipeline_id: str
     """
     Pipeline ID to filter for. Only backend stages from this pipeline will be returned.
     """
 
-    bucket_name: Optional[str]
+    order_by: Optional[ListBackendStagesRequestOrderBy] = (
+        ListBackendStagesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of backend stages in the response.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of backend stages to return per page.
+    """
+
+    bucket_name: Optional[str] = None
     """
     Bucket name to filter for. Only backend stages from this Bucket will be returned.
     """
 
-    bucket_region: Optional[str]
+    bucket_region: Optional[str] = None
     """
     Bucket region to filter for. Only backend stages with buckets in this region will be returned.
     """
 
-    lb_id: Optional[str]
+    lb_id: Optional[str] = None
     """
     Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned.
     """
@@ -1248,24 +1235,26 @@ class ListBackendStagesResponse:
 
 @dataclass
 class ListCacheStagesRequest:
-    order_by: Optional[ListCacheStagesRequestOrderBy]
+    pipeline_id: str
+    """
+    Pipeline ID to filter for. Only cache stages from this pipeline will be returned.
+    """
+
+    order_by: Optional[ListCacheStagesRequestOrderBy] = (
+        ListCacheStagesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of cache stages in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of cache stages to return per page.
-    """
-
-    pipeline_id: str
-    """
-    Pipeline ID to filter for. Only cache stages from this pipeline will be returned.
     """
 
 
@@ -1284,27 +1273,29 @@ class ListCacheStagesResponse:
 
 @dataclass
 class ListDNSStagesRequest:
-    order_by: Optional[ListDNSStagesRequestOrderBy]
-    """
-    Sort order of DNS stages in the response.
-    """
-
-    page: Optional[int]
-    """
-    Page number to return, from the paginated results.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of DNS stages to return per page.
-    """
-
     pipeline_id: str
     """
     Pipeline ID to filter for. Only DNS stages from this pipeline will be returned.
     """
 
-    fqdn: Optional[str]
+    order_by: Optional[ListDNSStagesRequestOrderBy] = (
+        ListDNSStagesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of DNS stages in the response.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of DNS stages to return per page.
+    """
+
+    fqdn: Optional[str] = None
     """
     Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned.
     """
@@ -1330,12 +1321,12 @@ class ListHeadStagesRequest:
     ID of the pipeline to update.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of head stages to return per page.
     """
@@ -1356,37 +1347,39 @@ class ListHeadStagesResponse:
 
 @dataclass
 class ListPipelinesRequest:
-    order_by: Optional[ListPipelinesRequestOrderBy]
+    order_by: Optional[ListPipelinesRequestOrderBy] = (
+        ListPipelinesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of pipelines in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of pipelines to return per page.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Pipeline name to filter for. Only pipelines with this string within their name will be returned.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for. Only pipelines from this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for. Only pipelines from this Project will be returned.
     """
 
-    has_backend_stage_lb: Optional[bool]
+    has_backend_stage_lb: Optional[bool] = False
     """
     Filter on backend stage. Only pipelines with a Load Balancer origin will be returned.
     """
@@ -1407,61 +1400,56 @@ class ListPipelinesResponse:
 
 @dataclass
 class ListPipelinesWithStagesRequest:
-    order_by: Optional[ListPipelinesWithStagesRequestOrderBy]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    name: Optional[str]
-
-    organization_id: Optional[str]
-
-    project_id: Optional[str]
+    order_by: Optional[ListPipelinesWithStagesRequestOrderBy] = None
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    name: Optional[str] = None
+    organization_id: Optional[str] = None
+    project_id: Optional[str] = None
 
 
 @dataclass
 class ListPipelinesWithStagesResponse:
     pipelines: List[PipelineStages]
-
     total_count: int
 
 
 @dataclass
 class ListPlansResponse:
     total_count: int
-
     plans: List[PlanDetails]
 
 
 @dataclass
 class ListPurgeRequestsRequest:
-    order_by: Optional[ListPurgeRequestsRequestOrderBy]
+    order_by: Optional[ListPurgeRequestsRequestOrderBy] = (
+        ListPurgeRequestsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of purge requests in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of purge requests to return per page.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for. Only purge requests from this Project will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for. Only purge requests from this Project will be returned.
     """
 
-    pipeline_id: Optional[str]
+    pipeline_id: Optional[str] = None
     """
     Pipeline ID to filter for. Only purge requests from this pipeline will be returned.
     """
@@ -1503,24 +1491,26 @@ class ListRouteRulesResponse:
 
 @dataclass
 class ListRouteStagesRequest:
-    order_by: Optional[ListRouteStagesRequestOrderBy]
+    pipeline_id: str
+    """
+    Pipeline ID to filter for. Only route stages from this pipeline will be returned.
+    """
+
+    order_by: Optional[ListRouteStagesRequestOrderBy] = (
+        ListRouteStagesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of route stages in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of route stages to return per page.
-    """
-
-    pipeline_id: str
-    """
-    Pipeline ID to filter for. Only route stages from this pipeline will be returned.
     """
 
 
@@ -1539,32 +1529,34 @@ class ListRouteStagesResponse:
 
 @dataclass
 class ListTLSStagesRequest:
-    order_by: Optional[ListTLSStagesRequestOrderBy]
-    """
-    Sort order of TLS stages in the response.
-    """
-
-    page: Optional[int]
-    """
-    Page number to return, from the paginated results.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of TLS stages to return per page.
-    """
-
     pipeline_id: str
     """
     Pipeline ID to filter for. Only TLS stages from this pipeline will be returned.
     """
 
-    secret_id: Optional[str]
+    order_by: Optional[ListTLSStagesRequestOrderBy] = (
+        ListTLSStagesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of TLS stages in the response.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of TLS stages to return per page.
+    """
+
+    secret_id: Optional[str] = None
     """
     Secret ID to filter for. Only TLS stages with this Secret ID will be returned.
     """
 
-    secret_region: Optional[str]
+    secret_region: Optional[str] = None
     """
     Secret region to filter for. Only TLS stages with a Secret in this region will be returned.
     """
@@ -1585,24 +1577,26 @@ class ListTLSStagesResponse:
 
 @dataclass
 class ListWafStagesRequest:
-    order_by: Optional[ListWafStagesRequestOrderBy]
+    pipeline_id: str
+    """
+    Pipeline ID to filter for. Only WAF stages from this pipeline will be returned.
+    """
+
+    order_by: Optional[ListWafStagesRequestOrderBy] = (
+        ListWafStagesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of WAF stages in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of WAF stages to return per page.
-    """
-
-    pipeline_id: str
-    """
-    Pipeline ID to filter for. Only WAF stages from this pipeline will be returned.
     """
 
 
@@ -1626,50 +1620,36 @@ class Plan:
 
 @dataclass
 class SearchBackendStagesRequest:
-    order_by: Optional[SearchBackendStagesRequestOrderBy]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    project_id: Optional[str]
-
-    bucket_name: Optional[str]
-
-    bucket_region: Optional[str]
-
-    lb_id: Optional[str]
+    order_by: Optional[SearchBackendStagesRequestOrderBy] = None
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    project_id: Optional[str] = None
+    bucket_name: Optional[str] = None
+    bucket_region: Optional[str] = None
+    lb_id: Optional[str] = None
 
 
 @dataclass
 class SearchRouteRulesRequest:
-    order_by: Optional[SearchRouteRulesRequestOrderBy]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    organization_id: Optional[str]
-
-    project_id: Optional[str]
+    order_by: Optional[SearchRouteRulesRequestOrderBy] = None
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    organization_id: Optional[str] = None
+    project_id: Optional[str] = None
 
 
 @dataclass
 class SearchWafStagesRequest:
-    order_by: Optional[SearchWafStagesRequestOrderBy]
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    project_id: Optional[str]
+    order_by: Optional[SearchWafStagesRequestOrderBy] = None
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    project_id: Optional[str] = None
 
 
 @dataclass
 class SelectPlanRequest:
-    project_id: Optional[str]
-
-    plan_name: Optional[PlanName]
+    project_id: Optional[str] = None
+    plan_name: Optional[PlanName] = None
 
 
 @dataclass
@@ -1679,11 +1659,11 @@ class SetHeadStageRequest:
     ID of the pipeline to update.
     """
 
-    add_new_head_stage: Optional[SetHeadStageRequestAddNewHeadStage]
+    add_new_head_stage: Optional[SetHeadStageRequestAddNewHeadStage] = None
 
-    remove_head_stage: Optional[SetHeadStageRequestRemoveHeadStage]
+    remove_head_stage: Optional[SetHeadStageRequestRemoveHeadStage] = None
 
-    swap_head_stage: Optional[SetHeadStageRequestSwapHeadStage]
+    swap_head_stage: Optional[SetHeadStageRequestSwapHeadStage] = None
 
 
 @dataclass
@@ -1693,7 +1673,9 @@ class SetRouteRulesRequest:
     ID of the route stage to update.
     """
 
-    route_rules: Optional[List[SetRouteRulesRequestRouteRule]]
+    route_rules: Optional[List[SetRouteRulesRequestRouteRule]] = field(
+        default_factory=list
+    )
     """
     List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
     """
@@ -1719,9 +1701,9 @@ class UpdateBackendStageRequest:
     Pipeline ID the Backend stage belongs to.
     """
 
-    scaleway_s3: Optional[ScalewayS3BackendConfig]
+    scaleway_s3: Optional[ScalewayS3BackendConfig] = None
 
-    scaleway_lb: Optional[ScalewayLbBackendConfig]
+    scaleway_lb: Optional[ScalewayLbBackendConfig] = None
 
 
 @dataclass
@@ -1731,21 +1713,21 @@ class UpdateCacheStageRequest:
     ID of the cache stage to update.
     """
 
-    fallback_ttl: Optional[str]
+    fallback_ttl: Optional[str] = None
     """
     Time To Live (TTL) in seconds. Defines how long content is cached.
     """
 
-    include_cookies: Optional[bool]
+    include_cookies: Optional[bool] = False
     """
     Defines whether responses to requests with cookies must be stored in the cache.
     """
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
-    waf_stage_id: Optional[str]
+    waf_stage_id: Optional[str] = None
 
-    route_stage_id: Optional[str]
+    route_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -1755,16 +1737,16 @@ class UpdateDNSStageRequest:
     ID of the DNS stage to update.
     """
 
-    fqdns: Optional[List[str]]
+    fqdns: Optional[List[str]] = field(default_factory=list)
     """
     Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage.
     """
 
-    tls_stage_id: Optional[str]
+    tls_stage_id: Optional[str] = None
 
-    cache_stage_id: Optional[str]
+    cache_stage_id: Optional[str] = None
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -1774,12 +1756,12 @@ class UpdatePipelineRequest:
     ID of the pipeline to update.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the pipeline.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the pipeline.
     """
@@ -1792,7 +1774,7 @@ class UpdateRouteStageRequest:
     ID of the route stage to update.
     """
 
-    waf_stage_id: Optional[str]
+    waf_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -1802,23 +1784,23 @@ class UpdateTLSStageRequest:
     ID of the TLS stage to update.
     """
 
-    tls_secrets_config: Optional[TLSSecretsConfig]
+    tls_secrets_config: Optional[TLSSecretsConfig] = None
     """
     Secret (from Scaleway Secret-Manager) containing your custom certificate.
     """
 
-    managed_certificate: Optional[bool]
+    managed_certificate: Optional[bool] = False
     """
     True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint.
     """
 
-    cache_stage_id: Optional[str]
+    cache_stage_id: Optional[str] = None
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None
 
-    route_stage_id: Optional[str]
+    route_stage_id: Optional[str] = None
 
-    waf_stage_id: Optional[str]
+    waf_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -1828,14 +1810,14 @@ class UpdateWafStageRequest:
     ID of the WAF stage to update.
     """
 
-    mode: Optional[WafStageMode]
+    mode: Optional[WafStageMode] = WafStageMode.UNKNOWN_MODE
     """
     Mode defining WAF behavior (`disable`/`log_only`/`enable`).
     """
 
-    paranoia_level: Optional[int]
+    paranoia_level: Optional[int] = 0
     """
     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
     """
 
-    backend_stage_id: Optional[str]
+    backend_stage_id: Optional[str] = None

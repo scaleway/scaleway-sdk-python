@@ -10,7 +10,14 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    AlertState,
+    AlertStatus,
+    DataSourceOrigin,
+    DataSourceType,
+    GrafanaUserRole,
+    PlanName,
     TokenScope,
+    UsageUnit,
     ContactPointEmail,
     ContactPoint,
     DataSource,
@@ -68,6 +75,8 @@ def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
     field = data.get("to", None)
     if field is not None:
         args["to"] = field
+    else:
+        args["to"] = None
 
     return ContactPointEmail(**args)
 
@@ -83,10 +92,14 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("send_resolved_notifications", None)
     if field is not None:
         args["send_resolved_notifications"] = field
+    else:
+        args["send_resolved_notifications"] = False
 
     field = data.get("email", None)
     if field is not None:
@@ -108,38 +121,56 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = DataSourceType.UNKNOWN_TYPE
 
     field = data.get("origin", None)
     if field is not None:
         args["origin"] = field
+    else:
+        args["origin"] = DataSourceOrigin.UNKNOWN_ORIGIN
 
     field = data.get("synchronized_with_grafana", None)
     if field is not None:
         args["synchronized_with_grafana"] = field
+    else:
+        args["synchronized_with_grafana"] = False
 
     field = data.get("retention_days", None)
     if field is not None:
         args["retention_days"] = field
+    else:
+        args["retention_days"] = 0
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -167,22 +198,32 @@ def unmarshal_GrafanaProductDashboard(data: Any) -> GrafanaProductDashboard:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("title", None)
     if field is not None:
         args["title"] = field
+    else:
+        args["title"] = None
 
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("variables", None)
     if field is not None:
         args["variables"] = field
+    else:
+        args["variables"] = field(default_factory=list)
 
     return GrafanaProductDashboard(**args)
 
@@ -198,14 +239,20 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = 0
 
     field = data.get("login", None)
     if field is not None:
         args["login"] = field
+    else:
+        args["login"] = None
 
     field = data.get("role", None)
     if field is not None:
         args["role"] = field
+    else:
+        args["role"] = GrafanaUserRole.UNKNOWN_ROLE
 
     field = data.get("password", None)
     if field is not None:
@@ -227,22 +274,32 @@ def unmarshal_Plan(data: Any) -> Plan:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = PlanName.UNKNOWN_NAME
 
     field = data.get("sample_ingestion_price", None)
     if field is not None:
         args["sample_ingestion_price"] = field
+    else:
+        args["sample_ingestion_price"] = 0
 
     field = data.get("logs_ingestion_price", None)
     if field is not None:
         args["logs_ingestion_price"] = field
+    else:
+        args["logs_ingestion_price"] = 0
 
     field = data.get("traces_ingestion_price", None)
     if field is not None:
         args["traces_ingestion_price"] = field
+    else:
+        args["traces_ingestion_price"] = 0
 
     field = data.get("monthly_price", None)
     if field is not None:
         args["monthly_price"] = field
+    else:
+        args["monthly_price"] = 0
 
     field = data.get("retention_metrics_interval", None)
     if field is not None:
@@ -276,22 +333,32 @@ def unmarshal_Token(data: Any) -> Token:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("scopes", None)
     if field is not None:
         args["scopes"] = [TokenScope(v) for v in field] if field is not None else None
+    else:
+        args["scopes"] = field(default_factory=list)
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -325,14 +392,20 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
     field = data.get("alert_manager_enabled", None)
     if field is not None:
         args["alert_manager_enabled"] = field
+    else:
+        args["alert_manager_enabled"] = False
 
     field = data.get("managed_alerts_enabled", None)
     if field is not None:
         args["managed_alerts_enabled"] = field
+    else:
+        args["managed_alerts_enabled"] = False
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("alert_manager_url", None)
     if field is not None:
@@ -354,6 +427,8 @@ def unmarshal_DisableAlertRulesResponse(data: Any) -> DisableAlertRulesResponse:
     field = data.get("disabled_rule_ids", None)
     if field is not None:
         args["disabled_rule_ids"] = field
+    else:
+        args["disabled_rule_ids"] = field(default_factory=list)
 
     return DisableAlertRulesResponse(**args)
 
@@ -369,6 +444,8 @@ def unmarshal_EnableAlertRulesResponse(data: Any) -> EnableAlertRulesResponse:
     field = data.get("enabled_rule_ids", None)
     if field is not None:
         args["enabled_rule_ids"] = field
+    else:
+        args["enabled_rule_ids"] = field(default_factory=list)
 
     return EnableAlertRulesResponse(**args)
 
@@ -384,14 +461,20 @@ def unmarshal_GetConfigResponseRetention(data: Any) -> GetConfigResponseRetentio
     field = data.get("min_days", None)
     if field is not None:
         args["min_days"] = field
+    else:
+        args["min_days"] = None
 
     field = data.get("max_days", None)
     if field is not None:
         args["max_days"] = field
+    else:
+        args["max_days"] = None
 
     field = data.get("default_days", None)
     if field is not None:
         args["default_days"] = field
+    else:
+        args["default_days"] = None
 
     return GetConfigResponseRetention(**args)
 
@@ -448,14 +531,20 @@ def unmarshal_RulesCount(data: Any) -> RulesCount:
     field = data.get("data_source_id", None)
     if field is not None:
         args["data_source_id"] = field
+    else:
+        args["data_source_id"] = None
 
     field = data.get("data_source_name", None)
     if field is not None:
         args["data_source_name"] = field
+    else:
+        args["data_source_name"] = None
 
     field = data.get("rules_count", None)
     if field is not None:
         args["rules_count"] = field
+    else:
+        args["rules_count"] = 0
 
     return RulesCount(**args)
 
@@ -473,14 +562,20 @@ def unmarshal_GetRulesCountResponse(data: Any) -> GetRulesCountResponse:
         args["rules_count_by_datasource"] = (
             [unmarshal_RulesCount(v) for v in field] if field is not None else None
         )
+    else:
+        args["rules_count_by_datasource"] = field(default_factory=list)
 
     field = data.get("preconfigured_rules_count", None)
     if field is not None:
         args["preconfigured_rules_count"] = field
+    else:
+        args["preconfigured_rules_count"] = 0
 
     field = data.get("custom_rules_count", None)
     if field is not None:
         args["custom_rules_count"] = field
+    else:
+        args["custom_rules_count"] = 0
 
     return GetRulesCountResponse(**args)
 
@@ -496,6 +591,8 @@ def unmarshal_Grafana(data: Any) -> Grafana:
     field = data.get("grafana_url", None)
     if field is not None:
         args["grafana_url"] = field
+    else:
+        args["grafana_url"] = None
 
     return Grafana(**args)
 
@@ -511,22 +608,32 @@ def unmarshal_PreconfiguredAlertData(data: Any) -> PreconfiguredAlertData:
     field = data.get("preconfigured_rule_id", None)
     if field is not None:
         args["preconfigured_rule_id"] = field
+    else:
+        args["preconfigured_rule_id"] = None
 
     field = data.get("display_name", None)
     if field is not None:
         args["display_name"] = field
+    else:
+        args["display_name"] = None
 
     field = data.get("display_description", None)
     if field is not None:
         args["display_description"] = field
+    else:
+        args["display_description"] = None
 
     field = data.get("product_name", None)
     if field is not None:
         args["product_name"] = field
+    else:
+        args["product_name"] = None
 
     field = data.get("product_family", None)
     if field is not None:
         args["product_family"] = field
+    else:
+        args["product_family"] = None
 
     return PreconfiguredAlertData(**args)
 
@@ -542,40 +649,56 @@ def unmarshal_Alert(data: Any) -> Alert:
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("preconfigured", None)
     if field is not None:
         args["preconfigured"] = field
+    else:
+        args["preconfigured"] = False
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("rule", None)
     if field is not None:
         args["rule"] = field
+    else:
+        args["rule"] = None
 
     field = data.get("duration", None)
     if field is not None:
         args["duration"] = field
+    else:
+        args["duration"] = None
 
     field = data.get("rule_status", None)
     if field is not None:
         args["rule_status"] = field
+    else:
+        args["rule_status"] = AlertStatus.UNKNOWN_STATUS
 
     field = data.get("annotations", None)
     if field is not None:
         args["annotations"] = field
+    else:
+        args["annotations"] = field(default_factory=dict)
 
     field = data.get("data_source_id", None)
     if field is not None:
         args["data_source_id"] = field
+    else:
+        args["data_source_id"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
     else:
-        args["state"] = None
+        args["state"] = AlertState.UNKNOWN_STATE
 
     field = data.get("preconfigured_data", None)
     if field is not None:
@@ -597,12 +720,16 @@ def unmarshal_ListAlertsResponse(data: Any) -> ListAlertsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("alerts", None)
     if field is not None:
         args["alerts"] = (
             [unmarshal_Alert(v) for v in field] if field is not None else None
         )
+    else:
+        args["alerts"] = field(default_factory=list)
 
     return ListAlertsResponse(**args)
 
@@ -618,20 +745,28 @@ def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("contact_points", None)
     if field is not None:
         args["contact_points"] = (
             [unmarshal_ContactPoint(v) for v in field] if field is not None else None
         )
+    else:
+        args["contact_points"] = field(default_factory=list)
 
     field = data.get("has_additional_receivers", None)
     if field is not None:
         args["has_additional_receivers"] = field
+    else:
+        args["has_additional_receivers"] = False
 
     field = data.get("has_additional_contact_points", None)
     if field is not None:
         args["has_additional_contact_points"] = field
+    else:
+        args["has_additional_contact_points"] = False
 
     return ListContactPointsResponse(**args)
 
@@ -647,12 +782,16 @@ def unmarshal_ListDataSourcesResponse(data: Any) -> ListDataSourcesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("data_sources", None)
     if field is not None:
         args["data_sources"] = (
             [unmarshal_DataSource(v) for v in field] if field is not None else None
         )
+    else:
+        args["data_sources"] = field(default_factory=list)
 
     return ListDataSourcesResponse(**args)
 
@@ -670,6 +809,8 @@ def unmarshal_ListGrafanaProductDashboardsResponse(
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("dashboards", None)
     if field is not None:
@@ -678,6 +819,8 @@ def unmarshal_ListGrafanaProductDashboardsResponse(
             if field is not None
             else None
         )
+    else:
+        args["dashboards"] = field(default_factory=list)
 
     return ListGrafanaProductDashboardsResponse(**args)
 
@@ -693,12 +836,16 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("grafana_users", None)
     if field is not None:
         args["grafana_users"] = (
             [unmarshal_GrafanaUser(v) for v in field] if field is not None else None
         )
+    else:
+        args["grafana_users"] = field(default_factory=list)
 
     return ListGrafanaUsersResponse(**args)
 
@@ -714,12 +861,16 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("plans", None)
     if field is not None:
         args["plans"] = (
             [unmarshal_Plan(v) for v in field] if field is not None else None
         )
+    else:
+        args["plans"] = field(default_factory=list)
 
     return ListPlansResponse(**args)
 
@@ -735,12 +886,16 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("tokens", None)
     if field is not None:
         args["tokens"] = (
             [unmarshal_Token(v) for v in field] if field is not None else None
         )
+    else:
+        args["tokens"] = field(default_factory=list)
 
     return ListTokensResponse(**args)
 
@@ -756,26 +911,38 @@ def unmarshal_Usage(data: Any) -> Usage:
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("data_source_origin", None)
     if field is not None:
         args["data_source_origin"] = field
+    else:
+        args["data_source_origin"] = DataSourceOrigin.UNKNOWN_ORIGIN
 
     field = data.get("data_source_type", None)
     if field is not None:
         args["data_source_type"] = field
+    else:
+        args["data_source_type"] = DataSourceType.UNKNOWN_TYPE
 
     field = data.get("unit", None)
     if field is not None:
         args["unit"] = field
+    else:
+        args["unit"] = UsageUnit.UNKNOWN_UNIT
 
     field = data.get("quantity_over_interval", None)
     if field is not None:
         args["quantity_over_interval"] = field
+    else:
+        args["quantity_over_interval"] = 0
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("data_source_id", None)
     if field is not None:
@@ -843,10 +1010,12 @@ def marshal_GlobalApiCreateGrafanaUserRequest(
         output["login"] = request.login
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.role is not None:
-        output["role"] = str(request.role)
+        output["role"] = request.role
 
     return output
 
@@ -858,7 +1027,9 @@ def marshal_GlobalApiResetGrafanaUserPasswordRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -870,10 +1041,12 @@ def marshal_GlobalApiSelectPlanRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.plan_name is not None:
-        output["plan_name"] = str(request.plan_name)
+        output["plan_name"] = request.plan_name
 
     return output
 
@@ -885,7 +1058,9 @@ def marshal_GlobalApiSyncGrafanaDataSourcesRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -920,7 +1095,9 @@ def marshal_RegionalApiCreateContactPointRequest(
     )
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.send_resolved_notifications is not None:
         output["send_resolved_notifications"] = request.send_resolved_notifications
@@ -938,10 +1115,12 @@ def marshal_RegionalApiCreateDataSourceRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.retention_days is not None:
         output["retention_days"] = request.retention_days
@@ -959,7 +1138,9 @@ def marshal_RegionalApiCreateTokenRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.token_scopes is not None:
         output["token_scopes"] = [str(item) for item in request.token_scopes]
@@ -985,7 +1166,9 @@ def marshal_RegionalApiDeleteContactPointRequest(
     )
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -997,7 +1180,9 @@ def marshal_RegionalApiDisableAlertManagerRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1009,7 +1194,9 @@ def marshal_RegionalApiDisableAlertRulesRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.rule_ids is not None:
         output["rule_ids"] = request.rule_ids
@@ -1024,7 +1211,9 @@ def marshal_RegionalApiDisableManagedAlertsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1036,7 +1225,9 @@ def marshal_RegionalApiEnableAlertManagerRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1048,7 +1239,9 @@ def marshal_RegionalApiEnableAlertRulesRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.rule_ids is not None:
         output["rule_ids"] = request.rule_ids
@@ -1063,7 +1256,9 @@ def marshal_RegionalApiEnableManagedAlertsRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1075,7 +1270,9 @@ def marshal_RegionalApiTriggerTestAlertRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1098,7 +1295,9 @@ def marshal_RegionalApiUpdateContactPointRequest(
     )
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.send_resolved_notifications is not None:
         output["send_resolved_notifications"] = request.send_resolved_notifications

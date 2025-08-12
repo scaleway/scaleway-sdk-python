@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -201,12 +201,12 @@ class Contract:
     The version of the contract.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     The creation date of the contract.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     The last modification date of the contract.
     """
@@ -219,23 +219,23 @@ class Qualification:
     Architecture type of the qualification.
     """
 
-    host_website: Optional[QualificationHostWebsite]
+    host_website: Optional[QualificationHostWebsite] = None
 
-    host_application: Optional[QualificationHostApplication]
+    host_application: Optional[QualificationHostApplication] = None
 
-    deploy_software: Optional[QualificationDeploySoftware]
+    deploy_software: Optional[QualificationDeploySoftware] = None
 
-    set_scaleway_environment: Optional[QualificationSetScalewayEnvironment]
+    set_scaleway_environment: Optional[QualificationSetScalewayEnvironment] = None
 
-    ai_machine: Optional[QualificationAiMachine]
+    ai_machine: Optional[QualificationAiMachine] = None
 
-    container: Optional[QualificationContainer]
+    container: Optional[QualificationContainer] = None
 
-    archive_data: Optional[QualificationArchiveData]
+    archive_data: Optional[QualificationArchiveData] = None
 
-    share_data: Optional[QualificationShareData]
+    share_data: Optional[QualificationShareData] = None
 
-    other_use_case: Optional[QualificationOtherUseCase]
+    other_use_case: Optional[QualificationOtherUseCase] = None
 
 
 @dataclass
@@ -250,22 +250,22 @@ class ContractSignature:
     The Organization ID which signed the contract.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     The creation date of the contract signature.
     """
 
-    signed_at: Optional[datetime]
+    signed_at: Optional[datetime] = None
     """
     The signing date of the contract signature.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     The expiration date of the contract signature.
     """
 
-    contract: Optional[Contract]
+    contract: Optional[Contract] = None
     """
     The contract signed.
     """
@@ -293,17 +293,17 @@ class Project:
     Description of the Project.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the Project.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Update date of the Project.
     """
 
-    qualification: Optional[Qualification]
+    qualification: Optional[Qualification] = None
     """
     Qualification of the Project.
     """
@@ -329,12 +329,12 @@ class ContractApiCheckContractSignatureRequest:
     Filter on contract name.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization to check the contract signature for.
     """
 
-    contract_type: Optional[ContractType]
+    contract_type: Optional[ContractType] = ContractType.UNKNOWN_TYPE
     """
     Filter on contract type.
     """
@@ -352,12 +352,12 @@ class ContractApiCreateContractSignatureRequest:
     Whether the contract is validated at creation.
     """
 
-    contract_type: Optional[ContractType]
+    contract_type: Optional[ContractType] = ContractType.UNKNOWN_TYPE
     """
     The type of the contract.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -370,7 +370,7 @@ class ContractApiDownloadContractSignatureRequest:
     The contract signature ID.
     """
 
-    locale: Optional[StdLanguageCode]
+    locale: Optional[StdLanguageCode] = StdLanguageCode.UNKNOWN_LANGUAGE_CODE
     """
     The locale requested for the content of the contract.
     """
@@ -378,22 +378,24 @@ class ContractApiDownloadContractSignatureRequest:
 
 @dataclass
 class ContractApiListContractSignaturesRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     The page number for the returned contracts.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The maximum number of contracts per page.
     """
 
-    order_by: Optional[ListContractSignaturesRequestOrderBy]
+    order_by: Optional[ListContractSignaturesRequestOrderBy] = (
+        ListContractSignaturesRequestOrderBy.SIGNED_AT_ASC
+    )
     """
     How the contracts are ordered in the response.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter on Organization ID.
     """
@@ -440,12 +442,12 @@ class ProjectApiCreateProjectRequest:
     Description of the Project.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the Project.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID of the Project.
     """
@@ -453,7 +455,7 @@ class ProjectApiCreateProjectRequest:
 
 @dataclass
 class ProjectApiDeleteProjectRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID of the Project.
     """
@@ -461,7 +463,7 @@ class ProjectApiDeleteProjectRequest:
 
 @dataclass
 class ProjectApiGetProjectRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID of the Project.
     """
@@ -469,32 +471,34 @@ class ProjectApiGetProjectRequest:
 
 @dataclass
 class ProjectApiListProjectsRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID of the Project.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the Project.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number for the returned Projects.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of Project per page.
     """
 
-    order_by: Optional[ListProjectsRequestOrderBy]
+    order_by: Optional[ListProjectsRequestOrderBy] = (
+        ListProjectsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of the returned Projects.
     """
 
-    project_ids: Optional[List[str]]
+    project_ids: Optional[List[str]] = field(default_factory=list)
     """
     Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
     """
@@ -502,12 +506,12 @@ class ProjectApiListProjectsRequest:
 
 @dataclass
 class ProjectApiSetProjectQualificationRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID.
     """
 
-    qualification: Optional[Qualification]
+    qualification: Optional[Qualification] = None
     """
     Use case chosen for the Project.
     """
@@ -515,17 +519,17 @@ class ProjectApiSetProjectQualificationRequest:
 
 @dataclass
 class ProjectApiUpdateProjectRequest:
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID of the Project.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the Project.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the Project.
     """
@@ -538,7 +542,7 @@ class ProjectQualification:
     Project ID.
     """
 
-    qualification: Optional[Qualification]
+    qualification: Optional[Qualification] = None
     """
     Qualification of the Project.
     """

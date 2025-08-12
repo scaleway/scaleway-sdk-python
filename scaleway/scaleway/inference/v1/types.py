@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -139,9 +139,9 @@ This CA certificate can be retrieved using the `GetDeploymentCertificate` API ca
     Defines whether the authentication is disabled.
     """
 
-    public_network: Optional[EndpointPublicNetworkDetails]
+    public_network: Optional[EndpointPublicNetworkDetails] = None
 
-    private_network: Optional[EndpointPrivateNetworkDetails]
+    private_network: Optional[EndpointPrivateNetworkDetails] = None
 
 
 @dataclass
@@ -160,16 +160,15 @@ class EndpointSpec:
 When setting this field to true, the authentication will be disabled.
     """
 
-    public_network: Optional[EndpointPublicNetworkDetails]
+    public_network: Optional[EndpointPublicNetworkDetails] = None
 
-    private_network: Optional[EndpointPrivateNetworkDetails]
+    private_network: Optional[EndpointPrivateNetworkDetails] = None
 
 
 @dataclass
 class ModelSource:
     url: str
-
-    secret: Optional[str]
+    secret: Optional[str] = None
 
 
 @dataclass
@@ -239,22 +238,22 @@ class Deployment:
     Region of the deployment.
     """
 
-    error_message: Optional[str]
+    error_message: Optional[str] = None
     """
     Displays information if your deployment is in error state.
     """
 
-    quantization: Optional[DeploymentQuantization]
+    quantization: Optional[DeploymentQuantization] = None
     """
     Quantization parameters for this deployment.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the deployment.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last modification date of the deployment.
     """
@@ -317,17 +316,17 @@ class Model:
     Total size, in bytes, of the model files.
     """
 
-    error_message: Optional[str]
+    error_message: Optional[str] = None
     """
     Displays information if your model is in error state.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the model.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last modification date of the model.
     """
@@ -385,12 +384,12 @@ class NodeType:
     Region of the node type.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the node type.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last modification date of the node type.
     """
@@ -413,43 +412,43 @@ class CreateDeploymentRequest:
     List of endpoints to create.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the deployment.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to create the deployment in.
     """
 
-    accept_eula: Optional[bool]
+    accept_eula: Optional[bool] = False
     """
     If the model has an EULA, you must accept it before proceeding.
 The terms of the EULA can be retrieved using the `GetModelEula` API call.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags to apply to the deployment.
     """
 
-    min_size: Optional[int]
+    min_size: Optional[int] = 0
     """
     Defines the minimum size of the pool.
     """
 
-    max_size: Optional[int]
+    max_size: Optional[int] = 0
     """
     Defines the maximum size of the pool.
     """
 
-    quantization: Optional[DeploymentQuantization]
+    quantization: Optional[DeploymentQuantization] = None
     """
     Quantization settings to apply to this deployment.
     """
@@ -467,7 +466,7 @@ class CreateEndpointRequest:
     Specification of the endpoint.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -480,17 +479,17 @@ class CreateModelRequest:
     Where to import the model from.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the model.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to import the model in.
     """
@@ -503,7 +502,7 @@ class DeleteDeploymentRequest:
     ID of the deployment to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -516,7 +515,7 @@ class DeleteEndpointRequest:
     ID of the endpoint to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -529,7 +528,7 @@ class DeleteModelRequest:
     ID of the model to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -538,8 +537,7 @@ class DeleteModelRequest:
 @dataclass
 class GetDeploymentCertificateRequest:
     deployment_id: str
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -552,7 +550,7 @@ class GetDeploymentRequest:
     ID of the deployment to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -565,7 +563,7 @@ class GetModelRequest:
     ID of the model to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -573,42 +571,44 @@ class GetModelRequest:
 
 @dataclass
 class ListDeploymentsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of deployments to return per page.
     """
 
-    order_by: Optional[ListDeploymentsRequestOrderBy]
+    order_by: Optional[ListDeploymentsRequestOrderBy] = (
+        ListDeploymentsRequestOrderBy.CREATED_AT_DESC
+    )
     """
     Order in which to return results.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter by deployment name.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tags.
     """
@@ -629,37 +629,39 @@ class ListDeploymentsResponse:
 
 @dataclass
 class ListModelsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListModelsRequestOrderBy]
+    order_by: Optional[ListModelsRequestOrderBy] = (
+        ListModelsRequestOrderBy.DISPLAY_RANK_ASC
+    )
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of models to return per page.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter by model name.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tags.
     """
@@ -685,17 +687,17 @@ class ListNodeTypesRequest:
     Include disabled node types in the response.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of node types to return per page.
     """
@@ -721,37 +723,37 @@ class UpdateDeploymentRequest:
     ID of the deployment to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the deployment.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags to apply to the deployment.
     """
 
-    min_size: Optional[int]
+    min_size: Optional[int] = 0
     """
     Defines the new minimum size of the pool.
     """
 
-    max_size: Optional[int]
+    max_size: Optional[int] = 0
     """
     Defines the new maximum size of the pool.
     """
 
-    model_id: Optional[str]
+    model_id: Optional[str] = None
     """
     Id of the model to set to the deployment.
     """
 
-    quantization: Optional[DeploymentQuantization]
+    quantization: Optional[DeploymentQuantization] = None
     """
     Quantization to use to the deployment.
     """
@@ -764,12 +766,12 @@ class UpdateEndpointRequest:
     ID of the endpoint to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    disable_auth: Optional[bool]
+    disable_auth: Optional[bool] = False
     """
     By default, deployments are protected by IAM authentication.
 When setting this field to true, the authentication will be disabled.

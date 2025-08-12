@@ -9,6 +9,7 @@ from .types import ListApplicationsRequestOrderBy
 from .types import ListBookingsRequestOrderBy
 from .types import ListJobResultsRequestOrderBy
 from .types import ListJobsRequestOrderBy
+from .types import ListModelsRequestOrderBy
 from .types import ListPlatformsRequestOrderBy
 from .types import ListProcessResultsRequestOrderBy
 from .types import ListProcessesRequestOrderBy
@@ -31,6 +32,7 @@ from .types import Application
 from .types import Booking
 from .types import JobResult
 from .types import Job
+from .types import Model
 from .types import Platform
 from .types import ProcessResult
 from .types import Process
@@ -38,6 +40,7 @@ from .types import Session
 from .types import CancelJobRequest
 from .types import CancelProcessRequest
 from .types import CreateJobRequest
+from .types import CreateModelRequest
 from .types import CreateProcessRequest
 from .types import CreateSessionRequest
 from .types import DeleteJobRequest
@@ -47,6 +50,7 @@ from .types import GetApplicationRequest
 from .types import GetBookingRequest
 from .types import GetJobCircuitRequest
 from .types import GetJobRequest
+from .types import GetModelRequest
 from .types import GetPlatformRequest
 from .types import GetProcessRequest
 from .types import GetSessionRequest
@@ -58,6 +62,8 @@ from .types import ListJobResultsRequest
 from .types import ListJobResultsResponse
 from .types import ListJobsRequest
 from .types import ListJobsResponse
+from .types import ListModelsRequest
+from .types import ListModelsResponse
 from .types import ListPlatformsRequest
 from .types import ListPlatformsResponse
 from .types import ListProcessResultsRequest
@@ -85,6 +91,7 @@ __all__ = [
     "ListBookingsRequestOrderBy",
     "ListJobResultsRequestOrderBy",
     "ListJobsRequestOrderBy",
+    "ListModelsRequestOrderBy",
     "ListPlatformsRequestOrderBy",
     "ListProcessResultsRequestOrderBy",
     "ListProcessesRequestOrderBy",
@@ -107,6 +114,7 @@ __all__ = [
     "Booking",
     "JobResult",
     "Job",
+    "Model",
     "Platform",
     "ProcessResult",
     "Process",
@@ -114,6 +122,7 @@ __all__ = [
     "CancelJobRequest",
     "CancelProcessRequest",
     "CreateJobRequest",
+    "CreateModelRequest",
     "CreateProcessRequest",
     "CreateSessionRequest",
     "DeleteJobRequest",
@@ -123,6 +132,7 @@ __all__ = [
     "GetBookingRequest",
     "GetJobCircuitRequest",
     "GetJobRequest",
+    "GetModelRequest",
     "GetPlatformRequest",
     "GetProcessRequest",
     "GetSessionRequest",
@@ -134,6 +144,8 @@ __all__ = [
     "ListJobResultsResponse",
     "ListJobsRequest",
     "ListJobsResponse",
+    "ListModelsRequest",
+    "ListModelsResponse",
     "ListPlatformsRequest",
     "ListPlatformsResponse",
     "ListProcessResultsRequest",

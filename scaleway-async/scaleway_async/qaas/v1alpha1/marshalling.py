@@ -13,11 +13,21 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ApplicationType,
+    BookingStatus,
+    JobStatus,
+    PlatformAvailability,
+    PlatformTechnology,
+    PlatformType,
+    ProcessStatus,
     SessionAccess,
+    SessionOriginType,
+    SessionStatus,
     JobCircuit,
     Application,
     Booking,
     Job,
+    Model,
     PlatformBookingRequirement,
     PlatformHardware,
     Platform,
@@ -28,6 +38,7 @@ from .types import (
     JobResult,
     ListJobResultsResponse,
     ListJobsResponse,
+    ListModelsResponse,
     ListPlatformsResponse,
     ProcessResult,
     ListProcessResultsResponse,
@@ -35,6 +46,7 @@ from .types import (
     ListSessionACLsResponse,
     ListSessionsResponse,
     CreateJobRequest,
+    CreateModelRequest,
     CreateProcessRequest,
     CreateSessionRequestBookingDemand,
     CreateSessionRequest,
@@ -79,22 +91,32 @@ def unmarshal_Application(data: Any) -> Application:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = ApplicationType.UNKNOWN_TYPE
 
     field = data.get("compatible_platform_ids", None)
     if field is not None:
         args["compatible_platform_ids"] = field
+    else:
+        args["compatible_platform_ids"] = field(default_factory=list)
 
     field = data.get("input_template", None)
     if field is not None:
         args["input_template"] = field
+    else:
+        args["input_template"] = None
 
     return Application(**args)
 
@@ -110,18 +132,26 @@ def unmarshal_Booking(data: Any) -> Booking:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = BookingStatus.UNKNOWN_STATUS
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("progress_message", None)
     if field is not None:
         args["progress_message"] = field
+    else:
+        args["progress_message"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -163,24 +193,26 @@ def unmarshal_Job(data: Any) -> Job:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("session_id", None)
     if field is not None:
         args["session_id"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
+    else:
+        args["session_id"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = field(default_factory=list)
 
     field = data.get("created_at", None)
     if field is not None:
@@ -193,6 +225,12 @@ def unmarshal_Job(data: Any) -> Job:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["started_at"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = JobStatus.UNKNOWN_STATUS
 
     field = data.get("updated_at", None)
     if field is not None:
@@ -218,7 +256,54 @@ def unmarshal_Job(data: Any) -> Job:
     else:
         args["result_distribution"] = None
 
+    field = data.get("model_id", None)
+    if field is not None:
+        args["model_id"] = field
+    else:
+        args["model_id"] = None
+
+    field = data.get("parameters", None)
+    if field is not None:
+        args["parameters"] = field
+    else:
+        args["parameters"] = None
+
     return Job(**args)
+
+
+def unmarshal_Model(data: Any) -> Model:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Model' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("url", None)
+    if field is not None:
+        args["url"] = field
+    else:
+        args["url"] = None
+
+    return Model(**args)
 
 
 def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequirement:
@@ -267,26 +352,38 @@ def unmarshal_PlatformHardware(data: Any) -> PlatformHardware:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("vcpus", None)
     if field is not None:
         args["vcpus"] = field
+    else:
+        args["vcpus"] = 0
 
     field = data.get("gpus", None)
     if field is not None:
         args["gpus"] = field
+    else:
+        args["gpus"] = 0
 
     field = data.get("gpus_network", None)
     if field is not None:
         args["gpus_network"] = field
+    else:
+        args["gpus_network"] = None
 
     field = data.get("ram", None)
     if field is not None:
         args["ram"] = field
+    else:
+        args["ram"] = 0
 
     field = data.get("vram", None)
     if field is not None:
         args["vram"] = field
+    else:
+        args["vram"] = 0
 
     return PlatformHardware(**args)
 
@@ -302,62 +399,92 @@ def unmarshal_Platform(data: Any) -> Platform:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("provider_name", None)
     if field is not None:
         args["provider_name"] = field
+    else:
+        args["provider_name"] = None
 
     field = data.get("backend_name", None)
     if field is not None:
         args["backend_name"] = field
+    else:
+        args["backend_name"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = PlatformType.UNKNOWN_TYPE
 
     field = data.get("technology", None)
     if field is not None:
         args["technology"] = field
+    else:
+        args["technology"] = PlatformTechnology.UNKNOWN_TECHNOLOGY
 
     field = data.get("max_qubit_count", None)
     if field is not None:
         args["max_qubit_count"] = field
+    else:
+        args["max_qubit_count"] = 0
 
     field = data.get("max_shot_count", None)
     if field is not None:
         args["max_shot_count"] = field
+    else:
+        args["max_shot_count"] = 0
 
     field = data.get("max_circuit_count", None)
     if field is not None:
         args["max_circuit_count"] = field
+    else:
+        args["max_circuit_count"] = 0
 
     field = data.get("availability", None)
     if field is not None:
         args["availability"] = field
+    else:
+        args["availability"] = PlatformAvailability.UNKNOWN_AVAILABILITY
 
     field = data.get("metadata", None)
     if field is not None:
         args["metadata"] = field
+    else:
+        args["metadata"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("documentation_url", None)
     if field is not None:
         args["documentation_url"] = field
+    else:
+        args["documentation_url"] = None
 
     field = data.get("is_bookable", None)
     if field is not None:
         args["is_bookable"] = field
+    else:
+        args["is_bookable"] = False
 
     field = data.get("price_per_hour", None)
     if field is not None:
@@ -403,14 +530,20 @@ def unmarshal_Process(data: Any) -> Process:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("attached_session_ids", None)
     if field is not None:
         args["attached_session_ids"] = field
+    else:
+        args["attached_session_ids"] = field(default_factory=list)
 
     field = data.get("application_id", None)
     if field is not None:
@@ -421,14 +554,20 @@ def unmarshal_Process(data: Any) -> Process:
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = ProcessStatus.UNKNOWN_STATUS
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("platform_id", None)
     if field is not None:
@@ -466,7 +605,7 @@ def unmarshal_Process(data: Any) -> Process:
     if field is not None:
         args["progress"] = field
     else:
-        args["progress"] = None
+        args["progress"] = 0
 
     field = data.get("progress_message", None)
     if field is not None:
@@ -494,44 +633,56 @@ def unmarshal_Session(data: Any) -> Session:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("platform_id", None)
     if field is not None:
         args["platform_id"] = field
+    else:
+        args["platform_id"] = None
 
     field = data.get("waiting_job_count", None)
     if field is not None:
         args["waiting_job_count"] = field
+    else:
+        args["waiting_job_count"] = 0
+
+    field = data.get("finished_job_count", None)
+    if field is not None:
+        args["finished_job_count"] = field
+    else:
+        args["finished_job_count"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = SessionStatus.UNKNOWN_STATUS
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("deduplication_id", None)
+    if field is not None:
+        args["deduplication_id"] = field
+    else:
+        args["deduplication_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["created_at"] = None
-
-    field = data.get("finished_job_count", None)
-    if field is not None:
-        args["finished_job_count"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-
-    field = data.get("deduplication_id", None)
-    if field is not None:
-        args["deduplication_id"] = field
-
-    field = data.get("origin_type", None)
-    if field is not None:
-        args["origin_type"] = field
 
     field = data.get("started_at", None)
     if field is not None:
@@ -569,7 +720,13 @@ def unmarshal_Session(data: Any) -> Session:
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = field(default_factory=list)
+
+    field = data.get("origin_type", None)
+    if field is not None:
+        args["origin_type"] = field
+    else:
+        args["origin_type"] = SessionOriginType.UNKNOWN_ORIGIN_TYPE
 
     field = data.get("origin_id", None)
     if field is not None:
@@ -589,6 +746,12 @@ def unmarshal_Session(data: Any) -> Session:
     else:
         args["booking_id"] = None
 
+    field = data.get("model_id", None)
+    if field is not None:
+        args["model_id"] = field
+    else:
+        args["model_id"] = None
+
     return Session(**args)
 
 
@@ -603,12 +766,16 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("applications", None)
     if field is not None:
         args["applications"] = (
             [unmarshal_Application(v) for v in field] if field is not None else None
         )
+    else:
+        args["applications"] = field(default_factory=list)
 
     return ListApplicationsResponse(**args)
 
@@ -624,12 +791,16 @@ def unmarshal_ListBookingsResponse(data: Any) -> ListBookingsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("bookings", None)
     if field is not None:
         args["bookings"] = (
             [unmarshal_Booking(v) for v in field] if field is not None else None
         )
+    else:
+        args["bookings"] = field(default_factory=list)
 
     return ListBookingsResponse(**args)
 
@@ -645,6 +816,8 @@ def unmarshal_JobResult(data: Any) -> JobResult:
     field = data.get("job_id", None)
     if field is not None:
         args["job_id"] = field
+    else:
+        args["job_id"] = None
 
     field = data.get("result", None)
     if field is not None:
@@ -678,12 +851,16 @@ def unmarshal_ListJobResultsResponse(data: Any) -> ListJobResultsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("job_results", None)
     if field is not None:
         args["job_results"] = (
             [unmarshal_JobResult(v) for v in field] if field is not None else None
         )
+    else:
+        args["job_results"] = field(default_factory=list)
 
     return ListJobResultsResponse(**args)
 
@@ -699,12 +876,41 @@ def unmarshal_ListJobsResponse(data: Any) -> ListJobsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("jobs", None)
     if field is not None:
         args["jobs"] = [unmarshal_Job(v) for v in field] if field is not None else None
+    else:
+        args["jobs"] = field(default_factory=list)
 
     return ListJobsResponse(**args)
+
+
+def unmarshal_ListModelsResponse(data: Any) -> ListModelsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListModelsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("models", None)
+    if field is not None:
+        args["models"] = (
+            [unmarshal_Model(v) for v in field] if field is not None else None
+        )
+    else:
+        args["models"] = field(default_factory=list)
+
+    return ListModelsResponse(**args)
 
 
 def unmarshal_ListPlatformsResponse(data: Any) -> ListPlatformsResponse:
@@ -718,12 +924,16 @@ def unmarshal_ListPlatformsResponse(data: Any) -> ListPlatformsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("platforms", None)
     if field is not None:
         args["platforms"] = (
             [unmarshal_Platform(v) for v in field] if field is not None else None
         )
+    else:
+        args["platforms"] = field(default_factory=list)
 
     return ListPlatformsResponse(**args)
 
@@ -739,10 +949,14 @@ def unmarshal_ProcessResult(data: Any) -> ProcessResult:
     field = data.get("process_id", None)
     if field is not None:
         args["process_id"] = field
+    else:
+        args["process_id"] = None
 
     field = data.get("result", None)
     if field is not None:
         args["result"] = field
+    else:
+        args["result"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -764,12 +978,16 @@ def unmarshal_ListProcessResultsResponse(data: Any) -> ListProcessResultsRespons
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("process_results", None)
     if field is not None:
         args["process_results"] = (
             [unmarshal_ProcessResult(v) for v in field] if field is not None else None
         )
+    else:
+        args["process_results"] = field(default_factory=list)
 
     return ListProcessResultsResponse(**args)
 
@@ -785,12 +1003,16 @@ def unmarshal_ListProcessesResponse(data: Any) -> ListProcessesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("processes", None)
     if field is not None:
         args["processes"] = (
             [unmarshal_Process(v) for v in field] if field is not None else None
         )
+    else:
+        args["processes"] = field(default_factory=list)
 
     return ListProcessesResponse(**args)
 
@@ -806,10 +1028,14 @@ def unmarshal_ListSessionACLsResponse(data: Any) -> ListSessionACLsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     field = data.get("acls", None)
     if field is not None:
         args["acls"] = [SessionAccess(v) for v in field] if field is not None else None
+    else:
+        args["acls"] = None
 
     return ListSessionACLsResponse(**args)
 
@@ -825,12 +1051,16 @@ def unmarshal_ListSessionsResponse(data: Any) -> ListSessionsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("sessions", None)
     if field is not None:
         args["sessions"] = (
             [unmarshal_Session(v) for v in field] if field is not None else None
         )
+    else:
+        args["sessions"] = field(default_factory=list)
 
     return ListSessionsResponse(**args)
 
@@ -881,6 +1111,29 @@ def marshal_CreateJobRequest(
     if request.max_duration is not None:
         output["max_duration"] = request.max_duration
 
+    if request.model_id is not None:
+        output["model_id"] = request.model_id
+
+    if request.parameters is not None:
+        output["parameters"] = request.parameters
+
+    return output
+
+
+def marshal_CreateModelRequest(
+    request: CreateModelRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    if request.payload is not None:
+        output["payload"] = request.payload
+
     return output
 
 
@@ -894,7 +1147,9 @@ def marshal_CreateProcessRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.platform_id is not None:
         output["platform_id"] = request.platform_id
@@ -939,7 +1194,9 @@ def marshal_CreateSessionRequest(
         output["platform_id"] = request.platform_id
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.name is not None:
         output["name"] = request.name
@@ -960,6 +1217,9 @@ def marshal_CreateSessionRequest(
         output["booking_demand"] = marshal_CreateSessionRequestBookingDemand(
             request.booking_demand, defaults
         )
+
+    if request.model_id is not None:
+        output["model_id"] = request.model_id
 
     return output
 

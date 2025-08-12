@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -180,8 +180,7 @@ class VolumeInstanceTemplateFromEmpty:
 @dataclass
 class VolumeInstanceTemplateFromSnapshot:
     snapshot_id: str
-
-    size: Optional[int]
+    size: Optional[int] = None
 
 
 @dataclass
@@ -196,7 +195,7 @@ class Capacity:
     Minimum count of Instances for the Instance group.
     """
 
-    cooldown_delay: Optional[str]
+    cooldown_delay: Optional[str] = None
     """
     Time (in seconds) after a scaling action during which requests to carry out a new scaling action will be denied.
     """
@@ -247,9 +246,11 @@ class Metric:
     Threshold value to measure the aggregated sampled `metric` value against. Combined with the `operator` field, determines whether a scaling action should be triggered.
     """
 
-    managed_metric: Optional[MetricManagedMetric]
+    managed_metric: Optional[MetricManagedMetric] = (
+        MetricManagedMetric.MANAGED_METRIC_UNKNOWN
+    )
 
-    cockpit_metric_name: Optional[str]
+    cockpit_metric_name: Optional[str] = None
 
 
 @dataclass
@@ -274,11 +275,11 @@ class VolumeInstanceTemplate:
     Type of the volume.
     """
 
-    from_empty: Optional[VolumeInstanceTemplateFromEmpty]
+    from_empty: Optional[VolumeInstanceTemplateFromEmpty] = None
 
-    from_snapshot: Optional[VolumeInstanceTemplateFromSnapshot]
+    from_snapshot: Optional[VolumeInstanceTemplateFromSnapshot] = None
 
-    perf_iops: Optional[int]
+    perf_iops: Optional[int] = None
 
 
 @dataclass
@@ -303,12 +304,12 @@ class InstanceGroupEvent:
     Log title.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of the log.
     """
 
-    details: Optional[str]
+    details: Optional[str] = None
     """
     Full text of the log.
     """
@@ -356,12 +357,12 @@ class InstanceGroup:
     Any configuration errors for dependencies (Load Balancer, Private Network, Instance template etc.).
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the Instance group was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the Instance group was last updated.
     """
@@ -404,7 +405,7 @@ class InstancePolicy:
     Instance group ID related to this policy.
     """
 
-    metric: Optional[Metric]
+    metric: Optional[Metric] = None
 
 
 @dataclass
@@ -444,47 +445,47 @@ class InstanceTemplate:
     Private Network IDs to attach to the new Instance.
     """
 
-    image_id: Optional[str]
-    """
-    Instance image ID. Can be an ID of a marketplace or personal image. This image must be compatible with `volume` and `commercial_type` template.
-    """
-
-    security_group_id: Optional[str]
-    """
-    Instance security group ID (optional).
-    """
-
-    placement_group_id: Optional[str]
-    """
-    Instance placement group ID. This is optional, but it is highly recommended to set a preference for Instance location within Availability Zone.
-    """
-
-    public_ips_v4_count: Optional[int]
-    """
-    Number of flexible IPv4 addresses to attach to the new Instance.
-    """
-
-    public_ips_v6_count: Optional[int]
-    """
-    Number of flexible IPv6 addresses to attach to the new Instance.
-    """
-
     status: InstanceTemplateStatus
     """
     Status of Instance template.
     """
 
-    cloud_init: Optional[str]
+    image_id: Optional[str] = None
+    """
+    Instance image ID. Can be an ID of a marketplace or personal image. This image must be compatible with `volume` and `commercial_type` template.
+    """
+
+    security_group_id: Optional[str] = None
+    """
+    Instance security group ID (optional).
+    """
+
+    placement_group_id: Optional[str] = None
+    """
+    Instance placement group ID. This is optional, but it is highly recommended to set a preference for Instance location within Availability Zone.
+    """
+
+    public_ips_v4_count: Optional[int] = 0
+    """
+    Number of flexible IPv4 addresses to attach to the new Instance.
+    """
+
+    public_ips_v6_count: Optional[int] = 0
+    """
+    Number of flexible IPv6 addresses to attach to the new Instance.
+    """
+
+    cloud_init: Optional[str] = None
     """
     Cloud-config file must be passed in Base64 format. Cloud-config files are special scripts designed to be run by the cloud-init process. These are generally used for initial configuration on the very first boot of a server.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the Instance template was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the Instance template was last updated.
     """
@@ -492,17 +493,17 @@ class InstanceTemplate:
 
 @dataclass
 class UpdateInstanceGroupRequestCapacity:
-    max_replicas: Optional[int]
+    max_replicas: Optional[int] = 0
     """
     Maximum count of Instances for the Instance group.
     """
 
-    min_replicas: Optional[int]
+    min_replicas: Optional[int] = 0
     """
     Minimum count of Instances for the Instance group.
     """
 
-    cooldown_delay: Optional[str]
+    cooldown_delay: Optional[str] = None
     """
     Time (in seconds) after a scaling action during which requests to carry out a new scaling action will be denied.
     """
@@ -510,7 +511,7 @@ class UpdateInstanceGroupRequestCapacity:
 
 @dataclass
 class UpdateInstanceGroupRequestLoadbalancer:
-    backend_ids: Optional[List[str]]
+    backend_ids: Optional[List[str]] = field(default_factory=list)
     """
     Load Balancer backend IDs.
     """
@@ -528,24 +529,26 @@ class UpdateInstancePolicyRequestMetric:
     How the values sampled for the `metric` should be aggregated.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name or description of your metric policy.
     """
 
-    sampling_range_min: Optional[int]
+    sampling_range_min: Optional[int] = 0
     """
     Interval of time, in minutes, during which metric is sampled.
     """
 
-    threshold: Optional[float]
+    threshold: Optional[float] = 0.0
     """
     Threshold value to measure the aggregated sampled `metric` value against. Combined with the `operator` field, determines whether a scaling action should be triggered.
     """
 
-    managed_metric: Optional[UpdateInstancePolicyRequestMetricManagedMetric]
+    managed_metric: Optional[UpdateInstancePolicyRequestMetricManagedMetric] = (
+        UpdateInstancePolicyRequestMetricManagedMetric.MANAGED_METRIC_UNKNOWN
+    )
 
-    cockpit_metric_name: Optional[str]
+    cockpit_metric_name: Optional[str] = None
 
 
 @dataclass
@@ -570,17 +573,17 @@ class CreateInstanceGroupRequest:
     Specification of the Load Balancer to link to the Instance group.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only Instance groups from this Project will be returned.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Instance group.
     """
@@ -618,21 +621,16 @@ class CreateInstancePolicyRequest:
     Instance group ID related to this policy.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    metric: Optional[Metric]
+    metric: Optional[Metric] = None
 
 
 @dataclass
 class CreateInstanceTemplateRequest:
-    zone: Optional[ScwZone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     commercial_type: str
     """
     Name of Instance commercial type.
@@ -643,52 +641,57 @@ class CreateInstanceTemplateRequest:
     Template of Instance volume.
     """
 
-    image_id: Optional[str]
-    """
-    Instance image ID. Can be an ID of a marketplace or personal image. This image must be compatible with `volume` and `commercial_type` template.
-    """
-
-    tags: Optional[List[str]]
-    """
-    List of tags for the Instance template.
-    """
-
-    security_group_id: Optional[str]
-    """
-    Instance security group ID (optional).
-    """
-
     name: str
     """
     Name of Instance template.
     """
 
-    placement_group_id: Optional[str]
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    image_id: Optional[str] = None
+    """
+    Instance image ID. Can be an ID of a marketplace or personal image. This image must be compatible with `volume` and `commercial_type` template.
+    """
+
+    tags: Optional[List[str]] = field(default_factory=list)
+    """
+    List of tags for the Instance template.
+    """
+
+    security_group_id: Optional[str] = None
+    """
+    Instance security group ID (optional).
+    """
+
+    placement_group_id: Optional[str] = None
     """
     Instance placement group ID. This is optional, but it is highly recommended to set a preference for Instance location within Availability Zone.
     """
 
-    public_ips_v4_count: Optional[int]
+    public_ips_v4_count: Optional[int] = 0
     """
     Number of flexible IPv4 addresses to attach to the new Instance.
     """
 
-    public_ips_v6_count: Optional[int]
+    public_ips_v6_count: Optional[int] = 0
     """
     Number of flexible IPv6 addresses to attach to the new Instance.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project containing the Instance template resource.
     """
 
-    private_network_ids: Optional[List[str]]
+    private_network_ids: Optional[List[str]] = field(default_factory=list)
     """
     Private Network IDs to attach to the new Instance.
     """
 
-    cloud_init: Optional[str]
+    cloud_init: Optional[str] = None
     """
     Cloud-config file must be passed in Base64 format. Cloud-config files are special scripts designed to be run by the cloud-init process. These are generally used for initial configuration on the very first boot of a server.
     """
@@ -701,7 +704,7 @@ class DeleteInstanceGroupRequest:
     ID of the Instance group to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -714,7 +717,7 @@ class DeleteInstancePolicyRequest:
     ID of the policy to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -727,7 +730,7 @@ class DeleteInstanceTemplateRequest:
     ID of the template to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -740,7 +743,7 @@ class GetInstanceGroupRequest:
     ID of the requested Instance group.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -753,7 +756,7 @@ class GetInstancePolicyRequest:
     Policy ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -766,7 +769,7 @@ class GetInstanceTemplateRequest:
     Template ID of the resource.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -779,22 +782,24 @@ class ListInstanceGroupEventsRequest:
     List all event logs for the Instance group ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListInstanceGroupEventsRequestOrderBy]
+    order_by: Optional[ListInstanceGroupEventsRequestOrderBy] = (
+        ListInstanceGroupEventsRequestOrderBy.CREATED_AT_DESC
+    )
     """
     Sort order of Instance groups in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of Instance groups to return per page.
     """
@@ -815,22 +820,24 @@ class ListInstanceGroupEventsResponse:
 
 @dataclass
 class ListInstanceGroupsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListInstanceGroupsRequestOrderBy]
+    order_by: Optional[ListInstanceGroupsRequestOrderBy] = (
+        ListInstanceGroupsRequestOrderBy.CREATED_AT_DESC
+    )
     """
     Sort order of Instance groups in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of Instance groups to return per page.
     """
@@ -856,22 +863,24 @@ class ListInstancePoliciesRequest:
     Instance group ID.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListInstancePoliciesRequestOrderBy]
+    order_by: Optional[ListInstancePoliciesRequestOrderBy] = (
+        ListInstancePoliciesRequestOrderBy.CREATED_AT_DESC
+    )
     """
     Sort order of Instance groups in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of scaling policies to return per page.
     """
@@ -892,22 +901,24 @@ class ListInstancePoliciesResponse:
 
 @dataclass
 class ListInstanceTemplatesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListInstanceTemplatesRequestOrderBy]
+    order_by: Optional[ListInstanceTemplatesRequestOrderBy] = (
+        ListInstanceTemplatesRequestOrderBy.CREATED_AT_DESC
+    )
     """
     Sort order of Instance groups in the response.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of Instance groups to return per page.
     """
@@ -933,27 +944,27 @@ class UpdateInstanceGroupRequest:
     Instance group ID to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of Instance group.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
 
-    capacity: Optional[UpdateInstanceGroupRequestCapacity]
+    capacity: Optional[UpdateInstanceGroupRequestCapacity] = None
     """
     Specification of the minimum and maximum replicas for the Instance group, and the cooldown interval between two scaling events.
     """
 
-    loadbalancer: Optional[UpdateInstanceGroupRequestLoadbalancer]
+    loadbalancer: Optional[UpdateInstanceGroupRequestLoadbalancer] = None
     """
     Specification of the Load Balancer to link to the Instance group.
     """
@@ -966,37 +977,37 @@ class UpdateInstancePolicyRequest:
     Policy ID to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Policy name to update.
     """
 
-    action: Optional[InstancePolicyAction]
+    action: Optional[InstancePolicyAction] = InstancePolicyAction.UNKNOWN_ACTION
     """
     Action to update (action to execute when the metric-based condition is met).
     """
 
-    type_: Optional[InstancePolicyType]
+    type_: Optional[InstancePolicyType] = InstancePolicyType.UNKNOWN_TYPE
     """
     Type to update (how to use the number defined in `value` when determining by how many Instances to scale up/down).
     """
 
-    value: Optional[int]
+    value: Optional[int] = 0
     """
     Value to update (number representing the magnitude of the scaling action to take for the Instance group).
     """
 
-    priority: Optional[int]
+    priority: Optional[int] = 0
     """
     Priority to update (priority of this policy compared to all other scaling policies. The lower the number, the higher the priority).
     """
 
-    metric: Optional[UpdateInstancePolicyRequestMetric]
+    metric: Optional[UpdateInstancePolicyRequestMetric] = None
 
 
 @dataclass
@@ -1006,62 +1017,62 @@ class UpdateInstanceTemplateRequest:
     Template ID of the resource.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    commercial_type: Optional[str]
+    commercial_type: Optional[str] = None
     """
     Name of Instance commercial type.
     """
 
-    image_id: Optional[str]
+    image_id: Optional[str] = None
     """
     Instance image ID. Can be an ID of a marketplace or personal image. This image must be compatible with `volume` and `commercial_type` template.
     """
 
-    volumes: Optional[Dict[str, VolumeInstanceTemplate]]
+    volumes: Optional[Dict[str, VolumeInstanceTemplate]] = field(default_factory=dict)
     """
     Template of Instance volume.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Instance template.
     """
 
-    security_group_id: Optional[str]
+    security_group_id: Optional[str] = None
     """
     Instance security group ID (optional).
     """
 
-    placement_group_id: Optional[str]
+    placement_group_id: Optional[str] = None
     """
     Instance placement group ID. This is optional, but it is highly recommended to set a preference for Instance location within Availability Zone.
     """
 
-    public_ips_v4_count: Optional[int]
+    public_ips_v4_count: Optional[int] = 0
     """
     Number of flexible IPv4 addresses to attach to the new Instance.
     """
 
-    public_ips_v6_count: Optional[int]
+    public_ips_v6_count: Optional[int] = 0
     """
     Number of flexible IPv6 addresses to attach to the new Instance.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of Instance template.
     """
 
-    private_network_ids: Optional[List[str]]
+    private_network_ids: Optional[List[str]] = field(default_factory=list)
     """
     Private Network IDs to attach to the new Instance.
     """
 
-    cloud_init: Optional[str]
+    cloud_init: Optional[str] = None
     """
     Cloud-config file must be passed in Base64 format. Cloud-config files are special scripts designed to be run by the cloud-init process. These are generally used for initial configuration on the very first boot of a server.
     """

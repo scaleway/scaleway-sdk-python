@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -18,6 +18,34 @@ from scaleway_core.utils import (
 from ...std.types import (
     LanguageCode as StdLanguageCode,
 )
+
+
+class BackupItemType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BACKUP_ITEM_TYPE = "unknown_backup_item_type"
+    FULL = "full"
+    WEB = "web"
+    MAIL = "mail"
+    DB = "db"
+    DB_USER = "db_user"
+    FTP_USER = "ftp_user"
+    DNS_ZONE = "dns_zone"
+    CRON_JOB = "cron_job"
+    SSL_CERTIFICATE = "ssl_certificate"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class BackupStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BACKUP_STATUS = "unknown_backup_status"
+    ACTIVE = "active"
+    LOCKED = "locked"
+    DISABLED = "disabled"
+    DAMAGED = "damaged"
+    RESTORING = "restoring"
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
@@ -126,6 +154,14 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     MIGRATING = "migrating"
     UPDATING = "updating"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListBackupsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -290,7 +326,7 @@ class HostingDomainCustomDomain:
     Status of the DNS configuration for the custom domain.
     """
 
-    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Indicates whether to auto-configure DNS for this domain.
     """
@@ -333,7 +369,7 @@ class OfferOption:
     Defines a warning if the maximum value for the option has been reached.
     """
 
-    price: Optional[Money]
+    price: Optional[Money] = None
     """
     Price of the option for 1 value.
     """
@@ -346,9 +382,42 @@ class PlatformControlPanel:
     Name of the control panel.
     """
 
-    urls: Optional[PlatformControlPanelUrls]
+    urls: Optional[PlatformControlPanelUrls] = None
     """
     URL to connect to control panel dashboard and to Webmail interface.
+    """
+
+
+@dataclass
+class BackupItem:
+    id: str
+    """
+    ID of the item.
+    """
+
+    name: str
+    """
+    Name of the item (e.g., `database name`, `email address`).
+    """
+
+    type_: BackupItemType
+    """
+    Type of the item (e.g., email, database, FTP).
+    """
+
+    size: int
+    """
+    Size of the item in bytes.
+    """
+
+    status: BackupStatus
+    """
+    Status of the item. Available values are `active`, `damaged`, and `restoring`.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date and time at which this item was backed up.
     """
 
 
@@ -359,7 +428,7 @@ class HostingDomain:
     Optional free subdomain linked to the Web Hosting plan.
     """
 
-    custom_domain: Optional[HostingDomainCustomDomain]
+    custom_domain: Optional[HostingDomainCustomDomain] = None
     """
     Optional custom domain linked to the Web Hosting plan.
     """
@@ -368,18 +437,14 @@ class HostingDomain:
 @dataclass
 class CreateDatabaseRequestUser:
     username: str
-
     password: str
 
 
 @dataclass
 class CreateHostingRequestDomainConfiguration:
     update_nameservers: bool
-
     update_web_record: bool
-
     update_mail_record: bool
-
     update_all_records: bool
 
 
@@ -399,7 +464,6 @@ class OfferOptionRequest:
 @dataclass
 class SyncDomainDnsRecordsRequestRecord:
     name: str
-
     type_: DnsRecordType
 
 
@@ -435,7 +499,7 @@ class DnsRecord:
     Record representation as it appears in the zone file or DNS management system.
     """
 
-    priority: Optional[int]
+    priority: Optional[int] = 0
     """
     Record priority level.
     """
@@ -471,12 +535,12 @@ class HostingUser:
     Contact email used for the hosting.
     """
 
-    one_time_password: Optional[str]
+    one_time_password: Optional[str] = None
     """
     One-time-password used for the first login to the control panel, cleared after first use (deprecated, use password_b64 instead).
     """
 
-    one_time_password_b64: Optional[str]
+    one_time_password_b64: Optional[str] = None
     """
     One-time-password used for the first login to the control panel, cleared after first use, encoded in base64.
     """
@@ -524,7 +588,7 @@ class Offer:
     Defines a warning if the maximum value for an option in the offer is exceeded.
     """
 
-    price: Optional[Money]
+    price: Optional[Money] = None
     """
     Price of the offer.
     """
@@ -557,9 +621,50 @@ class Platform:
     IPv6 address of the hosting's host platform.
     """
 
-    control_panel: Optional[PlatformControlPanel]
+    control_panel: Optional[PlatformControlPanel] = None
     """
     Details of the platform control panel.
+    """
+
+
+@dataclass
+class BackupItemGroup:
+    type_: BackupItemType
+    """
+    Type of items (e.g., email, database, FTP).
+    """
+
+    items: List[BackupItem]
+    """
+    List of individual backup items of this type.
+    """
+
+
+@dataclass
+class Backup:
+    id: str
+    """
+    ID of the backup.
+    """
+
+    size: int
+    """
+    Total size of the backup in bytes.
+    """
+
+    status: BackupStatus
+    """
+    Status of the backup. Available values are `active`, `locked`, and `restoring`.
+    """
+
+    total_items: int
+    """
+    Total number of restorable items in the backup.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation date of the backup.
     """
 
 
@@ -657,32 +762,32 @@ class HostingSummary:
     Region where the Web Hosting plan is hosted.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the Web Hosting plan was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the Web Hosting plan was last updated.
     """
 
-    domain: Optional[str]
+    domain: Optional[str] = None
     """
     Main domain associated with the Web Hosting plan (deprecated, use domain_info).
     """
 
-    dns_status: Optional[DnsRecordsStatus]
+    dns_status: Optional[DnsRecordsStatus] = DnsRecordsStatus.UNKNOWN_STATUS
     """
     DNS status of the Web Hosting plan.
     """
 
-    domain_status: Optional[DomainStatus]
+    domain_status: Optional[DomainStatus] = DomainStatus.UNKNOWN_STATUS
     """
     Main domain status of the Web Hosting plan.
     """
 
-    domain_info: Optional[HostingDomain]
+    domain_info: Optional[HostingDomain] = None
     """
     Domain configuration block (subdomain, optional custom domain, and DNS settings).
     """
@@ -746,9 +851,111 @@ class DomainAvailability:
     Whether a hosting can be created for this domain.
     """
 
-    price: Optional[Money]
+    price: Optional[Money] = None
     """
     Price for registering the domain.
+    """
+
+
+@dataclass
+class BackupApiGetBackupRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to retrieve.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class BackupApiListBackupItemsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to list items from.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class BackupApiListBackupsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to retrieve.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of backups to return per page.
+    """
+
+    order_by: Optional[ListBackupsRequestOrderBy] = (
+        ListBackupsRequestOrderBy.CREATED_AT_DESC
+    )
+    """
+    Order in which to return the list of backups.
+    """
+
+
+@dataclass
+class BackupApiRestoreBackupItemsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    item_ids: Optional[List[str]] = field(default_factory=list)
+    """
+    List of backup item IDs to restore individually.
+    """
+
+
+@dataclass
+class BackupApiRestoreBackupRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to fully restore.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -762,17 +969,17 @@ class CheckUserOwnsDomainResponse:
 
 @dataclass
 class ControlPanelApiListControlPanelsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of control panels to return (must be a positive integer lower or equal to 100).
     """
@@ -795,7 +1002,7 @@ class DatabaseApiAssignDatabaseUserRequest:
     Name of the database to be assigned.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -818,7 +1025,7 @@ class DatabaseApiChangeDatabaseUserPasswordRequest:
     New password.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -836,14 +1043,14 @@ class DatabaseApiCreateDatabaseRequest:
     Name of the database to be created.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    new_user: Optional[CreateDatabaseRequestUser]
+    new_user: Optional[CreateDatabaseRequestUser] = None
 
-    existing_username: Optional[str]
+    existing_username: Optional[str] = None
 
 
 @dataclass
@@ -863,7 +1070,7 @@ class DatabaseApiCreateDatabaseUserRequest:
     Password of the user to create.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -881,7 +1088,7 @@ class DatabaseApiDeleteDatabaseRequest:
     Name of the database to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -899,7 +1106,7 @@ class DatabaseApiDeleteDatabaseUserRequest:
     Name of the database user to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -917,7 +1124,7 @@ class DatabaseApiGetDatabaseRequest:
     Name of the database.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -935,7 +1142,7 @@ class DatabaseApiGetDatabaseUserRequest:
     Name of the database user to retrieve details.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -948,22 +1155,24 @@ class DatabaseApiListDatabaseUsersRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of database users to return (must be a positive integer lower or equal to 100).
     """
 
-    order_by: Optional[ListDatabaseUsersRequestOrderBy]
+    order_by: Optional[ListDatabaseUsersRequestOrderBy] = (
+        ListDatabaseUsersRequestOrderBy.USERNAME_ASC
+    )
     """
     Sort order of database users in the response.
     """
@@ -976,22 +1185,24 @@ class DatabaseApiListDatabasesRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of databases to return (must be a positive integer lower or equal to 100).
     """
 
-    order_by: Optional[ListDatabasesRequestOrderBy]
+    order_by: Optional[ListDatabasesRequestOrderBy] = (
+        ListDatabasesRequestOrderBy.DATABASE_NAME_ASC
+    )
     """
     Sort order of databases in the response.
     """
@@ -1014,7 +1225,7 @@ class DatabaseApiUnassignDatabaseUserRequest:
     Name of the database to be unassigned.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1027,12 +1238,12 @@ class DnsApiCheckUserOwnsDomainRequest:
     Domain for which ownership is to be verified.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the project currently in use.
     """
@@ -1045,7 +1256,7 @@ class DnsApiGetDomainDnsRecordsRequest:
     Domain associated with the DNS records.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1058,12 +1269,12 @@ class DnsApiGetDomainRequest:
     Domain name to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Scaleway Project in which to get the domain to create the Web Hosting plan.
     """
@@ -1076,12 +1287,12 @@ class DnsApiSearchDomainsRequest:
     Domain name to search.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Scaleway Project in which to search the domain to create the Web Hosting plan.
     """
@@ -1094,37 +1305,39 @@ class DnsApiSyncDomainDnsRecordsRequest:
     Domain for which the DNS records will be synchronized.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    update_web_records: Optional[bool]
+    update_web_records: Optional[bool] = False
     """
     Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).
     """
 
-    update_mail_records: Optional[bool]
+    update_mail_records: Optional[bool] = False
     """
     Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).
     """
 
-    update_all_records: Optional[bool]
+    update_all_records: Optional[bool] = False
     """
     Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns).
     """
 
-    update_nameservers: Optional[bool]
+    update_nameservers: Optional[bool] = False
     """
     Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
     """
 
-    custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]]
+    custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]] = field(
+        default_factory=list
+    )
     """
     Custom records to synchronize.
     """
 
-    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Whether or not to synchronize each types of records.
     """
@@ -1147,12 +1360,12 @@ class DnsRecords:
     Status of the records.
     """
 
-    dns_config: Optional[List[DomainDnsAction]]
+    dns_config: Optional[List[DomainDnsAction]] = field(default_factory=list)
     """
     Records dns auto configuration settings (deprecated, use auto_config_domain_dns).
     """
 
-    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Whether or not to synchronize each types of records.
     """
@@ -1185,12 +1398,12 @@ class Domain:
     A list of actions that can be performed on the domain.
     """
 
-    available_dns_actions: Optional[List[DomainDnsAction]]
+    available_dns_actions: Optional[List[DomainDnsAction]] = field(default_factory=list)
     """
     A list of DNS-related actions that can be auto configured for the domain (deprecated, use auto_config_domain_dns instead).
     """
 
-    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Whether or not to synchronize each type of record.
     """
@@ -1213,7 +1426,7 @@ class FtpAccountApiChangeFtpAccountPasswordRequest:
     New password for the FTP account.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1241,7 +1454,7 @@ class FtpAccountApiCreateFtpAccountRequest:
     Password for the new FTP account.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1254,27 +1467,29 @@ class FtpAccountApiListFtpAccountsRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of FTP accounts to return (must be a positive integer lower or equal to 100).
     """
 
-    order_by: Optional[ListFtpAccountsRequestOrderBy]
+    order_by: Optional[ListFtpAccountsRequestOrderBy] = (
+        ListFtpAccountsRequestOrderBy.USERNAME_ASC
+    )
     """
     Sort order of FTP accounts in the response.
     """
 
-    domain: Optional[str]
+    domain: Optional[str] = None
     """
     Domain to filter the FTP accounts.
     """
@@ -1292,7 +1507,7 @@ class FtpAccountApiRemoveFtpAccountRequest:
     Username of the FTP account to be deleted.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1315,31 +1530,6 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
-    updated_at: Optional[datetime]
-    """
-    Date on which the Web Hosting plan was last updated.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the Web Hosting plan was created.
-    """
-
-    domain: Optional[str]
-    """
-    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
-    """
-
-    offer: Optional[Offer]
-    """
-    Details of the Web Hosting plan offer and options.
-    """
-
-    platform: Optional[Platform]
-    """
-    Details of the hosting platform.
-    """
-
     tags: List[str]
     """
     List of tags associated with the Web Hosting plan.
@@ -1360,22 +1550,47 @@ class Hosting:
     Region where the Web Hosting plan is hosted.
     """
 
-    dns_status: Optional[DnsRecordsStatus]
+    updated_at: Optional[datetime] = None
+    """
+    Date on which the Web Hosting plan was last updated.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date on which the Web Hosting plan was created.
+    """
+
+    domain: Optional[str] = None
+    """
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
+    """
+
+    offer: Optional[Offer] = None
+    """
+    Details of the Web Hosting plan offer and options.
+    """
+
+    platform: Optional[Platform] = None
+    """
+    Details of the hosting platform.
+    """
+
+    dns_status: Optional[DnsRecordsStatus] = DnsRecordsStatus.UNKNOWN_STATUS
     """
     DNS status of the Web Hosting plan (deprecated, use domain_info).
     """
 
-    user: Optional[HostingUser]
+    user: Optional[HostingUser] = None
     """
     Details of the hosting user.
     """
 
-    domain_status: Optional[DomainStatus]
+    domain_status: Optional[DomainStatus] = DomainStatus.UNKNOWN_STATUS
     """
     Main domain status of the Web Hosting plan (deprecated, use domain_info).
     """
 
-    domain_info: Optional[HostingDomain]
+    domain_info: Optional[HostingDomain] = None
     """
     Domain configuration block (subdomain, optional custom domain, and DNS settings).
     """
@@ -1398,47 +1613,47 @@ class HostingApiCreateHostingRequest:
     Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Scaleway Project in which to create the Web Hosting plan.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags for the Web Hosting plan.
     """
 
-    subdomain: Optional[str]
+    subdomain: Optional[str] = None
     """
     The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself.
     """
 
-    offer_options: Optional[List[OfferOptionRequest]]
+    offer_options: Optional[List[OfferOptionRequest]] = field(default_factory=list)
     """
     List of the Web Hosting plan options IDs with their quantities.
     """
 
-    language: Optional[StdLanguageCode]
+    language: Optional[StdLanguageCode] = StdLanguageCode.UNKNOWN_LANGUAGE_CODE
     """
     Default language for the control panel interface.
     """
 
-    domain_configuration: Optional[CreateHostingRequestDomainConfiguration]
+    domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None
     """
     Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_config_domain_dns instead).
     """
 
-    skip_welcome_email: Optional[bool]
+    skip_welcome_email: Optional[bool] = False
     """
     Indicates whether to skip a welcome email to the contact email containing hosting info.
     """
 
-    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_update_* fields instead).
     """
@@ -1451,7 +1666,7 @@ class HostingApiCreateSessionRequest:
     Hosting ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1464,7 +1679,7 @@ class HostingApiDeleteHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1477,7 +1692,7 @@ class HostingApiGetHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1490,7 +1705,7 @@ class HostingApiGetResourceSummaryRequest:
     Hosting ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1498,57 +1713,59 @@ class HostingApiGetResourceSummaryRequest:
 
 @dataclass
 class HostingApiListHostingsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of Web Hosting plans to return (must be a positive integer lower or equal to 100).
     """
 
-    order_by: Optional[ListHostingsRequestOrderBy]
+    order_by: Optional[ListHostingsRequestOrderBy] = (
+        ListHostingsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order for Web Hosting plans in the response.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for, only Web Hosting plans with matching tags will be returned.
     """
 
-    statuses: Optional[List[HostingStatus]]
+    statuses: Optional[List[HostingStatus]] = field(default_factory=list)
     """
     Statuses to filter for, only Web Hosting plans with matching statuses will be returned.
     """
 
-    domain: Optional[str]
+    domain: Optional[str] = None
     """
     Domain to filter for, only Web Hosting plans associated with this domain will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only Web Hosting plans from this Project will be returned.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
     """
 
-    control_panels: Optional[List[str]]
+    control_panels: Optional[List[str]] = field(default_factory=list)
     """
     Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
     """
 
-    subdomain: Optional[str]
+    subdomain: Optional[str] = None
     """
     Optional free subdomain linked to the Web Hosting plan.
     """
@@ -1561,7 +1778,7 @@ class HostingApiResetHostingPasswordRequest:
     UUID of the hosting.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1574,34 +1791,60 @@ class HostingApiUpdateHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    email: Optional[str]
+    email: Optional[str] = None
     """
     New contact email for the Web Hosting plan.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     New tags for the Web Hosting plan.
     """
 
-    offer_options: Optional[List[OfferOptionRequest]]
+    offer_options: Optional[List[OfferOptionRequest]] = field(default_factory=list)
     """
     List of the Web Hosting plan options IDs with their quantities.
     """
 
-    offer_id: Optional[str]
+    offer_id: Optional[str] = None
     """
     ID of the new offer for the Web Hosting plan.
     """
 
-    protected: Optional[bool]
+    protected: Optional[bool] = False
     """
     Whether the hosting is protected or not.
+    """
+
+
+@dataclass
+class ListBackupItemsResponse:
+    total_count: int
+    """
+    Total number of backup item groups.
+    """
+
+    groups: List[BackupItemGroup]
+    """
+    List of backup item groups categorized by type.
+    """
+
+
+@dataclass
+class ListBackupsResponse:
+    total_count: int
+    """
+    Total number of available backups.
+    """
+
+    backups: List[Backup]
+    """
+    List of available backups.
     """
 
 
@@ -1731,7 +1974,7 @@ class MailAccountApiChangeMailAccountPasswordRequest:
     New password for the mail account.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1759,7 +2002,7 @@ class MailAccountApiCreateMailAccountRequest:
     Password for the new mail account.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1772,27 +2015,29 @@ class MailAccountApiListMailAccountsRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of mail accounts to return (must be a positive integer lower or equal to 100).
     """
 
-    order_by: Optional[ListMailAccountsRequestOrderBy]
+    order_by: Optional[ListMailAccountsRequestOrderBy] = (
+        ListMailAccountsRequestOrderBy.USERNAME_ASC
+    )
     """
     Sort order of mail accounts in the response.
     """
 
-    domain: Optional[str]
+    domain: Optional[str] = None
     """
     Domain to filter the mail accounts.
     """
@@ -1815,7 +2060,7 @@ class MailAccountApiRemoveMailAccountRequest:
     Username part of the mail account address.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1823,32 +2068,32 @@ class MailAccountApiRemoveMailAccountRequest:
 
 @dataclass
 class OfferApiListOffersRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of websites to return (must be a positive integer lower or equal to 100).
     """
 
-    order_by: Optional[ListOffersRequestOrderBy]
+    order_by: Optional[ListOffersRequestOrderBy] = ListOffersRequestOrderBy.PRICE_ASC
     """
     Sort order for Web Hosting offers in the response.
     """
 
-    hosting_id: Optional[str]
+    hosting_id: Optional[str] = None
     """
     UUID of the hosting plan.
     """
 
-    control_panels: Optional[List[str]]
+    control_panels: Optional[List[str]] = field(default_factory=list)
     """
     Name of the control panel(s) to filter for.
     """
@@ -1861,7 +2106,7 @@ class ResetHostingPasswordResponse:
     New temporary password, encoded in base64.
     """
 
-    one_time_password: Optional[str]
+    one_time_password: Optional[str] = None
     """
     New temporary password (deprecated, use password_b64 instead).
     """
@@ -1891,6 +2136,16 @@ class ResourceSummary:
 
 
 @dataclass
+class RestoreBackupItemsResponse:
+    pass
+
+
+@dataclass
+class RestoreBackupResponse:
+    pass
+
+
+@dataclass
 class SearchDomainsResponse:
     domains_available: List[DomainAvailability]
     """
@@ -1913,22 +2168,24 @@ class WebsiteApiListWebsitesRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number (must be a positive integer).
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of websites to return (must be a positive integer lower or equal to 100).
     """
 
-    order_by: Optional[ListWebsitesRequestOrderBy]
+    order_by: Optional[ListWebsitesRequestOrderBy] = (
+        ListWebsitesRequestOrderBy.DOMAIN_ASC
+    )
     """
     Sort order for Web Hosting websites in the response.
     """

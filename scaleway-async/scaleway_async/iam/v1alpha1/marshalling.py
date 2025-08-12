@@ -10,6 +10,15 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    GracePeriodType,
+    LocalityType,
+    LogAction,
+    LogResourceType,
+    PermissionSetScopeType,
+    SamlCertificateOrigin,
+    SamlCertificateType,
+    UserStatus,
+    UserType,
     JWT,
     APIKey,
     Application,
@@ -93,22 +102,32 @@ def unmarshal_JWT(data: Any) -> JWT:
     field = data.get("jti", None)
     if field is not None:
         args["jti"] = field
+    else:
+        args["jti"] = None
 
     field = data.get("issuer_id", None)
     if field is not None:
         args["issuer_id"] = field
+    else:
+        args["issuer_id"] = None
 
     field = data.get("audience_id", None)
     if field is not None:
         args["audience_id"] = field
+    else:
+        args["audience_id"] = None
 
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = field
+    else:
+        args["ip"] = None
 
     field = data.get("user_agent", None)
     if field is not None:
         args["user_agent"] = field
+    else:
+        args["user_agent"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -142,14 +161,20 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     field = data.get("access_key", None)
     if field is not None:
         args["access_key"] = field
+    else:
+        args["access_key"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("default_project_id", None)
     if field is not None:
         args["default_project_id"] = field
+    else:
+        args["default_project_id"] = None
 
     field = data.get("secret_key", None)
     if field is not None:
@@ -166,18 +191,26 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     field = data.get("editable", None)
     if field is not None:
         args["editable"] = field
+    else:
+        args["editable"] = False
 
     field = data.get("deletable", None)
     if field is not None:
         args["deletable"] = field
+    else:
+        args["deletable"] = False
 
     field = data.get("managed", None)
     if field is not None:
         args["managed"] = field
+    else:
+        args["managed"] = False
 
     field = data.get("creation_ip", None)
     if field is not None:
         args["creation_ip"] = field
+    else:
+        args["creation_ip"] = None
 
     field = data.get("user_id", None)
     if field is not None:
@@ -217,38 +250,56 @@ def unmarshal_Application(data: Any) -> Application:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("editable", None)
     if field is not None:
         args["editable"] = field
+    else:
+        args["editable"] = False
 
     field = data.get("deletable", None)
     if field is not None:
         args["deletable"] = field
+    else:
+        args["deletable"] = False
 
     field = data.get("managed", None)
     if field is not None:
         args["managed"] = field
+    else:
+        args["managed"] = False
 
     field = data.get("nb_api_keys", None)
     if field is not None:
         args["nb_api_keys"] = field
+    else:
+        args["nb_api_keys"] = 0
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("created_at", None)
     if field is not None:
@@ -276,42 +327,62 @@ def unmarshal_Group(data: Any) -> Group:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("user_ids", None)
     if field is not None:
         args["user_ids"] = field
+    else:
+        args["user_ids"] = field(default_factory=list)
 
     field = data.get("application_ids", None)
     if field is not None:
         args["application_ids"] = field
+    else:
+        args["application_ids"] = field(default_factory=list)
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("editable", None)
     if field is not None:
         args["editable"] = field
+    else:
+        args["editable"] = False
 
     field = data.get("deletable", None)
     if field is not None:
         args["deletable"] = field
+    else:
+        args["deletable"] = False
 
     field = data.get("managed", None)
     if field is not None:
         args["managed"] = field
+    else:
+        args["managed"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -339,34 +410,50 @@ def unmarshal_Log(data: Any) -> Log:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = field
+    else:
+        args["ip"] = None
 
     field = data.get("user_agent", None)
     if field is not None:
         args["user_agent"] = field
+    else:
+        args["user_agent"] = None
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
+    else:
+        args["action"] = LogAction.UNKNOWN_ACTION
 
     field = data.get("bearer_id", None)
     if field is not None:
         args["bearer_id"] = field
+    else:
+        args["bearer_id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("resource_type", None)
     if field is not None:
         args["resource_type"] = field
+    else:
+        args["resource_type"] = LogResourceType.UNKNOWN_RESOURCE_TYPE
 
     field = data.get("resource_id", None)
     if field is not None:
         args["resource_id"] = field
+    else:
+        args["resource_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -388,42 +475,62 @@ def unmarshal_Policy(data: Any) -> Policy:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("editable", None)
     if field is not None:
         args["editable"] = field
+    else:
+        args["editable"] = False
 
     field = data.get("deletable", None)
     if field is not None:
         args["deletable"] = field
+    else:
+        args["deletable"] = False
 
     field = data.get("managed", None)
     if field is not None:
         args["managed"] = field
+    else:
+        args["managed"] = False
 
     field = data.get("nb_rules", None)
     if field is not None:
         args["nb_rules"] = field
+    else:
+        args["nb_rules"] = 0
 
     field = data.get("nb_scopes", None)
     if field is not None:
         args["nb_scopes"] = field
+    else:
+        args["nb_scopes"] = 0
 
     field = data.get("nb_permission_sets", None)
     if field is not None:
         args["nb_permission_sets"] = field
+    else:
+        args["nb_permission_sets"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -440,6 +547,8 @@ def unmarshal_Policy(data: Any) -> Policy:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("user_id", None)
     if field is not None:
@@ -463,7 +572,7 @@ def unmarshal_Policy(data: Any) -> Policy:
     if field is not None:
         args["no_principal"] = field
     else:
-        args["no_principal"] = None
+        args["no_principal"] = False
 
     return Policy(**args)
 
@@ -480,7 +589,7 @@ def unmarshal_QuotumLimit(data: Any) -> QuotumLimit:
     if field is not None:
         args["global_"] = field
     else:
-        args["global_"] = None
+        args["global_"] = False
 
     field = data.get("region", None)
     if field is not None:
@@ -498,13 +607,13 @@ def unmarshal_QuotumLimit(data: Any) -> QuotumLimit:
     if field is not None:
         args["limit"] = field
     else:
-        args["limit"] = None
+        args["limit"] = 0
 
     field = data.get("unlimited", None)
     if field is not None:
         args["unlimited"] = field
     else:
-        args["unlimited"] = None
+        args["unlimited"] = False
 
     return QuotumLimit(**args)
 
@@ -520,40 +629,52 @@ def unmarshal_Quotum(data: Any) -> Quotum:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("pretty_name", None)
     if field is not None:
         args["pretty_name"] = field
+    else:
+        args["pretty_name"] = None
 
     field = data.get("unit", None)
     if field is not None:
         args["unit"] = field
+    else:
+        args["unit"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("locality_type", None)
     if field is not None:
         args["locality_type"] = field
+    else:
+        args["locality_type"] = LocalityType.GLOBAL
 
     field = data.get("limits", None)
     if field is not None:
         args["limits"] = (
             [unmarshal_QuotumLimit(v) for v in field] if field is not None else None
         )
+    else:
+        args["limits"] = field(default_factory=list)
 
     field = data.get("limit", None)
     if field is not None:
         args["limit"] = field
     else:
-        args["limit"] = None
+        args["limit"] = 0
 
     field = data.get("unlimited", None)
     if field is not None:
         args["unlimited"] = field
     else:
-        args["unlimited"] = None
+        args["unlimited"] = False
 
     return Quotum(**args)
 
@@ -569,30 +690,44 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("public_key", None)
     if field is not None:
         args["public_key"] = field
+    else:
+        args["public_key"] = None
 
     field = data.get("fingerprint", None)
     if field is not None:
         args["fingerprint"] = field
+    else:
+        args["fingerprint"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("disabled", None)
     if field is not None:
         args["disabled"] = field
+    else:
+        args["disabled"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -620,18 +755,26 @@ def unmarshal_SamlCertificate(data: Any) -> SamlCertificate:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = SamlCertificateType.UNKNOWN_CERTIFICATE_TYPE
 
     field = data.get("origin", None)
     if field is not None:
         args["origin"] = field
+    else:
+        args["origin"] = SamlCertificateOrigin.UNKNOWN_CERTIFICATE_ORIGIN
 
     field = data.get("content", None)
     if field is not None:
         args["content"] = field
+    else:
+        args["content"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
@@ -653,38 +796,56 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("email", None)
     if field is not None:
         args["email"] = field
+    else:
+        args["email"] = None
 
     field = data.get("username", None)
     if field is not None:
         args["username"] = field
+    else:
+        args["username"] = None
 
     field = data.get("first_name", None)
     if field is not None:
         args["first_name"] = field
+    else:
+        args["first_name"] = None
 
     field = data.get("last_name", None)
     if field is not None:
         args["last_name"] = field
+    else:
+        args["last_name"] = None
 
     field = data.get("phone_number", None)
     if field is not None:
         args["phone_number"] = field
+    else:
+        args["phone_number"] = None
 
     field = data.get("locale", None)
     if field is not None:
         args["locale"] = field
+    else:
+        args["locale"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("deletable", None)
     if field is not None:
         args["deletable"] = field
+    else:
+        args["deletable"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -709,34 +870,44 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = UserType.UNKNOWN_TYPE
 
     field = data.get("mfa", None)
     if field is not None:
         args["mfa"] = field
+    else:
+        args["mfa"] = False
 
     field = data.get("account_root_user_id", None)
     if field is not None:
         args["account_root_user_id"] = field
+    else:
+        args["account_root_user_id"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("locked", None)
     if field is not None:
         args["locked"] = field
+    else:
+        args["locked"] = False
 
     field = data.get("two_factor_enabled", None)
     if field is not None:
         args["two_factor_enabled"] = field
     else:
-        args["two_factor_enabled"] = None
+        args["two_factor_enabled"] = False
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = UserStatus.UNKNOWN_STATUS
 
     return User(**args)
 
@@ -752,10 +923,14 @@ def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
     field = data.get("token", None)
     if field is not None:
         args["token"] = field
+    else:
+        args["token"] = None
 
     field = data.get("renew_token", None)
     if field is not None:
         args["renew_token"] = field
+    else:
+        args["renew_token"] = None
 
     field = data.get("jwt", None)
     if field is not None:
@@ -779,14 +954,20 @@ def unmarshal_ConnectionConnectedOrganization(
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("locked", None)
     if field is not None:
         args["locked"] = field
+    else:
+        args["locked"] = None
 
     return ConnectionConnectedOrganization(**args)
 
@@ -802,14 +983,20 @@ def unmarshal_ConnectionConnectedUser(data: Any) -> ConnectionConnectedUser:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("username", None)
     if field is not None:
         args["username"] = field
+    else:
+        args["username"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     return ConnectionConnectedUser(**args)
 
@@ -850,6 +1037,8 @@ def unmarshal_GetUserConnectionsResponse(data: Any) -> GetUserConnectionsRespons
         args["connections"] = (
             [unmarshal_Connection(v) for v in field] if field is not None else None
         )
+    else:
+        args["connections"] = field(default_factory=list)
 
     return GetUserConnectionsResponse(**args)
 
@@ -867,6 +1056,8 @@ def unmarshal_InitiateUserConnectionResponse(
     field = data.get("token", None)
     if field is not None:
         args["token"] = field
+    else:
+        args["token"] = None
 
     return InitiateUserConnectionResponse(**args)
 
@@ -884,10 +1075,14 @@ def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
         args["api_keys"] = (
             [unmarshal_APIKey(v) for v in field] if field is not None else None
         )
+    else:
+        args["api_keys"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListAPIKeysResponse(**args)
 
@@ -905,10 +1100,14 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
         args["applications"] = (
             [unmarshal_Application(v) for v in field] if field is not None else None
         )
+    else:
+        args["applications"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListApplicationsResponse(**args)
 
@@ -924,6 +1123,8 @@ def unmarshal_GracePeriod(data: Any) -> GracePeriod:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = GracePeriodType.UNKNOWN_GRACE_PERIOD_TYPE
 
     field = data.get("created_at", None)
     if field is not None:
@@ -953,6 +1154,8 @@ def unmarshal_ListGracePeriodsResponse(data: Any) -> ListGracePeriodsResponse:
         args["grace_periods"] = (
             [unmarshal_GracePeriod(v) for v in field] if field is not None else None
         )
+    else:
+        args["grace_periods"] = field(default_factory=list)
 
     return ListGracePeriodsResponse(**args)
 
@@ -970,10 +1173,14 @@ def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
         args["groups"] = (
             [unmarshal_Group(v) for v in field] if field is not None else None
         )
+    else:
+        args["groups"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListGroupsResponse(**args)
 
@@ -989,10 +1196,14 @@ def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
     field = data.get("jwts", None)
     if field is not None:
         args["jwts"] = [unmarshal_JWT(v) for v in field] if field is not None else None
+    else:
+        args["jwts"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListJWTsResponse(**args)
 
@@ -1008,10 +1219,14 @@ def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
     field = data.get("logs", None)
     if field is not None:
         args["logs"] = [unmarshal_Log(v) for v in field] if field is not None else None
+    else:
+        args["logs"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListLogsResponse(**args)
 
@@ -1027,24 +1242,32 @@ def unmarshal_PermissionSet(data: Any) -> PermissionSet:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("scope_type", None)
     if field is not None:
         args["scope_type"] = field
+    else:
+        args["scope_type"] = PermissionSetScopeType.UNKNOWN_SCOPE_TYPE
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("categories", None)
     if field is not None:
         args["categories"] = field
     else:
-        args["categories"] = None
+        args["categories"] = field(default_factory=list)
 
     return PermissionSet(**args)
 
@@ -1062,10 +1285,14 @@ def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsRespons
         args["permission_sets"] = (
             [unmarshal_PermissionSet(v) for v in field] if field is not None else None
         )
+    else:
+        args["permission_sets"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListPermissionSetsResponse(**args)
 
@@ -1083,10 +1310,14 @@ def unmarshal_ListPoliciesResponse(data: Any) -> ListPoliciesResponse:
         args["policies"] = (
             [unmarshal_Policy(v) for v in field] if field is not None else None
         )
+    else:
+        args["policies"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListPoliciesResponse(**args)
 
@@ -1104,10 +1335,14 @@ def unmarshal_ListQuotaResponse(data: Any) -> ListQuotaResponse:
         args["quota"] = (
             [unmarshal_Quotum(v) for v in field] if field is not None else None
         )
+    else:
+        args["quota"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListQuotaResponse(**args)
 
@@ -1123,26 +1358,32 @@ def unmarshal_Rule(data: Any) -> Rule:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("permission_sets_scope_type", None)
     if field is not None:
         args["permission_sets_scope_type"] = field
+    else:
+        args["permission_sets_scope_type"] = PermissionSetScopeType.UNKNOWN_SCOPE_TYPE
 
     field = data.get("condition", None)
     if field is not None:
         args["condition"] = field
+    else:
+        args["condition"] = None
 
     field = data.get("permission_set_names", None)
     if field is not None:
         args["permission_set_names"] = field
     else:
-        args["permission_set_names"] = None
+        args["permission_set_names"] = field(default_factory=list)
 
     field = data.get("project_ids", None)
     if field is not None:
         args["project_ids"] = field
     else:
-        args["project_ids"] = None
+        args["project_ids"] = field(default_factory=list)
 
     field = data.get("organization_id", None)
     if field is not None:
@@ -1172,10 +1413,14 @@ def unmarshal_ListRulesResponse(data: Any) -> ListRulesResponse:
         args["rules"] = (
             [unmarshal_Rule(v) for v in field] if field is not None else None
         )
+    else:
+        args["rules"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListRulesResponse(**args)
 
@@ -1193,10 +1438,14 @@ def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
         args["ssh_keys"] = (
             [unmarshal_SSHKey(v) for v in field] if field is not None else None
         )
+    else:
+        args["ssh_keys"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListSSHKeysResponse(**args)
 
@@ -1214,6 +1463,8 @@ def unmarshal_ListSamlCertificatesResponse(data: Any) -> ListSamlCertificatesRes
         args["certificates"] = (
             [unmarshal_SamlCertificate(v) for v in field] if field is not None else None
         )
+    else:
+        args["certificates"] = field(default_factory=list)
 
     return ListSamlCertificatesResponse(**args)
 
@@ -1231,10 +1482,14 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
         args["users"] = (
             [unmarshal_User(v) for v in field] if field is not None else None
         )
+    else:
+        args["users"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListUsersResponse(**args)
 
@@ -1250,6 +1505,8 @@ def unmarshal_MFAOTP(data: Any) -> MFAOTP:
     field = data.get("secret", None)
     if field is not None:
         args["secret"] = field
+    else:
+        args["secret"] = None
 
     return MFAOTP(**args)
 
@@ -1265,14 +1522,20 @@ def unmarshal_Organization(data: Any) -> Organization:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("alias", None)
     if field is not None:
         args["alias"] = field
+    else:
+        args["alias"] = None
 
     return Organization(**args)
 
@@ -1288,10 +1551,14 @@ def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySet
     field = data.get("enforce_password_renewal", None)
     if field is not None:
         args["enforce_password_renewal"] = field
+    else:
+        args["enforce_password_renewal"] = False
 
     field = data.get("login_attempts_before_locked", None)
     if field is not None:
         args["login_attempts_before_locked"] = field
+    else:
+        args["login_attempts_before_locked"] = 0
 
     field = data.get("grace_period_duration", None)
     if field is not None:
@@ -1313,14 +1580,20 @@ def unmarshal_Saml(data: Any) -> Saml:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("entity_id", None)
     if field is not None:
         args["entity_id"] = field
+    else:
+        args["entity_id"] = None
 
     field = data.get("single_sign_on_url", None)
     if field is not None:
         args["single_sign_on_url"] = field
+    else:
+        args["single_sign_on_url"] = None
 
     return Saml(**args)
 
@@ -1338,6 +1611,8 @@ def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
         args["rules"] = (
             [unmarshal_Rule(v) for v in field] if field is not None else None
         )
+    else:
+        args["rules"] = field(default_factory=list)
 
     return SetRulesResponse(**args)
 
@@ -1353,6 +1628,8 @@ def unmarshal_ValidateUserMFAOTPResponse(data: Any) -> ValidateUserMFAOTPRespons
     field = data.get("recovery_codes", None)
     if field is not None:
         args["recovery_codes"] = field
+    else:
+        args["recovery_codes"] = field(default_factory=list)
 
     return ValidateUserMFAOTPResponse(**args)
 
@@ -1402,7 +1679,7 @@ def marshal_AddSamlCertificateRequest(
     output: Dict[str, Any] = {}
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.content is not None:
         output["content"] = request.content
@@ -1455,9 +1732,9 @@ def marshal_CreateApplicationRequest(
         output["name"] = request.name
 
     if request.organization_id is not None:
-        output["organization_id"] = (
-            request.organization_id or defaults.default_organization_id
-        )
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -1475,9 +1752,9 @@ def marshal_CreateGroupRequest(
         output["description"] = request.description
 
     if request.organization_id is not None:
-        output["organization_id"] = (
-            request.organization_id or defaults.default_organization_id
-        )
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
 
     if request.name is not None:
         output["name"] = request.name
@@ -1581,9 +1858,9 @@ def marshal_CreatePolicyRequest(
         output["name"] = request.name
 
     if request.organization_id is not None:
-        output["organization_id"] = (
-            request.organization_id or defaults.default_organization_id
-        )
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
 
     if request.rules is not None:
         output["rules"] = [marshal_RuleSpecs(item, defaults) for item in request.rules]
@@ -1607,7 +1884,9 @@ def marshal_CreateSSHKeyRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
@@ -1667,9 +1946,9 @@ def marshal_CreateUserRequest(
     )
 
     if request.organization_id is not None:
-        output["organization_id"] = (
-            request.organization_id or defaults.default_organization_id
-        )
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
 
     if request.tags is not None:
         output["tags"] = request.tags

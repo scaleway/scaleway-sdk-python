@@ -7,6 +7,10 @@ from dateutil import parser
 from scaleway_core.profile import ProfileDefaults
 from .types import (
     ConnectivityDiagnosticActionType,
+    ServerPrivateNetworkServerStatus,
+    ServerPrivateNetworkStatus,
+    ServerStatus,
+    ServerTypeStock,
     OS,
     Commitment,
     Server,
@@ -49,38 +53,56 @@ def unmarshal_OS(data: Any) -> OS:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("label", None)
     if field is not None:
         args["label"] = field
+    else:
+        args["label"] = None
 
     field = data.get("image_url", None)
     if field is not None:
         args["image_url"] = field
+    else:
+        args["image_url"] = None
 
     field = data.get("family", None)
     if field is not None:
         args["family"] = field
+    else:
+        args["family"] = None
 
     field = data.get("is_beta", None)
     if field is not None:
         args["is_beta"] = field
+    else:
+        args["is_beta"] = False
 
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = None
 
     field = data.get("xcode_version", None)
     if field is not None:
         args["xcode_version"] = field
+    else:
+        args["xcode_version"] = None
 
     field = data.get("compatible_server_types", None)
     if field is not None:
         args["compatible_server_types"] = field
+    else:
+        args["compatible_server_types"] = field(default_factory=list)
 
     return OS(**args)
 
@@ -96,10 +118,14 @@ def unmarshal_Commitment(data: Any) -> Commitment:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("cancelled", None)
     if field is not None:
         args["cancelled"] = field
+    else:
+        args["cancelled"] = None
 
     return Commitment(**args)
 
@@ -115,46 +141,68 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = field
+    else:
+        args["ip"] = None
 
     field = data.get("vnc_url", None)
     if field is not None:
         args["vnc_url"] = field
+    else:
+        args["vnc_url"] = None
 
     field = data.get("ssh_username", None)
     if field is not None:
         args["ssh_username"] = field
+    else:
+        args["ssh_username"] = None
 
     field = data.get("sudo_password", None)
     if field is not None:
         args["sudo_password"] = field
+    else:
+        args["sudo_password"] = None
 
     field = data.get("vnc_port", None)
     if field is not None:
         args["vnc_port"] = field
+    else:
+        args["vnc_port"] = 0
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = ServerStatus.UNKNOWN_STATUS
 
     field = data.get("os", None)
     if field is not None:
@@ -185,22 +233,32 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("deletion_scheduled", None)
     if field is not None:
         args["deletion_scheduled"] = field
+    else:
+        args["deletion_scheduled"] = False
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("delivered", None)
     if field is not None:
         args["delivered"] = field
+    else:
+        args["delivered"] = False
 
     field = data.get("vpc_status", None)
     if field is not None:
         args["vpc_status"] = field
+    else:
+        args["vpc_status"] = ServerPrivateNetworkStatus.VPC_UNKNOWN_STATUS
 
     field = data.get("public_bandwidth_bps", None)
     if field is not None:
         args["public_bandwidth_bps"] = field
+    else:
+        args["public_bandwidth_bps"] = 0
 
     field = data.get("commitment", None)
     if field is not None:
@@ -222,32 +280,44 @@ def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("server_id", None)
     if field is not None:
         args["server_id"] = field
+    else:
+        args["server_id"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = ServerPrivateNetworkServerStatus.UNKNOWN_STATUS
 
     field = data.get("ipam_ip_ids", None)
     if field is not None:
         args["ipam_ip_ids"] = field
+    else:
+        args["ipam_ip_ids"] = field(default_factory=list)
 
     field = data.get("vlan", None)
     if field is not None:
         args["vlan"] = field
     else:
-        args["vlan"] = None
+        args["vlan"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -275,14 +345,20 @@ def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("core_count", None)
     if field is not None:
         args["core_count"] = field
+    else:
+        args["core_count"] = None
 
     field = data.get("frequency", None)
     if field is not None:
         args["frequency"] = field
+    else:
+        args["frequency"] = None
 
     return ServerTypeCPU(**args)
 
@@ -298,10 +374,14 @@ def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
     field = data.get("capacity", None)
     if field is not None:
         args["capacity"] = field
+    else:
+        args["capacity"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     return ServerTypeDisk(**args)
 
@@ -317,6 +397,8 @@ def unmarshal_ServerTypeGPU(data: Any) -> ServerTypeGPU:
     field = data.get("count", None)
     if field is not None:
         args["count"] = field
+    else:
+        args["count"] = None
 
     return ServerTypeGPU(**args)
 
@@ -332,10 +414,14 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
     field = data.get("capacity", None)
     if field is not None:
         args["capacity"] = field
+    else:
+        args["capacity"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     return ServerTypeMemory(**args)
 
@@ -351,10 +437,14 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
     field = data.get("public_bandwidth_bps", None)
     if field is not None:
         args["public_bandwidth_bps"] = field
+    else:
+        args["public_bandwidth_bps"] = None
 
     field = data.get("supported_bandwidth", None)
     if field is not None:
         args["supported_bandwidth"] = field
+    else:
+        args["supported_bandwidth"] = None
 
     return ServerTypeNetwork(**args)
 
@@ -370,10 +460,14 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("stock", None)
     if field is not None:
         args["stock"] = field
+    else:
+        args["stock"] = ServerTypeStock.UNKNOWN_STOCK
 
     field = data.get("cpu", None)
     if field is not None:
@@ -433,6 +527,8 @@ def unmarshal_BatchCreateServersResponse(data: Any) -> BatchCreateServersRespons
         args["servers"] = (
             [unmarshal_Server(v) for v in field] if field is not None else None
         )
+    else:
+        args["servers"] = field(default_factory=list)
 
     return BatchCreateServersResponse(**args)
 
@@ -450,22 +546,32 @@ def unmarshal_ConnectivityDiagnosticServerHealth(
     field = data.get("is_server_alive", None)
     if field is not None:
         args["is_server_alive"] = field
+    else:
+        args["is_server_alive"] = None
 
     field = data.get("is_agent_alive", None)
     if field is not None:
         args["is_agent_alive"] = field
+    else:
+        args["is_agent_alive"] = None
 
     field = data.get("is_mdm_alive", None)
     if field is not None:
         args["is_mdm_alive"] = field
+    else:
+        args["is_mdm_alive"] = None
 
     field = data.get("is_ssh_port_up", None)
     if field is not None:
         args["is_ssh_port_up"] = field
+    else:
+        args["is_ssh_port_up"] = None
 
     field = data.get("is_vnc_port_up", None)
     if field is not None:
         args["is_vnc_port_up"] = field
+    else:
+        args["is_vnc_port_up"] = None
 
     field = data.get("last_checkin_date", None)
     if field is not None:
@@ -489,14 +595,20 @@ def unmarshal_ConnectivityDiagnostic(data: Any) -> ConnectivityDiagnostic:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = None
 
     field = data.get("is_healthy", None)
     if field is not None:
         args["is_healthy"] = field
+    else:
+        args["is_healthy"] = None
 
     field = data.get("supported_actions", None)
     if field is not None:
@@ -505,10 +617,14 @@ def unmarshal_ConnectivityDiagnostic(data: Any) -> ConnectivityDiagnostic:
             if field is not None
             else None
         )
+    else:
+        args["supported_actions"] = None
 
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("health_details", None)
     if field is not None:
@@ -530,10 +646,14 @@ def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("os", None)
     if field is not None:
         args["os"] = [unmarshal_OS(v) for v in field] if field is not None else None
+    else:
+        args["os"] = field(default_factory=list)
 
     return ListOSResponse(**args)
 
@@ -555,10 +675,14 @@ def unmarshal_ListServerPrivateNetworksResponse(
             if field is not None
             else None
         )
+    else:
+        args["server_private_networks"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListServerPrivateNetworksResponse(**args)
 
@@ -576,6 +700,8 @@ def unmarshal_ListServerTypesResponse(data: Any) -> ListServerTypesResponse:
         args["server_types"] = (
             [unmarshal_ServerType(v) for v in field] if field is not None else None
         )
+    else:
+        args["server_types"] = field(default_factory=list)
 
     return ListServerTypesResponse(**args)
 
@@ -591,12 +717,16 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("servers", None)
     if field is not None:
         args["servers"] = (
             [unmarshal_Server(v) for v in field] if field is not None else None
         )
+    else:
+        args["servers"] = field(default_factory=list)
 
     return ListServersResponse(**args)
 
@@ -618,6 +748,8 @@ def unmarshal_SetServerPrivateNetworksResponse(
             if field is not None
             else None
         )
+    else:
+        args["server_private_networks"] = None
 
     return SetServerPrivateNetworksResponse(**args)
 
@@ -635,6 +767,8 @@ def unmarshal_StartConnectivityDiagnosticResponse(
     field = data.get("diagnostic_id", None)
     if field is not None:
         args["diagnostic_id"] = field
+    else:
+        args["diagnostic_id"] = None
 
     return StartConnectivityDiagnosticResponse(**args)
 
@@ -667,13 +801,15 @@ def marshal_BatchCreateServersRequest(
         output["public_bandwidth_bps"] = request.public_bandwidth_bps
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.os_id is not None:
         output["os_id"] = request.os_id
 
     if request.commitment_type is not None:
-        output["commitment_type"] = str(request.commitment_type)
+        output["commitment_type"] = request.commitment_type
 
     if request.requests is not None:
         output["requests"] = [
@@ -705,13 +841,15 @@ def marshal_CreateServerRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.os_id is not None:
         output["os_id"] = request.os_id
 
     if request.commitment_type is not None:
-        output["commitment_type"] = str(request.commitment_type)
+        output["commitment_type"] = request.commitment_type
 
     return output
 
@@ -776,7 +914,7 @@ def marshal_CommitmentTypeValue(
     output: Dict[str, Any] = {}
 
     if request.commitment_type is not None:
-        output["commitment_type"] = str(request.commitment_type)
+        output["commitment_type"] = request.commitment_type
 
     return output
 

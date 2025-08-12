@@ -6,6 +6,9 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    GatewayNetworkStatus,
+    GatewayStatus,
+    PatRuleProtocol,
     GatewayNetwork,
     IP,
     Gateway,
@@ -46,34 +49,50 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("gateway_id", None)
     if field is not None:
         args["gateway_id"] = field
+    else:
+        args["gateway_id"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("masquerade_enabled", None)
     if field is not None:
         args["masquerade_enabled"] = field
+    else:
+        args["masquerade_enabled"] = False
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = GatewayNetworkStatus.UNKNOWN_STATUS
 
     field = data.get("push_default_route", None)
     if field is not None:
         args["push_default_route"] = field
+    else:
+        args["push_default_route"] = False
 
     field = data.get("ipam_ip_id", None)
     if field is not None:
         args["ipam_ip_id"] = field
+    else:
+        args["ipam_ip_id"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -107,26 +126,38 @@ def unmarshal_IP(data: Any) -> IP:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
+    else:
+        args["address"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -166,30 +197,44 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("bandwidth", None)
     if field is not None:
         args["bandwidth"] = field
+    else:
+        args["bandwidth"] = 0
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = GatewayStatus.UNKNOWN_STATUS
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -206,16 +251,22 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("gateway_networks", None)
     if field is not None:
         args["gateway_networks"] = (
             [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
         )
+    else:
+        args["gateway_networks"] = field(default_factory=list)
 
     field = data.get("bastion_enabled", None)
     if field is not None:
         args["bastion_enabled"] = field
+    else:
+        args["bastion_enabled"] = False
 
     field = data.get("ipv4", None)
     if field is not None:
@@ -238,22 +289,32 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("bastion_port", None)
     if field is not None:
         args["bastion_port"] = field
+    else:
+        args["bastion_port"] = 0
 
     field = data.get("smtp_enabled", None)
     if field is not None:
         args["smtp_enabled"] = field
+    else:
+        args["smtp_enabled"] = False
 
     field = data.get("is_legacy", None)
     if field is not None:
         args["is_legacy"] = field
+    else:
+        args["is_legacy"] = False
 
     field = data.get("bastion_allowed_ips", None)
     if field is not None:
         args["bastion_allowed_ips"] = field
+    else:
+        args["bastion_allowed_ips"] = field(default_factory=list)
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     return Gateway(**args)
 
@@ -269,30 +330,44 @@ def unmarshal_PatRule(data: Any) -> PatRule:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("gateway_id", None)
     if field is not None:
         args["gateway_id"] = field
+    else:
+        args["gateway_id"] = None
 
     field = data.get("public_port", None)
     if field is not None:
         args["public_port"] = field
+    else:
+        args["public_port"] = 0
 
     field = data.get("private_ip", None)
     if field is not None:
         args["private_ip"] = field
+    else:
+        args["private_ip"] = None
 
     field = data.get("private_port", None)
     if field is not None:
         args["private_port"] = field
+    else:
+        args["private_port"] = 0
 
     field = data.get("protocol", None)
     if field is not None:
         args["protocol"] = field
+    else:
+        args["protocol"] = PatRuleProtocol.UNKNOWN_PROTOCOL
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -320,6 +395,8 @@ def unmarshal_AddBastionAllowedIPsResponse(data: Any) -> AddBastionAllowedIPsRes
     field = data.get("ip_ranges", None)
     if field is not None:
         args["ip_ranges"] = field
+    else:
+        args["ip_ranges"] = field(default_factory=list)
 
     return AddBastionAllowedIPsResponse(**args)
 
@@ -337,10 +414,14 @@ def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksRespo
         args["gateway_networks"] = (
             [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
         )
+    else:
+        args["gateway_networks"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListGatewayNetworksResponse(**args)
 
@@ -356,14 +437,20 @@ def unmarshal_GatewayType(data: Any) -> GatewayType:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("bandwidth", None)
     if field is not None:
         args["bandwidth"] = field
+    else:
+        args["bandwidth"] = 0
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     return GatewayType(**args)
 
@@ -381,6 +468,8 @@ def unmarshal_ListGatewayTypesResponse(data: Any) -> ListGatewayTypesResponse:
         args["types"] = (
             [unmarshal_GatewayType(v) for v in field] if field is not None else None
         )
+    else:
+        args["types"] = field(default_factory=list)
 
     return ListGatewayTypesResponse(**args)
 
@@ -398,10 +487,14 @@ def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
         args["gateways"] = (
             [unmarshal_Gateway(v) for v in field] if field is not None else None
         )
+    else:
+        args["gateways"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListGatewaysResponse(**args)
 
@@ -417,10 +510,14 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     field = data.get("ips", None)
     if field is not None:
         args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
+    else:
+        args["ips"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListIPsResponse(**args)
 
@@ -438,10 +535,14 @@ def unmarshal_ListPatRulesResponse(data: Any) -> ListPatRulesResponse:
         args["pat_rules"] = (
             [unmarshal_PatRule(v) for v in field] if field is not None else None
         )
+    else:
+        args["pat_rules"] = field(default_factory=list)
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListPatRulesResponse(**args)
 
@@ -457,6 +558,8 @@ def unmarshal_SetBastionAllowedIPsResponse(data: Any) -> SetBastionAllowedIPsRes
     field = data.get("ip_ranges", None)
     if field is not None:
         args["ip_ranges"] = field
+    else:
+        args["ip_ranges"] = field(default_factory=list)
 
     return SetBastionAllowedIPsResponse(**args)
 
@@ -474,6 +577,8 @@ def unmarshal_SetPatRulesResponse(data: Any) -> SetPatRulesResponse:
         args["pat_rules"] = (
             [unmarshal_PatRule(v) for v in field] if field is not None else None
         )
+    else:
+        args["pat_rules"] = field(default_factory=list)
 
     return SetPatRulesResponse(**args)
 
@@ -530,7 +635,9 @@ def marshal_CreateGatewayRequest(
         output["enable_bastion"] = request.enable_bastion
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.name is not None:
         output["name"] = request.name
@@ -554,7 +661,9 @@ def marshal_CreateIPRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -581,7 +690,7 @@ def marshal_CreatePatRuleRequest(
         output["private_port"] = request.private_port
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     return output
 
@@ -614,7 +723,7 @@ def marshal_SetPatRulesRequestRule(
         output["private_port"] = request.private_port
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     return output
 
@@ -712,7 +821,7 @@ def marshal_UpdatePatRuleRequest(
         output["private_port"] = request.private_port
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     return output
 

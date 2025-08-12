@@ -41,22 +41,32 @@ def unmarshal_Subnet(data: Any) -> Subnet:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("subnet", None)
     if field is not None:
         args["subnet"] = field
+    else:
+        args["subnet"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("vpc_id", None)
     if field is not None:
         args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -84,44 +94,64 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("subnets", None)
     if field is not None:
         args["subnets"] = (
             [unmarshal_Subnet(v) for v in field] if field is not None else None
         )
+    else:
+        args["subnets"] = field(default_factory=list)
 
     field = data.get("vpc_id", None)
     if field is not None:
         args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
 
     field = data.get("dhcp_enabled", None)
     if field is not None:
         args["dhcp_enabled"] = field
+    else:
+        args["dhcp_enabled"] = False
 
     field = data.get("default_route_propagation_enabled", None)
     if field is not None:
         args["default_route_propagation_enabled"] = field
+    else:
+        args["default_route_propagation_enabled"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -149,30 +179,44 @@ def unmarshal_Route(data: Any) -> Route:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("vpc_id", None)
     if field is not None:
         args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
 
     field = data.get("destination", None)
     if field is not None:
         args["destination"] = field
+    else:
+        args["destination"] = None
 
     field = data.get("is_read_only", None)
     if field is not None:
         args["is_read_only"] = field
+    else:
+        args["is_read_only"] = False
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("nexthop_resource_id", None)
     if field is not None:
@@ -212,42 +256,62 @@ def unmarshal_VPC(data: Any) -> VPC:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = field(default_factory=list)
 
     field = data.get("is_default", None)
     if field is not None:
         args["is_default"] = field
+    else:
+        args["is_default"] = False
 
     field = data.get("private_network_count", None)
     if field is not None:
         args["private_network_count"] = field
+    else:
+        args["private_network_count"] = 0
 
     field = data.get("routing_enabled", None)
     if field is not None:
         args["routing_enabled"] = field
+    else:
+        args["routing_enabled"] = False
 
     field = data.get("custom_routes_propagation_enabled", None)
     if field is not None:
         args["custom_routes_propagation_enabled"] = field
+    else:
+        args["custom_routes_propagation_enabled"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -275,6 +339,8 @@ def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
     field = data.get("subnets", None)
     if field is not None:
         args["subnets"] = field
+    else:
+        args["subnets"] = None
 
     return AddSubnetsResponse(**args)
 
@@ -290,6 +356,8 @@ def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
     field = data.get("subnets", None)
     if field is not None:
         args["subnets"] = field
+    else:
+        args["subnets"] = None
 
     return DeleteSubnetsResponse(**args)
 
@@ -305,34 +373,50 @@ def unmarshal_AclRule(data: Any) -> AclRule:
     field = data.get("protocol", None)
     if field is not None:
         args["protocol"] = field
+    else:
+        args["protocol"] = None
 
     field = data.get("source", None)
     if field is not None:
         args["source"] = field
+    else:
+        args["source"] = None
 
     field = data.get("src_port_low", None)
     if field is not None:
         args["src_port_low"] = field
+    else:
+        args["src_port_low"] = None
 
     field = data.get("src_port_high", None)
     if field is not None:
         args["src_port_high"] = field
+    else:
+        args["src_port_high"] = None
 
     field = data.get("destination", None)
     if field is not None:
         args["destination"] = field
+    else:
+        args["destination"] = None
 
     field = data.get("dst_port_low", None)
     if field is not None:
         args["dst_port_low"] = field
+    else:
+        args["dst_port_low"] = None
 
     field = data.get("dst_port_high", None)
     if field is not None:
         args["dst_port_high"] = field
+    else:
+        args["dst_port_high"] = None
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
+    else:
+        args["action"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -356,10 +440,14 @@ def unmarshal_GetAclResponse(data: Any) -> GetAclResponse:
         args["rules"] = (
             [unmarshal_AclRule(v) for v in field] if field is not None else None
         )
+    else:
+        args["rules"] = None
 
     field = data.get("default_policy", None)
     if field is not None:
         args["default_policy"] = field
+    else:
+        args["default_policy"] = None
 
     return GetAclResponse(**args)
 
@@ -377,10 +465,14 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
         args["private_networks"] = (
             [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
         )
+    else:
+        args["private_networks"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListPrivateNetworksResponse(**args)
 
@@ -398,10 +490,14 @@ def unmarshal_ListSubnetsResponse(data: Any) -> ListSubnetsResponse:
         args["subnets"] = (
             [unmarshal_Subnet(v) for v in field] if field is not None else None
         )
+    else:
+        args["subnets"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListSubnetsResponse(**args)
 
@@ -417,10 +513,14 @@ def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
     field = data.get("vpcs", None)
     if field is not None:
         args["vpcs"] = [unmarshal_VPC(v) for v in field] if field is not None else None
+    else:
+        args["vpcs"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListVPCsResponse(**args)
 
@@ -438,10 +538,14 @@ def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
         args["rules"] = (
             [unmarshal_AclRule(v) for v in field] if field is not None else None
         )
+    else:
+        args["rules"] = None
 
     field = data.get("default_policy", None)
     if field is not None:
         args["default_policy"] = field
+    else:
+        args["default_policy"] = None
 
     return SetAclResponse(**args)
 
@@ -473,7 +577,9 @@ def marshal_CreatePrivateNetworkRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -527,7 +633,9 @@ def marshal_CreateVPCRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -554,7 +662,7 @@ def marshal_AclRule(
     output: Dict[str, Any] = {}
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     if request.source is not None:
         output["source"] = request.source
@@ -575,7 +683,7 @@ def marshal_AclRule(
         output["dst_port_high"] = request.dst_port_high
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.description is not None:
         output["description"] = request.description
@@ -596,7 +704,7 @@ def marshal_SetAclRequest(
         output["is_ipv6"] = request.is_ipv6
 
     if request.default_policy is not None:
-        output["default_policy"] = str(request.default_policy)
+        output["default_policy"] = request.default_policy
 
     return output
 

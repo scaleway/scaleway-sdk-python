@@ -6,7 +6,18 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    BlocklistType,
+    DomainLastStatusAutoconfigStateReason,
+    DomainLastStatusRecordStatus,
+    DomainReputationStatus,
+    DomainStatus,
     EmailFlag,
+    EmailRcptType,
+    EmailStatus,
+    OfferName,
+    PoolStatus,
+    ProjectSettingsPeriodicReportFrequency,
+    WebhookEventStatus,
     WebhookEventType,
     EmailTry,
     Email,
@@ -66,14 +77,20 @@ def unmarshal_EmailTry(data: Any) -> EmailTry:
     field = data.get("rank", None)
     if field is not None:
         args["rank"] = field
+    else:
+        args["rank"] = 0
 
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
+    else:
+        args["code"] = 0
 
     field = data.get("message", None)
     if field is not None:
         args["message"] = field
+    else:
+        args["message"] = None
 
     field = data.get("tried_at", None)
     if field is not None:
@@ -95,22 +112,32 @@ def unmarshal_Email(data: Any) -> Email:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("message_id", None)
     if field is not None:
         args["message_id"] = field
+    else:
+        args["message_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("mail_from", None)
     if field is not None:
         args["mail_from"] = field
+    else:
+        args["mail_from"] = None
 
     field = data.get("mail_rcpt", None)
     if field is not None:
         args["mail_rcpt"] = field
+    else:
+        args["mail_rcpt"] = None
 
     field = data.get("rcpt_to", None)
     if field is not None:
@@ -121,28 +148,40 @@ def unmarshal_Email(data: Any) -> Email:
     field = data.get("rcpt_type", None)
     if field is not None:
         args["rcpt_type"] = field
+    else:
+        args["rcpt_type"] = EmailRcptType.UNKNOWN_RCPT_TYPE
 
     field = data.get("subject", None)
     if field is not None:
         args["subject"] = field
+    else:
+        args["subject"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = EmailStatus.UNKNOWN
 
     field = data.get("try_count", None)
     if field is not None:
         args["try_count"] = field
+    else:
+        args["try_count"] = 0
 
     field = data.get("last_tries", None)
     if field is not None:
         args["last_tries"] = (
             [unmarshal_EmailTry(v) for v in field] if field is not None else None
         )
+    else:
+        args["last_tries"] = field(default_factory=list)
 
     field = data.get("flags", None)
     if field is not None:
         args["flags"] = [EmailFlag(v) for v in field] if field is not None else None
+    else:
+        args["flags"] = field(default_factory=list)
 
     field = data.get("created_at", None)
     if field is not None:
@@ -176,10 +215,14 @@ def unmarshal_DomainRecordsDMARC(data: Any) -> DomainRecordsDMARC:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("value", None)
     if field is not None:
         args["value"] = field
+    else:
+        args["value"] = None
 
     return DomainRecordsDMARC(**args)
 
@@ -212,10 +255,14 @@ def unmarshal_DomainReputation(data: Any) -> DomainReputation:
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainReputationStatus.UNKNOWN_STATUS
 
     field = data.get("score", None)
     if field is not None:
         args["score"] = field
+    else:
+        args["score"] = 0
 
     field = data.get("scored_at", None)
     if field is not None:
@@ -227,7 +274,7 @@ def unmarshal_DomainReputation(data: Any) -> DomainReputation:
     if field is not None:
         args["previous_score"] = field
     else:
-        args["previous_score"] = None
+        args["previous_score"] = 0
 
     field = data.get("previous_scored_at", None)
     if field is not None:
@@ -251,18 +298,26 @@ def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     field = data.get("sent_count", None)
     if field is not None:
         args["sent_count"] = field
+    else:
+        args["sent_count"] = None
 
     field = data.get("failed_count", None)
     if field is not None:
         args["failed_count"] = field
+    else:
+        args["failed_count"] = None
 
     field = data.get("canceled_count", None)
     if field is not None:
         args["canceled_count"] = field
+    else:
+        args["canceled_count"] = None
 
     return DomainStatistics(**args)
 
@@ -278,30 +333,44 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainStatus.UNKNOWN
 
     field = data.get("spf_config", None)
     if field is not None:
         args["spf_config"] = field
+    else:
+        args["spf_config"] = None
 
     field = data.get("dkim_config", None)
     if field is not None:
         args["dkim_config"] = field
+    else:
+        args["dkim_config"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -328,10 +397,14 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("autoconfig", None)
     if field is not None:
         args["autoconfig"] = field
+    else:
+        args["autoconfig"] = False
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("revoked_at", None)
     if field is not None:
@@ -377,38 +450,56 @@ def unmarshal_OfferSubscription(data: Any) -> OfferSubscription:
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("offer_name", None)
     if field is not None:
         args["offer_name"] = field
+    else:
+        args["offer_name"] = OfferName.UNKNOWN_NAME
 
     field = data.get("sla", None)
     if field is not None:
         args["sla"] = field
+    else:
+        args["sla"] = 0.0
 
     field = data.get("max_domains", None)
     if field is not None:
         args["max_domains"] = field
+    else:
+        args["max_domains"] = 0
 
     field = data.get("max_dedicated_ips", None)
     if field is not None:
         args["max_dedicated_ips"] = field
+    else:
+        args["max_dedicated_ips"] = 0
 
     field = data.get("max_webhooks_per_domain", None)
     if field is not None:
         args["max_webhooks_per_domain"] = field
+    else:
+        args["max_webhooks_per_domain"] = 0
 
     field = data.get("max_custom_blocklists_per_domain", None)
     if field is not None:
         args["max_custom_blocklists_per_domain"] = field
+    else:
+        args["max_custom_blocklists_per_domain"] = 0
 
     field = data.get("included_monthly_emails", None)
     if field is not None:
         args["included_monthly_emails"] = field
+    else:
+        args["included_monthly_emails"] = 0
 
     field = data.get("subscribed_at", None)
     if field is not None:
@@ -440,32 +531,46 @@ def unmarshal_Webhook(data: Any) -> Webhook:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("domain_id", None)
     if field is not None:
         args["domain_id"] = field
+    else:
+        args["domain_id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("event_types", None)
     if field is not None:
         args["event_types"] = (
             [WebhookEventType(v) for v in field] if field is not None else None
         )
+    else:
+        args["event_types"] = field(default_factory=list)
 
     field = data.get("sns_arn", None)
     if field is not None:
         args["sns_arn"] = field
+    else:
+        args["sns_arn"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -493,26 +598,38 @@ def unmarshal_Blocklist(data: Any) -> Blocklist:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("domain_id", None)
     if field is not None:
         args["domain_id"] = field
+    else:
+        args["domain_id"] = None
 
     field = data.get("email", None)
     if field is not None:
         args["email"] = field
+    else:
+        args["email"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = BlocklistType.UNKNOWN_TYPE
 
     field = data.get("reason", None)
     if field is not None:
         args["reason"] = field
+    else:
+        args["reason"] = None
 
     field = data.get("custom", None)
     if field is not None:
         args["custom"] = field
+    else:
+        args["custom"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -548,6 +665,8 @@ def unmarshal_BulkCreateBlocklistsResponse(data: Any) -> BulkCreateBlocklistsRes
         args["blocklists"] = (
             [unmarshal_Blocklist(v) for v in field] if field is not None else None
         )
+    else:
+        args["blocklists"] = field(default_factory=list)
 
     return BulkCreateBlocklistsResponse(**args)
 
@@ -565,6 +684,8 @@ def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
         args["emails"] = (
             [unmarshal_Email(v) for v in field] if field is not None else None
         )
+    else:
+        args["emails"] = field(default_factory=list)
 
     return CreateEmailResponse(**args)
 
@@ -582,16 +703,20 @@ def unmarshal_DomainLastStatusAutoconfigState(
     field = data.get("enabled", None)
     if field is not None:
         args["enabled"] = field
+    else:
+        args["enabled"] = False
 
     field = data.get("autoconfigurable", None)
     if field is not None:
         args["autoconfigurable"] = field
+    else:
+        args["autoconfigurable"] = False
 
     field = data.get("reason", None)
     if field is not None:
         args["reason"] = field
     else:
-        args["reason"] = None
+        args["reason"] = DomainLastStatusAutoconfigStateReason.UNKNOWN_REASON
 
     return DomainLastStatusAutoconfigState(**args)
 
@@ -607,6 +732,8 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainLastStatusRecordStatus.UNKNOWN_RECORD_STATUS
 
     field = data.get("last_valid_at", None)
     if field is not None:
@@ -636,6 +763,8 @@ def unmarshal_DomainLastStatusDmarcRecord(data: Any) -> DomainLastStatusDmarcRec
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainLastStatusRecordStatus.UNKNOWN_RECORD_STATUS
 
     field = data.get("last_valid_at", None)
     if field is not None:
@@ -665,6 +794,8 @@ def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainLastStatusRecordStatus.UNKNOWN_RECORD_STATUS
 
     field = data.get("last_valid_at", None)
     if field is not None:
@@ -694,10 +825,14 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
     field = data.get("domain_id", None)
     if field is not None:
         args["domain_id"] = field
+    else:
+        args["domain_id"] = None
 
     field = data.get("domain_name", None)
     if field is not None:
         args["domain_name"] = field
+    else:
+        args["domain_name"] = None
 
     field = data.get("spf_record", None)
     if field is not None:
@@ -737,12 +872,16 @@ def unmarshal_ListBlocklistsResponse(data: Any) -> ListBlocklistsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("blocklists", None)
     if field is not None:
         args["blocklists"] = (
             [unmarshal_Blocklist(v) for v in field] if field is not None else None
         )
+    else:
+        args["blocklists"] = field(default_factory=list)
 
     return ListBlocklistsResponse(**args)
 
@@ -758,12 +897,16 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("domains", None)
     if field is not None:
         args["domains"] = (
             [unmarshal_Domain(v) for v in field] if field is not None else None
         )
+    else:
+        args["domains"] = field(default_factory=list)
 
     return ListDomainsResponse(**args)
 
@@ -779,12 +922,16 @@ def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("emails", None)
     if field is not None:
         args["emails"] = (
             [unmarshal_Email(v) for v in field] if field is not None else None
         )
+    else:
+        args["emails"] = field(default_factory=list)
 
     return ListEmailsResponse(**args)
 
@@ -802,6 +949,8 @@ def unmarshal_ListOfferSubscriptionsResponse(
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("offer_subscriptions", None)
     if field is not None:
@@ -810,6 +959,8 @@ def unmarshal_ListOfferSubscriptionsResponse(
             if field is not None
             else None
         )
+    else:
+        args["offer_subscriptions"] = field(default_factory=list)
 
     return ListOfferSubscriptionsResponse(**args)
 
@@ -825,30 +976,44 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = OfferName.UNKNOWN_NAME
 
     field = data.get("sla", None)
     if field is not None:
         args["sla"] = field
+    else:
+        args["sla"] = 0.0
 
     field = data.get("max_domains", None)
     if field is not None:
         args["max_domains"] = field
+    else:
+        args["max_domains"] = 0
 
     field = data.get("max_dedicated_ips", None)
     if field is not None:
         args["max_dedicated_ips"] = field
+    else:
+        args["max_dedicated_ips"] = 0
 
     field = data.get("included_monthly_emails", None)
     if field is not None:
         args["included_monthly_emails"] = field
+    else:
+        args["included_monthly_emails"] = 0
 
     field = data.get("max_webhooks_per_domain", None)
     if field is not None:
         args["max_webhooks_per_domain"] = field
+    else:
+        args["max_webhooks_per_domain"] = 0
 
     field = data.get("max_custom_blocklists_per_domain", None)
     if field is not None:
         args["max_custom_blocklists_per_domain"] = field
+    else:
+        args["max_custom_blocklists_per_domain"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -876,12 +1041,16 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("offers", None)
     if field is not None:
         args["offers"] = (
             [unmarshal_Offer(v) for v in field] if field is not None else None
         )
+    else:
+        args["offers"] = field(default_factory=list)
 
     return ListOffersResponse(**args)
 
@@ -897,14 +1066,20 @@ def unmarshal_Pool(data: Any) -> Pool:
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = PoolStatus.UNKNOWN_STATUS
 
     field = data.get("ips", None)
     if field is not None:
         args["ips"] = field
+    else:
+        args["ips"] = field(default_factory=list)
 
     field = data.get("details", None)
     if field is not None:
@@ -938,12 +1113,16 @@ def unmarshal_ListPoolsResponse(data: Any) -> ListPoolsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("pools", None)
     if field is not None:
         args["pools"] = (
             [unmarshal_Pool(v) for v in field] if field is not None else None
         )
+    else:
+        args["pools"] = field(default_factory=list)
 
     return ListPoolsResponse(**args)
 
@@ -959,34 +1138,50 @@ def unmarshal_WebhookEvent(data: Any) -> WebhookEvent:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("webhook_id", None)
     if field is not None:
         args["webhook_id"] = field
+    else:
+        args["webhook_id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("domain_id", None)
     if field is not None:
         args["domain_id"] = field
+    else:
+        args["domain_id"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = WebhookEventType.UNKNOWN_TYPE
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = WebhookEventStatus.UNKNOWN_STATUS
 
     field = data.get("data", None)
     if field is not None:
         args["data"] = field
+    else:
+        args["data"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -1020,12 +1215,16 @@ def unmarshal_ListWebhookEventsResponse(data: Any) -> ListWebhookEventsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("webhook_events", None)
     if field is not None:
         args["webhook_events"] = (
             [unmarshal_WebhookEvent(v) for v in field] if field is not None else None
         )
+    else:
+        args["webhook_events"] = field(default_factory=list)
 
     return ListWebhookEventsResponse(**args)
 
@@ -1041,12 +1240,16 @@ def unmarshal_ListWebhooksResponse(data: Any) -> ListWebhooksResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("webhooks", None)
     if field is not None:
         args["webhooks"] = (
             [unmarshal_Webhook(v) for v in field] if field is not None else None
         )
+    else:
+        args["webhooks"] = field(default_factory=list)
 
     return ListWebhooksResponse(**args)
 
@@ -1062,26 +1265,38 @@ def unmarshal_ProjectConsumption(data: Any) -> ProjectConsumption:
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("domains_count", None)
     if field is not None:
         args["domains_count"] = field
+    else:
+        args["domains_count"] = 0
 
     field = data.get("dedicated_ips_count", None)
     if field is not None:
         args["dedicated_ips_count"] = field
+    else:
+        args["dedicated_ips_count"] = 0
 
     field = data.get("monthly_emails_count", None)
     if field is not None:
         args["monthly_emails_count"] = field
+    else:
+        args["monthly_emails_count"] = 0
 
     field = data.get("webhooks_count", None)
     if field is not None:
         args["webhooks_count"] = field
+    else:
+        args["webhooks_count"] = 0
 
     field = data.get("custom_blocklists_count", None)
     if field is not None:
         args["custom_blocklists_count"] = field
+    else:
+        args["custom_blocklists_count"] = 0
 
     return ProjectConsumption(**args)
 
@@ -1097,18 +1312,26 @@ def unmarshal_ProjectSettingsPeriodicReport(data: Any) -> ProjectSettingsPeriodi
     field = data.get("enabled", None)
     if field is not None:
         args["enabled"] = field
+    else:
+        args["enabled"] = False
 
     field = data.get("frequency", None)
     if field is not None:
         args["frequency"] = field
+    else:
+        args["frequency"] = ProjectSettingsPeriodicReportFrequency.UNKNOWN_FREQUENCY
 
     field = data.get("sending_hour", None)
     if field is not None:
         args["sending_hour"] = field
+    else:
+        args["sending_hour"] = 0
 
     field = data.get("sending_day", None)
     if field is not None:
         args["sending_day"] = field
+    else:
+        args["sending_day"] = 0
 
     return ProjectSettingsPeriodicReport(**args)
 
@@ -1141,26 +1364,38 @@ def unmarshal_Statistics(data: Any) -> Statistics:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("new_count", None)
     if field is not None:
         args["new_count"] = field
+    else:
+        args["new_count"] = 0
 
     field = data.get("sending_count", None)
     if field is not None:
         args["sending_count"] = field
+    else:
+        args["sending_count"] = 0
 
     field = data.get("sent_count", None)
     if field is not None:
         args["sent_count"] = field
+    else:
+        args["sent_count"] = 0
 
     field = data.get("failed_count", None)
     if field is not None:
         args["failed_count"] = field
+    else:
+        args["failed_count"] = 0
 
     field = data.get("canceled_count", None)
     if field is not None:
         args["canceled_count"] = field
+    else:
+        args["canceled_count"] = 0
 
     return Statistics(**args)
 
@@ -1178,7 +1413,7 @@ def marshal_BulkCreateBlocklistsRequest(
         output["emails"] = request.emails
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.reason is not None:
         output["reason"] = request.reason
@@ -1199,7 +1434,9 @@ def marshal_CreateDomainRequest(
         output["autoconfig"] = request.autoconfig
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.accept_tos is not None:
         output["accept_tos"] = request.accept_tos
@@ -1289,7 +1526,9 @@ def marshal_CreateEmailRequest(
         ]
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.attachments is not None:
         output["attachments"] = [
@@ -1325,7 +1564,9 @@ def marshal_CreateWebhookRequest(
         output["sns_arn"] = request.sns_arn
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.event_types is not None:
         output["event_types"] = [str(item) for item in request.event_types]
@@ -1352,10 +1593,12 @@ def marshal_UpdateOfferSubscriptionRequest(
     output: Dict[str, Any] = {}
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.name is not None:
-        output["name"] = str(request.name)
+        output["name"] = request.name
 
     return output
 
@@ -1370,7 +1613,7 @@ def marshal_UpdateProjectSettingsRequestUpdatePeriodicReport(
         output["enabled"] = request.enabled
 
     if request.frequency is not None:
-        output["frequency"] = str(request.frequency)
+        output["frequency"] = request.frequency
 
     if request.sending_hour is not None:
         output["sending_hour"] = request.sending_hour
