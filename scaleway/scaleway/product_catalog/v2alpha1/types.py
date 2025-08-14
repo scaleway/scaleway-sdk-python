@@ -24,6 +24,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     ELASTIC_METAL = "elastic_metal"
     DEDIBOX = "dedibox"
     BLOCK_STORAGE = "block_storage"
+    OBJECT_STORAGE = "object_storage"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -230,14 +231,14 @@ class PublicCatalogProductPropertiesAppleSilicon:
 
 @dataclass
 class PublicCatalogProductPropertiesBlockStorage:
-    min_volume_size: int
+    min_volume_size: Optional[int]
     """
-    The minimum size of storage volume for this product in bytes.
+    The minimum size of storage volume for this product in bytes. Deprecated.
     """
 
-    max_volume_size: int
+    max_volume_size: Optional[int]
     """
-    The maximum size of storage volume for this product in bytes.
+    The maximum size of storage volume for this product in bytes. Deprecated.
     """
 
 
@@ -304,6 +305,11 @@ class PublicCatalogProductPropertiesInstance:
 
 
 @dataclass
+class PublicCatalogProductPropertiesObjectStorage:
+    pass
+
+
+@dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
     kg_co2_equivalent: Optional[float]
 
@@ -345,6 +351,8 @@ class PublicCatalogProductProperties:
     instance: Optional[PublicCatalogProductPropertiesInstance]
 
     block_storage: Optional[PublicCatalogProductPropertiesBlockStorage]
+
+    object_storage: Optional[PublicCatalogProductPropertiesObjectStorage]
 
 
 @dataclass
