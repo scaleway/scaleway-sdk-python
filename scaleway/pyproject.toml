@@ -25,14 +25,14 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.10"
 scaleway-core = "*"
-pyrefly = "^0.24.2"
+pyrefly = ">=0.24.2,<0.27.0"
 
 [tool.poetry.group.dev.dependencies]
 scaleway-core = { path = "../scaleway-core", develop = true }
-ruff = ">=0.5.0,<0.12.5"
+ruff = ">=0.5.0,<0.12.9"
 mypy = "^1.5.1"
 ty = "^0.0.1a15"
-pyrefly = "^0.24.2"
+pyrefly = ">=0.24.2,<0.27.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -48,7 +48,6 @@ ignore = [
     "C90",# mccabe
     "COM",# flake8-commas
     "D",# pydocstyle
-    "DTZ",# flake8-datetimez
     "E501",
     "EM",# flake8-errmsg
     "FA",# flake8-future-annotations
@@ -70,6 +69,7 @@ ignore = [
 select = [
     "ASYNC", # https://docs.astral.sh/ruff/rules/#flake8-async-async
     "B", # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
+    "DTZ", # https://docs.astral.sh/ruff/rules/#flake8-datetimez-dtz
     "ERA", # https://docs.astral.sh/ruff/rules/#eradicate-era
     "EXE", # https://docs.astral.sh/ruff/rules/#flake8-executable-exe
     "F", # https://docs.astral.sh/ruff/rules/#pyflakes-f
