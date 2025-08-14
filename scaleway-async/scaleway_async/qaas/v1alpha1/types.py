@@ -93,6 +93,14 @@ class ListJobsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListModelsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPlatformsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -415,11 +423,6 @@ class Job:
     Session ID in which the job is executed.
     """
 
-    status: JobStatus
-    """
-    Job status.
-    """
-
     tags: Optional[List[str]]
     """
     Tags of the job.
@@ -433,6 +436,11 @@ class Job:
     started_at: Optional[datetime]
     """
     Time at which the job was started.
+    """
+
+    status: JobStatus
+    """
+    Job status.
     """
 
     updated_at: Optional[datetime]
@@ -453,6 +461,39 @@ class Job:
     result_distribution: Optional[str]
     """
     Result of the job, if the job is finished.
+    """
+
+    model_id: Optional[str]
+    """
+    Computation model ID executed by the job.
+    """
+
+    parameters: Optional[str]
+    """
+    Execution parameters for this job.
+    """
+
+
+@dataclass
+class Model:
+    id: str
+    """
+    Unique ID of the model.
+    """
+
+    project_id: str
+    """
+    Project ID in which the model has been created.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Time at which the model was created.
+    """
+
+    url: Optional[str]
+    """
+    Storage URL of the model.
     """
 
 
@@ -677,11 +718,6 @@ class Session:
     Number of waiting jobs linked to the session.
     """
 
-    created_at: Optional[datetime]
-    """
-    The time at which the session was created.
-    """
-
     finished_job_count: int
     """
     Number of finished jobs linked to the session.
@@ -702,9 +738,9 @@ class Session:
     Deduplication ID of the session.
     """
 
-    origin_type: SessionOriginType
+    created_at: Optional[datetime]
     """
-    Resource type that creates the session.
+    The time at which the session was created.
     """
 
     started_at: Optional[datetime]
@@ -737,6 +773,11 @@ class Session:
     Tags of the session.
     """
 
+    origin_type: SessionOriginType
+    """
+    Resource type that creates the session.
+    """
+
     origin_id: Optional[str]
     """
     Unique ID of the session's origin resource (if exists).
@@ -750,6 +791,11 @@ class Session:
     booking_id: Optional[str]
     """
     An optional booking unique ID of an attached booking.
+    """
+
+    model_id: Optional[str]
+    """
+    Default computation model ID to be executed by job assigned to this session.
     """
 
 
@@ -794,6 +840,29 @@ class CreateJobRequest:
     max_duration: Optional[str]
     """
     Maximum duration of the job.
+    """
+
+    model_id: Optional[str]
+    """
+    Computation model ID to be executed by the job.
+    """
+
+    parameters: Optional[str]
+    """
+    Execution parameters for this job.
+    """
+
+
+@dataclass
+class CreateModelRequest:
+    project_id: Optional[str]
+    """
+    Project ID to attach this model.
+    """
+
+    payload: Optional[str]
+    """
+    The serialized model data.
     """
 
 
@@ -872,6 +941,11 @@ class CreateSessionRequest:
     A booking demand to schedule the session, only applicable if the platform is bookable.
     """
 
+    model_id: Optional[str]
+    """
+    Default computation model ID to be executed by job assigned to this session.
+    """
+
 
 @dataclass
 class DeleteJobRequest:
@@ -926,6 +1000,14 @@ class GetJobRequest:
     job_id: str
     """
     Unique ID of the job you want to get.
+    """
+
+
+@dataclass
+class GetModelRequest:
+    model_id: str
+    """
+    Unique ID of the model.
     """
 
 
@@ -1108,6 +1190,42 @@ class ListJobsResponse:
     jobs: List[Job]
     """
     List of jobs.
+    """
+
+
+@dataclass
+class ListModelsRequest:
+    project_id: Optional[str]
+    """
+    List models belonging to this project ID.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of results to return per page.
+    """
+
+    order_by: Optional[ListModelsRequestOrderBy]
+    """
+    Sort order of the returned results.
+    """
+
+
+@dataclass
+class ListModelsResponse:
+    total_count: int
+    """
+    Total number of models.
+    """
+
+    models: List[Model]
+    """
+    List of models.
     """
 
 
