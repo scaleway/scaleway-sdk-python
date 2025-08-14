@@ -58,7 +58,6 @@ ignore = [
     "PERF", # Perflint
     "PL", # Pylint
     "PT", # flake8-pytest-style
-    "RUF", # Ruff-specific rules
     "S", # flake8-bandit
     "SIM", # flake8-simplify
     "SLF", # flake8-self
@@ -86,6 +85,7 @@ select = [
     "Q", # https://docs.astral.sh/ruff/rules/#flake8-quotes-q
     "RET", # https://docs.astral.sh/ruff/rules/#flake8-return-ret
     "RSE", # https://docs.astral.sh/ruff/rules/#flake8-raise-rse
+    "RUF", # https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
     "SLOT", # https://docs.astral.sh/ruff/rules/#flake8-slots-slot
     "T10", # https://docs.astral.sh/ruff/rules/#flake8-debugger-t10
     "T20", # https://docs.astral.sh/ruff/rules/#flake8-print-t20
