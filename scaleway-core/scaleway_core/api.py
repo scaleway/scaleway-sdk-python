@@ -185,7 +185,7 @@ class API:
         return response
 
     def _throw_on_error(self, res: requests.Response) -> None:
-        if res.status_code >= 400:
+        if res.status_code is not None and res.status_code >= 400:
             data = res.json()
 
             if data:
