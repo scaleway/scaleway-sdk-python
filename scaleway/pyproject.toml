@@ -48,7 +48,6 @@ ignore = [
     "C90",# mccabe
     "COM",# flake8-commas
     "D",# pydocstyle
-    "DTZ",# flake8-datetimez
     "E501",
     "EM",# flake8-errmsg
     "FA",# flake8-future-annotations
@@ -70,6 +69,7 @@ ignore = [
 select = [
     "ASYNC", # https://docs.astral.sh/ruff/rules/#flake8-async-async
     "B", # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
+    "DTZ", # https://docs.astral.sh/ruff/rules/#flake8-datetimez-dtz
     "ERA", # https://docs.astral.sh/ruff/rules/#eradicate-era
     "EXE", # https://docs.astral.sh/ruff/rules/#flake8-executable-exe
     "F", # https://docs.astral.sh/ruff/rules/#pyflakes-f

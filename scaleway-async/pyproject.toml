@@ -42,6 +42,7 @@ ignore = ["E501"]
 select = [
     "ASYNC", # https://docs.astral.sh/ruff/rules/#flake8-async-async
     "B", # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
+    "DTZ", # https://docs.astral.sh/ruff/rules/#flake8-datetimez-dtz
     "ERA", # https://docs.astral.sh/ruff/rules/#eradicate-era
     "EXE",# https://docs.astral.sh/ruff/rules/#flake8-executable-exe
     "F",# https://docs.astral.sh/ruff/rules/#pyflakes-f
