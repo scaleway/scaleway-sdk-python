@@ -33,7 +33,7 @@ types-python-dateutil = "^2.8.19"
 ruff = ">=0.5.0,<0.12.8"
 mypy = "^1.5.1"
 ty = "^0.0.1a15"
-pyrefly = "^0.24.2"
+pyrefly = ">=0.24.2,<0.27.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -47,7 +47,6 @@ ignore = [
     "BLE", # flake8-blind-except
     "C90", # mccabe
     "COM", # flake8-commas
-    "DTZ", # flake8-datetimez
     "E501",
     "EM", # flake8-errmsg
     "FA", # flake8-future-annotations
@@ -59,7 +58,6 @@ ignore = [
     "PERF", # Perflint
     "PL", # Pylint
     "PT", # flake8-pytest-style
-    "RUF", # Ruff-specific rules
     "S", # flake8-bandit
     "SIM", # flake8-simplify
     "SLF", # flake8-self
@@ -70,6 +68,7 @@ select = [
     "ARG", # https://docs.astral.sh/ruff/rules/#flake8-unused-arguments-arg
     "ASYNC", # https://docs.astral.sh/ruff/rules/#flake8-async-async
     "C4", # https://docs.astral.sh/ruff/rules/#flake8-comprehensions-c4
+    "DTZ", # https://docs.astral.sh/ruff/rules/#flake8-datetimez-dtz
     "ERA", # https://docs.astral.sh/ruff/rules/#eradicate-era
     "EXE", # https://docs.astral.sh/ruff/rules/#flake8-executable-exe
     "F", # https://docs.astral.sh/ruff/rules/#pyflakes-f
@@ -86,6 +85,7 @@ select = [
     "Q", # https://docs.astral.sh/ruff/rules/#flake8-quotes-q
     "RET", # https://docs.astral.sh/ruff/rules/#flake8-return-ret
     "RSE", # https://docs.astral.sh/ruff/rules/#flake8-raise-rse
+    "RUF", # https://docs.astral.sh/ruff/rules/#ruff-specific-rules-ruf
     "SLOT", # https://docs.astral.sh/ruff/rules/#flake8-slots-slot
     "T10", # https://docs.astral.sh/ruff/rules/#flake8-debugger-t10
     "T20", # https://docs.astral.sh/ruff/rules/#flake8-print-t20
