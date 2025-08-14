@@ -1,5 +1,8 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+from .types import BackupItemType
+from .types import BackupStatus
+from .content import BACKUP_TRANSIENT_STATUSES
 from .types import DnsRecordStatus
 from .types import DnsRecordType
 from .types import DnsRecordsStatus
@@ -13,6 +16,7 @@ from .content import DOMAIN_TRANSIENT_STATUSES
 from .types import DomainZoneOwner
 from .types import HostingStatus
 from .content import HOSTING_TRANSIENT_STATUSES
+from .types import ListBackupsRequestOrderBy
 from .types import ListDatabaseUsersRequestOrderBy
 from .types import ListDatabasesRequestOrderBy
 from .types import ListFtpAccountsRequestOrderBy
@@ -29,6 +33,7 @@ from .types import PlatformControlPanelUrls
 from .types import HostingDomainCustomDomain
 from .types import OfferOption
 from .types import PlatformControlPanel
+from .types import BackupItem
 from .types import HostingDomain
 from .types import CreateDatabaseRequestUser
 from .types import CreateHostingRequestDomainConfiguration
@@ -39,6 +44,8 @@ from .types import Nameserver
 from .types import HostingUser
 from .types import Offer
 from .types import Platform
+from .types import BackupItemGroup
+from .types import Backup
 from .types import ControlPanel
 from .types import DatabaseUser
 from .types import Database
@@ -47,6 +54,11 @@ from .types import HostingSummary
 from .types import MailAccount
 from .types import Website
 from .types import DomainAvailability
+from .types import BackupApiGetBackupRequest
+from .types import BackupApiListBackupItemsRequest
+from .types import BackupApiListBackupsRequest
+from .types import BackupApiRestoreBackupItemsRequest
+from .types import BackupApiRestoreBackupRequest
 from .types import CheckUserOwnsDomainResponse
 from .types import ControlPanelApiListControlPanelsRequest
 from .types import DatabaseApiAssignDatabaseUserRequest
@@ -72,14 +84,18 @@ from .types import FtpAccountApiCreateFtpAccountRequest
 from .types import FtpAccountApiListFtpAccountsRequest
 from .types import FtpAccountApiRemoveFtpAccountRequest
 from .types import Hosting
+from .types import HostingApiAddCustomDomainRequest
 from .types import HostingApiCreateHostingRequest
 from .types import HostingApiCreateSessionRequest
 from .types import HostingApiDeleteHostingRequest
 from .types import HostingApiGetHostingRequest
 from .types import HostingApiGetResourceSummaryRequest
 from .types import HostingApiListHostingsRequest
+from .types import HostingApiRemoveCustomDomainRequest
 from .types import HostingApiResetHostingPasswordRequest
 from .types import HostingApiUpdateHostingRequest
+from .types import ListBackupItemsResponse
+from .types import ListBackupsResponse
 from .types import ListControlPanelsResponse
 from .types import ListDatabaseUsersResponse
 from .types import ListDatabasesResponse
@@ -95,9 +111,12 @@ from .types import MailAccountApiRemoveMailAccountRequest
 from .types import OfferApiListOffersRequest
 from .types import ResetHostingPasswordResponse
 from .types import ResourceSummary
+from .types import RestoreBackupItemsResponse
+from .types import RestoreBackupResponse
 from .types import SearchDomainsResponse
 from .types import Session
 from .types import WebsiteApiListWebsitesRequest
+from .api import WebhostingV1BackupAPI
 from .api import WebhostingV1ControlPanelAPI
 from .api import WebhostingV1DatabaseAPI
 from .api import WebhostingV1DnsAPI
@@ -108,6 +127,9 @@ from .api import WebhostingV1MailAccountAPI
 from .api import WebhostingV1WebsiteAPI
 
 __all__ = [
+    "BackupItemType",
+    "BackupStatus",
+    "BACKUP_TRANSIENT_STATUSES",
     "DnsRecordStatus",
     "DnsRecordType",
     "DnsRecordsStatus",
@@ -121,6 +143,7 @@ __all__ = [
     "DomainZoneOwner",
     "HostingStatus",
     "HOSTING_TRANSIENT_STATUSES",
+    "ListBackupsRequestOrderBy",
     "ListDatabaseUsersRequestOrderBy",
     "ListDatabasesRequestOrderBy",
     "ListFtpAccountsRequestOrderBy",
@@ -137,6 +160,7 @@ __all__ = [
     "HostingDomainCustomDomain",
     "OfferOption",
     "PlatformControlPanel",
+    "BackupItem",
     "HostingDomain",
     "CreateDatabaseRequestUser",
     "CreateHostingRequestDomainConfiguration",
@@ -147,6 +171,8 @@ __all__ = [
     "HostingUser",
     "Offer",
     "Platform",
+    "BackupItemGroup",
+    "Backup",
     "ControlPanel",
     "DatabaseUser",
     "Database",
@@ -155,6 +181,11 @@ __all__ = [
     "MailAccount",
     "Website",
     "DomainAvailability",
+    "BackupApiGetBackupRequest",
+    "BackupApiListBackupItemsRequest",
+    "BackupApiListBackupsRequest",
+    "BackupApiRestoreBackupItemsRequest",
+    "BackupApiRestoreBackupRequest",
     "CheckUserOwnsDomainResponse",
     "ControlPanelApiListControlPanelsRequest",
     "DatabaseApiAssignDatabaseUserRequest",
@@ -180,14 +211,18 @@ __all__ = [
     "FtpAccountApiListFtpAccountsRequest",
     "FtpAccountApiRemoveFtpAccountRequest",
     "Hosting",
+    "HostingApiAddCustomDomainRequest",
     "HostingApiCreateHostingRequest",
     "HostingApiCreateSessionRequest",
     "HostingApiDeleteHostingRequest",
     "HostingApiGetHostingRequest",
     "HostingApiGetResourceSummaryRequest",
     "HostingApiListHostingsRequest",
+    "HostingApiRemoveCustomDomainRequest",
     "HostingApiResetHostingPasswordRequest",
     "HostingApiUpdateHostingRequest",
+    "ListBackupItemsResponse",
+    "ListBackupsResponse",
     "ListControlPanelsResponse",
     "ListDatabaseUsersResponse",
     "ListDatabasesResponse",
@@ -203,9 +238,12 @@ __all__ = [
     "OfferApiListOffersRequest",
     "ResetHostingPasswordResponse",
     "ResourceSummary",
+    "RestoreBackupItemsResponse",
+    "RestoreBackupResponse",
     "SearchDomainsResponse",
     "Session",
     "WebsiteApiListWebsitesRequest",
+    "WebhostingV1BackupAPI",
     "WebhostingV1ControlPanelAPI",
     "WebhostingV1DatabaseAPI",
     "WebhostingV1DnsAPI",
