@@ -20,6 +20,34 @@ from ...std.types import (
 )
 
 
+class BackupItemType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BACKUP_ITEM_TYPE = "unknown_backup_item_type"
+    FULL = "full"
+    WEB = "web"
+    MAIL = "mail"
+    DB = "db"
+    DB_USER = "db_user"
+    FTP_USER = "ftp_user"
+    DNS_ZONE = "dns_zone"
+    CRON_JOB = "cron_job"
+    SSL_CERTIFICATE = "ssl_certificate"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class BackupStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BACKUP_STATUS = "unknown_backup_status"
+    ACTIVE = "active"
+    LOCKED = "locked"
+    DISABLED = "disabled"
+    DAMAGED = "damaged"
+    RESTORING = "restoring"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
@@ -126,6 +154,14 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     MIGRATING = "migrating"
     UPDATING = "updating"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListBackupsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -353,6 +389,39 @@ class PlatformControlPanel:
 
 
 @dataclass
+class BackupItem:
+    id: str
+    """
+    ID of the item.
+    """
+
+    name: str
+    """
+    Name of the item (e.g., `database name`, `email address`).
+    """
+
+    type_: BackupItemType
+    """
+    Type of the item (e.g., email, database, FTP).
+    """
+
+    size: int
+    """
+    Size of the item in bytes.
+    """
+
+    status: BackupStatus
+    """
+    Status of the item. Available values are `active`, `damaged`, and `restoring`.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time at which this item was backed up.
+    """
+
+
+@dataclass
 class HostingDomain:
     subdomain: str
     """
@@ -564,6 +633,47 @@ class Platform:
 
 
 @dataclass
+class BackupItemGroup:
+    type_: BackupItemType
+    """
+    Type of items (e.g., email, database, FTP).
+    """
+
+    items: List[BackupItem]
+    """
+    List of individual backup items of this type.
+    """
+
+
+@dataclass
+class Backup:
+    id: str
+    """
+    ID of the backup.
+    """
+
+    size: int
+    """
+    Total size of the backup in bytes.
+    """
+
+    status: BackupStatus
+    """
+    Status of the backup. Available values are `active`, `locked`, and `restoring`.
+    """
+
+    total_items: int
+    """
+    Total number of restorable items in the backup.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date of the backup.
+    """
+
+
+@dataclass
 class ControlPanel:
     name: str
     """
@@ -749,6 +859,106 @@ class DomainAvailability:
     price: Optional[Money]
     """
     Price for registering the domain.
+    """
+
+
+@dataclass
+class BackupApiGetBackupRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to retrieve.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class BackupApiListBackupItemsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to list items from.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class BackupApiListBackupsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number to retrieve.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of backups to return per page.
+    """
+
+    order_by: Optional[ListBackupsRequestOrderBy]
+    """
+    Order in which to return the list of backups.
+    """
+
+
+@dataclass
+class BackupApiRestoreBackupItemsRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    item_ids: Optional[List[str]]
+    """
+    List of backup item IDs to restore individually.
+    """
+
+
+@dataclass
+class BackupApiRestoreBackupRequest:
+    hosting_id: str
+    """
+    UUID of the hosting account.
+    """
+
+    backup_id: str
+    """
+    ID of the backup to fully restore.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -1382,6 +1592,24 @@ class Hosting:
 
 
 @dataclass
+class HostingApiAddCustomDomainRequest:
+    hosting_id: str
+    """
+    Hosting ID to which the custom domain is attached to.
+    """
+
+    domain_name: str
+    """
+    The custom domain name to attach to the hosting.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class HostingApiCreateHostingRequest:
     offer_id: str
     """
@@ -1555,6 +1783,19 @@ class HostingApiListHostingsRequest:
 
 
 @dataclass
+class HostingApiRemoveCustomDomainRequest:
+    hosting_id: str
+    """
+    Hosting ID to which the custom domain is detached from.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class HostingApiResetHostingPasswordRequest:
     hosting_id: str
     """
@@ -1602,6 +1843,32 @@ class HostingApiUpdateHostingRequest:
     protected: Optional[bool]
     """
     Whether the hosting is protected or not.
+    """
+
+
+@dataclass
+class ListBackupItemsResponse:
+    total_count: int
+    """
+    Total number of backup item groups.
+    """
+
+    groups: List[BackupItemGroup]
+    """
+    List of backup item groups categorized by type.
+    """
+
+
+@dataclass
+class ListBackupsResponse:
+    total_count: int
+    """
+    Total number of available backups.
+    """
+
+    backups: List[Backup]
+    """
+    List of available backups.
     """
 
 
@@ -1888,6 +2155,16 @@ class ResourceSummary:
     """
     Total number of active domains in the Web Hosting plan.
     """
+
+
+@dataclass
+class RestoreBackupItemsResponse:
+    pass
+
+
+@dataclass
+class RestoreBackupResponse:
+    pass
 
 
 @dataclass
