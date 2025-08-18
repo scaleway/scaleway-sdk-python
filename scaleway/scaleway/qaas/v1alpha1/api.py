@@ -18,6 +18,7 @@ from .types import (
     ListBookingsRequestOrderBy,
     ListJobResultsRequestOrderBy,
     ListJobsRequestOrderBy,
+    ListModelsRequestOrderBy,
     ListPlatformsRequestOrderBy,
     ListProcessResultsRequestOrderBy,
     ListProcessesRequestOrderBy,
@@ -29,6 +30,7 @@ from .types import (
     Application,
     Booking,
     CreateJobRequest,
+    CreateModelRequest,
     CreateProcessRequest,
     CreateSessionRequest,
     CreateSessionRequestBookingDemand,
@@ -39,11 +41,13 @@ from .types import (
     ListBookingsResponse,
     ListJobResultsResponse,
     ListJobsResponse,
+    ListModelsResponse,
     ListPlatformsResponse,
     ListProcessResultsResponse,
     ListProcessesResponse,
     ListSessionACLsResponse,
     ListSessionsResponse,
+    Model,
     Platform,
     Process,
     ProcessResult,
@@ -64,6 +68,7 @@ from .marshalling import (
     unmarshal_Application,
     unmarshal_Booking,
     unmarshal_Job,
+    unmarshal_Model,
     unmarshal_Platform,
     unmarshal_Process,
     unmarshal_Session,
@@ -71,12 +76,14 @@ from .marshalling import (
     unmarshal_ListBookingsResponse,
     unmarshal_ListJobResultsResponse,
     unmarshal_ListJobsResponse,
+    unmarshal_ListModelsResponse,
     unmarshal_ListPlatformsResponse,
     unmarshal_ListProcessResultsResponse,
     unmarshal_ListProcessesResponse,
     unmarshal_ListSessionACLsResponse,
     unmarshal_ListSessionsResponse,
     marshal_CreateJobRequest,
+    marshal_CreateModelRequest,
     marshal_CreateProcessRequest,
     marshal_CreateSessionRequest,
     marshal_UpdateBookingRequest,
@@ -331,6 +338,8 @@ class QaasV1Alpha1API(API):
         circuit: JobCircuit,
         tags: Optional[List[str]] = None,
         max_duration: Optional[str] = None,
+        model_id: Optional[str] = None,
+        parameters: Optional[str] = None,
     ) -> Job:
         """
         Create a job.
@@ -340,6 +349,8 @@ class QaasV1Alpha1API(API):
         :param circuit: Quantum circuit that should be executed.
         :param tags: Tags of the job.
         :param max_duration: Maximum duration of the job.
+        :param model_id: Computation model ID to be executed by the job.
+        :param parameters: Execution parameters for this job.
         :return: :class:`Job <Job>`
 
         Usage:
@@ -362,6 +373,8 @@ class QaasV1Alpha1API(API):
                     circuit=circuit,
                     tags=tags,
                     max_duration=max_duration,
+                    model_id=model_id,
+                    parameters=parameters,
                 ),
                 self.client,
             ),
@@ -780,6 +793,7 @@ class QaasV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         deduplication_id: Optional[str] = None,
         booking_demand: Optional[CreateSessionRequestBookingDemand] = None,
+        model_id: Optional[str] = None,
     ) -> Session:
         """
         Create a session.
@@ -792,6 +806,7 @@ class QaasV1Alpha1API(API):
         :param tags: Tags of the session.
         :param deduplication_id: Deduplication ID of the session.
         :param booking_demand: A booking demand to schedule the session, only applicable if the platform is bookable.
+        :param model_id: Default computation model ID to be executed by job assigned to this session.
         :return: :class:`Session <Session>`
 
         Usage:
@@ -815,6 +830,7 @@ class QaasV1Alpha1API(API):
                     tags=tags,
                     deduplication_id=deduplication_id,
                     booking_demand=booking_demand,
+                    model_id=model_id,
                 ),
                 self.client,
             ),
@@ -1655,3 +1671,138 @@ class QaasV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Booking(res.json())
+
+    def create_model(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        payload: Optional[str] = None,
+    ) -> Model:
+        """
+        Create a new model.
+        Create and register a new model that can be executed through next jobs. A model can also be assigned to a Session.
+        :param project_id: Project ID to attach this model.
+        :param payload: The serialized model data.
+        :return: :class:`Model <Model>`
+
+        Usage:
+        ::
+
+            result = api.create_model()
+        """
+
+        res = self._request(
+            "POST",
+            "/qaas/v1alpha1/models",
+            body=marshal_CreateModelRequest(
+                CreateModelRequest(
+                    project_id=project_id,
+                    payload=payload,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Model(res.json())
+
+    def get_model(
+        self,
+        *,
+        model_id: str,
+    ) -> Model:
+        """
+        Get model information.
+        Retrieve information about of the provided **model ID**.
+        :param model_id: Unique ID of the model.
+        :return: :class:`Model <Model>`
+
+        Usage:
+        ::
+
+            result = api.get_model(
+                model_id="example",
+            )
+        """
+
+        param_model_id = validate_path_param("model_id", model_id)
+
+        res = self._request(
+            "GET",
+            f"/qaas/v1alpha1/models/{param_model_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Model(res.json())
+
+    def list_models(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListModelsRequestOrderBy] = None,
+    ) -> ListModelsResponse:
+        """
+        List all models attached to the **project ID**.
+        Retrieve information about all models of the provided **project ID**.
+        :param project_id: List models belonging to this project ID.
+        :param page: Page number.
+        :param page_size: Maximum number of results to return per page.
+        :param order_by: Sort order of the returned results.
+        :return: :class:`ListModelsResponse <ListModelsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_models()
+        """
+
+        res = self._request(
+            "GET",
+            "/qaas/v1alpha1/models",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListModelsResponse(res.json())
+
+    def list_models_all(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListModelsRequestOrderBy] = None,
+    ) -> List[Model]:
+        """
+        List all models attached to the **project ID**.
+        Retrieve information about all models of the provided **project ID**.
+        :param project_id: List models belonging to this project ID.
+        :param page: Page number.
+        :param page_size: Maximum number of results to return per page.
+        :param order_by: Sort order of the returned results.
+        :return: :class:`List[Model] <List[Model]>`
+
+        Usage:
+        ::
+
+            result = api.list_models_all()
+        """
+
+        return fetch_all_pages(
+            type=ListModelsResponse,
+            key="models",
+            fetcher=self.list_models,
+            args={
+                "project_id": project_id,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
