@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     HostingStatus,
+    ListBackupsRequestOrderBy,
     ListDatabaseUsersRequestOrderBy,
     ListDatabasesRequestOrderBy,
     ListFtpAccountsRequestOrderBy,
@@ -23,6 +24,8 @@ from .types import (
     ListOffersRequestOrderBy,
     ListWebsitesRequestOrderBy,
     AutoConfigDomainDns,
+    Backup,
+    BackupApiRestoreBackupItemsRequest,
     CheckUserOwnsDomainResponse,
     ControlPanel,
     CreateDatabaseRequestUser,
@@ -42,9 +45,12 @@ from .types import (
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
     Hosting,
+    HostingApiAddCustomDomainRequest,
     HostingApiCreateHostingRequest,
     HostingApiUpdateHostingRequest,
     HostingSummary,
+    ListBackupItemsResponse,
+    ListBackupsResponse,
     ListControlPanelsResponse,
     ListDatabaseUsersResponse,
     ListDatabasesResponse,
@@ -61,24 +67,31 @@ from .types import (
     OfferOptionRequest,
     ResetHostingPasswordResponse,
     ResourceSummary,
+    RestoreBackupItemsResponse,
+    RestoreBackupResponse,
     SearchDomainsResponse,
     Session,
     SyncDomainDnsRecordsRequestRecord,
     Website,
 )
 from .content import (
+    BACKUP_TRANSIENT_STATUSES,
     DOMAIN_TRANSIENT_STATUSES,
     HOSTING_TRANSIENT_STATUSES,
 )
 from .marshalling import (
+    unmarshal_Backup,
     unmarshal_DatabaseUser,
     unmarshal_Database,
     unmarshal_FtpAccount,
+    unmarshal_HostingSummary,
     unmarshal_MailAccount,
     unmarshal_CheckUserOwnsDomainResponse,
     unmarshal_DnsRecords,
     unmarshal_Domain,
     unmarshal_Hosting,
+    unmarshal_ListBackupItemsResponse,
+    unmarshal_ListBackupsResponse,
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListDatabaseUsersResponse,
     unmarshal_ListDatabasesResponse,
@@ -89,8 +102,11 @@ from .marshalling import (
     unmarshal_ListWebsitesResponse,
     unmarshal_ResetHostingPasswordResponse,
     unmarshal_ResourceSummary,
+    unmarshal_RestoreBackupItemsResponse,
+    unmarshal_RestoreBackupResponse,
     unmarshal_SearchDomainsResponse,
     unmarshal_Session,
+    marshal_BackupApiRestoreBackupItemsRequest,
     marshal_DatabaseApiAssignDatabaseUserRequest,
     marshal_DatabaseApiChangeDatabaseUserPasswordRequest,
     marshal_DatabaseApiCreateDatabaseRequest,
@@ -100,6 +116,7 @@ from .marshalling import (
     marshal_DnsApiSyncDomainDnsRecordsRequest,
     marshal_FtpAccountApiChangeFtpAccountPasswordRequest,
     marshal_FtpAccountApiCreateFtpAccountRequest,
+    marshal_HostingApiAddCustomDomainRequest,
     marshal_HostingApiCreateHostingRequest,
     marshal_HostingApiUpdateHostingRequest,
     marshal_MailAccountApiChangeMailAccountPasswordRequest,
@@ -109,6 +126,292 @@ from .marshalling import (
 from ...std.types import (
     LanguageCode as StdLanguageCode,
 )
+
+
+class WebhostingV1BackupAPI(API):
+    """
+    This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.
+    """
+
+    async def list_backups(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListBackupsRequestOrderBy] = None,
+    ) -> ListBackupsResponse:
+        """
+        List all available backups for a hosting account.
+        :param hosting_id: UUID of the hosting account.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to retrieve.
+        :param page_size: Number of backups to return per page.
+        :param order_by: Order in which to return the list of backups.
+        :return: :class:`ListBackupsResponse <ListBackupsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_backups(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/backups",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListBackupsResponse(res.json())
+
+    async def list_backups_all(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListBackupsRequestOrderBy] = None,
+    ) -> List[Backup]:
+        """
+        List all available backups for a hosting account.
+        :param hosting_id: UUID of the hosting account.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to retrieve.
+        :param page_size: Number of backups to return per page.
+        :param order_by: Order in which to return the list of backups.
+        :return: :class:`List[Backup] <List[Backup]>`
+
+        Usage:
+        ::
+
+            result = await api.list_backups_all(
+                hosting_id="example",
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListBackupsResponse,
+            key="backups",
+            fetcher=self.list_backups,
+            args={
+                "hosting_id": hosting_id,
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
+
+    async def get_backup(
+        self,
+        *,
+        hosting_id: str,
+        backup_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Backup:
+        """
+        Get info about a backup specified by the backup ID.
+        :param hosting_id: UUID of the hosting account.
+        :param backup_id: ID of the backup to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Backup <Backup>`
+
+        Usage:
+        ::
+
+            result = await api.get_backup(
+                hosting_id="example",
+                backup_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+        param_backup_id = validate_path_param("backup_id", backup_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/backups/{param_backup_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Backup(res.json())
+
+    async def wait_for_backup(
+        self,
+        *,
+        hosting_id: str,
+        backup_id: str,
+        region: Optional[ScwRegion] = None,
+        options: Optional[WaitForOptions[Backup, Union[bool, Awaitable[bool]]]] = None,
+    ) -> Backup:
+        """
+        Get info about a backup specified by the backup ID.
+        :param hosting_id: UUID of the hosting account.
+        :param backup_id: ID of the backup to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Backup <Backup>`
+
+        Usage:
+        ::
+
+            result = await api.get_backup(
+                hosting_id="example",
+                backup_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in BACKUP_TRANSIENT_STATUSES
+
+        return await wait_for_resource_async(
+            fetcher=self.get_backup,
+            options=options,
+            args={
+                "hosting_id": hosting_id,
+                "backup_id": backup_id,
+                "region": region,
+            },
+        )
+
+    async def restore_backup(
+        self,
+        *,
+        hosting_id: str,
+        backup_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> RestoreBackupResponse:
+        """
+        Restore an entire backup to your hosting environment.
+        :param hosting_id: UUID of the hosting account.
+        :param backup_id: ID of the backup to fully restore.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`RestoreBackupResponse <RestoreBackupResponse>`
+
+        Usage:
+        ::
+
+            result = await api.restore_backup(
+                hosting_id="example",
+                backup_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+        param_backup_id = validate_path_param("backup_id", backup_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/backups/{param_backup_id}/restore",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_RestoreBackupResponse(res.json())
+
+    async def list_backup_items(
+        self,
+        *,
+        hosting_id: str,
+        backup_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> ListBackupItemsResponse:
+        """
+        List items within a specific backup, grouped by type.
+        :param hosting_id: UUID of the hosting account.
+        :param backup_id: ID of the backup to list items from.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ListBackupItemsResponse <ListBackupItemsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_backup_items(
+                hosting_id="example",
+                backup_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/backup-items",
+            params={
+                "backup_id": backup_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListBackupItemsResponse(res.json())
+
+    async def restore_backup_items(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[ScwRegion] = None,
+        item_ids: Optional[List[str]] = None,
+    ) -> RestoreBackupItemsResponse:
+        """
+        Restore specific items from a backup (e.g., a database or mailbox).
+        :param hosting_id: UUID of the hosting account.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param item_ids: List of backup item IDs to restore individually.
+        :return: :class:`RestoreBackupItemsResponse <RestoreBackupItemsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.restore_backup_items(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/restore-backup-items",
+            body=marshal_BackupApiRestoreBackupItemsRequest(
+                BackupApiRestoreBackupItemsRequest(
+                    hosting_id=hosting_id,
+                    region=region,
+                    item_ids=item_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_RestoreBackupItemsResponse(res.json())
 
 
 class WebhostingV1ControlPanelAPI(API):
@@ -1554,6 +1857,84 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ResourceSummary(res.json())
+
+    async def add_custom_domain(
+        self,
+        *,
+        hosting_id: str,
+        domain_name: str,
+        region: Optional[ScwRegion] = None,
+    ) -> HostingSummary:
+        """
+        Attach a custom domain to a webhosting.
+        :param hosting_id: Hosting ID to which the custom domain is attached to.
+        :param domain_name: The custom domain name to attach to the hosting.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`HostingSummary <HostingSummary>`
+
+        Usage:
+        ::
+
+            result = await api.add_custom_domain(
+                hosting_id="example",
+                domain_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/add-custom-domain",
+            body=marshal_HostingApiAddCustomDomainRequest(
+                HostingApiAddCustomDomainRequest(
+                    hosting_id=hosting_id,
+                    domain_name=domain_name,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_HostingSummary(res.json())
+
+    async def remove_custom_domain(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> HostingSummary:
+        """
+        Detach a custom domain from a webhosting.
+        :param hosting_id: Hosting ID to which the custom domain is detached from.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`HostingSummary <HostingSummary>`
+
+        Usage:
+        ::
+
+            result = await api.remove_custom_domain(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/remove-custom-domain",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_HostingSummary(res.json())
 
 
 class WebhostingV1FtpAccountAPI(API):
