@@ -1,5 +1,6 @@
+import os
+
 import pytest
-import vcr
 from scaleway.vpc.v2 import VpcV2API
 from scaleway_core.api import ScalewayException
 from scaleway_core.client import Client
@@ -20,7 +21,7 @@ def vpc_api():
 
 
 @pytest.fixture(scope="module")
-def create_delete_vpc_setup(vpc_api):
+def vpc(vpc_api):
     api, project_id, region = vpc_api
     with scw_vcr.use_cassette("vpc_create_fixture_setup.yaml"):
         vpc = api.create_vpc(
@@ -44,8 +45,8 @@ def private_networks_to_cleanup(vpc_api):
             api.delete_private_network(private_network_id=pn.id)
 
 
-@scw_vcr.use_cassette("test_delete_vpc.yaml")
-def test_delete_vpc(vpc_api):
+@scw_vcr.use_cassette("test_vpc_delete.yaml")
+def test_vpc_delete(vpc_api):
     api, project_id, region = vpc_api
     vpc = api.create_vpc(
         enable_routing=True,
@@ -64,7 +65,7 @@ def test_delete_vpc(vpc_api):
 
 
 @scw_vcr.use_cassette("test_vpc_list.yaml")
-def test_list_vpcs(vpc_api):
+def test_vpc_list(vpc_api):
     api, _, region = vpc_api
     vpcs = api.list_vp_cs(region=region)
     assert isinstance(vpcs.vpcs, list)
@@ -72,7 +73,7 @@ def test_list_vpcs(vpc_api):
 
 
 @scw_vcr.use_cassette("test_private_network_create.yaml")
-def test_create_private_network(vpc_api, vpc, private_networks_to_cleanup):
+def test_private_network_create(vpc_api, vpc, private_networks_to_cleanup):
     api, project_id, _ = vpc_api
     for i in range(created_pn_count):
         pn = api.create_private_network(
@@ -86,7 +87,7 @@ def test_create_private_network(vpc_api, vpc, private_networks_to_cleanup):
 
 
 @scw_vcr.use_cassette("test_private_network_list.yaml")
-def test_list_private_network(vpc_api):
+def test_private_network_list(vpc_api):
     api, _, region = vpc_api
     networks = api.list_private_networks(region=region)
     assert isinstance(networks.private_networks, list)
@@ -94,7 +95,7 @@ def test_list_private_network(vpc_api):
 
 
 @scw_vcr.use_cassette("test_vpc_get.yaml")
-def test_get_vpc(vpc_api, vpc):
+def test_vpc_get(vpc_api, vpc):
     api, _, region = vpc_api
     fetched = api.get_vpc(vpc_id=vpc.id, region=region)
     assert fetched is not None
@@ -102,15 +103,15 @@ def test_get_vpc(vpc_api, vpc):
 
 
 @scw_vcr.use_cassette("test_vpc_update.yaml")
-def test_update_vpc(vpc_api, vpc):
+def test_vpc_update(vpc_api, vpc):
     api, _, _ = vpc_api
     updated = api.update_vpc(vpc_id=vpc.id, tags=tags)
     assert updated.tags == tags
     assert updated.id == vpc.id
 
 
-@scw_vcr.use_cassette("test_vpc_list _all.yaml")
-def test_list_vpc_all(vpc_api):
+@scw_vcr.use_cassette("test_vpc_list_all.yaml")
+def test_vpc_list_all(vpc_api):
     api, _, _ = vpc_api
     vpcs = api.list_vp_cs_all()
     assert isinstance(vpcs, list)
