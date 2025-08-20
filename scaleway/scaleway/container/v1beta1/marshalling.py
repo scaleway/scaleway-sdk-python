@@ -1037,9 +1037,6 @@ def marshal_CreateNamespaceRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.activate_vpc_integration is not None:
-        output["activate_vpc_integration"] = request.activate_vpc_integration
-
     if request.name is not None:
         output["name"] = request.name
 
@@ -1060,6 +1057,9 @@ def marshal_CreateNamespaceRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.activate_vpc_integration is not None:
+        output["activate_vpc_integration"] = request.activate_vpc_integration
 
     return output
 

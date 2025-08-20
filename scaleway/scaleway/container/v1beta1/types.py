@@ -672,8 +672,7 @@ class Namespace:
 
     vpc_integration_activated: Optional[bool]
     """
-    When activated, containers in the namespace can be connected to a Private Network.
-Note that activating the VPC integration can only be done when creating a new namespace.
+    The value of this field doesn't matter anymore, and will be removed in a near future.
     """
 
 
@@ -885,8 +884,6 @@ class CreateContainerRequest:
     private_network_id: Optional[str]
     """
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
-
-Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
     """
 
     command: Optional[List[str]]
@@ -948,11 +945,6 @@ class CreateDomainRequest:
 
 @dataclass
 class CreateNamespaceRequest:
-    activate_vpc_integration: bool
-    """
-    When activated, containers in the namespace can be connected to a Private Network.
-    """
-
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -986,6 +978,11 @@ class CreateNamespaceRequest:
     tags: Optional[List[str]]
     """
     Tags of the Serverless Container Namespace.
+    """
+
+    activate_vpc_integration: Optional[bool]
+    """
+    Setting this field to true doesn't matter anymore. It will be removed in a near future.
     """
 
 
@@ -1600,8 +1597,6 @@ class UpdateContainerRequest:
     private_network_id: Optional[str]
     """
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
-
-Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
     """
 
     command: Optional[List[str]]

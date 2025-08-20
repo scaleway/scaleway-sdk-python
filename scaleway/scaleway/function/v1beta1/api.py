@@ -269,7 +269,6 @@ class FunctionV1Beta1API(API):
     def create_namespace(
         self,
         *,
-        activate_vpc_integration: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -277,11 +276,11 @@ class FunctionV1Beta1API(API):
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
         tags: Optional[List[str]] = None,
+        activate_vpc_integration: Optional[bool] = None,
     ) -> Namespace:
         """
         Create a new namespace.
         Create a new namespace in a specified Organization or Project.
-        :param activate_vpc_integration: When activated, functions in the namespace can be connected to a Private Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name:
         :param environment_variables: Environment variables of the namespace.
@@ -289,14 +288,13 @@ class FunctionV1Beta1API(API):
         :param description: Description of the namespace.
         :param secret_environment_variables: Secret environment variables of the namespace.
         :param tags: Tags of the Serverless Function Namespace.
+        :param activate_vpc_integration: Setting this field to true doesn't matter anymore. It will be removed in a near future.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = api.create_namespace(
-                activate_vpc_integration=False,
-            )
+            result = api.create_namespace()
         """
 
         param_region = validate_path_param(
@@ -308,7 +306,6 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/namespaces",
             body=marshal_CreateNamespaceRequest(
                 CreateNamespaceRequest(
-                    activate_vpc_integration=activate_vpc_integration,
                     region=region,
                     name=name or random_name(prefix="ns"),
                     environment_variables=environment_variables,
@@ -316,6 +313,7 @@ class FunctionV1Beta1API(API):
                     description=description,
                     secret_environment_variables=secret_environment_variables,
                     tags=tags,
+                    activate_vpc_integration=activate_vpc_integration,
                 ),
                 self.client,
             ),
@@ -627,8 +625,6 @@ class FunctionV1Beta1API(API):
         :param sandbox: Execution environment of the function.
         :param tags: Tags of the Serverless Function.
         :param private_network_id: When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
-
-        Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -716,8 +712,6 @@ class FunctionV1Beta1API(API):
         :param sandbox: Execution environment of the function.
         :param tags: Tags of the Serverless Function.
         :param private_network_id: When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
-
-        Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
         :return: :class:`Function <Function>`
 
         Usage:
