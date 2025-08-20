@@ -1,0 +1,1142 @@
+interactions:
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/67457bd7-202d-4596-890f-3863b953d982
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:08 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - c626ca66-441d-447d-8b6f-097de301b1c1
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/53ee04ae-9f48-43f4-9fde-a4b980b97045
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:09 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - a52d64ae-9a98-4c0a-a606-ab87780aa11e
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/851d33da-72f3-4f71-a652-245b356f5ba1
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:11 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - b57ecb32-272f-4e10-ae8a-d338d02ec88f
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/693dc7f2-e76b-4be4-9c50-c912c0d54352
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:12 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - f98a9a30-5b04-48a3-8c66-fc14d9842c63
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/09ac5ba5-1d6f-4298-9335-5a536dd85725
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:13 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - b97af350-6fcd-4e47-a896-6356bee37fd6
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/2fb7854d-606a-46cd-b8c0-3e5d034027b9
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:46 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - fd0c8a82-af00-4964-bce4-4f36e6399c63
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/eee643bc-5b35-4998-a896-9af15e5351cf
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:48 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 0f970f2a-89f7-412f-96e6-ddf417edbe2f
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/663bc33a-6ad8-4f7f-b22b-d8d5c7271e81
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:49 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 59c19b35-b959-485c-ba86-00a57864c365
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/d4bb8d65-0c30-4f42-9da2-88c8fa4df220
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:50 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 40fec315-9148-4172-b9c9-6fa4c4094260
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/5aad2a20-c349-4518-b47a-a7a39d0ec362
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:52 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 40c577f0-8cd0-4cd1-b1d4-b32bf45452d7
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/0919a856-6d97-46c3-af43-f58abc77bb02
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:08:23 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - eaceda5d-8cc1-4feb-b9c9-6e448c9b5c5d
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/e4199c1b-e8ac-4683-8adb-1d86fa7805a7
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:08:25 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 348d0c5b-c64e-4631-8f72-ad054d6964e6
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/0ff3b795-d478-4636-8eca-c1bd9df9ad69
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:08:26 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - d7cac98c-6217-4cfa-a57f-3e5363f33eb8
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/65cc5ead-cfb2-46de-88f0-2d9a212c4bfa
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:08:27 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - fbf7bf60-c318-4759-a87d-9a71e1612842
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/a54c534c-39e5-4184-97a8-2158d08698c9
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:08:29 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 46c5e44a-8680-40b1-86d3-a07553c1d29c
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/03392046-c2e2-4f43-953b-7c479b0a274b
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:34 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - d10357db-fe87-4bbd-aaf7-846d51f3e082
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/37168131-8979-4ba4-9c76-bc36dadcd9c6
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:35 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 1a98fb92-bc36-4f1d-90f4-f0914c00d242
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/2b484c28-fe93-456d-af9a-53e33dad14a5
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:36 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - cd6b9a7e-0e76-4989-9b78-fc16940b0b03
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/a04a114f-40cb-428d-89d0-d4703a6ceea9
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:37 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 27229d69-e15b-46b3-b97f-4e97d399a281
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/73d1ea3b-fea0-428f-8423-0c2cf12f82ee
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:39 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 3462b408-fe6a-42bf-b0f0-c893b2a93232
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/a93bc463-9f1a-4193-8e8b-03d9cb299173
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:32:17 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 6ae6f24b-afe6-4227-92c4-bd86a0f88c5c
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/59771f1f-e588-4010-bc68-c92589829ea8
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:32:18 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 76eaeec3-b421-48de-8bb9-c47e60c299c6
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/a5a59110-2542-4470-b140-2ece6fafdba3
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:32:20 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - cb301b16-802a-49b3-879b-9f555a296737
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/363bfd69-9b39-4c30-8bad-93f99740cf0e
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:32:21 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 4c4a9315-7ffb-45a2-968b-3ebb443f8e44
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/88ca56bd-9521-4d25-829c-7d1f23924c20
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:32:22 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - a115398d-66d8-4965-8322-fea4971302c8
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/ce754240-e35c-4bc8-b97e-dfd91db4160e
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:36:18 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 015b309b-8369-4c17-8980-bfd50be2a086
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/b4f5aa6e-3ce4-44b3-aae6-a62d6b205a68
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:36:19 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - c4c5cefe-4983-4cc3-867e-9048e317df5b
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/cbb62e1a-7198-43e9-96de-44ad8832870e
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:36:21 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - e984caa5-9ee9-445a-85e2-f9fbe61371a5
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/dfb38f6d-1e31-47aa-8a42-9eb026739d43
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:36:22 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - b226bef5-42f3-473f-be58-de2802b69969
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/248e0e87-154a-428b-9a70-1ae5de457529
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:36:24 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - a2a539a7-8767-414f-a7f4-ee669de37c10
+    status:
+      code: 204
+      message: No Content
+version: 1

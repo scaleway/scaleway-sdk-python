@@ -1,0 +1,423 @@
+interactions:
+- request:
+    body: '{"enable_routing": false, "name": "vpc-epic-mestorf", "project_id": "11111111-1111-1111-1111-111111111111"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '107'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs
+  response:
+    body:
+      string: '{"id": "7aa6fcf8-88ae-4924-9ff1-a9dab7beb7d8", "name": "vpc-epic-mestorf",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-08-28T15:27:13.281205Z", "updated_at": "2025-08-28T15:27:13.281205Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '403'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:13 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 8e19103c-7646-4947-91cd-1e075834d879
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "pn-elastic-hodgkin",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "7aa6fcf8-88ae-4924-9ff1-a9dab7beb7d8"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '177'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "a84527b3-5cd1-4705-ae7c-0b0a51ab55d7", "name": "pn-elastic-hodgkin",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-08-28T15:27:13.374780Z", "updated_at": "2025-08-28T15:27:13.374780Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "8a35fa3c-2f52-424e-b8f4-04da44f720a9",
+        "created_at": "2025-08-28T15:27:13.374780Z", "updated_at": "2025-08-28T15:27:13.374780Z",
+        "subnet": "172.16.160.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "a84527b3-5cd1-4705-ae7c-0b0a51ab55d7", "vpc_id": "7aa6fcf8-88ae-4924-9ff1-a9dab7beb7d8"},
+        {"id": "67f76ffe-f61d-42e6-994b-9f3642c223db", "created_at": "2025-08-28T15:27:13.374780Z",
+        "updated_at": "2025-08-28T15:27:13.374780Z", "subnet": "fd64:badd:7710:b85d::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "a84527b3-5cd1-4705-ae7c-0b0a51ab55d7", "vpc_id": "7aa6fcf8-88ae-4924-9ff1-a9dab7beb7d8"}],
+        "vpc_id": "7aa6fcf8-88ae-4924-9ff1-a9dab7beb7d8", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1064'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:13 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - e47a857e-be86-4f37-b866-3a56d12dac97
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/7aa6fcf8-88ae-4924-9ff1-a9dab7beb7d8
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:28 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 742e20bd-04a7-4541-a56c-fae49e7e1ccc
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{"enable_routing": false, "name": "vpc-eloquent-tesla", "project_id": "11111111-1111-1111-1111-111111111111"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '109'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs
+  response:
+    body:
+      string: '{"id": "210e66cb-25d5-4e5e-bf7a-fdb4d6c68508", "name": "vpc-eloquent-tesla",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-08-28T15:31:51.859600Z", "updated_at": "2025-08-28T15:31:51.859600Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '405'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:31:51 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - fd67dbeb-9f80-4154-ac4a-d82d6ad78444
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "pn-boring-rhodes",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "210e66cb-25d5-4e5e-bf7a-fdb4d6c68508"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '175'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "bbe16029-b570-436a-aff8-edc08d735a16", "name": "pn-boring-rhodes",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-08-28T15:31:51.970052Z", "updated_at": "2025-08-28T15:31:51.970052Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "e25639b7-0a22-4935-93d3-a2a495cc6269",
+        "created_at": "2025-08-28T15:31:51.970052Z", "updated_at": "2025-08-28T15:31:51.970052Z",
+        "subnet": "172.16.156.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "bbe16029-b570-436a-aff8-edc08d735a16", "vpc_id": "210e66cb-25d5-4e5e-bf7a-fdb4d6c68508"},
+        {"id": "2f242b09-326f-4b42-86f8-21304dcbd3f8", "created_at": "2025-08-28T15:31:51.970052Z",
+        "updated_at": "2025-08-28T15:31:51.970052Z", "subnet": "fd64:badd:7710:14a::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "bbe16029-b570-436a-aff8-edc08d735a16", "vpc_id": "210e66cb-25d5-4e5e-bf7a-fdb4d6c68508"}],
+        "vpc_id": "210e66cb-25d5-4e5e-bf7a-fdb4d6c68508", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1061'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:31:52 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 9ed6457d-941e-4747-b8cc-188a8e95cecb
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/210e66cb-25d5-4e5e-bf7a-fdb4d6c68508
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:32:11 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - b5bd9e00-ec1f-45d3-9524-1f2a8286ab33
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{"enable_routing": false, "name": "vpc-gallant-volhard", "project_id":
+      "11111111-1111-1111-1111-111111111111"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '110'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs
+  response:
+    body:
+      string: '{"id": "ce539243-bf2d-4a3e-9384-181789c00309", "name": "vpc-gallant-volhard",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-08-28T15:35:29.736461Z", "updated_at": "2025-08-28T15:35:29.736461Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '406'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:35:29 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 5715cc1f-d61d-4206-933e-bc59af4c4b30
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "pn-nostalgic-davinci",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "ce539243-bf2d-4a3e-9384-181789c00309"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '179'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "4a7ee066-10fc-45e1-8e04-616d5004bbf0", "name": "pn-nostalgic-davinci",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-08-28T15:35:29.833358Z", "updated_at": "2025-08-28T15:35:29.833358Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "c957ee3d-8d18-496f-9246-0401194ac60c",
+        "created_at": "2025-08-28T15:35:29.833358Z", "updated_at": "2025-08-28T15:35:29.833358Z",
+        "subnet": "172.16.140.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "4a7ee066-10fc-45e1-8e04-616d5004bbf0", "vpc_id": "ce539243-bf2d-4a3e-9384-181789c00309"},
+        {"id": "de430705-0caf-4401-afb3-2f8848a09859", "created_at": "2025-08-28T15:35:29.833358Z",
+        "updated_at": "2025-08-28T15:35:29.833358Z", "subnet": "fd64:badd:7710:e531::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "4a7ee066-10fc-45e1-8e04-616d5004bbf0", "vpc_id": "ce539243-bf2d-4a3e-9384-181789c00309"}],
+        "vpc_id": "ce539243-bf2d-4a3e-9384-181789c00309", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1066'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:35:30 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - c8275d9e-0350-472d-8c57-af32027654a8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/ce539243-bf2d-4a3e-9384-181789c00309
+  response:
+    body:
+      string: ''
+    headers:
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:36:12 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 83ecdb84-7daa-42e1-a4ef-8639bd704f65
+    status:
+      code: 204
+      message: No Content
+version: 1

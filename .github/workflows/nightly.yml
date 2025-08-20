@@ -1,0 +1,60 @@
+name: Nightly Tests
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  actions: read
+
+jobs:
+  nightly:
+    strategy:
+      fail-fast: false
+      matrix:
+        python: [ '3.10' ,'3.11', '3.12', '3.13' ]
+        products:
+          - instance
+          - k8s
+          - vpc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "poetry"
+      - name: Install dependencies and library
+        run: poetry install
+      - name: Run Tests
+        run: poetry run pytest -v ./internal/namespaces/${{ matrix.products }}/tests/... -timeout=4h
+        env:
+          PYTHON_UPDATE_CASSETTES: true
+          SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+          SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+          SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
+          SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+      - name: Ping on failure
+        if: ${{ failure() }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "'"Scaleway SDK Python Nightly workflow failed: <https://github.com/scaleway/scaleway-sdk-python/actions/runs/${GITHUB_RUN_ID}|${FAILED_PRODUCT}>"'"
+                  }
+              }
+            ]
+          }' \
+          ${SLACK_WEBHOOK_NIGHTLY};
+        env:
+          SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
+          FAILED_PRODUCT: ${{ matrix.products }}
+
+
+
+
+

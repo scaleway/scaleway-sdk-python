@@ -1,0 +1,284 @@
+interactions:
+- request:
+    body: '{"tags": ["sdk-python", "regression-test"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: PATCH
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/fe7efbe2-e71f-4f1f-a3c8-be783d69427a
+  response:
+    body:
+      string: '{"id": "fe7efbe2-e71f-4f1f-a3c8-be783d69427a", "name": "vpc-test-sdk-python-goofy-feynman",
+        "tags": ["sdk-python", "regression-test"], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-08-28T15:04:03.198637Z", "updated_at": "2025-08-28T15:04:14.147278Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '450'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:14 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 091c8489-fffa-41bd-b250-890a73ee9a2e
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"tags": ["sdk-python", "regression-test"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: PATCH
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/b74ed568-be98-4acb-b090-36e7c9629752
+  response:
+    body:
+      string: '{"id": "b74ed568-be98-4acb-b090-36e7c9629752", "name": "vpc-test-sdk-python-relaxed-goldstine",
+        "tags": ["sdk-python", "regression-test"], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-08-28T15:04:41.871664Z", "updated_at": "2025-08-28T15:04:52.565730Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '454'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:04:52 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 11414227-080c-4c50-88e3-dde6bd83839e
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"tags": ["sdk-python", "regression-test"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: PATCH
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/dc04db3b-ddbf-4392-9f94-e06bfb9d9a4a
+  response:
+    body:
+      string: '{"id": "dc04db3b-ddbf-4392-9f94-e06bfb9d9a4a", "name": "vpc-test-sdk-python-naughty-dirac",
+        "tags": ["sdk-python", "regression-test"], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-08-28T15:08:18.725514Z", "updated_at": "2025-08-28T15:08:29.667021Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '450'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:08:29 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 4fb2ab09-2633-4ea9-a1bb-d40ed03b890d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"tags": ["sdk-python", "regression-test"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: PATCH
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/8b975ef5-6a98-4808-b13d-82de52c727e3
+  response:
+    body:
+      string: '{"id": "8b975ef5-6a98-4808-b13d-82de52c727e3", "name": "vpc-test-sdk-python-funny-swirles",
+        "tags": ["sdk-python", "regression-test"], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-08-28T15:27:29.502679Z", "updated_at": "2025-08-28T15:27:39.480631Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '450'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:27:39 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 0542a407-2c15-47fa-ac66-e37de7bf7d26
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"tags": ["sdk-python", "regression-test"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: PATCH
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/98390baf-5565-46fd-936f-adef9fea5b81
+  response:
+    body:
+      string: '{"id": "98390baf-5565-46fd-936f-adef9fea5b81", "name": "vpc-test-sdk-python-wizardly-haibt",
+        "tags": ["sdk-python", "regression-test"], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-08-28T15:32:11.978523Z", "updated_at": "2025-08-28T15:32:22.697471Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '451'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:32:22 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - af230523-c7a8-4b06-890e-92d7bbd3f4a6
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"tags": ["sdk-python", "regression-test"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/json; charset=utf-8
+      accept:
+      - application/json
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: PATCH
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/3484eca2-1dea-4d09-a482-67cd5eb1e4e7
+  response:
+    body:
+      string: '{"id": "3484eca2-1dea-4d09-a482-67cd5eb1e4e7", "name": "vpc-test-sdk-python-dreamy-pare",
+        "tags": ["sdk-python", "regression-test"], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-08-28T15:36:12.820194Z", "updated_at": "2025-08-28T15:36:24.363976Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '448'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 28 Aug 2025 15:36:24 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 34cefe43-ea4e-4dcb-9fe0-af3ce4f48af0
+    status:
+      code: 200
+      message: OK
+version: 1
