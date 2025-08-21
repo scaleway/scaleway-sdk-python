@@ -523,6 +523,11 @@ class ImportSnapshotFromObjectStorageRequest:
 
 @dataclass
 class ListSnapshotsRequest:
+    include_deleted: bool
+    """
+    Display deleted snapshots not erased yet.
+    """
+
     zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
@@ -615,6 +620,11 @@ class ListVolumeTypesResponse:
 
 @dataclass
 class ListVolumesRequest:
+    include_deleted: bool
+    """
+    Display deleted volumes not erased yet.
+    """
+
     zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
