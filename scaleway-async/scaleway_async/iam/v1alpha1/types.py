@@ -1385,6 +1385,11 @@ class GetSSHKeyRequest:
 
 
 @dataclass
+class GetSamlInformationRequest:
+    pass
+
+
+@dataclass
 class GetUserConnectionsRequest:
     user_id: str
     """
@@ -2156,6 +2161,19 @@ class Saml:
     single_sign_on_url: str
     """
     Single Sign-On URL of the SAML Identity Provider.
+    """
+
+
+@dataclass
+class SamlInformation:
+    entity_id: str
+    """
+    Entity ID.
+    """
+
+    assertion_consumer_service_url: str
+    """
+    SAML Assertion Consumer Service url.
     """
 
 

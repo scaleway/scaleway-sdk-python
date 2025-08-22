@@ -74,6 +74,7 @@ from .types import GetOrganizationSecuritySettingsRequest
 from .types import GetPolicyRequest
 from .types import GetQuotumRequest
 from .types import GetSSHKeyRequest
+from .types import GetSamlInformationRequest
 from .types import GetUserConnectionsRequest
 from .types import GetUserConnectionsResponse
 from .types import GetUserRequest
@@ -114,6 +115,7 @@ from .types import OrganizationSecuritySettings
 from .types import RemoveGroupMemberRequest
 from .types import RemoveUserConnectionRequest
 from .types import Saml
+from .types import SamlInformation
 from .types import SetGroupMembersRequest
 from .types import SetOrganizationAliasRequest
 from .types import SetRulesRequest
@@ -208,6 +210,7 @@ __all__ = [
     "GetPolicyRequest",
     "GetQuotumRequest",
     "GetSSHKeyRequest",
+    "GetSamlInformationRequest",
     "GetUserConnectionsRequest",
     "GetUserConnectionsResponse",
     "GetUserRequest",
@@ -248,6 +251,7 @@ __all__ = [
     "RemoveGroupMemberRequest",
     "RemoveUserConnectionRequest",
     "Saml",
+    "SamlInformation",
     "SetGroupMembersRequest",
     "SetOrganizationAliasRequest",
     "SetRulesRequest",

@@ -75,6 +75,7 @@ from .types import (
     SSHKey,
     Saml,
     SamlCertificate,
+    SamlInformation,
     SetGroupMembersRequest,
     SetOrganizationAliasRequest,
     SetRulesRequest,
@@ -124,6 +125,7 @@ from .marshalling import (
     unmarshal_Organization,
     unmarshal_OrganizationSecuritySettings,
     unmarshal_Saml,
+    unmarshal_SamlInformation,
     unmarshal_SetRulesResponse,
     unmarshal_ValidateUserMFAOTPResponse,
     marshal_AddGroupMemberRequest,
@@ -3274,3 +3276,25 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def get_saml_information(
+        self,
+    ) -> SamlInformation:
+        """
+        Get SAML information.
+
+        :return: :class:`SamlInformation <SamlInformation>`
+
+        Usage:
+        ::
+
+            result = await api.get_saml_information()
+        """
+
+        res = self._request(
+            "GET",
+            "/iam/v1alpha1/saml-information",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SamlInformation(res.json())
