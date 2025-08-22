@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -69,17 +69,17 @@ class ServerPrivateNetwork:
     IPAM IP IDs of the server, if it has any.
     """
 
-    vlan: Optional[int]
+    vlan: Optional[int] = 0
     """
     VLAN UUID associated with the Private Network.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Private Network creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the Private Network was last modified.
     """
@@ -88,7 +88,6 @@ class ServerPrivateNetwork:
 @dataclass
 class ListServerPrivateNetworksResponse:
     server_private_networks: List[ServerPrivateNetwork]
-
     total_count: int
 
 
@@ -104,12 +103,12 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     UUID of the Private Network.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ipam_ip_ids: Optional[List[str]]
+    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
     """
     IPAM IDs of an IPs to attach to the server.
     """
@@ -127,7 +126,7 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
     UUID of the Private Network.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -135,47 +134,49 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
 
 @dataclass
 class PrivateNetworkApiListServerPrivateNetworksRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListServerPrivateNetworksRequestOrderBy]
+    order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = (
+        ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order for the returned Private Networks.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number for the returned Private Networks.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of Private Networks per page.
     """
 
-    server_id: Optional[str]
+    server_id: Optional[str] = None
     """
     Filter Private Networks by server UUID.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     Filter Private Networks by Private Network UUID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter Private Networks by organization UUID.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter Private Networks by project UUID.
     """
 
-    ipam_ip_ids: Optional[List[str]]
+    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter Private Networks by IPAM IP UUIDs.
     """
@@ -193,7 +194,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """

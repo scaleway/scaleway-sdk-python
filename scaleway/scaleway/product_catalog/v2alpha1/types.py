@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -144,9 +144,9 @@ class PublicCatalogProductPropertiesHardwareCPU:
     The total number of threads.
     """
 
-    virtual: Optional[PublicCatalogProductPropertiesHardwareCPUVirtual]
+    virtual: Optional[PublicCatalogProductPropertiesHardwareCPUVirtual] = None
 
-    physical: Optional[PublicCatalogProductPropertiesHardwareCPUPhysical]
+    physical: Optional[PublicCatalogProductPropertiesHardwareCPUPhysical] = None
 
 
 @dataclass
@@ -231,12 +231,12 @@ class PublicCatalogProductPropertiesAppleSilicon:
 
 @dataclass
 class PublicCatalogProductPropertiesBlockStorage:
-    min_volume_size: Optional[int]
+    min_volume_size: Optional[int] = 0
     """
     The minimum size of storage volume for this product in bytes. Deprecated.
     """
 
-    max_volume_size: Optional[int]
+    max_volume_size: Optional[int] = 0
     """
     The maximum size of storage volume for this product in bytes. Deprecated.
     """
@@ -260,27 +260,27 @@ class PublicCatalogProductPropertiesElasticMetal:
 
 @dataclass
 class PublicCatalogProductPropertiesHardware:
-    cpu: Optional[PublicCatalogProductPropertiesHardwareCPU]
+    cpu: Optional[PublicCatalogProductPropertiesHardwareCPU] = None
     """
     The CPU hardware properties.
     """
 
-    ram: Optional[PublicCatalogProductPropertiesHardwareRAM]
+    ram: Optional[PublicCatalogProductPropertiesHardwareRAM] = None
     """
     The RAM hardware properties.
     """
 
-    storage: Optional[PublicCatalogProductPropertiesHardwareStorage]
+    storage: Optional[PublicCatalogProductPropertiesHardwareStorage] = None
     """
     The storage hardware properties.
     """
 
-    network: Optional[PublicCatalogProductPropertiesHardwareNetwork]
+    network: Optional[PublicCatalogProductPropertiesHardwareNetwork] = None
     """
     The network hardware properties.
     """
 
-    gpu: Optional[PublicCatalogProductPropertiesHardwareGPU]
+    gpu: Optional[PublicCatalogProductPropertiesHardwareGPU] = None
     """
     The GPU hardware properties.
     """
@@ -311,25 +311,24 @@ class PublicCatalogProductPropertiesObjectStorage:
 
 @dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
-    kg_co2_equivalent: Optional[float]
-
-    m3_water_usage: Optional[float]
+    kg_co2_equivalent: Optional[float] = None
+    m3_water_usage: Optional[float] = None
 
 
 @dataclass
 class PublicCatalogProductLocality:
-    global_: Optional[bool]
+    global_: Optional[bool] = False
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
 
-    datacenter: Optional[str]
+    datacenter: Optional[str] = None
 
 
 @dataclass
 class PublicCatalogProductPrice:
-    retail_price: Optional[Money]
+    retail_price: Optional[Money] = None
     """
     The retail price of the product.
     """
@@ -337,28 +336,27 @@ class PublicCatalogProductPrice:
 
 @dataclass
 class PublicCatalogProductProperties:
-    hardware: Optional[PublicCatalogProductPropertiesHardware]
+    hardware: Optional[PublicCatalogProductPropertiesHardware] = None
     """
     The hardware properties of the product (if supported).
     """
 
-    dedibox: Optional[PublicCatalogProductPropertiesDedibox]
+    dedibox: Optional[PublicCatalogProductPropertiesDedibox] = None
 
-    elastic_metal: Optional[PublicCatalogProductPropertiesElasticMetal]
+    elastic_metal: Optional[PublicCatalogProductPropertiesElasticMetal] = None
 
-    apple_silicon: Optional[PublicCatalogProductPropertiesAppleSilicon]
+    apple_silicon: Optional[PublicCatalogProductPropertiesAppleSilicon] = None
 
-    instance: Optional[PublicCatalogProductPropertiesInstance]
+    instance: Optional[PublicCatalogProductPropertiesInstance] = None
 
-    block_storage: Optional[PublicCatalogProductPropertiesBlockStorage]
+    block_storage: Optional[PublicCatalogProductPropertiesBlockStorage] = None
 
-    object_storage: Optional[PublicCatalogProductPropertiesObjectStorage]
+    object_storage: Optional[PublicCatalogProductPropertiesObjectStorage] = None
 
 
 @dataclass
 class PublicCatalogProductUnitOfMeasure:
     unit: PublicCatalogProductUnitOfMeasureCountableUnit
-
     size: int
 
 
@@ -394,34 +392,34 @@ class PublicCatalogProduct:
     The status of the product.
     """
 
-    locality: Optional[PublicCatalogProductLocality]
+    locality: Optional[PublicCatalogProductLocality] = None
     """
     The locality of the product.
     """
 
-    price: Optional[PublicCatalogProductPrice]
+    price: Optional[PublicCatalogProductPrice] = None
     """
     The price of the product.
     """
 
-    properties: Optional[PublicCatalogProductProperties]
+    properties: Optional[PublicCatalogProductProperties] = None
     """
     The properties of the product.
     """
 
     environmental_impact_estimation: Optional[
         PublicCatalogProductEnvironmentalImpactEstimation
-    ]
+    ] = None
     """
     The environmental impact estimation of the product.
     """
 
-    unit_of_measure: Optional[PublicCatalogProductUnitOfMeasure]
+    unit_of_measure: Optional[PublicCatalogProductUnitOfMeasure] = None
     """
     The unit of measure of the product.
     """
 
-    end_of_life_at: Optional[datetime]
+    end_of_life_at: Optional[datetime] = None
     """
     The end of life date of the product.
     """
@@ -442,25 +440,27 @@ class ListPublicCatalogProductsResponse:
 
 @dataclass
 class PublicCatalogApiListPublicCatalogProductsRequest:
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Number of the page. Value must be greater or equal to 1.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     The number of products per page. Value must be greater or equal to 1.
     """
 
-    product_types: Optional[List[ListPublicCatalogProductsRequestProductType]]
+    product_types: Optional[List[ListPublicCatalogProductsRequestProductType]] = field(
+        default_factory=list
+    )
     """
     The list of filtered product categories.
     """
 
-    global_: Optional[bool]
+    global_: Optional[bool] = False
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
 
-    datacenter: Optional[str]
+    datacenter: Optional[str] = None

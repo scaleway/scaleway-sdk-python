@@ -21,8 +21,22 @@ from .types_private import (
     _SetSnapshotRequest,
 )
 from .types import (
+    Arch,
     BootType,
+    PlacementGroupPolicyMode,
+    PlacementGroupPolicyType,
+    PrivateNICState,
+    SecurityGroupPolicy,
+    SecurityGroupState,
     ServerAction,
+    ServerIpIpFamily,
+    ServerIpProvisioningMode,
+    ServerIpState,
+    ServerState,
+    SnapshotState,
+    TaskStatus,
+    VolumeState,
+    VolumeVolumeType,
     PrivateNIC,
     ServerSummary,
     Bootscript,
@@ -163,26 +177,38 @@ def unmarshal_PrivateNIC(data: Any) -> PrivateNIC:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("server_id", None)
     if field is not None:
         args["server_id"] = field
+    else:
+        args["server_id"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
+    else:
+        args["mac_address"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = PrivateNICState.AVAILABLE
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     return PrivateNIC(**args)
 
@@ -198,10 +224,14 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     return ServerSummary(**args)
 
@@ -217,50 +247,74 @@ def unmarshal_Bootscript(data: Any) -> Bootscript:
     field = data.get("architecture", None)
     if field is not None:
         args["architecture"] = field
+    else:
+        args["architecture"] = None
 
     field = data.get("bootcmdargs", None)
     if field is not None:
         args["bootcmdargs"] = field
+    else:
+        args["bootcmdargs"] = None
 
     field = data.get("default", None)
     if field is not None:
         args["default"] = field
+    else:
+        args["default"] = None
 
     field = data.get("dtb", None)
     if field is not None:
         args["dtb"] = field
+    else:
+        args["dtb"] = None
 
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("initrd", None)
     if field is not None:
         args["initrd"] = field
+    else:
+        args["initrd"] = None
 
     field = data.get("kernel", None)
     if field is not None:
         args["kernel"] = field
+    else:
+        args["kernel"] = None
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("public", None)
     if field is not None:
         args["public"] = field
+    else:
+        args["public"] = None
 
     field = data.get("title", None)
     if field is not None:
         args["title"] = field
+    else:
+        args["title"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     return Bootscript(**args)
 
@@ -276,26 +330,38 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = field
+    else:
+        args["volume_type"] = VolumeVolumeType.L_SSD
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("export_uri", None)
     if field is not None:
@@ -322,14 +388,20 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = VolumeState.AVAILABLE
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("server", None)
     if field is not None:
@@ -351,18 +423,26 @@ def unmarshal_VolumeSummary(data: Any) -> VolumeSummary:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = None
 
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = field
+    else:
+        args["volume_type"] = None
 
     return VolumeSummary(**args)
 
@@ -378,14 +458,20 @@ def unmarshal_Image(data: Any) -> Image:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("arch", None)
     if field is not None:
         args["arch"] = field
+    else:
+        args["arch"] = None
 
     field = data.get("extra_volumes", None)
     if field is not None:
@@ -394,14 +480,20 @@ def unmarshal_Image(data: Any) -> Image:
             if field is not None
             else None
         )
+    else:
+        args["extra_volumes"] = None
 
     field = data.get("from_server", None)
     if field is not None:
         args["from_server"] = field
+    else:
+        args["from_server"] = None
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -428,22 +520,32 @@ def unmarshal_Image(data: Any) -> Image:
     field = data.get("public", None)
     if field is not None:
         args["public"] = field
+    else:
+        args["public"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("root_volume", None)
     if field is not None:
@@ -465,38 +567,56 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("policy_mode", None)
     if field is not None:
         args["policy_mode"] = field
+    else:
+        args["policy_mode"] = PlacementGroupPolicyMode.OPTIONAL
 
     field = data.get("policy_type", None)
     if field is not None:
         args["policy_type"] = field
+    else:
+        args["policy_type"] = PlacementGroupPolicyType.MAX_AVAILABILITY
 
     field = data.get("policy_respected", None)
     if field is not None:
         args["policy_respected"] = field
+    else:
+        args["policy_respected"] = False
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     return PlacementGroup(**args)
 
@@ -512,10 +632,14 @@ def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     return SecurityGroupSummary(**args)
 
@@ -531,10 +655,14 @@ def unmarshal_ServerFilesystem(data: Any) -> ServerFilesystem:
     field = data.get("filesystem_id", None)
     if field is not None:
         args["filesystem_id"] = field
+    else:
+        args["filesystem_id"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = None
 
     return ServerFilesystem(**args)
 
@@ -550,42 +678,62 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
+    else:
+        args["address"] = None
 
     field = data.get("gateway", None)
     if field is not None:
         args["gateway"] = field
+    else:
+        args["gateway"] = None
 
     field = data.get("netmask", None)
     if field is not None:
         args["netmask"] = field
+    else:
+        args["netmask"] = None
 
     field = data.get("family", None)
     if field is not None:
         args["family"] = field
+    else:
+        args["family"] = ServerIpIpFamily.INET
 
     field = data.get("dynamic", None)
     if field is not None:
         args["dynamic"] = field
+    else:
+        args["dynamic"] = False
 
     field = data.get("provisioning_mode", None)
     if field is not None:
         args["provisioning_mode"] = field
+    else:
+        args["provisioning_mode"] = ServerIpProvisioningMode.MANUAL
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("ipam_id", None)
     if field is not None:
         args["ipam_id"] = field
+    else:
+        args["ipam_id"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = ServerIpState.UNKNOWN_STATE
 
     return ServerIp(**args)
 
@@ -601,14 +749,20 @@ def unmarshal_ServerIpv6(data: Any) -> ServerIpv6:
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
+    else:
+        args["address"] = None
 
     field = data.get("gateway", None)
     if field is not None:
         args["gateway"] = field
+    else:
+        args["gateway"] = None
 
     field = data.get("netmask", None)
     if field is not None:
         args["netmask"] = field
+    else:
+        args["netmask"] = None
 
     return ServerIpv6(**args)
 
@@ -624,22 +778,32 @@ def unmarshal_ServerLocation(data: Any) -> ServerLocation:
     field = data.get("cluster_id", None)
     if field is not None:
         args["cluster_id"] = field
+    else:
+        args["cluster_id"] = None
 
     field = data.get("hypervisor_id", None)
     if field is not None:
         args["hypervisor_id"] = field
+    else:
+        args["hypervisor_id"] = None
 
     field = data.get("node_id", None)
     if field is not None:
         args["node_id"] = field
+    else:
+        args["node_id"] = None
 
     field = data.get("platform_id", None)
     if field is not None:
         args["platform_id"] = field
+    else:
+        args["platform_id"] = None
 
     field = data.get("zone_id", None)
     if field is not None:
         args["zone_id"] = field
+    else:
+        args["zone_id"] = None
 
     return ServerLocation(**args)
 
@@ -655,6 +819,8 @@ def unmarshal_ServerMaintenance(data: Any) -> ServerMaintenance:
     field = data.get("reason", None)
     if field is not None:
         args["reason"] = field
+    else:
+        args["reason"] = None
 
     field = data.get("start_date", None)
     if field is not None:
@@ -676,6 +842,8 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -710,14 +878,20 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = field
+    else:
+        args["volume_type"] = None
 
     field = data.get("boot", None)
     if field is not None:
         args["boot"] = field
+    else:
+        args["boot"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -761,32 +935,46 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("allowed_actions", None)
     if field is not None:
         args["allowed_actions"] = (
             [ServerAction(v) for v in field] if field is not None else None
         )
+    else:
+        args["allowed_actions"] = []
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("commercial_type", None)
     if field is not None:
         args["commercial_type"] = field
+    else:
+        args["commercial_type"] = None
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -799,26 +987,32 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("dynamic_ip_required", None)
     if field is not None:
         args["dynamic_ip_required"] = field
+    else:
+        args["dynamic_ip_required"] = False
 
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
+    else:
+        args["hostname"] = None
 
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+    else:
+        args["protected"] = False
 
     field = data.get("routed_ip_enabled", None)
     if field is not None:
         args["routed_ip_enabled"] = field
     else:
-        args["routed_ip_enabled"] = None
+        args["routed_ip_enabled"] = False
 
     field = data.get("enable_ipv6", None)
     if field is not None:
         args["enable_ipv6"] = field
     else:
-        args["enable_ipv6"] = None
+        args["enable_ipv6"] = False
 
     field = data.get("image", None)
     if field is not None:
@@ -843,18 +1037,26 @@ def unmarshal_Server(data: Any) -> Server:
         args["public_ips"] = (
             [unmarshal_ServerIp(v) for v in field] if field is not None else None
         )
+    else:
+        args["public_ips"] = []
 
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
+    else:
+        args["mac_address"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = ServerState.RUNNING
 
     field = data.get("boot_type", None)
     if field is not None:
         args["boot_type"] = field
+    else:
+        args["boot_type"] = BootType.LOCAL
 
     field = data.get("volumes", None)
     if field is not None:
@@ -863,6 +1065,8 @@ def unmarshal_Server(data: Any) -> Server:
             if field is not None
             else None
         )
+    else:
+        args["volumes"] = {}
 
     field = data.get("maintenances", None)
     if field is not None:
@@ -871,14 +1075,20 @@ def unmarshal_Server(data: Any) -> Server:
             if field is not None
             else None
         )
+    else:
+        args["maintenances"] = []
 
     field = data.get("state_detail", None)
     if field is not None:
         args["state_detail"] = field
+    else:
+        args["state_detail"] = None
 
     field = data.get("arch", None)
     if field is not None:
         args["arch"] = field
+    else:
+        args["arch"] = Arch.UNKNOWN_ARCH
 
     field = data.get("modification_date", None)
     if field is not None:
@@ -917,10 +1127,14 @@ def unmarshal_Server(data: Any) -> Server:
         args["private_nics"] = (
             [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
         )
+    else:
+        args["private_nics"] = []
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("filesystems", None)
     if field is not None:
@@ -929,10 +1143,14 @@ def unmarshal_Server(data: Any) -> Server:
             if field is not None
             else None
         )
+    else:
+        args["filesystems"] = []
 
     field = data.get("end_of_service", None)
     if field is not None:
         args["end_of_service"] = field
+    else:
+        args["end_of_service"] = False
 
     field = data.get("admin_password_encryption_ssh_key_id", None)
     if field is not None:
@@ -1013,42 +1231,62 @@ def unmarshal_Ip(data: Any) -> Ip:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
+    else:
+        args["address"] = None
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = None
 
     field = data.get("prefix", None)
     if field is not None:
         args["prefix"] = field
+    else:
+        args["prefix"] = None
 
     field = data.get("ipam_id", None)
     if field is not None:
         args["ipam_id"] = field
+    else:
+        args["ipam_id"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("reverse", None)
     if field is not None:
@@ -1127,66 +1365,94 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("enable_default_security", None)
     if field is not None:
         args["enable_default_security"] = field
+    else:
+        args["enable_default_security"] = False
 
     field = data.get("inbound_default_policy", None)
     if field is not None:
         args["inbound_default_policy"] = field
+    else:
+        args["inbound_default_policy"] = SecurityGroupPolicy.UNKNOWN_POLICY
 
     field = data.get("outbound_default_policy", None)
     if field is not None:
         args["outbound_default_policy"] = field
+    else:
+        args["outbound_default_policy"] = SecurityGroupPolicy.UNKNOWN_POLICY
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("project_default", None)
     if field is not None:
         args["project_default"] = field
+    else:
+        args["project_default"] = False
 
     field = data.get("servers", None)
     if field is not None:
         args["servers"] = (
             [unmarshal_ServerSummary(v) for v in field] if field is not None else None
         )
+    else:
+        args["servers"] = []
 
     field = data.get("stateful", None)
     if field is not None:
         args["stateful"] = field
+    else:
+        args["stateful"] = False
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = SecurityGroupState.AVAILABLE
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("organization_default", None)
     if field is not None:
         args["organization_default"] = field
     else:
-        args["organization_default"] = None
+        args["organization_default"] = False
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -1235,34 +1501,50 @@ def unmarshal_SecurityGroupRule(data: Any) -> SecurityGroupRule:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("protocol", None)
     if field is not None:
         args["protocol"] = field
+    else:
+        args["protocol"] = None
 
     field = data.get("direction", None)
     if field is not None:
         args["direction"] = field
+    else:
+        args["direction"] = None
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
+    else:
+        args["action"] = None
 
     field = data.get("ip_range", None)
     if field is not None:
         args["ip_range"] = field
+    else:
+        args["ip_range"] = None
 
     field = data.get("position", None)
     if field is not None:
         args["position"] = field
+    else:
+        args["position"] = None
 
     field = data.get("editable", None)
     if field is not None:
         args["editable"] = field
+    else:
+        args["editable"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("dest_port_from", None)
     if field is not None:
@@ -1326,10 +1608,14 @@ def unmarshal_SnapshotBaseVolume(data: Any) -> SnapshotBaseVolume:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     return SnapshotBaseVolume(**args)
 
@@ -1345,38 +1631,56 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
+    else:
+        args["organization"] = None
 
     field = data.get("project", None)
     if field is not None:
         args["project"] = field
+    else:
+        args["project"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = field
+    else:
+        args["volume_type"] = VolumeVolumeType.L_SSD
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = SnapshotState.AVAILABLE
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("base_volume", None)
     if field is not None:
@@ -1420,30 +1724,44 @@ def unmarshal_Task(data: Any) -> Task:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("progress", None)
     if field is not None:
         args["progress"] = field
+    else:
+        args["progress"] = 0
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = TaskStatus.PENDING
 
     field = data.get("href_from", None)
     if field is not None:
         args["href_from"] = field
+    else:
+        args["href_from"] = None
 
     field = data.get("href_result", None)
     if field is not None:
         args["href_result"] = field
+    else:
+        args["href_result"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("started_at", None)
     if field is not None:
@@ -1566,54 +1884,80 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
     field = data.get("volumes_count", None)
     if field is not None:
         args["volumes_count"] = field
+    else:
+        args["volumes_count"] = None
 
     field = data.get("running_servers_count", None)
     if field is not None:
         args["running_servers_count"] = field
+    else:
+        args["running_servers_count"] = None
 
     field = data.get("servers_by_types", None)
     if field is not None:
         args["servers_by_types"] = field
+    else:
+        args["servers_by_types"] = None
 
     field = data.get("images_count", None)
     if field is not None:
         args["images_count"] = field
+    else:
+        args["images_count"] = None
 
     field = data.get("snapshots_count", None)
     if field is not None:
         args["snapshots_count"] = field
+    else:
+        args["snapshots_count"] = None
 
     field = data.get("servers_count", None)
     if field is not None:
         args["servers_count"] = field
+    else:
+        args["servers_count"] = None
 
     field = data.get("ips_count", None)
     if field is not None:
         args["ips_count"] = field
+    else:
+        args["ips_count"] = None
 
     field = data.get("security_groups_count", None)
     if field is not None:
         args["security_groups_count"] = field
+    else:
+        args["security_groups_count"] = None
 
     field = data.get("ips_unused", None)
     if field is not None:
         args["ips_unused"] = field
+    else:
+        args["ips_unused"] = None
 
     field = data.get("volumes_l_ssd_count", None)
     if field is not None:
         args["volumes_l_ssd_count"] = field
+    else:
+        args["volumes_l_ssd_count"] = None
 
     field = data.get("volumes_l_ssd_total_size", None)
     if field is not None:
         args["volumes_l_ssd_total_size"] = field
+    else:
+        args["volumes_l_ssd_total_size"] = None
 
     field = data.get("private_nics_count", None)
     if field is not None:
         args["private_nics_count"] = field
+    else:
+        args["private_nics_count"] = None
 
     field = data.get("placement_groups_count", None)
     if field is not None:
         args["placement_groups_count"] = field
+    else:
+        args["placement_groups_count"] = None
 
     field = data.get("volumes_b_ssd_count", None)
     if field is not None:
@@ -1709,14 +2053,20 @@ def unmarshal_PlacementGroupServer(data: Any) -> PlacementGroupServer:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("policy_respected", None)
     if field is not None:
         args["policy_respected"] = field
+    else:
+        args["policy_respected"] = False
 
     return PlacementGroupServer(**args)
 
@@ -1738,6 +2088,8 @@ def unmarshal_GetPlacementGroupServersResponse(
             if field is not None
             else None
         )
+    else:
+        args["servers"] = []
 
     return GetPlacementGroupServersResponse(**args)
 
@@ -1823,6 +2175,8 @@ def unmarshal_GetServerTypesAvailabilityResponseAvailability(
     field = data.get("availability", None)
     if field is not None:
         args["availability"] = field
+    else:
+        args["availability"] = None
 
     return GetServerTypesAvailabilityResponseAvailability(**args)
 
@@ -1847,10 +2201,14 @@ def unmarshal_GetServerTypesAvailabilityResponse(
             if field is not None
             else None
         )
+    else:
+        args["servers"] = {}
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return GetServerTypesAvailabilityResponse(**args)
 
@@ -1900,12 +2258,16 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("images", None)
     if field is not None:
         args["images"] = (
             [unmarshal_Image(v) for v in field] if field is not None else None
         )
+    else:
+        args["images"] = []
 
     return ListImagesResponse(**args)
 
@@ -1921,10 +2283,14 @@ def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("ips", None)
     if field is not None:
         args["ips"] = [unmarshal_Ip(v) for v in field] if field is not None else None
+    else:
+        args["ips"] = []
 
     return ListIpsResponse(**args)
 
@@ -1940,12 +2306,16 @@ def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsRespo
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("placement_groups", None)
     if field is not None:
         args["placement_groups"] = (
             [unmarshal_PlacementGroup(v) for v in field] if field is not None else None
         )
+    else:
+        args["placement_groups"] = []
 
     return ListPlacementGroupsResponse(**args)
 
@@ -1963,10 +2333,14 @@ def unmarshal_ListPrivateNICsResponse(data: Any) -> ListPrivateNICsResponse:
         args["private_nics"] = (
             [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
         )
+    else:
+        args["private_nics"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListPrivateNICsResponse(**args)
 
@@ -1984,6 +2358,8 @@ def unmarshal_ListSecurityGroupRulesResponse(
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("rules", None)
     if field is not None:
@@ -1992,6 +2368,8 @@ def unmarshal_ListSecurityGroupRulesResponse(
             if field is not None
             else None
         )
+    else:
+        args["rules"] = []
 
     return ListSecurityGroupRulesResponse(**args)
 
@@ -2007,12 +2385,16 @@ def unmarshal_ListSecurityGroupsResponse(data: Any) -> ListSecurityGroupsRespons
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("security_groups", None)
     if field is not None:
         args["security_groups"] = (
             [unmarshal_SecurityGroup(v) for v in field] if field is not None else None
         )
+    else:
+        args["security_groups"] = []
 
     return ListSecurityGroupsResponse(**args)
 
@@ -2030,6 +2412,8 @@ def unmarshal_ListServerActionsResponse(data: Any) -> ListServerActionsResponse:
         args["actions"] = (
             [ServerAction(v) for v in field] if field is not None else None
         )
+    else:
+        args["actions"] = None
 
     return ListServerActionsResponse(**args)
 
@@ -2045,6 +2429,8 @@ def unmarshal_ListServerUserDataResponse(data: Any) -> ListServerUserDataRespons
     field = data.get("user_data", None)
     if field is not None:
         args["user_data"] = field
+    else:
+        args["user_data"] = None
 
     return ListServerUserDataResponse(**args)
 
@@ -2060,12 +2446,16 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("servers", None)
     if field is not None:
         args["servers"] = (
             [unmarshal_Server(v) for v in field] if field is not None else None
         )
+    else:
+        args["servers"] = []
 
     return ListServersResponse(**args)
 
@@ -2082,13 +2472,13 @@ def unmarshal_ServerTypeNetworkInterface(data: Any) -> ServerTypeNetworkInterfac
     if field is not None:
         args["internal_bandwidth"] = field
     else:
-        args["internal_bandwidth"] = None
+        args["internal_bandwidth"] = 0
 
     field = data.get("internet_bandwidth", None)
     if field is not None:
         args["internet_bandwidth"] = field
     else:
-        args["internet_bandwidth"] = None
+        args["internet_bandwidth"] = 0
 
     return ServerTypeNetworkInterface(**args)
 
@@ -2106,10 +2496,14 @@ def unmarshal_ServerTypeVolumeConstraintSizes(
     field = data.get("min_size", None)
     if field is not None:
         args["min_size"] = field
+    else:
+        args["min_size"] = 0
 
     field = data.get("max_size", None)
     if field is not None:
         args["max_size"] = field
+    else:
+        args["max_size"] = 0
 
     return ServerTypeVolumeConstraintSizes(**args)
 
@@ -2125,16 +2519,20 @@ def unmarshal_ServerTypeCapabilities(data: Any) -> ServerTypeCapabilities:
     field = data.get("boot_types", None)
     if field is not None:
         args["boot_types"] = [BootType(v) for v in field] if field is not None else None
+    else:
+        args["boot_types"] = []
 
     field = data.get("max_file_systems", None)
     if field is not None:
         args["max_file_systems"] = field
+    else:
+        args["max_file_systems"] = 0
 
     field = data.get("block_storage", None)
     if field is not None:
         args["block_storage"] = field
     else:
-        args["block_storage"] = None
+        args["block_storage"] = False
 
     return ServerTypeCapabilities(**args)
 
@@ -2150,14 +2548,20 @@ def unmarshal_ServerTypeGPUInfo(data: Any) -> ServerTypeGPUInfo:
     field = data.get("gpu_manufacturer", None)
     if field is not None:
         args["gpu_manufacturer"] = field
+    else:
+        args["gpu_manufacturer"] = None
 
     field = data.get("gpu_name", None)
     if field is not None:
         args["gpu_name"] = field
+    else:
+        args["gpu_name"] = None
 
     field = data.get("gpu_memory", None)
     if field is not None:
         args["gpu_memory"] = field
+    else:
+        args["gpu_memory"] = 0
 
     return ServerTypeGPUInfo(**args)
 
@@ -2177,22 +2581,26 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
             if field is not None
             else None
         )
+    else:
+        args["interfaces"] = []
 
     field = data.get("ipv6_support", None)
     if field is not None:
         args["ipv6_support"] = field
+    else:
+        args["ipv6_support"] = False
 
     field = data.get("sum_internal_bandwidth", None)
     if field is not None:
         args["sum_internal_bandwidth"] = field
     else:
-        args["sum_internal_bandwidth"] = None
+        args["sum_internal_bandwidth"] = 0
 
     field = data.get("sum_internet_bandwidth", None)
     if field is not None:
         args["sum_internet_bandwidth"] = field
     else:
-        args["sum_internet_bandwidth"] = None
+        args["sum_internet_bandwidth"] = 0
 
     return ServerTypeNetwork(**args)
 
@@ -2228,31 +2636,43 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     if field is not None:
         args["monthly_price"] = field
     else:
-        args["monthly_price"] = None
+        args["monthly_price"] = 0.0
 
     field = data.get("hourly_price", None)
     if field is not None:
         args["hourly_price"] = field
+    else:
+        args["hourly_price"] = 0.0
 
     field = data.get("alt_names", None)
     if field is not None:
         args["alt_names"] = field
+    else:
+        args["alt_names"] = []
 
     field = data.get("ncpus", None)
     if field is not None:
         args["ncpus"] = field
+    else:
+        args["ncpus"] = 0
 
     field = data.get("ram", None)
     if field is not None:
         args["ram"] = field
+    else:
+        args["ram"] = 0
 
     field = data.get("arch", None)
     if field is not None:
         args["arch"] = field
+    else:
+        args["arch"] = Arch.UNKNOWN_ARCH
 
     field = data.get("end_of_service", None)
     if field is not None:
         args["end_of_service"] = field
+    else:
+        args["end_of_service"] = False
 
     field = data.get("per_volume_constraint", None)
     if field is not None:
@@ -2272,7 +2692,7 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     if field is not None:
         args["gpu"] = field
     else:
-        args["gpu"] = None
+        args["gpu"] = 0
 
     field = data.get("gpu_info", None)
     if field is not None:
@@ -2296,13 +2716,13 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     if field is not None:
         args["scratch_storage_max_size"] = field
     else:
-        args["scratch_storage_max_size"] = None
+        args["scratch_storage_max_size"] = 0
 
     field = data.get("block_bandwidth", None)
     if field is not None:
         args["block_bandwidth"] = field
     else:
-        args["block_bandwidth"] = None
+        args["block_bandwidth"] = 0
 
     return ServerType(**args)
 
@@ -2318,6 +2738,8 @@ def unmarshal_ListServersTypesResponse(data: Any) -> ListServersTypesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("servers", None)
     if field is not None:
@@ -2326,6 +2748,8 @@ def unmarshal_ListServersTypesResponse(data: Any) -> ListServersTypesResponse:
             if field is not None
             else None
         )
+    else:
+        args["servers"] = {}
 
     return ListServersTypesResponse(**args)
 
@@ -2341,12 +2765,16 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("snapshots", None)
     if field is not None:
         args["snapshots"] = (
             [unmarshal_Snapshot(v) for v in field] if field is not None else None
         )
+    else:
+        args["snapshots"] = []
 
     return ListSnapshotsResponse(**args)
 
@@ -2362,12 +2790,16 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("volumes", None)
     if field is not None:
         args["volumes"] = (
             [unmarshal_Volume(v) for v in field] if field is not None else None
         )
+    else:
+        args["volumes"] = []
 
     return ListVolumesResponse(**args)
 
@@ -2383,6 +2815,8 @@ def unmarshal_VolumeTypeCapabilities(data: Any) -> VolumeTypeCapabilities:
     field = data.get("snapshot", None)
     if field is not None:
         args["snapshot"] = field
+    else:
+        args["snapshot"] = None
 
     return VolumeTypeCapabilities(**args)
 
@@ -2398,10 +2832,14 @@ def unmarshal_VolumeTypeConstraints(data: Any) -> VolumeTypeConstraints:
     field = data.get("min", None)
     if field is not None:
         args["min"] = field
+    else:
+        args["min"] = None
 
     field = data.get("max", None)
     if field is not None:
         args["max"] = field
+    else:
+        args["max"] = None
 
     return VolumeTypeConstraints(**args)
 
@@ -2417,6 +2855,8 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
     field = data.get("display_name", None)
     if field is not None:
         args["display_name"] = field
+    else:
+        args["display_name"] = None
 
     field = data.get("capabilities", None)
     if field is not None:
@@ -2444,6 +2884,8 @@ def unmarshal_ListVolumesTypesResponse(data: Any) -> ListVolumesTypesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("volumes", None)
     if field is not None:
@@ -2452,6 +2894,8 @@ def unmarshal_ListVolumesTypesResponse(data: Any) -> ListVolumesTypesResponse:
             if field is not None
             else None
         )
+    else:
+        args["volumes"] = {}
 
     return ListVolumesTypesResponse(**args)
 
@@ -2469,10 +2913,14 @@ def unmarshal_MigrationPlan(data: Any) -> MigrationPlan:
         args["snapshots"] = (
             [unmarshal_Snapshot(v) for v in field] if field is not None else None
         )
+    else:
+        args["snapshots"] = []
 
     field = data.get("validation_key", None)
     if field is not None:
         args["validation_key"] = field
+    else:
+        args["validation_key"] = None
 
     field = data.get("volume", None)
     if field is not None:
@@ -2511,6 +2959,8 @@ def unmarshal_ServerCompatibleTypes(data: Any) -> ServerCompatibleTypes:
     field = data.get("compatible_types", None)
     if field is not None:
         args["compatible_types"] = field
+    else:
+        args["compatible_types"] = []
 
     return ServerCompatibleTypes(**args)
 
@@ -2549,6 +2999,8 @@ def unmarshal_SetPlacementGroupServersResponse(
             if field is not None
             else None
         )
+    else:
+        args["servers"] = []
 
     return SetPlacementGroupServersResponse(**args)
 
@@ -2568,6 +3020,8 @@ def unmarshal_SetSecurityGroupRulesResponse(data: Any) -> SetSecurityGroupRulesR
             if field is not None
             else None
         )
+    else:
+        args["rules"] = None
 
     return SetSecurityGroupRulesResponse(**args)
 
@@ -2640,6 +3094,8 @@ def unmarshal_UpdatePlacementGroupServersResponse(
             if field is not None
             else None
         )
+    else:
+        args["servers"] = []
 
     return UpdatePlacementGroupServersResponse(**args)
 
@@ -2862,7 +3318,7 @@ def marshal_AttachServerVolumeRequest(
         output["volume_id"] = request.volume_id
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     if request.boot is not None:
         output["boot"] = request.boot
@@ -2877,9 +3333,9 @@ def marshal_CheckBlockMigrationOrganizationQuotasRequest(
     output: Dict[str, Any] = {}
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     return output
 
@@ -2918,7 +3374,7 @@ def marshal_VolumeTemplate(
         output["size"] = request.size
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     return output
 
@@ -2951,7 +3407,7 @@ def marshal_CreateImageRequest(
         output["root_volume"] = request.root_volume
 
     if request.arch is not None:
-        output["arch"] = str(request.arch)
+        output["arch"] = request.arch
 
     if request.name is not None:
         output["name"] = request.name
@@ -3002,7 +3458,7 @@ def marshal_CreateIpRequest(
         output["server"] = request.server
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     return output
 
@@ -3038,10 +3494,10 @@ def marshal_CreatePlacementGroupRequest(
         output["tags"] = request.tags
 
     if request.policy_mode is not None:
-        output["policy_mode"] = str(request.policy_mode)
+        output["policy_mode"] = request.policy_mode
 
     if request.policy_type is not None:
-        output["policy_type"] = str(request.policy_type)
+        output["policy_type"] = request.policy_type
 
     return output
 
@@ -3120,10 +3576,10 @@ def marshal_CreateSecurityGroupRequest(
         output["tags"] = request.tags
 
     if request.inbound_default_policy is not None:
-        output["inbound_default_policy"] = str(request.inbound_default_policy)
+        output["inbound_default_policy"] = request.inbound_default_policy
 
     if request.outbound_default_policy is not None:
-        output["outbound_default_policy"] = str(request.outbound_default_policy)
+        output["outbound_default_policy"] = request.outbound_default_policy
 
     if request.enable_default_security is not None:
         output["enable_default_security"] = request.enable_default_security
@@ -3138,13 +3594,13 @@ def marshal_CreateSecurityGroupRuleRequest(
     output: Dict[str, Any] = {}
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     if request.direction is not None:
-        output["direction"] = str(request.direction)
+        output["direction"] = request.direction
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.ip_range is not None:
         output["ip_range"] = request.ip_range
@@ -3171,7 +3627,7 @@ def marshal_VolumeServerTemplate(
     output: Dict[str, Any] = {}
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     if request.id is not None:
         output["id"] = request.id
@@ -3255,7 +3711,7 @@ def marshal_CreateServerRequest(
         output["public_ips"] = request.public_ips
 
     if request.boot_type is not None:
-        output["boot_type"] = str(request.boot_type)
+        output["boot_type"] = request.boot_type
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -3308,7 +3764,7 @@ def marshal_CreateSnapshotRequest(
         output["tags"] = request.tags
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     if request.bucket is not None:
         output["bucket"] = request.bucket
@@ -3365,7 +3821,7 @@ def marshal_CreateVolumeRequest(
         output["tags"] = request.tags
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     return output
 
@@ -3437,7 +3893,7 @@ def marshal_ServerActionRequestVolumeBackupTemplate(
     output: Dict[str, Any] = {}
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     return output
 
@@ -3449,7 +3905,7 @@ def marshal_ServerActionRequest(
     output: Dict[str, Any] = {}
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.name is not None:
         output["name"] = request.name
@@ -3488,7 +3944,7 @@ def marshal_Bootscript(
     output: Dict[str, Any] = {}
 
     if request.architecture is not None:
-        output["architecture"] = str(request.architecture)
+        output["architecture"] = request.architecture
 
     if request.bootcmdargs is not None:
         output["bootcmdargs"] = request.bootcmdargs
@@ -3509,9 +3965,9 @@ def marshal_Bootscript(
         output["kernel"] = request.kernel
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.public is not None:
         output["public"] = request.public
@@ -3520,10 +3976,14 @@ def marshal_Bootscript(
         output["title"] = request.title
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.zone is not None:
-        output["zone"] = request.zone or defaults.default_zone
+        output["zone"] = request.zone
+    else:
+        output["zone"] = defaults.default_zone
 
     return output
 
@@ -3544,15 +4004,17 @@ def marshal_Volume(
         output["size"] = request.size
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.export_uri is not None:
         output["export_uri"] = request.export_uri
@@ -3567,10 +4029,12 @@ def marshal_Volume(
         output["tags"] = request.tags
 
     if request.state is not None:
-        output["state"] = str(request.state)
+        output["state"] = request.state
 
     if request.zone is not None:
-        output["zone"] = request.zone or defaults.default_zone
+        output["zone"] = request.zone
+    else:
+        output["zone"] = defaults.default_zone
 
     if request.server is not None:
         output["server"] = marshal_ServerSummary(request.server, defaults)
@@ -3594,7 +4058,7 @@ def marshal_VolumeSummary(
         output["size"] = request.size
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     return output
 
@@ -3609,7 +4073,7 @@ def marshal_SetImageRequest(
         output["name"] = request.name
 
     if request.arch is not None:
-        output["arch"] = str(request.arch)
+        output["arch"] = request.arch
 
     if request.creation_date is not None:
         output["creation_date"] = request.creation_date.isoformat()
@@ -3635,18 +4099,20 @@ def marshal_SetImageRequest(
         }
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.root_volume is not None:
         output["root_volume"] = marshal_VolumeSummary(request.root_volume, defaults)
 
     if request.state is not None:
-        output["state"] = str(request.state)
+        output["state"] = request.state
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -3664,18 +4130,20 @@ def marshal_SetPlacementGroupRequest(
         output["name"] = request.name
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.policy_mode is not None:
-        output["policy_mode"] = str(request.policy_mode)
+        output["policy_mode"] = request.policy_mode
 
     if request.policy_type is not None:
-        output["policy_type"] = str(request.policy_type)
+        output["policy_type"] = request.policy_type
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -3702,13 +4170,13 @@ def marshal_SetSecurityGroupRulesRequestRule(
     output: Dict[str, Any] = {}
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     if request.direction is not None:
-        output["direction"] = str(request.direction)
+        output["direction"] = request.direction
 
     if request.ip_range is not None:
         output["ip_range"] = request.ip_range
@@ -3771,7 +4239,7 @@ def marshal_UpdateImageRequest(
         output["name"] = request.name
 
     if request.arch is not None:
-        output["arch"] = str(request.arch)
+        output["arch"] = request.arch
 
     if request.extra_volumes is not None:
         output["extra_volumes"] = {
@@ -3798,7 +4266,7 @@ def marshal_UpdateIpRequest(
         output["reverse"] = request.reverse
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -3822,10 +4290,10 @@ def marshal_UpdatePlacementGroupRequest(
         output["tags"] = request.tags
 
     if request.policy_mode is not None:
-        output["policy_mode"] = str(request.policy_mode)
+        output["policy_mode"] = request.policy_mode
 
     if request.policy_type is not None:
-        output["policy_type"] = str(request.policy_type)
+        output["policy_type"] = request.policy_type
 
     return output
 
@@ -3870,7 +4338,7 @@ def marshal_UpdateSecurityGroupRequest(
         output["enable_default_security"] = request.enable_default_security
 
     if request.inbound_default_policy is not None:
-        output["inbound_default_policy"] = str(request.inbound_default_policy)
+        output["inbound_default_policy"] = request.inbound_default_policy
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -3882,7 +4350,7 @@ def marshal_UpdateSecurityGroupRequest(
         output["project_default"] = request.project_default
 
     if request.outbound_default_policy is not None:
-        output["outbound_default_policy"] = str(request.outbound_default_policy)
+        output["outbound_default_policy"] = request.outbound_default_policy
 
     if request.stateful is not None:
         output["stateful"] = request.stateful
@@ -3897,13 +4365,13 @@ def marshal_UpdateSecurityGroupRuleRequest(
     output: Dict[str, Any] = {}
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     if request.direction is not None:
-        output["direction"] = str(request.direction)
+        output["direction"] = request.direction
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.ip_range is not None:
         output["ip_range"] = request.ip_range
@@ -3945,7 +4413,7 @@ def marshal_UpdateServerRequest(
         output["name"] = request.name
 
     if request.boot_type is not None:
-        output["boot_type"] = str(request.boot_type)
+        output["boot_type"] = request.boot_type
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -4057,18 +4525,20 @@ def marshal__SetSecurityGroupRequest(
         output["stateful"] = request.stateful
 
     if request.inbound_default_policy is not None:
-        output["inbound_default_policy"] = str(request.inbound_default_policy)
+        output["inbound_default_policy"] = request.inbound_default_policy
 
     if request.outbound_default_policy is not None:
-        output["outbound_default_policy"] = str(request.outbound_default_policy)
+        output["outbound_default_policy"] = request.outbound_default_policy
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.organization_default is not None:
         output["organization_default"] = request.organization_default
@@ -4100,13 +4570,13 @@ def marshal__SetSecurityGroupRuleRequest(
         output["editable"] = request.editable
 
     if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
+        output["protocol"] = request.protocol
 
     if request.direction is not None:
-        output["direction"] = str(request.direction)
+        output["direction"] = request.direction
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.dest_port_from is not None:
         output["dest_port_from"] = request.dest_port_from
@@ -4130,7 +4600,7 @@ def marshal_Image(
         output["name"] = request.name
 
     if request.arch is not None:
-        output["arch"] = str(request.arch)
+        output["arch"] = request.arch
 
     if request.extra_volumes is not None:
         output["extra_volumes"] = {
@@ -4142,9 +4612,9 @@ def marshal_Image(
         output["from_server"] = request.from_server
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.creation_date is not None:
         output["creation_date"] = request.creation_date.isoformat()
@@ -4161,16 +4631,20 @@ def marshal_Image(
         output["public"] = request.public
 
     if request.state is not None:
-        output["state"] = str(request.state)
+        output["state"] = request.state
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
 
     if request.zone is not None:
-        output["zone"] = request.zone or defaults.default_zone
+        output["zone"] = request.zone
+    else:
+        output["zone"] = defaults.default_zone
 
     if request.root_volume is not None:
         output["root_volume"] = marshal_VolumeSummary(request.root_volume, defaults)
@@ -4191,27 +4665,31 @@ def marshal_PlacementGroup(
         output["name"] = request.name
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
 
     if request.policy_mode is not None:
-        output["policy_mode"] = str(request.policy_mode)
+        output["policy_mode"] = request.policy_mode
 
     if request.policy_type is not None:
-        output["policy_type"] = str(request.policy_type)
+        output["policy_type"] = request.policy_type
 
     if request.policy_respected is not None:
         output["policy_respected"] = request.policy_respected
 
     if request.zone is not None:
-        output["zone"] = request.zone or defaults.default_zone
+        output["zone"] = request.zone
+    else:
+        output["zone"] = defaults.default_zone
 
     return output
 
@@ -4235,7 +4713,7 @@ def marshal_PrivateNIC(
         output["mac_address"] = request.mac_address
 
     if request.state is not None:
-        output["state"] = str(request.state)
+        output["state"] = request.state
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -4277,13 +4755,13 @@ def marshal_ServerIp(
         output["netmask"] = request.netmask
 
     if request.family is not None:
-        output["family"] = str(request.family)
+        output["family"] = request.family
 
     if request.dynamic is not None:
         output["dynamic"] = request.dynamic
 
     if request.provisioning_mode is not None:
-        output["provisioning_mode"] = str(request.provisioning_mode)
+        output["provisioning_mode"] = request.provisioning_mode
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -4292,7 +4770,7 @@ def marshal_ServerIp(
         output["ipam_id"] = request.ipam_id
 
     if request.state is not None:
-        output["state"] = str(request.state)
+        output["state"] = request.state
 
     return output
 
@@ -4367,9 +4845,9 @@ def marshal__SetServerRequest(
         output["commercial_type"] = request.commercial_type
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.dynamic_ip_required is not None:
         output["dynamic_ip_required"] = request.dynamic_ip_required
@@ -4384,7 +4862,9 @@ def marshal__SetServerRequest(
         output["state_detail"] = request.state_detail
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.allowed_actions is not None:
         output["allowed_actions"] = [str(item) for item in request.allowed_actions]
@@ -4419,7 +4899,7 @@ def marshal__SetServerRequest(
         output["modification_date"] = request.modification_date.isoformat()
 
     if request.state is not None:
-        output["state"] = str(request.state)
+        output["state"] = request.state
 
     if request.location is not None:
         output["location"] = marshal_ServerLocation(request.location, defaults)
@@ -4428,7 +4908,7 @@ def marshal__SetServerRequest(
         output["ipv6"] = marshal_ServerIpv6(request.ipv6, defaults)
 
     if request.boot_type is not None:
-        output["boot_type"] = str(request.boot_type)
+        output["boot_type"] = request.boot_type
 
     if request.volumes is not None:
         output["volumes"] = {
@@ -4447,7 +4927,7 @@ def marshal__SetServerRequest(
         ]
 
     if request.arch is not None:
-        output["arch"] = str(request.arch)
+        output["arch"] = request.arch
 
     if request.placement_group is not None:
         output["placement_group"] = marshal_PlacementGroup(
@@ -4495,18 +4975,18 @@ def marshal__SetSnapshotRequest(
         output["name"] = request.name
 
     if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+        output["organization"] = request.organization
+    else:
+        output["organization"] = defaults.default_organization_id
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     if request.size is not None:
         output["size"] = request.size
 
     if request.state is not None:
-        output["state"] = str(request.state)
+        output["state"] = request.state
 
     if request.base_volume is not None:
         output["base_volume"] = marshal_SnapshotBaseVolume(
@@ -4520,7 +5000,9 @@ def marshal__SetSnapshotRequest(
         output["modification_date"] = request.modification_date.isoformat()
 
     if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
+        output["project"] = request.project
+    else:
+        output["project"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags

@@ -13,6 +13,15 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    DeviceMessageFiltersRulePolicy,
+    DeviceStatus,
+    HubProductPlan,
+    HubStatus,
+    NetworkNetworkType,
+    RouteDatabaseConfigEngine,
+    RouteRestConfigHttpVerb,
+    RouteRouteType,
+    RouteS3ConfigS3Strategy,
     DeviceMessageFiltersRule,
     DeviceMessageFilters,
     Device,
@@ -71,12 +80,14 @@ def unmarshal_DeviceMessageFiltersRule(data: Any) -> DeviceMessageFiltersRule:
     field = data.get("policy", None)
     if field is not None:
         args["policy"] = field
+    else:
+        args["policy"] = DeviceMessageFiltersRulePolicy.UNKNOWN
 
     field = data.get("topics", None)
     if field is not None:
         args["topics"] = field
     else:
-        args["topics"] = None
+        args["topics"] = []
 
     return DeviceMessageFiltersRule(**args)
 
@@ -115,22 +126,32 @@ def unmarshal_Device(data: Any) -> Device:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DeviceStatus.UNKNOWN
 
     field = data.get("hub_id", None)
     if field is not None:
         args["hub_id"] = field
+    else:
+        args["hub_id"] = None
 
     field = data.get("last_activity_at", None)
     if field is not None:
@@ -143,18 +164,26 @@ def unmarshal_Device(data: Any) -> Device:
     field = data.get("is_connected", None)
     if field is not None:
         args["is_connected"] = field
+    else:
+        args["is_connected"] = False
 
     field = data.get("allow_insecure", None)
     if field is not None:
         args["allow_insecure"] = field
+    else:
+        args["allow_insecure"] = False
 
     field = data.get("allow_multiple_connections", None)
     if field is not None:
         args["allow_multiple_connections"] = field
+    else:
+        args["allow_multiple_connections"] = False
 
     field = data.get("has_custom_certificate", None)
     if field is not None:
         args["has_custom_certificate"] = field
+    else:
+        args["has_custom_certificate"] = False
 
     field = data.get("message_filters", None)
     if field is not None:
@@ -188,26 +217,38 @@ def unmarshal_Network(data: Any) -> Network:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = NetworkNetworkType.UNKNOWN
 
     field = data.get("endpoint", None)
     if field is not None:
         args["endpoint"] = field
+    else:
+        args["endpoint"] = None
 
     field = data.get("hub_id", None)
     if field is not None:
         args["hub_id"] = field
+    else:
+        args["hub_id"] = None
 
     field = data.get("topic_prefix", None)
     if field is not None:
         args["topic_prefix"] = field
+    else:
+        args["topic_prefix"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -229,6 +270,8 @@ def unmarshal_HubTwinsGraphiteConfig(data: Any) -> HubTwinsGraphiteConfig:
     field = data.get("push_uri", None)
     if field is not None:
         args["push_uri"] = field
+    else:
+        args["push_uri"] = None
 
     return HubTwinsGraphiteConfig(**args)
 
@@ -244,62 +287,92 @@ def unmarshal_Hub(data: Any) -> Hub:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = HubStatus.UNKNOWN
 
     field = data.get("product_plan", None)
     if field is not None:
         args["product_plan"] = field
+    else:
+        args["product_plan"] = HubProductPlan.PLAN_UNKNOWN
 
     field = data.get("enabled", None)
     if field is not None:
         args["enabled"] = field
+    else:
+        args["enabled"] = False
 
     field = data.get("device_count", None)
     if field is not None:
         args["device_count"] = field
+    else:
+        args["device_count"] = 0
 
     field = data.get("connected_device_count", None)
     if field is not None:
         args["connected_device_count"] = field
+    else:
+        args["connected_device_count"] = 0
 
     field = data.get("endpoint", None)
     if field is not None:
         args["endpoint"] = field
+    else:
+        args["endpoint"] = None
 
     field = data.get("disable_events", None)
     if field is not None:
         args["disable_events"] = field
+    else:
+        args["disable_events"] = False
 
     field = data.get("events_topic_prefix", None)
     if field is not None:
         args["events_topic_prefix"] = field
+    else:
+        args["events_topic_prefix"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("enable_device_auto_provisioning", None)
     if field is not None:
         args["enable_device_auto_provisioning"] = field
+    else:
+        args["enable_device_auto_provisioning"] = False
 
     field = data.get("has_custom_ca", None)
     if field is not None:
         args["has_custom_ca"] = field
+    else:
+        args["has_custom_ca"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -333,10 +406,14 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     field = data.get("crt", None)
     if field is not None:
         args["crt"] = field
+    else:
+        args["crt"] = None
 
     field = data.get("key", None)
     if field is not None:
         args["key"] = field
+    else:
+        args["key"] = None
 
     return Certificate(**args)
 
@@ -375,6 +452,8 @@ def unmarshal_CreateNetworkResponse(data: Any) -> CreateNetworkResponse:
     field = data.get("secret", None)
     if field is not None:
         args["secret"] = field
+    else:
+        args["secret"] = None
 
     field = data.get("network", None)
     if field is not None:
@@ -396,6 +475,8 @@ def unmarshal_GetDeviceCertificateResponse(data: Any) -> GetDeviceCertificateRes
     field = data.get("certificate_pem", None)
     if field is not None:
         args["certificate_pem"] = field
+    else:
+        args["certificate_pem"] = None
 
     field = data.get("device", None)
     if field is not None:
@@ -419,6 +500,8 @@ def unmarshal_GetDeviceMetricsResponse(data: Any) -> GetDeviceMetricsResponse:
         args["metrics"] = (
             [unmarshal_TimeSeries(v) for v in field] if field is not None else None
         )
+    else:
+        args["metrics"] = []
 
     return GetDeviceMetricsResponse(**args)
 
@@ -434,6 +517,8 @@ def unmarshal_GetHubCAResponse(data: Any) -> GetHubCAResponse:
     field = data.get("ca_cert_pem", None)
     if field is not None:
         args["ca_cert_pem"] = field
+    else:
+        args["ca_cert_pem"] = None
 
     return GetHubCAResponse(**args)
 
@@ -451,6 +536,8 @@ def unmarshal_GetHubMetricsResponse(data: Any) -> GetHubMetricsResponse:
         args["metrics"] = (
             [unmarshal_TimeSeries(v) for v in field] if field is not None else None
         )
+    else:
+        args["metrics"] = []
 
     return GetHubMetricsResponse(**args)
 
@@ -466,12 +553,16 @@ def unmarshal_ListDevicesResponse(data: Any) -> ListDevicesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("devices", None)
     if field is not None:
         args["devices"] = (
             [unmarshal_Device(v) for v in field] if field is not None else None
         )
+    else:
+        args["devices"] = []
 
     return ListDevicesResponse(**args)
 
@@ -487,10 +578,14 @@ def unmarshal_ListHubsResponse(data: Any) -> ListHubsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("hubs", None)
     if field is not None:
         args["hubs"] = [unmarshal_Hub(v) for v in field] if field is not None else None
+    else:
+        args["hubs"] = []
 
     return ListHubsResponse(**args)
 
@@ -506,12 +601,16 @@ def unmarshal_ListNetworksResponse(data: Any) -> ListNetworksResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("networks", None)
     if field is not None:
         args["networks"] = (
             [unmarshal_Network(v) for v in field] if field is not None else None
         )
+    else:
+        args["networks"] = []
 
     return ListNetworksResponse(**args)
 
@@ -527,22 +626,32 @@ def unmarshal_RouteSummary(data: Any) -> RouteSummary:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("hub_id", None)
     if field is not None:
         args["hub_id"] = field
+    else:
+        args["hub_id"] = None
 
     field = data.get("topic", None)
     if field is not None:
         args["topic"] = field
+    else:
+        args["topic"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = RouteRouteType.UNKNOWN
 
     field = data.get("created_at", None)
     if field is not None:
@@ -570,12 +679,16 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("routes", None)
     if field is not None:
         args["routes"] = (
             [unmarshal_RouteSummary(v) for v in field] if field is not None else None
         )
+    else:
+        args["routes"] = []
 
     return ListRoutesResponse(**args)
 
@@ -593,6 +706,8 @@ def unmarshal_ListTwinDocumentsResponseDocumentSummary(
     field = data.get("document_name", None)
     if field is not None:
         args["document_name"] = field
+    else:
+        args["document_name"] = None
 
     return ListTwinDocumentsResponseDocumentSummary(**args)
 
@@ -612,6 +727,8 @@ def unmarshal_ListTwinDocumentsResponse(data: Any) -> ListTwinDocumentsResponse:
             if field is not None
             else None
         )
+    else:
+        args["documents"] = []
 
     return ListTwinDocumentsResponse(**args)
 
@@ -652,30 +769,44 @@ def unmarshal_RouteDatabaseConfig(data: Any) -> RouteDatabaseConfig:
     field = data.get("engine", None)
     if field is not None:
         args["engine"] = field
+    else:
+        args["engine"] = RouteDatabaseConfigEngine.UNKNOWN
 
     field = data.get("host", None)
     if field is not None:
         args["host"] = field
+    else:
+        args["host"] = None
 
     field = data.get("port", None)
     if field is not None:
         args["port"] = field
+    else:
+        args["port"] = None
 
     field = data.get("dbname", None)
     if field is not None:
         args["dbname"] = field
+    else:
+        args["dbname"] = None
 
     field = data.get("username", None)
     if field is not None:
         args["username"] = field
+    else:
+        args["username"] = None
 
     field = data.get("password", None)
     if field is not None:
         args["password"] = field
+    else:
+        args["password"] = None
 
     field = data.get("query", None)
     if field is not None:
         args["query"] = field
+    else:
+        args["query"] = None
 
     return RouteDatabaseConfig(**args)
 
@@ -691,14 +822,20 @@ def unmarshal_RouteRestConfig(data: Any) -> RouteRestConfig:
     field = data.get("verb", None)
     if field is not None:
         args["verb"] = field
+    else:
+        args["verb"] = RouteRestConfigHttpVerb.UNKNOWN
 
     field = data.get("uri", None)
     if field is not None:
         args["uri"] = field
+    else:
+        args["uri"] = None
 
     field = data.get("headers", None)
     if field is not None:
         args["headers"] = field
+    else:
+        args["headers"] = {}
 
     return RouteRestConfig(**args)
 
@@ -714,18 +851,26 @@ def unmarshal_RouteS3Config(data: Any) -> RouteS3Config:
     field = data.get("bucket_region", None)
     if field is not None:
         args["bucket_region"] = field
+    else:
+        args["bucket_region"] = None
 
     field = data.get("bucket_name", None)
     if field is not None:
         args["bucket_name"] = field
+    else:
+        args["bucket_name"] = None
 
     field = data.get("object_prefix", None)
     if field is not None:
         args["object_prefix"] = field
+    else:
+        args["object_prefix"] = None
 
     field = data.get("strategy", None)
     if field is not None:
         args["strategy"] = field
+    else:
+        args["strategy"] = RouteS3ConfigS3Strategy.UNKNOWN
 
     return RouteS3Config(**args)
 
@@ -741,22 +886,32 @@ def unmarshal_Route(data: Any) -> Route:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("hub_id", None)
     if field is not None:
         args["hub_id"] = field
+    else:
+        args["hub_id"] = None
 
     field = data.get("topic", None)
     if field is not None:
         args["topic"] = field
+    else:
+        args["topic"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = RouteRouteType.UNKNOWN
 
     field = data.get("created_at", None)
     if field is not None:
@@ -802,6 +957,8 @@ def unmarshal_SetDeviceCertificateResponse(data: Any) -> SetDeviceCertificateRes
     field = data.get("certificate_pem", None)
     if field is not None:
         args["certificate_pem"] = field
+    else:
+        args["certificate_pem"] = None
 
     field = data.get("device", None)
     if field is not None:
@@ -823,20 +980,26 @@ def unmarshal_TwinDocument(data: Any) -> TwinDocument:
     field = data.get("twin_id", None)
     if field is not None:
         args["twin_id"] = field
+    else:
+        args["twin_id"] = None
 
     field = data.get("document_name", None)
     if field is not None:
         args["document_name"] = field
+    else:
+        args["document_name"] = None
 
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = 0
 
     field = data.get("data", None)
     if field is not None:
         args["data"] = field
     else:
-        args["data"] = None
+        args["data"] = {}
 
     return TwinDocument(**args)
 
@@ -848,7 +1011,7 @@ def marshal_DeviceMessageFiltersRule(
     output: Dict[str, Any] = {}
 
     if request.policy is not None:
-        output["policy"] = str(request.policy)
+        output["policy"] = request.policy
 
     if request.topics is not None:
         output["topics"] = request.topics
@@ -932,13 +1095,15 @@ def marshal_CreateHubRequest(
     )
 
     if request.product_plan is not None:
-        output["product_plan"] = str(request.product_plan)
+        output["product_plan"] = request.product_plan
 
     if request.name is not None:
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.disable_events is not None:
         output["disable_events"] = request.disable_events
@@ -956,7 +1121,7 @@ def marshal_CreateNetworkRequest(
     output: Dict[str, Any] = {}
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.hub_id is not None:
         output["hub_id"] = request.hub_id
@@ -995,7 +1160,7 @@ def marshal_CreateRouteRequestDatabaseConfig(
         output["query"] = request.query
 
     if request.engine is not None:
-        output["engine"] = str(request.engine)
+        output["engine"] = request.engine
 
     return output
 
@@ -1007,7 +1172,7 @@ def marshal_CreateRouteRequestRestConfig(
     output: Dict[str, Any] = {}
 
     if request.verb is not None:
-        output["verb"] = str(request.verb)
+        output["verb"] = request.verb
 
     if request.uri is not None:
         output["uri"] = request.uri
@@ -1034,7 +1199,7 @@ def marshal_CreateRouteRequestS3Config(
         output["object_prefix"] = request.object_prefix
 
     if request.strategy is not None:
-        output["strategy"] = str(request.strategy)
+        output["strategy"] = request.strategy
 
     return output
 
@@ -1182,7 +1347,7 @@ def marshal_UpdateHubRequest(
         output["name"] = request.name
 
     if request.product_plan is not None:
-        output["product_plan"] = str(request.product_plan)
+        output["product_plan"] = request.product_plan
 
     if request.disable_events is not None:
         output["disable_events"] = request.disable_events
@@ -1205,7 +1370,7 @@ def marshal_UpdateRouteRequestDatabaseConfig(
     output: Dict[str, Any] = {}
 
     if request.engine is not None:
-        output["engine"] = str(request.engine)
+        output["engine"] = request.engine
 
     if request.host is not None:
         output["host"] = request.host
@@ -1235,7 +1400,7 @@ def marshal_UpdateRouteRequestRestConfig(
     output: Dict[str, Any] = {}
 
     if request.verb is not None:
-        output["verb"] = str(request.verb)
+        output["verb"] = request.verb
 
     if request.uri is not None:
         output["uri"] = request.uri
@@ -1253,7 +1418,7 @@ def marshal_UpdateRouteRequestS3Config(
     output: Dict[str, Any] = {}
 
     if request.strategy is not None:
-        output["strategy"] = str(request.strategy)
+        output["strategy"] = request.strategy
 
     if request.bucket_region is not None:
         output["bucket_region"] = request.bucket_region

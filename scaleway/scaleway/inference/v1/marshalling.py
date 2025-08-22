@@ -10,6 +10,9 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    DeploymentStatus,
+    ModelStatus,
+    NodeTypeStock,
     EndpointPrivateNetworkDetails,
     EndpointPublicNetworkDetails,
     Endpoint,
@@ -44,6 +47,8 @@ def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetwork
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     return EndpointPrivateNetworkDetails(**args)
 
@@ -70,14 +75,20 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     field = data.get("disable_auth", None)
     if field is not None:
         args["disable_auth"] = field
+    else:
+        args["disable_auth"] = False
 
     field = data.get("public_network", None)
     if field is not None:
@@ -105,14 +116,20 @@ def unmarshal_ModelSupportedQuantization(data: Any) -> ModelSupportedQuantizatio
     field = data.get("quantization_bits", None)
     if field is not None:
         args["quantization_bits"] = field
+    else:
+        args["quantization_bits"] = 0
 
     field = data.get("allowed", None)
     if field is not None:
         args["allowed"] = field
+    else:
+        args["allowed"] = False
 
     field = data.get("max_context_size", None)
     if field is not None:
         args["max_context_size"] = field
+    else:
+        args["max_context_size"] = 0
 
     return ModelSupportedQuantization(**args)
 
@@ -128,6 +145,8 @@ def unmarshal_ModelSupportedNode(data: Any) -> ModelSupportedNode:
     field = data.get("node_type_name", None)
     if field is not None:
         args["node_type_name"] = field
+    else:
+        args["node_type_name"] = None
 
     field = data.get("quantizations", None)
     if field is not None:
@@ -136,6 +155,8 @@ def unmarshal_ModelSupportedNode(data: Any) -> ModelSupportedNode:
             if field is not None
             else None
         )
+    else:
+        args["quantizations"] = []
 
     return ModelSupportedNode(**args)
 
@@ -155,6 +176,8 @@ def unmarshal_ModelSupportInfo(data: Any) -> ModelSupportInfo:
             if field is not None
             else None
         )
+    else:
+        args["nodes"] = []
 
     return ModelSupportInfo(**args)
 
@@ -170,6 +193,8 @@ def unmarshal_DeploymentQuantization(data: Any) -> DeploymentQuantization:
     field = data.get("bits", None)
     if field is not None:
         args["bits"] = field
+    else:
+        args["bits"] = None
 
     return DeploymentQuantization(**args)
 
@@ -185,56 +210,82 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DeploymentStatus.UNKNOWN_STATUS
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("node_type_name", None)
     if field is not None:
         args["node_type_name"] = field
+    else:
+        args["node_type_name"] = None
 
     field = data.get("endpoints", None)
     if field is not None:
         args["endpoints"] = (
             [unmarshal_Endpoint(v) for v in field] if field is not None else None
         )
+    else:
+        args["endpoints"] = []
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("min_size", None)
     if field is not None:
         args["min_size"] = field
+    else:
+        args["min_size"] = 0
 
     field = data.get("max_size", None)
     if field is not None:
         args["max_size"] = field
+    else:
+        args["max_size"] = 0
 
     field = data.get("model_id", None)
     if field is not None:
         args["model_id"] = field
+    else:
+        args["model_id"] = None
 
     field = data.get("model_name", None)
     if field is not None:
         args["model_name"] = field
+    else:
+        args["model_name"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("error_message", None)
     if field is not None:
@@ -274,34 +325,50 @@ def unmarshal_Model(data: Any) -> Model:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = ModelStatus.UNKNOWN_STATUS
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("has_eula", None)
     if field is not None:
         args["has_eula"] = field
+    else:
+        args["has_eula"] = False
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("nodes_support", None)
     if field is not None:
@@ -310,14 +377,20 @@ def unmarshal_Model(data: Any) -> Model:
             if field is not None
             else None
         )
+    else:
+        args["nodes_support"] = []
 
     field = data.get("parameter_size_bits", None)
     if field is not None:
         args["parameter_size_bits"] = field
+    else:
+        args["parameter_size_bits"] = 0
 
     field = data.get("size_bytes", None)
     if field is not None:
         args["size_bytes"] = field
+    else:
+        args["size_bytes"] = 0
 
     field = data.get("error_message", None)
     if field is not None:
@@ -353,10 +426,14 @@ def unmarshal_ListDeploymentsResponse(data: Any) -> ListDeploymentsResponse:
         args["deployments"] = (
             [unmarshal_Deployment(v) for v in field] if field is not None else None
         )
+    else:
+        args["deployments"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListDeploymentsResponse(**args)
 
@@ -374,10 +451,14 @@ def unmarshal_ListModelsResponse(data: Any) -> ListModelsResponse:
         args["models"] = (
             [unmarshal_Model(v) for v in field] if field is not None else None
         )
+    else:
+        args["models"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListModelsResponse(**args)
 
@@ -393,42 +474,62 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("stock_status", None)
     if field is not None:
         args["stock_status"] = field
+    else:
+        args["stock_status"] = NodeTypeStock.UNKNOWN_STOCK
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("vcpus", None)
     if field is not None:
         args["vcpus"] = field
+    else:
+        args["vcpus"] = 0
 
     field = data.get("memory", None)
     if field is not None:
         args["memory"] = field
+    else:
+        args["memory"] = 0
 
     field = data.get("vram", None)
     if field is not None:
         args["vram"] = field
+    else:
+        args["vram"] = 0
 
     field = data.get("disabled", None)
     if field is not None:
         args["disabled"] = field
+    else:
+        args["disabled"] = False
 
     field = data.get("beta", None)
     if field is not None:
         args["beta"] = field
+    else:
+        args["beta"] = False
 
     field = data.get("gpus", None)
     if field is not None:
         args["gpus"] = field
+    else:
+        args["gpus"] = 0
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -458,10 +559,14 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
         args["node_types"] = (
             [unmarshal_NodeType(v) for v in field] if field is not None else None
         )
+    else:
+        args["node_types"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListNodeTypesResponse(**args)
 
@@ -548,7 +653,9 @@ def marshal_CreateDeploymentRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.accept_eula is not None:
         output["accept_eula"] = request.accept_eula
@@ -619,7 +726,9 @@ def marshal_CreateModelRequest(
         output["name"] = request.name
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 

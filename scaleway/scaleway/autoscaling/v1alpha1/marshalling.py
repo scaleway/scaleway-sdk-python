@@ -10,6 +10,15 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    InstanceGroupEventLevel,
+    InstanceGroupEventSource,
+    InstancePolicyAction,
+    InstancePolicyType,
+    InstanceTemplateStatus,
+    MetricAggregate,
+    MetricManagedMetric,
+    MetricOperator,
+    VolumeInstanceTemplateVolumeType,
     Capacity,
     Loadbalancer,
     InstanceGroup,
@@ -47,10 +56,14 @@ def unmarshal_Capacity(data: Any) -> Capacity:
     field = data.get("max_replicas", None)
     if field is not None:
         args["max_replicas"] = field
+    else:
+        args["max_replicas"] = 0
 
     field = data.get("min_replicas", None)
     if field is not None:
         args["min_replicas"] = field
+    else:
+        args["min_replicas"] = 0
 
     field = data.get("cooldown_delay", None)
     if field is not None:
@@ -72,14 +85,20 @@ def unmarshal_Loadbalancer(data: Any) -> Loadbalancer:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("backend_ids", None)
     if field is not None:
         args["backend_ids"] = field
+    else:
+        args["backend_ids"] = []
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     return Loadbalancer(**args)
 
@@ -95,34 +114,50 @@ def unmarshal_InstanceGroup(data: Any) -> InstanceGroup:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("instance_template_id", None)
     if field is not None:
         args["instance_template_id"] = field
+    else:
+        args["instance_template_id"] = None
 
     field = data.get("capacity", None)
     if field is not None:
         args["capacity"] = unmarshal_Capacity(field)
+    else:
+        args["capacity"] = None
 
     field = data.get("loadbalancer", None)
     if field is not None:
         args["loadbalancer"] = unmarshal_Loadbalancer(field)
+    else:
+        args["loadbalancer"] = None
 
     field = data.get("error_messages", None)
     if field is not None:
         args["error_messages"] = field
+    else:
+        args["error_messages"] = []
 
     field = data.get("created_at", None)
     if field is not None:
@@ -150,28 +185,38 @@ def unmarshal_Metric(data: Any) -> Metric:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("operator", None)
     if field is not None:
         args["operator"] = field
+    else:
+        args["operator"] = MetricOperator.OPERATOR_UNKNOWN
 
     field = data.get("aggregate", None)
     if field is not None:
         args["aggregate"] = field
+    else:
+        args["aggregate"] = MetricAggregate.AGGREGATE_UNKNOWN
 
     field = data.get("sampling_range_min", None)
     if field is not None:
         args["sampling_range_min"] = field
+    else:
+        args["sampling_range_min"] = 0
 
     field = data.get("threshold", None)
     if field is not None:
         args["threshold"] = field
+    else:
+        args["threshold"] = 0.0
 
     field = data.get("managed_metric", None)
     if field is not None:
         args["managed_metric"] = field
     else:
-        args["managed_metric"] = None
+        args["managed_metric"] = MetricManagedMetric.MANAGED_METRIC_UNKNOWN
 
     field = data.get("cockpit_metric_name", None)
     if field is not None:
@@ -193,30 +238,44 @@ def unmarshal_InstancePolicy(data: Any) -> InstancePolicy:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
+    else:
+        args["action"] = InstancePolicyAction.UNKNOWN_ACTION
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = InstancePolicyType.UNKNOWN_TYPE
 
     field = data.get("value", None)
     if field is not None:
         args["value"] = field
+    else:
+        args["value"] = 0
 
     field = data.get("priority", None)
     if field is not None:
         args["priority"] = field
+    else:
+        args["priority"] = 0
 
     field = data.get("instance_group_id", None)
     if field is not None:
         args["instance_group_id"] = field
+    else:
+        args["instance_group_id"] = None
 
     field = data.get("metric", None)
     if field is not None:
@@ -240,6 +299,8 @@ def unmarshal_VolumeInstanceTemplateFromEmpty(
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = None
 
     return VolumeInstanceTemplateFromEmpty(**args)
 
@@ -257,6 +318,8 @@ def unmarshal_VolumeInstanceTemplateFromSnapshot(
     field = data.get("snapshot_id", None)
     if field is not None:
         args["snapshot_id"] = field
+    else:
+        args["snapshot_id"] = None
 
     field = data.get("size", None)
     if field is not None:
@@ -278,18 +341,26 @@ def unmarshal_VolumeInstanceTemplate(data: Any) -> VolumeInstanceTemplate:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("boot", None)
     if field is not None:
         args["boot"] = field
+    else:
+        args["boot"] = False
 
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = field
+    else:
+        args["volume_type"] = VolumeInstanceTemplateVolumeType.UNKNOWN_VOLUME_TYPE
 
     field = data.get("perf_iops", None)
     if field is not None:
@@ -323,10 +394,14 @@ def unmarshal_InstanceTemplate(data: Any) -> InstanceTemplate:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("commercial_type", None)
     if field is not None:
         args["commercial_type"] = field
+    else:
+        args["commercial_type"] = None
 
     field = data.get("volumes", None)
     if field is not None:
@@ -338,22 +413,32 @@ def unmarshal_InstanceTemplate(data: Any) -> InstanceTemplate:
             if field is not None
             else None
         )
+    else:
+        args["volumes"] = {}
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("private_network_ids", None)
     if field is not None:
         args["private_network_ids"] = field
+    else:
+        args["private_network_ids"] = []
 
     field = data.get("image_id", None)
     if field is not None:
@@ -377,17 +462,19 @@ def unmarshal_InstanceTemplate(data: Any) -> InstanceTemplate:
     if field is not None:
         args["public_ips_v4_count"] = field
     else:
-        args["public_ips_v4_count"] = None
+        args["public_ips_v4_count"] = 0
 
     field = data.get("public_ips_v6_count", None)
     if field is not None:
         args["public_ips_v6_count"] = field
     else:
-        args["public_ips_v6_count"] = None
+        args["public_ips_v6_count"] = 0
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = InstanceTemplateStatus.UNKNOWN_STATUS
 
     field = data.get("cloud_init", None)
     if field is not None:
@@ -421,18 +508,26 @@ def unmarshal_InstanceGroupEvent(data: Any) -> InstanceGroupEvent:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("source", None)
     if field is not None:
         args["source"] = field
+    else:
+        args["source"] = InstanceGroupEventSource.UNKNOWN_SOURCE
 
     field = data.get("level", None)
     if field is not None:
         args["level"] = field
+    else:
+        args["level"] = InstanceGroupEventLevel.INFO
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -466,10 +561,14 @@ def unmarshal_ListInstanceGroupEventsResponse(
             if field is not None
             else None
         )
+    else:
+        args["instance_events"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListInstanceGroupEventsResponse(**args)
 
@@ -487,10 +586,14 @@ def unmarshal_ListInstanceGroupsResponse(data: Any) -> ListInstanceGroupsRespons
         args["instance_groups"] = (
             [unmarshal_InstanceGroup(v) for v in field] if field is not None else None
         )
+    else:
+        args["instance_groups"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListInstanceGroupsResponse(**args)
 
@@ -508,10 +611,14 @@ def unmarshal_ListInstancePoliciesResponse(data: Any) -> ListInstancePoliciesRes
         args["policies"] = (
             [unmarshal_InstancePolicy(v) for v in field] if field is not None else None
         )
+    else:
+        args["policies"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListInstancePoliciesResponse(**args)
 
@@ -527,6 +634,8 @@ def unmarshal_ListInstanceTemplatesResponse(data: Any) -> ListInstanceTemplatesR
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("instance_templates", None)
     if field is not None:
@@ -535,6 +644,8 @@ def unmarshal_ListInstanceTemplatesResponse(data: Any) -> ListInstanceTemplatesR
             if field is not None
             else None
         )
+    else:
+        args["instance_templates"] = []
 
     return ListInstanceTemplatesResponse(**args)
 
@@ -594,7 +705,9 @@ def marshal_CreateInstanceGroupRequest(
         output["loadbalancer"] = marshal_Loadbalancer(request.loadbalancer, defaults)
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -628,10 +741,10 @@ def marshal_Metric(
         output["name"] = request.name
 
     if request.operator is not None:
-        output["operator"] = str(request.operator)
+        output["operator"] = request.operator
 
     if request.aggregate is not None:
-        output["aggregate"] = str(request.aggregate)
+        output["aggregate"] = request.aggregate
 
     if request.sampling_range_min is not None:
         output["sampling_range_min"] = request.sampling_range_min
@@ -661,10 +774,10 @@ def marshal_CreateInstancePolicyRequest(
         output["name"] = request.name
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.value is not None:
         output["value"] = request.value
@@ -746,7 +859,7 @@ def marshal_VolumeInstanceTemplate(
         output["boot"] = request.boot
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     return output
 
@@ -788,7 +901,9 @@ def marshal_CreateInstanceTemplateRequest(
         output["public_ips_v6_count"] = request.public_ips_v6_count
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.private_network_ids is not None:
         output["private_network_ids"] = request.private_network_ids
@@ -877,10 +992,10 @@ def marshal_UpdateInstancePolicyRequestMetric(
     )
 
     if request.operator is not None:
-        output["operator"] = str(request.operator)
+        output["operator"] = request.operator
 
     if request.aggregate is not None:
-        output["aggregate"] = str(request.aggregate)
+        output["aggregate"] = request.aggregate
 
     if request.name is not None:
         output["name"] = request.name
@@ -915,10 +1030,10 @@ def marshal_UpdateInstancePolicyRequest(
         output["name"] = request.name
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.value is not None:
         output["value"] = request.value

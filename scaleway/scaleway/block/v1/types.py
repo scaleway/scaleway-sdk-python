@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -128,7 +128,7 @@ class Reference:
     Status of the reference. Statuses include `attaching`, `attached`, and `detaching`.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the reference.
     """
@@ -164,7 +164,7 @@ class VolumeSpecifications:
     The storage class of the volume.
     """
 
-    perf_iops: Optional[int]
+    perf_iops: Optional[int] = 0
     """
     The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
     """
@@ -185,7 +185,7 @@ class CreateVolumeRequestFromSnapshot:
     Source snapshot from which volume will be created.
     """
 
-    size: Optional[int]
+    size: Optional[int] = 0
     """
     Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
 Size is optional and is used only if a resize of the volume is requested, otherwise original snapshot size will be used.
@@ -239,17 +239,17 @@ class Snapshot:
     Storage class of the snapshot.
     """
 
-    parent_volume: Optional[SnapshotParentVolume]
+    parent_volume: Optional[SnapshotParentVolume] = None
     """
     If the parent volume was deleted, value is null.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the snapshot.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last modification date of the properties of a snapshot.
     """
@@ -262,17 +262,17 @@ class VolumeType:
     Volume type.
     """
 
-    pricing: Optional[Money]
+    pricing: Optional[Money] = None
     """
     Price of the volume billed in GB/hour.
     """
 
-    snapshot_pricing: Optional[Money]
+    snapshot_pricing: Optional[Money] = None
     """
     Price of the snapshot billed in GB/hour.
     """
 
-    specs: Optional[VolumeSpecifications]
+    specs: Optional[VolumeSpecifications] = None
     """
     Volume specifications of the volume type.
     """
@@ -310,21 +310,6 @@ class Volume:
     List of the references to the volume.
     """
 
-    created_at: Optional[datetime]
-    """
-    Creation date of the volume.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last update of the properties of a volume.
-    """
-
-    parent_snapshot_id: Optional[str]
-    """
-    When a volume is created from a snapshot, is the UUID of the snapshot from which the volume has been created.
-    """
-
     status: VolumeStatus
     """
     Current status of the volume (available, in_use, ...).
@@ -340,12 +325,27 @@ class Volume:
     Volume zone.
     """
 
-    specs: Optional[VolumeSpecifications]
+    created_at: Optional[datetime] = None
+    """
+    Creation date of the volume.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Last update of the properties of a volume.
+    """
+
+    parent_snapshot_id: Optional[str] = None
+    """
+    When a volume is created from a snapshot, is the UUID of the snapshot from which the volume has been created.
+    """
+
+    specs: Optional[VolumeSpecifications] = None
     """
     Specifications of the volume.
     """
 
-    last_detached_at: Optional[datetime]
+    last_detached_at: Optional[datetime] = None
     """
     Last time the volume was detached.
     """
@@ -358,22 +358,22 @@ class CreateSnapshotRequest:
     UUID of the volume to snapshot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the snapshot.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the project to which the volume and the snapshot belong.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
     """
@@ -381,31 +381,31 @@ class CreateSnapshotRequest:
 
 @dataclass
 class CreateVolumeRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the volume.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the project the volume belongs to.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags assigned to the volume.
     """
 
-    from_empty: Optional[CreateVolumeRequestFromEmpty]
+    from_empty: Optional[CreateVolumeRequestFromEmpty] = None
 
-    from_snapshot: Optional[CreateVolumeRequestFromSnapshot]
+    from_snapshot: Optional[CreateVolumeRequestFromSnapshot] = None
 
-    perf_iops: Optional[int]
+    perf_iops: Optional[int] = None
 
 
 @dataclass
@@ -415,7 +415,7 @@ class DeleteSnapshotRequest:
     UUID of the snapshot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -428,7 +428,7 @@ class DeleteVolumeRequest:
     UUID of the volume.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -451,7 +451,7 @@ class ExportSnapshotToObjectStorageRequest:
     The object key inside the given bucket.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -464,7 +464,7 @@ class GetSnapshotRequest:
     UUID of the snapshot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -477,7 +477,7 @@ class GetVolumeRequest:
     UUID of the volume.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -500,22 +500,22 @@ class ImportSnapshotFromObjectStorageRequest:
     Name of the snapshot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Project to which the volume and the snapshot belong.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
     """
 
-    size: Optional[int]
+    size: Optional[int] = 0
     """
     Size of the snapshot.
     """
@@ -528,47 +528,49 @@ class ListSnapshotsRequest:
     Display deleted snapshots not erased yet.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListSnapshotsRequestOrderBy]
+    order_by: Optional[ListSnapshotsRequestOrderBy] = (
+        ListSnapshotsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria to use when ordering the list.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Page size, defines how many entries are returned in one page, must be lower or equal to 100.
     """
 
-    volume_id: Optional[str]
+    volume_id: Optional[str] = None
     """
     Filter snapshots by the ID of the original volume.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter snapshots by their names.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tags. Only snapshots with one or more matching tags will be returned.
     """
@@ -589,17 +591,17 @@ class ListSnapshotsResponse:
 
 @dataclass
 class ListVolumeTypesRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Page size, defines how many entries are returned in one page, must be lower or equal to 100.
     """
@@ -625,47 +627,49 @@ class ListVolumesRequest:
     Display deleted volumes not erased yet.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListVolumesRequestOrderBy]
+    order_by: Optional[ListVolumesRequestOrderBy] = (
+        ListVolumesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria to use when ordering the list.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Page size, defines how many entries are returned in one page, must be lower or equal to 100.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Filter the return volumes by their names.
     """
 
-    product_resource_id: Optional[str]
+    product_resource_id: Optional[str] = None
     """
     Filter by a product resource ID linked to this volume (such as an Instance ID).
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tags. Only volumes with one or more matching tags will be returned.
     """
@@ -691,17 +695,17 @@ class UpdateSnapshotRequest:
     UUID of the snapshot.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     When defined, is the name of the snapshot.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
     """
@@ -714,28 +718,28 @@ class UpdateVolumeRequest:
     UUID of the volume.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     When defined, is the new name of the volume.
     """
 
-    size: Optional[int]
+    size: Optional[int] = 0
     """
     Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
 Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags assigned to the volume.
     """
 
-    perf_iops: Optional[int]
+    perf_iops: Optional[int] = 0
     """
     The selected value must be available for the volume's current storage class.
     """

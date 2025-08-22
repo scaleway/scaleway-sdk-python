@@ -10,6 +10,12 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    InstanceStatus,
+    NodeTypeStock,
+    SettingPropertyType,
+    SnapshotStatus,
+    UserRoleRole,
+    VolumeType,
     EndpointPrivateNetworkDetails,
     EndpointPublicDetails,
     Endpoint,
@@ -59,6 +65,8 @@ def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetwork
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     return EndpointPrivateNetworkDetails(**args)
 
@@ -85,18 +93,26 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("ips", None)
     if field is not None:
         args["ips"] = field
+    else:
+        args["ips"] = []
 
     field = data.get("dns_records", None)
     if field is not None:
         args["dns_records"] = field
+    else:
+        args["dns_records"] = []
 
     field = data.get("port", None)
     if field is not None:
         args["port"] = field
+    else:
+        args["port"] = 0
 
     field = data.get("private_network", None)
     if field is not None:
@@ -124,10 +140,14 @@ def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("value", None)
     if field is not None:
         args["value"] = field
+    else:
+        args["value"] = None
 
     return InstanceSetting(**args)
 
@@ -143,14 +163,20 @@ def unmarshal_InstanceSnapshotSchedule(data: Any) -> InstanceSnapshotSchedule:
     field = data.get("frequency_hours", None)
     if field is not None:
         args["frequency_hours"] = field
+    else:
+        args["frequency_hours"] = None
 
     field = data.get("retention_days", None)
     if field is not None:
         args["retention_days"] = field
+    else:
+        args["retention_days"] = None
 
     field = data.get("enabled", None)
     if field is not None:
         args["enabled"] = field
+    else:
+        args["enabled"] = None
 
     field = data.get("next_update", None)
     if field is not None:
@@ -180,10 +206,14 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = VolumeType.UNKNOWN_TYPE
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     return Volume(**args)
 
@@ -199,50 +229,72 @@ def unmarshal_Instance(data: Any) -> Instance:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = InstanceStatus.UNKNOWN_STATUS
 
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("settings", None)
     if field is not None:
         args["settings"] = (
             [unmarshal_InstanceSetting(v) for v in field] if field is not None else None
         )
+    else:
+        args["settings"] = []
 
     field = data.get("node_number", None)
     if field is not None:
         args["node_number"] = field
+    else:
+        args["node_number"] = 0
 
     field = data.get("node_type", None)
     if field is not None:
         args["node_type"] = field
+    else:
+        args["node_type"] = None
 
     field = data.get("endpoints", None)
     if field is not None:
         args["endpoints"] = (
             [unmarshal_Endpoint(v) for v in field] if field is not None else None
         )
+    else:
+        args["endpoints"] = []
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("volume", None)
     if field is not None:
@@ -276,6 +328,8 @@ def unmarshal_SnapshotVolumeType(data: Any) -> SnapshotVolumeType:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     return SnapshotVolumeType(**args)
 
@@ -291,34 +345,50 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("instance_id", None)
     if field is not None:
         args["instance_id"] = field
+    else:
+        args["instance_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = SnapshotStatus.UNKNOWN_STATUS
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("instance_name", None)
     if field is not None:
         args["instance_name"] = field
+    else:
+        args["instance_name"] = None
 
     field = data.get("node_type", None)
     if field is not None:
         args["node_type"] = field
+    else:
+        args["node_type"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
@@ -358,6 +428,8 @@ def unmarshal_UserRole(data: Any) -> UserRole:
     field = data.get("role", None)
     if field is not None:
         args["role"] = field
+    else:
+        args["role"] = UserRoleRole.UNKNOWN_ROLE
 
     field = data.get("database", None)
     if field is not None:
@@ -369,7 +441,7 @@ def unmarshal_UserRole(data: Any) -> UserRole:
     if field is not None:
         args["any_database"] = field
     else:
-        args["any_database"] = None
+        args["any_database"] = False
 
     return UserRole(**args)
 
@@ -385,12 +457,16 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("roles", None)
     if field is not None:
         args["roles"] = (
             [unmarshal_UserRole(v) for v in field] if field is not None else None
         )
+    else:
+        args["roles"] = []
 
     return User(**args)
 
@@ -408,10 +484,14 @@ def unmarshal_ListInstancesResponse(data: Any) -> ListInstancesResponse:
         args["instances"] = (
             [unmarshal_Instance(v) for v in field] if field is not None else None
         )
+    else:
+        args["instances"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListInstancesResponse(**args)
 
@@ -427,22 +507,32 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = VolumeType.UNKNOWN_TYPE
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("min_size", None)
     if field is not None:
         args["min_size"] = field
+    else:
+        args["min_size"] = 0
 
     field = data.get("max_size", None)
     if field is not None:
         args["max_size"] = field
+    else:
+        args["max_size"] = 0
 
     field = data.get("chunk_size", None)
     if field is not None:
         args["chunk_size"] = field
+    else:
+        args["chunk_size"] = 0
 
     return NodeTypeVolumeType(**args)
 
@@ -458,22 +548,32 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("stock_status", None)
     if field is not None:
         args["stock_status"] = field
+    else:
+        args["stock_status"] = NodeTypeStock.UNKNOWN_STOCK
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("vcpus", None)
     if field is not None:
         args["vcpus"] = field
+    else:
+        args["vcpus"] = 0
 
     field = data.get("memory", None)
     if field is not None:
         args["memory"] = field
+    else:
+        args["memory"] = 0
 
     field = data.get("available_volume_types", None)
     if field is not None:
@@ -482,18 +582,26 @@ def unmarshal_NodeType(data: Any) -> NodeType:
             if field is not None
             else None
         )
+    else:
+        args["available_volume_types"] = []
 
     field = data.get("disabled", None)
     if field is not None:
         args["disabled"] = field
+    else:
+        args["disabled"] = False
 
     field = data.get("beta", None)
     if field is not None:
         args["beta"] = field
+    else:
+        args["beta"] = False
 
     field = data.get("instance_range", None)
     if field is not None:
         args["instance_range"] = field
+    else:
+        args["instance_range"] = None
 
     return NodeType(**args)
 
@@ -511,10 +619,14 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
         args["node_types"] = (
             [unmarshal_NodeType(v) for v in field] if field is not None else None
         )
+    else:
+        args["node_types"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListNodeTypesResponse(**args)
 
@@ -532,10 +644,14 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
         args["snapshots"] = (
             [unmarshal_Snapshot(v) for v in field] if field is not None else None
         )
+    else:
+        args["snapshots"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListSnapshotsResponse(**args)
 
@@ -553,10 +669,14 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
         args["users"] = (
             [unmarshal_User(v) for v in field] if field is not None else None
         )
+    else:
+        args["users"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListUsersResponse(**args)
 
@@ -572,22 +692,32 @@ def unmarshal_Setting(data: Any) -> Setting:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("default_value", None)
     if field is not None:
         args["default_value"] = field
+    else:
+        args["default_value"] = None
 
     field = data.get("hot_configurable", None)
     if field is not None:
         args["hot_configurable"] = field
+    else:
+        args["hot_configurable"] = False
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("property_type", None)
     if field is not None:
         args["property_type"] = field
+    else:
+        args["property_type"] = SettingPropertyType.BOOLEAN
 
     field = data.get("unit", None)
     if field is not None:
@@ -605,25 +735,25 @@ def unmarshal_Setting(data: Any) -> Setting:
     if field is not None:
         args["int_min"] = field
     else:
-        args["int_min"] = None
+        args["int_min"] = 0
 
     field = data.get("int_max", None)
     if field is not None:
         args["int_max"] = field
     else:
-        args["int_max"] = None
+        args["int_max"] = 0
 
     field = data.get("float_min", None)
     if field is not None:
         args["float_min"] = field
     else:
-        args["float_min"] = None
+        args["float_min"] = 0.0
 
     field = data.get("float_max", None)
     if field is not None:
         args["float_max"] = field
     else:
-        args["float_max"] = None
+        args["float_max"] = 0.0
 
     return Setting(**args)
 
@@ -639,12 +769,16 @@ def unmarshal_Version(data: Any) -> Version:
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = None
 
     field = data.get("available_settings", None)
     if field is not None:
         args["available_settings"] = (
             [unmarshal_Setting(v) for v in field] if field is not None else None
         )
+    else:
+        args["available_settings"] = []
 
     field = data.get("end_of_life_at", None)
     if field is not None:
@@ -670,10 +804,14 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
         args["versions"] = (
             [unmarshal_Version(v) for v in field] if field is not None else None
         )
+    else:
+        args["versions"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListVersionsResponse(**args)
 
@@ -749,7 +887,7 @@ def marshal_CreateInstanceRequestVolumeDetails(
         output["volume_size"] = request.volume_size
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     return output
 
@@ -776,7 +914,9 @@ def marshal_CreateInstanceRequest(
         output["password"] = request.password
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.name is not None:
         output["name"] = request.name
@@ -834,7 +974,7 @@ def marshal_RestoreSnapshotRequestVolumeDetails(
     output: Dict[str, Any] = {}
 
     if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
+        output["volume_type"] = request.volume_type
 
     return output
 
@@ -881,7 +1021,7 @@ def marshal_UserRole(
     )
 
     if request.role is not None:
-        output["role"] = str(request.role)
+        output["role"] = request.role
 
     return output
 
