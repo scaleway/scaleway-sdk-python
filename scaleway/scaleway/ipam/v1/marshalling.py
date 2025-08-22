@@ -237,10 +237,18 @@ def marshal_Source(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("zonal", request.zonal),
-                OneOfPossibility("private_network_id", request.private_network_id),
-                OneOfPossibility("subnet_id", request.subnet_id),
-                OneOfPossibility("vpc_id", request.vpc_id),
+                OneOfPossibility(param="zonal", value=request.zonal, marshal_func=None),
+                OneOfPossibility(
+                    param="private_network_id",
+                    value=request.private_network_id,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="subnet_id", value=request.subnet_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="vpc_id", value=request.vpc_id, marshal_func=None
+                ),
             ]
         ),
     )

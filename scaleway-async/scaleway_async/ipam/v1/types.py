@@ -58,6 +58,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     DDL_DATALAB = "ddl_datalab"
     KAFKA_CLUSTER = "kafka_cluster"
     BGP_ENDPOINT = "bgp_endpoint"
+    SCBL_SEDB_CLUSTER = "scbl_sedb_cluster"
 
     def __str__(self) -> str:
         return str(self.value)
