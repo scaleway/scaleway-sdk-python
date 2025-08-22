@@ -10,6 +10,10 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    DataKeyAlgorithmSymmetricEncryption,
+    KeyAlgorithmSymmetricEncryption,
+    KeyOrigin,
+    KeyState,
     KeyRotationPolicy,
     KeyUsage,
     Key,
@@ -68,7 +72,9 @@ def unmarshal_KeyUsage(data: Any) -> KeyUsage:
     if field is not None:
         args["symmetric_encryption"] = field
     else:
-        args["symmetric_encryption"] = None
+        args["symmetric_encryption"] = (
+            KeyAlgorithmSymmetricEncryption.UNKNOWN_SYMMETRIC_ENCRYPTION
+        )
 
     field = data.get("asymmetric_encryption", None)
     if field is not None:
@@ -96,22 +102,32 @@ def unmarshal_Key(data: Any) -> Key:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = KeyState.UNKNOWN_STATE
 
     field = data.get("rotation_count", None)
     if field is not None:
         args["rotation_count"] = field
+    else:
+        args["rotation_count"] = 0
 
     field = data.get("usage", None)
     if field is not None:
@@ -134,22 +150,32 @@ def unmarshal_Key(data: Any) -> Key:
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+    else:
+        args["protected"] = False
 
     field = data.get("locked", None)
     if field is not None:
         args["locked"] = field
+    else:
+        args["locked"] = False
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("origin", None)
     if field is not None:
         args["origin"] = field
+    else:
+        args["origin"] = KeyOrigin.UNKNOWN_ORIGIN
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -191,14 +217,22 @@ def unmarshal_DataKey(data: Any) -> DataKey:
     field = data.get("key_id", None)
     if field is not None:
         args["key_id"] = field
+    else:
+        args["key_id"] = None
 
     field = data.get("algorithm", None)
     if field is not None:
         args["algorithm"] = field
+    else:
+        args["algorithm"] = (
+            DataKeyAlgorithmSymmetricEncryption.UNKNOWN_SYMMETRIC_ENCRYPTION
+        )
 
     field = data.get("ciphertext", None)
     if field is not None:
         args["ciphertext"] = field
+    else:
+        args["ciphertext"] = None
 
     field = data.get("plaintext", None)
     if field is not None:
@@ -226,10 +260,14 @@ def unmarshal_DecryptResponse(data: Any) -> DecryptResponse:
     field = data.get("key_id", None)
     if field is not None:
         args["key_id"] = field
+    else:
+        args["key_id"] = None
 
     field = data.get("plaintext", None)
     if field is not None:
         args["plaintext"] = field
+    else:
+        args["plaintext"] = None
 
     field = data.get("ciphertext", None)
     if field is not None:
@@ -251,10 +289,14 @@ def unmarshal_EncryptResponse(data: Any) -> EncryptResponse:
     field = data.get("key_id", None)
     if field is not None:
         args["key_id"] = field
+    else:
+        args["key_id"] = None
 
     field = data.get("ciphertext", None)
     if field is not None:
         args["ciphertext"] = field
+    else:
+        args["ciphertext"] = None
 
     return EncryptResponse(**args)
 
@@ -270,10 +312,14 @@ def unmarshal_ListKeysResponse(data: Any) -> ListKeysResponse:
     field = data.get("keys", None)
     if field is not None:
         args["keys"] = [unmarshal_Key(v) for v in field] if field is not None else None
+    else:
+        args["keys"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListKeysResponse(**args)
 
@@ -289,6 +335,8 @@ def unmarshal_PublicKey(data: Any) -> PublicKey:
     field = data.get("pem", None)
     if field is not None:
         args["pem"] = field
+    else:
+        args["pem"] = None
 
     return PublicKey(**args)
 
@@ -304,10 +352,14 @@ def unmarshal_SignResponse(data: Any) -> SignResponse:
     field = data.get("key_id", None)
     if field is not None:
         args["key_id"] = field
+    else:
+        args["key_id"] = None
 
     field = data.get("signature", None)
     if field is not None:
         args["signature"] = field
+    else:
+        args["signature"] = None
 
     return SignResponse(**args)
 
@@ -323,10 +375,14 @@ def unmarshal_VerifyResponse(data: Any) -> VerifyResponse:
     field = data.get("key_id", None)
     if field is not None:
         args["key_id"] = field
+    else:
+        args["key_id"] = None
 
     field = data.get("valid", None)
     if field is not None:
         args["valid"] = field
+    else:
+        args["valid"] = False
 
     return VerifyResponse(**args)
 
@@ -386,7 +442,9 @@ def marshal_CreateKeyRequest(
         output["unprotected"] = request.unprotected
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.name is not None:
         output["name"] = request.name
@@ -406,7 +464,7 @@ def marshal_CreateKeyRequest(
         )
 
     if request.origin is not None:
-        output["origin"] = str(request.origin)
+        output["origin"] = request.origin
 
     return output
 
@@ -451,7 +509,7 @@ def marshal_GenerateDataKeyRequest(
         output["without_plaintext"] = request.without_plaintext
 
     if request.algorithm is not None:
-        output["algorithm"] = str(request.algorithm)
+        output["algorithm"] = request.algorithm
 
     return output
 

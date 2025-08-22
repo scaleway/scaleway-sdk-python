@@ -10,6 +10,17 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    CronStatus,
+    DomainStatus,
+    FunctionHttpOption,
+    FunctionPrivacy,
+    FunctionRuntime,
+    FunctionSandbox,
+    FunctionStatus,
+    NamespaceStatus,
+    TokenStatus,
+    TriggerInputType,
+    TriggerStatus,
     Cron,
     Domain,
     SecretHashedValue,
@@ -59,28 +70,38 @@ def unmarshal_Cron(data: Any) -> Cron:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("function_id", None)
     if field is not None:
         args["function_id"] = field
+    else:
+        args["function_id"] = None
 
     field = data.get("schedule", None)
     if field is not None:
         args["schedule"] = field
+    else:
+        args["schedule"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = CronStatus.UNKNOWN
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("args", None)
     if field is not None:
         args["args"] = field
     else:
-        args["args"] = None
+        args["args"] = {}
 
     return Cron(**args)
 
@@ -96,22 +117,32 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
+    else:
+        args["hostname"] = None
 
     field = data.get("function_id", None)
     if field is not None:
         args["function_id"] = field
+    else:
+        args["function_id"] = None
 
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = DomainStatus.UNKNOWN
 
     field = data.get("error_message", None)
     if field is not None:
@@ -133,10 +164,14 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
     field = data.get("key", None)
     if field is not None:
         args["key"] = field
+    else:
+        args["key"] = None
 
     field = data.get("hashed_value", None)
     if field is not None:
         args["hashed_value"] = field
+    else:
+        args["hashed_value"] = None
 
     return SecretHashedValue(**args)
 
@@ -152,54 +187,80 @@ def unmarshal_Function(data: Any) -> Function:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("namespace_id", None)
     if field is not None:
         args["namespace_id"] = field
+    else:
+        args["namespace_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = FunctionStatus.UNKNOWN
 
     field = data.get("environment_variables", None)
     if field is not None:
         args["environment_variables"] = field
+    else:
+        args["environment_variables"] = {}
 
     field = data.get("min_scale", None)
     if field is not None:
         args["min_scale"] = field
+    else:
+        args["min_scale"] = 0
 
     field = data.get("max_scale", None)
     if field is not None:
         args["max_scale"] = field
+    else:
+        args["max_scale"] = 0
 
     field = data.get("runtime", None)
     if field is not None:
         args["runtime"] = field
+    else:
+        args["runtime"] = FunctionRuntime.UNKNOWN_RUNTIME
 
     field = data.get("memory_limit", None)
     if field is not None:
         args["memory_limit"] = field
+    else:
+        args["memory_limit"] = 0
 
     field = data.get("cpu_limit", None)
     if field is not None:
         args["cpu_limit"] = field
+    else:
+        args["cpu_limit"] = 0
 
     field = data.get("handler", None)
     if field is not None:
         args["handler"] = field
+    else:
+        args["handler"] = None
 
     field = data.get("privacy", None)
     if field is not None:
         args["privacy"] = field
+    else:
+        args["privacy"] = FunctionPrivacy.UNKNOWN_PRIVACY
 
     field = data.get("domain_name", None)
     if field is not None:
         args["domain_name"] = field
+    else:
+        args["domain_name"] = None
 
     field = data.get("secret_environment_variables", None)
     if field is not None:
@@ -208,6 +269,8 @@ def unmarshal_Function(data: Any) -> Function:
             if field is not None
             else None
         )
+    else:
+        args["secret_environment_variables"] = []
 
     field = data.get("timeout", None)
     if field is not None:
@@ -236,22 +299,32 @@ def unmarshal_Function(data: Any) -> Function:
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("http_option", None)
     if field is not None:
         args["http_option"] = field
+    else:
+        args["http_option"] = FunctionHttpOption.UNKNOWN_HTTP_OPTION
 
     field = data.get("runtime_message", None)
     if field is not None:
         args["runtime_message"] = field
+    else:
+        args["runtime_message"] = None
 
     field = data.get("sandbox", None)
     if field is not None:
         args["sandbox"] = field
+    else:
+        args["sandbox"] = FunctionSandbox.UNKNOWN_SANDBOX
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("created_at", None)
     if field is not None:
@@ -291,30 +364,44 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("environment_variables", None)
     if field is not None:
         args["environment_variables"] = field
+    else:
+        args["environment_variables"] = {}
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = NamespaceStatus.UNKNOWN
 
     field = data.get("registry_namespace_id", None)
     if field is not None:
         args["registry_namespace_id"] = field
+    else:
+        args["registry_namespace_id"] = None
 
     field = data.get("error_message", None)
     if field is not None:
@@ -325,6 +412,8 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     field = data.get("registry_endpoint", None)
     if field is not None:
         args["registry_endpoint"] = field
+    else:
+        args["registry_endpoint"] = None
 
     field = data.get("secret_environment_variables", None)
     if field is not None:
@@ -333,14 +422,20 @@ def unmarshal_Namespace(data: Any) -> Namespace:
             if field is not None
             else None
         )
+    else:
+        args["secret_environment_variables"] = []
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("description", None)
     if field is not None:
@@ -364,7 +459,7 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     if field is not None:
         args["vpc_integration_activated"] = field
     else:
-        args["vpc_integration_activated"] = None
+        args["vpc_integration_activated"] = False
 
     return Namespace(**args)
 
@@ -380,14 +475,20 @@ def unmarshal_Token(data: Any) -> Token:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("token", None)
     if field is not None:
         args["token"] = field
+    else:
+        args["token"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = TokenStatus.UNKNOWN
 
     field = data.get("function_id", None)
     if field is not None:
@@ -433,18 +534,26 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
     field = data.get("subject", None)
     if field is not None:
         args["subject"] = field
+    else:
+        args["subject"] = None
 
     field = data.get("mnq_nats_account_id", None)
     if field is not None:
         args["mnq_nats_account_id"] = field
+    else:
+        args["mnq_nats_account_id"] = None
 
     field = data.get("mnq_project_id", None)
     if field is not None:
         args["mnq_project_id"] = field
+    else:
+        args["mnq_project_id"] = None
 
     field = data.get("mnq_region", None)
     if field is not None:
         args["mnq_region"] = field
+    else:
+        args["mnq_region"] = None
 
     field = data.get("mnq_credential_id", None)
     if field is not None:
@@ -466,14 +575,20 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
     field = data.get("queue", None)
     if field is not None:
         args["queue"] = field
+    else:
+        args["queue"] = None
 
     field = data.get("mnq_project_id", None)
     if field is not None:
         args["mnq_project_id"] = field
+    else:
+        args["mnq_project_id"] = None
 
     field = data.get("mnq_region", None)
     if field is not None:
         args["mnq_region"] = field
+    else:
+        args["mnq_region"] = None
 
     field = data.get("mnq_credential_id", None)
     if field is not None:
@@ -495,18 +610,26 @@ def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
     field = data.get("endpoint", None)
     if field is not None:
         args["endpoint"] = field
+    else:
+        args["endpoint"] = None
 
     field = data.get("queue_url", None)
     if field is not None:
         args["queue_url"] = field
+    else:
+        args["queue_url"] = None
 
     field = data.get("access_key", None)
     if field is not None:
         args["access_key"] = field
+    else:
+        args["access_key"] = None
 
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
+    else:
+        args["secret_key"] = None
 
     return TriggerSqsClientConfig(**args)
 
@@ -522,26 +645,38 @@ def unmarshal_Trigger(data: Any) -> Trigger:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("function_id", None)
     if field is not None:
         args["function_id"] = field
+    else:
+        args["function_id"] = None
 
     field = data.get("input_type", None)
     if field is not None:
         args["input_type"] = field
+    else:
+        args["input_type"] = TriggerInputType.UNKNOWN_INPUT_TYPE
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = TriggerStatus.UNKNOWN_STATUS
 
     field = data.get("error_message", None)
     if field is not None:
@@ -581,10 +716,14 @@ def unmarshal_DownloadURL(data: Any) -> DownloadURL:
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     field = data.get("headers", None)
     if field is not None:
         args["headers"] = field
+    else:
+        args["headers"] = None
 
     return DownloadURL(**args)
 
@@ -602,10 +741,14 @@ def unmarshal_ListCronsResponse(data: Any) -> ListCronsResponse:
         args["crons"] = (
             [unmarshal_Cron(v) for v in field] if field is not None else None
         )
+    else:
+        args["crons"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListCronsResponse(**args)
 
@@ -623,10 +766,14 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
         args["domains"] = (
             [unmarshal_Domain(v) for v in field] if field is not None else None
         )
+    else:
+        args["domains"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListDomainsResponse(**args)
 
@@ -642,42 +789,62 @@ def unmarshal_Runtime(data: Any) -> Runtime:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("language", None)
     if field is not None:
         args["language"] = field
+    else:
+        args["language"] = None
 
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = None
 
     field = data.get("default_handler", None)
     if field is not None:
         args["default_handler"] = field
+    else:
+        args["default_handler"] = None
 
     field = data.get("code_sample", None)
     if field is not None:
         args["code_sample"] = field
+    else:
+        args["code_sample"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = None
 
     field = data.get("status_message", None)
     if field is not None:
         args["status_message"] = field
+    else:
+        args["status_message"] = None
 
     field = data.get("extension", None)
     if field is not None:
         args["extension"] = field
+    else:
+        args["extension"] = None
 
     field = data.get("implementation", None)
     if field is not None:
         args["implementation"] = field
+    else:
+        args["implementation"] = None
 
     field = data.get("logo_url", None)
     if field is not None:
         args["logo_url"] = field
+    else:
+        args["logo_url"] = None
 
     return Runtime(**args)
 
@@ -695,10 +862,14 @@ def unmarshal_ListFunctionRuntimesResponse(data: Any) -> ListFunctionRuntimesRes
         args["runtimes"] = (
             [unmarshal_Runtime(v) for v in field] if field is not None else None
         )
+    else:
+        args["runtimes"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListFunctionRuntimesResponse(**args)
 
@@ -716,10 +887,14 @@ def unmarshal_ListFunctionsResponse(data: Any) -> ListFunctionsResponse:
         args["functions"] = (
             [unmarshal_Function(v) for v in field] if field is not None else None
         )
+    else:
+        args["functions"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListFunctionsResponse(**args)
 
@@ -737,10 +912,14 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
         args["namespaces"] = (
             [unmarshal_Namespace(v) for v in field] if field is not None else None
         )
+    else:
+        args["namespaces"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListNamespacesResponse(**args)
 
@@ -758,10 +937,14 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
         args["tokens"] = (
             [unmarshal_Token(v) for v in field] if field is not None else None
         )
+    else:
+        args["tokens"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListTokensResponse(**args)
 
@@ -777,12 +960,16 @@ def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("triggers", None)
     if field is not None:
         args["triggers"] = (
             [unmarshal_Trigger(v) for v in field] if field is not None else None
         )
+    else:
+        args["triggers"] = []
 
     return ListTriggersResponse(**args)
 
@@ -798,10 +985,14 @@ def unmarshal_UploadURL(data: Any) -> UploadURL:
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     field = data.get("headers", None)
     if field is not None:
         args["headers"] = field
+    else:
+        args["headers"] = {}
 
     return UploadURL(**args)
 
@@ -879,7 +1070,7 @@ def marshal_CreateFunctionRequest(
         output["max_scale"] = request.max_scale
 
     if request.runtime is not None:
-        output["runtime"] = str(request.runtime)
+        output["runtime"] = request.runtime
 
     if request.memory_limit is not None:
         output["memory_limit"] = request.memory_limit
@@ -891,7 +1082,7 @@ def marshal_CreateFunctionRequest(
         output["handler"] = request.handler
 
     if request.privacy is not None:
-        output["privacy"] = str(request.privacy)
+        output["privacy"] = request.privacy
 
     if request.description is not None:
         output["description"] = request.description
@@ -903,10 +1094,10 @@ def marshal_CreateFunctionRequest(
         ]
 
     if request.http_option is not None:
-        output["http_option"] = str(request.http_option)
+        output["http_option"] = request.http_option
 
     if request.sandbox is not None:
-        output["sandbox"] = str(request.sandbox)
+        output["sandbox"] = request.sandbox
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -930,7 +1121,9 @@ def marshal_CreateNamespaceRequest(
         output["environment_variables"] = request.environment_variables
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.description is not None:
         output["description"] = request.description
@@ -1113,7 +1306,7 @@ def marshal_UpdateFunctionRequest(
         output["max_scale"] = request.max_scale
 
     if request.runtime is not None:
-        output["runtime"] = str(request.runtime)
+        output["runtime"] = request.runtime
 
     if request.memory_limit is not None:
         output["memory_limit"] = request.memory_limit
@@ -1128,7 +1321,7 @@ def marshal_UpdateFunctionRequest(
         output["handler"] = request.handler
 
     if request.privacy is not None:
-        output["privacy"] = str(request.privacy)
+        output["privacy"] = request.privacy
 
     if request.description is not None:
         output["description"] = request.description
@@ -1140,10 +1333,10 @@ def marshal_UpdateFunctionRequest(
         ]
 
     if request.http_option is not None:
-        output["http_option"] = str(request.http_option)
+        output["http_option"] = request.http_option
 
     if request.sandbox is not None:
-        output["sandbox"] = str(request.sandbox)
+        output["sandbox"] = request.sandbox
 
     if request.tags is not None:
         output["tags"] = request.tags

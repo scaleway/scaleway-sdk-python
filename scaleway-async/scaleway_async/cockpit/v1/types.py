@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -178,9 +178,7 @@ class ContactPointEmail:
 @dataclass
 class GetConfigResponseRetention:
     min_days: int
-
     max_days: int
-
     default_days: int
 
 
@@ -248,12 +246,12 @@ class Alert:
     ID of the data source containing the alert rule.
     """
 
-    state: Optional[AlertState]
+    state: Optional[AlertState] = AlertState.UNKNOWN_STATE
     """
     Current state of the alert. Possible states are `inactive`, `pending`, and `firing`.
     """
 
-    preconfigured_data: Optional[PreconfiguredAlertData]
+    preconfigured_data: Optional[PreconfiguredAlertData] = None
     """
     Contains additional data for preconfigured alerts, such as the rule ID, display name, and description. Only present if the alert is preconfigured.
     """
@@ -275,7 +273,7 @@ class ContactPoint:
     Send an email notification when an alert is marked as resolved.
     """
 
-    email: Optional[ContactPointEmail]
+    email: Optional[ContactPointEmail] = None
 
 
 @dataclass
@@ -329,12 +327,12 @@ class DataSource:
     Region of the data source.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date the data source was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date the data source was last updated.
     """
@@ -393,7 +391,7 @@ class GrafanaUser:
     Role assigned to the Grafana user.
     """
 
-    password: Optional[str]
+    password: Optional[str] = None
     """
     Grafana user's password.
     """
@@ -430,17 +428,17 @@ class Plan:
     Retention price in euros per month.
     """
 
-    retention_metrics_interval: Optional[str]
+    retention_metrics_interval: Optional[str] = None
     """
     Interval of time during which Scaleway's Cockpit keeps your metrics.
     """
 
-    retention_logs_interval: Optional[str]
+    retention_logs_interval: Optional[str] = None
     """
     Interval of time during which Scaleway's Cockpit keeps your logs.
     """
 
-    retention_traces_interval: Optional[str]
+    retention_traces_interval: Optional[str] = None
     """
     Interval of time during which Scaleway's Cockpit keeps your traces.
     """
@@ -477,17 +475,17 @@ class Token:
     Regions where the token is located.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Token creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Token last modification date.
     """
 
-    secret_key: Optional[str]
+    secret_key: Optional[str] = None
     """
     Token secret key.
     """
@@ -529,12 +527,12 @@ class Usage:
     Region of the data source usage.
     """
 
-    data_source_id: Optional[str]
+    data_source_id: Optional[str] = None
     """
     ID of the data source.
     """
 
-    interval: Optional[str]
+    interval: Optional[str] = None
     """
     Interval for the data source usage.
     """
@@ -561,7 +559,7 @@ class AlertManager:
     Regions where the Alert manager is enabled.
     """
 
-    alert_manager_url: Optional[str]
+    alert_manager_url: Optional[str] = None
     """
     Alert manager URL.
     """
@@ -597,27 +595,27 @@ class GetConfigResponse:
     Cockpit configuration.
     """
 
-    custom_metrics_retention: Optional[GetConfigResponseRetention]
+    custom_metrics_retention: Optional[GetConfigResponseRetention] = None
     """
     Custom metrics retention configuration.
     """
 
-    custom_logs_retention: Optional[GetConfigResponseRetention]
+    custom_logs_retention: Optional[GetConfigResponseRetention] = None
     """
     Custom logs retention configuration.
     """
 
-    custom_traces_retention: Optional[GetConfigResponseRetention]
+    custom_traces_retention: Optional[GetConfigResponseRetention] = None
     """
     Custom traces retention configuration.
     """
 
-    product_metrics_retention: Optional[GetConfigResponseRetention]
+    product_metrics_retention: Optional[GetConfigResponseRetention] = None
     """
     Scaleway metrics retention configuration.
     """
 
-    product_logs_retention: Optional[GetConfigResponseRetention]
+    product_logs_retention: Optional[GetConfigResponseRetention] = None
     """
     Scaleway logs retention configuration.
     """
@@ -652,12 +650,12 @@ class GlobalApiCreateGrafanaUserRequest:
     Username of the Grafana user. Note that the `admin` username is not available for creation.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project in which to create the Grafana user.
     """
 
-    role: Optional[GrafanaUserRole]
+    role: Optional[GrafanaUserRole] = GrafanaUserRole.UNKNOWN_ROLE
     """
     Role assigned to the Grafana user.
     """
@@ -669,14 +667,14 @@ class GlobalApiDeleteGrafanaUserRequest:
     Delete a Grafana user.
     """
 
-    project_id: Optional[str]
-    """
-    ID of the Project to target.
-    """
-
     grafana_user_id: int
     """
     ID of the Grafana user.
+    """
+
+    project_id: Optional[str] = None
+    """
+    ID of the Project to target.
     """
 
 
@@ -686,7 +684,7 @@ class GlobalApiGetCurrentPlanRequest:
     Retrieve a pricing plan for the given Project.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
@@ -698,14 +696,14 @@ class GlobalApiGetGrafanaProductDashboardRequest:
     Retrieve a specific dashboard.
     """
 
-    project_id: Optional[str]
-    """
-    ID of the Project the dashboard belongs to.
-    """
-
     dashboard_name: str
     """
     Name of the dashboard.
+    """
+
+    project_id: Optional[str] = None
+    """
+    ID of the Project the dashboard belongs to.
     """
 
 
@@ -715,7 +713,7 @@ class GlobalApiGetGrafanaRequest:
     Request a Grafana.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
@@ -727,22 +725,22 @@ class GlobalApiListGrafanaProductDashboardsRequest:
     Retrieve a list of available product dashboards.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to target.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Page size.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
@@ -754,22 +752,24 @@ class GlobalApiListGrafanaUsersRequest:
     List all Grafana users.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Page size.
     """
 
-    order_by: Optional[ListGrafanaUsersRequestOrderBy]
+    order_by: Optional[ListGrafanaUsersRequestOrderBy] = (
+        ListGrafanaUsersRequestOrderBy.LOGIN_ASC
+    )
     """
     Order of the Grafana users.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to target.
     """
@@ -781,17 +781,17 @@ class GlobalApiListPlansRequest:
     Retrieve a list of available pricing plans.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Page size.
     """
 
-    order_by: Optional[ListPlansRequestOrderBy]
+    order_by: Optional[ListPlansRequestOrderBy] = ListPlansRequestOrderBy.NAME_ASC
 
 
 @dataclass
@@ -800,14 +800,14 @@ class GlobalApiResetGrafanaUserPasswordRequest:
     Reset a Grafana user's password.
     """
 
-    project_id: Optional[str]
-    """
-    ID of the Project to target.
-    """
-
     grafana_user_id: int
     """
     ID of the Grafana user.
+    """
+
+    project_id: Optional[str] = None
+    """
+    ID of the Project to target.
     """
 
 
@@ -817,12 +817,12 @@ class GlobalApiSelectPlanRequest:
     Select a specific pricing plan.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
 
-    plan_name: Optional[PlanName]
+    plan_name: Optional[PlanName] = PlanName.UNKNOWN_NAME
     """
     Name of the pricing plan.
     """
@@ -834,7 +834,7 @@ class GlobalApiSyncGrafanaDataSourcesRequest:
     Trigger the synchronization of all data sources created in the relevant regions.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to target.
     """
@@ -987,22 +987,22 @@ class RegionalApiCreateContactPointRequest:
     Create a contact point.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to create the contact point in.
     """
 
-    send_resolved_notifications: Optional[bool]
+    send_resolved_notifications: Optional[bool] = False
     """
     Send an email notification when an alert is marked as resolved.
     """
 
-    email: Optional[ContactPointEmail]
+    email: Optional[ContactPointEmail] = None
 
 
 @dataclass
@@ -1016,22 +1016,22 @@ class RegionalApiCreateDataSourceRequest:
     Data source name.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project the data source belongs to.
     """
 
-    type_: Optional[DataSourceType]
+    type_: Optional[DataSourceType] = DataSourceType.UNKNOWN_TYPE
     """
     Data source type.
     """
 
-    retention_days: Optional[int]
+    retention_days: Optional[int] = 0
     """
     Default values are 31 days for metrics, 7 days for logs and traces.
     """
@@ -1048,17 +1048,17 @@ class RegionalApiCreateTokenRequest:
     Name of the token.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project the token belongs to.
     """
 
-    token_scopes: Optional[List[TokenScope]]
+    token_scopes: Optional[List[TokenScope]] = field(default_factory=list)
     """
     Token permission scopes.
     """
@@ -1070,17 +1070,17 @@ class RegionalApiDeleteContactPointRequest:
     Delete a contact point.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project containing the contact point to delete.
     """
 
-    email: Optional[ContactPointEmail]
+    email: Optional[ContactPointEmail] = None
 
 
 @dataclass
@@ -1094,7 +1094,7 @@ class RegionalApiDeleteDataSourceRequest:
     ID of the data source to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1111,7 +1111,7 @@ class RegionalApiDeleteTokenRequest:
     ID of the token to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1123,12 +1123,12 @@ class RegionalApiDisableAlertManagerRequest:
     Disable the Alert manager.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to disable the Alert manager in.
     """
@@ -1136,17 +1136,17 @@ class RegionalApiDisableAlertManagerRequest:
 
 @dataclass
 class RegionalApiDisableAlertRulesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
 
-    rule_ids: Optional[List[str]]
+    rule_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of IDs of the rules to enable. If empty, disables all preconfigured rules.
     """
@@ -1158,12 +1158,12 @@ class RegionalApiDisableManagedAlertsRequest:
     Disable the sending of managed alerts.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
@@ -1175,12 +1175,12 @@ class RegionalApiEnableAlertManagerRequest:
     Enable the Alert manager.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to enable the Alert manager in.
     """
@@ -1188,17 +1188,17 @@ class RegionalApiEnableAlertManagerRequest:
 
 @dataclass
 class RegionalApiEnableAlertRulesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
 
-    rule_ids: Optional[List[str]]
+    rule_ids: Optional[List[str]] = field(default_factory=list)
     """
     List of IDs of the rules to enable. If empty, enables all preconfigured rules.
     """
@@ -1210,12 +1210,12 @@ class RegionalApiEnableManagedAlertsRequest:
     Enable the sending of managed alerts.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
@@ -1227,12 +1227,12 @@ class RegionalApiGetAlertManagerRequest:
     Get the Alert manager.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID of the requested Alert manager.
     """
@@ -1244,7 +1244,7 @@ class RegionalApiGetConfigRequest:
     Get Cockpit configuration.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1261,7 +1261,7 @@ class RegionalApiGetDataSourceRequest:
     ID of the relevant data source.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1269,12 +1269,12 @@ class RegionalApiGetDataSourceRequest:
 
 @dataclass
 class RegionalApiGetRulesCountRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to retrieve the rule count for.
     """
@@ -1291,7 +1291,7 @@ class RegionalApiGetTokenRequest:
     Token ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1299,14 +1299,13 @@ class RegionalApiGetTokenRequest:
 
 @dataclass
 class RegionalApiGetUsageOverviewRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
-
-    interval: Optional[str]
+    project_id: Optional[str] = None
+    interval: Optional[str] = None
 
 
 @dataclass
@@ -1315,32 +1314,32 @@ class RegionalApiListAlertsRequest:
     Retrieve a list of alerts.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only alerts from this Project will be returned.
     """
 
-    rule_status: Optional[AlertStatus]
+    rule_status: Optional[AlertStatus] = AlertStatus.UNKNOWN_STATUS
     """
     Returns only alerts with the given activation status. If omitted, no alert filtering is applied. Other filters may still apply.
     """
 
-    is_preconfigured: Optional[bool]
+    is_preconfigured: Optional[bool] = False
     """
     True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
     """
 
-    state: Optional[AlertState]
+    state: Optional[AlertState] = AlertState.UNKNOWN_STATE
     """
     Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
     """
 
-    data_source_id: Optional[str]
+    data_source_id: Optional[str] = None
     """
     If omitted, only alerts from the default Scaleway metrics data source will be listed.
     """
@@ -1352,22 +1351,22 @@ class RegionalApiListContactPointsRequest:
     List contact points.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Total count of contact points to return per page.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project containing the contact points to list.
     """
@@ -1379,37 +1378,39 @@ class RegionalApiListDataSourcesRequest:
     List data sources.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of data sources to return per page.
     """
 
-    order_by: Optional[ListDataSourcesRequestOrderBy]
+    order_by: Optional[ListDataSourcesRequestOrderBy] = (
+        ListDataSourcesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order for data sources in the response.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for, only data sources from this Project will be returned.
     """
 
-    origin: Optional[DataSourceOrigin]
+    origin: Optional[DataSourceOrigin] = DataSourceOrigin.UNKNOWN_ORIGIN
     """
     Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
     """
 
-    types: Optional[List[DataSourceType]]
+    types: Optional[List[DataSourceType]] = field(default_factory=list)
     """
     Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
     """
@@ -1421,32 +1422,34 @@ class RegionalApiListTokensRequest:
     List tokens.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of tokens to return per page.
     """
 
-    order_by: Optional[ListTokensRequestOrderBy]
+    order_by: Optional[ListTokensRequestOrderBy] = (
+        ListTokensRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project the tokens belong to.
     """
 
-    token_scopes: Optional[List[TokenScope]]
+    token_scopes: Optional[List[TokenScope]] = field(default_factory=list)
     """
     Token scopes to filter for.
     """
@@ -1458,12 +1461,12 @@ class RegionalApiTriggerTestAlertRequest:
     Request to trigger a test alert.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project.
     """
@@ -1475,22 +1478,22 @@ class RegionalApiUpdateContactPointRequest:
     Update a contact point.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project containing the contact point to update.
     """
 
-    send_resolved_notifications: Optional[bool]
+    send_resolved_notifications: Optional[bool] = False
     """
     Enable or disable notifications when alert is resolved.
     """
 
-    email: Optional[ContactPointEmail]
+    email: Optional[ContactPointEmail] = None
 
 
 @dataclass
@@ -1504,17 +1507,17 @@ class RegionalApiUpdateDataSourceRequest:
     ID of the data source to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Updated name of the data source.
     """
 
-    retention_days: Optional[int]
+    retention_days: Optional[int] = 0
     """
     Duration for which the data will be retained in the data source.
     """
@@ -1522,12 +1525,8 @@ class RegionalApiUpdateDataSourceRequest:
 
 @dataclass
 class UsageOverview:
-    scaleway_metrics_usage: Optional[Usage]
-
-    scaleway_logs_usage: Optional[Usage]
-
-    external_metrics_usage: Optional[Usage]
-
-    external_logs_usage: Optional[Usage]
-
-    external_traces_usage: Optional[Usage]
+    scaleway_metrics_usage: Optional[Usage] = None
+    scaleway_logs_usage: Optional[Usage] = None
+    external_metrics_usage: Optional[Usage] = None
+    external_logs_usage: Optional[Usage] = None
+    external_traces_usage: Optional[Usage] = None

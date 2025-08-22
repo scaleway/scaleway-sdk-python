@@ -10,6 +10,10 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ImageStatus,
+    ImageVisibility,
+    NamespaceStatus,
+    TagStatus,
     Image,
     Namespace,
     Tag,
@@ -33,30 +37,44 @@ def unmarshal_Image(data: Any) -> Image:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("namespace_id", None)
     if field is not None:
         args["namespace_id"] = field
+    else:
+        args["namespace_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = ImageStatus.UNKNOWN
 
     field = data.get("visibility", None)
     if field is not None:
         args["visibility"] = field
+    else:
+        args["visibility"] = ImageVisibility.VISIBILITY_UNKNOWN
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("status_message", None)
     if field is not None:
@@ -90,50 +108,74 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = NamespaceStatus.UNKNOWN
 
     field = data.get("status_message", None)
     if field is not None:
         args["status_message"] = field
+    else:
+        args["status_message"] = None
 
     field = data.get("endpoint", None)
     if field is not None:
         args["endpoint"] = field
+    else:
+        args["endpoint"] = None
 
     field = data.get("is_public", None)
     if field is not None:
         args["is_public"] = field
+    else:
+        args["is_public"] = False
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("image_count", None)
     if field is not None:
         args["image_count"] = field
+    else:
+        args["image_count"] = 0
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -161,22 +203,32 @@ def unmarshal_Tag(data: Any) -> Tag:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("image_id", None)
     if field is not None:
         args["image_id"] = field
+    else:
+        args["image_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = TagStatus.UNKNOWN
 
     field = data.get("digest", None)
     if field is not None:
         args["digest"] = field
+    else:
+        args["digest"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -206,10 +258,14 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
         args["images"] = (
             [unmarshal_Image(v) for v in field] if field is not None else None
         )
+    else:
+        args["images"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListImagesResponse(**args)
 
@@ -227,10 +283,14 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
         args["namespaces"] = (
             [unmarshal_Namespace(v) for v in field] if field is not None else None
         )
+    else:
+        args["namespaces"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListNamespacesResponse(**args)
 
@@ -246,10 +306,14 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = [unmarshal_Tag(v) for v in field] if field is not None else None
+    else:
+        args["tags"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListTagsResponse(**args)
 
@@ -297,7 +361,7 @@ def marshal_UpdateImageRequest(
     output: Dict[str, Any] = {}
 
     if request.visibility is not None:
-        output["visibility"] = str(request.visibility)
+        output["visibility"] = request.visibility
 
     return output
 

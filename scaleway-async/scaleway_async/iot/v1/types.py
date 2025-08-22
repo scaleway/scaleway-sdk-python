@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
@@ -174,7 +174,7 @@ class DeviceMessageFiltersRule:
 If set to `reject`, all topics in the topics list will be denied, with all other topics being allowed.
     """
 
-    topics: Optional[List[str]]
+    topics: Optional[List[str]] = field(default_factory=list)
     """
     List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters.
     """
@@ -182,12 +182,12 @@ If set to `reject`, all topics in the topics list will be denied, with all other
 
 @dataclass
 class DeviceMessageFilters:
-    publish: Optional[DeviceMessageFiltersRule]
+    publish: Optional[DeviceMessageFiltersRule] = None
     """
     Filtering rule to restrict topics the device can publish to.
     """
 
-    subscribe: Optional[DeviceMessageFiltersRule]
+    subscribe: Optional[DeviceMessageFiltersRule] = None
     """
     Filtering rule to restrict topics the device can subscribe to.
     """
@@ -201,7 +201,6 @@ class HubTwinsGraphiteConfig:
 @dataclass
 class Certificate:
     crt: str
-
     key: str
 
 
@@ -232,11 +231,6 @@ class Device:
     Hub ID.
     """
 
-    last_activity_at: Optional[datetime]
-    """
-    Last connection/activity date of a device.
-    """
-
     is_connected: bool
     """
     Defines whether the device is connected to the Hub.
@@ -257,17 +251,22 @@ class Device:
     Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
     """
 
-    message_filters: Optional[DeviceMessageFilters]
+    last_activity_at: Optional[datetime] = None
+    """
+    Last connection/activity date of a device.
+    """
+
+    message_filters: Optional[DeviceMessageFilters] = None
     """
     Filter-sets to restrict the topics the device can publish/subscribe to.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date at which the device was added.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date at which the device was last modified.
     """
@@ -305,7 +304,7 @@ class Network:
     This prefix will be prepended to all topics for this Network.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date at which the network was created.
     """
@@ -314,37 +313,26 @@ class Network:
 @dataclass
 class CreateRouteRequestDatabaseConfig:
     host: str
-
     port: int
-
     dbname: str
-
     username: str
-
     password: str
-
     query: str
-
     engine: RouteDatabaseConfigEngine
 
 
 @dataclass
 class CreateRouteRequestRestConfig:
     verb: RouteRestConfigHttpVerb
-
     uri: str
-
     headers: Dict[str, str]
 
 
 @dataclass
 class CreateRouteRequestS3Config:
     bucket_region: str
-
     bucket_name: str
-
     object_prefix: str
-
     strategy: RouteS3ConfigS3Strategy
 
 
@@ -425,17 +413,17 @@ class Hub:
     Flag is automatically set to `false` after Hub creation, as Hub certificates are managed by Scaleway. Once a custom certificate authority is set, the flag will be set to `true`.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Hub creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Hub last modification date.
     """
 
-    twins_graphite_config: Optional[HubTwinsGraphiteConfig]
+    twins_graphite_config: Optional[HubTwinsGraphiteConfig] = None
 
 
 @dataclass
@@ -465,12 +453,12 @@ class RouteSummary:
     Route type.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date at which the route was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date at which the route was last updated.
     """
@@ -566,38 +554,27 @@ class RouteS3Config:
 @dataclass
 class UpdateRouteRequestDatabaseConfig:
     engine: RouteDatabaseConfigEngine
-
-    host: Optional[str]
-
-    port: Optional[int]
-
-    dbname: Optional[str]
-
-    username: Optional[str]
-
-    password: Optional[str]
-
-    query: Optional[str]
+    host: Optional[str] = None
+    port: Optional[int] = None
+    dbname: Optional[str] = None
+    username: Optional[str] = None
+    password: Optional[str] = None
+    query: Optional[str] = None
 
 
 @dataclass
 class UpdateRouteRequestRestConfig:
     verb: RouteRestConfigHttpVerb
-
-    uri: Optional[str]
-
-    headers: Optional[Dict[str, str]]
+    uri: Optional[str] = None
+    headers: Optional[Dict[str, str]] = field(default_factory=dict)
 
 
 @dataclass
 class UpdateRouteRequestS3Config:
     strategy: RouteS3ConfigS3Strategy
-
-    bucket_region: Optional[str]
-
-    bucket_name: Optional[str]
-
-    object_prefix: Optional[str]
+    bucket_region: Optional[str] = None
+    bucket_name: Optional[str] = None
+    object_prefix: Optional[str] = None
 
 
 @dataclass
@@ -617,22 +594,22 @@ class CreateDeviceRequest:
     Defines whether to allow multiple physical devices to connect with this device's credentials.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Device name.
     """
 
-    message_filters: Optional[DeviceMessageFilters]
+    message_filters: Optional[DeviceMessageFilters] = None
     """
     Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Device description.
     """
@@ -640,12 +617,12 @@ class CreateDeviceRequest:
 
 @dataclass
 class CreateDeviceResponse:
-    device: Optional[Device]
+    device: Optional[Device] = None
     """
     Information related to the created device.
     """
 
-    certificate: Optional[Certificate]
+    certificate: Optional[Certificate] = None
     """
     Device certificate.
     """
@@ -658,32 +635,32 @@ class CreateHubRequest:
     Hub product plan.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Hub name (up to 255 characters).
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project/Organization ID to filter for, only Hubs from this Project/Organization will be returned.
     """
 
-    disable_events: Optional[bool]
+    disable_events: Optional[bool] = False
     """
     Disable Hub events.
     """
 
-    events_topic_prefix: Optional[str]
+    events_topic_prefix: Optional[str] = None
     """
     Topic prefix (default '$SCW/events') of Hub events.
     """
 
-    twins_graphite_config: Optional[HubTwinsGraphiteConfig]
+    twins_graphite_config: Optional[HubTwinsGraphiteConfig] = None
 
 
 @dataclass
@@ -703,12 +680,12 @@ class CreateNetworkRequest:
     Topic prefix for the Network.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Network name.
     """
@@ -721,7 +698,7 @@ class CreateNetworkResponse:
     Endpoint Key to keep secret. This cannot be retrieved later.
     """
 
-    network: Optional[Network]
+    network: Optional[Network] = None
     """
     Information related to the created network.
     """
@@ -739,21 +716,21 @@ class CreateRouteRequest:
     Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Route name.
     """
 
-    s3_config: Optional[CreateRouteRequestS3Config]
+    s3_config: Optional[CreateRouteRequestS3Config] = None
 
-    db_config: Optional[CreateRouteRequestDatabaseConfig]
+    db_config: Optional[CreateRouteRequestDatabaseConfig] = None
 
-    rest_config: Optional[CreateRouteRequestRestConfig]
+    rest_config: Optional[CreateRouteRequestRestConfig] = None
 
 
 @dataclass
@@ -763,7 +740,7 @@ class DeleteDeviceRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -776,12 +753,12 @@ class DeleteHubRequest:
     Hub ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    delete_devices: Optional[bool]
+    delete_devices: Optional[bool] = False
     """
     Defines whether to force the deletion of devices added to this Hub or reject the operation.
     """
@@ -794,7 +771,7 @@ class DeleteNetworkRequest:
     Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -807,7 +784,7 @@ class DeleteRouteRequest:
     Route ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -825,7 +802,7 @@ class DeleteTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -838,7 +815,7 @@ class DeleteTwinDocumentsRequest:
     Twin ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -851,7 +828,7 @@ class DisableDeviceRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -864,7 +841,7 @@ class DisableHubRequest:
     Hub ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -877,7 +854,7 @@ class EnableDeviceRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -890,7 +867,7 @@ class EnableHubRequest:
     Hub ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -903,7 +880,7 @@ class GetDeviceCertificateRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -916,7 +893,7 @@ class GetDeviceCertificateResponse:
     Device certificate.
     """
 
-    device: Optional[Device]
+    device: Optional[Device] = None
     """
     Information related to the created device.
     """
@@ -929,12 +906,12 @@ class GetDeviceMetricsRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    start_date: Optional[datetime]
+    start_date: Optional[datetime] = None
     """
     Start date used to compute the best scale for the returned metrics.
     """
@@ -955,7 +932,7 @@ class GetDeviceRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -964,8 +941,7 @@ class GetDeviceRequest:
 @dataclass
 class GetHubCARequest:
     hub_id: str
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -983,12 +959,12 @@ class GetHubMetricsRequest:
     Hub ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    start_date: Optional[datetime]
+    start_date: Optional[datetime] = None
     """
     Start date used to compute the best scale for returned metrics.
     """
@@ -1009,7 +985,7 @@ class GetHubRequest:
     Hub ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1022,7 +998,7 @@ class GetNetworkRequest:
     Network ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1035,7 +1011,7 @@ class GetRouteRequest:
     Route ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1053,7 +1029,7 @@ class GetTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1061,42 +1037,42 @@ class GetTwinDocumentRequest:
 
 @dataclass
 class ListDevicesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of devices to return within a page. Maximum value is 100.
     """
 
-    order_by: Optional[ListDevicesRequestOrderBy]
+    order_by: Optional[ListDevicesRequestOrderBy] = ListDevicesRequestOrderBy.NAME_ASC
     """
     Ordering of requested devices.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name to filter for, only devices with this name will be returned.
     """
 
-    hub_id: Optional[str]
+    hub_id: Optional[str] = None
     """
     Hub ID to filter for, only devices attached to this Hub will be returned.
     """
 
-    allow_insecure: Optional[bool]
+    allow_insecure: Optional[bool] = False
     """
     Defines whether to filter the allow_insecure flag.
     """
 
-    status: Optional[DeviceStatus]
+    status: Optional[DeviceStatus] = DeviceStatus.UNKNOWN
     """
     Device status (enabled, disabled, etc.).
     """
@@ -1117,37 +1093,37 @@ class ListDevicesResponse:
 
 @dataclass
 class ListHubsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of Hubs to return within a page. Maximum value is 100.
     """
 
-    order_by: Optional[ListHubsRequestOrderBy]
+    order_by: Optional[ListHubsRequestOrderBy] = ListHubsRequestOrderBy.NAME_ASC
     """
     Sort order of Hubs in the response.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Only list Hubs of this Project ID.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Only list Hubs of this Organization ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Hub name.
     """
@@ -1168,37 +1144,37 @@ class ListHubsResponse:
 
 @dataclass
 class ListNetworksRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of networks to return. The maximum value is 100.
     """
 
-    order_by: Optional[ListNetworksRequestOrderBy]
+    order_by: Optional[ListNetworksRequestOrderBy] = ListNetworksRequestOrderBy.NAME_ASC
     """
     Ordering of requested routes.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Network name to filter for.
     """
 
-    hub_id: Optional[str]
+    hub_id: Optional[str] = None
     """
     Hub ID to filter for.
     """
 
-    topic_prefix: Optional[str]
+    topic_prefix: Optional[str] = None
     """
     Topic prefix to filter for.
     """
@@ -1219,32 +1195,32 @@ class ListNetworksResponse:
 
 @dataclass
 class ListRoutesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of routes to return within a page. Maximum value is 100.
     """
 
-    order_by: Optional[ListRoutesRequestOrderBy]
+    order_by: Optional[ListRoutesRequestOrderBy] = ListRoutesRequestOrderBy.NAME_ASC
     """
     Ordering of requested routes.
     """
 
-    hub_id: Optional[str]
+    hub_id: Optional[str] = None
     """
     Hub ID to filter for.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Route name to filter for.
     """
@@ -1270,7 +1246,7 @@ class ListTwinDocumentsRequest:
     Twin ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1296,17 +1272,17 @@ class PatchTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    version: Optional[int]
+    version: Optional[int] = 0
     """
     If set, ensures that the current version of the document matches before persisting the update.
     """
 
-    data: Optional[Dict[str, Any]]
+    data: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     A json data that will be applied on the document's current data.
 Patching rules:
@@ -1329,17 +1305,17 @@ class PutTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    version: Optional[int]
+    version: Optional[int] = 0
     """
     If set, ensures that the current version of the document matches before persisting the update.
     """
 
-    data: Optional[Dict[str, Any]]
+    data: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     New data that will replace the contents of the document.
     """
@@ -1352,7 +1328,7 @@ class RenewDeviceCertificateRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1360,12 +1336,12 @@ class RenewDeviceCertificateRequest:
 
 @dataclass
 class RenewDeviceCertificateResponse:
-    device: Optional[Device]
+    device: Optional[Device] = None
     """
     Information related to the created device.
     """
 
-    certificate: Optional[Certificate]
+    certificate: Optional[Certificate] = None
     """
     Device certificate.
     """
@@ -1398,21 +1374,21 @@ class Route:
     Route type.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date at which the route was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date at which the route was last updated.
     """
 
-    s3_config: Optional[RouteS3Config]
+    s3_config: Optional[RouteS3Config] = None
 
-    db_config: Optional[RouteDatabaseConfig]
+    db_config: Optional[RouteDatabaseConfig] = None
 
-    rest_config: Optional[RouteRestConfig]
+    rest_config: Optional[RouteRestConfig] = None
 
 
 @dataclass
@@ -1427,7 +1403,7 @@ class SetDeviceCertificateRequest:
     PEM-encoded custom certificate.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1436,8 +1412,7 @@ class SetDeviceCertificateRequest:
 @dataclass
 class SetDeviceCertificateResponse:
     certificate_pem: str
-
-    device: Optional[Device]
+    device: Optional[Device] = None
 
 
 @dataclass
@@ -1457,7 +1432,7 @@ class SetHubCARequest:
     Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1480,7 +1455,7 @@ class TwinDocument:
     New version of the document.
     """
 
-    data: Optional[Dict[str, Any]]
+    data: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     New data related to the document.
     """
@@ -1493,32 +1468,32 @@ class UpdateDeviceRequest:
     Device ID.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description for the device.
     """
 
-    allow_insecure: Optional[bool]
+    allow_insecure: Optional[bool] = False
     """
     Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
     """
 
-    allow_multiple_connections: Optional[bool]
+    allow_multiple_connections: Optional[bool] = False
     """
     Defines whether to allow multiple physical devices to connect with this device's credentials.
     """
 
-    message_filters: Optional[DeviceMessageFilters]
+    message_filters: Optional[DeviceMessageFilters] = None
     """
     Filter-sets to restrict the topics the device can publish/subscribe to.
     """
 
-    hub_id: Optional[str]
+    hub_id: Optional[str] = None
     """
     Change Hub for this device, additional fees may apply, see IoT Hub pricing.
     """
@@ -1531,37 +1506,37 @@ class UpdateHubRequest:
     ID of the Hub you want to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Hub name (up to 255 characters).
     """
 
-    product_plan: Optional[HubProductPlan]
+    product_plan: Optional[HubProductPlan] = HubProductPlan.PLAN_UNKNOWN
     """
     Hub product plan.
     """
 
-    disable_events: Optional[bool]
+    disable_events: Optional[bool] = False
     """
     Disable Hub events.
     """
 
-    events_topic_prefix: Optional[str]
+    events_topic_prefix: Optional[str] = None
     """
     Topic prefix of Hub events.
     """
 
-    enable_device_auto_provisioning: Optional[bool]
+    enable_device_auto_provisioning: Optional[bool] = False
     """
     Enable device auto provisioning.
     """
 
-    twins_graphite_config: Optional[HubTwinsGraphiteConfig]
+    twins_graphite_config: Optional[HubTwinsGraphiteConfig] = None
 
 
 @dataclass
@@ -1571,23 +1546,23 @@ class UpdateRouteRequest:
     Route id.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Route name.
     """
 
-    topic: Optional[str]
+    topic: Optional[str] = None
     """
     Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
     """
 
-    s3_config: Optional[UpdateRouteRequestS3Config]
+    s3_config: Optional[UpdateRouteRequestS3Config] = None
 
-    db_config: Optional[UpdateRouteRequestDatabaseConfig]
+    db_config: Optional[UpdateRouteRequestDatabaseConfig] = None
 
-    rest_config: Optional[UpdateRouteRequestRestConfig]
+    rest_config: Optional[UpdateRouteRequestRestConfig] = None

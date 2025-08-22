@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -85,12 +85,12 @@ class MACAddress:
     MAC address IP Availability Zone.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the virtual MAC was last updated.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the virtual MAC was created.
     """
@@ -138,11 +138,6 @@ class FlexibleIP:
     IP of the flexible IP.
     """
 
-    updated_at: Optional[datetime]
-    """
-    Date on which the flexible IP was last updated.
-    """
-
     reverse: str
     """
     Reverse DNS value.
@@ -153,17 +148,22 @@ class FlexibleIP:
     Availability Zone of the flexible IP.
     """
 
-    created_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
+    """
+    Date on which the flexible IP was last updated.
+    """
+
+    created_at: Optional[datetime] = None
     """
     Date on which the flexible IP was created.
     """
 
-    mac_address: Optional[MACAddress]
+    mac_address: Optional[MACAddress] = None
     """
     MAC address of the flexible IP.
     """
 
-    server_id: Optional[str]
+    server_id: Optional[str] = None
     """
     ID of the server linked to the flexible IP.
     """
@@ -181,7 +181,7 @@ class AttachFlexibleIPRequest:
     ID of the server on which to attach the flexible IPs.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -212,27 +212,27 @@ class CreateFlexibleIPRequest:
     Defines whether the flexible IP has an IPv6 address.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the project to associate with the Flexible IP.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to associate to the flexible IP.
     """
 
-    server_id: Optional[str]
+    server_id: Optional[str] = None
     """
     ID of the server to which the newly created flexible IP will be attached.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Value of the reverse DNS.
     """
@@ -245,7 +245,7 @@ class DeleteFlexibleIPRequest:
     ID of the flexible IP to delete.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -258,7 +258,7 @@ class DeleteMACAddrRequest:
     If the flexible IP belongs to a MAC group, the MAC will be removed from both the MAC group and flexible IP.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -271,7 +271,7 @@ class DetachFlexibleIPRequest:
     List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -302,7 +302,7 @@ class DuplicateMACAddrRequest:
     Note that flexible IPs need to be attached to the same server.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -320,7 +320,7 @@ class GenerateMACAddrRequest:
     TODO.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -333,7 +333,7 @@ class GetFlexibleIPRequest:
     ID of the flexible IP.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -341,47 +341,49 @@ class GetFlexibleIPRequest:
 
 @dataclass
 class ListFlexibleIPsRequest:
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    order_by: Optional[ListFlexibleIPsRequestOrderBy]
+    order_by: Optional[ListFlexibleIPsRequestOrderBy] = (
+        ListFlexibleIPsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of the returned flexible IPs.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of flexible IPs per page.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Filter by tag, only flexible IPs with one or more matching tags will be returned.
     """
 
-    status: Optional[List[FlexibleIPStatus]]
+    status: Optional[List[FlexibleIPStatus]] = field(default_factory=list)
     """
     Filter by status, only flexible IPs with this status will be returned.
     """
 
-    server_ids: Optional[List[str]]
+    server_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by server IDs, only flexible IPs with these server IDs will be returned.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID, only flexible IPs from this Organization will be returned.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID, only flexible IPs from this Project will be returned.
     """
@@ -403,10 +405,8 @@ class ListFlexibleIPsResponse:
 @dataclass
 class MoveMACAddrRequest:
     fip_id: str
-
     dst_fip_id: str
-
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -419,22 +419,22 @@ class UpdateFlexibleIPRequest:
     ID of the flexible IP to update.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Flexible IP description (max. 255 characters).
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the flexible IP.
     """
 
-    reverse: Optional[str]
+    reverse: Optional[str] = None
     """
     Value of the reverse DNS.
     """

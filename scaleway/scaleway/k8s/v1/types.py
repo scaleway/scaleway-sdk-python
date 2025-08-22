@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -212,18 +212,17 @@ class MaintenanceWindow:
 @dataclass
 class PoolUpgradePolicy:
     max_unavailable: int
-
     max_surge: int
 
 
 @dataclass
 class CreateClusterRequestPoolConfigUpgradePolicy:
-    max_unavailable: Optional[int]
+    max_unavailable: Optional[int] = 0
     """
     The maximum number of nodes that can be not ready at the same time.
     """
 
-    max_surge: Optional[int]
+    max_surge: Optional[int] = 0
     """
     The maximum number of nodes to be created during the upgrade.
     """
@@ -236,7 +235,7 @@ class ClusterAutoUpgrade:
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: Optional[MaintenanceWindow]
+    maintenance_window: Optional[MaintenanceWindow] = None
     """
     Maintenance window of the cluster auto upgrades.
     """
@@ -385,16 +384,6 @@ class Pool:
     Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the pool was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the pool was last updated.
-    """
-
     container_runtime: Runtime
     """
     Customization of the container runtime is available for each pool.
@@ -443,22 +432,32 @@ class Pool:
     Cluster region of the pool.
     """
 
-    placement_group_id: Optional[str]
+    created_at: Optional[datetime] = None
+    """
+    Date on which the pool was created.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date on which the pool was last updated.
+    """
+
+    placement_group_id: Optional[str] = None
     """
     Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
     """
 
-    upgrade_policy: Optional[PoolUpgradePolicy]
+    upgrade_policy: Optional[PoolUpgradePolicy] = None
     """
     Pool upgrade policy.
     """
 
-    root_volume_size: Optional[int]
+    root_volume_size: Optional[int] = 0
     """
     System volume disk size.
     """
 
-    new_images_enabled: Optional[bool]
+    new_images_enabled: Optional[bool] = False
     """
     Defines whether the pool is migrated to new images.
     """
@@ -471,9 +470,9 @@ class ACLRuleRequest:
     Description of the ACL.
     """
 
-    ip: Optional[str]
+    ip: Optional[str] = None
 
-    scaleway_ranges: Optional[bool]
+    scaleway_ranges: Optional[bool] = False
 
 
 @dataclass
@@ -488,9 +487,9 @@ class ACLRule:
     Description of the ACL.
     """
 
-    ip: Optional[str]
+    ip: Optional[str] = None
 
-    scaleway_ranges: Optional[bool]
+    scaleway_ranges: Optional[bool] = False
 
 
 @dataclass
@@ -500,7 +499,7 @@ class CreateClusterRequestAutoUpgrade:
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: Optional[MaintenanceWindow]
+    maintenance_window: Optional[MaintenanceWindow] = None
     """
     Maintenance window of the cluster auto upgrades.
     """
@@ -518,42 +517,42 @@ class CreateClusterRequestAutoscalerConfig:
     Type of node group expander to be used in scale up.
     """
 
-    scale_down_disabled: Optional[bool]
+    scale_down_disabled: Optional[bool] = False
     """
     Disable the cluster autoscaler.
     """
 
-    scale_down_delay_after_add: Optional[str]
+    scale_down_delay_after_add: Optional[str] = None
     """
     How long after scale up the scale down evaluation resumes.
     """
 
-    ignore_daemonsets_utilization: Optional[bool]
+    ignore_daemonsets_utilization: Optional[bool] = False
     """
     Ignore DaemonSet pods when calculating resource utilization for scaling down.
     """
 
-    balance_similar_node_groups: Optional[bool]
+    balance_similar_node_groups: Optional[bool] = False
     """
     Detect similar node groups and balance the number of nodes between them.
     """
 
-    expendable_pods_priority_cutoff: Optional[int]
+    expendable_pods_priority_cutoff: Optional[int] = 0
     """
     Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
     """
 
-    scale_down_unneeded_time: Optional[str]
+    scale_down_unneeded_time: Optional[str] = None
     """
     How long a node should be unneeded before it is eligible to be scaled down.
     """
 
-    scale_down_utilization_threshold: Optional[float]
+    scale_down_utilization_threshold: Optional[float] = 0.0
     """
     Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down.
     """
 
-    max_graceful_termination_sec: Optional[int]
+    max_graceful_termination_sec: Optional[int] = 0
     """
     Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node.
     """
@@ -571,27 +570,27 @@ class CreateClusterRequestOpenIDConnectConfig:
     A client ID that all tokens must be issued for.
     """
 
-    username_claim: Optional[str]
+    username_claim: Optional[str] = None
     """
     JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision.
     """
 
-    username_prefix: Optional[str]
+    username_prefix: Optional[str] = None
     """
     Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
-    groups_claim: Optional[List[str]]
+    groups_claim: Optional[List[str]] = field(default_factory=list)
     """
     JWT claim to use as the user's group.
     """
 
-    groups_prefix: Optional[str]
+    groups_prefix: Optional[str] = None
     """
     Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
-    required_claim: Optional[List[str]]
+    required_claim: Optional[List[str]] = field(default_factory=list)
     """
     Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
@@ -622,21 +621,6 @@ class CreateClusterRequestPoolConfig:
     container_runtime: Runtime
     """
     Customization of the container runtime is available for each pool.
-    """
-
-    placement_group_id: Optional[str]
-    """
-    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
-    """
-
-    min_size: Optional[int]
-    """
-    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    max_size: Optional[int]
-    """
-    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
     """
 
     autohealing: bool
@@ -672,17 +656,32 @@ class CreateClusterRequestPoolConfig:
     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
     """
 
-    upgrade_policy: Optional[CreateClusterRequestPoolConfigUpgradePolicy]
+    placement_group_id: Optional[str] = None
+    """
+    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
+    """
+
+    min_size: Optional[int] = 0
+    """
+    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    max_size: Optional[int] = 0
+    """
+    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    upgrade_policy: Optional[CreateClusterRequestPoolConfigUpgradePolicy] = None
     """
     Pool upgrade policy.
     """
 
-    root_volume_size: Optional[int]
+    root_volume_size: Optional[int] = 0
     """
     System volume disk size.
     """
 
-    security_group_id: Optional[str]
+    security_group_id: Optional[str] = None
     """
     Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
     """
@@ -690,17 +689,14 @@ class CreateClusterRequestPoolConfig:
 
 @dataclass
 class CreatePoolRequestUpgradePolicy:
-    max_unavailable: Optional[int]
-
-    max_surge: Optional[int]
+    max_unavailable: Optional[int] = None
+    max_surge: Optional[int] = None
 
 
 @dataclass
 class ExternalNodeCoreV1Taint:
     key: str
-
     value: str
-
     effect: str
 
 
@@ -751,7 +747,7 @@ class ClusterType:
     Maximum amount of data that can be stored in etcd for the offer.
     """
 
-    commitment_delay: Optional[str]
+    commitment_delay: Optional[str] = None
     """
     Time period during which you can no longer switch to a lower offer.
     """
@@ -882,31 +878,6 @@ class Cluster:
     List of enabled admission plugins.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the cluster was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the cluster was last updated.
-    """
-
-    autoscaler_config: Optional[ClusterAutoscalerConfig]
-    """
-    Autoscaler config for the cluster.
-    """
-
-    auto_upgrade: Optional[ClusterAutoUpgrade]
-    """
-    Auto upgrade Kubernetes version of the cluster.
-    """
-
-    open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
-    """
-    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
-    """
-
     apiserver_cert_sans: List[str]
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
@@ -932,22 +903,47 @@ class Cluster:
     IP used for the DNS Service.
     """
 
-    private_network_id: Optional[str]
+    created_at: Optional[datetime] = None
+    """
+    Date on which the cluster was created.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date on which the cluster was last updated.
+    """
+
+    autoscaler_config: Optional[ClusterAutoscalerConfig] = None
+    """
+    Autoscaler config for the cluster.
+    """
+
+    auto_upgrade: Optional[ClusterAutoUpgrade] = None
+    """
+    Auto upgrade Kubernetes version of the cluster.
+    """
+
+    open_id_connect_config: Optional[ClusterOpenIDConnectConfig] = None
+    """
+    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+    """
+
+    private_network_id: Optional[str] = None
     """
     Private network ID for internal cluster communication.
     """
 
-    commitment_ends_at: Optional[datetime]
+    commitment_ends_at: Optional[datetime] = None
     """
     Date on which it will be possible to switch to a smaller offer.
     """
 
-    acl_available: Optional[bool]
+    acl_available: Optional[bool] = False
     """
     Defines whether ACL is available on the cluster.
     """
 
-    new_images_enabled: Optional[bool]
+    new_images_enabled: Optional[bool] = False
     """
     Defines whether all pools are migrated to new images.
     """
@@ -985,37 +981,37 @@ class Node:
     Name of the node.
     """
 
-    public_ip_v4: Optional[str]
-    """
-    Public IPv4 address of the node.
-    """
-
-    public_ip_v6: Optional[str]
-    """
-    Public IPv6 address of the node.
-    """
-
-    conditions: Optional[Dict[str, str]]
-    """
-    Conditions of the node. These conditions contain the Node Problem Detector conditions, as well as some in house conditions.
-    """
-
     status: NodeStatus
     """
     Status of the node.
     """
 
-    error_message: Optional[str]
+    public_ip_v4: Optional[str] = None
+    """
+    Public IPv4 address of the node.
+    """
+
+    public_ip_v6: Optional[str] = None
+    """
+    Public IPv6 address of the node.
+    """
+
+    conditions: Optional[Dict[str, str]] = field(default_factory=dict)
+    """
+    Conditions of the node. These conditions contain the Node Problem Detector conditions, as well as some in house conditions.
+    """
+
+    error_message: Optional[str] = None
     """
     Details of the error, if any occurred when managing the node.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date on which the node was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date on which the node was last updated.
     """
@@ -1024,20 +1020,18 @@ class Node:
 @dataclass
 class NodeMetadataCoreV1Taint:
     key: str
-
     value: str
-
     effect: str
 
 
 @dataclass
 class UpdateClusterRequestAutoUpgrade:
-    enable: Optional[bool]
+    enable: Optional[bool] = False
     """
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: Optional[MaintenanceWindow]
+    maintenance_window: Optional[MaintenanceWindow] = None
     """
     Maintenance window of the cluster auto upgrades.
     """
@@ -1055,42 +1049,42 @@ class UpdateClusterRequestAutoscalerConfig:
     Type of node group expander to be used in scale up.
     """
 
-    scale_down_disabled: Optional[bool]
+    scale_down_disabled: Optional[bool] = False
     """
     Disable the cluster autoscaler.
     """
 
-    scale_down_delay_after_add: Optional[str]
+    scale_down_delay_after_add: Optional[str] = None
     """
     How long after scale up the scale down evaluation resumes.
     """
 
-    ignore_daemonsets_utilization: Optional[bool]
+    ignore_daemonsets_utilization: Optional[bool] = False
     """
     Ignore DaemonSet pods when calculating resource utilization for scaling down.
     """
 
-    balance_similar_node_groups: Optional[bool]
+    balance_similar_node_groups: Optional[bool] = False
     """
     Detect similar node groups and balance the number of nodes between them.
     """
 
-    expendable_pods_priority_cutoff: Optional[int]
+    expendable_pods_priority_cutoff: Optional[int] = 0
     """
     Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
     """
 
-    scale_down_unneeded_time: Optional[str]
+    scale_down_unneeded_time: Optional[str] = None
     """
     How long a node should be unneeded before it is eligible to be scaled down.
     """
 
-    scale_down_utilization_threshold: Optional[float]
+    scale_down_utilization_threshold: Optional[float] = 0.0
     """
     Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down.
     """
 
-    max_graceful_termination_sec: Optional[int]
+    max_graceful_termination_sec: Optional[int] = 0
     """
     Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node.
     """
@@ -1098,37 +1092,37 @@ class UpdateClusterRequestAutoscalerConfig:
 
 @dataclass
 class UpdateClusterRequestOpenIDConnectConfig:
-    issuer_url: Optional[str]
+    issuer_url: Optional[str] = None
     """
     URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
     """
 
-    client_id: Optional[str]
+    client_id: Optional[str] = None
     """
     A client ID that all tokens must be issued for.
     """
 
-    username_claim: Optional[str]
+    username_claim: Optional[str] = None
     """
     JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision.
     """
 
-    username_prefix: Optional[str]
+    username_prefix: Optional[str] = None
     """
     Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
-    groups_claim: Optional[List[str]]
+    groups_claim: Optional[List[str]] = field(default_factory=list)
     """
     JWT claim to use as the user's group.
     """
 
-    groups_prefix: Optional[str]
+    groups_prefix: Optional[str] = None
     """
     Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
-    required_claim: Optional[List[str]]
+    required_claim: Optional[List[str]] = field(default_factory=list)
     """
     Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
@@ -1136,9 +1130,8 @@ class UpdateClusterRequestOpenIDConnectConfig:
 
 @dataclass
 class UpdatePoolRequestUpgradePolicy:
-    max_unavailable: Optional[int]
-
-    max_surge: Optional[int]
+    max_unavailable: Optional[int] = None
+    max_surge: Optional[int] = None
 
 
 @dataclass
@@ -1148,12 +1141,12 @@ class AddClusterACLRulesRequest:
     ID of the cluster whose ACLs will be added.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    acls: Optional[List[ACLRuleRequest]]
+    acls: Optional[List[ACLRuleRequest]] = field(default_factory=list)
     """
     ACLs to add.
     """
@@ -1174,7 +1167,7 @@ class AuthExternalNodeRequest:
     Pool the node will be attached to.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1202,86 +1195,85 @@ class CreateClusterRequest:
     Container Network Interface (CNI) plugin running in the cluster.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Cluster name.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the cluster.
     """
 
-    pools: Optional[List[CreateClusterRequestPoolConfig]]
+    pools: Optional[List[CreateClusterRequestPoolConfig]] = field(default_factory=list)
     """
     Pools created along with the cluster.
     """
 
-    autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig]
+    autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig] = None
     """
     Autoscaler configuration for the cluster. It allows you to set (to an extent) your preferred autoscaler configuration, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
     """
 
-    auto_upgrade: Optional[CreateClusterRequestAutoUpgrade]
+    auto_upgrade: Optional[CreateClusterRequestAutoUpgrade] = None
     """
     Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
     """
 
-    feature_gates: Optional[List[str]]
+    feature_gates: Optional[List[str]] = field(default_factory=list)
     """
     List of feature gates to enable.
     """
 
-    admission_plugins: Optional[List[str]]
+    admission_plugins: Optional[List[str]] = field(default_factory=list)
     """
     List of admission plugins to enable.
     """
 
-    open_id_connect_config: Optional[CreateClusterRequestOpenIDConnectConfig]
+    open_id_connect_config: Optional[CreateClusterRequestOpenIDConnectConfig] = None
     """
     OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
-    apiserver_cert_sans: Optional[List[str]]
+    apiserver_cert_sans: Optional[List[str]] = field(default_factory=list)
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     Private network ID for internal cluster communication (cannot be changed later).
     """
 
-    pod_cidr: Optional[str]
+    pod_cidr: Optional[str] = None
     """
     Subnet used for the Pod CIDR (cannot be changed later).
     """
 
-    service_cidr: Optional[str]
+    service_cidr: Optional[str] = None
     """
     Subnet used for the Service CIDR (cannot be changed later).
     """
 
-    service_dns_ip: Optional[str]
+    service_dns_ip: Optional[str] = None
     """
     IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
 class CreateExternalNodeRequest:
     pool_id: str
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1289,11 +1281,6 @@ class CreateExternalNodeRequest:
 
 @dataclass
 class CreatePoolRequest:
-    region: Optional[ScwRegion]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     cluster_id: str
     """
     Cluster ID to which the pool will be attached.
@@ -1314,21 +1301,6 @@ class CreatePoolRequest:
     Size (number of nodes) of the pool.
     """
 
-    name: Optional[str]
-    """
-    Pool name.
-    """
-
-    placement_group_id: Optional[str]
-    """
-    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
-    """
-
-    min_size: Optional[int]
-    """
-    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
     autohealing: bool
     """
     Defines whether the autohealing feature is enabled for the pool.
@@ -1339,37 +1311,57 @@ class CreatePoolRequest:
     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
     """
 
-    max_size: Optional[int]
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    Pool name.
+    """
+
+    placement_group_id: Optional[str] = None
+    """
+    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
+    """
+
+    min_size: Optional[int] = 0
+    """
+    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    max_size: Optional[int] = 0
     """
     Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
     """
 
-    container_runtime: Optional[Runtime]
+    container_runtime: Optional[Runtime] = Runtime.UNKNOWN_RUNTIME
     """
     Customization of the container runtime is available for each pool.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
     """
 
-    kubelet_args: Optional[Dict[str, str]]
+    kubelet_args: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
-    upgrade_policy: Optional[CreatePoolRequestUpgradePolicy]
+    upgrade_policy: Optional[CreatePoolRequestUpgradePolicy] = None
     """
     Pool upgrade policy.
     """
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
     """
     Zone in which the pool's nodes will be spawned.
     """
 
-    root_volume_type: Optional[PoolVolumeType]
+    root_volume_type: Optional[PoolVolumeType] = PoolVolumeType.DEFAULT_VOLUME_TYPE
     """
     * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
 * `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
@@ -1377,12 +1369,12 @@ class CreatePoolRequest:
 * `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
     """
 
-    root_volume_size: Optional[int]
+    root_volume_size: Optional[int] = 0
     """
     System volume disk size.
     """
 
-    security_group_id: Optional[str]
+    security_group_id: Optional[str] = None
     """
     Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
     """
@@ -1395,7 +1387,7 @@ class DeleteACLRuleRequest:
     ID of the ACL rule to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1413,7 +1405,7 @@ class DeleteClusterRequest:
     Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1436,7 +1428,7 @@ class DeleteNodeRequest:
     Add a new node after the deletion of this node.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1449,7 +1441,7 @@ class DeletePoolRequest:
     ID of the pool to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1458,38 +1450,24 @@ class DeletePoolRequest:
 @dataclass
 class ExternalNode:
     id: str
-
     name: str
-
     cluster_url: str
-
     pool_version: str
-
     cluster_ca: str
-
     kube_token: str
-
     kubelet_config: str
-
     external_ip: str
-
     containerd_version: str
-
     runc_version: str
-
     cni_plugins_version: str
-
     node_labels: Dict[str, str]
-
     node_taints: List[ExternalNodeCoreV1Taint]
-
     iam_token: str
 
 
 @dataclass
 class ExternalNodeAuth:
     node_secret_key: str
-
     metadata_url: str
 
 
@@ -1500,12 +1478,12 @@ class GetClusterKubeConfigRequest:
     Cluster ID for which to download the kubeconfig.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    redacted: Optional[bool]
+    redacted: Optional[bool] = False
     """
     Hide the legacy token from the kubeconfig.
     """
@@ -1518,7 +1496,7 @@ class GetClusterRequest:
     ID of the requested cluster.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1526,7 +1504,7 @@ class GetClusterRequest:
 
 @dataclass
 class GetNodeMetadataRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1539,7 +1517,7 @@ class GetNodeRequest:
     ID of the requested node.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1552,7 +1530,7 @@ class GetPoolRequest:
     ID of the requested pool.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1565,7 +1543,7 @@ class GetVersionRequest:
     Requested version name.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1578,17 +1556,17 @@ class ListClusterACLRulesRequest:
     ID of the cluster whose ACLs will be listed.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number for the returned ACLs.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of ACLs per page.
     """
@@ -1614,7 +1592,7 @@ class ListClusterAvailableTypesRequest:
     Cluster ID for which the available Kubernetes types will be listed.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1640,7 +1618,7 @@ class ListClusterAvailableVersionsRequest:
     Cluster ID for which the available Kubernetes versions will be listed.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1656,17 +1634,17 @@ class ListClusterAvailableVersionsResponse:
 
 @dataclass
 class ListClusterTypesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number, from the paginated results, to return for cluster-types.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of clusters per page.
     """
@@ -1687,52 +1665,54 @@ class ListClusterTypesResponse:
 
 @dataclass
 class ListClustersRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID on which to filter the returned clusters.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID on which to filter the returned clusters.
     """
 
-    order_by: Optional[ListClustersRequestOrderBy]
+    order_by: Optional[ListClustersRequestOrderBy] = (
+        ListClustersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of returned clusters.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return for clusters, from the paginated results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of clusters per page.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name to filter on, only clusters containing this substring in their name will be returned.
     """
 
-    status: Optional[ClusterStatus]
+    status: Optional[ClusterStatus] = ClusterStatus.UNKNOWN
     """
     Status to filter on, only clusters with this status will be returned.
     """
 
-    type_: Optional[str]
+    type_: Optional[str] = None
     """
     Type to filter on, only clusters with this type will be returned.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     Private Network ID to filter on, only clusters within this Private Network will be returned.
     """
@@ -1758,37 +1738,37 @@ class ListNodesRequest:
     Cluster ID from which the nodes will be listed from.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    pool_id: Optional[str]
+    pool_id: Optional[str] = None
     """
     Pool ID on which to filter the returned nodes.
     """
 
-    order_by: Optional[ListNodesRequestOrderBy]
+    order_by: Optional[ListNodesRequestOrderBy] = ListNodesRequestOrderBy.CREATED_AT_ASC
     """
     Sort order of the returned nodes.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number for the returned nodes.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of nodes per page.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name to filter on, only nodes containing this substring in their name will be returned.
     """
 
-    status: Optional[NodeStatus]
+    status: Optional[NodeStatus] = NodeStatus.UNKNOWN
     """
     Status to filter on, only nodes with this status will be returned.
     """
@@ -1814,32 +1794,32 @@ class ListPoolsRequest:
     ID of the cluster whose pools will be listed.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListPoolsRequestOrderBy]
+    order_by: Optional[ListPoolsRequestOrderBy] = ListPoolsRequestOrderBy.CREATED_AT_ASC
     """
     Sort order of returned pools.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number for the returned pools.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of pools per page.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name to filter on, only pools containing this substring in their name will be returned.
     """
 
-    status: Optional[PoolStatus]
+    status: Optional[PoolStatus] = PoolStatus.UNKNOWN
     """
     Status to filter on, only pools with this status will be returned.
     """
@@ -1860,7 +1840,7 @@ class ListPoolsResponse:
 
 @dataclass
 class ListVersionsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1877,51 +1857,33 @@ class ListVersionsResponse:
 @dataclass
 class MigratePoolsToNewImagesRequest:
     cluster_id: str
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    pool_ids: Optional[List[str]]
+    pool_ids: Optional[List[str]] = field(default_factory=list)
 
 
 @dataclass
 class NodeMetadata:
     id: str
-
     name: str
-
     cluster_url: str
-
     cluster_ca: str
-
     credential_provider_config: str
-
     pool_version: str
-
     kubelet_config: str
-
     node_labels: Dict[str, str]
-
     node_taints: List[NodeMetadataCoreV1Taint]
-
     provider_id: str
-
     resolvconf_path: str
-
     has_gpu: bool
-
     external_ip: str
-
     repo_uri: str
-
     installer_tags: List[str]
-
     updater_bin_url: str
-
     updater_bin_version: str
-
     updater_bin_path: str
 
 
@@ -1932,7 +1894,7 @@ class RebootNodeRequest:
     ID of the node to reboot.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1945,7 +1907,7 @@ class ReplaceNodeRequest:
     ID of the node to replace.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1958,7 +1920,7 @@ class ResetClusterAdminTokenRequest:
     Cluster ID on which the admin token will be renewed.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1971,12 +1933,12 @@ class SetClusterACLRulesRequest:
     ID of the cluster whose ACLs will be set.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    acls: Optional[List[ACLRuleRequest]]
+    acls: Optional[List[ACLRuleRequest]] = field(default_factory=list)
     """
     ACLs to set.
     """
@@ -2002,7 +1964,7 @@ class SetClusterTypeRequest:
     Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2015,52 +1977,52 @@ class UpdateClusterRequest:
     ID of the cluster to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     New external name for the cluster.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     New description for the cluster.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     New tags associated with the cluster.
     """
 
-    autoscaler_config: Optional[UpdateClusterRequestAutoscalerConfig]
+    autoscaler_config: Optional[UpdateClusterRequestAutoscalerConfig] = None
     """
     New autoscaler config for the cluster.
     """
 
-    auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade]
+    auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade] = None
     """
     New auto upgrade configuration for the cluster. Note that all fields needs to be set.
     """
 
-    feature_gates: Optional[List[str]]
+    feature_gates: Optional[List[str]] = field(default_factory=list)
     """
     List of feature gates to enable.
     """
 
-    admission_plugins: Optional[List[str]]
+    admission_plugins: Optional[List[str]] = field(default_factory=list)
     """
     List of admission plugins to enable.
     """
 
-    open_id_connect_config: Optional[UpdateClusterRequestOpenIDConnectConfig]
+    open_id_connect_config: Optional[UpdateClusterRequestOpenIDConnectConfig] = None
     """
     OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
-    apiserver_cert_sans: Optional[List[str]]
+    apiserver_cert_sans: Optional[List[str]] = field(default_factory=list)
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
@@ -2073,47 +2035,47 @@ class UpdatePoolRequest:
     ID of the pool to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    autoscaling: Optional[bool]
+    autoscaling: Optional[bool] = False
     """
     New value for the pool autoscaling enablement.
     """
 
-    size: Optional[int]
+    size: Optional[int] = 0
     """
     New desired pool size.
     """
 
-    min_size: Optional[int]
+    min_size: Optional[int] = 0
     """
     New minimum size for the pool.
     """
 
-    max_size: Optional[int]
+    max_size: Optional[int] = 0
     """
     New maximum size for the pool.
     """
 
-    autohealing: Optional[bool]
+    autohealing: Optional[bool] = False
     """
     New value for the pool autohealing enablement.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     New tags associated with the pool.
     """
 
-    kubelet_args: Optional[Dict[str, str]]
+    kubelet_args: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     New Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
-    upgrade_policy: Optional[UpdatePoolRequestUpgradePolicy]
+    upgrade_policy: Optional[UpdatePoolRequestUpgradePolicy] = None
     """
     New upgrade policy for the pool.
     """
@@ -2136,7 +2098,7 @@ class UpgradeClusterRequest:
     Defines whether pools will also be upgraded once the control plane is upgraded.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2154,7 +2116,7 @@ class UpgradePoolRequest:
     New Kubernetes version for the pool.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """

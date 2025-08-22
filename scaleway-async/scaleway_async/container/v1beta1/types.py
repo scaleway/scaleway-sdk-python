@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
@@ -212,29 +212,28 @@ class ContainerHealthCheckSpec:
 As a result, lowering this value can help to reduce the time it takes to detect a failed deployment.
     """
 
-    interval: Optional[str]
+    interval: Optional[str] = None
     """
     Period between health checks.
     """
 
-    http: Optional[ContainerHealthCheckSpecHTTPProbe]
+    http: Optional[ContainerHealthCheckSpecHTTPProbe] = None
 
-    tcp: Optional[ContainerHealthCheckSpecTCPProbe]
+    tcp: Optional[ContainerHealthCheckSpecTCPProbe] = None
 
 
 @dataclass
 class ContainerScalingOption:
-    concurrent_requests_threshold: Optional[int]
+    concurrent_requests_threshold: Optional[int] = None
 
-    cpu_usage_threshold: Optional[int]
+    cpu_usage_threshold: Optional[int] = None
 
-    memory_usage_threshold: Optional[int]
+    memory_usage_threshold: Optional[int] = None
 
 
 @dataclass
 class SecretHashedValue:
     key: str
-
     hashed_value: str
 
 
@@ -260,7 +259,7 @@ class TriggerMnqNatsClientConfig:
     Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
-    mnq_credential_id: Optional[str]
+    mnq_credential_id: Optional[str] = None
     """
     ID of the Messaging and Queuing credentials used to subscribe to the NATS subject.
     """
@@ -283,7 +282,7 @@ class TriggerMnqSqsClientConfig:
     Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
-    mnq_credential_id: Optional[str]
+    mnq_credential_id: Optional[str] = None
     """
     ID of the Messaging and Queuing credentials used to read from the SQS queue.
     """
@@ -292,19 +291,15 @@ class TriggerMnqSqsClientConfig:
 @dataclass
 class TriggerSqsClientConfig:
     endpoint: str
-
     queue_url: str
-
     access_key: str
-
     secret_key: str
 
 
 @dataclass
 class Secret:
     key: str
-
-    value: Optional[str]
+    value: Optional[str] = None
 
 
 @dataclass
@@ -351,11 +346,8 @@ class CreateTriggerRequestMnqSqsClientConfig:
 @dataclass
 class CreateTriggerRequestSqsClientConfig:
     endpoint: str
-
     queue_url: str
-
     access_key: str
-
     secret_key: str
 
 
@@ -426,21 +418,6 @@ class Container:
     Domain name attributed to the contaioner.
     """
 
-    timeout: Optional[str]
-    """
-    Processing time limit for the container.
-    """
-
-    error_message: Optional[str]
-    """
-    Last error message of the container.
-    """
-
-    description: Optional[str]
-    """
-    Description of the container.
-    """
-
     protocol: ContainerProtocol
     """
     Protocol the container uses.
@@ -473,14 +450,6 @@ class Container:
     Local storage limit of the container (in MB).
     """
 
-    scaling_option: Optional[ContainerScalingOption]
-    """
-    Possible values:
-- concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
-- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
-- memory_usage_threshold: Scale depending on the memory usage of a container instance.
-    """
-
     region: ScwRegion
     """
     Region in which the container will be deployed.
@@ -501,27 +470,50 @@ class Container:
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
 
-    health_check: Optional[ContainerHealthCheckSpec]
+    timeout: Optional[str] = None
+    """
+    Processing time limit for the container.
+    """
+
+    error_message: Optional[str] = None
+    """
+    Last error message of the container.
+    """
+
+    description: Optional[str] = None
+    """
+    Description of the container.
+    """
+
+    scaling_option: Optional[ContainerScalingOption] = None
+    """
+    Possible values:
+- concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+- memory_usage_threshold: Scale depending on the memory usage of a container instance.
+    """
+
+    health_check: Optional[ContainerHealthCheckSpec] = None
     """
     Health check configuration of the container.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the container.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update date of the container.
     """
 
-    ready_at: Optional[datetime]
+    ready_at: Optional[datetime] = None
     """
     Last date when the container was successfully deployed and set to ready.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
     """
@@ -554,7 +546,7 @@ class Cron:
     Name of the cron.
     """
 
-    args: Optional[Dict[str, Any]]
+    args: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
@@ -587,7 +579,7 @@ class Domain:
     Status of the domain.
     """
 
-    error_message: Optional[str]
+    error_message: Optional[str] = None
     """
     Last error message of the domain.
     """
@@ -630,11 +622,6 @@ class Namespace:
     UUID of the registry namespace.
     """
 
-    error_message: Optional[str]
-    """
-    Last error message of the namesace.
-    """
-
     registry_endpoint: str
     """
     Registry endpoint of the namespace.
@@ -655,22 +642,27 @@ class Namespace:
     List of tags applied to the Serverless Container Namespace.
     """
 
-    description: Optional[str]
+    error_message: Optional[str] = None
+    """
+    Last error message of the namesace.
+    """
+
+    description: Optional[str] = None
     """
     Description of the endpoint.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the namespace.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update date of the namespace.
     """
 
-    vpc_integration_activated: Optional[bool]
+    vpc_integration_activated: Optional[bool] = False
     """
     The value of this field doesn't matter anymore, and will be removed in a near future.
     """
@@ -693,24 +685,24 @@ class Token:
     Status of the token.
     """
 
-    public_key: Optional[str]
+    public_key: Optional[str] = None
     """
     Public key of the token.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the token.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiry date of the token.
     """
 
-    container_id: Optional[str]
+    container_id: Optional[str] = None
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
 
 
 @dataclass
@@ -745,23 +737,22 @@ class Trigger:
     Status of the trigger.
     """
 
-    error_message: Optional[str]
+    error_message: Optional[str] = None
     """
     Error message of the trigger.
     """
 
-    scw_sqs_config: Optional[TriggerMnqSqsClientConfig]
+    scw_sqs_config: Optional[TriggerMnqSqsClientConfig] = None
 
-    scw_nats_config: Optional[TriggerMnqNatsClientConfig]
+    scw_nats_config: Optional[TriggerMnqNatsClientConfig] = None
 
-    sqs_config: Optional[TriggerSqsClientConfig]
+    sqs_config: Optional[TriggerSqsClientConfig] = None
 
 
 @dataclass
 class UpdateTriggerRequestSqsClientConfig:
-    access_key: Optional[str]
-
-    secret_key: Optional[str]
+    access_key: Optional[str] = None
+    secret_key: Optional[str] = None
 
 
 @dataclass
@@ -776,94 +767,94 @@ class CreateContainerRequest:
     Name of the container.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the container.
     """
 
-    min_scale: Optional[int]
+    min_scale: Optional[int] = 0
     """
     Minimum number of instances to scale the container to.
     """
 
-    max_scale: Optional[int]
+    max_scale: Optional[int] = 0
     """
     Maximum number of instances to scale the container to.
     """
 
-    memory_limit: Optional[int]
+    memory_limit: Optional[int] = 0
     """
     Memory limit of the container in MB.
     """
 
-    cpu_limit: Optional[int]
+    cpu_limit: Optional[int] = 0
     """
     CPU limit of the container in mvCPU.
     """
 
-    timeout: Optional[str]
+    timeout: Optional[str] = None
     """
     Processing time limit for the container.
     """
 
-    privacy: Optional[ContainerPrivacy]
+    privacy: Optional[ContainerPrivacy] = ContainerPrivacy.UNKNOWN_PRIVACY
     """
     Privacy setting of the container.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the container.
     """
 
-    registry_image: Optional[str]
+    registry_image: Optional[str] = None
     """
     Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
     """
 
-    max_concurrency: Optional[int]
+    max_concurrency: Optional[int] = 0
     """
     Number of maximum concurrent executions of the container.
     """
 
-    protocol: Optional[ContainerProtocol]
+    protocol: Optional[ContainerProtocol] = ContainerProtocol.UNKNOWN_PROTOCOL
     """
     Protocol the container uses.
     """
 
-    port: Optional[int]
+    port: Optional[int] = 0
     """
     Port the container listens on.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the container.
     """
 
-    http_option: Optional[ContainerHttpOption]
+    http_option: Optional[ContainerHttpOption] = ContainerHttpOption.UNKNOWN_HTTP_OPTION
     """
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
     """
 
-    sandbox: Optional[ContainerSandbox]
+    sandbox: Optional[ContainerSandbox] = ContainerSandbox.UNKNOWN_SANDBOX
     """
     Execution environment of the container.
     """
 
-    local_storage_limit: Optional[int]
+    local_storage_limit: Optional[int] = 0
     """
     Local storage limit of the container (in MB).
     """
 
-    scaling_option: Optional[ContainerScalingOption]
+    scaling_option: Optional[ContainerScalingOption] = None
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
@@ -871,27 +862,27 @@ class CreateContainerRequest:
 - memory_usage_threshold: Scale depending on the memory usage of a container instance.
     """
 
-    health_check: Optional[ContainerHealthCheckSpec]
+    health_check: Optional[ContainerHealthCheckSpec] = None
     """
     Health check configuration of the container.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
     """
 
-    command: Optional[List[str]]
+    command: Optional[List[str]] = field(default_factory=list)
     """
     Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
     """
 
-    args: Optional[List[str]]
+    args: Optional[List[str]] = field(default_factory=list)
     """
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
@@ -909,17 +900,17 @@ class CreateCronRequest:
     UNIX cron shedule.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    args: Optional[Dict[str, Any]]
+    args: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the cron to create.
     """
@@ -937,7 +928,7 @@ class CreateDomainRequest:
     UUID of the container to assign the domain to.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -945,42 +936,42 @@ class CreateDomainRequest:
 
 @dataclass
 class CreateNamespaceRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the namespace to create.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace to create.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Project in which the namespace will be created.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the namespace to create.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace to create.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container Namespace.
     """
 
-    activate_vpc_integration: Optional[bool]
+    activate_vpc_integration: Optional[bool] = False
     """
     Setting this field to true doesn't matter anymore. It will be removed in a near future.
     """
@@ -988,24 +979,24 @@ class CreateNamespaceRequest:
 
 @dataclass
 class CreateTokenRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the token.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiry date of the token.
     """
 
-    container_id: Optional[str]
+    container_id: Optional[str] = None
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
 
 
 @dataclass
@@ -1020,21 +1011,21 @@ class CreateTriggerRequest:
     ID of the container to trigger.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the trigger.
     """
 
-    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
+    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None
 
-    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
+    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None
 
-    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
+    sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None
 
 
 @dataclass
@@ -1044,7 +1035,7 @@ class DeleteContainerRequest:
     UUID of the container to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1057,7 +1048,7 @@ class DeleteCronRequest:
     UUID of the cron to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1070,7 +1061,7 @@ class DeleteDomainRequest:
     UUID of the domain to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1083,7 +1074,7 @@ class DeleteNamespaceRequest:
     UUID of the namespace to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1096,7 +1087,7 @@ class DeleteTokenRequest:
     UUID of the token to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1109,7 +1100,7 @@ class DeleteTriggerRequest:
     ID of the trigger to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1122,7 +1113,7 @@ class DeployContainerRequest:
     UUID of the container to deploy.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1135,7 +1126,7 @@ class GetContainerRequest:
     UUID of the container to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1148,7 +1139,7 @@ class GetCronRequest:
     UUID of the cron to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1161,7 +1152,7 @@ class GetDomainRequest:
     UUID of the domain to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1174,7 +1165,7 @@ class GetNamespaceRequest:
     UUID of the namespace to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1187,7 +1178,7 @@ class GetTokenRequest:
     UUID of the token to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1200,7 +1191,7 @@ class GetTriggerRequest:
     ID of the trigger to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1213,37 +1204,39 @@ class ListContainersRequest:
     UUID of the namespace the container belongs to.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of containers per page.
     """
 
-    order_by: Optional[ListContainersRequestOrderBy]
+    order_by: Optional[ListContainersRequestOrderBy] = (
+        ListContainersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the containers.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the container.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     UUID of the Organization the container belongs to.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Project the container belongs to.
     """
@@ -1269,22 +1262,22 @@ class ListCronsRequest:
     UUID of the container invoked by the cron.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of crons per page.
     """
 
-    order_by: Optional[ListCronsRequestOrderBy]
+    order_by: Optional[ListCronsRequestOrderBy] = ListCronsRequestOrderBy.CREATED_AT_ASC
     """
     Order of the crons.
     """
@@ -1310,22 +1303,24 @@ class ListDomainsRequest:
     UUID of the container the domain belongs to.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of domains per page.
     """
 
-    order_by: Optional[ListDomainsRequestOrderBy]
+    order_by: Optional[ListDomainsRequestOrderBy] = (
+        ListDomainsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the domains.
     """
@@ -1346,37 +1341,39 @@ class ListDomainsResponse:
 
 @dataclass
 class ListNamespacesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of namespaces per page.
     """
 
-    order_by: Optional[ListNamespacesRequestOrderBy]
+    order_by: Optional[ListNamespacesRequestOrderBy] = (
+        ListNamespacesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the namespaces.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the namespaces.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     UUID of the Organization the namespace belongs to.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Project the namespace belongs to.
     """
@@ -1397,32 +1394,34 @@ class ListNamespacesResponse:
 
 @dataclass
 class ListTokensRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of tokens per page.
     """
 
-    order_by: Optional[ListTokensRequestOrderBy]
+    order_by: Optional[ListTokensRequestOrderBy] = (
+        ListTokensRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the tokens.
     """
 
-    container_id: Optional[str]
+    container_id: Optional[str] = None
     """
     UUID of the container the token belongs to.
     """
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
     """
     UUID of the namespace the token belongs to.
     """
@@ -1431,37 +1430,38 @@ class ListTokensRequest:
 @dataclass
 class ListTokensResponse:
     tokens: List[Token]
-
     total_count: int
 
 
 @dataclass
 class ListTriggersRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of triggers to return per page.
     """
 
-    order_by: Optional[ListTriggersRequestOrderBy]
+    order_by: Optional[ListTriggersRequestOrderBy] = (
+        ListTriggersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    container_id: Optional[str]
+    container_id: Optional[str] = None
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -1484,99 +1484,99 @@ class UpdateContainerRequest:
     UUID of the container to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the container.
     """
 
-    min_scale: Optional[int]
+    min_scale: Optional[int] = 0
     """
     Minimum number of instances to scale the container to.
     """
 
-    max_scale: Optional[int]
+    max_scale: Optional[int] = 0
     """
     Maximum number of instances to scale the container to.
     """
 
-    memory_limit: Optional[int]
+    memory_limit: Optional[int] = 0
     """
     Memory limit of the container in MB.
     """
 
-    cpu_limit: Optional[int]
+    cpu_limit: Optional[int] = 0
     """
     CPU limit of the container in mvCPU.
     """
 
-    timeout: Optional[str]
+    timeout: Optional[str] = None
     """
     Processing time limit for the container.
     """
 
-    redeploy: Optional[bool]
+    redeploy: Optional[bool] = False
     """
     Defines whether to redeploy failed containers.
     """
 
-    privacy: Optional[ContainerPrivacy]
+    privacy: Optional[ContainerPrivacy] = ContainerPrivacy.UNKNOWN_PRIVACY
     """
     Privacy settings of the container.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the container.
     """
 
-    registry_image: Optional[str]
+    registry_image: Optional[str] = None
     """
     Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
     """
 
-    max_concurrency: Optional[int]
+    max_concurrency: Optional[int] = 0
     """
     Number of maximum concurrent executions of the container.
     """
 
-    protocol: Optional[ContainerProtocol]
+    protocol: Optional[ContainerProtocol] = ContainerProtocol.UNKNOWN_PROTOCOL
     """
     Protocol the container uses.
     """
 
-    port: Optional[int]
+    port: Optional[int] = 0
     """
     Port the container listens on.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the container.
     """
 
-    http_option: Optional[ContainerHttpOption]
+    http_option: Optional[ContainerHttpOption] = ContainerHttpOption.UNKNOWN_HTTP_OPTION
     """
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
     """
 
-    sandbox: Optional[ContainerSandbox]
+    sandbox: Optional[ContainerSandbox] = ContainerSandbox.UNKNOWN_SANDBOX
     """
     Execution environment of the container.
     """
 
-    local_storage_limit: Optional[int]
+    local_storage_limit: Optional[int] = 0
     """
     Local storage limit of the container (in MB).
     """
 
-    scaling_option: Optional[ContainerScalingOption]
+    scaling_option: Optional[ContainerScalingOption] = None
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
@@ -1584,27 +1584,27 @@ class UpdateContainerRequest:
 - memory_usage_threshold: Scale depending on the memory usage of a container instance.
     """
 
-    health_check: Optional[ContainerHealthCheckSpec]
+    health_check: Optional[ContainerHealthCheckSpec] = None
     """
     Health check configuration of the container.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
     """
 
-    command: Optional[List[str]]
+    command: Optional[List[str]] = field(default_factory=list)
     """
     Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
     """
 
-    args: Optional[List[str]]
+    args: Optional[List[str]] = field(default_factory=list)
     """
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
@@ -1617,27 +1617,27 @@ class UpdateCronRequest:
     UUID of the cron to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    container_id: Optional[str]
+    container_id: Optional[str] = None
     """
     UUID of the container invoked by the cron.
     """
 
-    schedule: Optional[str]
+    schedule: Optional[str] = None
     """
     UNIX cron schedule.
     """
 
-    args: Optional[Dict[str, Any]]
+    args: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the cron.
     """
@@ -1650,27 +1650,27 @@ class UpdateNamespaceRequest:
     UUID of the namespace to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace to update.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the namespace to update.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace to update.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container Namespace.
     """
@@ -1683,19 +1683,19 @@ class UpdateTriggerRequest:
     ID of the trigger to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the trigger.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the trigger.
     """
 
-    sqs_config: Optional[UpdateTriggerRequestSqsClientConfig]
+    sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None

@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -227,32 +227,28 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class ConnectionConnectedOrganization:
     id: str
-
     name: str
-
     locked: bool
 
 
 @dataclass
 class ConnectionConnectedUser:
     id: str
-
     username: str
-
     type_: UserType
 
 
 @dataclass
 class QuotumLimit:
-    global_: Optional[bool]
+    global_: Optional[bool] = False
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
 
-    zone: Optional[ScwZone]
+    zone: Optional[ScwZone] = None
 
-    limit: Optional[int]
+    limit: Optional[int] = 0
 
-    unlimited: Optional[bool]
+    unlimited: Optional[bool] = False
 
 
 @dataclass
@@ -282,17 +278,17 @@ class JWT:
     User-agent used during the creation of the JWT.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the JWT.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update date of the JWT.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiration date of the JWT.
     """
@@ -305,14 +301,14 @@ class RuleSpecs:
     Condition expression to evaluate.
     """
 
-    permission_set_names: Optional[List[str]]
+    permission_set_names: Optional[List[str]] = field(default_factory=list)
     """
     Names of permission sets bound to the rule.
     """
 
-    project_ids: Optional[List[str]]
+    project_ids: Optional[List[str]] = field(default_factory=list)
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
 
 @dataclass
@@ -365,12 +361,12 @@ class CreateUserRequestMember:
 
 @dataclass
 class Connection:
-    organization: Optional[ConnectionConnectedOrganization]
+    organization: Optional[ConnectionConnectedOrganization] = None
     """
     Information about the connected organization.
     """
 
-    user: Optional[ConnectionConnectedUser]
+    user: Optional[ConnectionConnectedUser] = None
     """
     Information about the connected user.
     """
@@ -413,29 +409,29 @@ class APIKey:
     IP address of the device that created the API key.
     """
 
-    secret_key: Optional[str]
+    secret_key: Optional[str] = None
     """
     Secret key of the API Key.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of API key creation.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date and time of last API key update.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Date and time of API key expiration.
     """
 
-    application_id: Optional[str]
+    application_id: Optional[str] = None
 
-    user_id: Optional[str]
+    user_id: Optional[str] = None
 
 
 @dataclass
@@ -485,12 +481,12 @@ class Application:
     Tags associated with the user.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time application was created.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date and time of last application update.
     """
@@ -503,12 +499,12 @@ class GracePeriod:
     Type of grace period.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time the grace period was created.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Date and time the grace period expires.
     """
@@ -566,12 +562,12 @@ class Group:
     Defines whether or not the group is managed.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Date and time of group creation.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Date and time of last group update.
     """
@@ -619,7 +615,7 @@ class Log:
     ID of the resource linked  to the log.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the log.
     """
@@ -647,7 +643,7 @@ class PermissionSet:
     Description of the permission set.
     """
 
-    categories: Optional[List[str]]
+    categories: Optional[List[str]] = field(default_factory=list)
     """
     Categories of the permission set.
     """
@@ -673,16 +669,6 @@ class Policy:
     organization_id: str
     """
     Organization ID of the policy.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of policy creation.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date and time of last policy update.
     """
 
     editable: bool
@@ -720,13 +706,23 @@ class Policy:
     Tags associated with the policy.
     """
 
-    user_id: Optional[str]
+    created_at: Optional[datetime] = None
+    """
+    Date and time of policy creation.
+    """
 
-    group_id: Optional[str]
+    updated_at: Optional[datetime] = None
+    """
+    Date and time of last policy update.
+    """
 
-    application_id: Optional[str]
+    user_id: Optional[str] = None
 
-    no_principal: Optional[bool]
+    group_id: Optional[str] = None
+
+    application_id: Optional[str] = None
+
+    no_principal: Optional[bool] = False
 
 
 @dataclass
@@ -761,9 +757,9 @@ class Quotum:
     Limits per locality.
     """
 
-    limit: Optional[int]
+    limit: Optional[int] = 0
 
-    unlimited: Optional[bool]
+    unlimited: Optional[bool] = False
 
 
 @dataclass
@@ -783,16 +779,16 @@ class Rule:
     Condition expression to evaluate.
     """
 
-    permission_set_names: Optional[List[str]]
+    permission_set_names: Optional[List[str]] = field(default_factory=list)
     """
     Names of permission sets bound to the rule.
     """
 
-    project_ids: Optional[List[str]]
+    project_ids: Optional[List[str]] = field(default_factory=list)
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
 
-    account_root_user_id: Optional[str]
+    account_root_user_id: Optional[str] = None
 
 
 @dataclass
@@ -832,12 +828,12 @@ class SSHKey:
     SSH key status.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of SSH key.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update date of SSH key.
     """
@@ -865,7 +861,7 @@ class SamlCertificate:
     Content of the SAML certificate.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Date and time of the SAML certificate expiration.
     """
@@ -918,21 +914,6 @@ class User:
     Deletion status of user. Owners cannot be deleted.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date user was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date of last user update.
-    """
-
-    last_login_at: Optional[datetime]
-    """
-    Date of the last login.
-    """
-
     type_: UserType
     """
     Type of user.
@@ -958,12 +939,27 @@ class User:
     Defines whether the user is locked.
     """
 
-    two_factor_enabled: Optional[bool]
+    created_at: Optional[datetime] = None
+    """
+    Date user was created.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date of last user update.
+    """
+
+    last_login_at: Optional[datetime] = None
+    """
+    Date of the last login.
+    """
+
+    two_factor_enabled: Optional[bool] = False
     """
     Deprecated, use "mfa" instead.
     """
 
-    status: Optional[UserStatus]
+    status: Optional[UserStatus] = UserStatus.UNKNOWN_STATUS
     """
     Status of user invitation.
     """
@@ -976,9 +972,9 @@ class AddGroupMemberRequest:
     ID of the group.
     """
 
-    user_id: Optional[str]
+    user_id: Optional[str] = None
 
-    application_id: Optional[str]
+    application_id: Optional[str] = None
 
 
 @dataclass
@@ -988,12 +984,12 @@ class AddGroupMembersRequest:
     ID of the group.
     """
 
-    user_ids: Optional[List[str]]
+    user_ids: Optional[List[str]] = field(default_factory=list)
     """
     IDs of the users to add.
     """
 
-    application_ids: Optional[List[str]]
+    application_ids: Optional[List[str]] = field(default_factory=list)
     """
     IDs of the applications to add.
     """
@@ -1029,19 +1025,19 @@ class CreateAPIKeyRequest:
     Description of the API key (max length is 200 characters).
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Expiration date of the API key.
     """
 
-    default_project_id: Optional[str]
+    default_project_id: Optional[str] = None
     """
     Default Project ID to use with Object Storage.
     """
 
-    application_id: Optional[str]
+    application_id: Optional[str] = None
 
-    user_id: Optional[str]
+    user_id: Optional[str] = None
 
 
 @dataclass
@@ -1051,17 +1047,17 @@ class CreateApplicationRequest:
     Description of the application (max length is 200 characters).
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the application to create (max length is 64 characters).
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the application (maximum of 10 tags).
     """
@@ -1074,17 +1070,17 @@ class CreateGroupRequest:
     Description of the group to create (max length is 200 chars).
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of Organization linked to the group.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the group (maximum of 10 tags).
     """
@@ -1115,7 +1111,7 @@ class CreateOrganizationSamlRequest:
     Single Sign-On URL of the SAML Identity Provider.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -1128,33 +1124,33 @@ class CreatePolicyRequest:
     Description of the policy to create (max length is 200 characters).
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the policy to create (max length is 64 characters).
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
 
-    rules: Optional[List[RuleSpecs]]
+    rules: Optional[List[RuleSpecs]] = field(default_factory=list)
     """
     Rules of the policy to create.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the policy (maximum of 10 tags).
     """
 
-    user_id: Optional[str]
+    user_id: Optional[str] = None
 
-    group_id: Optional[str]
+    group_id: Optional[str] = None
 
-    application_id: Optional[str]
+    application_id: Optional[str] = None
 
-    no_principal: Optional[bool]
+    no_principal: Optional[bool] = False
 
 
 @dataclass
@@ -1164,12 +1160,12 @@ class CreateSSHKeyRequest:
     SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the SSH key. Max length is 1000.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project the resource is attributed to.
     """
@@ -1185,19 +1181,19 @@ class CreateUserMFAOTPRequest:
 
 @dataclass
 class CreateUserRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags associated with the user.
     """
 
-    email: Optional[str]
+    email: Optional[str] = None
 
-    member: Optional[CreateUserRequestMember]
+    member: Optional[CreateUserRequestMember] = None
 
 
 @dataclass
@@ -1234,7 +1230,7 @@ class DeleteJWTRequest:
 
 @dataclass
 class DeleteOrganizationSamlRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -1289,7 +1285,7 @@ class EncodedJWT:
     The encoded renew token. This token is necessary to renew the JWT.
     """
 
-    jwt: Optional[JWT]
+    jwt: Optional[JWT] = None
     """
     The renewed JWT.
     """
@@ -1337,7 +1333,7 @@ class GetLogRequest:
 
 @dataclass
 class GetOrganizationRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -1345,7 +1341,7 @@ class GetOrganizationRequest:
 
 @dataclass
 class GetOrganizationSamlRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -1353,7 +1349,7 @@ class GetOrganizationSamlRequest:
 
 @dataclass
 class GetOrganizationSecuritySettingsRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -1374,7 +1370,7 @@ class GetQuotumRequest:
     Name of the quota to get.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -1443,64 +1439,66 @@ class JoinUserConnectionRequest:
 
 @dataclass
 class ListAPIKeysRequest:
-    order_by: Optional[ListAPIKeysRequestOrderBy]
+    order_by: Optional[ListAPIKeysRequestOrderBy] = (
+        ListAPIKeysRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria for sorting results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater or equal to 1.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of Organization.
     """
 
-    editable: Optional[bool]
+    editable: Optional[bool] = False
     """
     Defines whether to filter out editable API keys or not.
     """
 
-    expired: Optional[bool]
+    expired: Optional[bool] = False
     """
     Defines whether to filter out expired API keys or not.
     """
 
-    access_key: Optional[str]
+    access_key: Optional[str] = None
     """
     Filter by access key (deprecated in favor of `access_keys`).
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Filter by description.
     """
 
-    bearer_id: Optional[str]
+    bearer_id: Optional[str] = None
     """
     Filter by bearer ID.
     """
 
-    bearer_type: Optional[BearerType]
+    bearer_type: Optional[BearerType] = BearerType.UNKNOWN_BEARER_TYPE
     """
     Filter by type of bearer.
     """
 
-    access_keys: Optional[List[str]]
+    access_keys: Optional[List[str]] = field(default_factory=list)
     """
     Filter by a list of access keys.
     """
 
-    application_id: Optional[str]
+    application_id: Optional[str] = None
 
-    user_id: Optional[str]
+    user_id: Optional[str] = None
 
 
 @dataclass
@@ -1518,42 +1516,44 @@ class ListAPIKeysResponse:
 
 @dataclass
 class ListApplicationsRequest:
-    order_by: Optional[ListApplicationsRequestOrderBy]
+    order_by: Optional[ListApplicationsRequestOrderBy] = (
+        ListApplicationsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Criteria for sorting results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater than 1.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the application to filter.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization to filter.
     """
 
-    editable: Optional[bool]
+    editable: Optional[bool] = False
     """
     Defines whether to filter out editable applications or not.
     """
 
-    application_ids: Optional[List[str]]
+    application_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by list of IDs.
     """
 
-    tag: Optional[str]
+    tag: Optional[str] = None
     """
     Filter by tags containing a given string.
     """
@@ -1574,7 +1574,7 @@ class ListApplicationsResponse:
 
 @dataclass
 class ListGracePeriodsRequest:
-    user_id: Optional[str]
+    user_id: Optional[str] = None
     """
     ID of the user to list grace periods for.
     """
@@ -1590,47 +1590,49 @@ class ListGracePeriodsResponse:
 
 @dataclass
 class ListGroupsRequest:
-    order_by: Optional[ListGroupsRequestOrderBy]
+    order_by: Optional[ListGroupsRequestOrderBy] = (
+        ListGroupsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of groups.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Requested page number. Value must be greater or equal to 1.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of items per page. Value must be between 1 and 100.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of group to find.
     """
 
-    application_ids: Optional[List[str]]
+    application_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by a list of application IDs.
     """
 
-    user_ids: Optional[List[str]]
+    user_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by a list of user IDs.
     """
 
-    group_ids: Optional[List[str]]
+    group_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by a list of group IDs.
     """
 
-    tag: Optional[str]
+    tag: Optional[str] = None
     """
     Filter by tags containing a given string.
     """
@@ -1656,22 +1658,22 @@ class ListJWTsRequest:
     ID of the user to search.
     """
 
-    order_by: Optional[ListJWTsRequestOrderBy]
+    order_by: Optional[ListJWTsRequestOrderBy] = ListJWTsRequestOrderBy.CREATED_AT_ASC
     """
     Criteria for sorting results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater to 1.
     """
 
-    expired: Optional[bool]
+    expired: Optional[bool] = False
     """
     Filter out expired JWTs or not.
     """
@@ -1680,53 +1682,52 @@ class ListJWTsRequest:
 @dataclass
 class ListJWTsResponse:
     jwts: List[JWT]
-
     total_count: int
 
 
 @dataclass
 class ListLogsRequest:
-    order_by: Optional[ListLogsRequestOrderBy]
+    order_by: Optional[ListLogsRequestOrderBy] = ListLogsRequestOrderBy.CREATED_AT_ASC
     """
     Criteria for sorting results.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater to 1.
     """
 
-    created_after: Optional[datetime]
+    created_after: Optional[datetime] = None
     """
     Defined whether or not to filter out logs created after this timestamp.
     """
 
-    created_before: Optional[datetime]
+    created_before: Optional[datetime] = None
     """
     Defined whether or not to filter out logs created before this timestamp.
     """
 
-    action: Optional[LogAction]
+    action: Optional[LogAction] = LogAction.UNKNOWN_ACTION
     """
     Defined whether or not to filter out by a specific action.
     """
 
-    resource_type: Optional[LogResourceType]
+    resource_type: Optional[LogResourceType] = LogResourceType.UNKNOWN_RESOURCE_TYPE
     """
     Defined whether or not to filter out by a specific type of resource.
     """
 
-    search: Optional[str]
+    search: Optional[str] = None
     """
     Defined whether or not to filter out log by bearer ID or resource ID.
     """
@@ -1747,22 +1748,24 @@ class ListLogsResponse:
 
 @dataclass
 class ListPermissionSetsRequest:
-    order_by: Optional[ListPermissionSetsRequestOrderBy]
+    order_by: Optional[ListPermissionSetsRequestOrderBy] = (
+        ListPermissionSetsRequestOrderBy.NAME_ASC
+    )
     """
     Criteria for sorting results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater than 1.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
@@ -1783,62 +1786,64 @@ class ListPermissionSetsResponse:
 
 @dataclass
 class ListPoliciesRequest:
-    order_by: Optional[ListPoliciesRequestOrderBy]
+    order_by: Optional[ListPoliciesRequestOrderBy] = (
+        ListPoliciesRequestOrderBy.POLICY_NAME_ASC
+    )
     """
     Criteria for sorting results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater than 1.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization to filter.
     """
 
-    editable: Optional[bool]
+    editable: Optional[bool] = False
     """
     Defines whether or not filter out editable policies.
     """
 
-    user_ids: Optional[List[str]]
+    user_ids: Optional[List[str]] = field(default_factory=list)
     """
     Defines whether or not to filter by list of user IDs.
     """
 
-    group_ids: Optional[List[str]]
+    group_ids: Optional[List[str]] = field(default_factory=list)
     """
     Defines whether or not to filter by list of group IDs.
     """
 
-    application_ids: Optional[List[str]]
+    application_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by a list of application IDs.
     """
 
-    no_principal: Optional[bool]
+    no_principal: Optional[bool] = False
     """
     Defines whether or not the policy is attributed to a principal.
     """
 
-    policy_name: Optional[str]
+    policy_name: Optional[str] = None
     """
     Name of the policy to fetch.
     """
 
-    tag: Optional[str]
+    tag: Optional[str] = None
     """
     Filter by tags containing a given string.
     """
 
-    policy_ids: Optional[List[str]]
+    policy_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by a list of IDs.
     """
@@ -1859,27 +1864,27 @@ class ListPoliciesResponse:
 
 @dataclass
 class ListQuotaRequest:
-    order_by: Optional[ListQuotaRequestOrderBy]
+    order_by: Optional[ListQuotaRequestOrderBy] = ListQuotaRequestOrderBy.NAME_ASC
     """
     Criteria for sorting results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater than 1.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    quotum_names: Optional[List[str]]
+    quotum_names: Optional[List[str]] = field(default_factory=list)
     """
     List of quotum names to filter from.
     """
@@ -1905,12 +1910,12 @@ class ListRulesRequest:
     Id of policy to search.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater than 1.
     """
@@ -1931,37 +1936,39 @@ class ListRulesResponse:
 
 @dataclass
 class ListSSHKeysRequest:
-    order_by: Optional[ListSSHKeysRequestOrderBy]
+    order_by: Optional[ListSSHKeysRequestOrderBy] = (
+        ListSSHKeysRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order of the SSH keys.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Requested page number. Value must be greater or equal to 1.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of items per page. Value must be between 1 and 100.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Filter by Organization ID.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of group to find.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Filter by Project ID.
     """
 
-    disabled: Optional[bool]
+    disabled: Optional[bool] = False
     """
     Defines whether to include disabled SSH keys or not.
     """
@@ -1998,42 +2005,42 @@ class ListSamlCertificatesResponse:
 
 @dataclass
 class ListUsersRequest:
-    order_by: Optional[ListUsersRequestOrderBy]
+    order_by: Optional[ListUsersRequestOrderBy] = ListUsersRequestOrderBy.CREATED_AT_ASC
     """
     Criteria for sorting results.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of results per page. Value must be between 1 and 100.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number. Value must be greater or equal to 1.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization to filter.
     """
 
-    user_ids: Optional[List[str]]
+    user_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter by list of IDs.
     """
 
-    mfa: Optional[bool]
+    mfa: Optional[bool] = False
     """
     Filter by MFA status.
     """
 
-    tag: Optional[str]
+    tag: Optional[str] = None
     """
     Filter by tags containing a given string.
     """
 
-    type_: Optional[UserType]
+    type_: Optional[UserType] = UserType.UNKNOWN_TYPE
     """
     Filter by user type.
     """
@@ -2067,7 +2074,7 @@ class MFAOTP:
 
 @dataclass
 class MigrateOrganizationGuestsRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -2103,7 +2110,7 @@ class OrganizationSecuritySettings:
     Number of login attempts before the account is locked.
     """
 
-    grace_period_duration: Optional[str]
+    grace_period_duration: Optional[str] = None
     """
     Duration of the grace period to renew password or enable MFA.
     """
@@ -2116,9 +2123,9 @@ class RemoveGroupMemberRequest:
     ID of the group.
     """
 
-    user_id: Optional[str]
+    user_id: Optional[str] = None
 
-    application_id: Optional[str]
+    application_id: Optional[str] = None
 
 
 @dataclass
@@ -2155,9 +2162,7 @@ class Saml:
 @dataclass
 class SetGroupMembersRequest:
     group_id: str
-
     user_ids: List[str]
-
     application_ids: List[str]
 
 
@@ -2168,7 +2173,7 @@ class SetOrganizationAliasRequest:
     Alias of the Organization.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
@@ -2210,12 +2215,12 @@ class UpdateAPIKeyRequest:
     Access key to update.
     """
 
-    default_project_id: Optional[str]
+    default_project_id: Optional[str] = None
     """
     New default Project ID to set.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     New description to update.
     """
@@ -2228,17 +2233,17 @@ class UpdateApplicationRequest:
     ID of the application to update.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     New name for the application (max length is 64 chars).
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     New description for the application (max length is 200 chars).
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     New tags for the application (maximum of 10 tags).
     """
@@ -2251,17 +2256,17 @@ class UpdateGroupRequest:
     ID of the group to update.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     New name for the group (max length is 64 chars). MUST be unique inside an Organization.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     New description for the group (max length is 200 chars).
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     New tags for the group (maximum of 10 tags).
     """
@@ -2269,17 +2274,17 @@ class UpdateGroupRequest:
 
 @dataclass
 class UpdateOrganizationSamlRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
 
-    entity_id: Optional[str]
+    entity_id: Optional[str] = None
     """
     Entity ID of the SAML Identity Provider.
     """
 
-    single_sign_on_url: Optional[str]
+    single_sign_on_url: Optional[str] = None
     """
     Single Sign-On URL of the SAML Identity Provider.
     """
@@ -2287,22 +2292,22 @@ class UpdateOrganizationSamlRequest:
 
 @dataclass
 class UpdateOrganizationSecuritySettingsRequest:
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     ID of the Organization.
     """
 
-    enforce_password_renewal: Optional[bool]
+    enforce_password_renewal: Optional[bool] = False
     """
     Defines whether password renewal is enforced during first login.
     """
 
-    grace_period_duration: Optional[str]
+    grace_period_duration: Optional[str] = None
     """
     Duration of the grace period to renew password or enable MFA.
     """
 
-    login_attempts_before_locked: Optional[int]
+    login_attempts_before_locked: Optional[int] = 0
     """
     Number of login attempts before the account is locked.
     """
@@ -2315,40 +2320,39 @@ class UpdatePolicyRequest:
     Id of policy to update.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     New name for the policy (max length is 64 characters).
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     New description of policy (max length is 200 characters).
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     New tags for the policy (maximum of 10 tags).
     """
 
-    user_id: Optional[str]
+    user_id: Optional[str] = None
 
-    group_id: Optional[str]
+    group_id: Optional[str] = None
 
-    application_id: Optional[str]
+    application_id: Optional[str] = None
 
-    no_principal: Optional[bool]
+    no_principal: Optional[bool] = False
 
 
 @dataclass
 class UpdateSSHKeyRequest:
     ssh_key_id: str
-
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the SSH key. Max length is 1000.
     """
 
-    disabled: Optional[bool]
+    disabled: Optional[bool] = False
     """
     Enable or disable the SSH key.
     """
@@ -2374,32 +2378,32 @@ class UpdateUserRequest:
     ID of the user to update.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     New tags for the user (maximum of 10 tags).
     """
 
-    email: Optional[str]
+    email: Optional[str] = None
     """
     IAM member email.
     """
 
-    first_name: Optional[str]
+    first_name: Optional[str] = None
     """
     IAM member first name.
     """
 
-    last_name: Optional[str]
+    last_name: Optional[str] = None
     """
     IAM member last name.
     """
 
-    phone_number: Optional[str]
+    phone_number: Optional[str] = None
     """
     IAM member phone number.
     """
 
-    locale: Optional[str]
+    locale: Optional[str] = None
     """
     IAM member locale.
     """
