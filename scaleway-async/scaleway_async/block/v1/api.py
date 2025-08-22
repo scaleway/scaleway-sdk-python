@@ -126,6 +126,7 @@ class BlockV1API(API):
     async def list_volumes(
         self,
         *,
+        include_deleted: bool,
         zone: Optional[ScwZone] = None,
         order_by: Optional[ListVolumesRequestOrderBy] = None,
         project_id: Optional[str] = None,
@@ -139,6 +140,7 @@ class BlockV1API(API):
         """
         List volumes.
         List all existing volumes in a specified zone. By default, the volumes listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        :param include_deleted: Display deleted volumes not erased yet.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
@@ -153,7 +155,9 @@ class BlockV1API(API):
         Usage:
         ::
 
-            result = await api.list_volumes()
+            result = await api.list_volumes(
+                include_deleted=False,
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -162,6 +166,7 @@ class BlockV1API(API):
             "GET",
             f"/block/v1/zones/{param_zone}/volumes",
             params={
+                "include_deleted": include_deleted,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -180,6 +185,7 @@ class BlockV1API(API):
     async def list_volumes_all(
         self,
         *,
+        include_deleted: bool,
         zone: Optional[ScwZone] = None,
         order_by: Optional[ListVolumesRequestOrderBy] = None,
         project_id: Optional[str] = None,
@@ -193,6 +199,7 @@ class BlockV1API(API):
         """
         List volumes.
         List all existing volumes in a specified zone. By default, the volumes listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        :param include_deleted: Display deleted volumes not erased yet.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
@@ -207,7 +214,9 @@ class BlockV1API(API):
         Usage:
         ::
 
-            result = await api.list_volumes_all()
+            result = await api.list_volumes_all(
+                include_deleted=False,
+            )
         """
 
         return await fetch_all_pages_async(
@@ -215,6 +224,7 @@ class BlockV1API(API):
             key="volumes",
             fetcher=self.list_volumes,
             args={
+                "include_deleted": include_deleted,
                 "zone": zone,
                 "order_by": order_by,
                 "project_id": project_id,
@@ -437,6 +447,7 @@ class BlockV1API(API):
     async def list_snapshots(
         self,
         *,
+        include_deleted: bool,
         zone: Optional[ScwZone] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         project_id: Optional[str] = None,
@@ -450,6 +461,7 @@ class BlockV1API(API):
         """
         List all snapshots.
         List all available snapshots in a specified zone. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        :param include_deleted: Display deleted snapshots not erased yet.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
@@ -464,7 +476,9 @@ class BlockV1API(API):
         Usage:
         ::
 
-            result = await api.list_snapshots()
+            result = await api.list_snapshots(
+                include_deleted=False,
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -473,6 +487,7 @@ class BlockV1API(API):
             "GET",
             f"/block/v1/zones/{param_zone}/snapshots",
             params={
+                "include_deleted": include_deleted,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -491,6 +506,7 @@ class BlockV1API(API):
     async def list_snapshots_all(
         self,
         *,
+        include_deleted: bool,
         zone: Optional[ScwZone] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         project_id: Optional[str] = None,
@@ -504,6 +520,7 @@ class BlockV1API(API):
         """
         List all snapshots.
         List all available snapshots in a specified zone. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        :param include_deleted: Display deleted snapshots not erased yet.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
@@ -518,7 +535,9 @@ class BlockV1API(API):
         Usage:
         ::
 
-            result = await api.list_snapshots_all()
+            result = await api.list_snapshots_all(
+                include_deleted=False,
+            )
         """
 
         return await fetch_all_pages_async(
@@ -526,6 +545,7 @@ class BlockV1API(API):
             key="snapshots",
             fetcher=self.list_snapshots,
             args={
+                "include_deleted": include_deleted,
                 "zone": zone,
                 "order_by": order_by,
                 "project_id": project_id,
