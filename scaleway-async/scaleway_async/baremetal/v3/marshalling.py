@@ -6,6 +6,7 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    ServerPrivateNetworkStatus,
     ServerPrivateNetwork,
     ListServerPrivateNetworksResponse,
     SetServerPrivateNetworksResponse,
@@ -25,32 +26,44 @@ def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("server_id", None)
     if field is not None:
         args["server_id"] = field
+    else:
+        args["server_id"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = ServerPrivateNetworkStatus.UNKNOWN_STATUS
 
     field = data.get("ipam_ip_ids", None)
     if field is not None:
         args["ipam_ip_ids"] = field
+    else:
+        args["ipam_ip_ids"] = []
 
     field = data.get("vlan", None)
     if field is not None:
         args["vlan"] = field
     else:
-        args["vlan"] = None
+        args["vlan"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -84,10 +97,14 @@ def unmarshal_ListServerPrivateNetworksResponse(
             if field is not None
             else None
         )
+    else:
+        args["server_private_networks"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListServerPrivateNetworksResponse(**args)
 
@@ -109,6 +126,8 @@ def unmarshal_SetServerPrivateNetworksResponse(
             if field is not None
             else None
         )
+    else:
+        args["server_private_networks"] = None
 
     return SetServerPrivateNetworksResponse(**args)
 

@@ -46,6 +46,8 @@ def unmarshal_SecretEnvVar(data: Any) -> SecretEnvVar:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     return SecretEnvVar(**args)
 
@@ -61,6 +63,8 @@ def unmarshal_SecretFile(data: Any) -> SecretFile:
     field = data.get("path", None)
     if field is not None:
         args["path"] = field
+    else:
+        args["path"] = None
 
     return SecretFile(**args)
 
@@ -76,14 +80,20 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("secret_id", None)
     if field is not None:
         args["secret_id"] = field
+    else:
+        args["secret_id"] = None
 
     field = data.get("secret_manager_id", None)
     if field is not None:
         args["secret_manager_id"] = field
+    else:
+        args["secret_manager_id"] = None
 
     field = data.get("secret_manager_version", None)
     if field is not None:
         args["secret_manager_version"] = field
+    else:
+        args["secret_manager_version"] = None
 
     field = data.get("file", None)
     if field is not None:
@@ -111,10 +121,14 @@ def unmarshal_CronSchedule(data: Any) -> CronSchedule:
     field = data.get("schedule", None)
     if field is not None:
         args["schedule"] = field
+    else:
+        args["schedule"] = None
 
     field = data.get("timezone", None)
     if field is not None:
         args["timezone"] = field
+    else:
+        args["timezone"] = None
 
     return CronSchedule(**args)
 
@@ -130,30 +144,44 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("cpu_limit", None)
     if field is not None:
         args["cpu_limit"] = field
+    else:
+        args["cpu_limit"] = None
 
     field = data.get("memory_limit", None)
     if field is not None:
         args["memory_limit"] = field
+    else:
+        args["memory_limit"] = None
 
     field = data.get("image_uri", None)
     if field is not None:
         args["image_uri"] = field
+    else:
+        args["image_uri"] = None
 
     field = data.get("command", None)
     if field is not None:
         args["command"] = field
+    else:
+        args["command"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -170,18 +198,26 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     field = data.get("environment_variables", None)
     if field is not None:
         args["environment_variables"] = field
+    else:
+        args["environment_variables"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("local_storage_capacity", None)
     if field is not None:
         args["local_storage_capacity"] = field
+    else:
+        args["local_storage_capacity"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("job_timeout", None)
     if field is not None:
@@ -209,30 +245,44 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("job_definition_id", None)
     if field is not None:
         args["job_definition_id"] = field
+    else:
+        args["job_definition_id"] = None
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = None
 
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("cpu_limit", None)
     if field is not None:
         args["cpu_limit"] = field
+    else:
+        args["cpu_limit"] = None
 
     field = data.get("memory_limit", None)
     if field is not None:
         args["memory_limit"] = field
+    else:
+        args["memory_limit"] = None
 
     field = data.get("command", None)
     if field is not None:
         args["command"] = field
+    else:
+        args["command"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -269,14 +319,20 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     field = data.get("environment_variables", None)
     if field is not None:
         args["environment_variables"] = field
+    else:
+        args["environment_variables"] = None
 
     field = data.get("local_storage_capacity", None)
     if field is not None:
         args["local_storage_capacity"] = field
+    else:
+        args["local_storage_capacity"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("started_at", None)
     if field is not None:
@@ -302,6 +358,8 @@ def unmarshal_CreateJobDefinitionSecretsResponse(
         args["secrets"] = (
             [unmarshal_Secret(v) for v in field] if field is not None else None
         )
+    else:
+        args["secrets"] = []
 
     return CreateJobDefinitionSecretsResponse(**args)
 
@@ -317,6 +375,8 @@ def unmarshal_JobsLimits(data: Any) -> JobsLimits:
     field = data.get("secrets_per_job_definition", None)
     if field is not None:
         args["secrets_per_job_definition"] = field
+    else:
+        args["secrets_per_job_definition"] = None
 
     return JobsLimits(**args)
 
@@ -336,10 +396,14 @@ def unmarshal_ListJobDefinitionSecretsResponse(
         args["secrets"] = (
             [unmarshal_Secret(v) for v in field] if field is not None else None
         )
+    else:
+        args["secrets"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListJobDefinitionSecretsResponse(**args)
 
@@ -357,10 +421,14 @@ def unmarshal_ListJobDefinitionsResponse(data: Any) -> ListJobDefinitionsRespons
         args["job_definitions"] = (
             [unmarshal_JobDefinition(v) for v in field] if field is not None else None
         )
+    else:
+        args["job_definitions"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListJobDefinitionsResponse(**args)
 
@@ -378,10 +446,14 @@ def unmarshal_ListJobRunsResponse(data: Any) -> ListJobRunsResponse:
         args["job_runs"] = (
             [unmarshal_JobRun(v) for v in field] if field is not None else None
         )
+    else:
+        args["job_runs"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     return ListJobRunsResponse(**args)
 
@@ -397,10 +469,14 @@ def unmarshal_Resource(data: Any) -> Resource:
     field = data.get("cpu_limit", None)
     if field is not None:
         args["cpu_limit"] = field
+    else:
+        args["cpu_limit"] = None
 
     field = data.get("memory_limit", None)
     if field is not None:
         args["memory_limit"] = field
+    else:
+        args["memory_limit"] = None
 
     return Resource(**args)
 
@@ -418,6 +494,8 @@ def unmarshal_ListJobsResourcesResponse(data: Any) -> ListJobsResourcesResponse:
         args["resources"] = (
             [unmarshal_Resource(v) for v in field] if field is not None else None
         )
+    else:
+        args["resources"] = None
 
     return ListJobsResourcesResponse(**args)
 
@@ -435,6 +513,8 @@ def unmarshal_StartJobDefinitionResponse(data: Any) -> StartJobDefinitionRespons
         args["job_runs"] = (
             [unmarshal_JobRun(v) for v in field] if field is not None else None
         )
+    else:
+        args["job_runs"] = None
 
     return StartJobDefinitionResponse(**args)
 
@@ -482,7 +562,9 @@ def marshal_CreateJobDefinitionRequest(
         output["local_storage_capacity"] = request.local_storage_capacity
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.environment_variables is not None:
         output["environment_variables"] = {

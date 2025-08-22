@@ -6,8 +6,11 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    EphemeralPolicyAction,
     Product,
+    SecretStatus,
     SecretType,
+    SecretVersionStatus,
     EphemeralProperties,
     SecretVersion,
     EphemeralPolicy,
@@ -40,6 +43,8 @@ def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
+    else:
+        args["action"] = EphemeralPolicyAction.UNKNOWN_ACTION
 
     field = data.get("expires_at", None)
     if field is not None:
@@ -51,7 +56,7 @@ def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
     if field is not None:
         args["expires_once_accessed"] = field
     else:
-        args["expires_once_accessed"] = None
+        args["expires_once_accessed"] = False
 
     return EphemeralProperties(**args)
 
@@ -67,18 +72,26 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     field = data.get("revision", None)
     if field is not None:
         args["revision"] = field
+    else:
+        args["revision"] = 0
 
     field = data.get("secret_id", None)
     if field is not None:
         args["secret_id"] = field
+    else:
+        args["secret_id"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = SecretVersionStatus.UNKNOWN_STATUS
 
     field = data.get("latest", None)
     if field is not None:
         args["latest"] = field
+    else:
+        args["latest"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -132,6 +145,8 @@ def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
+    else:
+        args["action"] = EphemeralPolicyAction.UNKNOWN_ACTION
 
     field = data.get("time_to_live", None)
     if field is not None:
@@ -143,7 +158,7 @@ def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
     if field is not None:
         args["expires_once_accessed"] = field
     else:
-        args["expires_once_accessed"] = None
+        args["expires_once_accessed"] = False
 
     return EphemeralPolicy(**args)
 
@@ -159,50 +174,74 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = SecretStatus.UNKNOWN_STATUS
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("version_count", None)
     if field is not None:
         args["version_count"] = field
+    else:
+        args["version_count"] = 0
 
     field = data.get("managed", None)
     if field is not None:
         args["managed"] = field
+    else:
+        args["managed"] = False
 
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+    else:
+        args["protected"] = False
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = SecretType.UNKNOWN_TYPE
 
     field = data.get("path", None)
     if field is not None:
         args["path"] = field
+    else:
+        args["path"] = None
 
     field = data.get("used_by", None)
     if field is not None:
         args["used_by"] = [Product(v) for v in field] if field is not None else None
+    else:
+        args["used_by"] = []
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -256,24 +295,32 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
     field = data.get("secret_id", None)
     if field is not None:
         args["secret_id"] = field
+    else:
+        args["secret_id"] = None
 
     field = data.get("revision", None)
     if field is not None:
         args["revision"] = field
+    else:
+        args["revision"] = 0
 
     field = data.get("data", None)
     if field is not None:
         args["data"] = field
+    else:
+        args["data"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = SecretType.UNKNOWN_TYPE
 
     field = data.get("data_crc32", None)
     if field is not None:
         args["data_crc32"] = field
     else:
-        args["data_crc32"] = None
+        args["data_crc32"] = 0
 
     return AccessSecretVersionResponse(**args)
 
@@ -304,22 +351,32 @@ def unmarshal_BrowseSecretsResponseItemSecretDetails(
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = None
 
     field = data.get("version_count", None)
     if field is not None:
         args["version_count"] = field
+    else:
+        args["version_count"] = None
 
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+    else:
+        args["protected"] = None
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("ephemeral_policy", None)
     if field is not None:
@@ -341,6 +398,8 @@ def unmarshal_BrowseSecretsResponseItem(data: Any) -> BrowseSecretsResponseItem:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -384,14 +443,20 @@ def unmarshal_BrowseSecretsResponse(data: Any) -> BrowseSecretsResponse:
             if field is not None
             else None
         )
+    else:
+        args["items"] = []
 
     field = data.get("current_path", None)
     if field is not None:
         args["current_path"] = field
+    else:
+        args["current_path"] = None
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return BrowseSecretsResponse(**args)
 
@@ -407,10 +472,14 @@ def unmarshal_ListSecretTypesResponse(data: Any) -> ListSecretTypesResponse:
     field = data.get("types", None)
     if field is not None:
         args["types"] = [SecretType(v) for v in field] if field is not None else None
+    else:
+        args["types"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListSecretTypesResponse(**args)
 
@@ -428,10 +497,14 @@ def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsRespons
         args["versions"] = (
             [unmarshal_SecretVersion(v) for v in field] if field is not None else None
         )
+    else:
+        args["versions"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListSecretVersionsResponse(**args)
 
@@ -449,10 +522,14 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
         args["secrets"] = (
             [unmarshal_Secret(v) for v in field] if field is not None else None
         )
+    else:
+        args["secrets"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListSecretsResponse(**args)
 
@@ -468,10 +545,14 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListTagsResponse(**args)
 
@@ -483,7 +564,7 @@ def marshal_AddSecretOwnerRequest(
     output: Dict[str, Any] = {}
 
     if request.product is not None:
-        output["product"] = str(request.product)
+        output["product"] = request.product
 
     return output
 
@@ -495,7 +576,7 @@ def marshal_EphemeralPolicy(
     output: Dict[str, Any] = {}
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.time_to_live is not None:
         output["time_to_live"] = request.time_to_live
@@ -519,7 +600,9 @@ def marshal_CreateSecretRequest(
         output["protected"] = request.protected
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -528,7 +611,7 @@ def marshal_CreateSecretRequest(
         output["description"] = request.description
 
     if request.type_ is not None:
-        output["type"] = str(request.type_)
+        output["type"] = request.type_
 
     if request.path is not None:
         output["path"] = request.path
@@ -598,7 +681,7 @@ def marshal_EphemeralProperties(
     output: Dict[str, Any] = {}
 
     if request.action is not None:
-        output["action"] = str(request.action)
+        output["action"] = request.action
 
     if request.expires_at is not None:
         output["expires_at"] = request.expires_at.isoformat()

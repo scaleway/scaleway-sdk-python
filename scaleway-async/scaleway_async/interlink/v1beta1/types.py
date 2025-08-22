@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -147,7 +147,7 @@ class PartnerHost:
     Used to identify a link from a user or partner's point of view.
     """
 
-    disapproved_reason: Optional[str]
+    disapproved_reason: Optional[str] = None
     """
     Reason given by partner to explain why they did not approve the request for a hosted link.
     """
@@ -213,17 +213,17 @@ class DedicatedConnection:
     Region of the dedicated connection.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the dedicated connection.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last modification date of the dedicated connection.
     """
 
-    demarcation_info: Optional[str]
+    demarcation_info: Optional[str] = None
     """
     Demarcation details required by the data center to set up the supporting Cross Connect. This generally includes the physical space in the facility, the cabinet or rack the connection should land in, the patch panel to go in, the port designation, and the media type.
     """
@@ -286,26 +286,6 @@ class Link:
     Defines whether route propagation is enabled or not. To enable or disable route propagation, use the dedicated endpoint.
     """
 
-    vpc_id: Optional[str]
-    """
-    ID of the Scaleway VPC attached to the link.
-    """
-
-    routing_policy_id: Optional[str]
-    """
-    Deprecated. Use routing_policy_v4_id or routing_policy_v6_id instead.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the link.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last modification date of the link.
-    """
-
     vlan: int
     """
     VLAN of the link.
@@ -316,29 +296,49 @@ class Link:
     Region of the link.
     """
 
-    scw_bgp_config: Optional[BgpConfig]
+    vpc_id: Optional[str] = None
+    """
+    ID of the Scaleway VPC attached to the link.
+    """
+
+    routing_policy_id: Optional[str] = None
+    """
+    Deprecated. Use routing_policy_v4_id or routing_policy_v6_id instead.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation date of the link.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Last modification date of the link.
+    """
+
+    scw_bgp_config: Optional[BgpConfig] = None
     """
     BGP configuration on Scaleway's side.
     """
 
-    peer_bgp_config: Optional[BgpConfig]
+    peer_bgp_config: Optional[BgpConfig] = None
     """
     BGP configuration on peer's side (on-premises or other hosting provider).
     """
 
-    routing_policy_v4_id: Optional[str]
+    routing_policy_v4_id: Optional[str] = None
     """
     ID of the routing policy IPv4 attached to the link.
     """
 
-    routing_policy_v6_id: Optional[str]
+    routing_policy_v6_id: Optional[str] = None
     """
     ID of the routing policy IPv6 attached to the link.
     """
 
-    partner: Optional[PartnerHost]
+    partner: Optional[PartnerHost] = None
 
-    self_: Optional[SelfHost]
+    self_: Optional[SelfHost] = None
 
 
 @dataclass
@@ -368,12 +368,12 @@ class Partner:
     URL of the partner's portal.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the partner.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last modification date of the partner.
     """
@@ -469,12 +469,12 @@ class RoutingPolicy:
     Region of the routing policy.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the routing policy.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last modification date of the routing policy.
     """
@@ -492,7 +492,7 @@ class AttachRoutingPolicyRequest:
     ID of the routing policy to be attached.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -510,7 +510,7 @@ class AttachVpcRequest:
     ID of the VPC to attach.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -533,34 +533,34 @@ class CreateLinkRequest:
     Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to create the link in.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags to apply to the link.
     """
 
-    peer_asn: Optional[int]
+    peer_asn: Optional[int] = 0
     """
     For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
     """
 
-    vlan: Optional[int]
+    vlan: Optional[int] = 0
     """
     For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
     """
 
-    connection_id: Optional[str]
+    connection_id: Optional[str] = None
 
-    partner_id: Optional[str]
+    partner_id: Optional[str] = None
 
 
 @dataclass
@@ -575,27 +575,27 @@ class CreateRoutingPolicyRequest:
     IP prefixes version of the routing policy.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     ID of the Project to create the routing policy in.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags to apply to the routing policy.
     """
 
-    prefix_filter_in: Optional[List[str]]
+    prefix_filter_in: Optional[List[str]] = field(default_factory=list)
     """
     IP prefixes to accept from the peer (ranges of route announcements to accept).
     """
 
-    prefix_filter_out: Optional[List[str]]
+    prefix_filter_out: Optional[List[str]] = field(default_factory=list)
     """
     IP prefix filters to advertise to the peer (ranges of routes to advertise).
     """
@@ -608,7 +608,7 @@ class DeleteLinkRequest:
     ID of the link to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -621,7 +621,7 @@ class DeleteRoutingPolicyRequest:
     ID of the routing policy to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -639,7 +639,7 @@ class DetachRoutingPolicyRequest:
     ID of the routing policy to be detached.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -652,7 +652,7 @@ class DetachVpcRequest:
     ID of the link to detach the VPC from.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -665,7 +665,7 @@ class DisableRoutePropagationRequest:
     ID of the link on which to disable route propagation.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -678,7 +678,7 @@ class EnableRoutePropagationRequest:
     ID of the link on which to enable route propagation.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -691,7 +691,7 @@ class GetDedicatedConnectionRequest:
     ID of connection to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -704,7 +704,7 @@ class GetLinkRequest:
     ID of the link to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -717,7 +717,7 @@ class GetPartnerRequest:
     ID of partner to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -730,7 +730,7 @@ class GetPopRequest:
     ID of PoP to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -743,7 +743,7 @@ class GetRoutingPolicyRequest:
     ID of the routing policy to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -751,57 +751,61 @@ class GetRoutingPolicyRequest:
 
 @dataclass
 class ListDedicatedConnectionsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListDedicatedConnectionsRequestOrderBy]
+    order_by: Optional[ListDedicatedConnectionsRequestOrderBy] = (
+        ListDedicatedConnectionsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of connections to return per page.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Link name to filter for.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
 
-    status: Optional[DedicatedConnectionStatus]
+    status: Optional[DedicatedConnectionStatus] = (
+        DedicatedConnectionStatus.UNKNOWN_STATUS
+    )
     """
     Connection status to filter for.
     """
 
-    bandwidth_mbps: Optional[int]
+    bandwidth_mbps: Optional[int] = 0
     """
     Filter for dedicated connections with this bandwidth size.
     """
 
-    pop_id: Optional[str]
+    pop_id: Optional[str] = None
     """
     Filter for dedicated connections present in this PoP.
     """
@@ -822,97 +826,97 @@ class ListDedicatedConnectionsResponse:
 
 @dataclass
 class ListLinksRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListLinksRequestOrderBy]
+    order_by: Optional[ListLinksRequestOrderBy] = ListLinksRequestOrderBy.CREATED_AT_ASC
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of links to return per page.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Link name to filter for.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
 
-    status: Optional[LinkStatus]
+    status: Optional[LinkStatus] = LinkStatus.UNKNOWN_LINK_STATUS
     """
     Link status to filter for.
     """
 
-    bgp_v4_status: Optional[BgpStatus]
+    bgp_v4_status: Optional[BgpStatus] = BgpStatus.UNKNOWN_BGP_STATUS
     """
     BGP IPv4 status to filter for.
     """
 
-    bgp_v6_status: Optional[BgpStatus]
+    bgp_v6_status: Optional[BgpStatus] = BgpStatus.UNKNOWN_BGP_STATUS
     """
     BGP IPv6 status to filter for.
     """
 
-    pop_id: Optional[str]
+    pop_id: Optional[str] = None
     """
     Filter for links attached to this PoP (via connections).
     """
 
-    bandwidth_mbps: Optional[int]
+    bandwidth_mbps: Optional[int] = 0
     """
     Filter for link bandwidth (in Mbps).
     """
 
-    partner_id: Optional[str]
+    partner_id: Optional[str] = None
     """
     Filter for links hosted by this partner.
     """
 
-    vpc_id: Optional[str]
+    vpc_id: Optional[str] = None
     """
     Filter for links attached to this VPC.
     """
 
-    routing_policy_id: Optional[str]
+    routing_policy_id: Optional[str] = None
     """
     Filter for links using this routing policy.
     """
 
-    pairing_key: Optional[str]
+    pairing_key: Optional[str] = None
     """
     Filter for the link with this pairing_key.
     """
 
-    kind: Optional[LinkKind]
+    kind: Optional[LinkKind] = LinkKind.HOSTED
     """
     Filter for hosted or self-hosted links.
     """
 
-    connection_id: Optional[str]
+    connection_id: Optional[str] = None
     """
     Filter for links self-hosted on this connection.
     """
@@ -933,27 +937,27 @@ class ListLinksResponse:
 
 @dataclass
 class ListPartnersRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListPartnersRequestOrderBy]
+    order_by: Optional[ListPartnersRequestOrderBy] = ListPartnersRequestOrderBy.NAME_ASC
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of partners to return per page.
     """
 
-    pop_ids: Optional[List[str]]
+    pop_ids: Optional[List[str]] = field(default_factory=list)
     """
     Filter for partners present (offering a connection) in one of these PoPs.
     """
@@ -974,47 +978,47 @@ class ListPartnersResponse:
 
 @dataclass
 class ListPopsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListPopsRequestOrderBy]
+    order_by: Optional[ListPopsRequestOrderBy] = ListPopsRequestOrderBy.NAME_ASC
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of PoPs to return per page.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     PoP name to filter for.
     """
 
-    hosting_provider_name: Optional[str]
+    hosting_provider_name: Optional[str] = None
     """
     Hosting provider name to filter for.
     """
 
-    partner_id: Optional[str]
+    partner_id: Optional[str] = None
     """
     Filter for PoPs hosting an available shared connection from this partner.
     """
 
-    link_bandwidth_mbps: Optional[int]
+    link_bandwidth_mbps: Optional[int] = 0
     """
     Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
     """
 
-    dedicated_available: Optional[bool]
+    dedicated_available: Optional[bool] = False
     """
     Filter for PoPs with a dedicated connection available for self-hosted links.
     """
@@ -1035,47 +1039,49 @@ class ListPopsResponse:
 
 @dataclass
 class ListRoutingPoliciesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListRoutingPoliciesRequestOrderBy]
+    order_by: Optional[ListRoutingPoliciesRequestOrderBy] = (
+        ListRoutingPoliciesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of routing policies to return per page.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project ID to filter for.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     Organization ID to filter for.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Routing policy name to filter for.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
 
-    ipv6: Optional[bool]
+    ipv6: Optional[bool] = False
     """
     Filter for the routing policies based on IP prefixes version.
     """
@@ -1084,7 +1090,6 @@ class ListRoutingPoliciesRequest:
 @dataclass
 class ListRoutingPoliciesResponse:
     routing_policies: List[RoutingPolicy]
-
     total_count: int
 
 
@@ -1095,22 +1100,22 @@ class UpdateLinkRequest:
     ID of the link to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the link.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags to apply to the link.
     """
 
-    peer_asn: Optional[int]
+    peer_asn: Optional[int] = 0
     """
     For self-hosted links, AS Number to establish BGP session.
     """
@@ -1123,27 +1128,27 @@ class UpdateRoutingPolicyRequest:
     ID of the routing policy to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the routing policy.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     List of tags to apply to the routing policy.
     """
 
-    prefix_filter_in: Optional[List[str]]
+    prefix_filter_in: Optional[List[str]] = field(default_factory=list)
     """
     IP prefixes to accept from the peer (ranges of route announcements to accept).
     """
 
-    prefix_filter_out: Optional[List[str]]
+    prefix_filter_out: Optional[List[str]] = field(default_factory=list)
     """
     IP prefix filters for routes to advertise to the peer (ranges of routes to advertise).
     """

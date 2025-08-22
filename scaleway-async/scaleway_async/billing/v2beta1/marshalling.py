@@ -8,6 +8,9 @@ from scaleway_core.bridge import (
     unmarshal_Money,
 )
 from .types import (
+    DiscountDiscountMode,
+    DiscountFilterType,
+    InvoiceType,
     DiscountCoupon,
     DiscountFilter,
     Discount,
@@ -49,14 +52,20 @@ def unmarshal_DiscountFilter(data: Any) -> DiscountFilter:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = DiscountFilterType.UNKNOWN_TYPE
 
     field = data.get("value", None)
     if field is not None:
         args["value"] = field
+    else:
+        args["value"] = None
 
     field = data.get("exclude", None)
     if field is not None:
         args["exclude"] = field
+    else:
+        args["exclude"] = False
 
     return DiscountFilter(**args)
 
@@ -72,36 +81,52 @@ def unmarshal_Discount(data: Any) -> Discount:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("value", None)
     if field is not None:
         args["value"] = field
+    else:
+        args["value"] = 0.0
 
     field = data.get("value_used", None)
     if field is not None:
         args["value_used"] = field
+    else:
+        args["value_used"] = 0.0
 
     field = data.get("value_remaining", None)
     if field is not None:
         args["value_remaining"] = field
+    else:
+        args["value_remaining"] = 0.0
 
     field = data.get("mode", None)
     if field is not None:
         args["mode"] = field
+    else:
+        args["mode"] = DiscountDiscountMode.UNKNOWN_DISCOUNT_MODE
 
     field = data.get("filters", None)
     if field is not None:
         args["filters"] = (
             [unmarshal_DiscountFilter(v) for v in field] if field is not None else None
         )
+    else:
+        args["filters"] = []
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -143,14 +168,20 @@ def unmarshal_Invoice(data: Any) -> Invoice:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("organization_name", None)
     if field is not None:
         args["organization_name"] = field
+    else:
+        args["organization_name"] = None
 
     field = data.get("start_date", None)
     if field is not None:
@@ -189,18 +220,26 @@ def unmarshal_Invoice(data: Any) -> Invoice:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = InvoiceType.UNKNOWN_TYPE
 
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
+    else:
+        args["state"] = None
 
     field = data.get("number", None)
     if field is not None:
         args["number"] = field
+    else:
+        args["number"] = 0
 
     field = data.get("seller_name", None)
     if field is not None:
         args["seller_name"] = field
+    else:
+        args["seller_name"] = None
 
     field = data.get("total_untaxed", None)
     if field is not None:
@@ -248,30 +287,44 @@ def unmarshal_ListConsumptionsResponseConsumption(
     field = data.get("product_name", None)
     if field is not None:
         args["product_name"] = field
+    else:
+        args["product_name"] = None
 
     field = data.get("resource_name", None)
     if field is not None:
         args["resource_name"] = field
+    else:
+        args["resource_name"] = None
 
     field = data.get("sku", None)
     if field is not None:
         args["sku"] = field
+    else:
+        args["sku"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("category_name", None)
     if field is not None:
         args["category_name"] = field
+    else:
+        args["category_name"] = None
 
     field = data.get("unit", None)
     if field is not None:
         args["unit"] = field
+    else:
+        args["unit"] = None
 
     field = data.get("billed_quantity", None)
     if field is not None:
         args["billed_quantity"] = field
+    else:
+        args["billed_quantity"] = None
 
     field = data.get("value", None)
     if field is not None:
@@ -297,14 +350,20 @@ def unmarshal_ListConsumptionsResponse(data: Any) -> ListConsumptionsResponse:
             if field is not None
             else None
         )
+    else:
+        args["consumptions"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("total_discount_untaxed_value", None)
     if field is not None:
         args["total_discount_untaxed_value"] = field
+    else:
+        args["total_discount_untaxed_value"] = 0.0
 
     field = data.get("updated_at", None)
     if field is not None:
@@ -326,12 +385,16 @@ def unmarshal_ListDiscountsResponse(data: Any) -> ListDiscountsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("discounts", None)
     if field is not None:
         args["discounts"] = (
             [unmarshal_Discount(v) for v in field] if field is not None else None
         )
+    else:
+        args["discounts"] = []
 
     return ListDiscountsResponse(**args)
 
@@ -347,12 +410,16 @@ def unmarshal_ListInvoicesResponse(data: Any) -> ListInvoicesResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("invoices", None)
     if field is not None:
         args["invoices"] = (
             [unmarshal_Invoice(v) for v in field] if field is not None else None
         )
+    else:
+        args["invoices"] = []
 
     return ListInvoicesResponse(**args)
 
@@ -368,22 +435,26 @@ def unmarshal_ListTaxesResponseTax(data: Any) -> ListTaxesResponseTax:
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("currency", None)
     if field is not None:
         args["currency"] = field
+    else:
+        args["currency"] = None
 
     field = data.get("rate", None)
     if field is not None:
         args["rate"] = field
     else:
-        args["rate"] = None
+        args["rate"] = 0.0
 
     field = data.get("total_tax_value", None)
     if field is not None:
         args["total_tax_value"] = field
     else:
-        args["total_tax_value"] = None
+        args["total_tax_value"] = 0.0
 
     return ListTaxesResponseTax(**args)
 
@@ -403,10 +474,14 @@ def unmarshal_ListTaxesResponse(data: Any) -> ListTaxesResponse:
             if field is not None
             else None
         )
+    else:
+        args["taxes"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     field = data.get("updated_at", None)
     if field is not None:

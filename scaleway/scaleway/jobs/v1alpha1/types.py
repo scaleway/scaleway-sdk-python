@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Dict, List, Optional
@@ -71,19 +71,16 @@ class CronSchedule:
 @dataclass
 class CreateJobDefinitionRequestCronScheduleConfig:
     schedule: str
-
     timezone: str
 
 
 @dataclass
 class CreateJobDefinitionSecretsRequestSecretConfig:
     secret_manager_id: str
-
     secret_manager_version: str
+    path: Optional[str] = None
 
-    path: Optional[str]
-
-    env_var_name: Optional[str]
+    env_var_name: Optional[str] = None
 
 
 @dataclass
@@ -103,97 +100,68 @@ class Secret:
     Version of the secret in Secret Manager.
     """
 
-    file: Optional[SecretFile]
+    file: Optional[SecretFile] = None
 
-    env_var: Optional[SecretEnvVar]
+    env_var: Optional[SecretEnvVar] = None
 
 
 @dataclass
 class JobDefinition:
     id: str
-
     name: str
-
     cpu_limit: int
-
     memory_limit: int
-
     image_uri: str
-
     command: str
-
     project_id: str
-
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
     environment_variables: Dict[str, str]
-
     description: str
-
     local_storage_capacity: int
-
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    job_timeout: Optional[str]
-
-    cron_schedule: Optional[CronSchedule]
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    job_timeout: Optional[str] = None
+    cron_schedule: Optional[CronSchedule] = None
 
 
 @dataclass
 class JobRun:
     id: str
-
     job_definition_id: str
-
     state: JobRunState
-
     error_message: str
-
     cpu_limit: int
-
     memory_limit: int
-
     command: str
-
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
-    terminated_at: Optional[datetime]
-
-    exit_code: Optional[int]
-
-    run_duration: Optional[str]
-
     environment_variables: Dict[str, str]
-
     local_storage_capacity: int
-
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    started_at: Optional[datetime]
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    terminated_at: Optional[datetime] = None
+    exit_code: Optional[int] = None
+    run_duration: Optional[str] = None
+    started_at: Optional[datetime] = None
 
 
 @dataclass
 class Resource:
     cpu_limit: int
-
     memory_limit: int
 
 
 @dataclass
 class UpdateJobDefinitionRequestCronScheduleConfig:
-    schedule: Optional[str]
-
-    timezone: Optional[str]
+    schedule: Optional[str] = None
+    timezone: Optional[str] = None
 
 
 @dataclass
@@ -223,37 +191,37 @@ class CreateJobDefinitionRequest:
     Description of the job.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the job definition.
     """
 
-    local_storage_capacity: Optional[int]
+    local_storage_capacity: Optional[int] = 0
     """
     Local storage capacity of the job (in MiB).
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Scaleway Project containing the job.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the job.
     """
 
-    job_timeout: Optional[str]
+    job_timeout: Optional[str] = None
     """
     Timeout of the job in seconds.
     """
 
-    cron_schedule: Optional[CreateJobDefinitionRequestCronScheduleConfig]
+    cron_schedule: Optional[CreateJobDefinitionRequestCronScheduleConfig] = None
     """
     Configure a cron for the job.
     """
@@ -271,7 +239,7 @@ class CreateJobDefinitionSecretsRequest:
     List of secrets to inject into the job.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -292,7 +260,7 @@ class DeleteJobDefinitionRequest:
     UUID of the job definition to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -310,7 +278,7 @@ class DeleteJobDefinitionSecretRequest:
     UUID of the secret reference within the job.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -323,7 +291,7 @@ class GetJobDefinitionRequest:
     UUID of the job definition to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -341,7 +309,7 @@ class GetJobDefinitionSecretRequest:
     UUID of the secret reference within the job.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -354,7 +322,7 @@ class GetJobRunRequest:
     UUID of the job run to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -362,7 +330,7 @@ class GetJobRunRequest:
 
 @dataclass
 class GetJobsLimitsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -380,7 +348,7 @@ class ListJobDefinitionSecretsRequest:
     UUID of the job definition.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -401,63 +369,50 @@ class ListJobDefinitionSecretsResponse:
 
 @dataclass
 class ListJobDefinitionsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListJobDefinitionsRequestOrderBy]
-
-    project_id: Optional[str]
-
-    organization_id: Optional[str]
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListJobDefinitionsRequestOrderBy] = None
+    project_id: Optional[str] = None
+    organization_id: Optional[str] = None
 
 
 @dataclass
 class ListJobDefinitionsResponse:
     job_definitions: List[JobDefinition]
-
     total_count: int
 
 
 @dataclass
 class ListJobRunsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListJobRunsRequestOrderBy]
-
-    job_definition_id: Optional[str]
-
-    project_id: Optional[str]
-
-    organization_id: Optional[str]
-
-    state: Optional[JobRunState]
-
-    states: Optional[List[JobRunState]]
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListJobRunsRequestOrderBy] = None
+    job_definition_id: Optional[str] = None
+    project_id: Optional[str] = None
+    organization_id: Optional[str] = None
+    state: Optional[JobRunState] = None
+    states: Optional[List[JobRunState]] = field(default_factory=list)
 
 
 @dataclass
 class ListJobRunsResponse:
     job_runs: List[JobRun]
-
     total_count: int
 
 
 @dataclass
 class ListJobsResourcesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -475,22 +430,22 @@ class StartJobDefinitionRequest:
     UUID of the job definition to start.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    command: Optional[str]
+    command: Optional[str] = None
     """
     Contextual startup command for this specific job run.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Contextual environment variables for this specific job run.
     """
 
-    replicas: Optional[int]
+    replicas: Optional[int] = 0
     """
     Number of jobs to run.
     """
@@ -508,7 +463,7 @@ class StopJobRunRequest:
     UUID of the job run to stop.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -521,57 +476,57 @@ class UpdateJobDefinitionRequest:
     UUID of the job definition to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the job definition.
     """
 
-    cpu_limit: Optional[int]
+    cpu_limit: Optional[int] = 0
     """
     CPU limit of the job.
     """
 
-    memory_limit: Optional[int]
+    memory_limit: Optional[int] = 0
     """
     Memory limit of the job (in MiB).
     """
 
-    local_storage_capacity: Optional[int]
+    local_storage_capacity: Optional[int] = 0
     """
     Local storage capacity of the job (in MiB).
     """
 
-    image_uri: Optional[str]
+    image_uri: Optional[str] = None
     """
     Image to use for the job.
     """
 
-    command: Optional[str]
+    command: Optional[str] = None
     """
     Startup command.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the job.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the job.
     """
 
-    job_timeout: Optional[str]
+    job_timeout: Optional[str] = None
     """
     Timeout of the job in seconds.
     """
 
-    cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig]
+    cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig] = None
 
 
 @dataclass
@@ -586,16 +541,16 @@ class UpdateJobDefinitionSecretRequest:
     UUID of the secret reference within the job.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    secret_manager_version: Optional[str]
+    secret_manager_version: Optional[str] = None
     """
     Version of the secret in Secret Manager.
     """
 
-    path: Optional[str]
+    path: Optional[str] = None
 
-    env_var_name: Optional[str]
+    env_var_name: Optional[str] = None

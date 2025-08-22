@@ -8,6 +8,8 @@ from scaleway_core.bridge import (
     unmarshal_Money,
 )
 from .types import (
+    PublicCatalogProductPropertiesHardwareCPUArch,
+    PublicCatalogProductStatus,
     PublicCatalogProductPropertiesHardwareCPUPhysical,
     PublicCatalogProductPropertiesHardwareCPUVirtual,
     PublicCatalogProductPropertiesHardwareCPU,
@@ -45,22 +47,32 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPUPhysical(
     field = data.get("sockets", None)
     if field is not None:
         args["sockets"] = field
+    else:
+        args["sockets"] = 0
 
     field = data.get("cores_per_socket", None)
     if field is not None:
         args["cores_per_socket"] = field
+    else:
+        args["cores_per_socket"] = 0
 
     field = data.get("threads_per_core", None)
     if field is not None:
         args["threads_per_core"] = field
+    else:
+        args["threads_per_core"] = 0
 
     field = data.get("frequency", None)
     if field is not None:
         args["frequency"] = field
+    else:
+        args["frequency"] = 0
 
     field = data.get("benchmark", None)
     if field is not None:
         args["benchmark"] = field
+    else:
+        args["benchmark"] = 0
 
     return PublicCatalogProductPropertiesHardwareCPUPhysical(**args)
 
@@ -78,6 +90,8 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPUVirtual(
     field = data.get("count", None)
     if field is not None:
         args["count"] = field
+    else:
+        args["count"] = 0
 
     return PublicCatalogProductPropertiesHardwareCPUVirtual(**args)
 
@@ -95,18 +109,26 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPU(
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("arch", None)
     if field is not None:
         args["arch"] = field
+    else:
+        args["arch"] = PublicCatalogProductPropertiesHardwareCPUArch.UNKNOWN_ARCH
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     field = data.get("threads", None)
     if field is not None:
         args["threads"] = field
+    else:
+        args["threads"] = 0
 
     field = data.get("virtual", None)
     if field is not None:
@@ -140,14 +162,20 @@ def unmarshal_PublicCatalogProductPropertiesHardwareGPU(
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("count", None)
     if field is not None:
         args["count"] = field
+    else:
+        args["count"] = 0
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     return PublicCatalogProductPropertiesHardwareGPU(**args)
 
@@ -165,18 +193,26 @@ def unmarshal_PublicCatalogProductPropertiesHardwareNetwork(
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("internal_bandwidth", None)
     if field is not None:
         args["internal_bandwidth"] = field
+    else:
+        args["internal_bandwidth"] = 0
 
     field = data.get("public_bandwidth", None)
     if field is not None:
         args["public_bandwidth"] = field
+    else:
+        args["public_bandwidth"] = 0
 
     field = data.get("max_public_bandwidth", None)
     if field is not None:
         args["max_public_bandwidth"] = field
+    else:
+        args["max_public_bandwidth"] = 0
 
     return PublicCatalogProductPropertiesHardwareNetwork(**args)
 
@@ -194,14 +230,20 @@ def unmarshal_PublicCatalogProductPropertiesHardwareRAM(
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = None
 
     return PublicCatalogProductPropertiesHardwareRAM(**args)
 
@@ -219,10 +261,14 @@ def unmarshal_PublicCatalogProductPropertiesHardwareStorage(
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("total", None)
     if field is not None:
         args["total"] = field
+    else:
+        args["total"] = 0
 
     return PublicCatalogProductPropertiesHardwareStorage(**args)
 
@@ -240,6 +286,8 @@ def unmarshal_PublicCatalogProductPropertiesAppleSilicon(
     field = data.get("range", None)
     if field is not None:
         args["range"] = field
+    else:
+        args["range"] = None
 
     return PublicCatalogProductPropertiesAppleSilicon(**args)
 
@@ -258,13 +306,13 @@ def unmarshal_PublicCatalogProductPropertiesBlockStorage(
     if field is not None:
         args["min_volume_size"] = field
     else:
-        args["min_volume_size"] = None
+        args["min_volume_size"] = 0
 
     field = data.get("max_volume_size", None)
     if field is not None:
         args["max_volume_size"] = field
     else:
-        args["max_volume_size"] = None
+        args["max_volume_size"] = 0
 
     return PublicCatalogProductPropertiesBlockStorage(**args)
 
@@ -282,6 +330,8 @@ def unmarshal_PublicCatalogProductPropertiesDedibox(
     field = data.get("range", None)
     if field is not None:
         args["range"] = field
+    else:
+        args["range"] = None
 
     return PublicCatalogProductPropertiesDedibox(**args)
 
@@ -299,6 +349,8 @@ def unmarshal_PublicCatalogProductPropertiesElasticMetal(
     field = data.get("range", None)
     if field is not None:
         args["range"] = field
+    else:
+        args["range"] = None
 
     return PublicCatalogProductPropertiesElasticMetal(**args)
 
@@ -359,14 +411,20 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
     field = data.get("range", None)
     if field is not None:
         args["range"] = field
+    else:
+        args["range"] = None
 
     field = data.get("offer_id", None)
     if field is not None:
         args["offer_id"] = field
+    else:
+        args["offer_id"] = None
 
     field = data.get("recommended_replacement_offer_ids", None)
     if field is not None:
         args["recommended_replacement_offer_ids"] = field
+    else:
+        args["recommended_replacement_offer_ids"] = []
 
     return PublicCatalogProductPropertiesInstance(**args)
 
@@ -421,7 +479,7 @@ def unmarshal_PublicCatalogProductLocality(data: Any) -> PublicCatalogProductLoc
     if field is not None:
         args["global_"] = field
     else:
-        args["global_"] = None
+        args["global_"] = False
 
     field = data.get("region", None)
     if field is not None:
@@ -537,10 +595,14 @@ def unmarshal_PublicCatalogProductUnitOfMeasure(
     field = data.get("unit", None)
     if field is not None:
         args["unit"] = field
+    else:
+        args["unit"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = None
 
     return PublicCatalogProductUnitOfMeasure(**args)
 
@@ -556,26 +618,38 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
     field = data.get("sku", None)
     if field is not None:
         args["sku"] = field
+    else:
+        args["sku"] = None
 
     field = data.get("service_category", None)
     if field is not None:
         args["service_category"] = field
+    else:
+        args["service_category"] = None
 
     field = data.get("product", None)
     if field is not None:
         args["product"] = field
+    else:
+        args["product"] = None
 
     field = data.get("variant", None)
     if field is not None:
         args["variant"] = field
+    else:
+        args["variant"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
+    else:
+        args["status"] = PublicCatalogProductStatus.UNKNOWN_STATUS
 
     field = data.get("locality", None)
     if field is not None:
@@ -637,9 +711,13 @@ def unmarshal_ListPublicCatalogProductsResponse(
             if field is not None
             else None
         )
+    else:
+        args["products"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListPublicCatalogProductsResponse(**args)

@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
@@ -238,7 +238,6 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class SecretHashedValue:
     key: str
-
     hashed_value: str
 
 
@@ -264,7 +263,7 @@ class TriggerMnqNatsClientConfig:
     Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
-    mnq_credential_id: Optional[str]
+    mnq_credential_id: Optional[str] = None
     """
     ID of the Messaging and Queuing credentials used to subscribe to the NATS subject.
     """
@@ -287,7 +286,7 @@ class TriggerMnqSqsClientConfig:
     Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
-    mnq_credential_id: Optional[str]
+    mnq_credential_id: Optional[str] = None
     """
     ID of the Messaging and Queuing credentials used to read from the SQS queue.
     """
@@ -296,19 +295,15 @@ class TriggerMnqSqsClientConfig:
 @dataclass
 class TriggerSqsClientConfig:
     endpoint: str
-
     queue_url: str
-
     access_key: str
-
     secret_key: str
 
 
 @dataclass
 class Secret:
     key: str
-
-    value: Optional[str]
+    value: Optional[str] = None
 
 
 @dataclass
@@ -355,11 +350,8 @@ class CreateTriggerRequestMnqSqsClientConfig:
 @dataclass
 class CreateTriggerRequestSqsClientConfig:
     endpoint: str
-
     queue_url: str
-
     access_key: str
-
     secret_key: str
 
 
@@ -390,7 +382,7 @@ class Cron:
     Name of the cron.
     """
 
-    args: Optional[Dict[str, Any]]
+    args: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
@@ -423,7 +415,7 @@ class Domain:
     State of the doamin.
     """
 
-    error_message: Optional[str]
+    error_message: Optional[str] = None
     """
     Error message if the domain is in "error" state.
     """
@@ -432,23 +424,14 @@ class Domain:
 @dataclass
 class Runtime:
     name: str
-
     language: str
-
     version: str
-
     default_handler: str
-
     code_sample: str
-
     status: RuntimeStatus
-
     status_message: str
-
     extension: str
-
     implementation: str
-
     logo_url: str
 
 
@@ -524,26 +507,6 @@ class Function:
     Secret environment variables of the function.
     """
 
-    timeout: Optional[str]
-    """
-    Request processing time limit for the function.
-    """
-
-    error_message: Optional[str]
-    """
-    Error message if the function is in "error" state.
-    """
-
-    build_message: Optional[str]
-    """
-    Description of the current build step.
-    """
-
-    description: Optional[str]
-    """
-    Description of the function.
-    """
-
     region: ScwRegion
     """
     Region in which the function is deployed.
@@ -557,7 +520,6 @@ class Function:
     """
 
     runtime_message: str
-
     sandbox: FunctionSandbox
     """
     Execution environment of the function.
@@ -568,22 +530,42 @@ class Function:
     List of tags applied to the Serverless Function.
     """
 
-    created_at: Optional[datetime]
+    timeout: Optional[str] = None
+    """
+    Request processing time limit for the function.
+    """
+
+    error_message: Optional[str] = None
+    """
+    Error message if the function is in "error" state.
+    """
+
+    build_message: Optional[str] = None
+    """
+    Description of the current build step.
+    """
+
+    description: Optional[str] = None
+    """
+    Description of the function.
+    """
+
+    created_at: Optional[datetime] = None
     """
     Creation date of the function.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update date of the function.
     """
 
-    ready_at: Optional[datetime]
+    ready_at: Optional[datetime] = None
     """
     Last date when the function was successfully deployed and set to ready.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
     """
@@ -626,11 +608,6 @@ class Namespace:
     UUID of the registry namespace.
     """
 
-    error_message: Optional[str]
-    """
-    Error message if the namespace is in "error" state.
-    """
-
     registry_endpoint: str
     """
     Registry endpoint of the namespace.
@@ -651,25 +628,29 @@ class Namespace:
     List of tags applied to the Serverless Function Namespace.
     """
 
-    description: Optional[str]
+    error_message: Optional[str] = None
+    """
+    Error message if the namespace is in "error" state.
+    """
+
+    description: Optional[str] = None
     """
     Description of the namespace.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Creation date of the namespace.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Last update date of the namespace.
     """
 
-    vpc_integration_activated: Optional[bool]
+    vpc_integration_activated: Optional[bool] = False
     """
-    When activated, functions in the namespace can be connected to a Private Network.
-Note that activating the VPC integration can only be done when creating a new namespace.
+    The value of this field doesn't matter anymore, and will be removed in a near future.
     """
 
 
@@ -690,24 +671,24 @@ class Token:
     Status of the token.
     """
 
-    public_key: Optional[str]
+    public_key: Optional[str] = None
     """
     Public key of the token.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the token.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Date on which the token expires.
     """
 
-    function_id: Optional[str]
+    function_id: Optional[str] = None
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
 
 
 @dataclass
@@ -742,23 +723,22 @@ class Trigger:
     Status of the trigger.
     """
 
-    error_message: Optional[str]
+    error_message: Optional[str] = None
     """
     Error message of the trigger.
     """
 
-    scw_sqs_config: Optional[TriggerMnqSqsClientConfig]
+    scw_sqs_config: Optional[TriggerMnqSqsClientConfig] = None
 
-    scw_nats_config: Optional[TriggerMnqNatsClientConfig]
+    scw_nats_config: Optional[TriggerMnqNatsClientConfig] = None
 
-    sqs_config: Optional[TriggerSqsClientConfig]
+    sqs_config: Optional[TriggerSqsClientConfig] = None
 
 
 @dataclass
 class UpdateTriggerRequestSqsClientConfig:
-    access_key: Optional[str]
-
-    secret_key: Optional[str]
+    access_key: Optional[str] = None
+    secret_key: Optional[str] = None
 
 
 @dataclass
@@ -773,17 +753,17 @@ class CreateCronRequest:
     Schedule of the cron in UNIX cron format.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    args: Optional[Dict[str, Any]]
+    args: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to use with the cron.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the cron.
     """
@@ -801,7 +781,7 @@ class CreateDomainRequest:
     UUID of the function to associate the domain with.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -814,148 +794,144 @@ class CreateFunctionRequest:
     UUID of the namespace the function will be created in.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the function to create.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the function.
     """
 
-    min_scale: Optional[int]
+    min_scale: Optional[int] = 0
     """
     Minimum number of instances to scale the function to.
     """
 
-    max_scale: Optional[int]
+    max_scale: Optional[int] = 0
     """
     Maximum number of instances to scale the function to.
     """
 
-    runtime: Optional[FunctionRuntime]
+    runtime: Optional[FunctionRuntime] = FunctionRuntime.UNKNOWN_RUNTIME
     """
     Runtime to use with the function.
     """
 
-    memory_limit: Optional[int]
+    memory_limit: Optional[int] = 0
     """
     Memory limit of the function in MB.
     """
 
-    timeout: Optional[str]
+    timeout: Optional[str] = None
     """
     Request processing time limit for the function.
     """
 
-    handler: Optional[str]
+    handler: Optional[str] = None
     """
     Handler to use with the function.
     """
 
-    privacy: Optional[FunctionPrivacy]
+    privacy: Optional[FunctionPrivacy] = FunctionPrivacy.UNKNOWN_PRIVACY
     """
     Privacy setting of the function.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the function.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
-
-    http_option: Optional[FunctionHttpOption]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    http_option: Optional[FunctionHttpOption] = FunctionHttpOption.UNKNOWN_HTTP_OPTION
     """
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
     """
 
-    sandbox: Optional[FunctionSandbox]
+    sandbox: Optional[FunctionSandbox] = FunctionSandbox.UNKNOWN_SANDBOX
     """
     Execution environment of the function.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
-
-Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
     """
 
 
 @dataclass
 class CreateNamespaceRequest:
-    activate_vpc_integration: bool
-    """
-    When activated, functions in the namespace can be connected to a Private Network.
-    """
-
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
-
-    environment_variables: Optional[Dict[str, str]]
+    name: Optional[str] = None
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the project in which the namespace will be created.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the namespace.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function Namespace.
+    """
+
+    activate_vpc_integration: Optional[bool] = False
+    """
+    Setting this field to true doesn't matter anymore. It will be removed in a near future.
     """
 
 
 @dataclass
 class CreateTokenRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the token.
     """
 
-    expires_at: Optional[datetime]
+    expires_at: Optional[datetime] = None
     """
     Date on which the token expires.
     """
 
-    function_id: Optional[str]
+    function_id: Optional[str] = None
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
 
 
 @dataclass
@@ -970,21 +946,21 @@ class CreateTriggerRequest:
     ID of the function to trigger.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the trigger.
     """
 
-    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
+    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None
 
-    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
+    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None
 
-    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
+    sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None
 
 
 @dataclass
@@ -994,7 +970,7 @@ class DeleteCronRequest:
     UUID of the cron to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1007,7 +983,7 @@ class DeleteDomainRequest:
     UUID of the domain to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1020,7 +996,7 @@ class DeleteFunctionRequest:
     UUID of the function to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1033,7 +1009,7 @@ class DeleteNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1046,7 +1022,7 @@ class DeleteTokenRequest:
     UUID of the token to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1059,7 +1035,7 @@ class DeleteTriggerRequest:
     ID of the trigger to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1072,7 +1048,7 @@ class DeployFunctionRequest:
     UUID of the function to deploy.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1081,7 +1057,6 @@ class DeployFunctionRequest:
 @dataclass
 class DownloadURL:
     url: str
-
     headers: Dict[str, List[str]]
 
 
@@ -1092,7 +1067,7 @@ class GetCronRequest:
     UUID of the cron to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1105,7 +1080,7 @@ class GetDomainRequest:
     UUID of the domain to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1118,7 +1093,7 @@ class GetFunctionDownloadURLRequest:
     UUID of the function to get the download URL for.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1131,7 +1106,7 @@ class GetFunctionRequest:
     UUID of the function.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1149,7 +1124,7 @@ class GetFunctionUploadURLRequest:
     Size of the archive to upload in bytes.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1162,7 +1137,7 @@ class GetNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1175,7 +1150,7 @@ class GetTokenRequest:
     UUID of the token to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1188,7 +1163,7 @@ class GetTriggerRequest:
     ID of the trigger to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1201,22 +1176,22 @@ class ListCronsRequest:
     UUID of the function.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of crons per page.
     """
 
-    order_by: Optional[ListCronsRequestOrderBy]
+    order_by: Optional[ListCronsRequestOrderBy] = ListCronsRequestOrderBy.CREATED_AT_ASC
     """
     Order of the crons.
     """
@@ -1242,22 +1217,24 @@ class ListDomainsRequest:
     UUID of the function the domain is associated with.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of domains per page.
     """
 
-    order_by: Optional[ListDomainsRequestOrderBy]
+    order_by: Optional[ListDomainsRequestOrderBy] = (
+        ListDomainsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the domains.
     """
@@ -1278,7 +1255,7 @@ class ListDomainsResponse:
 
 @dataclass
 class ListFunctionRuntimesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1304,37 +1281,39 @@ class ListFunctionsRequest:
     UUID of the namespace the function belongs to.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of functions per page.
     """
 
-    order_by: Optional[ListFunctionsRequestOrderBy]
+    order_by: Optional[ListFunctionsRequestOrderBy] = (
+        ListFunctionsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the functions.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the function.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     UUID of the Organization the function belongs to.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Project the function belongs to.
     """
@@ -1355,37 +1334,39 @@ class ListFunctionsResponse:
 
 @dataclass
 class ListNamespacesRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of namespaces per page.
     """
 
-    order_by: Optional[ListNamespacesRequestOrderBy]
+    order_by: Optional[ListNamespacesRequestOrderBy] = (
+        ListNamespacesRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order of the namespaces.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the namespace.
     """
 
-    organization_id: Optional[str]
+    organization_id: Optional[str] = None
     """
     UUID of the Organization the namespace belongs to.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     UUID of the Project the namespace belongs to.
     """
@@ -1394,7 +1375,6 @@ class ListNamespacesRequest:
 @dataclass
 class ListNamespacesResponse:
     namespaces: List[Namespace]
-
     total_count: int
     """
     Total number of namespaces.
@@ -1403,32 +1383,34 @@ class ListNamespacesResponse:
 
 @dataclass
 class ListTokensRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Number of tokens per page.
     """
 
-    order_by: Optional[ListTokensRequestOrderBy]
+    order_by: Optional[ListTokensRequestOrderBy] = (
+        ListTokensRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Sort order for the tokens.
     """
 
-    function_id: Optional[str]
+    function_id: Optional[str] = None
     """
     UUID of the function the token is associated with.
     """
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
     """
     UUID of the namespace the token is associated with.
     """
@@ -1437,37 +1419,38 @@ class ListTokensRequest:
 @dataclass
 class ListTokensResponse:
     tokens: List[Token]
-
     total_count: int
 
 
 @dataclass
 class ListTriggersRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of triggers to return per page.
     """
 
-    order_by: Optional[ListTriggersRequestOrderBy]
+    order_by: Optional[ListTriggersRequestOrderBy] = (
+        ListTriggersRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
 
-    function_id: Optional[str]
+    function_id: Optional[str] = None
 
-    namespace_id: Optional[str]
+    namespace_id: Optional[str] = None
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -1490,27 +1473,27 @@ class UpdateCronRequest:
     UUID of the cron to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    function_id: Optional[str]
+    function_id: Optional[str] = None
     """
     UUID of the function to use the cron with.
     """
 
-    schedule: Optional[str]
+    schedule: Optional[str] = None
     """
     Schedule of the cron in UNIX cron format.
     """
 
-    args: Optional[Dict[str, Any]]
+    args: Optional[Dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to use with the cron.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the cron.
     """
@@ -1523,88 +1506,86 @@ class UpdateFunctionRequest:
     UUID of the function to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the function to update.
     """
 
-    min_scale: Optional[int]
+    min_scale: Optional[int] = 0
     """
     Minimum number of instances to scale the function to.
     """
 
-    max_scale: Optional[int]
+    max_scale: Optional[int] = 0
     """
     Maximum number of instances to scale the function to.
     """
 
-    runtime: Optional[FunctionRuntime]
+    runtime: Optional[FunctionRuntime] = FunctionRuntime.UNKNOWN_RUNTIME
     """
     Runtime to use with the function.
     """
 
-    memory_limit: Optional[int]
+    memory_limit: Optional[int] = 0
     """
     Memory limit of the function in MB.
     """
 
-    timeout: Optional[str]
+    timeout: Optional[str] = None
     """
     Processing time limit for the function.
     """
 
-    redeploy: Optional[bool]
+    redeploy: Optional[bool] = False
     """
     Redeploy failed function.
     """
 
-    handler: Optional[str]
+    handler: Optional[str] = None
     """
     Handler to use with the function.
     """
 
-    privacy: Optional[FunctionPrivacy]
+    privacy: Optional[FunctionPrivacy] = FunctionPrivacy.UNKNOWN_PRIVACY
     """
     Privacy setting of the function.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the function.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the function.
     """
 
-    http_option: Optional[FunctionHttpOption]
+    http_option: Optional[FunctionHttpOption] = FunctionHttpOption.UNKNOWN_HTTP_OPTION
     """
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
     """
 
-    sandbox: Optional[FunctionSandbox]
+    sandbox: Optional[FunctionSandbox] = FunctionSandbox.UNKNOWN_SANDBOX
     """
     Execution environment of the function.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function.
     """
 
-    private_network_id: Optional[str]
+    private_network_id: Optional[str] = None
     """
     When connected to a Private Network, the function can access other Scaleway resources in this Private Network.
-
-Note: this feature is currently in beta and requires a namespace with VPC integration activated, using the `activate_vpc_integration` flag.
     """
 
 
@@ -1615,27 +1596,27 @@ class UpdateNamespaceRequest:
     UUID of the namespapce.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the namespace.
     """
 
-    secret_environment_variables: Optional[List[Secret]]
+    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[List[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function Namespace.
     """
@@ -1648,22 +1629,22 @@ class UpdateTriggerRequest:
     ID of the trigger to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the trigger.
     """
 
-    description: Optional[str]
+    description: Optional[str] = None
     """
     Description of the trigger.
     """
 
-    sqs_config: Optional[UpdateTriggerRequestSqsClientConfig]
+    sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None
 
 
 @dataclass

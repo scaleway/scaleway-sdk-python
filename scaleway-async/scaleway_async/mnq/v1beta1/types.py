@@ -96,17 +96,17 @@ class File:
 
 @dataclass
 class SnsPermissions:
-    can_publish: Optional[bool]
+    can_publish: Optional[bool] = False
     """
     Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics).
     """
 
-    can_receive: Optional[bool]
+    can_receive: Optional[bool] = False
     """
     Defines whether the credentials bearer can receive messages from the service (configure subscriptions).
     """
 
-    can_manage: Optional[bool]
+    can_manage: Optional[bool] = False
     """
     Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions.
     """
@@ -114,17 +114,17 @@ class SnsPermissions:
 
 @dataclass
 class SqsPermissions:
-    can_publish: Optional[bool]
+    can_publish: Optional[bool] = False
     """
     Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues).
     """
 
-    can_receive: Optional[bool]
+    can_receive: Optional[bool] = False
     """
     Defines whether the credentials bearer can receive messages from Queues queues.
     """
 
-    can_manage: Optional[bool]
+    can_manage: Optional[bool] = False
     """
     Defines whether the credentials bearer can manage the associated Queues queues.
     """
@@ -157,12 +157,12 @@ class NatsAccount:
     Region where the NATS account is deployed.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     NATS account creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     NATS account last modification date.
     """
@@ -190,17 +190,17 @@ class NatsCredentials:
     Checksum of the credentials file.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     NATS credentials creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     NATS credentials last modification date.
     """
 
-    credentials: Optional[File]
+    credentials: Optional[File] = None
     """
     Object containing the credentials file (Only returned by **Create Nats Credentials** call).
     """
@@ -243,17 +243,17 @@ class SnsCredentials:
     Checksum of the Secret key.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Credentials creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Credentials last modification date.
     """
 
-    permissions: Optional[SnsPermissions]
+    permissions: Optional[SnsPermissions] = None
     """
     Permissions associated with these credentials.
     """
@@ -296,17 +296,17 @@ class SqsCredentials:
     Checksum of the Secret key.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Credentials creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Credentials last modification date.
     """
 
-    permissions: Optional[SqsPermissions]
+    permissions: Optional[SqsPermissions] = None
     """
     Permissions associated with these credentials.
     """
@@ -366,17 +366,17 @@ class ListSqsCredentialsResponse:
 
 @dataclass
 class NatsApiCreateNatsAccountRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     NATS account name.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project containing the NATS account.
     """
@@ -389,12 +389,12 @@ class NatsApiCreateNatsCredentialsRequest:
     NATS account containing the credentials.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the credentials.
     """
@@ -407,7 +407,7 @@ class NatsApiDeleteNatsAccountRequest:
     ID of the NATS account to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -420,7 +420,7 @@ class NatsApiDeleteNatsCredentialsRequest:
     ID of the credentials to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -433,7 +433,7 @@ class NatsApiGetNatsAccountRequest:
     ID of the NATS account to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -446,7 +446,7 @@ class NatsApiGetNatsCredentialsRequest:
     ID of the credentials to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -454,27 +454,29 @@ class NatsApiGetNatsCredentialsRequest:
 
 @dataclass
 class NatsApiListNatsAccountsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Include only NATS accounts in this Project.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of NATS accounts to return per page.
     """
 
-    order_by: Optional[ListNatsAccountsRequestOrderBy]
+    order_by: Optional[ListNatsAccountsRequestOrderBy] = (
+        ListNatsAccountsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
@@ -482,32 +484,34 @@ class NatsApiListNatsAccountsRequest:
 
 @dataclass
 class NatsApiListNatsCredentialsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Include only NATS accounts in this Project.
     """
 
-    nats_account_id: Optional[str]
+    nats_account_id: Optional[str] = None
     """
     Include only credentials for this NATS account.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of credentials to return per page.
     """
 
-    order_by: Optional[ListNatsCredentialsRequestOrderBy]
+    order_by: Optional[ListNatsCredentialsRequestOrderBy] = (
+        ListNatsCredentialsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
@@ -520,12 +524,12 @@ class NatsApiUpdateNatsAccountRequest:
     ID of the NATS account to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     NATS account name.
     """
@@ -533,12 +537,12 @@ class NatsApiUpdateNatsAccountRequest:
 
 @dataclass
 class SnsApiActivateSnsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project on which to activate the Topics and Events service.
     """
@@ -546,22 +550,22 @@ class SnsApiActivateSnsRequest:
 
 @dataclass
 class SnsApiCreateSnsCredentialsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project containing the Topics and Events credentials.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the credentials.
     """
 
-    permissions: Optional[SnsPermissions]
+    permissions: Optional[SnsPermissions] = None
     """
     Permissions associated with these credentials.
     """
@@ -569,12 +573,12 @@ class SnsApiCreateSnsCredentialsRequest:
 
 @dataclass
 class SnsApiDeactivateSnsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project on which to deactivate the Topics and Events service.
     """
@@ -587,7 +591,7 @@ class SnsApiDeleteSnsCredentialsRequest:
     ID of the credentials to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -600,7 +604,7 @@ class SnsApiGetSnsCredentialsRequest:
     ID of the Topics and Events credentials to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -608,12 +612,12 @@ class SnsApiGetSnsCredentialsRequest:
 
 @dataclass
 class SnsApiGetSnsInfoRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project to retrieve Topics and Events info from.
     """
@@ -621,27 +625,29 @@ class SnsApiGetSnsInfoRequest:
 
 @dataclass
 class SnsApiListSnsCredentialsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Include only Topics and Events credentials in this Project.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of credentials to return per page.
     """
 
-    order_by: Optional[ListSnsCredentialsRequestOrderBy]
+    order_by: Optional[ListSnsCredentialsRequestOrderBy] = (
+        ListSnsCredentialsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
@@ -654,17 +660,17 @@ class SnsApiUpdateSnsCredentialsRequest:
     ID of the Topics and Events credentials to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the credentials.
     """
 
-    permissions: Optional[SnsPermissions]
+    permissions: Optional[SnsPermissions] = None
     """
     Permissions associated with these credentials.
     """
@@ -692,12 +698,12 @@ class SnsInfo:
     Endpoint of the Topics and Events service for this region and project.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Topics and Events creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Topics and Events last modification date.
     """
@@ -705,12 +711,12 @@ class SnsInfo:
 
 @dataclass
 class SqsApiActivateSqsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project on which to activate the Queues service.
     """
@@ -718,22 +724,22 @@ class SqsApiActivateSqsRequest:
 
 @dataclass
 class SqsApiCreateSqsCredentialsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project containing the Queues credentials.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the credentials.
     """
 
-    permissions: Optional[SqsPermissions]
+    permissions: Optional[SqsPermissions] = None
     """
     Permissions associated with these credentials.
     """
@@ -741,12 +747,12 @@ class SqsApiCreateSqsCredentialsRequest:
 
 @dataclass
 class SqsApiDeactivateSqsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project on which to deactivate the Queues service.
     """
@@ -759,7 +765,7 @@ class SqsApiDeleteSqsCredentialsRequest:
     ID of the credentials to delete.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -772,7 +778,7 @@ class SqsApiGetSqsCredentialsRequest:
     ID of the Queues credentials to get.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -780,12 +786,12 @@ class SqsApiGetSqsCredentialsRequest:
 
 @dataclass
 class SqsApiGetSqsInfoRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Project to retrieve Queues info from.
     """
@@ -793,27 +799,29 @@ class SqsApiGetSqsInfoRequest:
 
 @dataclass
 class SqsApiListSqsCredentialsRequest:
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    project_id: Optional[str] = None
     """
     Include only Queues credentials in this Project.
     """
 
-    page: Optional[int]
+    page: Optional[int] = 0
     """
     Page number to return.
     """
 
-    page_size: Optional[int]
+    page_size: Optional[int] = 0
     """
     Maximum number of credentials to return per page.
     """
 
-    order_by: Optional[ListSqsCredentialsRequestOrderBy]
+    order_by: Optional[ListSqsCredentialsRequestOrderBy] = (
+        ListSqsCredentialsRequestOrderBy.CREATED_AT_ASC
+    )
     """
     Order in which to return results.
     """
@@ -826,17 +834,17 @@ class SqsApiUpdateSqsCredentialsRequest:
     ID of the Queues credentials to update.
     """
 
-    region: Optional[ScwRegion]
+    region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    name: Optional[str]
+    name: Optional[str] = None
     """
     Name of the credentials.
     """
 
-    permissions: Optional[SqsPermissions]
+    permissions: Optional[SqsPermissions] = None
     """
     Permissions associated with these credentials.
     """
@@ -864,12 +872,12 @@ class SqsInfo:
     Endpoint of the Queues service for this region and project.
     """
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """
     Queues creation date.
     """
 
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None
     """
     Queues last modification date.
     """
