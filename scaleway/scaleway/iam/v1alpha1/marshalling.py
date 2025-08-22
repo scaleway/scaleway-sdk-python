@@ -56,6 +56,7 @@ from .types import (
     Organization,
     OrganizationSecuritySettings,
     Saml,
+    SamlInformation,
     SetRulesResponse,
     ValidateUserMFAOTPResponse,
     AddGroupMemberRequest,
@@ -1596,6 +1597,29 @@ def unmarshal_Saml(data: Any) -> Saml:
         args["single_sign_on_url"] = None
 
     return Saml(**args)
+
+
+def unmarshal_SamlInformation(data: Any) -> SamlInformation:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SamlInformation' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("entity_id", None)
+    if field is not None:
+        args["entity_id"] = field
+    else:
+        args["entity_id"] = None
+
+    field = data.get("assertion_consumer_service_url", None)
+    if field is not None:
+        args["assertion_consumer_service_url"] = field
+    else:
+        args["assertion_consumer_service_url"] = None
+
+    return SamlInformation(**args)
 
 
 def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
