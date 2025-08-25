@@ -16,11 +16,11 @@ from .types import (
     EndpointPrivateNetworkDetails,
     EndpointPublicNetworkDetails,
     Endpoint,
+    DeploymentQuantization,
+    Deployment,
     ModelSupportedQuantization,
     ModelSupportedNode,
     ModelSupportInfo,
-    DeploymentQuantization,
-    Deployment,
     Model,
     ListDeploymentsResponse,
     ListModelsResponse,
@@ -103,83 +103,6 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
         args["private_network"] = None
 
     return Endpoint(**args)
-
-
-def unmarshal_ModelSupportedQuantization(data: Any) -> ModelSupportedQuantization:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ModelSupportedQuantization' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("quantization_bits", None)
-    if field is not None:
-        args["quantization_bits"] = field
-    else:
-        args["quantization_bits"] = 0
-
-    field = data.get("allowed", None)
-    if field is not None:
-        args["allowed"] = field
-    else:
-        args["allowed"] = False
-
-    field = data.get("max_context_size", None)
-    if field is not None:
-        args["max_context_size"] = field
-    else:
-        args["max_context_size"] = 0
-
-    return ModelSupportedQuantization(**args)
-
-
-def unmarshal_ModelSupportedNode(data: Any) -> ModelSupportedNode:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ModelSupportedNode' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("node_type_name", None)
-    if field is not None:
-        args["node_type_name"] = field
-    else:
-        args["node_type_name"] = None
-
-    field = data.get("quantizations", None)
-    if field is not None:
-        args["quantizations"] = (
-            [unmarshal_ModelSupportedQuantization(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["quantizations"] = []
-
-    return ModelSupportedNode(**args)
-
-
-def unmarshal_ModelSupportInfo(data: Any) -> ModelSupportInfo:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ModelSupportInfo' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("nodes", None)
-    if field is not None:
-        args["nodes"] = (
-            [unmarshal_ModelSupportedNode(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["nodes"] = []
-
-    return ModelSupportInfo(**args)
 
 
 def unmarshal_DeploymentQuantization(data: Any) -> DeploymentQuantization:
@@ -312,6 +235,83 @@ def unmarshal_Deployment(data: Any) -> Deployment:
         args["updated_at"] = None
 
     return Deployment(**args)
+
+
+def unmarshal_ModelSupportedQuantization(data: Any) -> ModelSupportedQuantization:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ModelSupportedQuantization' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("quantization_bits", None)
+    if field is not None:
+        args["quantization_bits"] = field
+    else:
+        args["quantization_bits"] = 0
+
+    field = data.get("allowed", None)
+    if field is not None:
+        args["allowed"] = field
+    else:
+        args["allowed"] = False
+
+    field = data.get("max_context_size", None)
+    if field is not None:
+        args["max_context_size"] = field
+    else:
+        args["max_context_size"] = 0
+
+    return ModelSupportedQuantization(**args)
+
+
+def unmarshal_ModelSupportedNode(data: Any) -> ModelSupportedNode:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ModelSupportedNode' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("node_type_name", None)
+    if field is not None:
+        args["node_type_name"] = field
+    else:
+        args["node_type_name"] = None
+
+    field = data.get("quantizations", None)
+    if field is not None:
+        args["quantizations"] = (
+            [unmarshal_ModelSupportedQuantization(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["quantizations"] = []
+
+    return ModelSupportedNode(**args)
+
+
+def unmarshal_ModelSupportInfo(data: Any) -> ModelSupportInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ModelSupportInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("nodes", None)
+    if field is not None:
+        args["nodes"] = (
+            [unmarshal_ModelSupportedNode(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["nodes"] = []
+
+    return ModelSupportInfo(**args)
 
 
 def unmarshal_Model(data: Any) -> Model:
