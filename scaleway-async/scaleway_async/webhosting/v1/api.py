@@ -1106,6 +1106,7 @@ class WebhostingV1DnsAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project currently in use.
         :return: :class:`CheckUserOwnsDomainResponse <CheckUserOwnsDomainResponse>`
+        :deprecated
 
         Usage:
         ::
