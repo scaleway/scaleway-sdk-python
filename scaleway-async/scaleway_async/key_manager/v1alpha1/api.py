@@ -14,6 +14,7 @@ from scaleway_core.utils import (
 from .types import (
     DataKeyAlgorithmSymmetricEncryption,
     KeyOrigin,
+    ListAlgorithmsRequestUsage,
     ListKeysRequestOrderBy,
     ListKeysRequestUsage,
     CreateKeyRequest,
@@ -27,6 +28,7 @@ from .types import (
     Key,
     KeyRotationPolicy,
     KeyUsage,
+    ListAlgorithmsResponse,
     ListKeysResponse,
     PublicKey,
     SignRequest,
@@ -40,6 +42,7 @@ from .marshalling import (
     unmarshal_DataKey,
     unmarshal_DecryptResponse,
     unmarshal_EncryptResponse,
+    unmarshal_ListAlgorithmsResponse,
     unmarshal_ListKeysResponse,
     unmarshal_PublicKey,
     unmarshal_SignResponse,
@@ -921,3 +924,37 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
+
+    async def list_algorithms(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        usages: Optional[List[ListAlgorithmsRequestUsage]] = None,
+    ) -> ListAlgorithmsResponse:
+        """
+        List all available algorithms.
+        Lists all cryptographic algorithms supported by the Key Manager service.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param usages: Filter by key usage.
+        :return: :class:`ListAlgorithmsResponse <ListAlgorithmsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_algorithms()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/key-manager/v1alpha1/regions/{param_region}/algorithms",
+            params={
+                "usages": usages,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListAlgorithmsResponse(res.json())
