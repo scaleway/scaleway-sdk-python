@@ -6,10 +6,12 @@ from .types import KeyAlgorithmAsymmetricSigning
 from .types import KeyAlgorithmSymmetricEncryption
 from .types import KeyOrigin
 from .types import KeyState
+from .types import ListAlgorithmsRequestUsage
 from .types import ListKeysRequestOrderBy
 from .types import ListKeysRequestUsage
 from .types import KeyRotationPolicy
 from .types import KeyUsage
+from .types import ListAlgorithmsResponseAlgorithm
 from .types import Key
 from .types import CreateKeyRequest
 from .types import DataKey
@@ -25,6 +27,8 @@ from .types import GenerateDataKeyRequest
 from .types import GetKeyRequest
 from .types import GetPublicKeyRequest
 from .types import ImportKeyMaterialRequest
+from .types import ListAlgorithmsRequest
+from .types import ListAlgorithmsResponse
 from .types import ListKeysRequest
 from .types import ListKeysResponse
 from .types import ProtectKeyRequest
@@ -46,10 +50,12 @@ __all__ = [
     "KeyAlgorithmSymmetricEncryption",
     "KeyOrigin",
     "KeyState",
+    "ListAlgorithmsRequestUsage",
     "ListKeysRequestOrderBy",
     "ListKeysRequestUsage",
     "KeyRotationPolicy",
     "KeyUsage",
+    "ListAlgorithmsResponseAlgorithm",
     "Key",
     "CreateKeyRequest",
     "DataKey",
@@ -65,6 +71,8 @@ __all__ = [
     "GetKeyRequest",
     "GetPublicKeyRequest",
     "ImportKeyMaterialRequest",
+    "ListAlgorithmsRequest",
+    "ListAlgorithmsResponse",
     "ListKeysRequest",
     "ListKeysResponse",
     "ProtectKeyRequest",

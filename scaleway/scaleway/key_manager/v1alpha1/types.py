@@ -76,6 +76,16 @@ class KeyState(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListAlgorithmsRequestUsage(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_USAGE = "unknown_usage"
+    SYMMETRIC_ENCRYPTION = "symmetric_encryption"
+    ASYMMETRIC_ENCRYPTION = "asymmetric_encryption"
+    ASYMMETRIC_SIGNING = "asymmetric_signing"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -120,6 +130,13 @@ class KeyUsage:
     asymmetric_encryption: Optional[KeyAlgorithmAsymmetricEncryption] = None
 
     asymmetric_signing: Optional[KeyAlgorithmAsymmetricSigning] = None
+
+
+@dataclass
+class ListAlgorithmsResponseAlgorithm:
+    usage: str
+    name: str
+    recommended: bool
 
 
 @dataclass
@@ -487,6 +504,27 @@ class ImportKeyMaterialRequest:
     salt: Optional[str] = None
     """
     A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
+    """
+
+
+@dataclass
+class ListAlgorithmsRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    usages: Optional[List[ListAlgorithmsRequestUsage]] = field(default_factory=list)
+    """
+    Filter by key usage.
+    """
+
+
+@dataclass
+class ListAlgorithmsResponse:
+    algorithms: List[ListAlgorithmsResponseAlgorithm]
+    """
+    Returns a list of algorithms matching the requested criteria.
     """
 
 

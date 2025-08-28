@@ -20,6 +20,8 @@ from .types import (
     DataKey,
     DecryptResponse,
     EncryptResponse,
+    ListAlgorithmsResponseAlgorithm,
+    ListAlgorithmsResponse,
     ListKeysResponse,
     PublicKey,
     SignResponse,
@@ -299,6 +301,58 @@ def unmarshal_EncryptResponse(data: Any) -> EncryptResponse:
         args["ciphertext"] = None
 
     return EncryptResponse(**args)
+
+
+def unmarshal_ListAlgorithmsResponseAlgorithm(
+    data: Any,
+) -> ListAlgorithmsResponseAlgorithm:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListAlgorithmsResponseAlgorithm' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("usage", None)
+    if field is not None:
+        args["usage"] = field
+    else:
+        args["usage"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("recommended", None)
+    if field is not None:
+        args["recommended"] = field
+    else:
+        args["recommended"] = None
+
+    return ListAlgorithmsResponseAlgorithm(**args)
+
+
+def unmarshal_ListAlgorithmsResponse(data: Any) -> ListAlgorithmsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListAlgorithmsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("algorithms", None)
+    if field is not None:
+        args["algorithms"] = (
+            [unmarshal_ListAlgorithmsResponseAlgorithm(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["algorithms"] = []
+
+    return ListAlgorithmsResponse(**args)
 
 
 def unmarshal_ListKeysResponse(data: Any) -> ListKeysResponse:
