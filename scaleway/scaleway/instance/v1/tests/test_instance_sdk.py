@@ -16,8 +16,8 @@ from scaleway.block.v1alpha1.types import Volume, CreateVolumeRequestFromEmpty
 from tests.utils import initialize_client_test
 from vcr_config import scw_vcr
 
-server_name = f"test-sdk-python-fixture"
-server_name_extra = f"test-sdk-python-extra"
+server_name = "test-sdk-python-fixture"
+server_name_extra = "test-sdk-python-extra"
 max_retry = 10
 interval = 0.01
 volume_size = 10_000_000_000
