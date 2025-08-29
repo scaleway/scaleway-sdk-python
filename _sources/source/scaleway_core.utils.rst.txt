@@ -1,0 +1,69 @@
+scaleway\_core.utils package
+============================
+
+Submodules
+----------
+
+scaleway\_core.utils.fetch\_all\_pages module
+---------------------------------------------
+
+.. automodule:: scaleway_core.utils.fetch_all_pages
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.utils.project\_or\_organization\_id module
+---------------------------------------------------------
+
+.. automodule:: scaleway_core.utils.project_or_organization_id
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.utils.random\_name module
+----------------------------------------
+
+.. automodule:: scaleway_core.utils.random_name
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.utils.resolve\_one\_of module
+--------------------------------------------
+
+.. automodule:: scaleway_core.utils.resolve_one_of
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.utils.strenummeta module
+---------------------------------------
+
+.. automodule:: scaleway_core.utils.strenummeta
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.utils.validate\_path\_param module
+-------------------------------------------------
+
+.. automodule:: scaleway_core.utils.validate_path_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.utils.waiter module
+----------------------------------
+
+.. automodule:: scaleway_core.utils.waiter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_core.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
