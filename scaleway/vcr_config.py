@@ -1,4 +1,5 @@
 import os
+import json
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
@@ -17,6 +18,8 @@ CI = os.getenv("CI", "false").lower() in (
     "yes",
 )
 
+REPLACE = "11111111-1111-1111-1111-111111111111"
+
 
 def func_path(function):
     path = Path(Path(inspect.getfile(function)).parent, "cassettes")
@@ -25,24 +28,16 @@ def func_path(function):
     return Path(path, filename)
 
 
-import json
-
-REPLACE = "11111111-1111-1111-1111-111111111111"
-
-import json
-
-PLACEHOLDER = "11111111-1111-1111-1111-111111111111"
-
-
 def scrub_data(data):
     if isinstance(data, dict):
         return {
-            k: PLACEHOLDER
+            k: REPLACE
             if k in ("organization", "project", "organization_id", "project_id")
             else scrub_data(v)
             for k, v in data.items()
         }
-    elif isinstance(data, list):
+
+    if isinstance(data, list):
         return [scrub_data(item) for item in data]
 
     return data
@@ -118,7 +113,14 @@ def scrub_uri():
 
 scw_vcr = vcr.VCR(
     record_mode="all" if PYTHON_UPDATE_CASSETTE else "none",
-    filter_headers=["x-auth-token", "link"],
+    filter_headers=[
+        "x-auth-token",
+        "link",
+        "Accept-Encoding",
+        "Connection",
+        "Content-Type",
+        "accept",
+    ],
     func_path_generator=func_path,
     before_record_response=scrub_string(),
     before_record_request=scrub_uri(),

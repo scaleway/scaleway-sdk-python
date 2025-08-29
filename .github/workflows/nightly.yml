@@ -52,9 +52,5 @@ jobs:
           ${SLACK_WEBHOOK_NIGHTLY};
         env:
           SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
-          FAILED_PRODUCT: ${{ matrix.products }}
-
-
-
-
-
+          FAILED_PRODUCT: ${{ matrix
+          .products }}
