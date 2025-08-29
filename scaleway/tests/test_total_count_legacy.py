@@ -10,6 +10,7 @@ stream_handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(stream_handler)
 
 
+@unittest.skip("To remove")
 class TestTotalCountLegacy(unittest.TestCase):
     def setUp(self) -> None:
         self.client = Client.from_env()

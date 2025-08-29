@@ -41,5 +41,6 @@ jobs:
           SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
           SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
           SCW_DEFAULT_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
-        run: poetry run python -m unittest discover -s tests -v
+          CI: true
+        run: poetry run pytest -v
        

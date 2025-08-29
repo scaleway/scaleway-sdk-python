@@ -1,12 +1,17 @@
+import time
 from typing import Optional, Dict, cast
 
 from requests import Response
 
+from scaleway.instance.v1 import GetServerResponse
 from scaleway_core.bridge import Zone as ScwZone
 from scaleway_core.utils import validate_path_param
 from .api import InstanceV1API
 from .custom_marshalling import marshal_GetServerUserDataRequest
 from .custom_types import GetServerUserDataRequest, GetAllServerUserDataResponse
+
+max_retry = 10
+interval = 0.01
 
 
 class InstanceUtilsV1API(InstanceV1API):
@@ -125,3 +130,19 @@ class InstanceUtilsV1API(InstanceV1API):
             )
 
         return None
+
+    def wait_instance_server(self, server_id: str, zone: ScwZone) -> GetServerResponse:
+        wait_interval = interval
+        for i in range(1, max_retry):
+            wait_interval *= i
+            s = self.get_server(zone=zone, server_id=server_id)
+
+            if s.server is not None and s.server.state in {"running", "stopped"}:
+                return s
+
+            time.sleep(wait_interval)
+
+        raise TimeoutError(
+            f"Server {server_id} in zone {zone} did not reach a stable state "
+            f"after {max_retry} retries."
+        )
