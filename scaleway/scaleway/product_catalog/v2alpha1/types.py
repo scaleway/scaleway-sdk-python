@@ -228,6 +228,11 @@ class PublicCatalogProductPropertiesAppleSilicon:
     The range of the Apple Silicon server.
     """
 
+    server_type: str
+    """
+    The server type of the Apple Silicon server.
+    """
+
 
 @dataclass
 class PublicCatalogProductPropertiesBlockStorage:
@@ -249,12 +254,22 @@ class PublicCatalogProductPropertiesDedibox:
     The range of the Dedibox server.
     """
 
+    offer_id: int
+    """
+    The offer ID of the Dedibox server.
+    """
+
 
 @dataclass
 class PublicCatalogProductPropertiesElasticMetal:
     range: str
     """
     The range of the Elastic Metal server.
+    """
+
+    offer_id: str
+    """
+    The offer ID of the Elastic Metal server.
     """
 
 

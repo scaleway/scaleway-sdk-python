@@ -289,6 +289,12 @@ def unmarshal_PublicCatalogProductPropertiesAppleSilicon(
     else:
         args["range"] = None
 
+    field = data.get("server_type", None)
+    if field is not None:
+        args["server_type"] = field
+    else:
+        args["server_type"] = None
+
     return PublicCatalogProductPropertiesAppleSilicon(**args)
 
 
@@ -333,6 +339,12 @@ def unmarshal_PublicCatalogProductPropertiesDedibox(
     else:
         args["range"] = None
 
+    field = data.get("offer_id", None)
+    if field is not None:
+        args["offer_id"] = field
+    else:
+        args["offer_id"] = 0
+
     return PublicCatalogProductPropertiesDedibox(**args)
 
 
@@ -351,6 +363,12 @@ def unmarshal_PublicCatalogProductPropertiesElasticMetal(
         args["range"] = field
     else:
         args["range"] = None
+
+    field = data.get("offer_id", None)
+    if field is not None:
+        args["offer_id"] = field
+    else:
+        args["offer_id"] = None
 
     return PublicCatalogProductPropertiesElasticMetal(**args)
 
