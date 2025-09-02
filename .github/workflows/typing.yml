@@ -24,7 +24,7 @@ jobs:
       run:
         working-directory: ${{ matrix.lib }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install poetry
         run: pipx install poetry
       - name: Set up Python
@@ -50,7 +50,7 @@ jobs:
       run:
         working-directory: ${{ matrix.lib }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install poetry
         run: pipx install poetry
       - name: Set up Python
@@ -76,7 +76,7 @@ jobs:
       run:
         working-directory: ${{ matrix.lib }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install poetry
         run: pipx install poetry
       - name: Set up Python
