@@ -10,7 +10,9 @@ import vcr
 # Environment flags
 # -------------------------------------------------------------------
 PYTHON_UPDATE_CASSETTE = os.getenv("PYTHON_UPDATE_CASSETTE", "false").lower() in (
-    "1", "true", "yes"
+    "1",
+    "true",
+    "yes",
 )
 REPLAY_CASSETTES = os.getenv("CI", "false").lower() in ("1", "true", "yes")
 
@@ -32,6 +34,7 @@ FILTER_HEADERS = {
 }
 SCRUB_KEYS = {"organization", "project", "organization_id", "project_id"}
 
+
 def func_path(function) -> Path:
     path = Path(inspect.getfile(function)).parent / "cassettes"
     path.mkdir(exist_ok=True)
@@ -40,7 +43,9 @@ def func_path(function) -> Path:
 
 def scrub_data(data):
     if isinstance(data, dict):
-        return {k: REPLACE if k in SCRUB_KEYS else scrub_data(v) for k, v in data.items()}
+        return {
+            k: REPLACE if k in SCRUB_KEYS else scrub_data(v) for k, v in data.items()
+        }
     if isinstance(data, list):
         return [scrub_data(item) for item in data]
     return data
@@ -60,6 +65,7 @@ def scrub_json_string(raw: bytes | str) -> bytes | str:
         return raw
 
     return json.dumps(scrub_data(data))
+
 
 def scrub_response_body(response):
     body = response["body"]["string"]
@@ -95,8 +101,7 @@ def scrub_request(request):
 
 def scrub_response(response):
     response = scrub_response_body(response)
-    response = scrub_response_headers(response)
-    return response
+    return scrub_response_headers(response)
 
 
 scw_vcr = vcr.VCR(
