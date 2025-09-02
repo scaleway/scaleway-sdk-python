@@ -752,6 +752,12 @@ def unmarshal_Session(data: Any) -> Session:
     else:
         args["model_id"] = None
 
+    field = data.get("parameters", None)
+    if field is not None:
+        args["parameters"] = field
+    else:
+        args["parameters"] = None
+
     return Session(**args)
 
 
@@ -1220,6 +1226,9 @@ def marshal_CreateSessionRequest(
 
     if request.model_id is not None:
         output["model_id"] = request.model_id
+
+    if request.parameters is not None:
+        output["parameters"] = request.parameters
 
     return output
 
