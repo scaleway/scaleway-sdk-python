@@ -6,6 +6,7 @@ from typing import Union
 
 from scaleway_core.client import Client
 from scaleway_core.profile import ProfileDefaults
+from vcr_config import REPLAY_CASSETTES
 
 system_random = random.SystemRandom()
 
@@ -47,7 +48,7 @@ def random_profile_defaults() -> ProfileDefaults:
 
 
 def initialize_client_test():
-    if os.getenv("CI", "false") == "true":  # running in GitHub Actions
+    if REPLAY_CASSETTES:
         client = Client(
             access_key="SCWXXXXXXXXXXXXXXXXX",
             secret_key="11111111-1111-1111-1111-111111111111",

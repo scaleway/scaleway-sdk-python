@@ -115,22 +115,12 @@ interactions:
     headers:
       content-length:
       - '8424'
-      content-security-policy:
-      - default-src 'none'; frame-ancestors 'none'
-      content-type:
-      - application/json
       date:
-      - Fri, 29 Aug 2025 07:51:47 GMT
+      - Tue, 02 Sep 2025 07:49:03 GMT
       server:
-      - Scaleway API Gateway (fr-par-2;edge01)
-      strict-transport-security:
-      - max-age=63072000
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       x-request-id:
-      - 05803777-b9e4-4243-9bb2-5646c95bdf71
+      - 4e31a3ba-90b2-4157-a1cb-63fa07028e9d
     status:
       code: 200
       message: OK

@@ -7,34 +7,24 @@ interactions:
       user-agent:
       - scaleway-sdk-python/2.0.0
     method: PATCH
-    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/7dfbbfc0-3f5a-4cee-b40b-4ef73ddda974
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/64bd296a-08ae-472a-9868-13dc873fefe4
   response:
     body:
-      string: '{"id": "7dfbbfc0-3f5a-4cee-b40b-4ef73ddda974", "name": "vpc-test-sdk-python-practical-beaver",
+      string: '{"id": "64bd296a-08ae-472a-9868-13dc873fefe4", "name": "vpc-test-sdk-python-eager-swartz",
         "tags": ["sdk-python", "regression-test"], "organization_id": "11111111-1111-1111-1111-111111111111",
-        "created_at": "2025-08-29T07:51:47.085349Z", "updated_at": "2025-08-29T07:51:57.474470Z",
+        "created_at": "2025-09-02T07:49:03.264547Z", "updated_at": "2025-09-02T07:49:13.569326Z",
         "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
         "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
         true, "region": "fr-par"}'
     headers:
       content-length:
-      - '453'
-      content-security-policy:
-      - default-src 'none'; frame-ancestors 'none'
-      content-type:
-      - application/json
+      - '449'
       date:
-      - Fri, 29 Aug 2025 07:51:57 GMT
+      - Tue, 02 Sep 2025 07:49:13 GMT
       server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      strict-transport-security:
-      - max-age=63072000
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       x-request-id:
-      - 606c5f62-00ed-4b4a-a6ef-0bfdbf47640e
+      - 4c1f3068-e1b3-4032-8a8e-6ddc39f7b72a
     status:
       code: 200
       message: OK

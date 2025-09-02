@@ -41,6 +41,6 @@ jobs:
           SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
           SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
           SCW_DEFAULT_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
-          CI: true
+          REPLAY_CASSETTES: true
         run: poetry run pytest -v
        

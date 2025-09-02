@@ -1,127 +1,108 @@
 import os
 import json
+import inspect
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
 import vcr
-import inspect
 
+# -------------------------------------------------------------------
+# Environment flags
+# -------------------------------------------------------------------
 PYTHON_UPDATE_CASSETTE = os.getenv("PYTHON_UPDATE_CASSETTE", "false").lower() in (
-    "1",
-    "true",
-    "yes",
+    "1", "true", "yes"
 )
+REPLAY_CASSETTES = os.getenv("CI", "false").lower() in ("1", "true", "yes")
 
-CI = os.getenv("CI", "false").lower() in (
-    "1",
-    "true",
-    "yes",
-)
-
+# -------------------------------------------------------------------
+# Constants
+# -------------------------------------------------------------------
 REPLACE = "11111111-1111-1111-1111-111111111111"
+FILTER_HEADERS = {
+    "x-auth-token",
+    "link",
+    "accept-encoding",
+    "connection",
+    "content-type",
+    "accept",
+    "content-security-policy",
+    "x-content-type-options",
+    "x-frame-options",
+    "strict-transport-security",
+}
+SCRUB_KEYS = {"organization", "project", "organization_id", "project_id"}
 
-
-def func_path(function):
-    path = Path(Path(inspect.getfile(function)).parent, "cassettes")
-    Path.mkdir(path, exist_ok=True)
-    filename = function.__name__ + ".cassette.yaml"
-    return Path(path, filename)
+def func_path(function) -> Path:
+    path = Path(inspect.getfile(function)).parent / "cassettes"
+    path.mkdir(exist_ok=True)
+    return path / f"{function.__name__}.cassette.yaml"
 
 
 def scrub_data(data):
     if isinstance(data, dict):
-        return {
-            k: REPLACE
-            if k in ("organization", "project", "organization_id", "project_id")
-            else scrub_data(v)
-            for k, v in data.items()
-        }
-
+        return {k: REPLACE if k in SCRUB_KEYS else scrub_data(v) for k, v in data.items()}
     if isinstance(data, list):
         return [scrub_data(item) for item in data]
-
     return data
 
 
-def scrub_string():
-    def before_record_response(response):
-        body_bytes = response["body"]["string"]
+def scrub_json_string(raw: bytes | str) -> bytes | str:
+    if isinstance(raw, bytes):
+        raw = raw.decode("utf-8")
 
-        if isinstance(body_bytes, bytes):
-            body_str = body_bytes.decode("utf-8")
-        else:
-            body_str = str(body_bytes)
+    raw = raw.strip()
+    if not raw or not (raw.startswith("{") or raw.startswith("[")):
+        return raw
 
-        body_str = body_str.strip()
-        if not body_str or not (body_str.startswith("{") or body_str.startswith("[")):
-            return response
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        return raw
 
-        data = json.loads(body_str)
+    return json.dumps(scrub_data(data))
 
-        data = scrub_data(data)
-
-        response["body"]["string"] = json.dumps(data).encode("utf-8")
-
-        return response
-
-    return before_record_response
+def scrub_response_body(response):
+    body = response["body"]["string"]
+    response["body"]["string"] = scrub_json_string(body).encode("utf-8")
+    return response
 
 
-def scrub_uri():
-    def before_record_request(request):
-        request_bytes = request.body
-        if isinstance(request_bytes, bytes):
-            request_str = request_bytes.decode("utf-8")
-        else:
-            request_str = str(request_bytes)
-        request_bytes = request_bytes.strip()
-        if not request_bytes or not (
-            request_str.startswith("{") or request_str.startswith("[")
-        ):
-            return request
-        data = json.loads(request_str)
-        data = scrub_data(data)
-        request.body = json.dumps(data).encode("utf-8")
-        index_orga_id = request.uri.rfind("?organization_id=")
-        index_project_id = request.uri.rfind("&project_id=")
-        index_orga = request.uri.rfind("?organization=")
-        index_project = request.uri.rfind("&project=")
-        uri = request.uri
-        parsed = urlparse(uri)
-        query = parse_qs(parsed.query)
+def scrub_response_headers(response):
+    response["headers"] = {
+        k: v for k, v in response["headers"].items() if k.lower() not in FILTER_HEADERS
+    }
+    return response
 
-        if index_orga_id != -1:
-            query["organization_id"] = ["11111111-1111-1111-1111-111111111111"]
 
-        if index_project_id != -1:
-            query["project_id"] = ["11111111-1111-1111-1111-111111111111"]
+def scrub_request(request):
+    body = request.body
+    if body:
+        scrubbed = scrub_json_string(body)
+        if isinstance(scrubbed, str):
+            scrubbed = scrubbed.encode("utf-8")
+        request.body = scrubbed
 
-        if index_orga != -1:
-            query["organization"] = ["11111111-1111-1111-1111-111111111111"]
+    parsed = urlparse(request.uri)
+    query = parse_qs(parsed.query)
 
-        if index_project != -1:
-            query["project"] = ["11111111-1111-1111-1111-111111111111"]
+    for key in SCRUB_KEYS:
+        if key in query:
+            query[key] = [REPLACE]
 
-        new_query = urlencode(query, doseq=True)
-        uri = urlunparse(parsed._replace(query=new_query))
+    request.uri = urlunparse(parsed._replace(query=urlencode(query, doseq=True)))
+    return request
 
-        request.uri = uri
-        return request
 
-    return before_record_request
+def scrub_response(response):
+    response = scrub_response_body(response)
+    response = scrub_response_headers(response)
+    return response
 
 
 scw_vcr = vcr.VCR(
     record_mode="all" if PYTHON_UPDATE_CASSETTE else "none",
-    filter_headers=[
-        "x-auth-token",
-        "link",
-        "Accept-Encoding",
-        "Connection",
-        "Content-Type",
-        "accept",
-    ],
+    filter_headers=list(FILTER_HEADERS),
     func_path_generator=func_path,
-    before_record_response=scrub_string(),
-    before_record_request=scrub_uri(),
+    before_record_request=scrub_request,
+    before_record_response=scrub_response,
 )
