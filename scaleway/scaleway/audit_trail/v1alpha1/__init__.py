@@ -9,6 +9,7 @@ from .types import AppleSiliconServerInfo
 from .types import BaremetalServerInfo
 from .types import BaremetalSettingInfo
 from .types import InstanceServerInfo
+from .types import IpamIpInfo
 from .types import KeyManagerKeyInfo
 from .types import KubernetesACLInfo
 from .types import KubernetesClusterInfo
@@ -38,6 +39,7 @@ __all__ = [
     "BaremetalServerInfo",
     "BaremetalSettingInfo",
     "InstanceServerInfo",
+    "IpamIpInfo",
     "KeyManagerKeyInfo",
     "KubernetesACLInfo",
     "KubernetesClusterInfo",

@@ -12,6 +12,7 @@ from .types import (
     BaremetalServerInfo,
     BaremetalSettingInfo,
     InstanceServerInfo,
+    IpamIpInfo,
     KeyManagerKeyInfo,
     KubernetesACLInfo,
     KubernetesClusterInfo,
@@ -159,6 +160,23 @@ def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
         args["name"] = None
 
     return InstanceServerInfo(**args)
+
+
+def unmarshal_IpamIpInfo(data: Any) -> IpamIpInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'IpamIpInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("address", None)
+    if field is not None:
+        args["address"] = field
+    else:
+        args["address"] = None
+
+    return IpamIpInfo(**args)
 
 
 def unmarshal_KeyManagerKeyInfo(data: Any) -> KeyManagerKeyInfo:
@@ -465,6 +483,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["baremetal_setting_info"] = unmarshal_BaremetalSettingInfo(field)
     else:
         args["baremetal_setting_info"] = None
+
+    field = data.get("ipam_ip_info", None)
+    if field is not None:
+        args["ipam_ip_info"] = unmarshal_IpamIpInfo(field)
+    else:
+        args["ipam_ip_info"] = None
 
     return Resource(**args)
 
