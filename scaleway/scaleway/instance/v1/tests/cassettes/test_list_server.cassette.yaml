@@ -1,0 +1,314 @@
+interactions:
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: GET
+    uri: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers?organization=11111111-1111-1111-1111-111111111111&project=11111111-1111-1111-1111-111111111111
+  response:
+    body:
+      string: '{"servers": [{"id": "56f0c6bd-b659-4aec-b885-c408b4f9c93d", "name":
+        "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "2156957e-5432-4619-9310-98a910819695",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "56f0c6bd-b659-4aec-b885-c408b4f9c93d", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-09-02T07:48:14.220889+00:00",
+        "modification_date": "2025-09-02T07:48:14.220889+00:00", "tags": [], "zone":
+        "fr-par-1"}, "1": {"boot": false, "volume_type": "sbs_volume", "id": "6a371d9d-1edb-4c62-a49b-33852b4704d1",
+        "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false,
+        "state_detail": "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c6:49:6b",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-09-02T07:48:14.220889+00:00",
+        "modification_date": "2025-09-02T07:48:14.220889+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "c75a5aea-6354-44fb-bb10-92ec4226acfa",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "9194dd68-2abf-48e3-a235-fd30e5939af7",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "c75a5aea-6354-44fb-bb10-92ec4226acfa", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:50:03.675689+00:00",
+        "modification_date": "2025-08-28T12:50:03.675689+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a1:85",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:50:03.675689+00:00",
+        "modification_date": "2025-08-28T12:50:03.675689+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "8e23c496-f066-4386-bef8-141a6e42585b",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "8722bb25-1eb6-4ebf-9c97-163520162acf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "8e23c496-f066-4386-bef8-141a6e42585b", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:48:19.466980+00:00",
+        "modification_date": "2025-08-28T12:48:19.466980+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a1:79",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:48:19.466980+00:00",
+        "modification_date": "2025-08-28T12:48:19.466980+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "5737c366-0694-4a91-82c4-a02f358500f3",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "b2b2d66b-c2eb-4a52-ac0a-291b901335fd",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "5737c366-0694-4a91-82c4-a02f358500f3", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:43:43.128042+00:00",
+        "modification_date": "2025-08-28T12:43:43.128042+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a0:cf",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:43:43.128042+00:00",
+        "modification_date": "2025-08-28T12:43:43.128042+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "2c79f980-431b-4438-83f7-aab92c9fe479",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "e56a1cae-81c4-469a-b88b-f0025a9a2c5d",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "2c79f980-431b-4438-83f7-aab92c9fe479", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:41:00.504208+00:00",
+        "modification_date": "2025-08-28T12:41:00.504208+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a0:bb",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:41:00.504208+00:00",
+        "modification_date": "2025-08-28T12:41:00.504208+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "1f4665d2-fc21-4dd0-8775-3ca5f588559f",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "39a0216d-c12c-460b-a0c2-355dbc02ae1a",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "1f4665d2-fc21-4dd0-8775-3ca5f588559f", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:39:32.272180+00:00",
+        "modification_date": "2025-08-28T12:39:32.272180+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a0:b5",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:39:32.272180+00:00",
+        "modification_date": "2025-08-28T12:39:32.272180+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "fb460457-6826-4362-893c-301c46a8ecab",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "356a68bf-ba71-480b-be4f-3a0ced24b73d",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "fb460457-6826-4362-893c-301c46a8ecab", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:37:21.692235+00:00",
+        "modification_date": "2025-08-28T12:37:21.692235+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a0:a1",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:37:21.692235+00:00",
+        "modification_date": "2025-08-28T12:37:21.692235+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "f309697e-2f1e-4b68-a304-43866b70dad8",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "f2c336cb-d9d4-47e2-877f-9c32fe273994",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "f309697e-2f1e-4b68-a304-43866b70dad8", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:34:59.514257+00:00",
+        "modification_date": "2025-08-28T12:34:59.514257+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a0:93",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:34:59.514257+00:00",
+        "modification_date": "2025-08-28T12:34:59.514257+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "60a8fb54-d3eb-4de0-9c8f-ee83e47810a2",
+        "name": "test-sdk-python-fixture", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-fixture",
+        "image": {"id": "c00ae53c-1e29-4087-a384-47f3c5c1cd84", "name": "Ubuntu 20.04
+        Focal Fossa", "organization": "11111111-1111-1111-1111-111111111111", "project":
+        "11111111-1111-1111-1111-111111111111", "root_volume": {"id": "6644dfd6-0731-45cc-a581-62f561eff7bf",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "size": 10000000000},
+        "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-02-03T13:36:50.774356+00:00",
+        "modification_date": "2025-02-03T13:36:50.774356+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": false, "id": "96d30fda-58a4-4030-a7e8-8bc935cbe525",
+        "name": "Ubuntu 20.04 Focal Fossa", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "60a8fb54-d3eb-4de0-9c8f-ee83e47810a2", "name": "test-sdk-python-fixture"},
+        "size": 10000000000, "state": "available", "creation_date": "2025-08-28T12:31:36.860403+00:00",
+        "modification_date": "2025-08-28T12:31:36.860403+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+        "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:c5:a0:75",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-28T12:31:36.860403+00:00",
+        "modification_date": "2025-08-28T12:31:36.860403+00:00", "bootscript": null,
+        "security_group": {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default
+        security group"}, "location": null, "maintenances": [], "allowed_actions":
+        ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone":
+        "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "758c4bc5-de24-4f6b-a755-988ce0397ddd",
+        "name": "test-sdk-python-ffc1b8", "arch": "x86_64", "commercial_type": "DEV1-S",
+        "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "test-sdk-python-ffc1b8",
+        "image": null, "volumes": {}, "tags": [], "state": "stopped", "protected":
+        false, "state_detail": "", "public_ip": null, "public_ips": [], "mac_address":
+        "de:00:00:c5:70:03", "routed_ip_enabled": true, "ipv6": null, "extra_networks":
+        [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null,
+        "creation_date": "2025-08-27T12:29:03.602677+00:00", "modification_date":
+        "2025-08-27T12:29:03.602677+00:00", "bootscript": null, "security_group":
+        {"id": "1c1fc99f-b2de-408d-9eb0-da801a3e2744", "name": "Default security group"},
+        "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"],
+        "placement_group": null, "private_nics": [], "zone": "fr-par-1", "filesystems":
+        [], "end_of_service": false}, {"id": "52897497-f1f8-4cc2-b0f6-191ec3e457eb",
+        "name": "scw-tf-cluster-tf-pool-34c3436ff9184f829e063d0", "arch": "x86_64",
+        "commercial_type": "DEV1-M", "boot_type": "local", "organization": "11111111-1111-1111-1111-111111111111",
+        "project": "11111111-1111-1111-1111-111111111111", "hostname": "scw-tf-cluster-tf-pool-34c3436ff9184f829e063d0",
+        "image": {"id": "e7682ee0-070a-40f8-9cde-f8bf1bc99674", "name": "k8s_base_node_2024-12-13_lssd",
+        "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "root_volume": {"id": "269a79db-64c9-4c3b-a373-13dcd7256f0c", "name": "k8s_base_node_2024-12-13_lssd",
+        "volume_type": "l_ssd", "size": 10000000000}, "extra_volumes": {}, "public":
+        true, "arch": "x86_64", "creation_date": "2025-02-05T11:51:54.504871+00:00",
+        "modification_date": "2025-02-05T11:51:54.504871+00:00", "default_bootscript":
+        null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+        "volumes": {"0": {"boot": true, "id": "81c69ca0-aed6-44c2-bbb9-5375f54820be",
+        "name": "k8s_base_node_2024-12-13_lssd", "volume_type": "l_ssd", "export_uri":
+        null, "organization": "11111111-1111-1111-1111-111111111111", "project": "11111111-1111-1111-1111-111111111111",
+        "server": {"id": "52897497-f1f8-4cc2-b0f6-191ec3e457eb", "name": "scw-tf-cluster-tf-pool-34c3436ff9184f829e063d0"},
+        "size": 40000000000, "state": "available", "creation_date": "2025-08-27T12:28:00.523113+00:00",
+        "modification_date": "2025-08-27T12:28:00.523113+00:00", "tags": [], "zone":
+        "fr-par-1"}}, "tags": ["kapsule=f4295f3a-a0cf-46b6-bbd5-f66cec577157", "pool=0768b0f1-d513-4725-9222-a1f4f0e48e2f",
+        "pool-name=tf-pool", "runtime=containerd", "managed=true", "node=34c3436f-f918-4f82-9e06-3d02af881a17"],
+        "state": "running", "protected": false, "state_detail": "booted", "public_ip":
+        {"id": "0d7781cb-689f-4e1b-aec1-3858f877da51", "address": "51.15.249.59",
+        "dynamic": false, "gateway": "62.210.0.1", "netmask": "32", "family": "inet",
+        "provisioning_mode": "dhcp", "tags": ["kapsule=f4295f3a-a0cf-46b6-bbd5-f66cec577157",
+        "node-name=scw-tf-cluster-tf-pool-34c3436ff9184f829e063d0"], "state": "attached",
+        "ipam_id": "135296ab-154c-4fe9-a7df-a4b0f5f785a8"}, "public_ips": [{"id":
+        "0d7781cb-689f-4e1b-aec1-3858f877da51", "address": "51.15.249.59", "dynamic":
+        false, "gateway": "62.210.0.1", "netmask": "32", "family": "inet", "provisioning_mode":
+        "dhcp", "tags": ["kapsule=f4295f3a-a0cf-46b6-bbd5-f66cec577157", "node-name=scw-tf-cluster-tf-pool-34c3436ff9184f829e063d0"],
+        "state": "attached", "ipam_id": "135296ab-154c-4fe9-a7df-a4b0f5f785a8"}, {"id":
+        "f5c86106-0dea-4955-a923-2d2fefa0e08e", "address": "2001:bc8:710:ca44:dc00:ff:fec5:6ff9",
+        "dynamic": false, "gateway": "fe80::dc00:ff:fec5:6ffa", "netmask": "64", "family":
+        "inet6", "provisioning_mode": "slaac", "tags": ["kapsule=f4295f3a-a0cf-46b6-bbd5-f66cec577157",
+        "node-name=scw-tf-cluster-tf-pool-34c3436ff9184f829e063d0"], "state": "attached",
+        "ipam_id": "0b3c7454-ca1a-4555-be1c-8c17ada2b5ec"}], "mac_address": "de:00:00:c5:6f:f9",
+        "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+        false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-08-27T12:28:00.523113+00:00",
+        "modification_date": "2025-08-27T12:28:17.366301+00:00", "bootscript": null,
+        "security_group": {"id": "d8dbdd45-9827-42ed-a79e-c16e61353ea5", "name": "Kapsule
+        default security group"}, "location": {"zone_id": "fr-par-1", "platform_id":
+        "14", "cluster_id": "42", "hypervisor_id": "704", "node_id": "15"}, "maintenances":
+        [], "allowed_actions": ["poweroff", "terminate", "reboot", "stop_in_place",
+        "backup"], "placement_group": null, "private_nics": [{"id": "de22fab3-e780-48af-932e-19355d8c41fb",
+        "private_network_id": "83d5c670-96a1-40cd-bacd-151e64e8ce52", "server_id":
+        "52897497-f1f8-4cc2-b0f6-191ec3e457eb", "mac_address": "02:00:00:12:31:f6",
+        "state": "available", "creation_date": "2025-08-27T12:28:03.027124+00:00",
+        "modification_date": "2025-08-27T12:28:03.177846+00:00", "zone": "fr-par-1",
+        "tags": [], "ipam_ip_ids": ["8c2bfb97-5879-4aff-bec3-bba59f63cf11", "7970c80b-80d2-456c-b08e-f6b0133c9bde"]}],
+        "zone": "fr-par-1", "filesystems": [], "end_of_service": false}]}'
+    headers:
+      content-length:
+      - '24723'
+      date:
+      - Tue, 02 Sep 2025 07:48:17 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      x-request-id:
+      - 96d3db90-6f9f-44df-94c6-9868c57231e6
+      x-total-count:
+      - '11'
+    status:
+      code: 200
+      message: OK
+version: 1

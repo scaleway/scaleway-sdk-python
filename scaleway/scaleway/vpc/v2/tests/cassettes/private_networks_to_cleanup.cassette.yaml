@@ -1,0 +1,112 @@
+interactions:
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/5ef5318c-0923-473a-86b3-410c168e6484
+  response:
+    body:
+      string: ''
+    headers:
+      date:
+      - Tue, 02 Sep 2025 07:49:07 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      x-request-id:
+      - fbe7b483-de45-43a9-9afb-fd00221224bd
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/a6f02ca8-1c55-47d4-95df-272e37dd80d4
+  response:
+    body:
+      string: ''
+    headers:
+      date:
+      - Tue, 02 Sep 2025 07:49:09 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      x-request-id:
+      - b0219bcd-ef33-49bc-b37f-0fe0e7154fec
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/499a9e47-3b25-4ada-9fbb-3ed8e7915c06
+  response:
+    body:
+      string: ''
+    headers:
+      date:
+      - Tue, 02 Sep 2025 07:49:10 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      x-request-id:
+      - 5753d328-c016-45cd-a80a-6aee7d761e32
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/5ca0f6ad-11e0-4fb8-bb65-944423f2fe16
+  response:
+    body:
+      string: ''
+    headers:
+      date:
+      - Tue, 02 Sep 2025 07:49:12 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      x-request-id:
+      - caff7da4-5bb9-4545-9b36-ed23a38fd313
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: DELETE
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/eaeecb79-31dd-4422-b076-56586e58e21e
+  response:
+    body:
+      string: ''
+    headers:
+      date:
+      - Tue, 02 Sep 2025 07:49:13 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      x-request-id:
+      - 0fb6525b-cd27-414b-972c-63c5cd890b38
+    status:
+      code: 204
+      message: No Content
+version: 1

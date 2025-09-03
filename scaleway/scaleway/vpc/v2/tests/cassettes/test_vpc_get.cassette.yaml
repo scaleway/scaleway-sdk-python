@@ -1,0 +1,31 @@
+interactions:
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: GET
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/vpcs/64bd296a-08ae-472a-9868-13dc873fefe4
+  response:
+    body:
+      string: '{"id": "64bd296a-08ae-472a-9868-13dc873fefe4", "name": "vpc-test-sdk-python-eager-swartz",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-09-02T07:49:03.264547Z", "updated_at": "2025-09-02T07:49:03.264547Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "is_default": false,
+        "private_network_count": 0, "routing_enabled": true, "custom_routes_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '419'
+      date:
+      - Tue, 02 Sep 2025 07:49:13 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      x-request-id:
+      - be5e9088-5d3d-414a-b2d9-d071ef5c0d8d
+    status:
+      code: 200
+      message: OK
+version: 1
