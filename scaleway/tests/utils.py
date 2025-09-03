@@ -3,7 +3,9 @@ import uuid
 from datetime import datetime, timezone
 from typing import Union
 
+from scaleway_core.client import Client
 from scaleway_core.profile import ProfileDefaults
+from vcr_config import REPLAY_CASSETTES
 
 system_random = random.SystemRandom()
 
@@ -42,3 +44,18 @@ def random_profile_defaults() -> ProfileDefaults:
         default_organization_id=uuid.uuid4().hex,
         default_project_id=uuid.uuid4().hex,
     )
+
+
+def initialize_client_test():
+    if REPLAY_CASSETTES:
+        client = Client(
+            access_key="SCWXXXXXXXXXXXXXXXXX",
+            secret_key="11111111-1111-1111-1111-111111111111",
+            default_project_id="11111111-1111-1111-1111-111111111111",
+            default_organization_id="11111111-1111-1111-1111-111111111111",
+            default_region="fr-par",
+            default_zone="fr-par-1",
+        )
+    else:
+        client = Client.from_config_file_and_env()
+    return client

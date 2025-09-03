@@ -1,0 +1,266 @@
+interactions:
+- request:
+    body: '{}'
+    headers:
+      Content-Length:
+      - '2'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: GET
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks?organization_id=11111111-1111-1111-1111-111111111111&project_id=11111111-1111-1111-1111-111111111111
+  response:
+    body:
+      string: '{"private_networks": [{"id": "90523094-fd4b-412d-a525-de6fd23a6c75",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2024-12-02T22:18:14.330064Z", "updated_at": "2024-12-02T22:18:14.330064Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "f2f8b831-1367-40f0-8711-bce56a1de753",
+        "created_at": "2024-12-02T22:18:14.330064Z", "updated_at": "2024-12-02T22:18:14.330064Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "90523094-fd4b-412d-a525-de6fd23a6c75", "vpc_id": "d6fb5a7c-124b-4f23-ad27-78f1df4437ff"},
+        {"id": "9e2180eb-577d-4ffb-95ff-7ae627099adc", "created_at": "2024-12-02T22:18:14.330064Z",
+        "updated_at": "2024-12-02T22:18:14.330064Z", "subnet": "fd64:badd:7710:ca07::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "90523094-fd4b-412d-a525-de6fd23a6c75", "vpc_id": "d6fb5a7c-124b-4f23-ad27-78f1df4437ff"}],
+        "vpc_id": "d6fb5a7c-124b-4f23-ad27-78f1df4437ff", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "2a717d53-a24d-471b-a99f-7bb3e5921645",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-01-29T13:27:39.888485Z", "updated_at": "2025-01-29T13:27:39.888485Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "c08ab341-7837-4e63-b239-f30b8b8eab01",
+        "created_at": "2025-01-29T13:27:39.888485Z", "updated_at": "2025-01-29T13:27:39.888485Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "2a717d53-a24d-471b-a99f-7bb3e5921645", "vpc_id": "aa501444-1d77-4abb-9489-f7aea5837999"},
+        {"id": "9e419abb-8a16-4ebd-a1c3-bc0488279fdc", "created_at": "2025-01-29T13:27:39.888485Z",
+        "updated_at": "2025-01-29T13:27:39.888485Z", "subnet": "fd64:badd:7710:a7a2::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "2a717d53-a24d-471b-a99f-7bb3e5921645", "vpc_id": "aa501444-1d77-4abb-9489-f7aea5837999"}],
+        "vpc_id": "aa501444-1d77-4abb-9489-f7aea5837999", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "bb74ef65-3255-45f9-bdc1-519556e4b27f",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-01-29T13:36:55.422623Z", "updated_at": "2025-01-29T13:36:55.422623Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "a102301f-c217-4251-b510-9117ded537c7",
+        "created_at": "2025-01-29T13:36:55.422623Z", "updated_at": "2025-01-29T13:36:55.422623Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "bb74ef65-3255-45f9-bdc1-519556e4b27f", "vpc_id": "da9633da-6f05-4d50-b387-15867c1b40ef"},
+        {"id": "b19c7a56-b069-4909-838b-d5f997dc6cc0", "created_at": "2025-01-29T13:36:55.422623Z",
+        "updated_at": "2025-01-29T13:36:55.422623Z", "subnet": "fd64:badd:7710:8388::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "bb74ef65-3255-45f9-bdc1-519556e4b27f", "vpc_id": "da9633da-6f05-4d50-b387-15867c1b40ef"}],
+        "vpc_id": "da9633da-6f05-4d50-b387-15867c1b40ef", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "28f8a989-0a16-432c-b68e-7eb07e0bde10",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-01-29T13:41:49.281659Z", "updated_at": "2025-01-29T13:41:49.281659Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "3c587ff3-58be-4629-a6cb-92d0fe30d0a5",
+        "created_at": "2025-01-29T13:41:49.281659Z", "updated_at": "2025-01-29T13:41:49.281659Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "28f8a989-0a16-432c-b68e-7eb07e0bde10", "vpc_id": "5c408e5f-096f-4a36-9416-22899d50be8e"},
+        {"id": "ed58a851-8159-40c5-ac61-c67287575333", "created_at": "2025-01-29T13:41:49.281659Z",
+        "updated_at": "2025-01-29T13:41:49.281659Z", "subnet": "fd64:badd:7710:717f::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "28f8a989-0a16-432c-b68e-7eb07e0bde10", "vpc_id": "5c408e5f-096f-4a36-9416-22899d50be8e"}],
+        "vpc_id": "5c408e5f-096f-4a36-9416-22899d50be8e", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "cfa95ca3-8f70-4c46-af34-8e12e4e72e8c",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-01-29T13:52:46.397272Z", "updated_at": "2025-01-29T13:52:46.397272Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "eecf3dbb-aa01-437e-9851-d98acbc1b2b7",
+        "created_at": "2025-01-29T13:52:46.397272Z", "updated_at": "2025-01-29T13:52:46.397272Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "cfa95ca3-8f70-4c46-af34-8e12e4e72e8c", "vpc_id": "dd0820fe-50a2-4265-888a-2b45f5176824"},
+        {"id": "f7c08e95-6239-46a8-bee3-583cf1be3964", "created_at": "2025-01-29T13:52:46.397272Z",
+        "updated_at": "2025-01-29T13:52:46.397272Z", "subnet": "fd64:badd:7710:6668::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "cfa95ca3-8f70-4c46-af34-8e12e4e72e8c", "vpc_id": "dd0820fe-50a2-4265-888a-2b45f5176824"}],
+        "vpc_id": "dd0820fe-50a2-4265-888a-2b45f5176824", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "4b7dee57-cee7-49d7-b02e-da72dda781e4",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-01-29T14:04:10.243138Z", "updated_at": "2025-01-29T14:04:10.243138Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "717d4052-027a-4c27-bb7f-4549a50b1c7b",
+        "created_at": "2025-01-29T14:04:10.243138Z", "updated_at": "2025-01-29T14:04:10.243138Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "4b7dee57-cee7-49d7-b02e-da72dda781e4", "vpc_id": "9d9a892c-8077-4ddc-85e5-e5d505625d89"},
+        {"id": "80db81b1-90aa-4415-9b4b-c35fc0b5ce33", "created_at": "2025-01-29T14:04:10.243138Z",
+        "updated_at": "2025-01-29T14:04:10.243138Z", "subnet": "fd64:badd:7710:39d6::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "4b7dee57-cee7-49d7-b02e-da72dda781e4", "vpc_id": "9d9a892c-8077-4ddc-85e5-e5d505625d89"}],
+        "vpc_id": "9d9a892c-8077-4ddc-85e5-e5d505625d89", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "f6362dbb-30a7-4ddb-a5d4-6a6a772cf941",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-01-29T14:07:22.865716Z", "updated_at": "2025-01-29T14:07:22.865716Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "3e4eabf0-8162-4738-922a-da4d8e2d3536",
+        "created_at": "2025-01-29T14:07:22.865716Z", "updated_at": "2025-01-29T14:07:22.865716Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "f6362dbb-30a7-4ddb-a5d4-6a6a772cf941", "vpc_id": "c317ec61-8b9f-4451-b14a-6f351c57ce61"},
+        {"id": "908eef6d-33bb-43ae-87af-93f45a2b0044", "created_at": "2025-01-29T14:07:22.865716Z",
+        "updated_at": "2025-01-29T14:07:22.865716Z", "subnet": "fd64:badd:7710:fd79::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "f6362dbb-30a7-4ddb-a5d4-6a6a772cf941", "vpc_id": "c317ec61-8b9f-4451-b14a-6f351c57ce61"}],
+        "vpc_id": "c317ec61-8b9f-4451-b14a-6f351c57ce61", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "b832e626-d305-4b6b-8cb5-0e4564decfdf",
+        "name": "baremetal_private_network", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-16T06:18:15.001821Z", "updated_at": "2025-04-16T06:18:15.001821Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "170cd800-5264-4114-b73a-5b4a1b06ce7d",
+        "created_at": "2025-04-16T06:18:15.001821Z", "updated_at": "2025-04-16T06:18:15.001821Z",
+        "subnet": "172.16.4.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "b832e626-d305-4b6b-8cb5-0e4564decfdf", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"},
+        {"id": "af947077-be3c-4601-8efc-4869c731d3b8", "created_at": "2025-04-16T06:18:15.001821Z",
+        "updated_at": "2025-04-16T06:18:15.001821Z", "subnet": "fd64:badd:7710:7184::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "b832e626-d305-4b6b-8cb5-0e4564decfdf", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "774cd76e-24a4-4cb8-8a48-bbbc4b8c43bc",
+        "name": "baremetal_private_network", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-16T06:18:15.114458Z", "updated_at": "2025-04-16T06:18:15.114458Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "4cd74404-309d-4676-8c43-ab1c337cc05c",
+        "created_at": "2025-04-16T06:18:15.114458Z", "updated_at": "2025-04-16T06:18:15.114458Z",
+        "subnet": "172.16.8.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "774cd76e-24a4-4cb8-8a48-bbbc4b8c43bc", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"},
+        {"id": "17623998-fcb0-4b6a-9ef7-e9a757233838", "created_at": "2025-04-16T06:18:15.114458Z",
+        "updated_at": "2025-04-16T06:18:15.114458Z", "subnet": "fd64:badd:7710:8576::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "774cd76e-24a4-4cb8-8a48-bbbc4b8c43bc", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "0af8257e-3b46-466c-b877-72fb4b745435",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-16T06:19:48.641883Z", "updated_at": "2025-04-16T06:19:48.641883Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "488969ae-65b7-41de-a177-80dc60536a4c",
+        "created_at": "2025-04-16T06:19:48.641883Z", "updated_at": "2025-04-16T06:19:48.641883Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "0af8257e-3b46-466c-b877-72fb4b745435", "vpc_id": "39e575b5-7246-4d3d-ae7b-9cdb27a54691"},
+        {"id": "6a9b7250-4067-4926-98b2-4fcc6e8f1e31", "created_at": "2025-04-16T06:19:48.641883Z",
+        "updated_at": "2025-04-16T06:19:48.641883Z", "subnet": "fd64:badd:7710:69ed::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "0af8257e-3b46-466c-b877-72fb4b745435", "vpc_id": "39e575b5-7246-4d3d-ae7b-9cdb27a54691"}],
+        "vpc_id": "39e575b5-7246-4d3d-ae7b-9cdb27a54691", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "87870dbf-a92d-4507-8efb-aa005909448f",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-17T15:17:41.753427Z", "updated_at": "2025-04-17T15:17:41.753427Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "c4d8d3e1-cd68-441c-87ab-0406d1296464",
+        "created_at": "2025-04-17T15:17:41.753427Z", "updated_at": "2025-04-17T15:17:41.753427Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "87870dbf-a92d-4507-8efb-aa005909448f", "vpc_id": "e0c92010-0d95-4a1c-bec1-332d3bb598e7"},
+        {"id": "eaecd018-5ed5-4733-98a8-09eb4ee2b6ff", "created_at": "2025-04-17T15:17:41.753427Z",
+        "updated_at": "2025-04-17T15:17:41.753427Z", "subnet": "fd64:badd:7710:ecc7::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "87870dbf-a92d-4507-8efb-aa005909448f", "vpc_id": "e0c92010-0d95-4a1c-bec1-332d3bb598e7"}],
+        "vpc_id": "e0c92010-0d95-4a1c-bec1-332d3bb598e7", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "1dcf4ddf-0687-44aa-99be-796fcdcc5aa2",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-17T16:26:53.427264Z", "updated_at": "2025-04-17T16:26:53.427264Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "fd8fcf2f-f5ff-4263-adcd-c9b7d1eae5dc",
+        "created_at": "2025-04-17T16:26:53.427264Z", "updated_at": "2025-04-17T16:26:53.427264Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "1dcf4ddf-0687-44aa-99be-796fcdcc5aa2", "vpc_id": "781600c8-7591-4a56-9633-a8ac12eccc2a"},
+        {"id": "b8125402-0562-4966-9679-526882e2eb95", "created_at": "2025-04-17T16:26:53.427264Z",
+        "updated_at": "2025-04-17T16:26:53.427264Z", "subnet": "fd64:badd:7710:5b83::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "1dcf4ddf-0687-44aa-99be-796fcdcc5aa2", "vpc_id": "781600c8-7591-4a56-9633-a8ac12eccc2a"}],
+        "vpc_id": "781600c8-7591-4a56-9633-a8ac12eccc2a", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "a86dfbaa-e9fc-4d5e-9521-39a89941d9d2",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-17T17:02:27.105837Z", "updated_at": "2025-04-17T17:02:27.105837Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "e2c51d8f-ae25-4ff5-8d28-e2c17d8862bf",
+        "created_at": "2025-04-17T17:02:27.105837Z", "updated_at": "2025-04-17T17:02:27.105837Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "a86dfbaa-e9fc-4d5e-9521-39a89941d9d2", "vpc_id": "dd94de18-297a-4ff2-890a-7519491d8b87"},
+        {"id": "0a66275c-90a1-4460-b7f8-024d34ece746", "created_at": "2025-04-17T17:02:27.105837Z",
+        "updated_at": "2025-04-17T17:02:27.105837Z", "subnet": "fd64:badd:7710:9dec::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "a86dfbaa-e9fc-4d5e-9521-39a89941d9d2", "vpc_id": "dd94de18-297a-4ff2-890a-7519491d8b87"}],
+        "vpc_id": "dd94de18-297a-4ff2-890a-7519491d8b87", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "960b0317-9df9-4542-a840-3c151778a9d2",
+        "name": "TestAccScalewayBaremetalIPAM", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-17T20:27:41.506253Z", "updated_at": "2025-04-17T20:27:41.506253Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "6698a078-d8d6-47d6-ab54-9f5d92742b33",
+        "created_at": "2025-04-17T20:27:41.506253Z", "updated_at": "2025-04-17T20:27:41.506253Z",
+        "subnet": "172.16.64.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "960b0317-9df9-4542-a840-3c151778a9d2", "vpc_id": "c282fb0d-cf97-48b4-97f5-a539ce0c14a0"},
+        {"id": "783f1046-447b-4c17-8413-ac94e00173b8", "created_at": "2025-04-17T20:27:41.506253Z",
+        "updated_at": "2025-04-17T20:27:41.506253Z", "subnet": "fd64:badd:7710:202a::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "960b0317-9df9-4542-a840-3c151778a9d2", "vpc_id": "c282fb0d-cf97-48b4-97f5-a539ce0c14a0"}],
+        "vpc_id": "c282fb0d-cf97-48b4-97f5-a539ce0c14a0", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "4a09b793-1386-4a86-a147-02d9a9bed3c3",
+        "name": "private-network-test-inference", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-24T09:27:34.379321Z", "updated_at": "2025-04-24T09:27:34.379321Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "67aedfe5-e8a1-477a-8f0f-4fda86b05948",
+        "created_at": "2025-04-24T09:27:34.379321Z", "updated_at": "2025-04-24T09:27:34.379321Z",
+        "subnet": "172.16.16.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "4a09b793-1386-4a86-a147-02d9a9bed3c3", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"},
+        {"id": "043614fe-c97f-4bf6-aaeb-b9251d763fe1", "created_at": "2025-04-24T09:27:34.379321Z",
+        "updated_at": "2025-04-24T09:27:34.379321Z", "subnet": "fd64:badd:7710:c1fa::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "4a09b793-1386-4a86-a147-02d9a9bed3c3", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "e4d34179-9128-4007-a8a6-0ceedad2f54a",
+        "name": "private-network-test-inference", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-25T14:53:56.115658Z", "updated_at": "2025-04-25T14:53:56.115658Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "65c083c1-70a4-4dcd-9952-01e374681802",
+        "created_at": "2025-04-25T14:53:56.115658Z", "updated_at": "2025-04-25T14:53:56.115658Z",
+        "subnet": "172.16.20.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "e4d34179-9128-4007-a8a6-0ceedad2f54a", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"},
+        {"id": "5a89545f-ab4a-404d-870a-8aa4d2cabeb6", "created_at": "2025-04-25T14:53:56.115658Z",
+        "updated_at": "2025-04-25T14:53:56.115658Z", "subnet": "fd64:badd:7710:aaf8::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "e4d34179-9128-4007-a8a6-0ceedad2f54a", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "4a955f6f-c285-4aba-a98f-f4fd29085fbe",
+        "name": "private-network-test-inference-public", "tags": [], "organization_id":
+        "11111111-1111-1111-1111-111111111111", "created_at": "2025-04-28T13:50:31.526488Z",
+        "updated_at": "2025-04-28T14:08:36.751098Z", "project_id": "11111111-1111-1111-1111-111111111111",
+        "subnets": [{"id": "a28ceedd-68be-4100-8711-3675a30ce534", "created_at": "2025-04-28T13:50:31.526488Z",
+        "updated_at": "2025-04-28T13:50:31.526488Z", "subnet": "172.16.28.0/22", "project_id":
+        "11111111-1111-1111-1111-111111111111", "private_network_id": "4a955f6f-c285-4aba-a98f-f4fd29085fbe",
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}, {"id": "6597da37-c2a6-4f5c-ae4e-1334d62f13b3",
+        "created_at": "2025-04-28T13:50:31.526488Z", "updated_at": "2025-04-28T13:50:31.526488Z",
+        "subnet": "fd64:badd:7710:237f::/64", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "4a955f6f-c285-4aba-a98f-f4fd29085fbe", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "180ed052-1506-4d8b-9eaf-3880bb0b7bfc",
+        "name": "private-network-test-inference", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-28T14:23:04.635534Z", "updated_at": "2025-04-28T14:23:04.635534Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "f657b3f4-a9fb-408c-9144-3d3175ea0c8f",
+        "created_at": "2025-04-28T14:23:04.635534Z", "updated_at": "2025-04-28T14:23:04.635534Z",
+        "subnet": "172.16.36.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "180ed052-1506-4d8b-9eaf-3880bb0b7bfc", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"},
+        {"id": "e2a890bd-278a-4082-8f57-b25e72d866ab", "created_at": "2025-04-28T14:23:04.635534Z",
+        "updated_at": "2025-04-28T14:23:04.635534Z", "subnet": "fd64:badd:7710:bb0b::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "180ed052-1506-4d8b-9eaf-3880bb0b7bfc", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "5db7c9dd-7703-4a11-a2d7-88e5d476e678",
+        "name": "private-network-test-inference", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-28T14:23:41.320787Z", "updated_at": "2025-04-28T14:23:41.320787Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "72aaa8e4-0147-443c-b0ef-8604b7ade79a",
+        "created_at": "2025-04-28T14:23:41.320787Z", "updated_at": "2025-04-28T14:23:41.320787Z",
+        "subnet": "172.16.24.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "5db7c9dd-7703-4a11-a2d7-88e5d476e678", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"},
+        {"id": "791a5e54-e29d-4a17-9470-c2635d1ee7cf", "created_at": "2025-04-28T14:23:41.320787Z",
+        "updated_at": "2025-04-28T14:23:41.320787Z", "subnet": "fd64:badd:7710:3117::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "5db7c9dd-7703-4a11-a2d7-88e5d476e678", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}, {"id": "a014b461-0a18-4997-b174-075673186b4b",
+        "name": "private-network-test-inference", "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111",
+        "created_at": "2025-04-28T14:30:34.397411Z", "updated_at": "2025-04-28T14:30:34.397411Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "bbf525ed-82fd-4314-9d5a-67bc4c01d55a",
+        "created_at": "2025-04-28T14:30:34.397411Z", "updated_at": "2025-04-28T14:30:34.397411Z",
+        "subnet": "172.16.12.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "a014b461-0a18-4997-b174-075673186b4b", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"},
+        {"id": "0caf7071-ca52-48c0-8e67-061c4f5161e5", "created_at": "2025-04-28T14:30:34.397411Z",
+        "updated_at": "2025-04-28T14:30:34.397411Z", "subnet": "fd64:badd:7710:de9::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "a014b461-0a18-4997-b174-075673186b4b", "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1"}],
+        "vpc_id": "e092f3d5-d85b-46fd-8d08-025e3282c8c1", "dhcp_enabled": true, "default_route_propagation_enabled":
+        false, "region": "fr-par"}], "total_count": 48}'
+    headers:
+      content-length:
+      - '21549'
+      date:
+      - Tue, 02 Sep 2025 07:49:13 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      x-request-id:
+      - b28ac89e-555d-4588-8544-05e1caecd19a
+    status:
+      code: 200
+      message: OK
+version: 1

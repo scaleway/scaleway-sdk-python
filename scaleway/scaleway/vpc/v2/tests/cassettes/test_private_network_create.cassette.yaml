@@ -1,0 +1,187 @@
+interactions:
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "sdk-python-pn-0-jolly-elion",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}'
+    headers:
+      Content-Length:
+      - '186'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "5ef5318c-0923-473a-86b3-410c168e6484", "name": "sdk-python-pn-0-jolly-elion",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-09-02T07:49:03.389097Z", "updated_at": "2025-09-02T07:49:03.389097Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "97e9feca-af39-43e9-8df2-ba50bdf13c49",
+        "created_at": "2025-09-02T07:49:03.389097Z", "updated_at": "2025-09-02T07:49:03.389097Z",
+        "subnet": "172.16.140.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "5ef5318c-0923-473a-86b3-410c168e6484", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"},
+        {"id": "ace3b6ae-154b-4eb0-ac0d-9e9d968e6da1", "created_at": "2025-09-02T07:49:03.389097Z",
+        "updated_at": "2025-09-02T07:49:03.389097Z", "subnet": "fd64:badd:7710:6088::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "5ef5318c-0923-473a-86b3-410c168e6484", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}],
+        "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1073'
+      date:
+      - Tue, 02 Sep 2025 07:49:03 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      x-request-id:
+      - 05a41add-5c16-4c35-8755-ed9389988dee
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "sdk-python-pn-1-priceless-haslett",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}'
+    headers:
+      Content-Length:
+      - '192'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "a6f02ca8-1c55-47d4-95df-272e37dd80d4", "name": "sdk-python-pn-1-priceless-haslett",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-09-02T07:49:04.085912Z", "updated_at": "2025-09-02T07:49:04.085912Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "998d30a3-0244-4dec-97cf-125719db8e0a",
+        "created_at": "2025-09-02T07:49:04.085912Z", "updated_at": "2025-09-02T07:49:04.085912Z",
+        "subnet": "172.16.144.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "a6f02ca8-1c55-47d4-95df-272e37dd80d4", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"},
+        {"id": "a9fcad4b-bf80-4f96-a9ec-44bf72baa4a8", "created_at": "2025-09-02T07:49:04.085912Z",
+        "updated_at": "2025-09-02T07:49:04.085912Z", "subnet": "fd64:badd:7710:3c70::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "a6f02ca8-1c55-47d4-95df-272e37dd80d4", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}],
+        "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1079'
+      date:
+      - Tue, 02 Sep 2025 07:49:04 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      x-request-id:
+      - 618fa162-02e8-4b9b-9573-6ed64c332fc2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "sdk-python-pn-2-bold-cannon",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}'
+    headers:
+      Content-Length:
+      - '186'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "499a9e47-3b25-4ada-9fbb-3ed8e7915c06", "name": "sdk-python-pn-2-bold-cannon",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-09-02T07:49:04.796543Z", "updated_at": "2025-09-02T07:49:04.796543Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "d9573a50-a267-4f0e-bd14-84afb30b700c",
+        "created_at": "2025-09-02T07:49:04.796543Z", "updated_at": "2025-09-02T07:49:04.796543Z",
+        "subnet": "172.16.156.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "499a9e47-3b25-4ada-9fbb-3ed8e7915c06", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"},
+        {"id": "e6ebb0a4-97a9-46c5-9a48-ae39e7ea14d7", "created_at": "2025-09-02T07:49:04.796543Z",
+        "updated_at": "2025-09-02T07:49:04.796543Z", "subnet": "fd64:badd:7710:82a5::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "499a9e47-3b25-4ada-9fbb-3ed8e7915c06", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}],
+        "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1073'
+      date:
+      - Tue, 02 Sep 2025 07:49:05 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      x-request-id:
+      - ae38efe3-ce18-4576-93cd-7596c27a435e
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "sdk-python-pn-3-happy-curran",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}'
+    headers:
+      Content-Length:
+      - '187'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "5ca0f6ad-11e0-4fb8-bb65-944423f2fe16", "name": "sdk-python-pn-3-happy-curran",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-09-02T07:49:05.459174Z", "updated_at": "2025-09-02T07:49:05.459174Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "7c1b6e62-3214-4778-b1ce-9f8e9cbcdc70",
+        "created_at": "2025-09-02T07:49:05.459174Z", "updated_at": "2025-09-02T07:49:05.459174Z",
+        "subnet": "172.16.168.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "5ca0f6ad-11e0-4fb8-bb65-944423f2fe16", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"},
+        {"id": "0f9c7f6e-b0bf-440d-981a-68cdfeec72a9", "created_at": "2025-09-02T07:49:05.459174Z",
+        "updated_at": "2025-09-02T07:49:05.459174Z", "subnet": "fd64:badd:7710:44be::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "5ca0f6ad-11e0-4fb8-bb65-944423f2fe16", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}],
+        "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1074'
+      date:
+      - Tue, 02 Sep 2025 07:49:06 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      x-request-id:
+      - 313bab15-e7ae-43b1-a43c-88c2c131b6aa
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"default_route_propagation_enabled": true, "name": "sdk-python-pn-4-xenodochial-stonebraker",
+      "project_id": "11111111-1111-1111-1111-111111111111", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}'
+    headers:
+      Content-Length:
+      - '198'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: POST
+    uri: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
+  response:
+    body:
+      string: '{"id": "eaeecb79-31dd-4422-b076-56586e58e21e", "name": "sdk-python-pn-4-xenodochial-stonebraker",
+        "tags": [], "organization_id": "11111111-1111-1111-1111-111111111111", "created_at":
+        "2025-09-02T07:49:06.104191Z", "updated_at": "2025-09-02T07:49:06.104191Z",
+        "project_id": "11111111-1111-1111-1111-111111111111", "subnets": [{"id": "221f7640-6bee-47db-b6c2-215b14047332",
+        "created_at": "2025-09-02T07:49:06.104191Z", "updated_at": "2025-09-02T07:49:06.104191Z",
+        "subnet": "172.16.172.0/22", "project_id": "11111111-1111-1111-1111-111111111111",
+        "private_network_id": "eaeecb79-31dd-4422-b076-56586e58e21e", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"},
+        {"id": "edfd6227-cfa3-460a-8263-d0129ef8e6b3", "created_at": "2025-09-02T07:49:06.104191Z",
+        "updated_at": "2025-09-02T07:49:06.104191Z", "subnet": "fd64:badd:7710:4b4b::/64",
+        "project_id": "11111111-1111-1111-1111-111111111111", "private_network_id":
+        "eaeecb79-31dd-4422-b076-56586e58e21e", "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4"}],
+        "vpc_id": "64bd296a-08ae-472a-9868-13dc873fefe4", "dhcp_enabled": true, "default_route_propagation_enabled":
+        true, "region": "fr-par"}'
+    headers:
+      content-length:
+      - '1085'
+      date:
+      - Tue, 02 Sep 2025 07:49:06 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      x-request-id:
+      - 49aaeef1-3960-4f77-a054-3fa2d1ac7c9d
+    status:
+      code: 200
+      message: OK
+version: 1
