@@ -46,9 +46,12 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     ACCOUNT_ORGANIZATION = "account_organization"
     ACCOUNT_PROJECT = "account_project"
     INSTANCE_SERVER = "instance_server"
+    INSTANCE_PLACEMENT_GROUP = "instance_placement_group"
+    INSTANCE_SECURITY_GROUP = "instance_security_group"
     APPLE_SILICON_SERVER = "apple_silicon_server"
     BAREMETAL_SERVER = "baremetal_server"
     BAREMETAL_SETTING = "baremetal_setting"
+    IPAM_IP = "ipam_ip"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -90,6 +93,11 @@ class BaremetalSettingInfo:
 @dataclass
 class InstanceServerInfo:
     name: str
+
+
+@dataclass
+class IpamIpInfo:
+    address: str
 
 
 @dataclass
@@ -181,6 +189,8 @@ class Resource:
     baremetal_server_info: Optional[BaremetalServerInfo] = None
 
     baremetal_setting_info: Optional[BaremetalSettingInfo] = None
+
+    ipam_ip_info: Optional[IpamIpInfo] = None
 
 
 @dataclass

@@ -794,6 +794,7 @@ class QaasV1Alpha1API(API):
         deduplication_id: Optional[str] = None,
         booking_demand: Optional[CreateSessionRequestBookingDemand] = None,
         model_id: Optional[str] = None,
+        parameters: Optional[str] = None,
     ) -> Session:
         """
         Create a session.
@@ -807,6 +808,7 @@ class QaasV1Alpha1API(API):
         :param deduplication_id: Deduplication ID of the session.
         :param booking_demand: A booking demand to schedule the session, only applicable if the platform is bookable.
         :param model_id: Default computation model ID to be executed by job assigned to this session.
+        :param parameters: Optional platform configuration parameters applied to this session.
         :return: :class:`Session <Session>`
 
         Usage:
@@ -831,6 +833,7 @@ class QaasV1Alpha1API(API):
                     deduplication_id=deduplication_id,
                     booking_demand=booking_demand,
                     model_id=model_id,
+                    parameters=parameters,
                 ),
                 self.client,
             ),

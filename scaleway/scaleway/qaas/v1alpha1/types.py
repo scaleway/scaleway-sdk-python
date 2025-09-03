@@ -796,6 +796,11 @@ class Session:
     Default computation model ID to be executed by job assigned to this session.
     """
 
+    parameters: Optional[str] = None
+    """
+    Platform configuration parameters applied to this session.
+    """
+
 
 @dataclass
 class CancelJobRequest:
@@ -942,6 +947,11 @@ class CreateSessionRequest:
     model_id: Optional[str] = None
     """
     Default computation model ID to be executed by job assigned to this session.
+    """
+
+    parameters: Optional[str] = None
+    """
+    Optional platform configuration parameters applied to this session.
     """
 
 
