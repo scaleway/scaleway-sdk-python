@@ -693,6 +693,9 @@ class FunctionV1Beta1API(API):
         """
         Update an existing function.
         Update the function associated with the specified ID.
+
+        When updating a function, the function is automatically redeployed to apply the changes.
+        This behavior can be changed by setting the `redeploy` field to `false` in the request.
         :param function_id: UUID of the function to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param environment_variables: Environment variables of the function to update.
@@ -705,7 +708,18 @@ class FunctionV1Beta1API(API):
         :param handler: Handler to use with the function.
         :param privacy: Privacy setting of the function.
         :param description: Description of the function.
-        :param secret_environment_variables: Secret environment variables of the function.
+        :param secret_environment_variables: During an update, secret environment variables that are not specified in this field will be kept unchanged.
+
+        In order to delete a specific secret environment variable, you must reference its key, but not provide any value for it.
+        For example, the following payload will delete the `TO_DELETE` secret environment variable:
+
+        ```json
+        {
+         "secret_environment_variables":[
+           {"key":"TO_DELETE"}
+         ]
+        }
+        ```.
         :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
