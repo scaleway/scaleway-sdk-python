@@ -25,7 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Install poetry
-        run: pipx install poetry
+        run:  |
+          pipx install poetry
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
       - uses: actions/checkout@v4
       - name: Setup Python
         uses: actions/setup-python@v5
