@@ -25,7 +25,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.10"
 scaleway-core = "*"
-pyrefly = ">=0.24.2,<0.27.0"
+pyrefly = ">=0.24.2,<0.32.0"
 vcrpy = "^7.0.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -33,7 +33,7 @@ scaleway-core = { path = "../scaleway-core", develop = true }
 ruff = ">=0.5.0,<0.12.12"
 mypy = "^1.5.1"
 ty = "^0.0.1a15"
-pyrefly = ">=0.24.2,<0.27.0"
+pyrefly = ">=0.24.2,<0.32.0"
 pytest = "^8.4.1"
 
 [build-system]
