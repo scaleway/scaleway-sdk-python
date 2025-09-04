@@ -37,7 +37,6 @@ from .types import (
     CreateApplicationRequest,
     CreateGroupRequest,
     CreateJWTRequest,
-    CreateOrganizationSamlRequest,
     CreatePolicyRequest,
     CreateSSHKeyRequest,
     CreateUserRequest,
@@ -75,7 +74,6 @@ from .types import (
     SSHKey,
     Saml,
     SamlCertificate,
-    SamlInformation,
     SetGroupMembersRequest,
     SetOrganizationAliasRequest,
     SetRulesRequest,
@@ -83,10 +81,10 @@ from .types import (
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
-    UpdateOrganizationSamlRequest,
     UpdateOrganizationSecuritySettingsRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
+    UpdateSamlRequest,
     UpdateUserPasswordRequest,
     UpdateUserRequest,
     UpdateUserUsernameRequest,
@@ -125,7 +123,6 @@ from .marshalling import (
     unmarshal_Organization,
     unmarshal_OrganizationSecuritySettings,
     unmarshal_Saml,
-    unmarshal_SamlInformation,
     unmarshal_SetRulesResponse,
     unmarshal_ValidateUserMFAOTPResponse,
     marshal_AddGroupMemberRequest,
@@ -135,7 +132,6 @@ from .marshalling import (
     marshal_CreateApplicationRequest,
     marshal_CreateGroupRequest,
     marshal_CreateJWTRequest,
-    marshal_CreateOrganizationSamlRequest,
     marshal_CreatePolicyRequest,
     marshal_CreateSSHKeyRequest,
     marshal_CreateUserRequest,
@@ -148,10 +144,10 @@ from .marshalling import (
     marshal_UpdateAPIKeyRequest,
     marshal_UpdateApplicationRequest,
     marshal_UpdateGroupRequest,
-    marshal_UpdateOrganizationSamlRequest,
     marshal_UpdateOrganizationSecuritySettingsRequest,
     marshal_UpdatePolicyRequest,
     marshal_UpdateSSHKeyRequest,
+    marshal_UpdateSamlRequest,
     marshal_UpdateUserPasswordRequest,
     marshal_UpdateUserRequest,
     marshal_UpdateUserUsernameRequest,
@@ -3072,27 +3068,20 @@ class IamV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_Saml(res.json())
 
-    async def create_organization_saml(
+    async def enable_organization_saml(
         self,
         *,
-        entity_id: str,
-        single_sign_on_url: str,
         organization_id: Optional[str] = None,
     ) -> Saml:
         """
-        Create a SAML Identity Provider configuration for an Organization.
-        :param entity_id: Entity ID of the SAML Identity Provider.
-        :param single_sign_on_url: Single Sign-On URL of the SAML Identity Provider.
+        Enable SAML Identity Provider for an Organization.
         :param organization_id: ID of the Organization.
         :return: :class:`Saml <Saml>`
 
         Usage:
         ::
 
-            result = await api.create_organization_saml(
-                entity_id="example",
-                single_sign_on_url="example",
-            )
+            result = await api.enable_organization_saml()
         """
 
         param_organization_id = validate_path_param(
@@ -3102,29 +3091,22 @@ class IamV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/iam/v1alpha1/organizations/{param_organization_id}/saml",
-            body=marshal_CreateOrganizationSamlRequest(
-                CreateOrganizationSamlRequest(
-                    entity_id=entity_id,
-                    single_sign_on_url=single_sign_on_url,
-                    organization_id=organization_id,
-                ),
-                self.client,
-            ),
+            body={},
         )
 
         self._throw_on_error(res)
         return unmarshal_Saml(res.json())
 
-    async def update_organization_saml(
+    async def update_saml(
         self,
         *,
-        organization_id: Optional[str] = None,
+        saml_id: str,
         entity_id: Optional[str] = None,
         single_sign_on_url: Optional[str] = None,
     ) -> Saml:
         """
-        Update a SAML Identity Provider configuration for an Organization.
-        :param organization_id: ID of the Organization.
+        Update SAML Identity Provider configuration.
+        :param saml_id: ID of the SAML configuration.
         :param entity_id: Entity ID of the SAML Identity Provider.
         :param single_sign_on_url: Single Sign-On URL of the SAML Identity Provider.
         :return: :class:`Saml <Saml>`
@@ -3132,19 +3114,19 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.update_organization_saml()
+            result = await api.update_saml(
+                saml_id="example",
+            )
         """
 
-        param_organization_id = validate_path_param(
-            "organization_id", organization_id or self.client.default_organization_id
-        )
+        param_saml_id = validate_path_param("saml_id", saml_id)
 
         res = self._request(
             "PATCH",
-            f"/iam/v1alpha1/organizations/{param_organization_id}/saml",
-            body=marshal_UpdateOrganizationSamlRequest(
-                UpdateOrganizationSamlRequest(
-                    organization_id=organization_id,
+            f"/iam/v1alpha1/saml/{param_saml_id}",
+            body=marshal_UpdateSamlRequest(
+                UpdateSamlRequest(
+                    saml_id=saml_id,
                     entity_id=entity_id,
                     single_sign_on_url=single_sign_on_url,
                 ),
@@ -3155,28 +3137,28 @@ class IamV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_Saml(res.json())
 
-    async def delete_organization_saml(
+    async def delete_saml(
         self,
         *,
-        organization_id: Optional[str] = None,
+        saml_id: str,
     ) -> None:
         """
-        Delete a SAML Identity Provider configuration for an Organization.
-        :param organization_id: ID of the Organization.
+        Disable SAML Identity Provider for an Organization.
+        :param saml_id: ID of the SAML configuration.
 
         Usage:
         ::
 
-            result = await api.delete_organization_saml()
+            result = await api.delete_saml(
+                saml_id="example",
+            )
         """
 
-        param_organization_id = validate_path_param(
-            "organization_id", organization_id or self.client.default_organization_id
-        )
+        param_saml_id = validate_path_param("saml_id", saml_id)
 
         res = self._request(
             "DELETE",
-            f"/iam/v1alpha1/organizations/{param_organization_id}/saml",
+            f"/iam/v1alpha1/saml/{param_saml_id}",
         )
 
         self._throw_on_error(res)
@@ -3276,25 +3258,3 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-
-    async def get_saml_information(
-        self,
-    ) -> SamlInformation:
-        """
-        Get SAML information.
-
-        :return: :class:`SamlInformation <SamlInformation>`
-
-        Usage:
-        ::
-
-            result = await api.get_saml_information()
-        """
-
-        res = self._request(
-            "GET",
-            "/iam/v1alpha1/saml-information",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_SamlInformation(res.json())
