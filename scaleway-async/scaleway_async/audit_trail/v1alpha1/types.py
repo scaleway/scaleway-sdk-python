@@ -48,10 +48,15 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     INSTANCE_SERVER = "instance_server"
     INSTANCE_PLACEMENT_GROUP = "instance_placement_group"
     INSTANCE_SECURITY_GROUP = "instance_security_group"
+    INSTANCE_VOLUME = "instance_volume"
+    INSTANCE_SNAPSHOT = "instance_snapshot"
+    INSTANCE_IMAGE = "instance_image"
     APPLE_SILICON_SERVER = "apple_silicon_server"
     BAREMETAL_SERVER = "baremetal_server"
     BAREMETAL_SETTING = "baremetal_setting"
     IPAM_IP = "ipam_ip"
+    SBS_VOLUME = "sbs_volume"
+    SBS_SNAPSHOT = "sbs_snapshot"
 
     def __str__(self) -> str:
         return str(self.value)
