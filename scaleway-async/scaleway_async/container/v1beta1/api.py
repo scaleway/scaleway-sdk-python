@@ -731,6 +731,9 @@ class ContainerV1Beta1API(API):
         """
         Update an existing container.
         Update the container associated with the specified ID.
+
+        When updating a container, the container is automatically redeployed to apply the changes.
+        This behavior can be changed by setting the `redeploy` field to `false` in the request.
         :param container_id: UUID of the container to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param environment_variables: Environment variables of the container.
