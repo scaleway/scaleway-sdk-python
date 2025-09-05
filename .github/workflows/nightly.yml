@@ -25,17 +25,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Install poetry
-        run:  |
-          pipx install poetry
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+        run: pipx install poetry
       - uses: actions/checkout@v4
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: "poetry"
-      - name: Install pytest-timeout
-        run: poetry run pip install pytest-timeout
       - name: Install dependencies and library
         run: poetry install
       - name: Run Tests
