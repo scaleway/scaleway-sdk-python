@@ -387,6 +387,11 @@ class PublicCatalogProduct:
     The category of the product.
     """
 
+    product_category: str
+    """
+    The product category of the product.
+    """
+
     product: str
     """
     The product name.

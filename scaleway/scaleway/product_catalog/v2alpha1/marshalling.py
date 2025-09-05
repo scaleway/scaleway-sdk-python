@@ -645,6 +645,12 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
     else:
         args["service_category"] = None
 
+    field = data.get("product_category", None)
+    if field is not None:
+        args["product_category"] = field
+    else:
+        args["product_category"] = None
+
     field = data.get("product", None)
     if field is not None:
         args["product"] = field
