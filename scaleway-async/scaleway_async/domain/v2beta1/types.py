@@ -184,6 +184,23 @@ class HostStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class InboundTransferStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    IN_PROGRESS = "in_progress"
+    DONE = "done"
+    ERR_INTERNAL = "err_internal"
+    ERR_DOMAIN_PENDING = "err_domain_pending"
+    ERR_ALREADY_TRANSFERRING = "err_already_transferring"
+    ERR_TRANSFER_PROHIBITED = "err_transfer_prohibited"
+    ERR_TRANSFER_IMPOSSIBLE = "err_transfer_impossible"
+    ERR_INVALID_AUTHCODE = "err_invalid_authcode"
+    ERR_DOMAIN_TOO_YOUNG = "err_domain_too_young"
+    ERR_TOO_MANY_REQUESTS = "err_too_many_requests"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class LinkedProduct(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_PRODUCT = "unknown_product"
     VPC = "vpc"
@@ -744,6 +761,49 @@ class DomainSummary:
     ] = None
 
     transfer_registration_status: Optional[DomainRegistrationStatusTransfer] = None
+
+
+@dataclass
+class InboundTransfer:
+    id: str
+    """
+    The unique identifier of the inbound transfer.
+    """
+
+    project_id: str
+    """
+    The project ID associated with the inbound transfer.
+    """
+
+    domain: str
+    """
+    The domain associated with the inbound transfer.
+    """
+
+    status: InboundTransferStatus
+    """
+    Inbound transfer status.
+    """
+
+    message: str
+    """
+    Human-friendly message to describe the current inbound transfer status.
+    """
+
+    task_id: str
+    """
+    The unique identifier of the associated task.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    The creation date of the inbound transfer.
+    """
+
+    last_updated_at: Optional[datetime] = None
+    """
+    The last modification date of the inbound transfer.
+    """
 
 
 @dataclass
@@ -1338,6 +1398,12 @@ class ListDomainsResponse:
 
 
 @dataclass
+class ListInboundTransfersResponse:
+    total_count: int
+    inbound_transfers: List[InboundTransfer]
+
+
+@dataclass
 class ListRenewableDomainsResponse:
     total_count: int
     domains: List[RenewableDomain]
@@ -1538,6 +1604,15 @@ class RegistrarApiListDomainsRequest:
     organization_id: Optional[str] = None
     is_external: Optional[bool] = None
     domain: Optional[str] = None
+
+
+@dataclass
+class RegistrarApiListInboundTransfersRequest:
+    page: int
+    domain: str
+    page_size: Optional[int] = None
+    project_id: Optional[str] = None
+    organization_id: Optional[str] = None
 
 
 @dataclass
