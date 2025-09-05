@@ -529,6 +529,7 @@ class BaremetalV1API(API):
         server_id: str,
         zone: Optional[ScwZone] = None,
         boot_type: Optional[ServerBootType] = None,
+        ssh_key_ids: Optional[List[str]] = None,
     ) -> Server:
         """
         Reboot an Elastic Metal server.
@@ -536,6 +537,7 @@ class BaremetalV1API(API):
         :param server_id: ID of the server to reboot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param boot_type: The type of boot.
+        :param ssh_key_ids: Additional SSH public key IDs to configure on rescue image.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -557,6 +559,7 @@ class BaremetalV1API(API):
                     server_id=server_id,
                     zone=zone,
                     boot_type=boot_type,
+                    ssh_key_ids=ssh_key_ids,
                 ),
                 self.client,
             ),
@@ -571,6 +574,7 @@ class BaremetalV1API(API):
         server_id: str,
         zone: Optional[ScwZone] = None,
         boot_type: Optional[ServerBootType] = None,
+        ssh_key_ids: Optional[List[str]] = None,
     ) -> Server:
         """
         Start an Elastic Metal server.
@@ -578,6 +582,7 @@ class BaremetalV1API(API):
         :param server_id: ID of the server to start.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param boot_type: The type of boot.
+        :param ssh_key_ids: Additional SSH public key IDs to configure on rescue image.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -599,6 +604,7 @@ class BaremetalV1API(API):
                     server_id=server_id,
                     zone=zone,
                     boot_type=boot_type,
+                    ssh_key_ids=ssh_key_ids,
                 ),
                 self.client,
             ),
