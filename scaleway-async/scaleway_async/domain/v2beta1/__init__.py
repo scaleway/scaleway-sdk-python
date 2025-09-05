@@ -17,6 +17,7 @@ from .types import DomainStatus
 from .content import DOMAIN_TRANSIENT_STATUSES
 from .types import HostStatus
 from .content import HOST_TRANSIENT_STATUSES
+from .types import InboundTransferStatus
 from .types import LinkedProduct
 from .types import ListContactsRequestRole
 from .types import ListDNSZoneRecordsRequestOrderBy
@@ -79,6 +80,7 @@ from .types import Nameserver
 from .types import DNSZoneVersion
 from .types import Host
 from .types import DomainSummary
+from .types import InboundTransfer
 from .types import RenewableDomain
 from .types import SSLCertificate
 from .types import Task
@@ -122,6 +124,7 @@ from .types import ListDNSZonesRequest
 from .types import ListDNSZonesResponse
 from .types import ListDomainHostsResponse
 from .types import ListDomainsResponse
+from .types import ListInboundTransfersResponse
 from .types import ListRenewableDomainsResponse
 from .types import ListSSLCertificatesRequest
 from .types import ListSSLCertificatesResponse
@@ -146,6 +149,7 @@ from .types import RegistrarApiGetDomainRequest
 from .types import RegistrarApiListContactsRequest
 from .types import RegistrarApiListDomainHostsRequest
 from .types import RegistrarApiListDomainsRequest
+from .types import RegistrarApiListInboundTransfersRequest
 from .types import RegistrarApiListRenewableDomainsRequest
 from .types import RegistrarApiListTasksRequest
 from .types import RegistrarApiListTldsRequest
@@ -188,6 +192,7 @@ __all__ = [
     "DOMAIN_TRANSIENT_STATUSES",
     "HostStatus",
     "HOST_TRANSIENT_STATUSES",
+    "InboundTransferStatus",
     "LinkedProduct",
     "ListContactsRequestRole",
     "ListDNSZoneRecordsRequestOrderBy",
@@ -250,6 +255,7 @@ __all__ = [
     "DNSZoneVersion",
     "Host",
     "DomainSummary",
+    "InboundTransfer",
     "RenewableDomain",
     "SSLCertificate",
     "Task",
@@ -293,6 +299,7 @@ __all__ = [
     "ListDNSZonesResponse",
     "ListDomainHostsResponse",
     "ListDomainsResponse",
+    "ListInboundTransfersResponse",
     "ListRenewableDomainsResponse",
     "ListSSLCertificatesRequest",
     "ListSSLCertificatesResponse",
@@ -317,6 +324,7 @@ __all__ = [
     "RegistrarApiListContactsRequest",
     "RegistrarApiListDomainHostsRequest",
     "RegistrarApiListDomainsRequest",
+    "RegistrarApiListInboundTransfersRequest",
     "RegistrarApiListRenewableDomainsRequest",
     "RegistrarApiListTasksRequest",
     "RegistrarApiListTldsRequest",

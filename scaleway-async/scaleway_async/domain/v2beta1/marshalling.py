@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 from .types import (
     DomainFeatureStatus,
     DomainStatus,
+    InboundTransferStatus,
     LinkedProduct,
     TaskStatus,
     TaskType,
@@ -78,6 +79,8 @@ from .types import (
     ListDomainHostsResponse,
     DomainSummary,
     ListDomainsResponse,
+    InboundTransfer,
+    ListInboundTransfersResponse,
     RenewableDomain,
     ListRenewableDomainsResponse,
     ListSSLCertificatesResponse,
@@ -2088,6 +2091,92 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
         args["domains"] = None
 
     return ListDomainsResponse(**args)
+
+
+def unmarshal_InboundTransfer(data: Any) -> InboundTransfer:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InboundTransfer' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+    else:
+        args["domain"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = InboundTransferStatus.UNKNOWN
+
+    field = data.get("message", None)
+    if field is not None:
+        args["message"] = field
+    else:
+        args["message"] = None
+
+    field = data.get("task_id", None)
+    if field is not None:
+        args["task_id"] = field
+    else:
+        args["task_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("last_updated_at", None)
+    if field is not None:
+        args["last_updated_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_updated_at"] = None
+
+    return InboundTransfer(**args)
+
+
+def unmarshal_ListInboundTransfersResponse(data: Any) -> ListInboundTransfersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListInboundTransfersResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = None
+
+    field = data.get("inbound_transfers", None)
+    if field is not None:
+        args["inbound_transfers"] = (
+            [unmarshal_InboundTransfer(v) for v in field] if field is not None else None
+        )
+    else:
+        args["inbound_transfers"] = None
+
+    return ListInboundTransfersResponse(**args)
 
 
 def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:

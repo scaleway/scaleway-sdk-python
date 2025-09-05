@@ -58,6 +58,7 @@ from .types import (
     ImportRawDNSZoneRequestAXFRSource,
     ImportRawDNSZoneRequestBindSource,
     ImportRawDNSZoneResponse,
+    InboundTransfer,
     ListContactsResponse,
     ListDNSZoneNameserversResponse,
     ListDNSZoneRecordsResponse,
@@ -66,6 +67,7 @@ from .types import (
     ListDNSZonesResponse,
     ListDomainHostsResponse,
     ListDomainsResponse,
+    ListInboundTransfersResponse,
     ListRenewableDomainsResponse,
     ListSSLCertificatesResponse,
     ListTasksResponse,
@@ -131,6 +133,7 @@ from .marshalling import (
     unmarshal_ListDNSZonesResponse,
     unmarshal_ListDomainHostsResponse,
     unmarshal_ListDomainsResponse,
+    unmarshal_ListInboundTransfersResponse,
     unmarshal_ListRenewableDomainsResponse,
     unmarshal_ListSSLCertificatesResponse,
     unmarshal_ListTasksResponse,
@@ -1466,6 +1469,87 @@ class DomainV2Beta1RegistrarAPI(API):
                 "types": types,
                 "statuses": statuses,
                 "order_by": order_by,
+            },
+        )
+
+    def list_inbound_transfers(
+        self,
+        *,
+        page: int,
+        domain: str,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> ListInboundTransfersResponse:
+        """
+        :param page:
+        :param domain:
+        :param page_size:
+        :param project_id:
+        :param organization_id:
+        :return: :class:`ListInboundTransfersResponse <ListInboundTransfersResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_inbound_transfers(
+                page=1,
+                domain="example",
+            )
+        """
+
+        res = self._request(
+            "GET",
+            "/domain/v2beta1/inbound-transfers",
+            params={
+                "domain": domain,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListInboundTransfersResponse(res.json())
+
+    def list_inbound_transfers_all(
+        self,
+        *,
+        page: int,
+        domain: str,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> List[InboundTransfer]:
+        """
+        :param page:
+        :param domain:
+        :param page_size:
+        :param project_id:
+        :param organization_id:
+        :return: :class:`List[InboundTransfer] <List[InboundTransfer]>`
+
+        Usage:
+        ::
+
+            result = api.list_inbound_transfers_all(
+                page=1,
+                domain="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListInboundTransfersResponse,
+            key="inbound_transfers",
+            fetcher=self.list_inbound_transfers,
+            args={
+                "page": page,
+                "domain": domain,
+                "page_size": page_size,
+                "project_id": project_id,
+                "organization_id": organization_id,
             },
         )
 
