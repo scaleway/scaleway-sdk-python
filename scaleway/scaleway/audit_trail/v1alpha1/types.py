@@ -57,6 +57,13 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     IPAM_IP = "ipam_ip"
     SBS_VOLUME = "sbs_volume"
     SBS_SNAPSHOT = "sbs_snapshot"
+    LOAD_BALANCER_LB = "load_balancer_lb"
+    LOAD_BALANCER_IP = "load_balancer_ip"
+    LOAD_BALANCER_FRONTEND = "load_balancer_frontend"
+    LOAD_BALANCER_BACKEND = "load_balancer_backend"
+    LOAD_BALANCER_ROUTE = "load_balancer_route"
+    LOAD_BALANCER_ACL = "load_balancer_acl"
+    LOAD_BALANCER_CERTIFICATE = "load_balancer_certificate"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -133,6 +140,46 @@ class KubernetesPoolInfo:
 
 
 @dataclass
+class LoadBalancerAclInfo:
+    frontend_id: str
+
+
+@dataclass
+class LoadBalancerBackendInfo:
+    lb_id: str
+    name: str
+
+
+@dataclass
+class LoadBalancerCertificateInfo:
+    lb_id: str
+    name: str
+
+
+@dataclass
+class LoadBalancerFrontendInfo:
+    lb_id: str
+    name: str
+
+
+@dataclass
+class LoadBalancerIpInfo:
+    ip_address: str
+    lb_id: Optional[str] = None
+
+
+@dataclass
+class LoadBalancerLbInfo:
+    name: str
+
+
+@dataclass
+class LoadBalancerRouteInfo:
+    frontend_id: str
+    backend_id: str
+
+
+@dataclass
 class SecretManagerSecretInfo:
     path: str
     key_id: Optional[str] = None
@@ -196,6 +243,20 @@ class Resource:
     baremetal_setting_info: Optional[BaremetalSettingInfo] = None
 
     ipam_ip_info: Optional[IpamIpInfo] = None
+
+    load_balancer_lb_info: Optional[LoadBalancerLbInfo] = None
+
+    load_balancer_ip_info: Optional[LoadBalancerIpInfo] = None
+
+    load_balancer_frontend_info: Optional[LoadBalancerFrontendInfo] = None
+
+    load_balancer_backend_info: Optional[LoadBalancerBackendInfo] = None
+
+    load_balancer_route_info: Optional[LoadBalancerRouteInfo] = None
+
+    load_balancer_acl_info: Optional[LoadBalancerAclInfo] = None
+
+    load_balancer_certificate_info: Optional[LoadBalancerCertificateInfo] = None
 
 
 @dataclass
@@ -318,7 +379,7 @@ class ListEventsRequest:
 
     resource_type: Optional[ResourceType] = ResourceType.UNKNOWN_TYPE
     """
-    (Optional) Returns a paginated list of Scaleway resources' features.
+    (Optional) Type of the Scaleway resource.
     """
 
     method_name: Optional[str] = None
@@ -348,12 +409,17 @@ class ListEventsRequest:
     page_token: Optional[str] = None
     product_name: Optional[str] = None
     """
-    (Optional) Name of the Scaleway resource in a hyphenated format.
+    (Optional) Name of the Scaleway product in a hyphenated format.
     """
 
     service_name: Optional[str] = None
     """
     (Optional) Name of the service of the API call performed.
+    """
+
+    resource_id: Optional[str] = None
+    """
+    (Optional) ID of the Scaleway resource.
     """
 
 

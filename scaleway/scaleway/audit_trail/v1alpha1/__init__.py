@@ -15,6 +15,13 @@ from .types import KubernetesACLInfo
 from .types import KubernetesClusterInfo
 from .types import KubernetesNodeInfo
 from .types import KubernetesPoolInfo
+from .types import LoadBalancerAclInfo
+from .types import LoadBalancerBackendInfo
+from .types import LoadBalancerCertificateInfo
+from .types import LoadBalancerFrontendInfo
+from .types import LoadBalancerIpInfo
+from .types import LoadBalancerLbInfo
+from .types import LoadBalancerRouteInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
 from .types import EventPrincipal
@@ -45,6 +52,13 @@ __all__ = [
     "KubernetesClusterInfo",
     "KubernetesNodeInfo",
     "KubernetesPoolInfo",
+    "LoadBalancerAclInfo",
+    "LoadBalancerBackendInfo",
+    "LoadBalancerCertificateInfo",
+    "LoadBalancerFrontendInfo",
+    "LoadBalancerIpInfo",
+    "LoadBalancerLbInfo",
+    "LoadBalancerRouteInfo",
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
     "EventPrincipal",

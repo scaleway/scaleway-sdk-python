@@ -18,6 +18,13 @@ from .types import (
     KubernetesClusterInfo,
     KubernetesNodeInfo,
     KubernetesPoolInfo,
+    LoadBalancerAclInfo,
+    LoadBalancerBackendInfo,
+    LoadBalancerCertificateInfo,
+    LoadBalancerFrontendInfo,
+    LoadBalancerIpInfo,
+    LoadBalancerLbInfo,
+    LoadBalancerRouteInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
     EventPrincipal,
@@ -258,6 +265,155 @@ def unmarshal_KubernetesPoolInfo(data: Any) -> KubernetesPoolInfo:
     return KubernetesPoolInfo(**args)
 
 
+def unmarshal_LoadBalancerAclInfo(data: Any) -> LoadBalancerAclInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LoadBalancerAclInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("frontend_id", None)
+    if field is not None:
+        args["frontend_id"] = field
+    else:
+        args["frontend_id"] = None
+
+    return LoadBalancerAclInfo(**args)
+
+
+def unmarshal_LoadBalancerBackendInfo(data: Any) -> LoadBalancerBackendInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LoadBalancerBackendInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("lb_id", None)
+    if field is not None:
+        args["lb_id"] = field
+    else:
+        args["lb_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return LoadBalancerBackendInfo(**args)
+
+
+def unmarshal_LoadBalancerCertificateInfo(data: Any) -> LoadBalancerCertificateInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LoadBalancerCertificateInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("lb_id", None)
+    if field is not None:
+        args["lb_id"] = field
+    else:
+        args["lb_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return LoadBalancerCertificateInfo(**args)
+
+
+def unmarshal_LoadBalancerFrontendInfo(data: Any) -> LoadBalancerFrontendInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LoadBalancerFrontendInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("lb_id", None)
+    if field is not None:
+        args["lb_id"] = field
+    else:
+        args["lb_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return LoadBalancerFrontendInfo(**args)
+
+
+def unmarshal_LoadBalancerIpInfo(data: Any) -> LoadBalancerIpInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LoadBalancerIpInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("ip_address", None)
+    if field is not None:
+        args["ip_address"] = field
+    else:
+        args["ip_address"] = None
+
+    field = data.get("lb_id", None)
+    if field is not None:
+        args["lb_id"] = field
+    else:
+        args["lb_id"] = None
+
+    return LoadBalancerIpInfo(**args)
+
+
+def unmarshal_LoadBalancerLbInfo(data: Any) -> LoadBalancerLbInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LoadBalancerLbInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return LoadBalancerLbInfo(**args)
+
+
+def unmarshal_LoadBalancerRouteInfo(data: Any) -> LoadBalancerRouteInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LoadBalancerRouteInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("frontend_id", None)
+    if field is not None:
+        args["frontend_id"] = field
+    else:
+        args["frontend_id"] = None
+
+    field = data.get("backend_id", None)
+    if field is not None:
+        args["backend_id"] = field
+    else:
+        args["backend_id"] = None
+
+    return LoadBalancerRouteInfo(**args)
+
+
 def unmarshal_SecretManagerSecretInfo(data: Any) -> SecretManagerSecretInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -489,6 +645,50 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["ipam_ip_info"] = unmarshal_IpamIpInfo(field)
     else:
         args["ipam_ip_info"] = None
+
+    field = data.get("load_balancer_lb_info", None)
+    if field is not None:
+        args["load_balancer_lb_info"] = unmarshal_LoadBalancerLbInfo(field)
+    else:
+        args["load_balancer_lb_info"] = None
+
+    field = data.get("load_balancer_ip_info", None)
+    if field is not None:
+        args["load_balancer_ip_info"] = unmarshal_LoadBalancerIpInfo(field)
+    else:
+        args["load_balancer_ip_info"] = None
+
+    field = data.get("load_balancer_frontend_info", None)
+    if field is not None:
+        args["load_balancer_frontend_info"] = unmarshal_LoadBalancerFrontendInfo(field)
+    else:
+        args["load_balancer_frontend_info"] = None
+
+    field = data.get("load_balancer_backend_info", None)
+    if field is not None:
+        args["load_balancer_backend_info"] = unmarshal_LoadBalancerBackendInfo(field)
+    else:
+        args["load_balancer_backend_info"] = None
+
+    field = data.get("load_balancer_route_info", None)
+    if field is not None:
+        args["load_balancer_route_info"] = unmarshal_LoadBalancerRouteInfo(field)
+    else:
+        args["load_balancer_route_info"] = None
+
+    field = data.get("load_balancer_acl_info", None)
+    if field is not None:
+        args["load_balancer_acl_info"] = unmarshal_LoadBalancerAclInfo(field)
+    else:
+        args["load_balancer_acl_info"] = None
+
+    field = data.get("load_balancer_certificate_info", None)
+    if field is not None:
+        args["load_balancer_certificate_info"] = unmarshal_LoadBalancerCertificateInfo(
+            field
+        )
+    else:
+        args["load_balancer_certificate_info"] = None
 
     return Resource(**args)
 
