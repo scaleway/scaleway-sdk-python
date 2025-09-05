@@ -629,7 +629,7 @@ class KeyManagerV1Alpha1API(API):
     ) -> EncryptResponse:
         """
         Encrypt a payload.
-        Encrypt a payload using an existing key, specified by the `key_id` parameter. Only keys with a usage set to `symmetric_encryption` are supported by this method. The maximum payload size that can be encrypted is 64 KB of plaintext.
+        Encrypt a payload using an existing key, specified by the `key_id` parameter. The maximum payload size that can be encrypted is 64 KB of plaintext.
         :param key_id: The key must have an usage set to `symmetric_encryption` or `asymmetric_encryption`.
         :param plaintext: Data size must be between 1 and 65535 bytes.
         :param region: Region to target. If none is passed will use default region from the config.
