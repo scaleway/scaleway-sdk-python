@@ -205,6 +205,17 @@ class SamlCertificateType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class SamlStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SAML_STATUS = "unknown_saml_status"
+    VALID = "valid"
+    MISSING_CERTIFICATE = "missing_certificate"
+    MISSING_ENTITY_ID = "missing_entity_id"
+    MISSING_SINGLE_SIGN_ON_URL = "missing_single_sign_on_url"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class UserStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     INVITATION_PENDING = "invitation_pending"
@@ -966,6 +977,12 @@ class User:
 
 
 @dataclass
+class SamlServiceProvider:
+    entity_id: str
+    assertion_consumer_service_url: str
+
+
+@dataclass
 class AddGroupMemberRequest:
     group_id: str
     """
@@ -1100,24 +1117,6 @@ class CreateJWTRequest:
 
 
 @dataclass
-class CreateOrganizationSamlRequest:
-    entity_id: str
-    """
-    Entity ID of the SAML Identity Provider.
-    """
-
-    single_sign_on_url: str
-    """
-    Single Sign-On URL of the SAML Identity Provider.
-    """
-
-    organization_id: Optional[str] = None
-    """
-    ID of the Organization.
-    """
-
-
-@dataclass
 class CreatePolicyRequest:
     description: str
     """
@@ -1229,14 +1228,6 @@ class DeleteJWTRequest:
 
 
 @dataclass
-class DeleteOrganizationSamlRequest:
-    organization_id: Optional[str] = None
-    """
-    ID of the Organization.
-    """
-
-
-@dataclass
 class DeletePolicyRequest:
     policy_id: str
     """
@@ -1258,6 +1249,14 @@ class DeleteSamlCertificateRequest:
 
 
 @dataclass
+class DeleteSamlRequest:
+    saml_id: str
+    """
+    ID of the SAML configuration.
+    """
+
+
+@dataclass
 class DeleteUserMFAOTPRequest:
     user_id: str
     """
@@ -1270,6 +1269,14 @@ class DeleteUserRequest:
     user_id: str
     """
     ID of the user to delete.
+    """
+
+
+@dataclass
+class EnableOrganizationSamlRequest:
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization.
     """
 
 
@@ -1382,11 +1389,6 @@ class GetSSHKeyRequest:
     """
     ID of the SSH key.
     """
-
-
-@dataclass
-class GetSamlInformationRequest:
-    pass
 
 
 @dataclass
@@ -2153,6 +2155,11 @@ class Saml:
     ID of the SAML configuration.
     """
 
+    status: SamlStatus
+    """
+    Status of the SAML configuration.
+    """
+
     entity_id: str
     """
     Entity ID of the SAML Identity Provider.
@@ -2163,17 +2170,9 @@ class Saml:
     Single Sign-On URL of the SAML Identity Provider.
     """
 
-
-@dataclass
-class SamlInformation:
-    entity_id: str
+    service_provider: Optional[SamlServiceProvider] = None
     """
-    Entity ID.
-    """
-
-    assertion_consumer_service_url: str
-    """
-    SAML Assertion Consumer Service url.
+    Service Provider information.
     """
 
 
@@ -2291,24 +2290,6 @@ class UpdateGroupRequest:
 
 
 @dataclass
-class UpdateOrganizationSamlRequest:
-    organization_id: Optional[str] = None
-    """
-    ID of the Organization.
-    """
-
-    entity_id: Optional[str] = None
-    """
-    Entity ID of the SAML Identity Provider.
-    """
-
-    single_sign_on_url: Optional[str] = None
-    """
-    Single Sign-On URL of the SAML Identity Provider.
-    """
-
-
-@dataclass
 class UpdateOrganizationSecuritySettingsRequest:
     organization_id: Optional[str] = None
     """
@@ -2373,6 +2354,24 @@ class UpdateSSHKeyRequest:
     disabled: Optional[bool] = False
     """
     Enable or disable the SSH key.
+    """
+
+
+@dataclass
+class UpdateSamlRequest:
+    saml_id: str
+    """
+    ID of the SAML configuration.
+    """
+
+    entity_id: Optional[str] = None
+    """
+    Entity ID of the SAML Identity Provider.
+    """
+
+    single_sign_on_url: Optional[str] = None
+    """
+    Single Sign-On URL of the SAML Identity Provider.
     """
 
 

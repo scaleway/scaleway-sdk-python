@@ -2001,6 +2001,9 @@ def marshal_RebootServerRequest(
     if request.boot_type is not None:
         output["boot_type"] = request.boot_type
 
+    if request.ssh_key_ids is not None:
+        output["ssh_key_ids"] = request.ssh_key_ids
+
     return output
 
 
@@ -2024,6 +2027,9 @@ def marshal_StartServerRequest(
 
     if request.boot_type is not None:
         output["boot_type"] = request.boot_type
+
+    if request.ssh_key_ids is not None:
+        output["ssh_key_ids"] = request.ssh_key_ids
 
     return output
 
