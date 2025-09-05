@@ -44,6 +44,7 @@ class AuditTrailV1Alpha1API(API):
         page_token: Optional[str] = None,
         product_name: Optional[str] = None,
         service_name: Optional[str] = None,
+        resource_id: Optional[str] = None,
     ) -> ListEventsResponse:
         """
         List events.
@@ -51,7 +52,7 @@ class AuditTrailV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: (Optional) ID of the Project containing the Audit Trail events.
         :param organization_id: ID of the Organization containing the Audit Trail events.
-        :param resource_type: (Optional) Returns a paginated list of Scaleway resources' features.
+        :param resource_type: (Optional) Type of the Scaleway resource.
         :param method_name: (Optional) Name of the method of the API call performed.
         :param status: (Optional) HTTP status code of the request. Returns either `200` if the request was successful or `403` if the permission was denied.
         :param recorded_after: (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail events are retrieved. Returns `one hour ago` by default.
@@ -59,8 +60,9 @@ class AuditTrailV1Alpha1API(API):
         :param order_by:
         :param page_size:
         :param page_token:
-        :param product_name: (Optional) Name of the Scaleway resource in a hyphenated format.
+        :param product_name: (Optional) Name of the Scaleway product in a hyphenated format.
         :param service_name: (Optional) Name of the service of the API call performed.
+        :param resource_id: (Optional) ID of the Scaleway resource.
         :return: :class:`ListEventsResponse <ListEventsResponse>`
 
         Usage:
@@ -87,6 +89,7 @@ class AuditTrailV1Alpha1API(API):
                 "project_id": project_id or self.client.default_project_id,
                 "recorded_after": recorded_after,
                 "recorded_before": recorded_before,
+                "resource_id": resource_id,
                 "resource_type": resource_type,
                 "service_name": service_name,
                 "status": status,

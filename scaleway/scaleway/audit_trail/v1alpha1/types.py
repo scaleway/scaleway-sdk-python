@@ -318,7 +318,7 @@ class ListEventsRequest:
 
     resource_type: Optional[ResourceType] = ResourceType.UNKNOWN_TYPE
     """
-    (Optional) Returns a paginated list of Scaleway resources' features.
+    (Optional) Type of the Scaleway resource.
     """
 
     method_name: Optional[str] = None
@@ -348,12 +348,17 @@ class ListEventsRequest:
     page_token: Optional[str] = None
     product_name: Optional[str] = None
     """
-    (Optional) Name of the Scaleway resource in a hyphenated format.
+    (Optional) Name of the Scaleway product in a hyphenated format.
     """
 
     service_name: Optional[str] = None
     """
     (Optional) Name of the service of the API call performed.
+    """
+
+    resource_id: Optional[str] = None
+    """
+    (Optional) ID of the Scaleway resource.
     """
 
 
