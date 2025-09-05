@@ -1725,6 +1725,11 @@ class RebootServerRequest:
     The type of boot.
     """
 
+    ssh_key_ids: Optional[List[str]] = field(default_factory=list)
+    """
+    Additional SSH public key IDs to configure on rescue image.
+    """
+
 
 @dataclass
 class SetServerPrivateNetworksResponse:
@@ -1764,6 +1769,11 @@ class StartServerRequest:
     boot_type: Optional[ServerBootType] = ServerBootType.UNKNOWN_BOOT_TYPE
     """
     The type of boot.
+    """
+
+    ssh_key_ids: Optional[List[str]] = field(default_factory=list)
+    """
+    Additional SSH public key IDs to configure on rescue image.
     """
 
 
