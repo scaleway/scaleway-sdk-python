@@ -50,6 +50,9 @@ jobs:
           SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
         run: poetry run pytest -v --timeout=14400 ./${{ matrix.lib }}/${{ matrix.products }}/
       - name: Ping on failure
+        env:
+          SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
+          FAILED_PRODUCT: "${{ matrix.products }}"
         if: ${{ failure() }}
         run: |
           curl -X POST -H 'Content-type: application/json' \
@@ -65,6 +68,4 @@ jobs:
             ]
           }' \
           ${SLACK_WEBHOOK_NIGHTLY};
-        env:
-          SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
-          FAILED_PRODUCT: "${{ matrix.products }}"
+        
