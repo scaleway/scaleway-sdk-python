@@ -64,6 +64,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     LOAD_BALANCER_ROUTE = "load_balancer_route"
     LOAD_BALANCER_ACL = "load_balancer_acl"
     LOAD_BALANCER_CERTIFICATE = "load_balancer_certificate"
+    SFS_FILESYSTEM = "sfs_filesystem"
 
     def __str__(self) -> str:
         return str(self.value)
