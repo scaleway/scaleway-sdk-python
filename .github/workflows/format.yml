@@ -1,5 +1,4 @@
 name: Check formatting
-
 permissions:
   contents: read
 
