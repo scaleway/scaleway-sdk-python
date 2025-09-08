@@ -27,6 +27,7 @@ python = ">=3.10"
 requests = "^2.28.1"
 PyYAML = "^6.0"
 python-dateutil = "^2.8.2"
+pytest-cov = "^6.3.0"
 
 [tool.poetry.group.dev.dependencies]
 types-python-dateutil = "^2.8.19"

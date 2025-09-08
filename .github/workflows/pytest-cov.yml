@@ -1,0 +1,42 @@
+name: Pytest-cov
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+
+jobs:
+  pytest-cov:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lib:
+          - scaleway-core
+          - scaleway
+          - scaleway-async
+        python-version: [ '3.10' ,'3.11', '3.12', '3.13' ]
+    defaults:
+      run:
+        working-directory: ${{ matrix.lib }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install poetry
+        run: pipx install poetry
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "poetry"
+      - name: Install dependencies and library
+        run: poetry install
+      - name: Run tests with coverage
+        run: poetry run pytest --cov --cov-branch --cov-report=xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+            token: ${{ secrets.CODECOV_TOKEN }}
