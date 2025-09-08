@@ -269,6 +269,11 @@ class ListLocalImagesRequest:
     Filter local images available on this Availability Zone.
     """
 
+    arch: Optional[str] = None
+    """
+    Filter local images available for this machine architecture.
+    """
+
     type_: Optional[LocalImageType] = LocalImageType.UNKNOWN_TYPE
     """
     Filter by type.
