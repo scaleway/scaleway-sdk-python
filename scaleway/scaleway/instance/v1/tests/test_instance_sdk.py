@@ -122,7 +122,7 @@ def test_list_server(
 ) -> None:
     instance_api, _ = instance_block_api
     servers = instance_api.list_servers(zone=zone)
-    assert len(servers.servers) >= 1
+    assert len(servers.servers) == 0
     assert servers.servers[0].name == server_name
 
 
