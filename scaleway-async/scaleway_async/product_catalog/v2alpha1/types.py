@@ -81,6 +81,7 @@ class PublicCatalogProductUnitOfMeasureCountableUnit(str, Enum, metaclass=StrEnu
     MINUTE = "minute"
     SETUP = "setup"
     DAY = "day"
+    SECOND = "second"
 
     def __str__(self) -> str:
         return str(self.value)
