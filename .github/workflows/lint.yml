@@ -39,3 +39,10 @@ jobs:
       #   F541 (https://docs.astral.sh/ruff/rules/f-string-missing-placeholders)
       - name: Check linting
         run: poetry run ruff check . --ignore E721 --ignore F541
+  actionlint:
+    name: Github Actions lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check workflow files
+        uses: docker://rhysd/actionlint:latest
