@@ -273,6 +273,7 @@ class MarketplaceV2API(API):
         page: Optional[int] = None,
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
         zone: Optional[ScwZone] = None,
+        arch: Optional[str] = None,
         image_id: Optional[str] = None,
         version_id: Optional[str] = None,
         image_label: Optional[str] = None,
@@ -285,6 +286,7 @@ class MarketplaceV2API(API):
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
         :param zone: Filter local images available on this Availability Zone.
+        :param arch: Filter local images available for this machine architecture.
         :param image_id: Filter by image id.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param version_id: Filter by version id.
@@ -304,6 +306,7 @@ class MarketplaceV2API(API):
             "GET",
             "/marketplace/v2/local-images",
             params={
+                "arch": arch,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -329,6 +332,7 @@ class MarketplaceV2API(API):
         page: Optional[int] = None,
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
         zone: Optional[ScwZone] = None,
+        arch: Optional[str] = None,
         image_id: Optional[str] = None,
         version_id: Optional[str] = None,
         image_label: Optional[str] = None,
@@ -341,6 +345,7 @@ class MarketplaceV2API(API):
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
         :param zone: Filter local images available on this Availability Zone.
+        :param arch: Filter local images available for this machine architecture.
         :param image_id: Filter by image id.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param version_id: Filter by version id.
@@ -365,6 +370,7 @@ class MarketplaceV2API(API):
                 "page": page,
                 "order_by": order_by,
                 "zone": zone,
+                "arch": arch,
                 "type_": type_,
                 "image_id": image_id,
                 "version_id": version_id,
