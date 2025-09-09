@@ -10,6 +10,7 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ResourceType,
     Resource,
     Reverse,
     Source,
@@ -36,10 +37,14 @@ def unmarshal_Resource(data: Any) -> Resource:
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
+    else:
+        args["type_"] = ResourceType.UNKNOWN_TYPE
 
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("mac_address", None)
     if field is not None:
@@ -67,6 +72,8 @@ def unmarshal_Reverse(data: Any) -> Reverse:
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
+    else:
+        args["hostname"] = None
 
     field = data.get("address", None)
     if field is not None:
@@ -123,32 +130,46 @@ def unmarshal_IP(data: Any) -> IP:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
+    else:
+        args["address"] = None
 
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
+    else:
+        args["project_id"] = None
 
     field = data.get("is_ipv6", None)
     if field is not None:
         args["is_ipv6"] = field
+    else:
+        args["is_ipv6"] = False
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = []
 
     field = data.get("reverses", None)
     if field is not None:
         args["reverses"] = (
             [unmarshal_Reverse(v) for v in field] if field is not None else None
         )
+    else:
+        args["reverses"] = []
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -194,10 +215,14 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
+    else:
+        args["total_count"] = None
 
     field = data.get("ips", None)
     if field is not None:
         args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
+    else:
+        args["ips"] = None
 
     return ListIPsResponse(**args)
 
@@ -269,7 +294,9 @@ def marshal_BookIPRequest(
         output["is_ipv6"] = request.is_ipv6
 
     if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     if request.address is not None:
         output["address"] = request.address
