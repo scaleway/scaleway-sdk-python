@@ -1,0 +1,7 @@
+vcr\_config module
+==================
+
+.. automodule:: vcr_config
+   :members:
+   :undoc-members:
+   :show-inheritance:

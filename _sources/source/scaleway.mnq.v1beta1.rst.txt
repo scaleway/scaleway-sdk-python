@@ -1,0 +1,37 @@
+scaleway.mnq.v1beta1 package
+============================
+
+Submodules
+----------
+
+scaleway.mnq.v1beta1.api module
+-------------------------------
+
+.. automodule:: scaleway.mnq.v1beta1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.mnq.v1beta1.marshalling module
+---------------------------------------
+
+.. automodule:: scaleway.mnq.v1beta1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.mnq.v1beta1.types module
+---------------------------------
+
+.. automodule:: scaleway.mnq.v1beta1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.mnq.v1beta1
+   :members:
+   :undoc-members:
+   :show-inheritance:

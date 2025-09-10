@@ -1,0 +1,18 @@
+scaleway\_async.document\_db package
+====================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.document_db.v1beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.document_db
+   :members:
+   :undoc-members:
+   :show-inheritance:

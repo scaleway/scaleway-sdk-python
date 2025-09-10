@@ -1,0 +1,45 @@
+scaleway\_async.document\_db.v1beta1 package
+============================================
+
+Submodules
+----------
+
+scaleway\_async.document\_db.v1beta1.api module
+-----------------------------------------------
+
+.. automodule:: scaleway_async.document_db.v1beta1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.document\_db.v1beta1.content module
+---------------------------------------------------
+
+.. automodule:: scaleway_async.document_db.v1beta1.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.document\_db.v1beta1.marshalling module
+-------------------------------------------------------
+
+.. automodule:: scaleway_async.document_db.v1beta1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.document\_db.v1beta1.types module
+-------------------------------------------------
+
+.. automodule:: scaleway_async.document_db.v1beta1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.document_db.v1beta1
+   :members:
+   :undoc-members:
+   :show-inheritance:

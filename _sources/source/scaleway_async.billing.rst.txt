@@ -1,0 +1,19 @@
+scaleway\_async.billing package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.billing.v2alpha1
+   scaleway_async.billing.v2beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.billing
+   :members:
+   :undoc-members:
+   :show-inheritance:

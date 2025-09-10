@@ -1,0 +1,7 @@
+scaleway-async
+==============
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async

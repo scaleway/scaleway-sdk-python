@@ -1,0 +1,18 @@
+scaleway.ipam package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.ipam.v1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.ipam
+   :members:
+   :undoc-members:
+   :show-inheritance:

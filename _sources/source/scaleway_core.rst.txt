@@ -1,0 +1,40 @@
+scaleway\_core package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_core.bridge
+   scaleway_core.profile
+   scaleway_core.utils
+   scaleway_core.validations
+
+Submodules
+----------
+
+scaleway\_core.api module
+-------------------------
+
+.. automodule:: scaleway_core.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.client module
+----------------------------
+
+.. automodule:: scaleway_core.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_core
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,18 @@
+scaleway.mnq package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.mnq.v1beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.mnq
+   :members:
+   :undoc-members:
+   :show-inheritance:

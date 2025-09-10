@@ -1,0 +1,37 @@
+scaleway.marketplace.v2 package
+===============================
+
+Submodules
+----------
+
+scaleway.marketplace.v2.api module
+----------------------------------
+
+.. automodule:: scaleway.marketplace.v2.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.marketplace.v2.marshalling module
+------------------------------------------
+
+.. automodule:: scaleway.marketplace.v2.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.marketplace.v2.types module
+------------------------------------
+
+.. automodule:: scaleway.marketplace.v2.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.marketplace.v2
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,18 @@
+scaleway.applesilicon package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.applesilicon.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.applesilicon
+   :members:
+   :undoc-members:
+   :show-inheritance:

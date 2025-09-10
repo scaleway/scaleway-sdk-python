@@ -1,0 +1,19 @@
+scaleway.vpcgw package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.vpcgw.v1
+   scaleway.vpcgw.v2
+
+Module contents
+---------------
+
+.. automodule:: scaleway.vpcgw
+   :members:
+   :undoc-members:
+   :show-inheritance:

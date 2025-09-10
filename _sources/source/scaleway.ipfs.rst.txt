@@ -1,0 +1,18 @@
+scaleway.ipfs package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.ipfs.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.ipfs
+   :members:
+   :undoc-members:
+   :show-inheritance:

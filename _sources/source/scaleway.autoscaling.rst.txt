@@ -1,0 +1,18 @@
+scaleway.autoscaling package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.autoscaling.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.autoscaling
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,19 @@
+scaleway\_async.vpcgw package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.vpcgw.v1
+   scaleway_async.vpcgw.v2
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.vpcgw
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,45 @@
+scaleway\_async.vpcgw.v2 package
+================================
+
+Submodules
+----------
+
+scaleway\_async.vpcgw.v2.api module
+-----------------------------------
+
+.. automodule:: scaleway_async.vpcgw.v2.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.vpcgw.v2.content module
+---------------------------------------
+
+.. automodule:: scaleway_async.vpcgw.v2.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.vpcgw.v2.marshalling module
+-------------------------------------------
+
+.. automodule:: scaleway_async.vpcgw.v2.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.vpcgw.v2.types module
+-------------------------------------
+
+.. automodule:: scaleway_async.vpcgw.v2.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.vpcgw.v2
+   :members:
+   :undoc-members:
+   :show-inheritance:

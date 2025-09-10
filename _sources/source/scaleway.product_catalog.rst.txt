@@ -1,0 +1,18 @@
+scaleway.product\_catalog package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.product_catalog.v2alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.product_catalog
+   :members:
+   :undoc-members:
+   :show-inheritance:

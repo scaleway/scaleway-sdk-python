@@ -1,0 +1,21 @@
+scaleway.instance.v1.tests package
+==================================
+
+Submodules
+----------
+
+scaleway.instance.v1.tests.test\_instance\_sdk module
+-----------------------------------------------------
+
+.. automodule:: scaleway.instance.v1.tests.test_instance_sdk
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.instance.v1.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

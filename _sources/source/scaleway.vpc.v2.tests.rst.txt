@@ -1,0 +1,21 @@
+scaleway.vpc.v2.tests package
+=============================
+
+Submodules
+----------
+
+scaleway.vpc.v2.tests.test\_vpc\_sdk module
+-------------------------------------------
+
+.. automodule:: scaleway.vpc.v2.tests.test_vpc_sdk
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.vpc.v2.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

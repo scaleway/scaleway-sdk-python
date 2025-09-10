@@ -1,0 +1,45 @@
+scaleway.baremetal.v3 package
+=============================
+
+Submodules
+----------
+
+scaleway.baremetal.v3.api module
+--------------------------------
+
+.. automodule:: scaleway.baremetal.v3.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.baremetal.v3.content module
+------------------------------------
+
+.. automodule:: scaleway.baremetal.v3.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.baremetal.v3.marshalling module
+----------------------------------------
+
+.. automodule:: scaleway.baremetal.v3.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.baremetal.v3.types module
+----------------------------------
+
+.. automodule:: scaleway.baremetal.v3.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.baremetal.v3
+   :members:
+   :undoc-members:
+   :show-inheritance:

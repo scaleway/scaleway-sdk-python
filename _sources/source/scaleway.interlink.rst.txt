@@ -1,0 +1,18 @@
+scaleway.interlink package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.interlink.v1beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.interlink
+   :members:
+   :undoc-members:
+   :show-inheritance:

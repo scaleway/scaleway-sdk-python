@@ -1,0 +1,37 @@
+scaleway\_async.account.v3 package
+==================================
+
+Submodules
+----------
+
+scaleway\_async.account.v3.api module
+-------------------------------------
+
+.. automodule:: scaleway_async.account.v3.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.account.v3.marshalling module
+---------------------------------------------
+
+.. automodule:: scaleway_async.account.v3.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.account.v3.types module
+---------------------------------------
+
+.. automodule:: scaleway_async.account.v3.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.account.v3
+   :members:
+   :undoc-members:
+   :show-inheritance:

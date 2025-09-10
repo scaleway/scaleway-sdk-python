@@ -1,0 +1,18 @@
+scaleway\_async.iot package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.iot.v1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.iot
+   :members:
+   :undoc-members:
+   :show-inheritance:

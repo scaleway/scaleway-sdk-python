@@ -1,0 +1,18 @@
+scaleway\_async.domain package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.domain.v2beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:

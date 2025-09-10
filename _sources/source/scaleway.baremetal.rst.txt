@@ -1,0 +1,19 @@
+scaleway.baremetal package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.baremetal.v1
+   scaleway.baremetal.v3
+
+Module contents
+---------------
+
+.. automodule:: scaleway.baremetal
+   :members:
+   :undoc-members:
+   :show-inheritance:

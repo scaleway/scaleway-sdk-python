@@ -1,0 +1,18 @@
+scaleway.iam package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.iam.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.iam
+   :members:
+   :undoc-members:
+   :show-inheritance:
