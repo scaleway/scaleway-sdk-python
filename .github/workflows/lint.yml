@@ -1,5 +1,4 @@
 name: Check linters
-
 permissions:
   contents: read
 

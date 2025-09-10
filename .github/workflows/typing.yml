@@ -1,5 +1,4 @@
 name: Check type hinting
-
 permissions:
   contents: read
 
