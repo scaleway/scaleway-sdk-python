@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies and library
         run: poetry install
       - name: Set package version
-        run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
+        run: poetry version "$(echo "${{ github.ref }}" | cut -d "/" -f 3)"
       - name: Build package
         run: poetry build
       - name: Publish package
@@ -56,16 +56,16 @@ jobs:
           python-version: "3.10"
           cache: "poetry"
       - name: Set local scaleway-core version
-        run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
+        run: poetry version "$(echo "${{ github.ref }}" | cut -d "/" -f 3)"
         working-directory: scaleway-core
       - name: Set scaleway-core version in the package
-        run: poetry add scaleway-core@$(echo "${{ github.ref }}" | cut -d "/" -f 3)
+        run: poetry add scaleway-core@"$(echo "${{ github.ref }}" | cut -d "/" -f 3)"
       - name: Update lock file
         run: poetry lock
       - name: Install dependencies and library
         run: poetry install
       - name: Set package version
-        run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
+        run: poetry version "$(echo "${{ github.ref }}" | cut -d "/" -f 3)"
       - name: Build package
         run: poetry build
       - name: Publish package
