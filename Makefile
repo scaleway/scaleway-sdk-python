@@ -55,7 +55,7 @@ test:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
 		poetry install && \
-		poetry run python -m unittest discover -s tests -v; \
+		poetry run pytest -v; \
 	done
 
 publish: install-dependencies
