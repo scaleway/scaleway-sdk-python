@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 from .types import (
     BackupItemType,
     BackupStatus,
+    CheckFreeDomainAvailabilityResponseUnavailableReason,
     DnsRecordStatus,
     DnsRecordType,
     DnsRecordsStatus,
@@ -38,6 +39,8 @@ from .types import (
     HostingDomain,
     HostingSummary,
     MailAccount,
+    FreeDomain,
+    CheckFreeDomainAvailabilityResponse,
     CheckUserOwnsDomainResponse,
     DnsRecord,
     Nameserver,
@@ -58,6 +61,7 @@ from .types import (
     ListControlPanelsResponse,
     ListDatabaseUsersResponse,
     ListDatabasesResponse,
+    ListFreeRootDomainsResponse,
     ListFtpAccountsResponse,
     ListHostingsResponse,
     ListMailAccountsResponse,
@@ -81,6 +85,7 @@ from .types import (
     DnsApiCheckUserOwnsDomainRequest,
     SyncDomainDnsRecordsRequestRecord,
     DnsApiSyncDomainDnsRecordsRequest,
+    FreeDomainApiCheckFreeDomainAvailabilityRequest,
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
     HostingApiAddCustomDomainRequest,
@@ -410,6 +415,62 @@ def unmarshal_MailAccount(data: Any) -> MailAccount:
         args["username"] = None
 
     return MailAccount(**args)
+
+
+def unmarshal_FreeDomain(data: Any) -> FreeDomain:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'FreeDomain' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("slug", None)
+    if field is not None:
+        args["slug"] = field
+    else:
+        args["slug"] = None
+
+    field = data.get("root_domain", None)
+    if field is not None:
+        args["root_domain"] = field
+    else:
+        args["root_domain"] = None
+
+    return FreeDomain(**args)
+
+
+def unmarshal_CheckFreeDomainAvailabilityResponse(
+    data: Any,
+) -> CheckFreeDomainAvailabilityResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CheckFreeDomainAvailabilityResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("is_available", None)
+    if field is not None:
+        args["is_available"] = field
+    else:
+        args["is_available"] = False
+
+    field = data.get("free_domain", None)
+    if field is not None:
+        args["free_domain"] = unmarshal_FreeDomain(field)
+    else:
+        args["free_domain"] = None
+
+    field = data.get("reason", None)
+    if field is not None:
+        args["reason"] = field
+    else:
+        args["reason"] = (
+            CheckFreeDomainAvailabilityResponseUnavailableReason.UNAVAILABLE_REASON_UNKNOWN
+        )
+
+    return CheckFreeDomainAvailabilityResponse(**args)
 
 
 def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainResponse:
@@ -1210,6 +1271,29 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
     return ListDatabasesResponse(**args)
 
 
+def unmarshal_ListFreeRootDomainsResponse(data: Any) -> ListFreeRootDomainsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListFreeRootDomainsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("root_domains", None)
+    if field is not None:
+        args["root_domains"] = field
+    else:
+        args["root_domains"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListFreeRootDomainsResponse(**args)
+
+
 def unmarshal_ListFtpAccountsResponse(data: Any) -> ListFtpAccountsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1718,6 +1802,21 @@ def marshal_DnsApiSyncDomainDnsRecordsRequest(
         output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
             request.auto_config_domain_dns, defaults
         )
+
+    return output
+
+
+def marshal_FreeDomainApiCheckFreeDomainAvailabilityRequest(
+    request: FreeDomainApiCheckFreeDomainAvailabilityRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.slug is not None:
+        output["slug"] = request.slug
+
+    if request.root_domain is not None:
+        output["root_domain"] = request.root_domain
 
     return output
 

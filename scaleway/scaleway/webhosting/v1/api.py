@@ -26,6 +26,7 @@ from .types import (
     AutoConfigDomainDns,
     Backup,
     BackupApiRestoreBackupItemsRequest,
+    CheckFreeDomainAvailabilityResponse,
     CheckUserOwnsDomainResponse,
     ControlPanel,
     CreateDatabaseRequestUser,
@@ -41,6 +42,7 @@ from .types import (
     DnsApiSyncDomainDnsRecordsRequest,
     DnsRecords,
     Domain,
+    FreeDomainApiCheckFreeDomainAvailabilityRequest,
     FtpAccount,
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
@@ -54,6 +56,7 @@ from .types import (
     ListControlPanelsResponse,
     ListDatabaseUsersResponse,
     ListDatabasesResponse,
+    ListFreeRootDomainsResponse,
     ListFtpAccountsResponse,
     ListHostingsResponse,
     ListMailAccountsResponse,
@@ -86,6 +89,7 @@ from .marshalling import (
     unmarshal_FtpAccount,
     unmarshal_HostingSummary,
     unmarshal_MailAccount,
+    unmarshal_CheckFreeDomainAvailabilityResponse,
     unmarshal_CheckUserOwnsDomainResponse,
     unmarshal_DnsRecords,
     unmarshal_Domain,
@@ -95,6 +99,7 @@ from .marshalling import (
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListDatabaseUsersResponse,
     unmarshal_ListDatabasesResponse,
+    unmarshal_ListFreeRootDomainsResponse,
     unmarshal_ListFtpAccountsResponse,
     unmarshal_ListHostingsResponse,
     unmarshal_ListMailAccountsResponse,
@@ -114,6 +119,7 @@ from .marshalling import (
     marshal_DatabaseApiUnassignDatabaseUserRequest,
     marshal_DnsApiCheckUserOwnsDomainRequest,
     marshal_DnsApiSyncDomainDnsRecordsRequest,
+    marshal_FreeDomainApiCheckFreeDomainAvailabilityRequest,
     marshal_FtpAccountApiChangeFtpAccountPasswordRequest,
     marshal_FtpAccountApiCreateFtpAccountRequest,
     marshal_HostingApiAddCustomDomainRequest,
@@ -1936,6 +1942,122 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_HostingSummary(res.json())
+
+
+class WebhostingV1FreeDomainAPI(API):
+    """
+    This API allows you to list and check a free domain's validity.
+    """
+
+    def check_free_domain_availability(
+        self,
+        *,
+        slug: str,
+        root_domain: str,
+        region: Optional[ScwRegion] = None,
+    ) -> CheckFreeDomainAvailabilityResponse:
+        """
+        Check whether a given slug and free domain combination is available.
+        :param slug: Custom prefix used for the free domain.
+        :param root_domain: Free root domain provided by Web Hosting, selected from the list returned by `ListFreeRootDomains`.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`CheckFreeDomainAvailabilityResponse <CheckFreeDomainAvailabilityResponse>`
+
+        Usage:
+        ::
+
+            result = api.check_free_domain_availability(
+                slug="example",
+                root_domain="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/free-domains/check-availability",
+            body=marshal_FreeDomainApiCheckFreeDomainAvailabilityRequest(
+                FreeDomainApiCheckFreeDomainAvailabilityRequest(
+                    slug=slug,
+                    root_domain=root_domain,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CheckFreeDomainAvailabilityResponse(res.json())
+
+    def list_free_root_domains(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListFreeRootDomainsResponse:
+        """
+        Retrieve the list of free root domains available for a Web Hosting.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return, from the paginated results (must be a positive integer).
+        :param page_size: Number of free root domains to return (must be a positive integer lower or equal to 100).
+        :return: :class:`ListFreeRootDomainsResponse <ListFreeRootDomainsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_free_root_domains()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/free-domains/root-domains",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListFreeRootDomainsResponse(res.json())
+
+    def list_free_root_domains_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[str]:
+        """
+        Retrieve the list of free root domains available for a Web Hosting.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return, from the paginated results (must be a positive integer).
+        :param page_size: Number of free root domains to return (must be a positive integer lower or equal to 100).
+        :return: :class:`List[str] <List[str]>`
+
+        Usage:
+        ::
+
+            result = api.list_free_root_domains_all()
+        """
+
+        return fetch_all_pages(
+            type=ListFreeRootDomainsResponse,
+            key="root_domains",
+            fetcher=self.list_free_root_domains,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
 
 
 class WebhostingV1FtpAccountAPI(API):

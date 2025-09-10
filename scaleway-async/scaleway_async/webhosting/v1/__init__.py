@@ -3,6 +3,7 @@
 from .types import BackupItemType
 from .types import BackupStatus
 from .content import BACKUP_TRANSIENT_STATUSES
+from .types import CheckFreeDomainAvailabilityResponseUnavailableReason
 from .types import DnsRecordStatus
 from .types import DnsRecordType
 from .types import DnsRecordsStatus
@@ -35,6 +36,7 @@ from .types import OfferOption
 from .types import PlatformControlPanel
 from .types import BackupItem
 from .types import HostingDomain
+from .types import FreeDomain
 from .types import CreateDatabaseRequestUser
 from .types import CreateHostingRequestDomainConfiguration
 from .types import OfferOptionRequest
@@ -59,6 +61,7 @@ from .types import BackupApiListBackupItemsRequest
 from .types import BackupApiListBackupsRequest
 from .types import BackupApiRestoreBackupItemsRequest
 from .types import BackupApiRestoreBackupRequest
+from .types import CheckFreeDomainAvailabilityResponse
 from .types import CheckUserOwnsDomainResponse
 from .types import ControlPanelApiListControlPanelsRequest
 from .types import DatabaseApiAssignDatabaseUserRequest
@@ -79,6 +82,8 @@ from .types import DnsApiSearchDomainsRequest
 from .types import DnsApiSyncDomainDnsRecordsRequest
 from .types import DnsRecords
 from .types import Domain
+from .types import FreeDomainApiCheckFreeDomainAvailabilityRequest
+from .types import FreeDomainApiListFreeRootDomainsRequest
 from .types import FtpAccountApiChangeFtpAccountPasswordRequest
 from .types import FtpAccountApiCreateFtpAccountRequest
 from .types import FtpAccountApiListFtpAccountsRequest
@@ -99,6 +104,7 @@ from .types import ListBackupsResponse
 from .types import ListControlPanelsResponse
 from .types import ListDatabaseUsersResponse
 from .types import ListDatabasesResponse
+from .types import ListFreeRootDomainsResponse
 from .types import ListFtpAccountsResponse
 from .types import ListHostingsResponse
 from .types import ListMailAccountsResponse
@@ -122,6 +128,7 @@ from .api import WebhostingV1DatabaseAPI
 from .api import WebhostingV1DnsAPI
 from .api import WebhostingV1OfferAPI
 from .api import WebhostingV1HostingAPI
+from .api import WebhostingV1FreeDomainAPI
 from .api import WebhostingV1FtpAccountAPI
 from .api import WebhostingV1MailAccountAPI
 from .api import WebhostingV1WebsiteAPI
@@ -130,6 +137,7 @@ __all__ = [
     "BackupItemType",
     "BackupStatus",
     "BACKUP_TRANSIENT_STATUSES",
+    "CheckFreeDomainAvailabilityResponseUnavailableReason",
     "DnsRecordStatus",
     "DnsRecordType",
     "DnsRecordsStatus",
@@ -162,6 +170,7 @@ __all__ = [
     "PlatformControlPanel",
     "BackupItem",
     "HostingDomain",
+    "FreeDomain",
     "CreateDatabaseRequestUser",
     "CreateHostingRequestDomainConfiguration",
     "OfferOptionRequest",
@@ -186,6 +195,7 @@ __all__ = [
     "BackupApiListBackupsRequest",
     "BackupApiRestoreBackupItemsRequest",
     "BackupApiRestoreBackupRequest",
+    "CheckFreeDomainAvailabilityResponse",
     "CheckUserOwnsDomainResponse",
     "ControlPanelApiListControlPanelsRequest",
     "DatabaseApiAssignDatabaseUserRequest",
@@ -206,6 +216,8 @@ __all__ = [
     "DnsApiSyncDomainDnsRecordsRequest",
     "DnsRecords",
     "Domain",
+    "FreeDomainApiCheckFreeDomainAvailabilityRequest",
+    "FreeDomainApiListFreeRootDomainsRequest",
     "FtpAccountApiChangeFtpAccountPasswordRequest",
     "FtpAccountApiCreateFtpAccountRequest",
     "FtpAccountApiListFtpAccountsRequest",
@@ -226,6 +238,7 @@ __all__ = [
     "ListControlPanelsResponse",
     "ListDatabaseUsersResponse",
     "ListDatabasesResponse",
+    "ListFreeRootDomainsResponse",
     "ListFtpAccountsResponse",
     "ListHostingsResponse",
     "ListMailAccountsResponse",
@@ -249,6 +262,7 @@ __all__ = [
     "WebhostingV1DnsAPI",
     "WebhostingV1OfferAPI",
     "WebhostingV1HostingAPI",
+    "WebhostingV1FreeDomainAPI",
     "WebhostingV1FtpAccountAPI",
     "WebhostingV1MailAccountAPI",
     "WebhostingV1WebsiteAPI",

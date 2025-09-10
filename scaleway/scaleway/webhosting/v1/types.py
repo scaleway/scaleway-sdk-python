@@ -48,6 +48,26 @@ class BackupStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class CheckFreeDomainAvailabilityResponseUnavailableReason(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNAVAILABLE_REASON_UNKNOWN = "unavailable_reason_unknown"
+    UNAVAILABLE_REASON_ALREADY_USED = "unavailable_reason_already_used"
+    UNAVAILABLE_REASON_TOO_SHORT = "unavailable_reason_too_short"
+    UNAVAILABLE_REASON_TOO_LONG = "unavailable_reason_too_long"
+    UNAVAILABLE_REASON_INVALID_CHARACTERS = "unavailable_reason_invalid_characters"
+    UNAVAILABLE_REASON_STARTS_OR_ENDS_WITH_HYPHEN = (
+        "unavailable_reason_starts_or_ends_with_hyphen"
+    )
+    UNAVAILABLE_REASON_CONTAINS_DOTS = "unavailable_reason_contains_dots"
+    UNAVAILABLE_REASON_CONTAINS_RESERVED_KEYWORD = (
+        "unavailable_reason_contains_reserved_keyword"
+    )
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
@@ -431,6 +451,19 @@ class HostingDomain:
     custom_domain: Optional[HostingDomainCustomDomain] = None
     """
     Optional custom domain linked to the Web Hosting plan.
+    """
+
+
+@dataclass
+class FreeDomain:
+    slug: str
+    """
+    Custom prefix used for the free domain.
+    """
+
+    root_domain: str
+    """
+    Free root domain provided by Web Hosting, selected from the list returned by `ListFreeRootDomains`.
     """
 
 
@@ -960,6 +993,26 @@ class BackupApiRestoreBackupRequest:
 
 
 @dataclass
+class CheckFreeDomainAvailabilityResponse:
+    is_available: bool
+    """
+    Whether the free domain is available.
+    """
+
+    free_domain: Optional[FreeDomain] = None
+    """
+    The free domain that was checked.
+    """
+
+    reason: Optional[CheckFreeDomainAvailabilityResponseUnavailableReason] = (
+        CheckFreeDomainAvailabilityResponseUnavailableReason.UNAVAILABLE_REASON_UNKNOWN
+    )
+    """
+    Reason the domain is unavailable, if applicable.
+    """
+
+
+@dataclass
 class CheckUserOwnsDomainResponse:
     owns_domain: bool
     """
@@ -1406,6 +1459,42 @@ class Domain:
     auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Whether or not to synchronize each type of record.
+    """
+
+
+@dataclass
+class FreeDomainApiCheckFreeDomainAvailabilityRequest:
+    slug: str
+    """
+    Custom prefix used for the free domain.
+    """
+
+    root_domain: str
+    """
+    Free root domain provided by Web Hosting, selected from the list returned by `ListFreeRootDomains`.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class FreeDomainApiListFreeRootDomainsRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results (must be a positive integer).
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of free root domains to return (must be a positive integer lower or equal to 100).
     """
 
 
@@ -1915,6 +2004,19 @@ class ListDatabasesResponse:
     databases: List[Database]
     """
     List of databases.
+    """
+
+
+@dataclass
+class ListFreeRootDomainsResponse:
+    root_domains: List[str]
+    """
+    List of free root domains available for the Web Hosting.
+    """
+
+    total_count: int
+    """
+    Total number of free root domains available.
     """
 
 
