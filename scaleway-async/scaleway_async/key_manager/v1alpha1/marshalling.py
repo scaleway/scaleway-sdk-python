@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -11,6 +11,8 @@ from scaleway_core.utils import (
 )
 from .types import (
     DataKeyAlgorithmSymmetricEncryption,
+    KeyAlgorithmAsymmetricEncryption,
+    KeyAlgorithmAsymmetricSigning,
     KeyAlgorithmSymmetricEncryption,
     KeyOrigin,
     KeyState,
@@ -43,7 +45,7 @@ def unmarshal_KeyRotationPolicy(data: Any) -> KeyRotationPolicy:
             "Unmarshalling the type 'KeyRotationPolicy' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rotation_period", None)
     if field is not None:
@@ -68,7 +70,7 @@ def unmarshal_KeyUsage(data: Any) -> KeyUsage:
             "Unmarshalling the type 'KeyUsage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("symmetric_encryption", None)
     if field is not None:
@@ -82,13 +84,17 @@ def unmarshal_KeyUsage(data: Any) -> KeyUsage:
     if field is not None:
         args["asymmetric_encryption"] = field
     else:
-        args["asymmetric_encryption"] = None
+        args["asymmetric_encryption"] = (
+            KeyAlgorithmAsymmetricEncryption.UNKNOWN_ASYMMETRIC_ENCRYPTION
+        )
 
     field = data.get("asymmetric_signing", None)
     if field is not None:
         args["asymmetric_signing"] = field
     else:
-        args["asymmetric_signing"] = None
+        args["asymmetric_signing"] = (
+            KeyAlgorithmAsymmetricSigning.UNKNOWN_ASYMMETRIC_SIGNING
+        )
 
     return KeyUsage(**args)
 
@@ -99,7 +105,7 @@ def unmarshal_Key(data: Any) -> Key:
             "Unmarshalling the type 'Key' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -214,7 +220,7 @@ def unmarshal_DataKey(data: Any) -> DataKey:
             "Unmarshalling the type 'DataKey' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key_id", None)
     if field is not None:
@@ -257,7 +263,7 @@ def unmarshal_DecryptResponse(data: Any) -> DecryptResponse:
             "Unmarshalling the type 'DecryptResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key_id", None)
     if field is not None:
@@ -286,7 +292,7 @@ def unmarshal_EncryptResponse(data: Any) -> EncryptResponse:
             "Unmarshalling the type 'EncryptResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key_id", None)
     if field is not None:
@@ -311,7 +317,7 @@ def unmarshal_ListAlgorithmsResponseAlgorithm(
             "Unmarshalling the type 'ListAlgorithmsResponseAlgorithm' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("usage", None)
     if field is not None:
@@ -340,7 +346,7 @@ def unmarshal_ListAlgorithmsResponse(data: Any) -> ListAlgorithmsResponse:
             "Unmarshalling the type 'ListAlgorithmsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("algorithms", None)
     if field is not None:
@@ -361,7 +367,7 @@ def unmarshal_ListKeysResponse(data: Any) -> ListKeysResponse:
             "Unmarshalling the type 'ListKeysResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("keys", None)
     if field is not None:
@@ -384,7 +390,7 @@ def unmarshal_PublicKey(data: Any) -> PublicKey:
             "Unmarshalling the type 'PublicKey' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("pem", None)
     if field is not None:
@@ -401,7 +407,7 @@ def unmarshal_SignResponse(data: Any) -> SignResponse:
             "Unmarshalling the type 'SignResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key_id", None)
     if field is not None:
@@ -424,7 +430,7 @@ def unmarshal_VerifyResponse(data: Any) -> VerifyResponse:
             "Unmarshalling the type 'VerifyResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key_id", None)
     if field is not None:
@@ -444,8 +450,8 @@ def unmarshal_VerifyResponse(data: Any) -> VerifyResponse:
 def marshal_KeyRotationPolicy(
     request: KeyRotationPolicy,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.rotation_period is not None:
         output["rotation_period"] = request.rotation_period
@@ -459,8 +465,8 @@ def marshal_KeyRotationPolicy(
 def marshal_KeyUsage(
     request: KeyUsage,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -489,8 +495,8 @@ def marshal_KeyUsage(
 def marshal_CreateKeyRequest(
     request: CreateKeyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.unprotected is not None:
         output["unprotected"] = request.unprotected
@@ -526,8 +532,8 @@ def marshal_CreateKeyRequest(
 def marshal_DecryptRequest(
     request: DecryptRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ciphertext is not None:
         output["ciphertext"] = request.ciphertext
@@ -541,8 +547,8 @@ def marshal_DecryptRequest(
 def marshal_EncryptRequest(
     request: EncryptRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.plaintext is not None:
         output["plaintext"] = request.plaintext
@@ -556,8 +562,8 @@ def marshal_EncryptRequest(
 def marshal_GenerateDataKeyRequest(
     request: GenerateDataKeyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.without_plaintext is not None:
         output["without_plaintext"] = request.without_plaintext
@@ -571,8 +577,8 @@ def marshal_GenerateDataKeyRequest(
 def marshal_ImportKeyMaterialRequest(
     request: ImportKeyMaterialRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.key_material is not None:
         output["key_material"] = request.key_material
@@ -586,8 +592,8 @@ def marshal_ImportKeyMaterialRequest(
 def marshal_SignRequest(
     request: SignRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.digest is not None:
         output["digest"] = request.digest
@@ -598,8 +604,8 @@ def marshal_SignRequest(
 def marshal_UpdateKeyRequest(
     request: UpdateKeyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -621,8 +627,8 @@ def marshal_UpdateKeyRequest(
 def marshal_VerifyRequest(
     request: VerifyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.digest is not None:
         output["digest"] = request.digest

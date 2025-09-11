@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -72,18 +72,18 @@ class KeyManagerV1Alpha1API(API):
         name: Optional[str] = None,
         usage: Optional[KeyUsage] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         rotation_policy: Optional[KeyRotationPolicy] = None,
         origin: Optional[KeyOrigin] = None,
     ) -> Key:
         """
         Create a key.
-        Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.
+        Create a key in a given region specified by the `region` parameter. You can use keys to encrypt or decrypt arbitrary payloads, to sign and verify messages or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.
         :param unprotected: Default value is `false`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project containing the key.
         :param name: (Optional) Name of the key.
-        :param usage: See the `Key.Algorithm.SymmetricEncryption` enum for a description of values.
+        :param usage: See the `Key.Usage` enum for a description of possible values.
         :param description: (Optional) Description of the key.
         :param tags: (Optional) List of the key's tags.
         :param rotation_policy: If not specified, no rotation policy will be applied to the key.
@@ -199,7 +199,7 @@ class KeyManagerV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         rotation_policy: Optional[KeyRotationPolicy] = None,
     ) -> Key:
         """
@@ -462,7 +462,7 @@ class KeyManagerV1Alpha1API(API):
         order_by: Optional[ListKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         usage: Optional[ListKeysRequestUsage] = None,
     ) -> ListKeysResponse:
@@ -523,10 +523,10 @@ class KeyManagerV1Alpha1API(API):
         order_by: Optional[ListKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         usage: Optional[ListKeysRequestUsage] = None,
-    ) -> List[Key]:
+    ) -> list[Key]:
         """
         List keys.
         Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
@@ -540,7 +540,7 @@ class KeyManagerV1Alpha1API(API):
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
         :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
-        :return: :class:`List[Key] <List[Key]>`
+        :return: :class:`list[Key] <list[Key]>`
 
         Usage:
         ::
@@ -929,7 +929,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        usages: Optional[List[ListAlgorithmsRequestUsage]] = None,
+        usages: Optional[list[ListAlgorithmsRequestUsage]] = None,
     ) -> ListAlgorithmsResponse:
         """
         List all available algorithms.
