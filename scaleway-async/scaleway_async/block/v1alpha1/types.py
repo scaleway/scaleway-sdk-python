@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -214,7 +214,7 @@ class Snapshot:
     UUID of the project the snapshot belongs to.
     """
 
-    references: List[Reference]
+    references: list[Reference]
     """
     List of the references to the snapshot.
     """
@@ -224,7 +224,7 @@ class Snapshot:
     Current status of the snapshot (available, in_use, ...).
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags assigned to the volume.
     """
@@ -305,7 +305,7 @@ class Volume:
     UUID of the project to which the volume belongs.
     """
 
-    references: List[Reference]
+    references: list[Reference]
     """
     List of the references to the volume.
     """
@@ -315,7 +315,7 @@ class Volume:
     Current status of the volume (available, in_use, ...).
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags assigned to the volume.
     """
@@ -373,7 +373,7 @@ class CreateSnapshotRequest:
     UUID of the project to which the volume and the snapshot belong.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
     """
@@ -396,7 +396,7 @@ class CreateVolumeRequest:
     UUID of the project the volume belongs to.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the volume.
     """
@@ -510,7 +510,7 @@ class ImportSnapshotFromObjectStorageRequest:
     UUID of the Project to which the volume and the snapshot belong.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
     """
@@ -548,7 +548,7 @@ class ImportSnapshotFromS3Request:
     UUID of the Project to which the volume and the snapshot belong.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
     """
@@ -603,7 +603,7 @@ class ListSnapshotsRequest:
     Filter snapshots by their names.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tags. Only snapshots with one or more matching tags will be returned.
     """
@@ -611,7 +611,7 @@ class ListSnapshotsRequest:
 
 @dataclass
 class ListSnapshotsResponse:
-    snapshots: List[Snapshot]
+    snapshots: list[Snapshot]
     """
     Paginated returned list of snapshots.
     """
@@ -642,7 +642,7 @@ class ListVolumeTypesRequest:
 
 @dataclass
 class ListVolumeTypesResponse:
-    volume_types: List[VolumeType]
+    volume_types: list[VolumeType]
     """
     Returns paginated list of volume-types.
     """
@@ -697,7 +697,7 @@ class ListVolumesRequest:
     Filter by a product resource ID linked to this volume (such as an Instance ID).
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tags. Only volumes with one or more matching tags will be returned.
     """
@@ -705,7 +705,7 @@ class ListVolumesRequest:
 
 @dataclass
 class ListVolumesResponse:
-    volumes: List[Volume]
+    volumes: list[Volume]
     """
     Paginated returned list of volumes.
     """
@@ -733,7 +733,7 @@ class UpdateSnapshotRequest:
     When defined, is the name of the snapshot.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
     """
@@ -762,7 +762,7 @@ class UpdateVolumeRequest:
 Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the volume.
     """

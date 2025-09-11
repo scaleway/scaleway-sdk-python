@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -32,7 +32,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         product_types: Optional[
-            List[ListPublicCatalogProductsRequestProductType]
+            list[ListPublicCatalogProductsRequestProductType]
         ] = None,
         global_: Optional[bool] = None,
         region: Optional[ScwRegion] = None,
@@ -88,13 +88,13 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         product_types: Optional[
-            List[ListPublicCatalogProductsRequestProductType]
+            list[ListPublicCatalogProductsRequestProductType]
         ] = None,
         global_: Optional[bool] = None,
         region: Optional[ScwRegion] = None,
         zone: Optional[ScwZone] = None,
         datacenter: Optional[str] = None,
-    ) -> List[PublicCatalogProduct]:
+    ) -> list[PublicCatalogProduct]:
         """
         List all available products.
         List all available products in the Scaleway catalog. Returns a complete list of products with their corresponding description, locations, prices and properties. You can define the `page` number and `page_size` for your query in the request.
@@ -109,7 +109,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :param datacenter: Filter products by datacenter.
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
-        :return: :class:`List[PublicCatalogProduct] <List[PublicCatalogProduct]>`
+        :return: :class:`list[PublicCatalogProduct] <list[PublicCatalogProduct]>`
 
         Usage:
         ::

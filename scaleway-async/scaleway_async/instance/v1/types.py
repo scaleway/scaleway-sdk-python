@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -365,7 +365,7 @@ class Volume:
     Volume Project ID.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Volume tags.
     """
@@ -440,13 +440,13 @@ class Image:
     id: str
     name: str
     arch: Arch
-    extra_volumes: Dict[str, Volume]
+    extra_volumes: dict[str, Volume]
     from_server: str
     organization: str
     public: bool
     state: ImageState
     project: str
-    tags: List[str]
+    tags: list[str]
     zone: ScwZone
     """
     Zone to target. If none is passed will use default zone from the config.
@@ -480,7 +480,7 @@ class PlacementGroup:
     Placement group Project ID.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Placement group tags.
     """
@@ -534,7 +534,7 @@ class PrivateNIC:
     Private NIC state.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Private NIC tags.
     """
@@ -589,7 +589,7 @@ class ServerIp:
     Information about this address provisioning mode.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the IP.
     """
@@ -674,7 +674,7 @@ class SnapshotBaseVolume:
 
 @dataclass
 class ServerTypeCapabilities:
-    boot_types: List[BootType]
+    boot_types: list[BootType]
     """
     List of supported boot types.
     """
@@ -710,7 +710,7 @@ class ServerTypeGPUInfo:
 
 @dataclass
 class ServerTypeNetwork:
-    interfaces: List[ServerTypeNetworkInterface]
+    interfaces: list[ServerTypeNetworkInterface]
     """
     List of available network interfaces.
     """
@@ -772,12 +772,12 @@ class Server:
     Instance Project ID.
     """
 
-    allowed_actions: List[ServerAction]
+    allowed_actions: list[ServerAction]
     """
     List of allowed actions on the Instance.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the Instance.
     """
@@ -802,7 +802,7 @@ class Server:
     Defines whether the Instance protection option is activated.
     """
 
-    public_ips: List[ServerIp]
+    public_ips: list[ServerIp]
     """
     Information about all the public IPs attached to the server.
     """
@@ -822,12 +822,12 @@ class Server:
     Instance boot type.
     """
 
-    volumes: Dict[str, VolumeServer]
+    volumes: dict[str, VolumeServer]
     """
     Instance volumes.
     """
 
-    maintenances: List[ServerMaintenance]
+    maintenances: list[ServerMaintenance]
     """
     Instance planned maintenance.
     """
@@ -842,7 +842,7 @@ class Server:
     Instance architecture.
     """
 
-    private_nics: List[PrivateNIC]
+    private_nics: list[PrivateNIC]
     """
     Instance private NICs.
     """
@@ -852,7 +852,7 @@ class Server:
     Zone in which the Instance is located.
     """
 
-    filesystems: List[ServerFilesystem]
+    filesystems: list[ServerFilesystem]
     """
     List of attached filesystems.
     """
@@ -960,7 +960,7 @@ class Ip:
     id: str
     address: str
     organization: str
-    tags: List[str]
+    tags: list[str]
     project: str
     type_: IpType
     state: IpState
@@ -1017,7 +1017,7 @@ class SecurityGroup:
     Security group Project ID.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Security group tags.
     """
@@ -1027,7 +1027,7 @@ class SecurityGroup:
     True if it is your default security group for this Project ID.
     """
 
-    servers: List[ServerSummary]
+    servers: list[ServerSummary]
     """
     List of Instances attached to this security group.
     """
@@ -1146,7 +1146,7 @@ class Snapshot:
     Snapshot Project ID.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Snapshot tags.
     """
@@ -1236,7 +1236,7 @@ class Task:
 class Dashboard:
     volumes_count: int
     running_servers_count: int
-    servers_by_types: Dict[str, int]
+    servers_by_types: dict[str, int]
     images_count: int
     snapshots_count: int
     servers_count: int
@@ -1281,7 +1281,7 @@ class ServerType:
     Hourly price in Euro.
     """
 
-    alt_names: List[str]
+    alt_names: list[str]
     """
     Alternative Instance name, if any.
     """
@@ -1517,12 +1517,12 @@ class CreateImageRequest:
     Name of the image.
     """
 
-    extra_volumes: Optional[Dict[str, VolumeTemplate]] = field(default_factory=dict)
+    extra_volumes: Optional[dict[str, VolumeTemplate]] = field(default_factory=dict)
     """
     Additional volumes of the image.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the image.
     """
@@ -1549,7 +1549,7 @@ class CreateIpRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the IP.
     """
@@ -1586,7 +1586,7 @@ class CreatePlacementGroupRequest:
     Name of the placement group.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the placement group.
     """
@@ -1630,17 +1630,17 @@ class CreatePrivateNICRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Private NIC tags.
     """
 
-    ip_ids: Optional[List[str]] = field(default_factory=list)
+    ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     Ip_ids defined from IPAM.
     """
 
-    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
+    ipam_ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     UUID of IPAM ips, to be attached to the instance in the requested private network.
     """
@@ -1673,7 +1673,7 @@ class CreateSecurityGroupRequest:
     Name of the security group.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the security group.
     """
@@ -1790,7 +1790,7 @@ class CreateServerRequest:
     Instance image ID or label.
     """
 
-    volumes: Optional[Dict[str, VolumeServerTemplate]] = field(default_factory=dict)
+    volumes: Optional[dict[str, VolumeServerTemplate]] = field(default_factory=dict)
     """
     Volumes attached to the server.
     """
@@ -1805,7 +1805,7 @@ class CreateServerRequest:
     ID of the reserved IP to attach to the Instance.
     """
 
-    public_ips: Optional[List[str]] = field(default_factory=list)
+    public_ips: Optional[list[str]] = field(default_factory=list)
     """
     A list of reserved IP IDs to attach to the Instance.
     """
@@ -1815,7 +1815,7 @@ class CreateServerRequest:
     Boot type to use.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Instance tags.
     """
@@ -1862,7 +1862,7 @@ class CreateSnapshotRequest:
     UUID of the volume.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the snapshot.
     """
@@ -1911,7 +1911,7 @@ class CreateVolumeRequest:
     Volume name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Volume tags.
     """
@@ -2211,7 +2211,7 @@ class GetPlacementGroupServersRequest:
 
 @dataclass
 class GetPlacementGroupServersResponse:
-    servers: List[PlacementGroupServer]
+    servers: list[PlacementGroupServer]
     """
     Instances attached to the placement group.
     """
@@ -2324,7 +2324,7 @@ class GetServerTypesAvailabilityRequest:
 
 @dataclass
 class GetServerTypesAvailabilityResponse:
-    servers: Dict[str, GetServerTypesAvailabilityResponseAvailability]
+    servers: dict[str, GetServerTypesAvailabilityResponseAvailability]
     """
     Map of server types.
     """
@@ -2400,7 +2400,7 @@ class ListImagesResponse:
     Total number of images.
     """
 
-    images: List[Image]
+    images: list[Image]
     """
     List of images.
     """
@@ -2423,7 +2423,7 @@ class ListIpsRequest:
     Organization ID in which the IPs are reserved.
     """
 
-    tags: Optional[List[str]] = None
+    tags: Optional[list[str]] = None
     """
     Filter IPs with these exact tags (to filter with several tags, use commas to separate them).
     """
@@ -2456,7 +2456,7 @@ class ListIpsResponse:
     Total number of ips.
     """
 
-    ips: List[Ip]
+    ips: list[Ip]
     """
     List of ips.
     """
@@ -2489,7 +2489,7 @@ class ListPlacementGroupsRequest:
     List only placement groups of this Project ID.
     """
 
-    tags: Optional[List[str]] = None
+    tags: Optional[list[str]] = None
     """
     List placement groups with these exact tags (to filter with several tags, use commas to separate them).
     """
@@ -2507,7 +2507,7 @@ class ListPlacementGroupsResponse:
     Total number of placement groups.
     """
 
-    placement_groups: List[PlacementGroup]
+    placement_groups: list[PlacementGroup]
     """
     List of placement groups.
     """
@@ -2525,7 +2525,7 @@ class ListPrivateNICsRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = None
+    tags: Optional[list[str]] = None
     """
     Private NIC tags.
     """
@@ -2543,7 +2543,7 @@ class ListPrivateNICsRequest:
 
 @dataclass
 class ListPrivateNICsResponse:
-    private_nics: List[PrivateNIC]
+    private_nics: list[PrivateNIC]
     total_count: int
 
 
@@ -2577,7 +2577,7 @@ class ListSecurityGroupRulesResponse:
     Total number of security groups.
     """
 
-    rules: List[SecurityGroupRule]
+    rules: list[SecurityGroupRule]
     """
     List of security rules.
     """
@@ -2605,7 +2605,7 @@ class ListSecurityGroupsRequest:
     Security group Project ID.
     """
 
-    tags: Optional[List[str]] = None
+    tags: Optional[list[str]] = None
     """
     List security groups with these exact tags (to filter with several tags, use commas to separate them).
     """
@@ -2633,7 +2633,7 @@ class ListSecurityGroupsResponse:
     Total number of security groups.
     """
 
-    security_groups: List[SecurityGroup]
+    security_groups: list[SecurityGroup]
     """
     List of security groups.
     """
@@ -2650,7 +2650,7 @@ class ListServerActionsRequest:
 
 @dataclass
 class ListServerActionsResponse:
-    actions: List[ServerAction]
+    actions: list[ServerAction]
 
 
 @dataclass
@@ -2668,7 +2668,7 @@ class ListServerUserDataRequest:
 
 @dataclass
 class ListServerUserDataResponse:
-    user_data: List[str]
+    user_data: list[str]
 
 
 @dataclass
@@ -2728,7 +2728,7 @@ class ListServersRequest:
     List Instances in this state.
     """
 
-    tags: Optional[List[str]] = None
+    tags: Optional[list[str]] = None
     """
     List Instances with these exact tags (to filter with several tags, use commas to separate them).
     """
@@ -2745,7 +2745,7 @@ class ListServersRequest:
     Define the order of the returned servers.
     """
 
-    private_networks: Optional[List[str]] = None
+    private_networks: Optional[list[str]] = None
     """
     List Instances from the given Private Networks (use commas to separate them).
     """
@@ -2755,7 +2755,7 @@ class ListServersRequest:
     List Instances associated with the given private NIC MAC address.
     """
 
-    servers: Optional[List[str]] = None
+    servers: Optional[list[str]] = None
     """
     List Instances from these server ids (use commas to separate them).
     """
@@ -2768,7 +2768,7 @@ class ListServersResponse:
     Total number of Instances.
     """
 
-    servers: List[Server]
+    servers: list[Server]
     """
     List of Instances.
     """
@@ -2792,7 +2792,7 @@ class ListServersTypesResponse:
     Total number of Instance types.
     """
 
-    servers: Dict[str, ServerType]
+    servers: dict[str, ServerType]
     """
     List of Instance types.
     """
@@ -2848,7 +2848,7 @@ class ListSnapshotsResponse:
     Total number of snapshots.
     """
 
-    snapshots: List[Snapshot]
+    snapshots: list[Snapshot]
     """
     List of snapshots.
     """
@@ -2886,7 +2886,7 @@ class ListVolumesRequest:
     Filter volume by Project ID.
     """
 
-    tags: Optional[List[str]] = None
+    tags: Optional[list[str]] = None
     """
     Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
     """
@@ -2904,7 +2904,7 @@ class ListVolumesResponse:
     Total number of volumes.
     """
 
-    volumes: List[Volume]
+    volumes: list[Volume]
     """
     List of volumes.
     """
@@ -2928,7 +2928,7 @@ class ListVolumesTypesResponse:
     Total number of volume types.
     """
 
-    volumes: Dict[str, VolumeType]
+    volumes: dict[str, VolumeType]
     """
     Map of volume types.
     """
@@ -2936,7 +2936,7 @@ class ListVolumesTypesResponse:
 
 @dataclass
 class MigrationPlan:
-    snapshots: List[Snapshot]
+    snapshots: list[Snapshot]
     """
     A list of snapshots which will be migrated to SBS together and with the volume, if present.
     """
@@ -2987,7 +2987,7 @@ class ServerActionRequest:
 This field should only be specified when performing a backup action.
     """
 
-    volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]] = field(
+    volumes: Optional[dict[str, ServerActionRequestVolumeBackupTemplate]] = field(
         default_factory=dict
     )
     """
@@ -3009,7 +3009,7 @@ class ServerActionResponse:
 
 @dataclass
 class ServerCompatibleTypes:
-    compatible_types: List[str]
+    compatible_types: list[str]
     """
     Instance compatible types.
     """
@@ -3030,12 +3030,12 @@ class SetImageRequest:
     creation_date: Optional[datetime] = None
     modification_date: Optional[datetime] = None
     default_bootscript: Optional[Bootscript] = None
-    extra_volumes: Optional[Dict[str, Volume]] = field(default_factory=dict)
+    extra_volumes: Optional[dict[str, Volume]] = field(default_factory=dict)
     organization: Optional[str] = None
     root_volume: Optional[VolumeSummary] = None
     state: Optional[ImageState] = None
     project: Optional[str] = None
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -3051,7 +3051,7 @@ class SetPlacementGroupRequest:
     policy_mode: Optional[PlacementGroupPolicyMode] = None
     policy_type: Optional[PlacementGroupPolicyType] = None
     project: Optional[str] = None
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -3066,7 +3066,7 @@ class SetPlacementGroupServersRequest:
     UUID of the placement group you want to set.
     """
 
-    servers: List[str]
+    servers: list[str]
     """
     An array of the Instances' UUIDs you want to configure.
     """
@@ -3079,7 +3079,7 @@ class SetPlacementGroupServersRequest:
 
 @dataclass
 class SetPlacementGroupServersResponse:
-    servers: List[PlacementGroupServer]
+    servers: list[PlacementGroupServer]
     """
     Instances attached to the placement group.
     """
@@ -3097,7 +3097,7 @@ class SetSecurityGroupRulesRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    rules: Optional[List[SetSecurityGroupRulesRequestRule]] = field(
+    rules: Optional[list[SetSecurityGroupRulesRequestRule]] = field(
         default_factory=list
     )
     """
@@ -3107,7 +3107,7 @@ class SetSecurityGroupRulesRequest:
 
 @dataclass
 class SetSecurityGroupRulesResponse:
-    rules: List[SecurityGroupRule]
+    rules: list[SecurityGroupRule]
 
 
 @dataclass
@@ -3132,14 +3132,14 @@ class UpdateImageRequest:
     Architecture of the image.
     """
 
-    extra_volumes: Optional[Dict[str, VolumeImageUpdateTemplate]] = field(
+    extra_volumes: Optional[dict[str, VolumeImageUpdateTemplate]] = field(
         default_factory=dict
     )
     """
     Additional snapshots of the image, with extra_volumeKey being the position of the snapshot in the image.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the image.
     """
@@ -3177,7 +3177,7 @@ class UpdateIpRequest:
     Should have no effect.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     An array of keywords you want to tag this IP with.
     """
@@ -3207,7 +3207,7 @@ class UpdatePlacementGroupRequest:
     Name of the placement group.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the placement group.
     """
@@ -3237,7 +3237,7 @@ class UpdatePlacementGroupServersRequest:
     UUID of the placement group you want to update.
     """
 
-    servers: List[str]
+    servers: list[str]
     """
     An array of the Instances' UUIDs you want to configure.
     """
@@ -3250,7 +3250,7 @@ class UpdatePlacementGroupServersRequest:
 
 @dataclass
 class UpdatePlacementGroupServersResponse:
-    servers: List[PlacementGroupServer]
+    servers: list[PlacementGroupServer]
     """
     Instances attached to the placement group.
     """
@@ -3273,7 +3273,7 @@ class UpdatePrivateNICRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags used to select private NIC/s.
     """
@@ -3313,7 +3313,7 @@ class UpdateSecurityGroupRequest:
     Default inbound policy.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the security group.
     """
@@ -3426,19 +3426,19 @@ class UpdateServerRequest:
     """
 
     boot_type: Optional[BootType] = BootType.LOCAL
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Instance.
     """
 
-    volumes: Optional[Dict[str, VolumeServerTemplate]] = field(default_factory=dict)
+    volumes: Optional[dict[str, VolumeServerTemplate]] = field(default_factory=dict)
     dynamic_ip_required: Optional[bool] = False
     routed_ip_enabled: Optional[bool] = False
     """
     True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
     """
 
-    public_ips: Optional[List[str]] = field(default_factory=list)
+    public_ips: Optional[list[str]] = field(default_factory=list)
     """
     A list of reserved IP IDs to attach to the Instance.
     """
@@ -3455,7 +3455,7 @@ class UpdateServerRequest:
     Placement group ID if Instance must be part of a placement group.
     """
 
-    private_nics: Optional[List[str]] = field(default_factory=list)
+    private_nics: Optional[list[str]] = field(default_factory=list)
     """
     Instance private NICs.
     """
@@ -3497,7 +3497,7 @@ class UpdateSnapshotRequest:
     Name of the snapshot.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the snapshot.
     """
@@ -3525,7 +3525,7 @@ class UpdateVolumeRequest:
     Volume name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the volume.
     """

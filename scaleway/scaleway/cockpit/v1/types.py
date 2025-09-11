@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -236,7 +236,7 @@ class Alert:
     Indicates if the alert is enabled, enabling, disabled or disabling. Preconfigured alerts can have any of these values, whereas custom alerts can only have the status "enabled".
     """
 
-    annotations: Dict[str, str]
+    annotations: dict[str, str]
     """
     Annotations for the alert, used to provide additional information about the alert.
     """
@@ -359,12 +359,12 @@ class GrafanaProductDashboard:
     Dashboard URL.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Dashboard tags.
     """
 
-    variables: List[str]
+    variables: list[str]
     """
     Dashboard variables.
     """
@@ -465,7 +465,7 @@ class Token:
     Name of the token.
     """
 
-    scopes: List[TokenScope]
+    scopes: list[TokenScope]
     """
     Token permission scopes.
     """
@@ -571,7 +571,7 @@ class DisableAlertRulesResponse:
     Output returned when alert rules are disabled.
     """
 
-    disabled_rule_ids: List[str]
+    disabled_rule_ids: list[str]
     """
     Only newly disabled rules are listed. Rules that were already disabled are not returned in the output.
     """
@@ -583,7 +583,7 @@ class EnableAlertRulesResponse:
     Output returned when alert rules are enabled.
     """
 
-    enabled_rule_ids: List[str]
+    enabled_rule_ids: list[str]
     """
     Only newly enabled rules are listed. Rules that were already enabled are not returned in the output.
     """
@@ -623,7 +623,7 @@ class GetConfigResponse:
 
 @dataclass
 class GetRulesCountResponse:
-    rules_count_by_datasource: List[RulesCount]
+    rules_count_by_datasource: list[RulesCount]
     """
     Total count of rules grouped by data source.
     """
@@ -740,7 +740,7 @@ class GlobalApiListGrafanaProductDashboardsRequest:
     Page size.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
@@ -863,7 +863,7 @@ class ListAlertsResponse:
     Total count of alerts matching the request.
     """
 
-    alerts: List[Alert]
+    alerts: list[Alert]
     """
     List of alerts matching the applied filters.
     """
@@ -880,7 +880,7 @@ class ListContactPointsResponse:
     Total count of contact points associated with the default receiver.
     """
 
-    contact_points: List[ContactPoint]
+    contact_points: list[ContactPoint]
     """
     List of contact points associated with the default receiver.
     """
@@ -907,7 +907,7 @@ class ListDataSourcesResponse:
     Total count of data sources matching the request.
     """
 
-    data_sources: List[DataSource]
+    data_sources: list[DataSource]
     """
     Data sources matching the request within the pagination.
     """
@@ -924,7 +924,7 @@ class ListGrafanaProductDashboardsResponse:
     Total count of Grafana dashboards.
     """
 
-    dashboards: List[GrafanaProductDashboard]
+    dashboards: list[GrafanaProductDashboard]
     """
     Grafana dashboards information.
     """
@@ -941,7 +941,7 @@ class ListGrafanaUsersResponse:
     Total count of Grafana users.
     """
 
-    grafana_users: List[GrafanaUser]
+    grafana_users: list[GrafanaUser]
     """
     Grafana users information.
     """
@@ -958,7 +958,7 @@ class ListPlansResponse:
     Total count of available pricing plans.
     """
 
-    plans: List[Plan]
+    plans: list[Plan]
     """
     Plan types information.
     """
@@ -975,7 +975,7 @@ class ListTokensResponse:
     Total count of tokens matching the request.
     """
 
-    tokens: List[Token]
+    tokens: list[Token]
     """
     Tokens matching the request within the pagination.
     """
@@ -1058,7 +1058,7 @@ class RegionalApiCreateTokenRequest:
     ID of the Project the token belongs to.
     """
 
-    token_scopes: Optional[List[TokenScope]] = field(default_factory=list)
+    token_scopes: Optional[list[TokenScope]] = field(default_factory=list)
     """
     Token permission scopes.
     """
@@ -1146,7 +1146,7 @@ class RegionalApiDisableAlertRulesRequest:
     ID of the Project.
     """
 
-    rule_ids: Optional[List[str]] = field(default_factory=list)
+    rule_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of IDs of the rules to enable. If empty, disables all preconfigured rules.
     """
@@ -1198,7 +1198,7 @@ class RegionalApiEnableAlertRulesRequest:
     ID of the Project.
     """
 
-    rule_ids: Optional[List[str]] = field(default_factory=list)
+    rule_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of IDs of the rules to enable. If empty, enables all preconfigured rules.
     """
@@ -1410,7 +1410,7 @@ class RegionalApiListDataSourcesRequest:
     Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
     """
 
-    types: Optional[List[DataSourceType]] = field(default_factory=list)
+    types: Optional[list[DataSourceType]] = field(default_factory=list)
     """
     Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
     """
@@ -1449,7 +1449,7 @@ class RegionalApiListTokensRequest:
     ID of the Project the tokens belong to.
     """
 
-    token_scopes: Optional[List[TokenScope]] = field(default_factory=list)
+    token_scopes: Optional[list[TokenScope]] = field(default_factory=list)
     """
     Token scopes to filter for.
     """

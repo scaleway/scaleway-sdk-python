@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -377,12 +377,12 @@ class InstanceV1API(API):
         with_ip: Optional[str] = None,
         commercial_type: Optional[str] = None,
         state: Optional[ServerState] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         private_network: Optional[str] = None,
         order: Optional[ListServersRequestOrder] = None,
-        private_networks: Optional[List[str]] = None,
+        private_networks: Optional[list[str]] = None,
         private_nic_mac_address: Optional[str] = None,
-        servers: Optional[List[str]] = None,
+        servers: Optional[list[str]] = None,
     ) -> ListServersResponse:
         """
         List all Instances.
@@ -456,13 +456,13 @@ class InstanceV1API(API):
         with_ip: Optional[str] = None,
         commercial_type: Optional[str] = None,
         state: Optional[ServerState] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         private_network: Optional[str] = None,
         order: Optional[ListServersRequestOrder] = None,
-        private_networks: Optional[List[str]] = None,
+        private_networks: Optional[list[str]] = None,
         private_nic_mac_address: Optional[str] = None,
-        servers: Optional[List[str]] = None,
-    ) -> List[Server]:
+        servers: Optional[list[str]] = None,
+    ) -> list[Server]:
         """
         List all Instances.
         List all Instances in a specified Availability Zone, e.g. `fr-par-1`.
@@ -483,7 +483,7 @@ class InstanceV1API(API):
         :param private_networks: List Instances from the given Private Networks (use commas to separate them).
         :param private_nic_mac_address: List Instances associated with the given private NIC MAC address.
         :param servers: List Instances from these server ids (use commas to separate them).
-        :return: :class:`List[Server] <List[Server]>`
+        :return: :class:`list[Server] <list[Server]>`
 
         Usage:
         ::
@@ -525,15 +525,15 @@ class InstanceV1API(API):
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
         image: Optional[str] = None,
-        volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
+        volumes: Optional[dict[str, VolumeServerTemplate]] = None,
         enable_ipv6: Optional[bool] = None,
         protected: bool,
         public_ip: Optional[str] = None,
-        public_ips: Optional[List[str]] = None,
+        public_ips: Optional[list[str]] = None,
         boot_type: Optional[BootType] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         security_group: Optional[str] = None,
         placement_group: Optional[str] = None,
         admin_password_encryption_ssh_key_id: Optional[str] = None,
@@ -679,8 +679,8 @@ class InstanceV1API(API):
         hostname: str,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        allowed_actions: Optional[List[ServerAction]] = None,
-        tags: Optional[List[str]] = None,
+        allowed_actions: Optional[list[ServerAction]] = None,
+        tags: Optional[list[str]] = None,
         creation_date: Optional[datetime] = None,
         routed_ip_enabled: Optional[bool] = None,
         enable_ipv6: Optional[bool] = None,
@@ -688,19 +688,19 @@ class InstanceV1API(API):
         protected: bool,
         private_ip: Optional[str] = None,
         public_ip: Optional[ServerIp] = None,
-        public_ips: Optional[List[ServerIp]] = None,
+        public_ips: Optional[list[ServerIp]] = None,
         modification_date: Optional[datetime] = None,
         state: Optional[ServerState] = None,
         location: Optional[ServerLocation] = None,
         ipv6: Optional[ServerIpv6] = None,
         boot_type: Optional[BootType] = None,
         state_detail: str,
-        volumes: Optional[Dict[str, Volume]] = None,
+        volumes: Optional[dict[str, Volume]] = None,
         security_group: Optional[SecurityGroupSummary] = None,
-        maintenances: Optional[List[ServerMaintenance]] = None,
+        maintenances: Optional[list[ServerMaintenance]] = None,
         arch: Optional[Arch] = None,
         placement_group: Optional[PlacementGroup] = None,
-        private_nics: Optional[List[PrivateNIC]] = None,
+        private_nics: Optional[list[PrivateNIC]] = None,
         admin_password_encryption_ssh_key_id: Optional[str] = None,
     ) -> _SetServerResponse:
         """
@@ -805,16 +805,16 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         boot_type: Optional[BootType] = None,
-        tags: Optional[List[str]] = None,
-        volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
+        tags: Optional[list[str]] = None,
+        volumes: Optional[dict[str, VolumeServerTemplate]] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
-        public_ips: Optional[List[str]] = None,
+        public_ips: Optional[list[str]] = None,
         enable_ipv6: Optional[bool] = None,
         protected: Optional[bool] = None,
         security_group: Optional[SecurityGroupTemplate] = None,
         placement_group: Optional[str] = None,
-        private_nics: Optional[List[str]] = None,
+        private_nics: Optional[list[str]] = None,
         commercial_type: Optional[str] = None,
         admin_password_encryption_ssh_key_id: Optional[str] = None,
     ) -> UpdateServerResponse:
@@ -922,7 +922,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         action: Optional[ServerAction] = None,
         name: Optional[str] = None,
-        volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]] = None,
+        volumes: Optional[dict[str, ServerActionRequestVolumeBackupTemplate]] = None,
         disable_ipv6: Optional[bool] = None,
     ) -> ServerActionResponse:
         """
@@ -1326,7 +1326,7 @@ class InstanceV1API(API):
         arch: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[str] = None,
-    ) -> List[Image]:
+    ) -> list[Image]:
         """
         List Instance images.
         List all existing Instance images.
@@ -1339,7 +1339,7 @@ class InstanceV1API(API):
         :param arch:
         :param project:
         :param tags:
-        :return: :class:`List[Image] <List[Image]>`
+        :return: :class:`list[Image] <list[Image]>`
 
         Usage:
         ::
@@ -1403,10 +1403,10 @@ class InstanceV1API(API):
         arch: Arch,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        extra_volumes: Optional[Dict[str, VolumeTemplate]] = None,
+        extra_volumes: Optional[dict[str, VolumeTemplate]] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         public: Optional[bool] = None,
     ) -> CreateImageResponse:
         """
@@ -1470,12 +1470,12 @@ class InstanceV1API(API):
         from_server: str,
         public: bool,
         default_bootscript: Optional[Bootscript] = None,
-        extra_volumes: Optional[Dict[str, Volume]] = None,
+        extra_volumes: Optional[dict[str, Volume]] = None,
         organization: Optional[str] = None,
         root_volume: Optional[VolumeSummary] = None,
         state: Optional[ImageState] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> _SetImageResponse:
         """
         Update image.
@@ -1546,8 +1546,8 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         arch: Optional[Arch] = None,
-        extra_volumes: Optional[Dict[str, VolumeImageUpdateTemplate]] = None,
-        tags: Optional[List[str]] = None,
+        extra_volumes: Optional[dict[str, VolumeImageUpdateTemplate]] = None,
+        tags: Optional[list[str]] = None,
         public: Optional[bool] = None,
     ) -> UpdateImageResponse:
         """
@@ -1684,7 +1684,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         tags: Optional[str] = None,
         base_volume_id: Optional[str] = None,
-    ) -> List[Snapshot]:
+    ) -> list[Snapshot]:
         """
         List snapshots.
         List all snapshots of an Organization in a specified Availability Zone.
@@ -1696,7 +1696,7 @@ class InstanceV1API(API):
         :param name: List snapshots of the requested name.
         :param tags: List snapshots that have the requested tag.
         :param base_volume_id: List snapshots originating only from this volume.
-        :return: :class:`List[Snapshot] <List[Snapshot]>`
+        :return: :class:`list[Snapshot] <list[Snapshot]>`
 
         Usage:
         ::
@@ -1726,7 +1726,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         volume_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         volume_type: Optional[SnapshotVolumeType] = None,
@@ -1830,7 +1830,7 @@ class InstanceV1API(API):
         modification_date: Optional[datetime] = None,
         project: Optional[str] = None,
         snapshot_id: str,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> _SetSnapshotResponse:
         """
         Set snapshot.
@@ -1896,7 +1896,7 @@ class InstanceV1API(API):
         snapshot_id: str,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> UpdateSnapshotResponse:
         """
         Update a snapshot.
@@ -2021,7 +2021,7 @@ class InstanceV1API(API):
         page: Optional[int] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
     ) -> ListVolumesResponse:
         """
@@ -2071,9 +2071,9 @@ class InstanceV1API(API):
         page: Optional[int] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
-    ) -> List[Volume]:
+    ) -> list[Volume]:
         """
         List volumes.
         List volumes in the specified Availability Zone. You can filter the output by volume type.
@@ -2085,7 +2085,7 @@ class InstanceV1API(API):
         :param project: Filter volume by Project ID.
         :param tags: Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
-        :return: :class:`List[Volume] <List[Volume]>`
+        :return: :class:`list[Volume] <list[Volume]>`
 
         Usage:
         ::
@@ -2116,7 +2116,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         volume_type: Optional[VolumeVolumeType] = None,
         size: Optional[int] = None,
         base_snapshot: Optional[str] = None,
@@ -2205,7 +2205,7 @@ class InstanceV1API(API):
         volume_id: str,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         size: Optional[int] = None,
     ) -> UpdateVolumeResponse:
         """
@@ -2284,7 +2284,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         project_default: Optional[bool] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -2334,11 +2334,11 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         project_default: Optional[bool] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> List[SecurityGroup]:
+    ) -> list[SecurityGroup]:
         """
         List security groups.
         List all existing security groups.
@@ -2350,7 +2350,7 @@ class InstanceV1API(API):
         :param project_default: Filter security groups with this value for project_default.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :return: :class:`List[SecurityGroup] <List[SecurityGroup]>`
+        :return: :class:`list[SecurityGroup] <list[SecurityGroup]>`
 
         Usage:
         ::
@@ -2383,7 +2383,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_default: Optional[bool] = None,
         project_default: Optional[bool] = None,
         inbound_default_policy: Optional[SecurityGroupPolicy] = None,
@@ -2521,7 +2521,7 @@ class InstanceV1API(API):
         name: str,
         description: str,
         enable_default_security: bool,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         creation_date: Optional[datetime] = None,
         modification_date: Optional[datetime] = None,
         project_default: bool,
@@ -2531,7 +2531,7 @@ class InstanceV1API(API):
         organization: Optional[str] = None,
         project: Optional[str] = None,
         organization_default: Optional[bool] = None,
-        servers: Optional[List[ServerSummary]] = None,
+        servers: Optional[list[ServerSummary]] = None,
     ) -> _SetSecurityGroupResponse:
         """
         Update a security group.
@@ -2608,7 +2608,7 @@ class InstanceV1API(API):
         description: Optional[str] = None,
         enable_default_security: Optional[bool] = None,
         inbound_default_policy: Optional[SecurityGroupPolicy] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_default: Optional[bool] = None,
         project_default: Optional[bool] = None,
         outbound_default_policy: Optional[SecurityGroupPolicy] = None,
@@ -2743,7 +2743,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> List[SecurityGroupRule]:
+    ) -> list[SecurityGroupRule]:
         """
         List rules.
         List the rules of the a specified security group ID.
@@ -2751,7 +2751,7 @@ class InstanceV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :return: :class:`List[SecurityGroupRule] <List[SecurityGroupRule]>`
+        :return: :class:`list[SecurityGroupRule] <list[SecurityGroupRule]>`
 
         Usage:
         ::
@@ -2849,7 +2849,7 @@ class InstanceV1API(API):
         *,
         security_group_id: str,
         zone: Optional[ScwZone] = None,
-        rules: Optional[List[SetSecurityGroupRulesRequestRule]] = None,
+        rules: Optional[list[SetSecurityGroupRulesRequestRule]] = None,
     ) -> SetSecurityGroupRulesResponse:
         """
         Update all the rules of a security group.
@@ -3122,7 +3122,7 @@ class InstanceV1API(API):
         page: Optional[int] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
     ) -> ListPlacementGroupsResponse:
         """
@@ -3169,9 +3169,9 @@ class InstanceV1API(API):
         page: Optional[int] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
-    ) -> List[PlacementGroup]:
+    ) -> list[PlacementGroup]:
         """
         List placement groups.
         List all placement groups in a specified Availability Zone.
@@ -3182,7 +3182,7 @@ class InstanceV1API(API):
         :param project: List only placement groups of this Project ID.
         :param tags: List placement groups with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
-        :return: :class:`List[PlacementGroup] <List[PlacementGroup]>`
+        :return: :class:`list[PlacementGroup] <list[PlacementGroup]>`
 
         Usage:
         ::
@@ -3212,7 +3212,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         policy_mode: Optional[PlacementGroupPolicyMode] = None,
         policy_type: Optional[PlacementGroupPolicyType] = None,
     ) -> CreatePlacementGroupResponse:
@@ -3302,7 +3302,7 @@ class InstanceV1API(API):
         policy_mode: Optional[PlacementGroupPolicyMode] = None,
         policy_type: Optional[PlacementGroupPolicyType] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> SetPlacementGroupResponse:
         """
         Set placement group.
@@ -3358,7 +3358,7 @@ class InstanceV1API(API):
         placement_group_id: str,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         policy_mode: Optional[PlacementGroupPolicyMode] = None,
         policy_type: Optional[PlacementGroupPolicyType] = None,
     ) -> UpdatePlacementGroupResponse:
@@ -3474,7 +3474,7 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
-        servers: List[str],
+        servers: list[str],
         zone: Optional[ScwZone] = None,
     ) -> SetPlacementGroupServersResponse:
         """
@@ -3519,7 +3519,7 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
-        servers: List[str],
+        servers: list[str],
         zone: Optional[ScwZone] = None,
     ) -> UpdatePlacementGroupServersResponse:
         """
@@ -3566,7 +3566,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         project: Optional[str] = None,
         organization: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -3616,12 +3616,12 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         project: Optional[str] = None,
         organization: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         type_: Optional[str] = None,
-    ) -> List[Ip]:
+    ) -> list[Ip]:
         """
         List all flexible IPs.
         List all flexible IPs in a specified zone.
@@ -3633,7 +3633,7 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
-        :return: :class:`List[Ip] <List[Ip]>`
+        :return: :class:`list[Ip] <list[Ip]>`
 
         Usage:
         ::
@@ -3663,7 +3663,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         server: Optional[str] = None,
         type_: Optional[IpType] = None,
     ) -> CreateIpResponse:
@@ -3746,7 +3746,7 @@ class InstanceV1API(API):
         zone: Optional[ScwZone] = None,
         reverse: Optional[str] = None,
         type_: Optional[IpType] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         server: Optional[str] = None,
     ) -> UpdateIpResponse:
         """
@@ -3825,7 +3825,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> ListPrivateNICsResponse:
@@ -3868,10 +3868,10 @@ class InstanceV1API(API):
         *,
         server_id: str,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> List[PrivateNIC]:
+    ) -> list[PrivateNIC]:
         """
         List all private NICs.
         List all private NICs of a specified Instance.
@@ -3880,7 +3880,7 @@ class InstanceV1API(API):
         :param tags: Private NIC tags.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :return: :class:`List[PrivateNIC] <List[PrivateNIC]>`
+        :return: :class:`list[PrivateNIC] <list[PrivateNIC]>`
 
         Usage:
         ::
@@ -3909,9 +3909,9 @@ class InstanceV1API(API):
         server_id: str,
         private_network_id: str,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
-        ip_ids: Optional[List[str]] = None,
-        ipam_ip_ids: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        ip_ids: Optional[list[str]] = None,
+        ipam_ip_ids: Optional[list[str]] = None,
     ) -> CreatePrivateNICResponse:
         """
         Create a private NIC connecting an Instance to a Private Network.
@@ -3996,7 +3996,7 @@ class InstanceV1API(API):
         server_id: str,
         private_nic_id: str,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> PrivateNIC:
         """
         Update a private NIC.

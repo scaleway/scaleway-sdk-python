@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -118,7 +118,7 @@ class FlexibleIP:
     Flexible IP description.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Flexible IP tags.
     """
@@ -171,7 +171,7 @@ class FlexibleIP:
 
 @dataclass
 class AttachFlexibleIPRequest:
-    fips_ids: List[str]
+    fips_ids: list[str]
     """
     Multiple IDs can be provided, but note that flexible IPs must belong to the same MAC group (see details about MAC groups).
     """
@@ -194,7 +194,7 @@ class AttachFlexibleIPsResponse:
     Total count of flexible IPs that are being updated.
     """
 
-    flexible_ips: List[FlexibleIP]
+    flexible_ips: list[FlexibleIP]
     """
     List of flexible IPs in an updating state.
     """
@@ -222,7 +222,7 @@ class CreateFlexibleIPRequest:
     ID of the project to associate with the Flexible IP.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to associate to the flexible IP.
     """
@@ -266,7 +266,7 @@ class DeleteMACAddrRequest:
 
 @dataclass
 class DetachFlexibleIPRequest:
-    fips_ids: List[str]
+    fips_ids: list[str]
     """
     List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
     """
@@ -284,7 +284,7 @@ class DetachFlexibleIPsResponse:
     Total count of flexible IPs that are being detached.
     """
 
-    flexible_ips: List[FlexibleIP]
+    flexible_ips: list[FlexibleIP]
     """
     List of flexible IPs in a detaching state.
     """
@@ -363,17 +363,17 @@ class ListFlexibleIPsRequest:
     Maximum number of flexible IPs per page.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tag, only flexible IPs with one or more matching tags will be returned.
     """
 
-    status: Optional[List[FlexibleIPStatus]] = field(default_factory=list)
+    status: Optional[list[FlexibleIPStatus]] = field(default_factory=list)
     """
     Filter by status, only flexible IPs with this status will be returned.
     """
 
-    server_ids: Optional[List[str]] = field(default_factory=list)
+    server_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by server IDs, only flexible IPs with these server IDs will be returned.
     """
@@ -396,7 +396,7 @@ class ListFlexibleIPsResponse:
     Total count of matching flexible IPs.
     """
 
-    flexible_ips: List[FlexibleIP]
+    flexible_ips: list[FlexibleIP]
     """
     List of all flexible IPs.
     """
@@ -429,7 +429,7 @@ class UpdateFlexibleIPRequest:
     Flexible IP description (max. 255 characters).
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the flexible IP.
     """

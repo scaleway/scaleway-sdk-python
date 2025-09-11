@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -133,7 +133,7 @@ def unmarshal_ContactExtensionFRAssociationInfo(
             "Unmarshalling the type 'ContactExtensionFRAssociationInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("publication_jo_page", None)
     if field is not None:
@@ -160,7 +160,7 @@ def unmarshal_ContactExtensionFRCodeAuthAfnicInfo(
             "Unmarshalling the type 'ContactExtensionFRCodeAuthAfnicInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("code_auth_afnic", None)
     if field is not None:
@@ -177,7 +177,7 @@ def unmarshal_ContactExtensionFRDunsInfo(data: Any) -> ContactExtensionFRDunsInf
             "Unmarshalling the type 'ContactExtensionFRDunsInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("duns_id", None)
     if field is not None:
@@ -202,7 +202,7 @@ def unmarshal_ContactExtensionFRIndividualInfo(
             "Unmarshalling the type 'ContactExtensionFRIndividualInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("whois_opt_in", None)
     if field is not None:
@@ -221,7 +221,7 @@ def unmarshal_ContactExtensionFRTrademarkInfo(
             "Unmarshalling the type 'ContactExtensionFRTrademarkInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("trademark_inpi", None)
     if field is not None:
@@ -238,7 +238,7 @@ def unmarshal_ContactExtensionEU(data: Any) -> ContactExtensionEU:
             "Unmarshalling the type 'ContactExtensionEU' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("european_citizenship", None)
     if field is not None:
@@ -255,7 +255,7 @@ def unmarshal_ContactExtensionFR(data: Any) -> ContactExtensionFR:
             "Unmarshalling the type 'ContactExtensionFR' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("mode", None)
     if field is not None:
@@ -304,7 +304,7 @@ def unmarshal_ContactExtensionNL(data: Any) -> ContactExtensionNL:
             "Unmarshalling the type 'ContactExtensionNL' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("legal_form", None)
     if field is not None:
@@ -327,7 +327,7 @@ def unmarshal_ContactQuestion(data: Any) -> ContactQuestion:
             "Unmarshalling the type 'ContactQuestion' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("question", None)
     if field is not None:
@@ -350,7 +350,7 @@ def unmarshal_Contact(data: Any) -> Contact:
             "Unmarshalling the type 'Contact' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -519,7 +519,7 @@ def unmarshal_DNSZone(data: Any) -> DNSZone:
             "Unmarshalling the type 'DNSZone' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -592,7 +592,7 @@ def unmarshal_Host(data: Any) -> Host:
             "Unmarshalling the type 'Host' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -627,7 +627,7 @@ def unmarshal_SSLCertificate(data: Any) -> SSLCertificate:
             "Unmarshalling the type 'SSLCertificate' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dns_zone", None)
     if field is not None:
@@ -682,7 +682,7 @@ def unmarshal_CheckContactsCompatibilityResponseContactCheckResult(
             "Unmarshalling the type 'CheckContactsCompatibilityResponseContactCheckResult' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("compatible", None)
     if field is not None:
@@ -707,7 +707,7 @@ def unmarshal_CheckContactsCompatibilityResponse(
             "Unmarshalling the type 'CheckContactsCompatibilityResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("compatible", None)
     if field is not None:
@@ -748,7 +748,7 @@ def unmarshal_ClearDNSZoneRecordsResponse(data: Any) -> ClearDNSZoneRecordsRespo
             "Unmarshalling the type 'ClearDNSZoneRecordsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return ClearDNSZoneRecordsResponse(**args)
 
@@ -759,7 +759,7 @@ def unmarshal_DeleteDNSZoneResponse(data: Any) -> DeleteDNSZoneResponse:
             "Unmarshalling the type 'DeleteDNSZoneResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return DeleteDNSZoneResponse(**args)
 
@@ -770,7 +770,7 @@ def unmarshal_DeleteExternalDomainResponse(data: Any) -> DeleteExternalDomainRes
             "Unmarshalling the type 'DeleteExternalDomainResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return DeleteExternalDomainResponse(**args)
 
@@ -781,7 +781,7 @@ def unmarshal_DeleteSSLCertificateResponse(data: Any) -> DeleteSSLCertificateRes
             "Unmarshalling the type 'DeleteSSLCertificateResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return DeleteSSLCertificateResponse(**args)
 
@@ -792,7 +792,7 @@ def unmarshal_DSRecordPublicKey(data: Any) -> DSRecordPublicKey:
             "Unmarshalling the type 'DSRecordPublicKey' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key", None)
     if field is not None:
@@ -809,7 +809,7 @@ def unmarshal_DSRecordDigest(data: Any) -> DSRecordDigest:
             "Unmarshalling the type 'DSRecordDigest' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -838,7 +838,7 @@ def unmarshal_DSRecord(data: Any) -> DSRecord:
             "Unmarshalling the type 'DSRecord' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key_id", None)
     if field is not None:
@@ -873,7 +873,7 @@ def unmarshal_TldOffer(data: Any) -> TldOffer:
             "Unmarshalling the type 'TldOffer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("action", None)
     if field is not None:
@@ -902,7 +902,7 @@ def unmarshal_DomainDNSSEC(data: Any) -> DomainDNSSEC:
             "Unmarshalling the type 'DomainDNSSEC' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("status", None)
     if field is not None:
@@ -929,7 +929,7 @@ def unmarshal_DomainRegistrationStatusExternalDomain(
             "Unmarshalling the type 'DomainRegistrationStatusExternalDomain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("validation_token", None)
     if field is not None:
@@ -948,7 +948,7 @@ def unmarshal_DomainRegistrationStatusTransfer(
             "Unmarshalling the type 'DomainRegistrationStatusTransfer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("status", None)
     if field is not None:
@@ -977,7 +977,7 @@ def unmarshal_Tld(data: Any) -> Tld:
             "Unmarshalling the type 'Tld' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1034,7 +1034,7 @@ def unmarshal_Domain(data: Any) -> Domain:
             "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -1173,7 +1173,7 @@ def unmarshal_GetDNSZoneTsigKeyResponse(data: Any) -> GetDNSZoneTsigKeyResponse:
             "Unmarshalling the type 'GetDNSZoneTsigKeyResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1202,7 +1202,7 @@ def unmarshal_RecordGeoIPConfigMatch(data: Any) -> RecordGeoIPConfigMatch:
             "Unmarshalling the type 'RecordGeoIPConfigMatch' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("countries", None)
     if field is not None:
@@ -1231,7 +1231,7 @@ def unmarshal_RecordViewConfigView(data: Any) -> RecordViewConfigView:
             "Unmarshalling the type 'RecordViewConfigView' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("subnet", None)
     if field is not None:
@@ -1256,7 +1256,7 @@ def unmarshal_RecordWeightedConfigWeightedIP(
             "Unmarshalling the type 'RecordWeightedConfigWeightedIP' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip", None)
     if field is not None:
@@ -1279,7 +1279,7 @@ def unmarshal_RecordGeoIPConfig(data: Any) -> RecordGeoIPConfig:
             "Unmarshalling the type 'RecordGeoIPConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("matches", None)
     if field is not None:
@@ -1306,7 +1306,7 @@ def unmarshal_RecordHTTPServiceConfig(data: Any) -> RecordHTTPServiceConfig:
             "Unmarshalling the type 'RecordHTTPServiceConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ips", None)
     if field is not None:
@@ -1347,7 +1347,7 @@ def unmarshal_RecordViewConfig(data: Any) -> RecordViewConfig:
             "Unmarshalling the type 'RecordViewConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("views", None)
     if field is not None:
@@ -1368,7 +1368,7 @@ def unmarshal_RecordWeightedConfig(data: Any) -> RecordWeightedConfig:
             "Unmarshalling the type 'RecordWeightedConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("weighted_ips", None)
     if field is not None:
@@ -1389,7 +1389,7 @@ def unmarshal_Record(data: Any) -> Record:
             "Unmarshalling the type 'Record' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("data", None)
     if field is not None:
@@ -1466,7 +1466,7 @@ def unmarshal_RecordIdentifier(data: Any) -> RecordIdentifier:
             "Unmarshalling the type 'RecordIdentifier' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1501,7 +1501,7 @@ def unmarshal_RecordChangeAdd(data: Any) -> RecordChangeAdd:
             "Unmarshalling the type 'RecordChangeAdd' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("records", None)
     if field is not None:
@@ -1520,7 +1520,7 @@ def unmarshal_RecordChangeClear(data: Any) -> RecordChangeClear:
             "Unmarshalling the type 'RecordChangeClear' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return RecordChangeClear(**args)
 
@@ -1531,7 +1531,7 @@ def unmarshal_RecordChangeDelete(data: Any) -> RecordChangeDelete:
             "Unmarshalling the type 'RecordChangeDelete' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1554,7 +1554,7 @@ def unmarshal_RecordChangeSet(data: Any) -> RecordChangeSet:
             "Unmarshalling the type 'RecordChangeSet' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("records", None)
     if field is not None:
@@ -1585,7 +1585,7 @@ def unmarshal_RecordChange(data: Any) -> RecordChange:
             "Unmarshalling the type 'RecordChange' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("add", None)
     if field is not None:
@@ -1620,7 +1620,7 @@ def unmarshal_GetDNSZoneVersionDiffResponse(data: Any) -> GetDNSZoneVersionDiffR
             "Unmarshalling the type 'GetDNSZoneVersionDiffResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("changes", None)
     if field is not None:
@@ -1639,7 +1639,7 @@ def unmarshal_GetDomainAuthCodeResponse(data: Any) -> GetDomainAuthCodeResponse:
             "Unmarshalling the type 'GetDomainAuthCodeResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("auth_code", None)
     if field is not None:
@@ -1656,7 +1656,7 @@ def unmarshal_ImportProviderDNSZoneResponse(data: Any) -> ImportProviderDNSZoneR
             "Unmarshalling the type 'ImportProviderDNSZoneResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("records", None)
     if field is not None:
@@ -1675,7 +1675,7 @@ def unmarshal_ImportRawDNSZoneResponse(data: Any) -> ImportRawDNSZoneResponse:
             "Unmarshalling the type 'ImportRawDNSZoneResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("records", None)
     if field is not None:
@@ -1694,7 +1694,7 @@ def unmarshal_ContactRolesRoles(data: Any) -> ContactRolesRoles:
             "Unmarshalling the type 'ContactRolesRoles' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("is_owner", None)
     if field is not None:
@@ -1723,7 +1723,7 @@ def unmarshal_ContactRoles(data: Any) -> ContactRoles:
             "Unmarshalling the type 'ContactRoles' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("roles", None)
     if field is not None:
@@ -1750,7 +1750,7 @@ def unmarshal_ListContactsResponse(data: Any) -> ListContactsResponse:
             "Unmarshalling the type 'ListContactsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1775,7 +1775,7 @@ def unmarshal_Nameserver(data: Any) -> Nameserver:
             "Unmarshalling the type 'Nameserver' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1800,7 +1800,7 @@ def unmarshal_ListDNSZoneNameserversResponse(
             "Unmarshalling the type 'ListDNSZoneNameserversResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ns", None)
     if field is not None:
@@ -1819,7 +1819,7 @@ def unmarshal_ListDNSZoneRecordsResponse(data: Any) -> ListDNSZoneRecordsRespons
             "Unmarshalling the type 'ListDNSZoneRecordsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1846,7 +1846,7 @@ def unmarshal_ListDNSZoneVersionRecordsResponse(
             "Unmarshalling the type 'ListDNSZoneVersionRecordsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1871,7 +1871,7 @@ def unmarshal_DNSZoneVersion(data: Any) -> DNSZoneVersion:
             "Unmarshalling the type 'DNSZoneVersion' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1894,7 +1894,7 @@ def unmarshal_ListDNSZoneVersionsResponse(data: Any) -> ListDNSZoneVersionsRespo
             "Unmarshalling the type 'ListDNSZoneVersionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1919,7 +1919,7 @@ def unmarshal_ListDNSZonesResponse(data: Any) -> ListDNSZonesResponse:
             "Unmarshalling the type 'ListDNSZonesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1944,7 +1944,7 @@ def unmarshal_ListDomainHostsResponse(data: Any) -> ListDomainHostsResponse:
             "Unmarshalling the type 'ListDomainHostsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1969,7 +1969,7 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
             "Unmarshalling the type 'DomainSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -2074,7 +2074,7 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
             "Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2099,7 +2099,7 @@ def unmarshal_InboundTransfer(data: Any) -> InboundTransfer:
             "Unmarshalling the type 'InboundTransfer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -2160,7 +2160,7 @@ def unmarshal_ListInboundTransfersResponse(data: Any) -> ListInboundTransfersRes
             "Unmarshalling the type 'ListInboundTransfersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2185,7 +2185,7 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
             "Unmarshalling the type 'RenewableDomain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -2262,7 +2262,7 @@ def unmarshal_ListRenewableDomainsResponse(data: Any) -> ListRenewableDomainsRes
             "Unmarshalling the type 'ListRenewableDomainsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2287,7 +2287,7 @@ def unmarshal_ListSSLCertificatesResponse(data: Any) -> ListSSLCertificatesRespo
             "Unmarshalling the type 'ListSSLCertificatesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2312,7 +2312,7 @@ def unmarshal_Task(data: Any) -> Task:
             "Unmarshalling the type 'Task' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -2383,7 +2383,7 @@ def unmarshal_ListTasksResponse(data: Any) -> ListTasksResponse:
             "Unmarshalling the type 'ListTasksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2408,7 +2408,7 @@ def unmarshal_ListTldsResponse(data: Any) -> ListTldsResponse:
             "Unmarshalling the type 'ListTldsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("tlds", None)
     if field is not None:
@@ -2431,7 +2431,7 @@ def unmarshal_OrderResponse(data: Any) -> OrderResponse:
             "Unmarshalling the type 'OrderResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domains", None)
     if field is not None:
@@ -2472,7 +2472,7 @@ def unmarshal_RefreshDNSZoneResponse(data: Any) -> RefreshDNSZoneResponse:
             "Unmarshalling the type 'RefreshDNSZoneResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dns_zones", None)
     if field is not None:
@@ -2493,7 +2493,7 @@ def unmarshal_RegisterExternalDomainResponse(
             "Unmarshalling the type 'RegisterExternalDomainResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -2534,7 +2534,7 @@ def unmarshal_RestoreDNSZoneVersionResponse(data: Any) -> RestoreDNSZoneVersionR
             "Unmarshalling the type 'RestoreDNSZoneVersionResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return RestoreDNSZoneVersionResponse(**args)
 
@@ -2545,7 +2545,7 @@ def unmarshal_AvailableDomain(data: Any) -> AvailableDomain:
             "Unmarshalling the type 'AvailableDomain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -2576,7 +2576,7 @@ def unmarshal_SearchAvailableDomainsResponse(
             "Unmarshalling the type 'SearchAvailableDomainsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("available_domains", None)
     if field is not None:
@@ -2597,7 +2597,7 @@ def unmarshal_UpdateDNSZoneNameserversResponse(
             "Unmarshalling the type 'UpdateDNSZoneNameserversResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ns", None)
     if field is not None:
@@ -2616,7 +2616,7 @@ def unmarshal_UpdateDNSZoneRecordsResponse(data: Any) -> UpdateDNSZoneRecordsRes
             "Unmarshalling the type 'UpdateDNSZoneRecordsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("records", None)
     if field is not None:
@@ -2632,8 +2632,8 @@ def unmarshal_UpdateDNSZoneRecordsResponse(data: Any) -> UpdateDNSZoneRecordsRes
 def marshal_CloneDNSZoneRequest(
     request: CloneDNSZoneRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.dest_dns_zone is not None:
         output["dest_dns_zone"] = request.dest_dns_zone
@@ -2650,8 +2650,8 @@ def marshal_CloneDNSZoneRequest(
 def marshal_CreateDNSZoneRequest(
     request: CreateDNSZoneRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain is not None:
         output["domain"] = request.domain
@@ -2670,8 +2670,8 @@ def marshal_CreateDNSZoneRequest(
 def marshal_CreateSSLCertificateRequest(
     request: CreateSSLCertificateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.dns_zone is not None:
         output["dns_zone"] = request.dns_zone
@@ -2685,8 +2685,8 @@ def marshal_CreateSSLCertificateRequest(
 def marshal_ImportProviderDNSZoneRequestOnlineV1(
     request: ImportProviderDNSZoneRequestOnlineV1,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.token is not None:
         output["token"] = request.token
@@ -2697,8 +2697,8 @@ def marshal_ImportProviderDNSZoneRequestOnlineV1(
 def marshal_ImportProviderDNSZoneRequest(
     request: ImportProviderDNSZoneRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2717,8 +2717,8 @@ def marshal_ImportProviderDNSZoneRequest(
 def marshal_ImportRawDNSZoneRequestTsigKey(
     request: ImportRawDNSZoneRequestTsigKey,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2735,8 +2735,8 @@ def marshal_ImportRawDNSZoneRequestTsigKey(
 def marshal_ImportRawDNSZoneRequestAXFRSource(
     request: ImportRawDNSZoneRequestAXFRSource,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name_server is not None:
         output["name_server"] = request.name_server
@@ -2752,8 +2752,8 @@ def marshal_ImportRawDNSZoneRequestAXFRSource(
 def marshal_ImportRawDNSZoneRequestBindSource(
     request: ImportRawDNSZoneRequestBindSource,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.content is not None:
         output["content"] = request.content
@@ -2764,8 +2764,8 @@ def marshal_ImportRawDNSZoneRequestBindSource(
 def marshal_ImportRawDNSZoneRequest(
     request: ImportRawDNSZoneRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2800,8 +2800,8 @@ def marshal_ImportRawDNSZoneRequest(
 def marshal_RefreshDNSZoneRequest(
     request: RefreshDNSZoneRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.recreate_dns_zone is not None:
         output["recreate_dns_zone"] = request.recreate_dns_zone
@@ -2815,8 +2815,8 @@ def marshal_RefreshDNSZoneRequest(
 def marshal_ContactExtensionFRAssociationInfo(
     request: ContactExtensionFRAssociationInfo,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.publication_jo_page is not None:
         output["publication_jo_page"] = request.publication_jo_page
@@ -2830,8 +2830,8 @@ def marshal_ContactExtensionFRAssociationInfo(
 def marshal_ContactExtensionFRCodeAuthAfnicInfo(
     request: ContactExtensionFRCodeAuthAfnicInfo,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.code_auth_afnic is not None:
         output["code_auth_afnic"] = request.code_auth_afnic
@@ -2842,8 +2842,8 @@ def marshal_ContactExtensionFRCodeAuthAfnicInfo(
 def marshal_ContactExtensionFRDunsInfo(
     request: ContactExtensionFRDunsInfo,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.duns_id is not None:
         output["duns_id"] = request.duns_id
@@ -2857,8 +2857,8 @@ def marshal_ContactExtensionFRDunsInfo(
 def marshal_ContactExtensionFRIndividualInfo(
     request: ContactExtensionFRIndividualInfo,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.whois_opt_in is not None:
         output["whois_opt_in"] = request.whois_opt_in
@@ -2869,8 +2869,8 @@ def marshal_ContactExtensionFRIndividualInfo(
 def marshal_ContactExtensionFRTrademarkInfo(
     request: ContactExtensionFRTrademarkInfo,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.trademark_inpi is not None:
         output["trademark_inpi"] = request.trademark_inpi
@@ -2881,8 +2881,8 @@ def marshal_ContactExtensionFRTrademarkInfo(
 def marshal_ContactExtensionEU(
     request: ContactExtensionEU,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.european_citizenship is not None:
         output["european_citizenship"] = request.european_citizenship
@@ -2893,8 +2893,8 @@ def marshal_ContactExtensionEU(
 def marshal_ContactExtensionFR(
     request: ContactExtensionFR,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2936,8 +2936,8 @@ def marshal_ContactExtensionFR(
 def marshal_ContactExtensionNL(
     request: ContactExtensionNL,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.legal_form is not None:
         output["legal_form"] = request.legal_form
@@ -2953,8 +2953,8 @@ def marshal_ContactExtensionNL(
 def marshal_ContactQuestion(
     request: ContactQuestion,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.question is not None:
         output["question"] = request.question
@@ -2968,8 +2968,8 @@ def marshal_ContactQuestion(
 def marshal_NewContact(
     request: NewContact,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.legal_form is not None:
         output["legal_form"] = request.legal_form
@@ -3054,8 +3054,8 @@ def marshal_NewContact(
 def marshal_RegistrarApiBuyDomainsRequest(
     request: RegistrarApiBuyDomainsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3122,8 +3122,8 @@ def marshal_RegistrarApiBuyDomainsRequest(
 def marshal_RegistrarApiCheckContactsCompatibilityRequest(
     request: RegistrarApiCheckContactsCompatibilityRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3185,8 +3185,8 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
 def marshal_RegistrarApiCreateDomainHostRequest(
     request: RegistrarApiCreateDomainHostRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3200,8 +3200,8 @@ def marshal_RegistrarApiCreateDomainHostRequest(
 def marshal_DSRecordPublicKey(
     request: DSRecordPublicKey,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.key is not None:
         output["key"] = request.key
@@ -3212,8 +3212,8 @@ def marshal_DSRecordPublicKey(
 def marshal_DSRecordDigest(
     request: DSRecordDigest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -3230,8 +3230,8 @@ def marshal_DSRecordDigest(
 def marshal_DSRecord(
     request: DSRecord,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3261,8 +3261,8 @@ def marshal_DSRecord(
 def marshal_RegistrarApiEnableDomainDNSSECRequest(
     request: RegistrarApiEnableDomainDNSSECRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ds_record is not None:
         output["ds_record"] = marshal_DSRecord(request.ds_record, defaults)
@@ -3273,8 +3273,8 @@ def marshal_RegistrarApiEnableDomainDNSSECRequest(
 def marshal_RegistrarApiRegisterExternalDomainRequest(
     request: RegistrarApiRegisterExternalDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain is not None:
         output["domain"] = request.domain
@@ -3290,8 +3290,8 @@ def marshal_RegistrarApiRegisterExternalDomainRequest(
 def marshal_RegistrarApiRenewDomainsRequest(
     request: RegistrarApiRenewDomainsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domains is not None:
         output["domains"] = request.domains
@@ -3308,8 +3308,8 @@ def marshal_RegistrarApiRenewDomainsRequest(
 def marshal_RegistrarApiTradeDomainRequest(
     request: RegistrarApiTradeDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3336,8 +3336,8 @@ def marshal_RegistrarApiTradeDomainRequest(
 def marshal_TransferInDomainRequestTransferRequest(
     request: TransferInDomainRequestTransferRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain is not None:
         output["domain"] = request.domain
@@ -3351,8 +3351,8 @@ def marshal_TransferInDomainRequestTransferRequest(
 def marshal_RegistrarApiTransferInDomainRequest(
     request: RegistrarApiTransferInDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3419,8 +3419,8 @@ def marshal_RegistrarApiTransferInDomainRequest(
 def marshal_UpdateContactRequestQuestion(
     request: UpdateContactRequestQuestion,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.question is not None:
         output["question"] = request.question
@@ -3434,8 +3434,8 @@ def marshal_UpdateContactRequestQuestion(
 def marshal_RegistrarApiUpdateContactRequest(
     request: RegistrarApiUpdateContactRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.email is not None:
         output["email"] = request.email
@@ -3509,8 +3509,8 @@ def marshal_RegistrarApiUpdateContactRequest(
 def marshal_RegistrarApiUpdateDomainHostRequest(
     request: RegistrarApiUpdateDomainHostRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ips is not None:
         output["ips"] = request.ips
@@ -3521,8 +3521,8 @@ def marshal_RegistrarApiUpdateDomainHostRequest(
 def marshal_RegistrarApiUpdateDomainRequest(
     request: RegistrarApiUpdateDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3578,8 +3578,8 @@ def marshal_RegistrarApiUpdateDomainRequest(
 def marshal_Nameserver(
     request: Nameserver,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3593,8 +3593,8 @@ def marshal_Nameserver(
 def marshal_UpdateDNSZoneNameserversRequest(
     request: UpdateDNSZoneNameserversRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ns is not None:
         output["ns"] = [marshal_Nameserver(item, defaults) for item in request.ns]
@@ -3605,8 +3605,8 @@ def marshal_UpdateDNSZoneNameserversRequest(
 def marshal_RecordGeoIPConfigMatch(
     request: RecordGeoIPConfigMatch,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.countries is not None:
         output["countries"] = request.countries
@@ -3623,8 +3623,8 @@ def marshal_RecordGeoIPConfigMatch(
 def marshal_RecordViewConfigView(
     request: RecordViewConfigView,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.subnet is not None:
         output["subnet"] = request.subnet
@@ -3638,8 +3638,8 @@ def marshal_RecordViewConfigView(
 def marshal_RecordWeightedConfigWeightedIP(
     request: RecordWeightedConfigWeightedIP,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip is not None:
         output["ip"] = request.ip
@@ -3653,8 +3653,8 @@ def marshal_RecordWeightedConfigWeightedIP(
 def marshal_RecordGeoIPConfig(
     request: RecordGeoIPConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.matches is not None:
         output["matches"] = [
@@ -3670,8 +3670,8 @@ def marshal_RecordGeoIPConfig(
 def marshal_RecordHTTPServiceConfig(
     request: RecordHTTPServiceConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ips is not None:
         output["ips"] = request.ips
@@ -3694,8 +3694,8 @@ def marshal_RecordHTTPServiceConfig(
 def marshal_RecordViewConfig(
     request: RecordViewConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.views is not None:
         output["views"] = [
@@ -3708,8 +3708,8 @@ def marshal_RecordViewConfig(
 def marshal_RecordWeightedConfig(
     request: RecordWeightedConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.weighted_ips is not None:
         output["weighted_ips"] = [
@@ -3723,8 +3723,8 @@ def marshal_RecordWeightedConfig(
 def marshal_Record(
     request: Record,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3779,8 +3779,8 @@ def marshal_Record(
 def marshal_RecordIdentifier(
     request: RecordIdentifier,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3800,8 +3800,8 @@ def marshal_RecordIdentifier(
 def marshal_RecordChangeAdd(
     request: RecordChangeAdd,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.records is not None:
         output["records"] = [marshal_Record(item, defaults) for item in request.records]
@@ -3812,8 +3812,8 @@ def marshal_RecordChangeAdd(
 def marshal_RecordChangeClear(
     request: RecordChangeClear,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -3821,8 +3821,8 @@ def marshal_RecordChangeClear(
 def marshal_RecordChangeDelete(
     request: RecordChangeDelete,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3842,8 +3842,8 @@ def marshal_RecordChangeDelete(
 def marshal_RecordChangeSet(
     request: RecordChangeSet,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3866,8 +3866,8 @@ def marshal_RecordChangeSet(
 def marshal_RecordChange(
     request: RecordChange,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3899,8 +3899,8 @@ def marshal_RecordChange(
 def marshal_UpdateDNSZoneRecordsRequest(
     request: UpdateDNSZoneRecordsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.changes is not None:
         output["changes"] = [
@@ -3922,8 +3922,8 @@ def marshal_UpdateDNSZoneRecordsRequest(
 def marshal_UpdateDNSZoneRequest(
     request: UpdateDNSZoneRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.new_dns_zone is not None:
         output["new_dns_zone"] = request.new_dns_zone

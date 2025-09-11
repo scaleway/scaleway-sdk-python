@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, Dict, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -180,7 +180,7 @@ class K8SV1API(API):
         status: Optional[ClusterStatus] = None,
         type_: Optional[str] = None,
         private_network_id: Optional[str] = None,
-    ) -> List[Cluster]:
+    ) -> list[Cluster]:
         """
         List Clusters.
         List all existing Kubernetes clusters in a specific region.
@@ -194,7 +194,7 @@ class K8SV1API(API):
         :param status: Status to filter on, only clusters with this status will be returned.
         :param type_: Type to filter on, only clusters with this type will be returned.
         :param private_network_id: Private Network ID to filter on, only clusters within this Private Network will be returned.
-        :return: :class:`List[Cluster] <List[Cluster]>`
+        :return: :class:`list[Cluster] <list[Cluster]>`
 
         Usage:
         ::
@@ -231,16 +231,16 @@ class K8SV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        pools: Optional[List[CreateClusterRequestPoolConfig]] = None,
+        tags: Optional[list[str]] = None,
+        pools: Optional[list[CreateClusterRequestPoolConfig]] = None,
         autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig] = None,
         auto_upgrade: Optional[CreateClusterRequestAutoUpgrade] = None,
-        feature_gates: Optional[List[str]] = None,
-        admission_plugins: Optional[List[str]] = None,
+        feature_gates: Optional[list[str]] = None,
+        admission_plugins: Optional[list[str]] = None,
         open_id_connect_config: Optional[
             CreateClusterRequestOpenIDConnectConfig
         ] = None,
-        apiserver_cert_sans: Optional[List[str]] = None,
+        apiserver_cert_sans: Optional[list[str]] = None,
         private_network_id: Optional[str] = None,
         pod_cidr: Optional[str] = None,
         service_cidr: Optional[str] = None,
@@ -399,15 +399,15 @@ class K8SV1API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         autoscaler_config: Optional[UpdateClusterRequestAutoscalerConfig] = None,
         auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade] = None,
-        feature_gates: Optional[List[str]] = None,
-        admission_plugins: Optional[List[str]] = None,
+        feature_gates: Optional[list[str]] = None,
+        admission_plugins: Optional[list[str]] = None,
         open_id_connect_config: Optional[
             UpdateClusterRequestOpenIDConnectConfig
         ] = None,
-        apiserver_cert_sans: Optional[List[str]] = None,
+        apiserver_cert_sans: Optional[list[str]] = None,
     ) -> Cluster:
         """
         Update a Cluster.
@@ -786,7 +786,7 @@ class K8SV1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[ACLRule]:
+    ) -> list[ACLRule]:
         """
         List ACLs.
         List ACLs for a specific cluster.
@@ -794,7 +794,7 @@ class K8SV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number for the returned ACLs.
         :param page_size: Maximum number of ACLs per page.
-        :return: :class:`List[ACLRule] <List[ACLRule]>`
+        :return: :class:`list[ACLRule] <list[ACLRule]>`
 
         Usage:
         ::
@@ -821,7 +821,7 @@ class K8SV1API(API):
         *,
         cluster_id: str,
         region: Optional[ScwRegion] = None,
-        acls: Optional[List[ACLRuleRequest]] = None,
+        acls: Optional[list[ACLRuleRequest]] = None,
     ) -> AddClusterACLRulesResponse:
         """
         Add new ACLs.
@@ -865,7 +865,7 @@ class K8SV1API(API):
         *,
         cluster_id: str,
         region: Optional[ScwRegion] = None,
-        acls: Optional[List[ACLRuleRequest]] = None,
+        acls: Optional[list[ACLRuleRequest]] = None,
     ) -> SetClusterACLRulesResponse:
         """
         Set new ACLs.
@@ -996,7 +996,7 @@ class K8SV1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         status: Optional[PoolStatus] = None,
-    ) -> List[Pool]:
+    ) -> list[Pool]:
         """
         List Pools in a Cluster.
         List all the existing pools for a specific Kubernetes cluster.
@@ -1007,7 +1007,7 @@ class K8SV1API(API):
         :param page_size: Maximum number of pools per page.
         :param name: Name to filter on, only pools containing this substring in their name will be returned.
         :param status: Status to filter on, only pools with this status will be returned.
-        :return: :class:`List[Pool] <List[Pool]>`
+        :return: :class:`list[Pool] <list[Pool]>`
 
         Usage:
         ::
@@ -1047,8 +1047,8 @@ class K8SV1API(API):
         public_ip_disabled: bool,
         max_size: Optional[int] = None,
         container_runtime: Optional[Runtime] = None,
-        tags: Optional[List[str]] = None,
-        kubelet_args: Optional[Dict[str, str]] = None,
+        tags: Optional[list[str]] = None,
+        kubelet_args: Optional[dict[str, str]] = None,
         upgrade_policy: Optional[CreatePoolRequestUpgradePolicy] = None,
         zone: Optional[ScwZone] = None,
         root_volume_type: Optional[PoolVolumeType] = None,
@@ -1259,8 +1259,8 @@ class K8SV1API(API):
         min_size: Optional[int] = None,
         max_size: Optional[int] = None,
         autohealing: Optional[bool] = None,
-        tags: Optional[List[str]] = None,
-        kubelet_args: Optional[Dict[str, str]] = None,
+        tags: Optional[list[str]] = None,
+        kubelet_args: Optional[dict[str, str]] = None,
         upgrade_policy: Optional[UpdatePoolRequestUpgradePolicy] = None,
     ) -> Pool:
         """
@@ -1353,7 +1353,7 @@ class K8SV1API(API):
         *,
         cluster_id: str,
         region: Optional[ScwRegion] = None,
-        pool_ids: Optional[List[str]] = None,
+        pool_ids: Optional[list[str]] = None,
     ) -> None:
         """
         Migrate specific pools or all pools of a cluster to new images.
@@ -1554,7 +1554,7 @@ class K8SV1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         status: Optional[NodeStatus] = None,
-    ) -> List[Node]:
+    ) -> list[Node]:
         """
         List Nodes in a Cluster.
         List all the existing nodes for a specific Kubernetes cluster.
@@ -1566,7 +1566,7 @@ class K8SV1API(API):
         :param page_size: Maximum number of nodes per page.
         :param name: Name to filter on, only nodes containing this substring in their name will be returned.
         :param status: Status to filter on, only nodes with this status will be returned.
-        :return: :class:`List[Node] <List[Node]>`
+        :return: :class:`list[Node] <list[Node]>`
 
         Usage:
         ::
@@ -1884,14 +1884,14 @@ class K8SV1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[ClusterType]:
+    ) -> list[ClusterType]:
         """
         List cluster types.
         List available cluster types and their technical details.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number, from the paginated results, to return for cluster-types.
         :param page_size: Maximum number of clusters per page.
-        :return: :class:`List[ClusterType] <List[ClusterType]>`
+        :return: :class:`list[ClusterType] <list[ClusterType]>`
 
         Usage:
         ::

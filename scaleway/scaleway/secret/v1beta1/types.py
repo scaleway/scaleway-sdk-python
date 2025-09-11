@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -115,7 +115,7 @@ class BrowseSecretsResponseItemFolderDetails:
 @dataclass
 class BrowseSecretsResponseItemSecretDetails:
     id: str
-    tags: List[str]
+    tags: list[str]
     version_count: int
     protected: bool
     type_: SecretType
@@ -230,7 +230,7 @@ class Secret:
 * `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of the secret's tags.
     """
@@ -260,7 +260,7 @@ class Secret:
     Location of the secret in the directory structure.
     """
 
-    used_by: List[Product]
+    used_by: list[Product]
     """
     List of Scaleway resources that can access and manage the secret.
     """
@@ -434,7 +434,7 @@ class BrowseSecretsRequest:
     )
     page: Optional[int] = 0
     page_size: Optional[int] = 0
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter secrets by tags.
     """
@@ -447,7 +447,7 @@ class BrowseSecretsRequest:
 
 @dataclass
 class BrowseSecretsResponse:
-    items: List[BrowseSecretsResponseItem]
+    items: list[BrowseSecretsResponseItem]
     """
     Repeated item of type secret or folder, sorted by the request parameter.
     """
@@ -485,7 +485,7 @@ class CreateSecretRequest:
     ID of the Project containing the secret.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of the secret's tags.
     """
@@ -710,7 +710,7 @@ class ListSecretTypesRequest:
 
 @dataclass
 class ListSecretTypesResponse:
-    types: List[SecretType]
+    types: list[SecretType]
     """
     List of secret types.
     """
@@ -735,7 +735,7 @@ class ListSecretVersionsRequest:
 
     page: Optional[int] = 0
     page_size: Optional[int] = 0
-    status: Optional[List[SecretVersionStatus]] = field(default_factory=list)
+    status: Optional[list[SecretVersionStatus]] = field(default_factory=list)
     """
     Filter results by status.
     """
@@ -743,7 +743,7 @@ class ListSecretVersionsRequest:
 
 @dataclass
 class ListSecretVersionsResponse:
-    versions: List[SecretVersion]
+    versions: list[SecretVersion]
     """
     Single page of versions.
     """
@@ -779,7 +779,7 @@ class ListSecretsRequest:
     order_by: Optional[ListSecretsRequestOrderBy] = ListSecretsRequestOrderBy.NAME_ASC
     page: Optional[int] = 0
     page_size: Optional[int] = 0
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to filter on (optional).
     """
@@ -807,7 +807,7 @@ class ListSecretsRequest:
 
 @dataclass
 class ListSecretsResponse:
-    secrets: List[Secret]
+    secrets: list[Secret]
     """
     Single page of secrets matching the requested criteria.
     """
@@ -836,7 +836,7 @@ class ListTagsRequest:
 
 @dataclass
 class ListTagsResponse:
-    tags: List[str]
+    tags: list[str]
     """
     List of tags.
     """
@@ -917,7 +917,7 @@ class UpdateSecretRequest:
     Secret's updated name (optional).
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Secret's updated list of tags (optional).
     """

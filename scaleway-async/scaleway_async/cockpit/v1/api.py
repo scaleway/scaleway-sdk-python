@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -250,7 +250,7 @@ class CockpitV1GlobalAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListGrafanaUsersRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[GrafanaUser]:
+    ) -> list[GrafanaUser]:
         """
         List Grafana users.
         List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.
@@ -258,7 +258,7 @@ class CockpitV1GlobalAPI(API):
         :param page_size: Page size.
         :param order_by: Order of the Grafana users.
         :param project_id: ID of the Project to target.
-        :return: :class:`List[GrafanaUser] <List[GrafanaUser]>`
+        :return: :class:`list[GrafanaUser] <list[GrafanaUser]>`
 
         Usage:
         ::
@@ -355,7 +355,7 @@ class CockpitV1GlobalAPI(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListGrafanaProductDashboardsResponse:
         """
         List Scaleway resources dashboards.
@@ -392,8 +392,8 @@ class CockpitV1GlobalAPI(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[GrafanaProductDashboard]:
+        tags: Optional[list[str]] = None,
+    ) -> list[GrafanaProductDashboard]:
         """
         List Scaleway resources dashboards.
         Retrieve a list of available dashboards in Grafana, for all Scaleway resources which are integrated with Cockpit.
@@ -401,7 +401,7 @@ class CockpitV1GlobalAPI(API):
         :param page: Page number.
         :param page_size: Page size.
         :param tags: Tags to filter for.
-        :return: :class:`List[GrafanaProductDashboard] <List[GrafanaProductDashboard]>`
+        :return: :class:`list[GrafanaProductDashboard] <list[GrafanaProductDashboard]>`
 
         Usage:
         ::
@@ -497,7 +497,7 @@ class CockpitV1GlobalAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListPlansRequestOrderBy] = None,
-    ) -> List[Plan]:
+    ) -> list[Plan]:
         """
         List plan types.
         Retrieve a list of available pricing plan types.
@@ -505,7 +505,7 @@ class CockpitV1GlobalAPI(API):
         :param page: Page number.
         :param page_size: Page size.
         :param order_by:
-        :return: :class:`List[Plan] <List[Plan]>`
+        :return: :class:`list[Plan] <list[Plan]>`
         :deprecated
 
         Usage:
@@ -750,7 +750,7 @@ class CockpitV1RegionalAPI(API):
         order_by: Optional[ListDataSourcesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         origin: Optional[DataSourceOrigin] = None,
-        types: Optional[List[DataSourceType]] = None,
+        types: Optional[list[DataSourceType]] = None,
     ) -> ListDataSourcesResponse:
         """
         List data sources.
@@ -799,8 +799,8 @@ class CockpitV1RegionalAPI(API):
         order_by: Optional[ListDataSourcesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         origin: Optional[DataSourceOrigin] = None,
-        types: Optional[List[DataSourceType]] = None,
-    ) -> List[DataSource]:
+        types: Optional[list[DataSourceType]] = None,
+    ) -> list[DataSource]:
         """
         List data sources.
         Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
@@ -811,7 +811,7 @@ class CockpitV1RegionalAPI(API):
         :param project_id: Project ID to filter for, only data sources from this Project will be returned.
         :param origin: Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
         :param types: Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
-        :return: :class:`List[DataSource] <List[DataSource]>`
+        :return: :class:`list[DataSource] <list[DataSource]>`
 
         Usage:
         ::
@@ -924,7 +924,7 @@ class CockpitV1RegionalAPI(API):
         name: str,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        token_scopes: Optional[List[TokenScope]] = None,
+        token_scopes: Optional[list[TokenScope]] = None,
     ) -> Token:
         """
         Create a token.
@@ -973,7 +973,7 @@ class CockpitV1RegionalAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
         project_id: Optional[str] = None,
-        token_scopes: Optional[List[TokenScope]] = None,
+        token_scopes: Optional[list[TokenScope]] = None,
     ) -> ListTokensResponse:
         """
         List tokens.
@@ -1020,8 +1020,8 @@ class CockpitV1RegionalAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
         project_id: Optional[str] = None,
-        token_scopes: Optional[List[TokenScope]] = None,
-    ) -> List[Token]:
+        token_scopes: Optional[list[TokenScope]] = None,
+    ) -> list[Token]:
         """
         List tokens.
         Retrieve a list of all tokens in the specified region. By default, tokens returned in the list are ordered by creation date, in ascending order.
@@ -1032,7 +1032,7 @@ class CockpitV1RegionalAPI(API):
         :param order_by: Order in which to return results.
         :param project_id: ID of the Project the tokens belong to.
         :param token_scopes: Token scopes to filter for.
-        :return: :class:`List[Token] <List[Token]>`
+        :return: :class:`list[Token] <list[Token]>`
 
         Usage:
         ::
@@ -1358,7 +1358,7 @@ class CockpitV1RegionalAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
-    ) -> List[ContactPoint]:
+    ) -> list[ContactPoint]:
         """
         List contact points.
         Retrieve a list of contact points for the specified Project. The response lists all contact points and receivers created in Grafana or via the API.
@@ -1366,7 +1366,7 @@ class CockpitV1RegionalAPI(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Total count of contact points to return per page.
         :param project_id: ID of the Project containing the contact points to list.
-        :return: :class:`List[ContactPoint] <List[ContactPoint]>`
+        :return: :class:`list[ContactPoint] <list[ContactPoint]>`
 
         Usage:
         ::
@@ -1596,7 +1596,7 @@ class CockpitV1RegionalAPI(API):
         *,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        rule_ids: Optional[List[str]] = None,
+        rule_ids: Optional[list[str]] = None,
     ) -> EnableAlertRulesResponse:
         """
         Enable preconfigured alert rules.
@@ -1637,7 +1637,7 @@ class CockpitV1RegionalAPI(API):
         *,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        rule_ids: Optional[List[str]] = None,
+        rule_ids: Optional[list[str]] = None,
     ) -> DisableAlertRulesResponse:
         """
         Disable preconfigured alert rules.

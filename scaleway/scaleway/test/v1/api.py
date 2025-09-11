@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
@@ -121,7 +121,7 @@ class TestV1API(API):
         order_by: Optional[ListHumansRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Human]:
+    ) -> list[Human]:
         """
         List all your humans.
         :param page:
@@ -129,7 +129,7 @@ class TestV1API(API):
         :param order_by:
         :param organization_id:
         :param project_id:
-        :return: :class:`List[Human] <List[Human]>`
+        :return: :class:`list[Human] <list[Human]>`
 
         Usage:
         ::

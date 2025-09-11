@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -176,7 +176,7 @@ class Key:
     Returns `true` if the key is locked.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of the key's tags.
     """
@@ -259,7 +259,7 @@ class CreateKeyRequest:
     (Optional) Description of the key.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     (Optional) List of the key's tags.
     """
@@ -514,7 +514,7 @@ class ListAlgorithmsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    usages: Optional[List[ListAlgorithmsRequestUsage]] = field(default_factory=list)
+    usages: Optional[list[ListAlgorithmsRequestUsage]] = field(default_factory=list)
     """
     Filter by key usage.
     """
@@ -522,7 +522,7 @@ class ListAlgorithmsRequest:
 
 @dataclass
 class ListAlgorithmsResponse:
-    algorithms: List[ListAlgorithmsResponseAlgorithm]
+    algorithms: list[ListAlgorithmsResponseAlgorithm]
     """
     Returns a list of algorithms matching the requested criteria.
     """
@@ -553,7 +553,7 @@ class ListKeysRequest:
     order_by: Optional[ListKeysRequestOrderBy] = ListKeysRequestOrderBy.NAME_ASC
     page: Optional[int] = 0
     page_size: Optional[int] = 0
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     (Optional) List of tags to filter on.
     """
@@ -571,7 +571,7 @@ class ListKeysRequest:
 
 @dataclass
 class ListKeysResponse:
-    keys: List[Key]
+    keys: list[Key]
     """
     Single page of keys matching the requested criteria.
     """
@@ -688,7 +688,7 @@ class UpdateKeyRequest:
     (Optional) Updated description of the key.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     (Optional) Updated list of the key's tags.
     """

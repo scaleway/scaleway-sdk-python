@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -72,7 +72,7 @@ class KeyManagerV1Alpha1API(API):
         name: Optional[str] = None,
         usage: Optional[KeyUsage] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         rotation_policy: Optional[KeyRotationPolicy] = None,
         origin: Optional[KeyOrigin] = None,
     ) -> Key:
@@ -199,7 +199,7 @@ class KeyManagerV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         rotation_policy: Optional[KeyRotationPolicy] = None,
     ) -> Key:
         """
@@ -462,7 +462,7 @@ class KeyManagerV1Alpha1API(API):
         order_by: Optional[ListKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         usage: Optional[ListKeysRequestUsage] = None,
     ) -> ListKeysResponse:
@@ -523,10 +523,10 @@ class KeyManagerV1Alpha1API(API):
         order_by: Optional[ListKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         usage: Optional[ListKeysRequestUsage] = None,
-    ) -> List[Key]:
+    ) -> list[Key]:
         """
         List keys.
         Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
@@ -540,7 +540,7 @@ class KeyManagerV1Alpha1API(API):
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
         :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
-        :return: :class:`List[Key] <List[Key]>`
+        :return: :class:`list[Key] <list[Key]>`
 
         Usage:
         ::
@@ -929,7 +929,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        usages: Optional[List[ListAlgorithmsRequestUsage]] = None,
+        usages: Optional[list[ListAlgorithmsRequestUsage]] = None,
     ) -> ListAlgorithmsResponse:
         """
         List all available algorithms.

@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -59,7 +59,7 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
             "Unmarshalling the type 'ACLRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -88,7 +88,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
             "Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -123,7 +123,7 @@ def unmarshal_PublicNetwork(data: Any) -> PublicNetwork:
             "Unmarshalling the type 'PublicNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return PublicNetwork(**args)
 
@@ -134,7 +134,7 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
             "Unmarshalling the type 'Endpoint' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("port", None)
     if field is not None:
@@ -175,7 +175,7 @@ def unmarshal_ClusterSetting(data: Any) -> ClusterSetting:
             "Unmarshalling the type 'ClusterSetting' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("value", None)
     if field is not None:
@@ -198,7 +198,7 @@ def unmarshal_Cluster(data: Any) -> Cluster:
             "Unmarshalling the type 'Cluster' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -317,7 +317,7 @@ def unmarshal_AddAclRulesResponse(data: Any) -> AddAclRulesResponse:
             "Unmarshalling the type 'AddAclRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("acl_rules", None)
     if field is not None:
@@ -342,7 +342,7 @@ def unmarshal_AddEndpointsResponse(data: Any) -> AddEndpointsResponse:
             "Unmarshalling the type 'AddEndpointsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("endpoints", None)
     if field is not None:
@@ -367,7 +367,7 @@ def unmarshal_ClusterMetricsResponse(data: Any) -> ClusterMetricsResponse:
             "Unmarshalling the type 'ClusterMetricsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("timeseries", None)
     if field is not None:
@@ -386,7 +386,7 @@ def unmarshal_ClusterSettingsResponse(data: Any) -> ClusterSettingsResponse:
             "Unmarshalling the type 'ClusterSettingsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("settings", None)
     if field is not None:
@@ -405,7 +405,7 @@ def unmarshal_AvailableClusterSetting(data: Any) -> AvailableClusterSetting:
             "Unmarshalling the type 'AvailableClusterSetting' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -464,7 +464,7 @@ def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
             "Unmarshalling the type 'ClusterVersion' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("version", None)
     if field is not None:
@@ -511,7 +511,7 @@ def unmarshal_ListClusterVersionsResponse(data: Any) -> ListClusterVersionsRespo
             "Unmarshalling the type 'ListClusterVersionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("versions", None)
     if field is not None:
@@ -536,7 +536,7 @@ def unmarshal_ListClustersResponse(data: Any) -> ListClustersResponse:
             "Unmarshalling the type 'ListClustersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("clusters", None)
     if field is not None:
@@ -561,7 +561,7 @@ def unmarshal_NodeType(data: Any) -> NodeType:
             "Unmarshalling the type 'NodeType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -620,7 +620,7 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
             "Unmarshalling the type 'ListNodeTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("node_types", None)
     if field is not None:
@@ -645,7 +645,7 @@ def unmarshal_SetAclRulesResponse(data: Any) -> SetAclRulesResponse:
             "Unmarshalling the type 'SetAclRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("acl_rules", None)
     if field is not None:
@@ -664,7 +664,7 @@ def unmarshal_SetEndpointsResponse(data: Any) -> SetEndpointsResponse:
             "Unmarshalling the type 'SetEndpointsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("endpoints", None)
     if field is not None:
@@ -680,8 +680,8 @@ def unmarshal_SetEndpointsResponse(data: Any) -> SetEndpointsResponse:
 def marshal_ACLRuleSpec(
     request: ACLRuleSpec,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip_cidr is not None:
         output["ip_cidr"] = request.ip_cidr
@@ -695,8 +695,8 @@ def marshal_ACLRuleSpec(
 def marshal_AddAclRulesRequest(
     request: AddAclRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.acl_rules is not None:
         output["acl_rules"] = [
@@ -709,8 +709,8 @@ def marshal_AddAclRulesRequest(
 def marshal_ClusterSetting(
     request: ClusterSetting,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.value is not None:
         output["value"] = request.value
@@ -724,8 +724,8 @@ def marshal_ClusterSetting(
 def marshal_AddClusterSettingsRequest(
     request: AddClusterSettingsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.settings is not None:
         output["settings"] = [
@@ -738,8 +738,8 @@ def marshal_AddClusterSettingsRequest(
 def marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
     request: EndpointSpecPrivateNetworkSpecIpamConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -747,8 +747,8 @@ def marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
 def marshal_EndpointSpecPrivateNetworkSpec(
     request: EndpointSpecPrivateNetworkSpec,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -767,8 +767,8 @@ def marshal_EndpointSpecPrivateNetworkSpec(
 def marshal_EndpointSpecPublicNetworkSpec(
     request: EndpointSpecPublicNetworkSpec,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -776,8 +776,8 @@ def marshal_EndpointSpecPublicNetworkSpec(
 def marshal_EndpointSpec(
     request: EndpointSpec,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -801,8 +801,8 @@ def marshal_EndpointSpec(
 def marshal_AddEndpointsRequest(
     request: AddEndpointsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.endpoints is not None:
         output["endpoints"] = [
@@ -815,8 +815,8 @@ def marshal_AddEndpointsRequest(
 def marshal_CreateClusterRequest(
     request: CreateClusterRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.version is not None:
         output["version"] = request.version
@@ -868,8 +868,8 @@ def marshal_CreateClusterRequest(
 def marshal_MigrateClusterRequest(
     request: MigrateClusterRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -892,8 +892,8 @@ def marshal_MigrateClusterRequest(
 def marshal_SetAclRulesRequest(
     request: SetAclRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.acl_rules is not None:
         output["acl_rules"] = [
@@ -906,8 +906,8 @@ def marshal_SetAclRulesRequest(
 def marshal_SetClusterSettingsRequest(
     request: SetClusterSettingsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.settings is not None:
         output["settings"] = [
@@ -920,8 +920,8 @@ def marshal_SetClusterSettingsRequest(
 def marshal_SetEndpointsRequest(
     request: SetEndpointsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.endpoints is not None:
         output["endpoints"] = [
@@ -934,8 +934,8 @@ def marshal_SetEndpointsRequest(
 def marshal_UpdateClusterRequest(
     request: UpdateClusterRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -955,8 +955,8 @@ def marshal_UpdateClusterRequest(
 def marshal_UpdateEndpointRequest(
     request: UpdateEndpointRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [

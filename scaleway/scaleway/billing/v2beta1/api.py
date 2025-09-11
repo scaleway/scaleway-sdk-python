@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -110,7 +110,7 @@ class BillingV2Beta1API(API):
         project_id: Optional[str] = None,
         category_name: Optional[str] = None,
         billing_period: Optional[str] = None,
-    ) -> List[ListConsumptionsResponseConsumption]:
+    ) -> list[ListConsumptionsResponseConsumption]:
         """
         Get monthly consumption.
         Consumption allows you to retrieve your past or current consumption cost, by project or category.
@@ -123,7 +123,7 @@ class BillingV2Beta1API(API):
         One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :param category_name: Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability).
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
-        :return: :class:`List[ListConsumptionsResponseConsumption] <List[ListConsumptionsResponseConsumption]>`
+        :return: :class:`list[ListConsumptionsResponseConsumption] <list[ListConsumptionsResponseConsumption]>`
 
         Usage:
         ::
@@ -195,7 +195,7 @@ class BillingV2Beta1API(API):
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
         billing_period: Optional[str] = None,
-    ) -> List[ListTaxesResponseTax]:
+    ) -> list[ListTaxesResponseTax]:
         """
         Get monthly consumption taxes.
         Consumption Tax allows you to retrieve your past or current tax charges, by project or category.
@@ -204,7 +204,7 @@ class BillingV2Beta1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: Filter by Organization ID.
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
-        :return: :class:`List[ListTaxesResponseTax] <List[ListTaxesResponseTax]>`
+        :return: :class:`list[ListTaxesResponseTax] <list[ListTaxesResponseTax]>`
 
         Usage:
         ::
@@ -282,7 +282,7 @@ class BillingV2Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListInvoicesRequestOrderBy] = None,
-    ) -> List[Invoice]:
+    ) -> list[Invoice]:
         """
         List invoices.
         List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
@@ -293,7 +293,7 @@ class BillingV2Beta1API(API):
         :param page: Page number.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
-        :return: :class:`List[Invoice] <List[Invoice]>`
+        :return: :class:`list[Invoice] <list[Invoice]>`
 
         Usage:
         ::
@@ -477,7 +477,7 @@ class BillingV2Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
-    ) -> List[Discount]:
+    ) -> list[Discount]:
         """
         List discounts.
         List all discounts for your Organization and usable categories, products, offers, references, regions and zones where the discount can be applied. As a reseller:
@@ -488,7 +488,7 @@ class BillingV2Beta1API(API):
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: ID of the organization.
-        :return: :class:`List[Discount] <List[Discount]>`
+        :return: :class:`list[Discount] <list[Discount]>`
 
         Usage:
         ::

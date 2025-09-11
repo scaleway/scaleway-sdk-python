@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -389,8 +389,8 @@ class TaskType(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class RecordGeoIPConfigMatch:
-    countries: List[str]
-    continents: List[str]
+    countries: list[str]
+    continents: list[str]
     data: str
 
 
@@ -413,13 +413,13 @@ class DSRecordPublicKey:
 
 @dataclass
 class RecordGeoIPConfig:
-    matches: List[RecordGeoIPConfigMatch]
+    matches: list[RecordGeoIPConfigMatch]
     default: str
 
 
 @dataclass
 class RecordHTTPServiceConfig:
-    ips: List[str]
+    ips: list[str]
     url: str
     strategy: RecordHTTPServiceConfigStrategy
     must_contain: Optional[str] = None
@@ -428,12 +428,12 @@ class RecordHTTPServiceConfig:
 
 @dataclass
 class RecordViewConfig:
-    views: List[RecordViewConfigView]
+    views: list[RecordViewConfigView]
 
 
 @dataclass
 class RecordWeightedConfig:
-    weighted_ips: List[RecordWeightedConfigWeightedIP]
+    weighted_ips: list[RecordWeightedConfigWeightedIP]
 
 
 @dataclass
@@ -545,7 +545,7 @@ class DSRecord:
 
 @dataclass
 class RecordChangeAdd:
-    records: List[Record]
+    records: list[Record]
 
 
 @dataclass
@@ -562,7 +562,7 @@ class RecordChangeDelete:
 
 @dataclass
 class RecordChangeSet:
-    records: List[Record]
+    records: list[Record]
     id: Optional[str] = None
 
     id_fields: Optional[RecordIdentifier] = None
@@ -599,7 +599,7 @@ class Contact:
     email_status: ContactEmailStatus
     state: str
     status: ContactStatus
-    questions: Optional[List[ContactQuestion]] = field(default_factory=list)
+    questions: Optional[list[ContactQuestion]] = field(default_factory=list)
     extension_fr: Optional[ContactExtensionFR] = None
     extension_eu: Optional[ContactExtensionEU] = None
     extension_nl: Optional[ContactExtensionNL] = None
@@ -631,8 +631,8 @@ class Tld:
     duration_in_years_min: int
     duration_in_years_max: int
     idn_support: bool
-    offers: Dict[str, TldOffer]
-    specifications: Dict[str, str]
+    offers: dict[str, TldOffer]
+    specifications: dict[str, str]
 
 
 @dataclass
@@ -655,7 +655,7 @@ class NewContact:
     address_line_2: Optional[str] = None
     vat_identification_code: Optional[str] = None
     company_identification_code: Optional[str] = None
-    questions: Optional[List[ContactQuestion]] = field(default_factory=list)
+    questions: Optional[list[ContactQuestion]] = field(default_factory=list)
     extension_fr: Optional[ContactExtensionFR] = None
     extension_eu: Optional[ContactExtensionEU] = None
     state: Optional[str] = None
@@ -672,12 +672,12 @@ class CheckContactsCompatibilityResponseContactCheckResult:
 class DNSZone:
     domain: str
     subdomain: str
-    ns: List[str]
-    ns_default: List[str]
-    ns_master: List[str]
+    ns: list[str]
+    ns_default: list[str]
+    ns_master: list[str]
     status: DNSZoneStatus
     project_id: str
-    linked_products: List[LinkedProduct]
+    linked_products: list[LinkedProduct]
     message: Optional[str] = None
     updated_at: Optional[datetime] = None
 
@@ -685,7 +685,7 @@ class DNSZone:
 @dataclass
 class DomainDNSSEC:
     status: DomainFeatureStatus
-    ds_records: List[DSRecord]
+    ds_records: list[DSRecord]
 
 
 @dataclass
@@ -717,14 +717,14 @@ class ImportRawDNSZoneRequestBindSource:
 
 @dataclass
 class ContactRoles:
-    roles: Dict[str, ContactRolesRoles]
+    roles: dict[str, ContactRolesRoles]
     contact: Optional[Contact] = None
 
 
 @dataclass
 class Nameserver:
     name: str
-    ip: List[str]
+    ip: list[str]
 
 
 @dataclass
@@ -737,7 +737,7 @@ class DNSZoneVersion:
 class Host:
     domain: str
     name: str
-    ips: List[str]
+    ips: list[str]
     status: HostStatus
 
 
@@ -747,7 +747,7 @@ class DomainSummary:
     project_id: str
     auto_renew_status: DomainFeatureStatus
     dnssec_status: DomainFeatureStatus
-    epp_code: List[str]
+    epp_code: list[str]
     registrar: str
     is_external: bool
     status: DomainStatus
@@ -823,7 +823,7 @@ class RenewableDomain:
 @dataclass
 class SSLCertificate:
     dns_zone: str
-    alternative_dns_zones: List[str]
+    alternative_dns_zones: list[str]
     status: SSLCertificateStatus
     private_key: str
     certificate_chain: str
@@ -974,7 +974,7 @@ class CreateDNSZoneRequest:
 @dataclass
 class CreateSSLCertificateRequest:
     dns_zone: str
-    alternative_dns_zones: Optional[List[str]] = field(default_factory=list)
+    alternative_dns_zones: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -1025,7 +1025,7 @@ class Domain:
     Status of the automatic renewal of the domain.
     """
 
-    epp_code: List[str]
+    epp_code: list[str]
     """
     List of the domain's EPP codes.
     """
@@ -1041,12 +1041,12 @@ class Domain:
     Status of the domain.
     """
 
-    dns_zones: List[DNSZone]
+    dns_zones: list[DNSZone]
     """
     List of the domain's DNS zones.
     """
 
-    linked_products: List[LinkedProduct]
+    linked_products: list[LinkedProduct]
     """
     List of Scaleway resources linked to the domain.
     """
@@ -1130,7 +1130,7 @@ class GetDNSZoneVersionDiffRequest:
 
 @dataclass
 class GetDNSZoneVersionDiffResponse:
-    changes: List[RecordChange]
+    changes: list[RecordChange]
 
 
 @dataclass
@@ -1151,7 +1151,7 @@ class ImportProviderDNSZoneRequest:
 
 @dataclass
 class ImportProviderDNSZoneResponse:
-    records: List[Record]
+    records: list[Record]
 
 
 @dataclass
@@ -1171,13 +1171,13 @@ class ImportRawDNSZoneRequest:
 
 @dataclass
 class ImportRawDNSZoneResponse:
-    records: List[Record]
+    records: list[Record]
 
 
 @dataclass
 class ListContactsResponse:
     total_count: int
-    contacts: List[ContactRoles]
+    contacts: list[ContactRoles]
 
 
 @dataclass
@@ -1195,7 +1195,7 @@ class ListDNSZoneNameserversRequest:
 
 @dataclass
 class ListDNSZoneNameserversResponse:
-    ns: List[Nameserver]
+    ns: list[Nameserver]
     """
     DNS zone name servers returned.
     """
@@ -1253,7 +1253,7 @@ class ListDNSZoneRecordsResponse:
     Total number of DNS zone records.
     """
 
-    records: List[Record]
+    records: list[Record]
     """
     Paginated returned DNS zone records.
     """
@@ -1280,7 +1280,7 @@ class ListDNSZoneVersionRecordsResponse:
     Total number of DNS zones versions records.
     """
 
-    records: List[Record]
+    records: list[Record]
 
 
 @dataclass
@@ -1304,7 +1304,7 @@ class ListDNSZoneVersionsResponse:
     Total number of DNS zones versions.
     """
 
-    versions: List[DNSZoneVersion]
+    versions: list[DNSZoneVersion]
 
 
 @dataclass
@@ -1346,7 +1346,7 @@ class ListDNSZonesRequest:
     DNS zone on which to filter the returned DNS zones.
     """
 
-    dns_zones: Optional[List[str]] = field(default_factory=list)
+    dns_zones: Optional[list[str]] = field(default_factory=list)
     """
     DNS zones on which to filter the returned DNS zones.
     """
@@ -1379,7 +1379,7 @@ class ListDNSZonesResponse:
     Total number of DNS zones matching the requested criteria.
     """
 
-    dns_zones: List[DNSZone]
+    dns_zones: list[DNSZone]
     """
     Paginated returned DNS zones.
     """
@@ -1388,25 +1388,25 @@ class ListDNSZonesResponse:
 @dataclass
 class ListDomainHostsResponse:
     total_count: int
-    hosts: List[Host]
+    hosts: list[Host]
 
 
 @dataclass
 class ListDomainsResponse:
     total_count: int
-    domains: List[DomainSummary]
+    domains: list[DomainSummary]
 
 
 @dataclass
 class ListInboundTransfersResponse:
     total_count: int
-    inbound_transfers: List[InboundTransfer]
+    inbound_transfers: list[InboundTransfer]
 
 
 @dataclass
 class ListRenewableDomainsResponse:
     total_count: int
-    domains: List[RenewableDomain]
+    domains: list[RenewableDomain]
 
 
 @dataclass
@@ -1420,18 +1420,18 @@ class ListSSLCertificatesRequest:
 @dataclass
 class ListSSLCertificatesResponse:
     total_count: int
-    certificates: List[SSLCertificate]
+    certificates: list[SSLCertificate]
 
 
 @dataclass
 class ListTasksResponse:
     total_count: int
-    tasks: List[Task]
+    tasks: list[Task]
 
 
 @dataclass
 class ListTldsResponse:
-    tlds: List[Tld]
+    tlds: list[Tld]
     """
     Array of TLDs.
     """
@@ -1444,7 +1444,7 @@ class ListTldsResponse:
 
 @dataclass
 class OrderResponse:
-    domains: List[str]
+    domains: list[str]
     organization_id: str
     project_id: str
     task_id: str
@@ -1471,7 +1471,7 @@ class RefreshDNSZoneRequest:
 
 @dataclass
 class RefreshDNSZoneResponse:
-    dns_zones: List[DNSZone]
+    dns_zones: list[DNSZone]
     """
     DNS zones returned.
     """
@@ -1488,7 +1488,7 @@ class RegisterExternalDomainResponse:
 
 @dataclass
 class RegistrarApiBuyDomainsRequest:
-    domains: List[str]
+    domains: list[str]
     duration_in_years: int
     project_id: Optional[str] = None
     owner_contact_id: Optional[str] = None
@@ -1506,8 +1506,8 @@ class RegistrarApiBuyDomainsRequest:
 
 @dataclass
 class RegistrarApiCheckContactsCompatibilityRequest:
-    domains: Optional[List[str]] = field(default_factory=list)
-    tlds: Optional[List[str]] = field(default_factory=list)
+    domains: Optional[list[str]] = field(default_factory=list)
+    tlds: Optional[list[str]] = field(default_factory=list)
     owner_contact_id: Optional[str] = None
 
     owner_contact: Optional[NewContact] = None
@@ -1525,7 +1525,7 @@ class RegistrarApiCheckContactsCompatibilityRequest:
 class RegistrarApiCreateDomainHostRequest:
     domain: str
     name: str
-    ips: Optional[List[str]] = field(default_factory=list)
+    ips: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -1631,14 +1631,14 @@ class RegistrarApiListTasksRequest:
     project_id: Optional[str] = None
     organization_id: Optional[str] = None
     domain: Optional[str] = None
-    types: Optional[List[TaskType]] = field(default_factory=list)
-    statuses: Optional[List[TaskStatus]] = field(default_factory=list)
+    types: Optional[list[TaskType]] = field(default_factory=list)
+    statuses: Optional[list[TaskStatus]] = field(default_factory=list)
     order_by: Optional[ListTasksRequestOrderBy] = None
 
 
 @dataclass
 class RegistrarApiListTldsRequest:
-    tlds: Optional[List[str]] = field(default_factory=list)
+    tlds: Optional[list[str]] = field(default_factory=list)
     """
     Array of TLDs to return.
     """
@@ -1672,14 +1672,14 @@ class RegistrarApiRegisterExternalDomainRequest:
 
 @dataclass
 class RegistrarApiRenewDomainsRequest:
-    domains: List[str]
+    domains: list[str]
     duration_in_years: int
     force_late_renewal: Optional[bool] = False
 
 
 @dataclass
 class RegistrarApiSearchAvailableDomainsRequest:
-    domains: List[str]
+    domains: list[str]
     """
     A list of domain to search, TLD is optional.
     """
@@ -1689,7 +1689,7 @@ class RegistrarApiSearchAvailableDomainsRequest:
     Search exact match.
     """
 
-    tlds: Optional[List[str]] = field(default_factory=list)
+    tlds: Optional[list[str]] = field(default_factory=list)
     """
     Array of tlds to search on.
     """
@@ -1706,7 +1706,7 @@ class RegistrarApiTradeDomainRequest:
 
 @dataclass
 class RegistrarApiTransferInDomainRequest:
-    domains: List[TransferInDomainRequestTransferRequest]
+    domains: list[TransferInDomainRequestTransferRequest]
     project_id: Optional[str] = None
     owner_contact_id: Optional[str] = None
 
@@ -1742,7 +1742,7 @@ class RegistrarApiUpdateContactRequest:
     company_identification_code: Optional[str] = None
     lang: Optional[StdLanguageCode] = None
     resale: Optional[bool] = None
-    questions: Optional[List[UpdateContactRequestQuestion]] = field(
+    questions: Optional[list[UpdateContactRequestQuestion]] = field(
         default_factory=list
     )
     extension_fr: Optional[ContactExtensionFR] = None
@@ -1756,7 +1756,7 @@ class RegistrarApiUpdateContactRequest:
 class RegistrarApiUpdateDomainHostRequest:
     domain: str
     name: str
-    ips: Optional[List[str]] = field(default_factory=list)
+    ips: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -1787,7 +1787,7 @@ class RestoreDNSZoneVersionResponse:
 
 @dataclass
 class SearchAvailableDomainsResponse:
-    available_domains: List[AvailableDomain]
+    available_domains: list[AvailableDomain]
     """
     Array of available domains.
     """
@@ -1800,7 +1800,7 @@ class UpdateDNSZoneNameserversRequest:
     DNS zone in which to update the DNS zone name servers.
     """
 
-    ns: List[Nameserver]
+    ns: list[Nameserver]
     """
     New DNS zone name servers.
     """
@@ -1808,7 +1808,7 @@ class UpdateDNSZoneNameserversRequest:
 
 @dataclass
 class UpdateDNSZoneNameserversResponse:
-    ns: List[Nameserver]
+    ns: list[Nameserver]
     """
     DNS zone name servers returned.
     """
@@ -1821,7 +1821,7 @@ class UpdateDNSZoneRecordsRequest:
     DNS zone in which to update the DNS zone records.
     """
 
-    changes: List[RecordChange]
+    changes: list[RecordChange]
     """
     Changes made to the records.
     """
@@ -1844,7 +1844,7 @@ class UpdateDNSZoneRecordsRequest:
 
 @dataclass
 class UpdateDNSZoneRecordsResponse:
-    records: List[Record]
+    records: list[Record]
     """
     DNS zone records returned.
     """

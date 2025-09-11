@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -24,7 +24,7 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
             "Unmarshalling the type 'DatabaseBackup' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -109,7 +109,7 @@ def unmarshal_Database(data: Any) -> Database:
             "Unmarshalling the type 'Database' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -198,7 +198,7 @@ def unmarshal_ListDatabaseBackupsResponse(data: Any) -> ListDatabaseBackupsRespo
             "Unmarshalling the type 'ListDatabaseBackupsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("backups", None)
     if field is not None:
@@ -223,7 +223,7 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
             "Unmarshalling the type 'ListDatabasesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("databases", None)
     if field is not None:
@@ -245,8 +245,8 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
 def marshal_CreateDatabaseRequest(
     request: CreateDatabaseRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -271,8 +271,8 @@ def marshal_CreateDatabaseRequest(
 def marshal_RestoreDatabaseFromBackupRequest(
     request: RestoreDatabaseFromBackupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.backup_id is not None:
         output["backup_id"] = request.backup_id
@@ -283,8 +283,8 @@ def marshal_RestoreDatabaseFromBackupRequest(
 def marshal_UpdateDatabaseRequest(
     request: UpdateDatabaseRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.cpu_min is not None:
         output["cpu_min"] = request.cpu_min

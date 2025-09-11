@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -70,7 +70,7 @@ def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
             "Unmarshalling the type 'ContactPointEmail' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("to", None)
     if field is not None:
@@ -87,7 +87,7 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
             "Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("region", None)
     if field is not None:
@@ -116,7 +116,7 @@ def unmarshal_DataSource(data: Any) -> DataSource:
             "Unmarshalling the type 'DataSource' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -193,7 +193,7 @@ def unmarshal_GrafanaProductDashboard(data: Any) -> GrafanaProductDashboard:
             "Unmarshalling the type 'GrafanaProductDashboard' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -234,7 +234,7 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
             "Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -269,7 +269,7 @@ def unmarshal_Plan(data: Any) -> Plan:
             "Unmarshalling the type 'Plan' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -328,7 +328,7 @@ def unmarshal_Token(data: Any) -> Token:
             "Unmarshalling the type 'Token' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -387,7 +387,7 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
             "Unmarshalling the type 'AlertManager' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("alert_manager_enabled", None)
     if field is not None:
@@ -422,7 +422,7 @@ def unmarshal_DisableAlertRulesResponse(data: Any) -> DisableAlertRulesResponse:
             "Unmarshalling the type 'DisableAlertRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("disabled_rule_ids", None)
     if field is not None:
@@ -439,7 +439,7 @@ def unmarshal_EnableAlertRulesResponse(data: Any) -> EnableAlertRulesResponse:
             "Unmarshalling the type 'EnableAlertRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("enabled_rule_ids", None)
     if field is not None:
@@ -456,7 +456,7 @@ def unmarshal_GetConfigResponseRetention(data: Any) -> GetConfigResponseRetentio
             "Unmarshalling the type 'GetConfigResponseRetention' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("min_days", None)
     if field is not None:
@@ -485,7 +485,7 @@ def unmarshal_GetConfigResponse(data: Any) -> GetConfigResponse:
             "Unmarshalling the type 'GetConfigResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("custom_metrics_retention", None)
     if field is not None:
@@ -526,7 +526,7 @@ def unmarshal_RulesCount(data: Any) -> RulesCount:
             "Unmarshalling the type 'RulesCount' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("data_source_id", None)
     if field is not None:
@@ -555,7 +555,7 @@ def unmarshal_GetRulesCountResponse(data: Any) -> GetRulesCountResponse:
             "Unmarshalling the type 'GetRulesCountResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules_count_by_datasource", None)
     if field is not None:
@@ -586,7 +586,7 @@ def unmarshal_Grafana(data: Any) -> Grafana:
             "Unmarshalling the type 'Grafana' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("grafana_url", None)
     if field is not None:
@@ -603,7 +603,7 @@ def unmarshal_PreconfiguredAlertData(data: Any) -> PreconfiguredAlertData:
             "Unmarshalling the type 'PreconfiguredAlertData' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("preconfigured_rule_id", None)
     if field is not None:
@@ -644,7 +644,7 @@ def unmarshal_Alert(data: Any) -> Alert:
             "Unmarshalling the type 'Alert' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("region", None)
     if field is not None:
@@ -715,7 +715,7 @@ def unmarshal_ListAlertsResponse(data: Any) -> ListAlertsResponse:
             "Unmarshalling the type 'ListAlertsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -740,7 +740,7 @@ def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
             "Unmarshalling the type 'ListContactPointsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -777,7 +777,7 @@ def unmarshal_ListDataSourcesResponse(data: Any) -> ListDataSourcesResponse:
             "Unmarshalling the type 'ListDataSourcesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -804,7 +804,7 @@ def unmarshal_ListGrafanaProductDashboardsResponse(
             "Unmarshalling the type 'ListGrafanaProductDashboardsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -831,7 +831,7 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
             "Unmarshalling the type 'ListGrafanaUsersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -856,7 +856,7 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
             "Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -881,7 +881,7 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
             "Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -906,7 +906,7 @@ def unmarshal_Usage(data: Any) -> Usage:
             "Unmarshalling the type 'Usage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("project_id", None)
     if field is not None:
@@ -965,7 +965,7 @@ def unmarshal_UsageOverview(data: Any) -> UsageOverview:
             "Unmarshalling the type 'UsageOverview' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("scaleway_metrics_usage", None)
     if field is not None:
@@ -1003,8 +1003,8 @@ def unmarshal_UsageOverview(data: Any) -> UsageOverview:
 def marshal_GlobalApiCreateGrafanaUserRequest(
     request: GlobalApiCreateGrafanaUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.login is not None:
         output["login"] = request.login
@@ -1023,8 +1023,8 @@ def marshal_GlobalApiCreateGrafanaUserRequest(
 def marshal_GlobalApiResetGrafanaUserPasswordRequest(
     request: GlobalApiResetGrafanaUserPasswordRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1037,8 +1037,8 @@ def marshal_GlobalApiResetGrafanaUserPasswordRequest(
 def marshal_GlobalApiSelectPlanRequest(
     request: GlobalApiSelectPlanRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1054,8 +1054,8 @@ def marshal_GlobalApiSelectPlanRequest(
 def marshal_GlobalApiSyncGrafanaDataSourcesRequest(
     request: GlobalApiSyncGrafanaDataSourcesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1068,8 +1068,8 @@ def marshal_GlobalApiSyncGrafanaDataSourcesRequest(
 def marshal_ContactPointEmail(
     request: ContactPointEmail,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.to is not None:
         output["to"] = request.to
@@ -1080,8 +1080,8 @@ def marshal_ContactPointEmail(
 def marshal_RegionalApiCreateContactPointRequest(
     request: RegionalApiCreateContactPointRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1108,8 +1108,8 @@ def marshal_RegionalApiCreateContactPointRequest(
 def marshal_RegionalApiCreateDataSourceRequest(
     request: RegionalApiCreateDataSourceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1131,8 +1131,8 @@ def marshal_RegionalApiCreateDataSourceRequest(
 def marshal_RegionalApiCreateTokenRequest(
     request: RegionalApiCreateTokenRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1151,8 +1151,8 @@ def marshal_RegionalApiCreateTokenRequest(
 def marshal_RegionalApiDeleteContactPointRequest(
     request: RegionalApiDeleteContactPointRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1176,8 +1176,8 @@ def marshal_RegionalApiDeleteContactPointRequest(
 def marshal_RegionalApiDisableAlertManagerRequest(
     request: RegionalApiDisableAlertManagerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1190,8 +1190,8 @@ def marshal_RegionalApiDisableAlertManagerRequest(
 def marshal_RegionalApiDisableAlertRulesRequest(
     request: RegionalApiDisableAlertRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1207,8 +1207,8 @@ def marshal_RegionalApiDisableAlertRulesRequest(
 def marshal_RegionalApiDisableManagedAlertsRequest(
     request: RegionalApiDisableManagedAlertsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1221,8 +1221,8 @@ def marshal_RegionalApiDisableManagedAlertsRequest(
 def marshal_RegionalApiEnableAlertManagerRequest(
     request: RegionalApiEnableAlertManagerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1235,8 +1235,8 @@ def marshal_RegionalApiEnableAlertManagerRequest(
 def marshal_RegionalApiEnableAlertRulesRequest(
     request: RegionalApiEnableAlertRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1252,8 +1252,8 @@ def marshal_RegionalApiEnableAlertRulesRequest(
 def marshal_RegionalApiEnableManagedAlertsRequest(
     request: RegionalApiEnableManagedAlertsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1266,8 +1266,8 @@ def marshal_RegionalApiEnableManagedAlertsRequest(
 def marshal_RegionalApiTriggerTestAlertRequest(
     request: RegionalApiTriggerTestAlertRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1280,8 +1280,8 @@ def marshal_RegionalApiTriggerTestAlertRequest(
 def marshal_RegionalApiUpdateContactPointRequest(
     request: RegionalApiUpdateContactPointRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1308,8 +1308,8 @@ def marshal_RegionalApiUpdateContactPointRequest(
 def marshal_RegionalApiUpdateDataSourceRequest(
     request: RegionalApiUpdateDataSourceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

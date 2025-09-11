@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -95,10 +95,10 @@ class VpcgwV2API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        types: Optional[List[str]] = None,
-        status: Optional[List[GatewayStatus]] = None,
-        private_network_ids: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        types: Optional[list[str]] = None,
+        status: Optional[list[GatewayStatus]] = None,
+        private_network_ids: Optional[list[str]] = None,
         include_legacy: Optional[bool] = None,
     ) -> ListGatewaysResponse:
         """
@@ -158,12 +158,12 @@ class VpcgwV2API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        types: Optional[List[str]] = None,
-        status: Optional[List[GatewayStatus]] = None,
-        private_network_ids: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        types: Optional[list[str]] = None,
+        status: Optional[list[GatewayStatus]] = None,
+        private_network_ids: Optional[list[str]] = None,
         include_legacy: Optional[bool] = None,
-    ) -> List[Gateway]:
+    ) -> list[Gateway]:
         """
         List Public Gateways.
         List Public Gateways in a given Scaleway Organization or Project. By default, results are displayed in ascending order of creation date.
@@ -179,7 +179,7 @@ class VpcgwV2API(API):
         :param status: Filter for gateways with these status. Use `unknown` to include all statuses.
         :param private_network_ids: Filter for gateways attached to these Private Networks.
         :param include_legacy: Include also legacy gateways.
-        :return: :class:`List[Gateway] <List[Gateway]>`
+        :return: :class:`list[Gateway] <list[Gateway]>`
 
         Usage:
         ::
@@ -285,7 +285,7 @@ class VpcgwV2API(API):
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         ip_id: Optional[str] = None,
         bastion_port: Optional[int] = None,
     ) -> Gateway:
@@ -343,7 +343,7 @@ class VpcgwV2API(API):
         gateway_id: str,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         enable_bastion: Optional[bool] = None,
         bastion_port: Optional[int] = None,
         enable_smtp: Optional[bool] = None,
@@ -478,9 +478,9 @@ class VpcgwV2API(API):
         order_by: Optional[ListGatewayNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        status: Optional[List[GatewayNetworkStatus]] = None,
-        gateway_ids: Optional[List[str]] = None,
-        private_network_ids: Optional[List[str]] = None,
+        status: Optional[list[GatewayNetworkStatus]] = None,
+        gateway_ids: Optional[list[str]] = None,
+        private_network_ids: Optional[list[str]] = None,
         masquerade_enabled: Optional[bool] = None,
     ) -> ListGatewayNetworksResponse:
         """
@@ -528,11 +528,11 @@ class VpcgwV2API(API):
         order_by: Optional[ListGatewayNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        status: Optional[List[GatewayNetworkStatus]] = None,
-        gateway_ids: Optional[List[str]] = None,
-        private_network_ids: Optional[List[str]] = None,
+        status: Optional[list[GatewayNetworkStatus]] = None,
+        gateway_ids: Optional[list[str]] = None,
+        private_network_ids: Optional[list[str]] = None,
         masquerade_enabled: Optional[bool] = None,
-    ) -> List[GatewayNetwork]:
+    ) -> list[GatewayNetwork]:
         """
         List Public Gateway connections to Private Networks.
         List the connections between Public Gateways and Private Networks (a connection = a GatewayNetwork). You can choose to filter by `gateway-id` to list all Private Networks attached to the specified Public Gateway, or by `private_network_id` to list all Public Gateways attached to the specified Private Network. Other query parameters are also available. The result is an array of GatewayNetwork objects, each giving details of the connection between a given Public Gateway and a given Private Network.
@@ -544,7 +544,7 @@ class VpcgwV2API(API):
         :param gateway_ids: Filter for GatewayNetworks connected to these gateways.
         :param private_network_ids: Filter for GatewayNetworks connected to these Private Networks.
         :param masquerade_enabled: Filter for GatewayNetworks with this `enable_masquerade` setting.
-        :return: :class:`List[GatewayNetwork] <List[GatewayNetwork]>`
+        :return: :class:`list[GatewayNetwork] <list[GatewayNetwork]>`
 
         Usage:
         ::
@@ -787,8 +787,8 @@ class VpcgwV2API(API):
         order_by: Optional[ListPatRulesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        gateway_ids: Optional[List[str]] = None,
-        private_ips: Optional[List[str]] = None,
+        gateway_ids: Optional[list[str]] = None,
+        private_ips: Optional[list[str]] = None,
         protocol: Optional[PatRuleProtocol] = None,
     ) -> ListPatRulesResponse:
         """
@@ -834,10 +834,10 @@ class VpcgwV2API(API):
         order_by: Optional[ListPatRulesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        gateway_ids: Optional[List[str]] = None,
-        private_ips: Optional[List[str]] = None,
+        gateway_ids: Optional[list[str]] = None,
+        private_ips: Optional[list[str]] = None,
         protocol: Optional[PatRuleProtocol] = None,
-    ) -> List[PatRule]:
+    ) -> list[PatRule]:
         """
         List PAT rules.
         List PAT rules. You can filter by gateway ID to list all PAT rules for a particular gateway, or filter for PAT rules targeting a specific IP address or using a specific protocol.
@@ -848,7 +848,7 @@ class VpcgwV2API(API):
         :param gateway_ids: Filter for PAT rules on these gateways.
         :param private_ips: Filter for PAT rules targeting these private ips.
         :param protocol: Filter for PAT rules with this protocol.
-        :return: :class:`List[PatRule] <List[PatRule]>`
+        :return: :class:`list[PatRule] <list[PatRule]>`
 
         Usage:
         ::
@@ -1011,7 +1011,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_id: str,
-        pat_rules: List[SetPatRulesRequestRule],
+        pat_rules: list[SetPatRulesRequestRule],
         zone: Optional[ScwZone] = None,
     ) -> SetPatRulesResponse:
         """
@@ -1115,7 +1115,7 @@ class VpcgwV2API(API):
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         reverse: Optional[str] = None,
         is_free: Optional[bool] = None,
     ) -> ListIPsResponse:
@@ -1169,10 +1169,10 @@ class VpcgwV2API(API):
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         reverse: Optional[str] = None,
         is_free: Optional[bool] = None,
-    ) -> List[IP]:
+    ) -> list[IP]:
         """
         List IPs.
         List Public Gateway flexible IP addresses. A number of filter options are available for limiting results in the response.
@@ -1185,7 +1185,7 @@ class VpcgwV2API(API):
         :param tags: Filter for IP addresses with these tags.
         :param reverse: Filter for IP addresses that have a reverse containing this string.
         :param is_free: Filter based on whether the IP is attached to a gateway or not.
-        :return: :class:`List[IP] <List[IP]>`
+        :return: :class:`list[IP] <list[IP]>`
 
         Usage:
         ::
@@ -1247,7 +1247,7 @@ class VpcgwV2API(API):
         *,
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> IP:
         """
         Reserve an IP.
@@ -1286,7 +1286,7 @@ class VpcgwV2API(API):
         *,
         ip_id: str,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         reverse: Optional[str] = None,
         gateway_id: Optional[str] = None,
     ) -> IP:
@@ -1440,7 +1440,7 @@ class VpcgwV2API(API):
         *,
         gateway_id: str,
         zone: Optional[ScwZone] = None,
-        ip_ranges: Optional[List[str]] = None,
+        ip_ranges: Optional[list[str]] = None,
     ) -> SetBastionAllowedIPsResponse:
         """
         Set all IP ranges allowed for SSH bastion.

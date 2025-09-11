@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -157,7 +157,7 @@ class ContainerV1Beta1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Namespace]:
+    ) -> list[Namespace]:
         """
         List all your namespaces.
         List all namespaces in a specified region.
@@ -168,7 +168,7 @@ class ContainerV1Beta1API(API):
         :param name: Name of the namespaces.
         :param organization_id: UUID of the Organization the namespace belongs to.
         :param project_id: UUID of the Project the namespace belongs to.
-        :return: :class:`List[Namespace] <List[Namespace]>`
+        :return: :class:`list[Namespace] <list[Namespace]>`
 
         Usage:
         ::
@@ -267,11 +267,11 @@ class ContainerV1Beta1API(API):
         *,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         project_id: Optional[str] = None,
         description: Optional[str] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
-        tags: Optional[List[str]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
+        tags: Optional[list[str]] = None,
         activate_vpc_integration: Optional[bool] = None,
     ) -> Namespace:
         """
@@ -323,10 +323,10 @@ class ContainerV1Beta1API(API):
         *,
         namespace_id: str,
         region: Optional[ScwRegion] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
-        tags: Optional[List[str]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Namespace:
         """
         Update an existing namespace.
@@ -471,7 +471,7 @@ class ContainerV1Beta1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Container]:
+    ) -> list[Container]:
         """
         List all your containers.
         List all containers for a specified region.
@@ -483,7 +483,7 @@ class ContainerV1Beta1API(API):
         :param name: Name of the container.
         :param organization_id: UUID of the Organization the container belongs to.
         :param project_id: UUID of the Project the container belongs to.
-        :return: :class:`List[Container] <List[Container]>`
+        :return: :class:`list[Container] <list[Container]>`
 
         Usage:
         ::
@@ -586,7 +586,7 @@ class ContainerV1Beta1API(API):
         namespace_id: str,
         name: str,
         region: Optional[ScwRegion] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         memory_limit: Optional[int] = None,
@@ -598,16 +598,16 @@ class ContainerV1Beta1API(API):
         max_concurrency: Optional[int] = None,
         protocol: Optional[ContainerProtocol] = None,
         port: Optional[int] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
         http_option: Optional[ContainerHttpOption] = None,
         sandbox: Optional[ContainerSandbox] = None,
         local_storage_limit: Optional[int] = None,
         scaling_option: Optional[ContainerScalingOption] = None,
         health_check: Optional[ContainerHealthCheckSpec] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         private_network_id: Optional[str] = None,
-        command: Optional[List[str]] = None,
-        args: Optional[List[str]] = None,
+        command: Optional[list[str]] = None,
+        args: Optional[list[str]] = None,
     ) -> Container:
         """
         Create a new container.
@@ -700,7 +700,7 @@ class ContainerV1Beta1API(API):
         *,
         container_id: str,
         region: Optional[ScwRegion] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         memory_limit: Optional[int] = None,
@@ -713,16 +713,16 @@ class ContainerV1Beta1API(API):
         max_concurrency: Optional[int] = None,
         protocol: Optional[ContainerProtocol] = None,
         port: Optional[int] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
         http_option: Optional[ContainerHttpOption] = None,
         sandbox: Optional[ContainerSandbox] = None,
         local_storage_limit: Optional[int] = None,
         scaling_option: Optional[ContainerScalingOption] = None,
         health_check: Optional[ContainerHealthCheckSpec] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         private_network_id: Optional[str] = None,
-        command: Optional[List[str]] = None,
-        args: Optional[List[str]] = None,
+        command: Optional[list[str]] = None,
+        args: Optional[list[str]] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -945,7 +945,7 @@ class ContainerV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListCronsRequestOrderBy] = None,
-    ) -> List[Cron]:
+    ) -> list[Cron]:
         """
         List all your crons.
         :param container_id: UUID of the container invoked by the cron.
@@ -953,7 +953,7 @@ class ContainerV1Beta1API(API):
         :param page: Page number.
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
-        :return: :class:`List[Cron] <List[Cron]>`
+        :return: :class:`list[Cron] <list[Cron]>`
 
         Usage:
         ::
@@ -1053,7 +1053,7 @@ class ContainerV1Beta1API(API):
         container_id: str,
         schedule: str,
         region: Optional[ScwRegion] = None,
-        args: Optional[Dict[str, Any]] = None,
+        args: Optional[dict[str, Any]] = None,
         name: Optional[str] = None,
     ) -> Cron:
         """
@@ -1103,7 +1103,7 @@ class ContainerV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         container_id: Optional[str] = None,
         schedule: Optional[str] = None,
-        args: Optional[Dict[str, Any]] = None,
+        args: Optional[dict[str, Any]] = None,
         name: Optional[str] = None,
     ) -> Cron:
         """
@@ -1236,7 +1236,7 @@ class ContainerV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDomainsRequestOrderBy] = None,
-    ) -> List[Domain]:
+    ) -> list[Domain]:
         """
         List all custom domains.
         List all custom domains in a specified region.
@@ -1245,7 +1245,7 @@ class ContainerV1Beta1API(API):
         :param page: Page number.
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
-        :return: :class:`List[Domain] <List[Domain]>`
+        :return: :class:`list[Domain] <list[Domain]>`
 
         Usage:
         ::
@@ -1591,7 +1591,7 @@ class ContainerV1Beta1API(API):
         order_by: Optional[ListTokensRequestOrderBy] = None,
         container_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
-    ) -> List[Token]:
+    ) -> list[Token]:
         """
         List all tokens.
         List all tokens belonging to a specified Organization or Project.
@@ -1601,7 +1601,7 @@ class ContainerV1Beta1API(API):
         :param order_by: Order of the tokens.
         :param container_id: UUID of the container the token belongs to.
         :param namespace_id: UUID of the namespace the token belongs to.
-        :return: :class:`List[Token] <List[Token]>`
+        :return: :class:`list[Token] <list[Token]>`
 
         Usage:
         ::
@@ -1853,7 +1853,7 @@ class ContainerV1Beta1API(API):
         container_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Trigger]:
+    ) -> list[Trigger]:
         """
         List all triggers.
         List all triggers belonging to a specified Organization or Project.
@@ -1867,7 +1867,7 @@ class ContainerV1Beta1API(API):
         One-Of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
         :param project_id: ID of the project the triggers belongs to.
         One-Of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
-        :return: :class:`List[Trigger] <List[Trigger]>`
+        :return: :class:`list[Trigger] <list[Trigger]>`
 
         Usage:
         ::

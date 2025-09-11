@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -48,7 +48,7 @@ def unmarshal_OS(data: Any) -> OS:
             "Unmarshalling the type 'OS' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -113,7 +113,7 @@ def unmarshal_Commitment(data: Any) -> Commitment:
             "Unmarshalling the type 'Commitment' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -136,7 +136,7 @@ def unmarshal_Server(data: Any) -> Server:
             "Unmarshalling the type 'Server' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -275,7 +275,7 @@ def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
             "Unmarshalling the type 'ServerPrivateNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -340,7 +340,7 @@ def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
             "Unmarshalling the type 'ServerTypeCPU' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -369,7 +369,7 @@ def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
             "Unmarshalling the type 'ServerTypeDisk' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("capacity", None)
     if field is not None:
@@ -392,7 +392,7 @@ def unmarshal_ServerTypeGPU(data: Any) -> ServerTypeGPU:
             "Unmarshalling the type 'ServerTypeGPU' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("count", None)
     if field is not None:
@@ -409,7 +409,7 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
             "Unmarshalling the type 'ServerTypeMemory' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("capacity", None)
     if field is not None:
@@ -432,7 +432,7 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
             "Unmarshalling the type 'ServerTypeNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("public_bandwidth_bps", None)
     if field is not None:
@@ -455,7 +455,7 @@ def unmarshal_ServerType(data: Any) -> ServerType:
             "Unmarshalling the type 'ServerType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -520,7 +520,7 @@ def unmarshal_BatchCreateServersResponse(data: Any) -> BatchCreateServersRespons
             "Unmarshalling the type 'BatchCreateServersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("servers", None)
     if field is not None:
@@ -541,7 +541,7 @@ def unmarshal_ConnectivityDiagnosticServerHealth(
             "Unmarshalling the type 'ConnectivityDiagnosticServerHealth' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("is_server_alive", None)
     if field is not None:
@@ -590,7 +590,7 @@ def unmarshal_ConnectivityDiagnostic(data: Any) -> ConnectivityDiagnostic:
             "Unmarshalling the type 'ConnectivityDiagnostic' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -641,7 +641,7 @@ def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
             "Unmarshalling the type 'ListOSResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -666,7 +666,7 @@ def unmarshal_ListServerPrivateNetworksResponse(
             "Unmarshalling the type 'ListServerPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server_private_networks", None)
     if field is not None:
@@ -693,7 +693,7 @@ def unmarshal_ListServerTypesResponse(data: Any) -> ListServerTypesResponse:
             "Unmarshalling the type 'ListServerTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server_types", None)
     if field is not None:
@@ -712,7 +712,7 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
             "Unmarshalling the type 'ListServersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -739,7 +739,7 @@ def unmarshal_SetServerPrivateNetworksResponse(
             "Unmarshalling the type 'SetServerPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server_private_networks", None)
     if field is not None:
@@ -762,7 +762,7 @@ def unmarshal_StartConnectivityDiagnosticResponse(
             "Unmarshalling the type 'StartConnectivityDiagnosticResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("diagnostic_id", None)
     if field is not None:
@@ -776,8 +776,8 @@ def unmarshal_StartConnectivityDiagnosticResponse(
 def marshal_BatchCreateServersRequestBatchInnerCreateServerRequest(
     request: BatchCreateServersRequestBatchInnerCreateServerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -788,8 +788,8 @@ def marshal_BatchCreateServersRequestBatchInnerCreateServerRequest(
 def marshal_BatchCreateServersRequest(
     request: BatchCreateServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -825,8 +825,8 @@ def marshal_BatchCreateServersRequest(
 def marshal_CreateServerRequest(
     request: CreateServerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -857,8 +857,8 @@ def marshal_CreateServerRequest(
 def marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
     request: PrivateNetworkApiAddServerPrivateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
@@ -872,8 +872,8 @@ def marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
 def marshal_PrivateNetworkApiSetServerPrivateNetworksRequest(
     request: PrivateNetworkApiSetServerPrivateNetworksRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.per_private_network_ipam_ip_ids is not None:
         output["per_private_network_ipam_ip_ids"] = {
@@ -886,8 +886,8 @@ def marshal_PrivateNetworkApiSetServerPrivateNetworksRequest(
 def marshal_ReinstallServerRequest(
     request: ReinstallServerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.os_id is not None:
         output["os_id"] = request.os_id
@@ -898,8 +898,8 @@ def marshal_ReinstallServerRequest(
 def marshal_StartConnectivityDiagnosticRequest(
     request: StartConnectivityDiagnosticRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.server_id is not None:
         output["server_id"] = request.server_id
@@ -910,8 +910,8 @@ def marshal_StartConnectivityDiagnosticRequest(
 def marshal_CommitmentTypeValue(
     request: CommitmentTypeValue,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.commitment_type is not None:
         output["commitment_type"] = request.commitment_type
@@ -922,8 +922,8 @@ def marshal_CommitmentTypeValue(
 def marshal_UpdateServerRequest(
     request: UpdateServerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

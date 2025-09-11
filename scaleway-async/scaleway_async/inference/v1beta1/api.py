@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -78,7 +78,7 @@ class InferenceV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListDeploymentsResponse:
         """
         List inference deployments.
@@ -131,8 +131,8 @@ class InferenceV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Deployment]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Deployment]:
         """
         List inference deployments.
         List all your inference deployments.
@@ -144,7 +144,7 @@ class InferenceV1Beta1API(API):
         :param organization_id: Filter by Organization ID.
         :param name: Filter by deployment name.
         :param tags: Filter by tags.
-        :return: :class:`List[Deployment] <List[Deployment]>`
+        :return: :class:`list[Deployment] <list[Deployment]>`
 
         Usage:
         ::
@@ -246,12 +246,12 @@ class InferenceV1Beta1API(API):
         *,
         model_name: str,
         node_type: str,
-        endpoints: List[EndpointSpec],
+        endpoints: list[EndpointSpec],
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         accept_eula: Optional[bool] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         min_size: Optional[int] = None,
         max_size: Optional[int] = None,
     ) -> Deployment:
@@ -314,7 +314,7 @@ class InferenceV1Beta1API(API):
         deployment_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         min_size: Optional[int] = None,
         max_size: Optional[int] = None,
     ) -> Deployment:
@@ -600,7 +600,7 @@ class InferenceV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[ACLRule]:
+    ) -> list[ACLRule]:
         """
         List your ACLs.
         List ACLs for a specific deployment.
@@ -608,7 +608,7 @@ class InferenceV1Beta1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return.
         :param page_size: Maximum number of ACL rules to return per page.
-        :return: :class:`List[ACLRule] <List[ACLRule]>`
+        :return: :class:`list[ACLRule] <list[ACLRule]>`
 
         Usage:
         ::
@@ -635,7 +635,7 @@ class InferenceV1Beta1API(API):
         *,
         deployment_id: str,
         region: Optional[ScwRegion] = None,
-        acls: Optional[List[ACLRuleRequest]] = None,
+        acls: Optional[list[ACLRuleRequest]] = None,
     ) -> AddDeploymentACLRulesResponse:
         """
         Add new ACLs.
@@ -679,7 +679,7 @@ class InferenceV1Beta1API(API):
         *,
         deployment_id: str,
         region: Optional[ScwRegion] = None,
-        acls: Optional[List[ACLRuleRequest]] = None,
+        acls: Optional[list[ACLRuleRequest]] = None,
     ) -> SetDeploymentACLRulesResponse:
         """
         Set new ACL.
@@ -758,7 +758,7 @@ class InferenceV1Beta1API(API):
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListModelsResponse:
         """
         List models.
@@ -807,8 +807,8 @@ class InferenceV1Beta1API(API):
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Model]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Model]:
         """
         List models.
         List all available models.
@@ -819,7 +819,7 @@ class InferenceV1Beta1API(API):
         :param project_id: Filter by Project ID.
         :param name: Filter by model name.
         :param tags: Filter by tags.
-        :return: :class:`List[Model] <List[Model]>`
+        :return: :class:`list[Model] <list[Model]>`
 
         Usage:
         ::
@@ -957,7 +957,7 @@ class InferenceV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[NodeType]:
+    ) -> list[NodeType]:
         """
         List available node types.
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -965,7 +965,7 @@ class InferenceV1Beta1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return.
         :param page_size: Maximum number of node types to return per page.
-        :return: :class:`List[NodeType] <List[NodeType]>`
+        :return: :class:`list[NodeType] <list[NodeType]>`
 
         Usage:
         ::

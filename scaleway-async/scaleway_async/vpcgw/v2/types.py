@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -173,7 +173,7 @@ class IP:
     Owning Project.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the IP address.
     """
@@ -264,12 +264,12 @@ class Gateway:
     Name of the gateway.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the gateway.
     """
 
-    gateway_networks: List[GatewayNetwork]
+    gateway_networks: list[GatewayNetwork]
     """
     GatewayNetwork objects attached to the gateway (each one represents a connection to a Private Network).
     """
@@ -294,7 +294,7 @@ class Gateway:
     Defines whether the gateway uses non-IPAM IP configurations.
     """
 
-    bastion_allowed_ips: List[str]
+    bastion_allowed_ips: list[str]
     """
     Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
     """
@@ -421,7 +421,7 @@ class AddBastionAllowedIPsRequest:
 
 @dataclass
 class AddBastionAllowedIPsResponse:
-    ip_ranges: List[str]
+    ip_ranges: list[str]
     """
     Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
     """
@@ -492,7 +492,7 @@ class CreateGatewayRequest:
     Name for the gateway.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the gateway.
     """
@@ -520,7 +520,7 @@ class CreateIPRequest:
     Project to create the IP address in.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to give to the IP address.
     """
@@ -710,17 +710,17 @@ class ListGatewayNetworksRequest:
     GatewayNetworks per page.
     """
 
-    status: Optional[List[GatewayNetworkStatus]] = field(default_factory=list)
+    status: Optional[list[GatewayNetworkStatus]] = field(default_factory=list)
     """
     Filter for GatewayNetworks with these status. Use `unknown` to include all statuses.
     """
 
-    gateway_ids: Optional[List[str]] = field(default_factory=list)
+    gateway_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter for GatewayNetworks connected to these gateways.
     """
 
-    private_network_ids: Optional[List[str]] = field(default_factory=list)
+    private_network_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter for GatewayNetworks connected to these Private Networks.
     """
@@ -733,7 +733,7 @@ class ListGatewayNetworksRequest:
 
 @dataclass
 class ListGatewayNetworksResponse:
-    gateway_networks: List[GatewayNetwork]
+    gateway_networks: list[GatewayNetwork]
     """
     GatewayNetworks on this page.
     """
@@ -754,7 +754,7 @@ class ListGatewayTypesRequest:
 
 @dataclass
 class ListGatewayTypesResponse:
-    types: List[GatewayType]
+    types: list[GatewayType]
     """
     Available types of Public Gateway.
     """
@@ -799,22 +799,22 @@ class ListGatewaysRequest:
     Filter for gateways which have this search term in their name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter for gateways with these tags.
     """
 
-    types: Optional[List[str]] = field(default_factory=list)
+    types: Optional[list[str]] = field(default_factory=list)
     """
     Filter for gateways of these types.
     """
 
-    status: Optional[List[GatewayStatus]] = field(default_factory=list)
+    status: Optional[list[GatewayStatus]] = field(default_factory=list)
     """
     Filter for gateways with these status. Use `unknown` to include all statuses.
     """
 
-    private_network_ids: Optional[List[str]] = field(default_factory=list)
+    private_network_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter for gateways attached to these Private Networks.
     """
@@ -827,7 +827,7 @@ class ListGatewaysRequest:
 
 @dataclass
 class ListGatewaysResponse:
-    gateways: List[Gateway]
+    gateways: list[Gateway]
     """
     Gateways on this page.
     """
@@ -870,7 +870,7 @@ class ListIPsRequest:
     Filter for IP addresses in this Project.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter for IP addresses with these tags.
     """
@@ -888,7 +888,7 @@ class ListIPsRequest:
 
 @dataclass
 class ListIPsResponse:
-    ips: List[IP]
+    ips: list[IP]
     """
     IP addresses on this page.
     """
@@ -923,12 +923,12 @@ class ListPatRulesRequest:
     PAT rules per page.
     """
 
-    gateway_ids: Optional[List[str]] = field(default_factory=list)
+    gateway_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter for PAT rules on these gateways.
     """
 
-    private_ips: Optional[List[str]] = field(default_factory=list)
+    private_ips: Optional[list[str]] = field(default_factory=list)
     """
     Filter for PAT rules targeting these private ips.
     """
@@ -941,7 +941,7 @@ class ListPatRulesRequest:
 
 @dataclass
 class ListPatRulesResponse:
-    pat_rules: List[PatRule]
+    pat_rules: list[PatRule]
     """
     Array of PAT rules matching the filter.
     """
@@ -977,7 +977,7 @@ class SetBastionAllowedIPsRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ip_ranges: Optional[List[str]] = field(default_factory=list)
+    ip_ranges: Optional[list[str]] = field(default_factory=list)
     """
     New list of IP ranges (each range in CIDR notation) allowed to connect to the SSH bastion.
     """
@@ -985,7 +985,7 @@ class SetBastionAllowedIPsRequest:
 
 @dataclass
 class SetBastionAllowedIPsResponse:
-    ip_ranges: List[str]
+    ip_ranges: list[str]
     """
     Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
     """
@@ -998,7 +998,7 @@ class SetPatRulesRequest:
     ID of the gateway on which to set the PAT rules.
     """
 
-    pat_rules: List[SetPatRulesRequestRule]
+    pat_rules: list[SetPatRulesRequestRule]
     """
     New list of PAT rules.
     """
@@ -1011,7 +1011,7 @@ class SetPatRulesRequest:
 
 @dataclass
 class SetPatRulesResponse:
-    pat_rules: List[PatRule]
+    pat_rules: list[PatRule]
     """
     List of PAT rules.
     """
@@ -1062,7 +1062,7 @@ class UpdateGatewayRequest:
     Name for the gateway.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the gateway.
     """
@@ -1095,7 +1095,7 @@ class UpdateIPRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to give to the IP address.
     """

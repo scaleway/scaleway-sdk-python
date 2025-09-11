@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -152,12 +152,12 @@ class Endpoint:
     UUID of the endpoint.
     """
 
-    ips: List[str]
+    ips: list[str]
     """
     List of IPv4 addresses of the endpoint.
     """
 
-    dns_records: List[str]
+    dns_records: list[str]
     """
     List of DNS records of the endpoint.
     """
@@ -357,12 +357,12 @@ class Instance:
     MongoDB® engine version of the Database Instance.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the Database Instance.
     """
 
-    settings: List[InstanceSetting]
+    settings: list[InstanceSetting]
     """
     Advanced settings of the Database Instance.
     """
@@ -377,7 +377,7 @@ class Instance:
     Node type of the Database Instance.
     """
 
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     List of Database Instance endpoints.
     """
@@ -430,7 +430,7 @@ class NodeType:
     Quantity of RAM.
     """
 
-    available_volume_types: List[NodeTypeVolumeType]
+    available_volume_types: list[NodeTypeVolumeType]
     """
     Available storage options for the node type.
     """
@@ -521,7 +521,7 @@ class User:
     Name of the user (Length must be between 1 and 63 characters. First character must be an alphabet character (a-zA-Z). Only a-zA-Z0-9_$- characters are accepted).
     """
 
-    roles: List[UserRole]
+    roles: list[UserRole]
     """
     List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
@@ -534,7 +534,7 @@ class Version:
     MongoDB® engine version.
     """
 
-    available_settings: List[Setting]
+    available_settings: list[Setting]
     """
     Instance settings available to be updated.
     """
@@ -613,7 +613,7 @@ class CreateInstanceRequest:
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to apply to the Database Instance.
     """
@@ -623,7 +623,7 @@ class CreateInstanceRequest:
     Instance volume information.
     """
 
-    endpoints: Optional[List[EndpointSpec]] = field(default_factory=list)
+    endpoints: Optional[list[EndpointSpec]] = field(default_factory=list)
     """
     One or multiple EndpointSpec used to expose your Database Instance.
     """
@@ -778,7 +778,7 @@ class ListInstancesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List Database Instances that have a given tag.
     """
@@ -811,7 +811,7 @@ class ListInstancesRequest:
 
 @dataclass
 class ListInstancesResponse:
-    instances: List[Instance]
+    instances: list[Instance]
     """
     List of all Database Instances available in an Organization or Project.
     """
@@ -840,7 +840,7 @@ class ListNodeTypesRequest:
 
 @dataclass
 class ListNodeTypesResponse:
-    node_types: List[NodeType]
+    node_types: list[NodeType]
     """
     Types of the node.
     """
@@ -891,7 +891,7 @@ class ListSnapshotsRequest:
 
 @dataclass
 class ListSnapshotsResponse:
-    snapshots: List[Snapshot]
+    snapshots: list[Snapshot]
     """
     List of all database snapshots available in an Organization or Project.
     """
@@ -930,7 +930,7 @@ class ListUsersRequest:
 
 @dataclass
 class ListUsersResponse:
-    users: List[User]
+    users: list[User]
     """
     List of users in a Database Instance.
     """
@@ -955,7 +955,7 @@ class ListVersionsRequest:
 
 @dataclass
 class ListVersionsResponse:
-    versions: List[Version]
+    versions: list[Version]
     """
     Available MongoDB® engine version.
     """
@@ -1016,7 +1016,7 @@ class SetUserRoleRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    roles: Optional[List[UserRole]] = field(default_factory=list)
+    roles: Optional[list[UserRole]] = field(default_factory=list)
     """
     List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
@@ -1039,7 +1039,7 @@ class UpdateInstanceRequest:
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of a Database Instance.
     """

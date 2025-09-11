@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -82,6 +82,8 @@ class PublicCatalogProductUnitOfMeasureCountableUnit(str, Enum, metaclass=StrEnu
     SETUP = "setup"
     DAY = "day"
     SECOND = "second"
+    SAMPLE_DAY = "sample_day"
+    GIGABYTE_DAY = "gigabyte_day"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -314,7 +316,7 @@ class PublicCatalogProductPropertiesInstance:
     The offer ID of the Instance server.
     """
 
-    recommended_replacement_offer_ids: List[str]
+    recommended_replacement_offer_ids: list[str]
     """
     The recommended replacement offer IDs of the Instance server.
     """
@@ -448,7 +450,7 @@ class PublicCatalogProduct:
 
 @dataclass
 class ListPublicCatalogProductsResponse:
-    products: List[PublicCatalogProduct]
+    products: list[PublicCatalogProduct]
     """
     The list of products.
     """
@@ -471,7 +473,7 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
     The number of products per page. Value must be greater or equal to 1.
     """
 
-    product_types: Optional[List[ListPublicCatalogProductsRequestProductType]] = field(
+    product_types: Optional[list[ListPublicCatalogProductsRequestProductType]] = field(
         default_factory=list
     )
     """

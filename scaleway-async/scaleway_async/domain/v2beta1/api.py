@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -186,7 +186,7 @@ class DomainV2Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         dns_zone: Optional[str] = None,
-        dns_zones: Optional[List[str]] = None,
+        dns_zones: Optional[list[str]] = None,
         created_after: Optional[datetime] = None,
         created_before: Optional[datetime] = None,
         updated_after: Optional[datetime] = None,
@@ -250,12 +250,12 @@ class DomainV2Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         dns_zone: Optional[str] = None,
-        dns_zones: Optional[List[str]] = None,
+        dns_zones: Optional[list[str]] = None,
         created_after: Optional[datetime] = None,
         created_before: Optional[datetime] = None,
         updated_after: Optional[datetime] = None,
         updated_before: Optional[datetime] = None,
-    ) -> List[DNSZone]:
+    ) -> list[DNSZone]:
         """
         List DNS zones.
         Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
@@ -271,7 +271,7 @@ class DomainV2Beta1API(API):
         :param created_before: Only list DNS zones created before this date.
         :param updated_after: Only list DNS zones updated after this date.
         :param updated_before: Only list DNS zones updated before this date.
-        :return: :class:`List[DNSZone] <List[DNSZone]>`
+        :return: :class:`list[DNSZone] <list[DNSZone]>`
 
         Usage:
         ::
@@ -527,7 +527,7 @@ class DomainV2Beta1API(API):
         name: str,
         type_: Optional[RecordType] = None,
         id: Optional[str] = None,
-    ) -> List[Record]:
+    ) -> list[Record]:
         """
         List records within a DNS zone.
         Retrieve a list of DNS records within a DNS zone that has default name servers.
@@ -540,7 +540,7 @@ class DomainV2Beta1API(API):
         :param name: Name on which to filter the returned DNS zone records.
         :param type_: Record type on which to filter the returned DNS zone records.
         :param id: Record ID on which to filter the returned DNS zone records.
-        :return: :class:`List[Record] <List[Record]>`
+        :return: :class:`list[Record] <list[Record]>`
 
         Usage:
         ::
@@ -571,7 +571,7 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-        changes: List[RecordChange],
+        changes: list[RecordChange],
         disallow_new_zone_creation: bool,
         return_all_records: Optional[bool] = None,
         serial: Optional[int] = None,
@@ -662,7 +662,7 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-        ns: List[Nameserver],
+        ns: list[Nameserver],
     ) -> UpdateDNSZoneNameserversResponse:
         """
         Update name servers within a DNS zone.
@@ -940,7 +940,7 @@ class DomainV2Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         dns_zone: str,
-    ) -> List[DNSZoneVersion]:
+    ) -> list[DNSZoneVersion]:
         """
         List versions of a DNS zone.
         Retrieve a list of a DNS zone's versions.<br/>
@@ -948,7 +948,7 @@ class DomainV2Beta1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones versions per page.
         :param dns_zone:
-        :return: :class:`List[DNSZoneVersion] <List[DNSZoneVersion]>`
+        :return: :class:`list[DNSZoneVersion] <list[DNSZoneVersion]>`
 
         Usage:
         ::
@@ -1014,14 +1014,14 @@ class DomainV2Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         dns_zone_version_id: str,
-    ) -> List[Record]:
+    ) -> list[Record]:
         """
         List records from a given version of a specific DNS zone.
         Retrieve a list of records from a specific DNS zone version.
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones versions records per page.
         :param dns_zone_version_id:
-        :return: :class:`List[Record] <List[Record]>`
+        :return: :class:`list[Record] <list[Record]>`
 
         Usage:
         ::
@@ -1176,7 +1176,7 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-        alternative_dns_zones: Optional[List[str]] = None,
+        alternative_dns_zones: Optional[list[str]] = None,
     ) -> SSLCertificate:
         """
         Create or get the DNS zone's TLS certificate.
@@ -1254,7 +1254,7 @@ class DomainV2Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
-    ) -> List[SSLCertificate]:
+    ) -> list[SSLCertificate]:
         """
         List a user's TLS certificates.
         List all the TLS certificates a user has created, specified by the user's Project ID and the DNS zone.
@@ -1262,7 +1262,7 @@ class DomainV2Beta1API(API):
         :param page:
         :param page_size:
         :param project_id:
-        :return: :class:`List[SSLCertificate] <List[SSLCertificate]>`
+        :return: :class:`list[SSLCertificate] <list[SSLCertificate]>`
 
         Usage:
         ::
@@ -1383,8 +1383,8 @@ class DomainV2Beta1RegistrarAPI(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         domain: Optional[str] = None,
-        types: Optional[List[TaskType]] = None,
-        statuses: Optional[List[TaskStatus]] = None,
+        types: Optional[list[TaskType]] = None,
+        statuses: Optional[list[TaskStatus]] = None,
         order_by: Optional[ListTasksRequestOrderBy] = None,
     ) -> ListTasksResponse:
         """
@@ -1434,10 +1434,10 @@ class DomainV2Beta1RegistrarAPI(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         domain: Optional[str] = None,
-        types: Optional[List[TaskType]] = None,
-        statuses: Optional[List[TaskStatus]] = None,
+        types: Optional[list[TaskType]] = None,
+        statuses: Optional[list[TaskStatus]] = None,
         order_by: Optional[ListTasksRequestOrderBy] = None,
-    ) -> List[Task]:
+    ) -> list[Task]:
         """
         List tasks.
         List all operations performed on the account.
@@ -1450,7 +1450,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param types:
         :param statuses:
         :param order_by:
-        :return: :class:`List[Task] <List[Task]>`
+        :return: :class:`list[Task] <list[Task]>`
 
         Usage:
         ::
@@ -1524,14 +1524,14 @@ class DomainV2Beta1RegistrarAPI(API):
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
-    ) -> List[InboundTransfer]:
+    ) -> list[InboundTransfer]:
         """
         :param page:
         :param domain:
         :param page_size:
         :param project_id:
         :param organization_id:
-        :return: :class:`List[InboundTransfer] <List[InboundTransfer]>`
+        :return: :class:`list[InboundTransfer] <list[InboundTransfer]>`
 
         Usage:
         ::
@@ -1558,7 +1558,7 @@ class DomainV2Beta1RegistrarAPI(API):
     async def buy_domains(
         self,
         *,
-        domains: List[str],
+        domains: list[str],
         duration_in_years: int,
         project_id: Optional[str] = None,
         owner_contact_id: Optional[str] = None,
@@ -1623,7 +1623,7 @@ class DomainV2Beta1RegistrarAPI(API):
     async def renew_domains(
         self,
         *,
-        domains: List[str],
+        domains: list[str],
         duration_in_years: int,
         force_late_renewal: Optional[bool] = None,
     ) -> OrderResponse:
@@ -1663,7 +1663,7 @@ class DomainV2Beta1RegistrarAPI(API):
     async def transfer_in_domain(
         self,
         *,
-        domains: List[TransferInDomainRequestTransferRequest],
+        domains: list[TransferInDomainRequestTransferRequest],
         project_id: Optional[str] = None,
         owner_contact_id: Optional[str] = None,
         owner_contact: Optional[NewContact] = None,
@@ -1837,8 +1837,8 @@ class DomainV2Beta1RegistrarAPI(API):
     async def check_contacts_compatibility(
         self,
         *,
-        domains: Optional[List[str]] = None,
-        tlds: Optional[List[str]] = None,
+        domains: Optional[list[str]] = None,
+        tlds: Optional[list[str]] = None,
         owner_contact_id: Optional[str] = None,
         owner_contact: Optional[NewContact] = None,
         administrative_contact_id: Optional[str] = None,
@@ -1951,7 +1951,7 @@ class DomainV2Beta1RegistrarAPI(API):
         organization_id: Optional[str] = None,
         role: Optional[ListContactsRequestRole] = None,
         email_status: Optional[ContactEmailStatus] = None,
-    ) -> List[ContactRoles]:
+    ) -> list[ContactRoles]:
         """
         List contacts.
         Retrieve the list of contacts and their associated domains and roles.
@@ -1963,7 +1963,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param organization_id:
         :param role:
         :param email_status:
-        :return: :class:`List[ContactRoles] <List[ContactRoles]>`
+        :return: :class:`list[ContactRoles] <list[ContactRoles]>`
 
         Usage:
         ::
@@ -2032,7 +2032,7 @@ class DomainV2Beta1RegistrarAPI(API):
         company_identification_code: Optional[str] = None,
         lang: Optional[StdLanguageCode] = None,
         resale: Optional[bool] = None,
-        questions: Optional[List[UpdateContactRequestQuestion]] = None,
+        questions: Optional[list[UpdateContactRequestQuestion]] = None,
         extension_fr: Optional[ContactExtensionFR] = None,
         extension_eu: Optional[ContactExtensionEU] = None,
         whois_opt_in: Optional[bool] = None,
@@ -2172,7 +2172,7 @@ class DomainV2Beta1RegistrarAPI(API):
         organization_id: Optional[str] = None,
         is_external: Optional[bool] = None,
         domain: Optional[str] = None,
-    ) -> List[DomainSummary]:
+    ) -> list[DomainSummary]:
         """
         List domains.
         Retrieve the list of domains you own.
@@ -2185,7 +2185,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param organization_id:
         :param is_external:
         :param domain:
-        :return: :class:`List[DomainSummary] <List[DomainSummary]>`
+        :return: :class:`list[DomainSummary] <list[DomainSummary]>`
 
         Usage:
         ::
@@ -2259,7 +2259,7 @@ class DomainV2Beta1RegistrarAPI(API):
         order_by: Optional[ListRenewableDomainsRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
-    ) -> List[RenewableDomain]:
+    ) -> list[RenewableDomain]:
         """
         List domains that can be renewed.
         Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
@@ -2268,7 +2268,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param order_by:
         :param project_id:
         :param organization_id:
-        :return: :class:`List[RenewableDomain] <List[RenewableDomain]>`
+        :return: :class:`list[RenewableDomain] <list[RenewableDomain]>`
 
         Usage:
         ::
@@ -2633,9 +2633,9 @@ class DomainV2Beta1RegistrarAPI(API):
     async def search_available_domains(
         self,
         *,
-        domains: List[str],
+        domains: list[str],
         strict_search: bool,
-        tlds: Optional[List[str]] = None,
+        tlds: Optional[list[str]] = None,
     ) -> SearchAvailableDomainsResponse:
         """
         Search available domains.
@@ -2672,7 +2672,7 @@ class DomainV2Beta1RegistrarAPI(API):
     async def list_tlds(
         self,
         *,
-        tlds: Optional[List[str]] = None,
+        tlds: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTldsRequestOrderBy] = None,
@@ -2709,11 +2709,11 @@ class DomainV2Beta1RegistrarAPI(API):
     async def list_tlds_all(
         self,
         *,
-        tlds: Optional[List[str]] = None,
+        tlds: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTldsRequestOrderBy] = None,
-    ) -> List[Tld]:
+    ) -> list[Tld]:
         """
         List TLD offers.
         Retrieve the list of TLDs and offers associated with them.
@@ -2721,7 +2721,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param page: Page number for the returned Projects.
         :param page_size: Maximum number of Project per page.
         :param order_by: Sort order of the returned TLDs.
-        :return: :class:`List[Tld] <List[Tld]>`
+        :return: :class:`list[Tld] <list[Tld]>`
 
         Usage:
         ::
@@ -2746,7 +2746,7 @@ class DomainV2Beta1RegistrarAPI(API):
         *,
         domain: str,
         name: str,
-        ips: Optional[List[str]] = None,
+        ips: Optional[list[str]] = None,
     ) -> Host:
         """
         Create a hostname for a domain.
@@ -2826,14 +2826,14 @@ class DomainV2Beta1RegistrarAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         domain: str,
-    ) -> List[Host]:
+    ) -> list[Host]:
         """
         List a domain's hostnames.
         List a domain's hostnames using their glue IPs.
         :param page:
         :param page_size:
         :param domain:
-        :return: :class:`List[Host] <List[Host]>`
+        :return: :class:`list[Host] <list[Host]>`
 
         Usage:
         ::
@@ -2859,7 +2859,7 @@ class DomainV2Beta1RegistrarAPI(API):
         *,
         domain: str,
         name: str,
-        ips: Optional[List[str]] = None,
+        ips: Optional[list[str]] = None,
     ) -> Host:
         """
         Update a domain's hostname.

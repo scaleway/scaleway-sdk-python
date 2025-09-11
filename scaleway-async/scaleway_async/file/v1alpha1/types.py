@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -113,7 +113,7 @@ class FileSystem:
     UUID of the organization to which the filesystem belongs.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags assigned to the filesystem.
     """
@@ -165,7 +165,7 @@ class CreateFileSystemRequest:
     UUID of the project the filesystem belongs to.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the filesystem.
     """
@@ -255,7 +255,7 @@ class ListAttachmentsResponse:
     Response containing a list of filesystem attachments and total count.
     """
 
-    attachments: List[Attachment]
+    attachments: list[Attachment]
     """
     List of filesystem attachments matching the request criteria.
     """
@@ -309,7 +309,7 @@ class ListFileSystemsRequest:
     Filter the returned filesystems by their names.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tags. Only filesystems with one or more matching tags will be returned.
     """
@@ -321,7 +321,7 @@ class ListFileSystemsResponse:
     Response containing a list of filesystems and total count.
     """
 
-    filesystems: List[FileSystem]
+    filesystems: list[FileSystem]
     """
     List of filesystems matching the request criteria.
     """
@@ -359,7 +359,7 @@ class UpdateFileSystemRequest:
 Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the filesystem.
     """

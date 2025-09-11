@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -264,7 +264,7 @@ class ServerlessSqldbV1Alpha1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
-    ) -> List[Database]:
+    ) -> list[Database]:
         """
         List your Serverless SQL Databases.
         List all Serverless SQL Databases for a given Scaleway Organization or Scaleway Project. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
@@ -275,7 +275,7 @@ class ServerlessSqldbV1Alpha1API(API):
         :param page_size: Page size.
         :param name: Filter by the name of the database.
         :param order_by: Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`.
-        :return: :class:`List[Database] <List[Database]>`
+        :return: :class:`list[Database] <list[Database]>`
 
         Usage:
         ::
@@ -486,7 +486,7 @@ class ServerlessSqldbV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabaseBackupsRequestOrderBy] = None,
-    ) -> List[DatabaseBackup]:
+    ) -> list[DatabaseBackup]:
         """
         List your Serverless SQL Database backups.
         List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in descending order, though this can be modified via the order_by field.
@@ -497,7 +497,7 @@ class ServerlessSqldbV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Page size.
         :param order_by: Sorting criteria. One of `created_at_asc`, `created_at_desc`.
-        :return: :class:`List[DatabaseBackup] <List[DatabaseBackup]>`
+        :return: :class:`list[DatabaseBackup] <list[DatabaseBackup]>`
 
         Usage:
         ::

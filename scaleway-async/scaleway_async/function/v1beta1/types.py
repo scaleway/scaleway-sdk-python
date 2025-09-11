@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -382,7 +382,7 @@ class Cron:
     Name of the cron.
     """
 
-    args: Optional[Dict[str, Any]] = field(default_factory=dict)
+    args: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
@@ -457,7 +457,7 @@ class Function:
     Status of the function.
     """
 
-    environment_variables: Dict[str, str]
+    environment_variables: dict[str, str]
     """
     Environment variables of the function.
     """
@@ -502,7 +502,7 @@ class Function:
     Domain name associated with the function.
     """
 
-    secret_environment_variables: List[SecretHashedValue]
+    secret_environment_variables: list[SecretHashedValue]
     """
     Secret environment variables of the function.
     """
@@ -525,7 +525,7 @@ class Function:
     Execution environment of the function.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the Serverless Function.
     """
@@ -583,7 +583,7 @@ class Namespace:
     Name of the namespace.
     """
 
-    environment_variables: Dict[str, str]
+    environment_variables: dict[str, str]
     """
     Environment variables of the namespace.
     """
@@ -613,7 +613,7 @@ class Namespace:
     Registry endpoint of the namespace.
     """
 
-    secret_environment_variables: List[SecretHashedValue]
+    secret_environment_variables: list[SecretHashedValue]
     """
     Secret environment variables of the namespace.
     """
@@ -623,7 +623,7 @@ class Namespace:
     Region in which the namespace is located.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the Serverless Function Namespace.
     """
@@ -758,7 +758,7 @@ class CreateCronRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    args: Optional[Dict[str, Any]] = field(default_factory=dict)
+    args: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to use with the cron.
     """
@@ -804,7 +804,7 @@ class CreateFunctionRequest:
     Name of the function to create.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the function.
     """
@@ -849,7 +849,7 @@ class CreateFunctionRequest:
     Description of the function.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     http_option: Optional[FunctionHttpOption] = FunctionHttpOption.UNKNOWN_HTTP_OPTION
     """
     Possible values:
@@ -862,7 +862,7 @@ class CreateFunctionRequest:
     Execution environment of the function.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function.
     """
@@ -881,7 +881,7 @@ class CreateNamespaceRequest:
     """
 
     name: Optional[str] = None
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace.
     """
@@ -896,12 +896,12 @@ class CreateNamespaceRequest:
     Description of the namespace.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function Namespace.
     """
@@ -1057,7 +1057,7 @@ class DeployFunctionRequest:
 @dataclass
 class DownloadURL:
     url: str
-    headers: Dict[str, List[str]]
+    headers: dict[str, list[str]]
 
 
 @dataclass
@@ -1199,7 +1199,7 @@ class ListCronsRequest:
 
 @dataclass
 class ListCronsResponse:
-    crons: List[Cron]
+    crons: list[Cron]
     """
     Array of crons.
     """
@@ -1242,7 +1242,7 @@ class ListDomainsRequest:
 
 @dataclass
 class ListDomainsResponse:
-    domains: List[Domain]
+    domains: list[Domain]
     """
     Array of domains.
     """
@@ -1263,7 +1263,7 @@ class ListFunctionRuntimesRequest:
 
 @dataclass
 class ListFunctionRuntimesResponse:
-    runtimes: List[Runtime]
+    runtimes: list[Runtime]
     """
     Array of runtimes available.
     """
@@ -1321,7 +1321,7 @@ class ListFunctionsRequest:
 
 @dataclass
 class ListFunctionsResponse:
-    functions: List[Function]
+    functions: list[Function]
     """
     Array of functions.
     """
@@ -1374,7 +1374,7 @@ class ListNamespacesRequest:
 
 @dataclass
 class ListNamespacesResponse:
-    namespaces: List[Namespace]
+    namespaces: list[Namespace]
     total_count: int
     """
     Total number of namespaces.
@@ -1418,7 +1418,7 @@ class ListTokensRequest:
 
 @dataclass
 class ListTokensResponse:
-    tokens: List[Token]
+    tokens: list[Token]
     total_count: int
 
 
@@ -1460,7 +1460,7 @@ class ListTriggersResponse:
     Total count of existing triggers (matching any filters specified).
     """
 
-    triggers: List[Trigger]
+    triggers: list[Trigger]
     """
     Triggers on this page.
     """
@@ -1488,7 +1488,7 @@ class UpdateCronRequest:
     Schedule of the cron in UNIX cron format.
     """
 
-    args: Optional[Dict[str, Any]] = field(default_factory=dict)
+    args: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to use with the cron.
     """
@@ -1511,7 +1511,7 @@ class UpdateFunctionRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the function to update.
     """
@@ -1561,7 +1561,7 @@ class UpdateFunctionRequest:
     Description of the function.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     """
     During an update, secret environment variables that are not specified in this field will be kept unchanged.
 
@@ -1589,7 +1589,7 @@ For example, the following payload will delete the `TO_DELETE` secret environmen
     Execution environment of the function.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function.
     """
@@ -1612,7 +1612,7 @@ class UpdateNamespaceRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace.
     """
@@ -1622,12 +1622,12 @@ class UpdateNamespaceRequest:
     Description of the namespace.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function Namespace.
     """
@@ -1665,7 +1665,7 @@ class UploadURL:
     Upload URL to upload the function to.
     """
 
-    headers: Dict[str, List[str]]
+    headers: dict[str, list[str]]
     """
     HTTP headers.
     """

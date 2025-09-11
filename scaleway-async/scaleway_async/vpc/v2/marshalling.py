@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -36,7 +36,7 @@ def unmarshal_Subnet(data: Any) -> Subnet:
             "Unmarshalling the type 'Subnet' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -89,7 +89,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
             "Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -174,7 +174,7 @@ def unmarshal_Route(data: Any) -> Route:
             "Unmarshalling the type 'Route' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -251,7 +251,7 @@ def unmarshal_VPC(data: Any) -> VPC:
             "Unmarshalling the type 'VPC' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -334,7 +334,7 @@ def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
             "Unmarshalling the type 'AddSubnetsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("subnets", None)
     if field is not None:
@@ -351,7 +351,7 @@ def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
             "Unmarshalling the type 'DeleteSubnetsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("subnets", None)
     if field is not None:
@@ -368,7 +368,7 @@ def unmarshal_AclRule(data: Any) -> AclRule:
             "Unmarshalling the type 'AclRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("protocol", None)
     if field is not None:
@@ -433,7 +433,7 @@ def unmarshal_GetAclResponse(data: Any) -> GetAclResponse:
             "Unmarshalling the type 'GetAclResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -458,7 +458,7 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
             "Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("private_networks", None)
     if field is not None:
@@ -483,7 +483,7 @@ def unmarshal_ListSubnetsResponse(data: Any) -> ListSubnetsResponse:
             "Unmarshalling the type 'ListSubnetsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("subnets", None)
     if field is not None:
@@ -508,7 +508,7 @@ def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
             "Unmarshalling the type 'ListVPCsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("vpcs", None)
     if field is not None:
@@ -531,7 +531,7 @@ def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
             "Unmarshalling the type 'SetAclResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -553,8 +553,8 @@ def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
 def marshal_AddSubnetsRequest(
     request: AddSubnetsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.subnets is not None:
         output["subnets"] = request.subnets
@@ -565,8 +565,8 @@ def marshal_AddSubnetsRequest(
 def marshal_CreatePrivateNetworkRequest(
     request: CreatePrivateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.default_route_propagation_enabled is not None:
         output["default_route_propagation_enabled"] = (
@@ -596,8 +596,8 @@ def marshal_CreatePrivateNetworkRequest(
 def marshal_CreateRouteRequest(
     request: CreateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -623,8 +623,8 @@ def marshal_CreateRouteRequest(
 def marshal_CreateVPCRequest(
     request: CreateVPCRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.enable_routing is not None:
         output["enable_routing"] = request.enable_routing
@@ -646,8 +646,8 @@ def marshal_CreateVPCRequest(
 def marshal_DeleteSubnetsRequest(
     request: DeleteSubnetsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.subnets is not None:
         output["subnets"] = request.subnets
@@ -658,8 +658,8 @@ def marshal_DeleteSubnetsRequest(
 def marshal_AclRule(
     request: AclRule,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.protocol is not None:
         output["protocol"] = request.protocol
@@ -694,8 +694,8 @@ def marshal_AclRule(
 def marshal_SetAclRequest(
     request: SetAclRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.rules is not None:
         output["rules"] = [marshal_AclRule(item, defaults) for item in request.rules]
@@ -712,8 +712,8 @@ def marshal_SetAclRequest(
 def marshal_UpdatePrivateNetworkRequest(
     request: UpdatePrivateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -732,8 +732,8 @@ def marshal_UpdatePrivateNetworkRequest(
 def marshal_UpdateRouteRequest(
     request: UpdateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -756,8 +756,8 @@ def marshal_UpdateRouteRequest(
 def marshal_UpdateVPCRequest(
     request: UpdateVPCRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

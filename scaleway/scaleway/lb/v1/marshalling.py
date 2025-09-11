@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -129,7 +129,7 @@ def unmarshal_Ip(data: Any) -> Ip:
             "Unmarshalling the type 'Ip' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -194,7 +194,7 @@ def unmarshal_SubscriberEmailConfig(data: Any) -> SubscriberEmailConfig:
             "Unmarshalling the type 'SubscriberEmailConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("email", None)
     if field is not None:
@@ -211,7 +211,7 @@ def unmarshal_SubscriberWebhookConfig(data: Any) -> SubscriberWebhookConfig:
             "Unmarshalling the type 'SubscriberWebhookConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("uri", None)
     if field is not None:
@@ -228,7 +228,7 @@ def unmarshal_Subscriber(data: Any) -> Subscriber:
             "Unmarshalling the type 'Subscriber' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -263,7 +263,7 @@ def unmarshal_HealthCheckHttpConfig(data: Any) -> HealthCheckHttpConfig:
             "Unmarshalling the type 'HealthCheckHttpConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("uri", None)
     if field is not None:
@@ -298,7 +298,7 @@ def unmarshal_HealthCheckHttpsConfig(data: Any) -> HealthCheckHttpsConfig:
             "Unmarshalling the type 'HealthCheckHttpsConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("uri", None)
     if field is not None:
@@ -339,7 +339,7 @@ def unmarshal_HealthCheckLdapConfig(data: Any) -> HealthCheckLdapConfig:
             "Unmarshalling the type 'HealthCheckLdapConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return HealthCheckLdapConfig(**args)
 
@@ -350,7 +350,7 @@ def unmarshal_HealthCheckMysqlConfig(data: Any) -> HealthCheckMysqlConfig:
             "Unmarshalling the type 'HealthCheckMysqlConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("user", None)
     if field is not None:
@@ -367,7 +367,7 @@ def unmarshal_HealthCheckPgsqlConfig(data: Any) -> HealthCheckPgsqlConfig:
             "Unmarshalling the type 'HealthCheckPgsqlConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("user", None)
     if field is not None:
@@ -384,7 +384,7 @@ def unmarshal_HealthCheckRedisConfig(data: Any) -> HealthCheckRedisConfig:
             "Unmarshalling the type 'HealthCheckRedisConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return HealthCheckRedisConfig(**args)
 
@@ -395,7 +395,7 @@ def unmarshal_HealthCheckTcpConfig(data: Any) -> HealthCheckTcpConfig:
             "Unmarshalling the type 'HealthCheckTcpConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return HealthCheckTcpConfig(**args)
 
@@ -406,7 +406,7 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
             "Unmarshalling the type 'HealthCheck' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("port", None)
     if field is not None:
@@ -495,7 +495,7 @@ def unmarshal_Instance(data: Any) -> Instance:
             "Unmarshalling the type 'Instance' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -548,7 +548,7 @@ def unmarshal_Lb(data: Any) -> Lb:
             "Unmarshalling the type 'Lb' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -683,7 +683,7 @@ def unmarshal_Backend(data: Any) -> Backend:
             "Unmarshalling the type 'Backend' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -844,7 +844,7 @@ def unmarshal_Certificate(data: Any) -> Certificate:
             "Unmarshalling the type 'Certificate' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -937,7 +937,7 @@ def unmarshal_Frontend(data: Any) -> Frontend:
             "Unmarshalling the type 'Frontend' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1026,7 +1026,7 @@ def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
             "Unmarshalling the type 'AclActionRedirect' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -1055,7 +1055,7 @@ def unmarshal_AclAction(data: Any) -> AclAction:
             "Unmarshalling the type 'AclAction' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -1078,7 +1078,7 @@ def unmarshal_AclMatch(data: Any) -> AclMatch:
             "Unmarshalling the type 'AclMatch' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip_subnet", None)
     if field is not None:
@@ -1125,7 +1125,7 @@ def unmarshal_Acl(data: Any) -> Acl:
             "Unmarshalling the type 'Acl' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1190,7 +1190,7 @@ def unmarshal_PrivateNetworkDHCPConfig(data: Any) -> PrivateNetworkDHCPConfig:
             "Unmarshalling the type 'PrivateNetworkDHCPConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip_id", None)
     if field is not None:
@@ -1207,7 +1207,7 @@ def unmarshal_PrivateNetworkIpamConfig(data: Any) -> PrivateNetworkIpamConfig:
             "Unmarshalling the type 'PrivateNetworkIpamConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return PrivateNetworkIpamConfig(**args)
 
@@ -1218,7 +1218,7 @@ def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfi
             "Unmarshalling the type 'PrivateNetworkStaticConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip_address", None)
     if field is not None:
@@ -1235,7 +1235,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
             "Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ipam_ids", None)
     if field is not None:
@@ -1300,7 +1300,7 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
             "Unmarshalling the type 'RouteMatch' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("match_subdomains", None)
     if field is not None:
@@ -1335,7 +1335,7 @@ def unmarshal_Route(data: Any) -> Route:
             "Unmarshalling the type 'Route' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1382,7 +1382,7 @@ def unmarshal_BackendServerStats(data: Any) -> BackendServerStats:
             "Unmarshalling the type 'BackendServerStats' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("instance_id", None)
     if field is not None:
@@ -1431,7 +1431,7 @@ def unmarshal_LbStats(data: Any) -> LbStats:
             "Unmarshalling the type 'LbStats' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("backend_servers_stats", None)
     if field is not None:
@@ -1452,7 +1452,7 @@ def unmarshal_ListAclResponse(data: Any) -> ListAclResponse:
             "Unmarshalling the type 'ListAclResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("acls", None)
     if field is not None:
@@ -1475,7 +1475,7 @@ def unmarshal_ListBackendStatsResponse(data: Any) -> ListBackendStatsResponse:
             "Unmarshalling the type 'ListBackendStatsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("backend_servers_stats", None)
     if field is not None:
@@ -1502,7 +1502,7 @@ def unmarshal_ListBackendsResponse(data: Any) -> ListBackendsResponse:
             "Unmarshalling the type 'ListBackendsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("backends", None)
     if field is not None:
@@ -1527,7 +1527,7 @@ def unmarshal_ListCertificatesResponse(data: Any) -> ListCertificatesResponse:
             "Unmarshalling the type 'ListCertificatesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("certificates", None)
     if field is not None:
@@ -1552,7 +1552,7 @@ def unmarshal_ListFrontendsResponse(data: Any) -> ListFrontendsResponse:
             "Unmarshalling the type 'ListFrontendsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("frontends", None)
     if field is not None:
@@ -1577,7 +1577,7 @@ def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
             "Unmarshalling the type 'ListIpsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ips", None)
     if field is not None:
@@ -1600,7 +1600,7 @@ def unmarshal_ListLbPrivateNetworksResponse(data: Any) -> ListLbPrivateNetworksR
             "Unmarshalling the type 'ListLbPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("private_network", None)
     if field is not None:
@@ -1625,7 +1625,7 @@ def unmarshal_LbType(data: Any) -> LbType:
             "Unmarshalling the type 'LbType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1666,7 +1666,7 @@ def unmarshal_ListLbTypesResponse(data: Any) -> ListLbTypesResponse:
             "Unmarshalling the type 'ListLbTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("lb_types", None)
     if field is not None:
@@ -1691,7 +1691,7 @@ def unmarshal_ListLbsResponse(data: Any) -> ListLbsResponse:
             "Unmarshalling the type 'ListLbsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("lbs", None)
     if field is not None:
@@ -1714,7 +1714,7 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
             "Unmarshalling the type 'ListRoutesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("routes", None)
     if field is not None:
@@ -1739,7 +1739,7 @@ def unmarshal_ListSubscriberResponse(data: Any) -> ListSubscriberResponse:
             "Unmarshalling the type 'ListSubscriberResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("subscribers", None)
     if field is not None:
@@ -1764,7 +1764,7 @@ def unmarshal_SetAclsResponse(data: Any) -> SetAclsResponse:
             "Unmarshalling the type 'SetAclsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("acls", None)
     if field is not None:
@@ -1784,8 +1784,8 @@ def unmarshal_SetAclsResponse(data: Any) -> SetAclsResponse:
 def marshal_AddBackendServersRequest(
     request: AddBackendServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -1796,8 +1796,8 @@ def marshal_AddBackendServersRequest(
 def marshal_PrivateNetworkDHCPConfig(
     request: PrivateNetworkDHCPConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip_id is not None:
         output["ip_id"] = request.ip_id
@@ -1808,8 +1808,8 @@ def marshal_PrivateNetworkDHCPConfig(
 def marshal_PrivateNetworkIpamConfig(
     request: PrivateNetworkIpamConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -1817,8 +1817,8 @@ def marshal_PrivateNetworkIpamConfig(
 def marshal_PrivateNetworkStaticConfig(
     request: PrivateNetworkStaticConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip_address is not None:
         output["ip_address"] = request.ip_address
@@ -1829,8 +1829,8 @@ def marshal_PrivateNetworkStaticConfig(
 def marshal_AttachPrivateNetworkRequest(
     request: AttachPrivateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1862,8 +1862,8 @@ def marshal_AttachPrivateNetworkRequest(
 def marshal_AclActionRedirect(
     request: AclActionRedirect,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -1880,8 +1880,8 @@ def marshal_AclActionRedirect(
 def marshal_AclAction(
     request: AclAction,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -1895,8 +1895,8 @@ def marshal_AclAction(
 def marshal_AclMatch(
     request: AclMatch,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip_subnet is not None:
         output["ip_subnet"] = request.ip_subnet
@@ -1922,8 +1922,8 @@ def marshal_AclMatch(
 def marshal_CreateAclRequest(
     request: CreateAclRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.action is not None:
         output["action"] = marshal_AclAction(request.action, defaults)
@@ -1946,8 +1946,8 @@ def marshal_CreateAclRequest(
 def marshal_HealthCheckHttpConfig(
     request: HealthCheckHttpConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.uri is not None:
         output["uri"] = request.uri
@@ -1967,8 +1967,8 @@ def marshal_HealthCheckHttpConfig(
 def marshal_HealthCheckHttpsConfig(
     request: HealthCheckHttpsConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.uri is not None:
         output["uri"] = request.uri
@@ -1991,8 +1991,8 @@ def marshal_HealthCheckHttpsConfig(
 def marshal_HealthCheckLdapConfig(
     request: HealthCheckLdapConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -2000,8 +2000,8 @@ def marshal_HealthCheckLdapConfig(
 def marshal_HealthCheckMysqlConfig(
     request: HealthCheckMysqlConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.user is not None:
         output["user"] = request.user
@@ -2012,8 +2012,8 @@ def marshal_HealthCheckMysqlConfig(
 def marshal_HealthCheckPgsqlConfig(
     request: HealthCheckPgsqlConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.user is not None:
         output["user"] = request.user
@@ -2024,8 +2024,8 @@ def marshal_HealthCheckPgsqlConfig(
 def marshal_HealthCheckRedisConfig(
     request: HealthCheckRedisConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -2033,8 +2033,8 @@ def marshal_HealthCheckRedisConfig(
 def marshal_HealthCheckTcpConfig(
     request: HealthCheckTcpConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -2042,8 +2042,8 @@ def marshal_HealthCheckTcpConfig(
 def marshal_HealthCheck(
     request: HealthCheck,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2110,8 +2110,8 @@ def marshal_HealthCheck(
 def marshal_CreateBackendRequest(
     request: CreateBackendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.forward_protocol is not None:
         output["forward_protocol"] = request.forward_protocol
@@ -2182,8 +2182,8 @@ def marshal_CreateBackendRequest(
 def marshal_CreateCertificateRequestCustomCertificate(
     request: CreateCertificateRequestCustomCertificate,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.certificate_chain is not None:
         output["certificate_chain"] = request.certificate_chain
@@ -2194,8 +2194,8 @@ def marshal_CreateCertificateRequestCustomCertificate(
 def marshal_CreateCertificateRequestLetsencryptConfig(
     request: CreateCertificateRequestLetsencryptConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.common_name is not None:
         output["common_name"] = request.common_name
@@ -2209,8 +2209,8 @@ def marshal_CreateCertificateRequestLetsencryptConfig(
 def marshal_CreateCertificateRequest(
     request: CreateCertificateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2237,8 +2237,8 @@ def marshal_CreateCertificateRequest(
 def marshal_CreateFrontendRequest(
     request: CreateFrontendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.inbound_port is not None:
         output["inbound_port"] = request.inbound_port
@@ -2273,8 +2273,8 @@ def marshal_CreateFrontendRequest(
 def marshal_CreateIpRequest(
     request: CreateIpRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2309,8 +2309,8 @@ def marshal_CreateIpRequest(
 def marshal_CreateLbRequest(
     request: CreateLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2363,8 +2363,8 @@ def marshal_CreateLbRequest(
 def marshal_RouteMatch(
     request: RouteMatch,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2388,8 +2388,8 @@ def marshal_RouteMatch(
 def marshal_CreateRouteRequest(
     request: CreateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.frontend_id is not None:
         output["frontend_id"] = request.frontend_id
@@ -2406,8 +2406,8 @@ def marshal_CreateRouteRequest(
 def marshal_SubscriberEmailConfig(
     request: SubscriberEmailConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.email is not None:
         output["email"] = request.email
@@ -2418,8 +2418,8 @@ def marshal_SubscriberEmailConfig(
 def marshal_SubscriberWebhookConfig(
     request: SubscriberWebhookConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.uri is not None:
         output["uri"] = request.uri
@@ -2430,8 +2430,8 @@ def marshal_SubscriberWebhookConfig(
 def marshal_CreateSubscriberRequest(
     request: CreateSubscriberRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2476,8 +2476,8 @@ def marshal_CreateSubscriberRequest(
 def marshal_MigrateLbRequest(
     request: MigrateLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -2488,8 +2488,8 @@ def marshal_MigrateLbRequest(
 def marshal_RemoveBackendServersRequest(
     request: RemoveBackendServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -2500,8 +2500,8 @@ def marshal_RemoveBackendServersRequest(
 def marshal_SetBackendServersRequest(
     request: SetBackendServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -2512,8 +2512,8 @@ def marshal_SetBackendServersRequest(
 def marshal_SubscribeToLbRequest(
     request: SubscribeToLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.subscriber_id is not None:
         output["subscriber_id"] = request.subscriber_id
@@ -2524,8 +2524,8 @@ def marshal_SubscribeToLbRequest(
 def marshal_UpdateAclRequest(
     request: UpdateAclRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2548,8 +2548,8 @@ def marshal_UpdateAclRequest(
 def marshal_UpdateBackendRequest(
     request: UpdateBackendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2614,8 +2614,8 @@ def marshal_UpdateBackendRequest(
 def marshal_UpdateCertificateRequest(
     request: UpdateCertificateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2626,8 +2626,8 @@ def marshal_UpdateCertificateRequest(
 def marshal_UpdateFrontendRequest(
     request: UpdateFrontendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2662,8 +2662,8 @@ def marshal_UpdateFrontendRequest(
 def marshal_UpdateHealthCheckRequest(
     request: UpdateHealthCheckRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2730,8 +2730,8 @@ def marshal_UpdateHealthCheckRequest(
 def marshal_UpdateIpRequest(
     request: UpdateIpRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.reverse is not None:
         output["reverse"] = request.reverse
@@ -2748,8 +2748,8 @@ def marshal_UpdateIpRequest(
 def marshal_UpdateLbRequest(
     request: UpdateLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2769,8 +2769,8 @@ def marshal_UpdateLbRequest(
 def marshal_UpdateRouteRequest(
     request: UpdateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.backend_id is not None:
         output["backend_id"] = request.backend_id
@@ -2784,8 +2784,8 @@ def marshal_UpdateRouteRequest(
 def marshal_UpdateSubscriberRequest(
     request: UpdateSubscriberRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2812,8 +2812,8 @@ def marshal_UpdateSubscriberRequest(
 def marshal_ZonedApiAddBackendServersRequest(
     request: ZonedApiAddBackendServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -2824,8 +2824,8 @@ def marshal_ZonedApiAddBackendServersRequest(
 def marshal_ZonedApiAttachPrivateNetworkRequest(
     request: ZonedApiAttachPrivateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2860,8 +2860,8 @@ def marshal_ZonedApiAttachPrivateNetworkRequest(
 def marshal_ZonedApiCreateAclRequest(
     request: ZonedApiCreateAclRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.action is not None:
         output["action"] = marshal_AclAction(request.action, defaults)
@@ -2884,8 +2884,8 @@ def marshal_ZonedApiCreateAclRequest(
 def marshal_ZonedApiCreateBackendRequest(
     request: ZonedApiCreateBackendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.forward_protocol is not None:
         output["forward_protocol"] = request.forward_protocol
@@ -2956,8 +2956,8 @@ def marshal_ZonedApiCreateBackendRequest(
 def marshal_ZonedApiCreateCertificateRequest(
     request: ZonedApiCreateCertificateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2984,8 +2984,8 @@ def marshal_ZonedApiCreateCertificateRequest(
 def marshal_ZonedApiCreateFrontendRequest(
     request: ZonedApiCreateFrontendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.inbound_port is not None:
         output["inbound_port"] = request.inbound_port
@@ -3020,8 +3020,8 @@ def marshal_ZonedApiCreateFrontendRequest(
 def marshal_ZonedApiCreateIpRequest(
     request: ZonedApiCreateIpRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3056,8 +3056,8 @@ def marshal_ZonedApiCreateIpRequest(
 def marshal_ZonedApiCreateLbRequest(
     request: ZonedApiCreateLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3110,8 +3110,8 @@ def marshal_ZonedApiCreateLbRequest(
 def marshal_ZonedApiCreateRouteRequest(
     request: ZonedApiCreateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.frontend_id is not None:
         output["frontend_id"] = request.frontend_id
@@ -3128,8 +3128,8 @@ def marshal_ZonedApiCreateRouteRequest(
 def marshal_ZonedApiCreateSubscriberRequest(
     request: ZonedApiCreateSubscriberRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3174,8 +3174,8 @@ def marshal_ZonedApiCreateSubscriberRequest(
 def marshal_ZonedApiDetachPrivateNetworkRequest(
     request: ZonedApiDetachPrivateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
@@ -3186,8 +3186,8 @@ def marshal_ZonedApiDetachPrivateNetworkRequest(
 def marshal_ZonedApiMigrateLbRequest(
     request: ZonedApiMigrateLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -3198,8 +3198,8 @@ def marshal_ZonedApiMigrateLbRequest(
 def marshal_ZonedApiRemoveBackendServersRequest(
     request: ZonedApiRemoveBackendServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -3210,8 +3210,8 @@ def marshal_ZonedApiRemoveBackendServersRequest(
 def marshal_AclSpec(
     request: AclSpec,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3234,8 +3234,8 @@ def marshal_AclSpec(
 def marshal_ZonedApiSetAclsRequest(
     request: ZonedApiSetAclsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.acls is not None:
         output["acls"] = [marshal_AclSpec(item, defaults) for item in request.acls]
@@ -3246,8 +3246,8 @@ def marshal_ZonedApiSetAclsRequest(
 def marshal_ZonedApiSetBackendServersRequest(
     request: ZonedApiSetBackendServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -3258,8 +3258,8 @@ def marshal_ZonedApiSetBackendServersRequest(
 def marshal_ZonedApiSubscribeToLbRequest(
     request: ZonedApiSubscribeToLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.subscriber_id is not None:
         output["subscriber_id"] = request.subscriber_id
@@ -3270,8 +3270,8 @@ def marshal_ZonedApiSubscribeToLbRequest(
 def marshal_ZonedApiUpdateAclRequest(
     request: ZonedApiUpdateAclRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3294,8 +3294,8 @@ def marshal_ZonedApiUpdateAclRequest(
 def marshal_ZonedApiUpdateBackendRequest(
     request: ZonedApiUpdateBackendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3360,8 +3360,8 @@ def marshal_ZonedApiUpdateBackendRequest(
 def marshal_ZonedApiUpdateCertificateRequest(
     request: ZonedApiUpdateCertificateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3372,8 +3372,8 @@ def marshal_ZonedApiUpdateCertificateRequest(
 def marshal_ZonedApiUpdateFrontendRequest(
     request: ZonedApiUpdateFrontendRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3408,8 +3408,8 @@ def marshal_ZonedApiUpdateFrontendRequest(
 def marshal_ZonedApiUpdateHealthCheckRequest(
     request: ZonedApiUpdateHealthCheckRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3476,8 +3476,8 @@ def marshal_ZonedApiUpdateHealthCheckRequest(
 def marshal_ZonedApiUpdateIpRequest(
     request: ZonedApiUpdateIpRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.reverse is not None:
         output["reverse"] = request.reverse
@@ -3494,8 +3494,8 @@ def marshal_ZonedApiUpdateIpRequest(
 def marshal_ZonedApiUpdateLbRequest(
     request: ZonedApiUpdateLbRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -3515,8 +3515,8 @@ def marshal_ZonedApiUpdateLbRequest(
 def marshal_ZonedApiUpdateRouteRequest(
     request: ZonedApiUpdateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.backend_id is not None:
         output["backend_id"] = request.backend_id
@@ -3530,8 +3530,8 @@ def marshal_ZonedApiUpdateRouteRequest(
 def marshal_ZonedApiUpdateSubscriberRequest(
     request: ZonedApiUpdateSubscriberRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [

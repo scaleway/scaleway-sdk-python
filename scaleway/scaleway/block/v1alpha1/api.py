@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -99,14 +99,14 @@ class BlockV1Alpha1API(API):
         zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[VolumeType]:
+    ) -> list[VolumeType]:
         """
         List volume types.
         List all available volume types in a specified zone. The volume types listed are ordered by name in ascending order.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
-        :return: :class:`List[VolumeType] <List[VolumeType]>`
+        :return: :class:`list[VolumeType] <list[VolumeType]>`
 
         Usage:
         ::
@@ -136,7 +136,7 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         product_resource_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListVolumesResponse:
         """
         List volumes.
@@ -190,8 +190,8 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         product_resource_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Volume]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Volume]:
         """
         List volumes.
         List all existing volumes in a specified zone. By default, the volumes listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
@@ -204,7 +204,7 @@ class BlockV1Alpha1API(API):
         :param name: Filter the return volumes by their names.
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
-        :return: :class:`List[Volume] <List[Volume]>`
+        :return: :class:`list[Volume] <list[Volume]>`
 
         Usage:
         ::
@@ -238,7 +238,7 @@ class BlockV1Alpha1API(API):
         project_id: Optional[str] = None,
         from_empty: Optional[CreateVolumeRequestFromEmpty] = None,
         from_snapshot: Optional[CreateVolumeRequestFromSnapshot] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Volume:
         """
         Create a volume.
@@ -390,7 +390,7 @@ class BlockV1Alpha1API(API):
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         perf_iops: Optional[int] = None,
     ) -> Volume:
         """
@@ -447,7 +447,7 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         volume_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListSnapshotsResponse:
         """
         List all snapshots.
@@ -501,8 +501,8 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         volume_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Snapshot]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Snapshot]:
         """
         List all snapshots.
         List all available snapshots in a specified zone. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
@@ -515,7 +515,7 @@ class BlockV1Alpha1API(API):
         :param volume_id: Filter snapshots by the ID of the original volume.
         :param name: Filter snapshots by their names.
         :param tags: Filter by tags. Only snapshots with one or more matching tags will be returned.
-        :return: :class:`List[Snapshot] <List[Snapshot]>`
+        :return: :class:`list[Snapshot] <list[Snapshot]>`
 
         Usage:
         ::
@@ -616,7 +616,7 @@ class BlockV1Alpha1API(API):
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Snapshot:
         """
         Create a snapshot of a volume.
@@ -665,7 +665,7 @@ class BlockV1Alpha1API(API):
         name: str,
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         size: Optional[int] = None,
     ) -> Snapshot:
         """
@@ -723,7 +723,7 @@ class BlockV1Alpha1API(API):
         name: str,
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         size: Optional[int] = None,
     ) -> Snapshot:
         """
@@ -855,7 +855,7 @@ class BlockV1Alpha1API(API):
         snapshot_id: str,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Snapshot:
         """
         Update a snapshot.
