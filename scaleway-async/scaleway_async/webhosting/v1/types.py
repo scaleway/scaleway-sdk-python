@@ -1885,6 +1885,11 @@ class HostingApiRemoveCustomDomainRequest:
     Hosting ID to which the custom domain is detached from.
     """
 
+    domain_name: str
+    """
+    The custom domain name to detach from the hosting.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.

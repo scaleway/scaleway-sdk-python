@@ -49,6 +49,7 @@ from .types import (
     Hosting,
     HostingApiAddCustomDomainRequest,
     HostingApiCreateHostingRequest,
+    HostingApiRemoveCustomDomainRequest,
     HostingApiUpdateHostingRequest,
     HostingSummary,
     ListBackupItemsResponse,
@@ -124,6 +125,7 @@ from .marshalling import (
     marshal_FtpAccountApiCreateFtpAccountRequest,
     marshal_HostingApiAddCustomDomainRequest,
     marshal_HostingApiCreateHostingRequest,
+    marshal_HostingApiRemoveCustomDomainRequest,
     marshal_HostingApiUpdateHostingRequest,
     marshal_MailAccountApiChangeMailAccountPasswordRequest,
     marshal_MailAccountApiCreateMailAccountRequest,
@@ -1913,11 +1915,13 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
+        domain_name: str,
         region: Optional[ScwRegion] = None,
     ) -> HostingSummary:
         """
         Detach a custom domain from a webhosting.
         :param hosting_id: Hosting ID to which the custom domain is detached from.
+        :param domain_name: The custom domain name to detach from the hosting.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`HostingSummary <HostingSummary>`
 
@@ -1926,6 +1930,7 @@ class WebhostingV1HostingAPI(API):
 
             result = api.remove_custom_domain(
                 hosting_id="example",
+                domain_name="example",
             )
         """
 
@@ -1937,7 +1942,14 @@ class WebhostingV1HostingAPI(API):
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/remove-custom-domain",
-            body={},
+            body=marshal_HostingApiRemoveCustomDomainRequest(
+                HostingApiRemoveCustomDomainRequest(
+                    hosting_id=hosting_id,
+                    domain_name=domain_name,
+                    region=region,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

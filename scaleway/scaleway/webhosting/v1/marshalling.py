@@ -92,6 +92,7 @@ from .types import (
     CreateHostingRequestDomainConfiguration,
     OfferOptionRequest,
     HostingApiCreateHostingRequest,
+    HostingApiRemoveCustomDomainRequest,
     HostingApiUpdateHostingRequest,
     MailAccountApiChangeMailAccountPasswordRequest,
     MailAccountApiCreateMailAccountRequest,
@@ -1947,6 +1948,18 @@ def marshal_HostingApiCreateHostingRequest(
         output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
             request.auto_config_domain_dns, defaults
         )
+
+    return output
+
+
+def marshal_HostingApiRemoveCustomDomainRequest(
+    request: HostingApiRemoveCustomDomainRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.domain_name is not None:
+        output["domain_name"] = request.domain_name
 
     return output
 
