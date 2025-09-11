@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -172,7 +172,7 @@ def unmarshal_PrivateNIC(data: Any) -> PrivateNIC:
             "Unmarshalling the type 'PrivateNIC' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -219,7 +219,7 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
             "Unmarshalling the type 'ServerSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -242,7 +242,7 @@ def unmarshal_Bootscript(data: Any) -> Bootscript:
             "Unmarshalling the type 'Bootscript' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("architecture", None)
     if field is not None:
@@ -325,7 +325,7 @@ def unmarshal_Volume(data: Any) -> Volume:
             "Unmarshalling the type 'Volume' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -418,7 +418,7 @@ def unmarshal_VolumeSummary(data: Any) -> VolumeSummary:
             "Unmarshalling the type 'VolumeSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -453,7 +453,7 @@ def unmarshal_Image(data: Any) -> Image:
             "Unmarshalling the type 'Image' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -562,7 +562,7 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
             "Unmarshalling the type 'PlacementGroup' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -627,7 +627,7 @@ def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
             "Unmarshalling the type 'SecurityGroupSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -650,7 +650,7 @@ def unmarshal_ServerFilesystem(data: Any) -> ServerFilesystem:
             "Unmarshalling the type 'ServerFilesystem' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("filesystem_id", None)
     if field is not None:
@@ -673,7 +673,7 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
             "Unmarshalling the type 'ServerIp' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -744,7 +744,7 @@ def unmarshal_ServerIpv6(data: Any) -> ServerIpv6:
             "Unmarshalling the type 'ServerIpv6' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("address", None)
     if field is not None:
@@ -773,7 +773,7 @@ def unmarshal_ServerLocation(data: Any) -> ServerLocation:
             "Unmarshalling the type 'ServerLocation' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("cluster_id", None)
     if field is not None:
@@ -814,7 +814,7 @@ def unmarshal_ServerMaintenance(data: Any) -> ServerMaintenance:
             "Unmarshalling the type 'ServerMaintenance' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("reason", None)
     if field is not None:
@@ -837,7 +837,7 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
             "Unmarshalling the type 'VolumeServer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -930,7 +930,7 @@ def unmarshal_Server(data: Any) -> Server:
             "Unmarshalling the type 'Server' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1175,7 +1175,7 @@ def unmarshal_AttachServerFileSystemResponse(
             "Unmarshalling the type 'AttachServerFileSystemResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -1192,7 +1192,7 @@ def unmarshal_AttachServerVolumeResponse(data: Any) -> AttachServerVolumeRespons
             "Unmarshalling the type 'AttachServerVolumeResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -1209,7 +1209,7 @@ def unmarshal_CreateImageResponse(data: Any) -> CreateImageResponse:
             "Unmarshalling the type 'CreateImageResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("image", None)
     if field is not None:
@@ -1226,7 +1226,7 @@ def unmarshal_Ip(data: Any) -> Ip:
             "Unmarshalling the type 'Ip' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1309,7 +1309,7 @@ def unmarshal_CreateIpResponse(data: Any) -> CreateIpResponse:
             "Unmarshalling the type 'CreateIpResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip", None)
     if field is not None:
@@ -1326,7 +1326,7 @@ def unmarshal_CreatePlacementGroupResponse(data: Any) -> CreatePlacementGroupRes
             "Unmarshalling the type 'CreatePlacementGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("placement_group", None)
     if field is not None:
@@ -1343,7 +1343,7 @@ def unmarshal_CreatePrivateNICResponse(data: Any) -> CreatePrivateNICResponse:
             "Unmarshalling the type 'CreatePrivateNICResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("private_nic", None)
     if field is not None:
@@ -1360,7 +1360,7 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
             "Unmarshalling the type 'SecurityGroup' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1479,7 +1479,7 @@ def unmarshal_CreateSecurityGroupResponse(data: Any) -> CreateSecurityGroupRespo
             "Unmarshalling the type 'CreateSecurityGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("security_group", None)
     if field is not None:
@@ -1496,7 +1496,7 @@ def unmarshal_SecurityGroupRule(data: Any) -> SecurityGroupRule:
             "Unmarshalling the type 'SecurityGroupRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1569,7 +1569,7 @@ def unmarshal_CreateSecurityGroupRuleResponse(
             "Unmarshalling the type 'CreateSecurityGroupRuleResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rule", None)
     if field is not None:
@@ -1586,7 +1586,7 @@ def unmarshal_CreateServerResponse(data: Any) -> CreateServerResponse:
             "Unmarshalling the type 'CreateServerResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -1603,7 +1603,7 @@ def unmarshal_SnapshotBaseVolume(data: Any) -> SnapshotBaseVolume:
             "Unmarshalling the type 'SnapshotBaseVolume' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1626,7 +1626,7 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
             "Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1719,7 +1719,7 @@ def unmarshal_Task(data: Any) -> Task:
             "Unmarshalling the type 'Task' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1786,7 +1786,7 @@ def unmarshal_CreateSnapshotResponse(data: Any) -> CreateSnapshotResponse:
             "Unmarshalling the type 'CreateSnapshotResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshot", None)
     if field is not None:
@@ -1809,7 +1809,7 @@ def unmarshal_CreateVolumeResponse(data: Any) -> CreateVolumeResponse:
             "Unmarshalling the type 'CreateVolumeResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("volume", None)
     if field is not None:
@@ -1828,7 +1828,7 @@ def unmarshal_DetachServerFileSystemResponse(
             "Unmarshalling the type 'DetachServerFileSystemResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -1845,7 +1845,7 @@ def unmarshal_DetachServerVolumeResponse(data: Any) -> DetachServerVolumeRespons
             "Unmarshalling the type 'DetachServerVolumeResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -1862,7 +1862,7 @@ def unmarshal_ExportSnapshotResponse(data: Any) -> ExportSnapshotResponse:
             "Unmarshalling the type 'ExportSnapshotResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("task", None)
     if field is not None:
@@ -1879,7 +1879,7 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
             "Unmarshalling the type 'Dashboard' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("volumes_count", None)
     if field is not None:
@@ -1980,7 +1980,7 @@ def unmarshal_GetDashboardResponse(data: Any) -> GetDashboardResponse:
             "Unmarshalling the type 'GetDashboardResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dashboard", None)
     if field is not None:
@@ -1997,7 +1997,7 @@ def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
             "Unmarshalling the type 'GetImageResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("image", None)
     if field is not None:
@@ -2014,7 +2014,7 @@ def unmarshal_GetIpResponse(data: Any) -> GetIpResponse:
             "Unmarshalling the type 'GetIpResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip", None)
     if field is not None:
@@ -2031,7 +2031,7 @@ def unmarshal_GetPlacementGroupResponse(data: Any) -> GetPlacementGroupResponse:
             "Unmarshalling the type 'GetPlacementGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("placement_group", None)
     if field is not None:
@@ -2048,7 +2048,7 @@ def unmarshal_PlacementGroupServer(data: Any) -> PlacementGroupServer:
             "Unmarshalling the type 'PlacementGroupServer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -2079,7 +2079,7 @@ def unmarshal_GetPlacementGroupServersResponse(
             "Unmarshalling the type 'GetPlacementGroupServersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("servers", None)
     if field is not None:
@@ -2100,7 +2100,7 @@ def unmarshal_GetPrivateNICResponse(data: Any) -> GetPrivateNICResponse:
             "Unmarshalling the type 'GetPrivateNICResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("private_nic", None)
     if field is not None:
@@ -2117,7 +2117,7 @@ def unmarshal_GetSecurityGroupResponse(data: Any) -> GetSecurityGroupResponse:
             "Unmarshalling the type 'GetSecurityGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("security_group", None)
     if field is not None:
@@ -2134,7 +2134,7 @@ def unmarshal_GetSecurityGroupRuleResponse(data: Any) -> GetSecurityGroupRuleRes
             "Unmarshalling the type 'GetSecurityGroupRuleResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rule", None)
     if field is not None:
@@ -2151,7 +2151,7 @@ def unmarshal_GetServerResponse(data: Any) -> GetServerResponse:
             "Unmarshalling the type 'GetServerResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -2170,7 +2170,7 @@ def unmarshal_GetServerTypesAvailabilityResponseAvailability(
             "Unmarshalling the type 'GetServerTypesAvailabilityResponseAvailability' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("availability", None)
     if field is not None:
@@ -2189,7 +2189,7 @@ def unmarshal_GetServerTypesAvailabilityResponse(
             "Unmarshalling the type 'GetServerTypesAvailabilityResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("servers", None)
     if field is not None:
@@ -2219,7 +2219,7 @@ def unmarshal_GetSnapshotResponse(data: Any) -> GetSnapshotResponse:
             "Unmarshalling the type 'GetSnapshotResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshot", None)
     if field is not None:
@@ -2236,7 +2236,7 @@ def unmarshal_GetVolumeResponse(data: Any) -> GetVolumeResponse:
             "Unmarshalling the type 'GetVolumeResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("volume", None)
     if field is not None:
@@ -2253,7 +2253,7 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
             "Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2278,7 +2278,7 @@ def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
             "Unmarshalling the type 'ListIpsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2301,7 +2301,7 @@ def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsRespo
             "Unmarshalling the type 'ListPlacementGroupsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2326,7 +2326,7 @@ def unmarshal_ListPrivateNICsResponse(data: Any) -> ListPrivateNICsResponse:
             "Unmarshalling the type 'ListPrivateNICsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("private_nics", None)
     if field is not None:
@@ -2353,7 +2353,7 @@ def unmarshal_ListSecurityGroupRulesResponse(
             "Unmarshalling the type 'ListSecurityGroupRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2380,7 +2380,7 @@ def unmarshal_ListSecurityGroupsResponse(data: Any) -> ListSecurityGroupsRespons
             "Unmarshalling the type 'ListSecurityGroupsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2405,7 +2405,7 @@ def unmarshal_ListServerActionsResponse(data: Any) -> ListServerActionsResponse:
             "Unmarshalling the type 'ListServerActionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("actions", None)
     if field is not None:
@@ -2424,7 +2424,7 @@ def unmarshal_ListServerUserDataResponse(data: Any) -> ListServerUserDataRespons
             "Unmarshalling the type 'ListServerUserDataResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("user_data", None)
     if field is not None:
@@ -2441,7 +2441,7 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
             "Unmarshalling the type 'ListServersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2466,7 +2466,7 @@ def unmarshal_ServerTypeNetworkInterface(data: Any) -> ServerTypeNetworkInterfac
             "Unmarshalling the type 'ServerTypeNetworkInterface' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("internal_bandwidth", None)
     if field is not None:
@@ -2491,7 +2491,7 @@ def unmarshal_ServerTypeVolumeConstraintSizes(
             "Unmarshalling the type 'ServerTypeVolumeConstraintSizes' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("min_size", None)
     if field is not None:
@@ -2514,7 +2514,7 @@ def unmarshal_ServerTypeCapabilities(data: Any) -> ServerTypeCapabilities:
             "Unmarshalling the type 'ServerTypeCapabilities' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("boot_types", None)
     if field is not None:
@@ -2543,7 +2543,7 @@ def unmarshal_ServerTypeGPUInfo(data: Any) -> ServerTypeGPUInfo:
             "Unmarshalling the type 'ServerTypeGPUInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("gpu_manufacturer", None)
     if field is not None:
@@ -2572,7 +2572,7 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
             "Unmarshalling the type 'ServerTypeNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("interfaces", None)
     if field is not None:
@@ -2613,7 +2613,7 @@ def unmarshal_ServerTypeVolumeConstraintsByType(
             "Unmarshalling the type 'ServerTypeVolumeConstraintsByType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("l_ssd", None)
     if field is not None:
@@ -2630,7 +2630,7 @@ def unmarshal_ServerType(data: Any) -> ServerType:
             "Unmarshalling the type 'ServerType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("monthly_price", None)
     if field is not None:
@@ -2733,7 +2733,7 @@ def unmarshal_ListServersTypesResponse(data: Any) -> ListServersTypesResponse:
             "Unmarshalling the type 'ListServersTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2760,7 +2760,7 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
             "Unmarshalling the type 'ListSnapshotsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2785,7 +2785,7 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
             "Unmarshalling the type 'ListVolumesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2810,7 +2810,7 @@ def unmarshal_VolumeTypeCapabilities(data: Any) -> VolumeTypeCapabilities:
             "Unmarshalling the type 'VolumeTypeCapabilities' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshot", None)
     if field is not None:
@@ -2827,7 +2827,7 @@ def unmarshal_VolumeTypeConstraints(data: Any) -> VolumeTypeConstraints:
             "Unmarshalling the type 'VolumeTypeConstraints' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("min", None)
     if field is not None:
@@ -2850,7 +2850,7 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
             "Unmarshalling the type 'VolumeType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("display_name", None)
     if field is not None:
@@ -2879,7 +2879,7 @@ def unmarshal_ListVolumesTypesResponse(data: Any) -> ListVolumesTypesResponse:
             "Unmarshalling the type 'ListVolumesTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -2906,7 +2906,7 @@ def unmarshal_MigrationPlan(data: Any) -> MigrationPlan:
             "Unmarshalling the type 'MigrationPlan' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshots", None)
     if field is not None:
@@ -2937,7 +2937,7 @@ def unmarshal_ServerActionResponse(data: Any) -> ServerActionResponse:
             "Unmarshalling the type 'ServerActionResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("task", None)
     if field is not None:
@@ -2954,7 +2954,7 @@ def unmarshal_ServerCompatibleTypes(data: Any) -> ServerCompatibleTypes:
             "Unmarshalling the type 'ServerCompatibleTypes' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("compatible_types", None)
     if field is not None:
@@ -2971,7 +2971,7 @@ def unmarshal_SetPlacementGroupResponse(data: Any) -> SetPlacementGroupResponse:
             "Unmarshalling the type 'SetPlacementGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("placement_group", None)
     if field is not None:
@@ -2990,7 +2990,7 @@ def unmarshal_SetPlacementGroupServersResponse(
             "Unmarshalling the type 'SetPlacementGroupServersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("servers", None)
     if field is not None:
@@ -3011,7 +3011,7 @@ def unmarshal_SetSecurityGroupRulesResponse(data: Any) -> SetSecurityGroupRulesR
             "Unmarshalling the type 'SetSecurityGroupRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -3032,7 +3032,7 @@ def unmarshal_UpdateImageResponse(data: Any) -> UpdateImageResponse:
             "Unmarshalling the type 'UpdateImageResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("image", None)
     if field is not None:
@@ -3049,7 +3049,7 @@ def unmarshal_UpdateIpResponse(data: Any) -> UpdateIpResponse:
             "Unmarshalling the type 'UpdateIpResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip", None)
     if field is not None:
@@ -3066,7 +3066,7 @@ def unmarshal_UpdatePlacementGroupResponse(data: Any) -> UpdatePlacementGroupRes
             "Unmarshalling the type 'UpdatePlacementGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("placement_group", None)
     if field is not None:
@@ -3085,7 +3085,7 @@ def unmarshal_UpdatePlacementGroupServersResponse(
             "Unmarshalling the type 'UpdatePlacementGroupServersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("servers", None)
     if field is not None:
@@ -3106,7 +3106,7 @@ def unmarshal_UpdateSecurityGroupResponse(data: Any) -> UpdateSecurityGroupRespo
             "Unmarshalling the type 'UpdateSecurityGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("security_group", None)
     if field is not None:
@@ -3125,7 +3125,7 @@ def unmarshal_UpdateSecurityGroupRuleResponse(
             "Unmarshalling the type 'UpdateSecurityGroupRuleResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rule", None)
     if field is not None:
@@ -3142,7 +3142,7 @@ def unmarshal_UpdateServerResponse(data: Any) -> UpdateServerResponse:
             "Unmarshalling the type 'UpdateServerResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -3159,7 +3159,7 @@ def unmarshal_UpdateSnapshotResponse(data: Any) -> UpdateSnapshotResponse:
             "Unmarshalling the type 'UpdateSnapshotResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshot", None)
     if field is not None:
@@ -3176,7 +3176,7 @@ def unmarshal_UpdateVolumeResponse(data: Any) -> UpdateVolumeResponse:
             "Unmarshalling the type 'UpdateVolumeResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("volume", None)
     if field is not None:
@@ -3193,7 +3193,7 @@ def unmarshal__SetImageResponse(data: Any) -> _SetImageResponse:
             "Unmarshalling the type '_SetImageResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("image", None)
     if field is not None:
@@ -3210,7 +3210,7 @@ def unmarshal__SetSecurityGroupResponse(data: Any) -> _SetSecurityGroupResponse:
             "Unmarshalling the type '_SetSecurityGroupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("security_group", None)
     if field is not None:
@@ -3227,7 +3227,7 @@ def unmarshal__SetSecurityGroupRuleResponse(data: Any) -> _SetSecurityGroupRuleR
             "Unmarshalling the type '_SetSecurityGroupRuleResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rule", None)
     if field is not None:
@@ -3244,7 +3244,7 @@ def unmarshal__SetServerResponse(data: Any) -> _SetServerResponse:
             "Unmarshalling the type '_SetServerResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server", None)
     if field is not None:
@@ -3261,7 +3261,7 @@ def unmarshal__SetSnapshotResponse(data: Any) -> _SetSnapshotResponse:
             "Unmarshalling the type '_SetSnapshotResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshot", None)
     if field is not None:
@@ -3275,8 +3275,8 @@ def unmarshal__SetSnapshotResponse(data: Any) -> _SetSnapshotResponse:
 def marshal_ApplyBlockMigrationRequest(
     request: ApplyBlockMigrationRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3299,8 +3299,8 @@ def marshal_ApplyBlockMigrationRequest(
 def marshal_AttachServerFileSystemRequest(
     request: AttachServerFileSystemRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.filesystem_id is not None:
         output["filesystem_id"] = request.filesystem_id
@@ -3311,8 +3311,8 @@ def marshal_AttachServerFileSystemRequest(
 def marshal_AttachServerVolumeRequest(
     request: AttachServerVolumeRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.volume_id is not None:
         output["volume_id"] = request.volume_id
@@ -3329,8 +3329,8 @@ def marshal_AttachServerVolumeRequest(
 def marshal_CheckBlockMigrationOrganizationQuotasRequest(
     request: CheckBlockMigrationOrganizationQuotasRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.organization is not None:
         output["organization"] = request.organization
@@ -3343,8 +3343,8 @@ def marshal_CheckBlockMigrationOrganizationQuotasRequest(
 def marshal_VolumeTemplate(
     request: VolumeTemplate,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3382,8 +3382,8 @@ def marshal_VolumeTemplate(
 def marshal_CreateImageRequest(
     request: CreateImageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3430,8 +3430,8 @@ def marshal_CreateImageRequest(
 def marshal_CreateIpRequest(
     request: CreateIpRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3466,8 +3466,8 @@ def marshal_CreateIpRequest(
 def marshal_CreatePlacementGroupRequest(
     request: CreatePlacementGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3505,8 +3505,8 @@ def marshal_CreatePlacementGroupRequest(
 def marshal_CreatePrivateNICRequest(
     request: CreatePrivateNICRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
@@ -3526,8 +3526,8 @@ def marshal_CreatePrivateNICRequest(
 def marshal_CreateSecurityGroupRequest(
     request: CreateSecurityGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3590,8 +3590,8 @@ def marshal_CreateSecurityGroupRequest(
 def marshal_CreateSecurityGroupRuleRequest(
     request: CreateSecurityGroupRuleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.protocol is not None:
         output["protocol"] = request.protocol
@@ -3623,8 +3623,8 @@ def marshal_CreateSecurityGroupRuleRequest(
 def marshal_VolumeServerTemplate(
     request: VolumeServerTemplate,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.volume_type is not None:
         output["volume_type"] = request.volume_type
@@ -3656,8 +3656,8 @@ def marshal_VolumeServerTemplate(
 def marshal_CreateServerRequest(
     request: CreateServerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3733,8 +3733,8 @@ def marshal_CreateServerRequest(
 def marshal_CreateSnapshotRequest(
     request: CreateSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3781,8 +3781,8 @@ def marshal_CreateSnapshotRequest(
 def marshal_CreateVolumeRequest(
     request: CreateVolumeRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3829,8 +3829,8 @@ def marshal_CreateVolumeRequest(
 def marshal_DetachServerFileSystemRequest(
     request: DetachServerFileSystemRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.filesystem_id is not None:
         output["filesystem_id"] = request.filesystem_id
@@ -3841,8 +3841,8 @@ def marshal_DetachServerFileSystemRequest(
 def marshal_DetachServerVolumeRequest(
     request: DetachServerVolumeRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.volume_id is not None:
         output["volume_id"] = request.volume_id
@@ -3853,8 +3853,8 @@ def marshal_DetachServerVolumeRequest(
 def marshal_ExportSnapshotRequest(
     request: ExportSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.bucket is not None:
         output["bucket"] = request.bucket
@@ -3868,8 +3868,8 @@ def marshal_ExportSnapshotRequest(
 def marshal_PlanBlockMigrationRequest(
     request: PlanBlockMigrationRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -3889,8 +3889,8 @@ def marshal_PlanBlockMigrationRequest(
 def marshal_ServerActionRequestVolumeBackupTemplate(
     request: ServerActionRequestVolumeBackupTemplate,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.volume_type is not None:
         output["volume_type"] = request.volume_type
@@ -3901,8 +3901,8 @@ def marshal_ServerActionRequestVolumeBackupTemplate(
 def marshal_ServerActionRequest(
     request: ServerActionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.action is not None:
         output["action"] = request.action
@@ -3925,8 +3925,8 @@ def marshal_ServerActionRequest(
 def marshal_ServerSummary(
     request: ServerSummary,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -3940,8 +3940,8 @@ def marshal_ServerSummary(
 def marshal_Bootscript(
     request: Bootscript,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.architecture is not None:
         output["architecture"] = request.architecture
@@ -3991,8 +3991,8 @@ def marshal_Bootscript(
 def marshal_Volume(
     request: Volume,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4045,8 +4045,8 @@ def marshal_Volume(
 def marshal_VolumeSummary(
     request: VolumeSummary,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4066,8 +4066,8 @@ def marshal_VolumeSummary(
 def marshal_SetImageRequest(
     request: SetImageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4123,8 +4123,8 @@ def marshal_SetImageRequest(
 def marshal_SetPlacementGroupRequest(
     request: SetPlacementGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4154,8 +4154,8 @@ def marshal_SetPlacementGroupRequest(
 def marshal_SetPlacementGroupServersRequest(
     request: SetPlacementGroupServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.servers is not None:
         output["servers"] = request.servers
@@ -4166,8 +4166,8 @@ def marshal_SetPlacementGroupServersRequest(
 def marshal_SetSecurityGroupRulesRequestRule(
     request: SetSecurityGroupRulesRequestRule,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.action is not None:
         output["action"] = request.action
@@ -4205,8 +4205,8 @@ def marshal_SetSecurityGroupRulesRequestRule(
 def marshal_SetSecurityGroupRulesRequest(
     request: SetSecurityGroupRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.rules is not None:
         output["rules"] = [
@@ -4220,8 +4220,8 @@ def marshal_SetSecurityGroupRulesRequest(
 def marshal_VolumeImageUpdateTemplate(
     request: VolumeImageUpdateTemplate,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4232,8 +4232,8 @@ def marshal_VolumeImageUpdateTemplate(
 def marshal_UpdateImageRequest(
     request: UpdateImageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4259,8 +4259,8 @@ def marshal_UpdateImageRequest(
 def marshal_UpdateIpRequest(
     request: UpdateIpRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.reverse is not None:
         output["reverse"] = request.reverse
@@ -4280,8 +4280,8 @@ def marshal_UpdateIpRequest(
 def marshal_UpdatePlacementGroupRequest(
     request: UpdatePlacementGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4301,8 +4301,8 @@ def marshal_UpdatePlacementGroupRequest(
 def marshal_UpdatePlacementGroupServersRequest(
     request: UpdatePlacementGroupServersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.servers is not None:
         output["servers"] = request.servers
@@ -4313,8 +4313,8 @@ def marshal_UpdatePlacementGroupServersRequest(
 def marshal_UpdatePrivateNICRequest(
     request: UpdatePrivateNICRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -4325,8 +4325,8 @@ def marshal_UpdatePrivateNICRequest(
 def marshal_UpdateSecurityGroupRequest(
     request: UpdateSecurityGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4361,8 +4361,8 @@ def marshal_UpdateSecurityGroupRequest(
 def marshal_UpdateSecurityGroupRuleRequest(
     request: UpdateSecurityGroupRuleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.protocol is not None:
         output["protocol"] = request.protocol
@@ -4391,8 +4391,8 @@ def marshal_UpdateSecurityGroupRuleRequest(
 def marshal_SecurityGroupTemplate(
     request: SecurityGroupTemplate,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4406,8 +4406,8 @@ def marshal_SecurityGroupTemplate(
 def marshal_UpdateServerRequest(
     request: UpdateServerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4464,8 +4464,8 @@ def marshal_UpdateServerRequest(
 def marshal_UpdateSnapshotRequest(
     request: UpdateSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4479,8 +4479,8 @@ def marshal_UpdateSnapshotRequest(
 def marshal_UpdateVolumeRequest(
     request: UpdateVolumeRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4497,8 +4497,8 @@ def marshal_UpdateVolumeRequest(
 def marshal__SetSecurityGroupRequest(
     request: _SetSecurityGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4554,8 +4554,8 @@ def marshal__SetSecurityGroupRequest(
 def marshal__SetSecurityGroupRuleRequest(
     request: _SetSecurityGroupRuleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4590,8 +4590,8 @@ def marshal__SetSecurityGroupRuleRequest(
 def marshal_Image(
     request: Image,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4655,8 +4655,8 @@ def marshal_Image(
 def marshal_PlacementGroup(
     request: PlacementGroup,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4697,8 +4697,8 @@ def marshal_PlacementGroup(
 def marshal_PrivateNIC(
     request: PrivateNIC,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4724,8 +4724,8 @@ def marshal_PrivateNIC(
 def marshal_SecurityGroupSummary(
     request: SecurityGroupSummary,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4739,8 +4739,8 @@ def marshal_SecurityGroupSummary(
 def marshal_ServerIp(
     request: ServerIp,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4778,8 +4778,8 @@ def marshal_ServerIp(
 def marshal_ServerIpv6(
     request: ServerIpv6,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.address is not None:
         output["address"] = request.address
@@ -4796,8 +4796,8 @@ def marshal_ServerIpv6(
 def marshal_ServerLocation(
     request: ServerLocation,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.cluster_id is not None:
         output["cluster_id"] = request.cluster_id
@@ -4820,8 +4820,8 @@ def marshal_ServerLocation(
 def marshal_ServerMaintenance(
     request: ServerMaintenance,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.reason is not None:
         output["reason"] = request.reason
@@ -4835,8 +4835,8 @@ def marshal_ServerMaintenance(
 def marshal__SetServerRequest(
     request: _SetServerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -4950,8 +4950,8 @@ def marshal__SetServerRequest(
 def marshal_SnapshotBaseVolume(
     request: SnapshotBaseVolume,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -4965,8 +4965,8 @@ def marshal_SnapshotBaseVolume(
 def marshal__SetSnapshotRequest(
     request: _SetSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id

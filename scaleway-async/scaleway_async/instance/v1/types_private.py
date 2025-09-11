@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -66,7 +66,7 @@ class _SetSecurityGroupRequest:
     """
     True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
     """
-    tags: Optional[List[str]]
+    tags: Optional[list[str]]
     """
     Tags of the security group.
     """
@@ -106,7 +106,7 @@ class _SetSecurityGroupRequest:
     """
     Please use project_default instead.
     """
-    servers: Optional[List[ServerSummary]]
+    servers: Optional[list[ServerSummary]]
     """
     Instances attached to this security group.
     """
@@ -183,11 +183,11 @@ class _SetServerRequest:
     """
     Instance Project ID.
     """
-    allowed_actions: Optional[List[ServerAction]]
+    allowed_actions: Optional[list[ServerAction]]
     """
     Provide a list of allowed actions on the server.
     """
-    tags: Optional[List[str]]
+    tags: Optional[list[str]]
     """
     Tags associated with the Instance.
     """
@@ -215,7 +215,7 @@ class _SetServerRequest:
     """
     Information about the public IP (deprecated in favor of `public_ips`).
     """
-    public_ips: Optional[List[ServerIp]]
+    public_ips: Optional[list[ServerIp]]
     """
     Information about all the public IPs attached to the server.
     """
@@ -239,7 +239,7 @@ class _SetServerRequest:
     """
     Instance boot type.
     """
-    volumes: Optional[Dict[str, Volume]]
+    volumes: Optional[dict[str, Volume]]
     """
     Instance volumes.
     """
@@ -247,7 +247,7 @@ class _SetServerRequest:
     """
     Instance security group.
     """
-    maintenances: Optional[List[ServerMaintenance]]
+    maintenances: Optional[list[ServerMaintenance]]
     """
     Instance planned maintenances.
     """
@@ -259,7 +259,7 @@ class _SetServerRequest:
     """
     Instance placement group.
     """
-    private_nics: Optional[List[PrivateNIC]]
+    private_nics: Optional[list[PrivateNIC]]
     """
     Instance private NICs.
     """
@@ -291,7 +291,7 @@ class _SetSnapshotRequest:
     modification_date: Optional[datetime]
     project: Optional[str]
     snapshot_id: str
-    tags: Optional[List[str]]
+    tags: Optional[list[str]]
 
 
 @dataclass
