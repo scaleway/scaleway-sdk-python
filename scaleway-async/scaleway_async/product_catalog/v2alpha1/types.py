@@ -82,6 +82,8 @@ class PublicCatalogProductUnitOfMeasureCountableUnit(str, Enum, metaclass=StrEnu
     SETUP = "setup"
     DAY = "day"
     SECOND = "second"
+    SAMPLE_DAY = "sample_day"
+    GIGABYTE_DAY = "gigabyte_day"
 
     def __str__(self) -> str:
         return str(self.value)
