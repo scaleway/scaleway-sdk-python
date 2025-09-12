@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -127,9 +127,13 @@ class KeyUsage:
         KeyAlgorithmSymmetricEncryption.UNKNOWN_SYMMETRIC_ENCRYPTION
     )
 
-    asymmetric_encryption: Optional[KeyAlgorithmAsymmetricEncryption] = None
+    asymmetric_encryption: Optional[KeyAlgorithmAsymmetricEncryption] = (
+        KeyAlgorithmAsymmetricEncryption.UNKNOWN_ASYMMETRIC_ENCRYPTION
+    )
 
-    asymmetric_signing: Optional[KeyAlgorithmAsymmetricSigning] = None
+    asymmetric_signing: Optional[KeyAlgorithmAsymmetricSigning] = (
+        KeyAlgorithmAsymmetricSigning.UNKNOWN_ASYMMETRIC_SIGNING
+    )
 
 
 @dataclass
@@ -176,7 +180,7 @@ class Key:
     Returns `true` if the key is locked.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of the key's tags.
     """
@@ -193,7 +197,7 @@ class Key:
 
     usage: Optional[KeyUsage] = None
     """
-    Keys with a usage set to `symmetric_encryption` can encrypt and decrypt data using the `AES-256-GCM` key algorithm. Key Manager currently only supports `AES-256-GCM`.
+    See the `Key.Usage` enum for a description of possible values.
     """
 
     created_at: Optional[datetime] = None
@@ -251,7 +255,7 @@ class CreateKeyRequest:
 
     usage: Optional[KeyUsage] = None
     """
-    See the `Key.Algorithm.SymmetricEncryption` enum for a description of values.
+    See the `Key.Usage` enum for a description of possible values.
     """
 
     description: Optional[str] = None
@@ -259,7 +263,7 @@ class CreateKeyRequest:
     (Optional) Description of the key.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     (Optional) List of the key's tags.
     """
@@ -514,7 +518,7 @@ class ListAlgorithmsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    usages: Optional[List[ListAlgorithmsRequestUsage]] = field(default_factory=list)
+    usages: Optional[list[ListAlgorithmsRequestUsage]] = field(default_factory=list)
     """
     Filter by key usage.
     """
@@ -522,7 +526,7 @@ class ListAlgorithmsRequest:
 
 @dataclass
 class ListAlgorithmsResponse:
-    algorithms: List[ListAlgorithmsResponseAlgorithm]
+    algorithms: list[ListAlgorithmsResponseAlgorithm]
     """
     Returns a list of algorithms matching the requested criteria.
     """
@@ -553,7 +557,7 @@ class ListKeysRequest:
     order_by: Optional[ListKeysRequestOrderBy] = ListKeysRequestOrderBy.NAME_ASC
     page: Optional[int] = 0
     page_size: Optional[int] = 0
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     (Optional) List of tags to filter on.
     """
@@ -571,7 +575,7 @@ class ListKeysRequest:
 
 @dataclass
 class ListKeysResponse:
-    keys: List[Key]
+    keys: list[Key]
     """
     Single page of keys matching the requested criteria.
     """
@@ -688,7 +692,7 @@ class UpdateKeyRequest:
     (Optional) Updated description of the key.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     (Optional) Updated list of the key's tags.
     """
@@ -731,5 +735,5 @@ class VerifyResponse:
 
     valid: bool
     """
-    Returns `true` if the signature is valid for the digest and key, `false` otherwise.
+    Returns `true` if the signature is valid for the digest and key, and `false` otherwise.
     """
