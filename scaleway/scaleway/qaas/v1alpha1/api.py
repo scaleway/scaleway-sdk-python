@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
@@ -166,7 +166,7 @@ class QaasV1Alpha1API(API):
         *,
         session_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobsRequestOrderBy] = None,
@@ -215,11 +215,11 @@ class QaasV1Alpha1API(API):
         *,
         session_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobsRequestOrderBy] = None,
-    ) -> List[Job]:
+    ) -> list[Job]:
         """
         List all jobs within a project or session.
         Retrieve information about all jobs within a given project or session.
@@ -231,7 +231,7 @@ class QaasV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Maximum number of jobs to return per page.
         :param order_by: Sort order of the returned jobs.
-        :return: :class:`List[Job] <List[Job]>`
+        :return: :class:`list[Job] <list[Job]>`
 
         Usage:
         ::
@@ -300,7 +300,7 @@ class QaasV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobResultsRequestOrderBy] = None,
-    ) -> List[JobResult]:
+    ) -> list[JobResult]:
         """
         List all results of a job.
         Retrieve all intermediate and final results of a job.
@@ -308,7 +308,7 @@ class QaasV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
-        :return: :class:`List[JobResult] <List[JobResult]>`
+        :return: :class:`list[JobResult] <list[JobResult]>`
 
         Usage:
         ::
@@ -336,7 +336,7 @@ class QaasV1Alpha1API(API):
         name: str,
         session_id: str,
         circuit: JobCircuit,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         max_duration: Optional[str] = None,
         model_id: Optional[str] = None,
         parameters: Optional[str] = None,
@@ -388,7 +388,7 @@ class QaasV1Alpha1API(API):
         *,
         job_id: str,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Job:
         """
         Update job information.
@@ -599,7 +599,7 @@ class QaasV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListPlatformsRequestOrderBy] = None,
-    ) -> List[Platform]:
+    ) -> list[Platform]:
         """
         List all available platforms.
         Retrieve information about all platforms.
@@ -611,7 +611,7 @@ class QaasV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Maximum number of platforms to return per page.
         :param order_by: Sort order of the returned platforms.
-        :return: :class:`List[Platform] <List[Platform]>`
+        :return: :class:`list[Platform] <list[Platform]>`
 
         Usage:
         ::
@@ -702,7 +702,7 @@ class QaasV1Alpha1API(API):
         self,
         *,
         platform_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListSessionsRequestOrderBy] = None,
@@ -745,12 +745,12 @@ class QaasV1Alpha1API(API):
         self,
         *,
         platform_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListSessionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[Session]:
+    ) -> list[Session]:
         """
         List all sessions.
         Retrieve information about all sessions.
@@ -760,7 +760,7 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of sessions to return per page.
         :param order_by: Sort order of the returned sessions.
         :param project_id: List sessions belonging to this project ID.
-        :return: :class:`List[Session] <List[Session]>`
+        :return: :class:`list[Session] <list[Session]>`
 
         Usage:
         ::
@@ -790,7 +790,7 @@ class QaasV1Alpha1API(API):
         name: Optional[str] = None,
         max_idle_duration: Optional[str] = None,
         max_duration: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         deduplication_id: Optional[str] = None,
         booking_demand: Optional[CreateSessionRequestBookingDemand] = None,
         model_id: Optional[str] = None,
@@ -849,7 +849,7 @@ class QaasV1Alpha1API(API):
         name: Optional[str] = None,
         max_idle_duration: Optional[str] = None,
         max_duration: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Session:
         """
         Update session information.
@@ -991,13 +991,13 @@ class QaasV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListSessionACLsRequestOrderBy] = None,
-    ) -> List[SessionAccess]:
+    ) -> list[SessionAccess]:
         """
         :param session_id:
         :param page:
         :param page_size:
         :param order_by:
-        :return: :class:`List[SessionAccess] <List[SessionAccess]>`
+        :return: :class:`list[SessionAccess] <list[SessionAccess]>`
 
         Usage:
         ::
@@ -1027,7 +1027,7 @@ class QaasV1Alpha1API(API):
         platform_id: Optional[str] = None,
         application_id: Optional[str] = None,
         input: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Process:
         """
         Create a process.
@@ -1134,7 +1134,7 @@ class QaasV1Alpha1API(API):
         self,
         *,
         application_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListProcessesRequestOrderBy] = None,
@@ -1177,12 +1177,12 @@ class QaasV1Alpha1API(API):
         self,
         *,
         application_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListProcessesRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[Process]:
+    ) -> list[Process]:
         """
         List all processes.
         Retrieve information about all processes.
@@ -1192,7 +1192,7 @@ class QaasV1Alpha1API(API):
         :param page_size: Maximum number of processes to return per page.
         :param order_by: Sort order of the returned processes.
         :param project_id: List processes belonging to this project ID.
-        :return: :class:`List[Process] <List[Process]>`
+        :return: :class:`list[Process] <list[Process]>`
 
         Usage:
         ::
@@ -1219,7 +1219,7 @@ class QaasV1Alpha1API(API):
         *,
         process_id: str,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Process:
         """
         Update process information.
@@ -1359,7 +1359,7 @@ class QaasV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListProcessResultsRequestOrderBy] = None,
-    ) -> List[ProcessResult]:
+    ) -> list[ProcessResult]:
         """
         List all results of a process.
         Retrieve all intermediate and final result of a process.
@@ -1367,7 +1367,7 @@ class QaasV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
-        :return: :class:`List[ProcessResult] <List[ProcessResult]>`
+        :return: :class:`list[ProcessResult] <list[ProcessResult]>`
 
         Usage:
         ::
@@ -1466,7 +1466,7 @@ class QaasV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListApplicationsRequestOrderBy] = None,
-    ) -> List[Application]:
+    ) -> list[Application]:
         """
         List all available applications.
         Retrieve information about all applications.
@@ -1475,7 +1475,7 @@ class QaasV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Maximum number of applications a to return per page.
         :param order_by: Sort order of the returned applications.
-        :return: :class:`List[Application] <List[Application]>`
+        :return: :class:`list[Application] <list[Application]>`
 
         Usage:
         ::
@@ -1607,7 +1607,7 @@ class QaasV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListBookingsRequestOrderBy] = None,
-    ) -> List[Booking]:
+    ) -> list[Booking]:
         """
         List all bookings according the filter.
         Retrieve information about all bookings of the provided **project ID** or ** platform ID**.
@@ -1616,7 +1616,7 @@ class QaasV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
-        :return: :class:`List[Booking] <List[Booking]>`
+        :return: :class:`list[Booking] <list[Booking]>`
 
         Usage:
         ::
@@ -1782,7 +1782,7 @@ class QaasV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListModelsRequestOrderBy] = None,
-    ) -> List[Model]:
+    ) -> list[Model]:
         """
         List all models attached to the **project ID**.
         Retrieve information about all models of the provided **project ID**.
@@ -1790,7 +1790,7 @@ class QaasV1Alpha1API(API):
         :param page: Page number.
         :param page_size: Maximum number of results to return per page.
         :param order_by: Sort order of the returned results.
-        :return: :class:`List[Model] <List[Model]>`
+        :return: :class:`list[Model] <list[Model]>`
 
         Usage:
         ::

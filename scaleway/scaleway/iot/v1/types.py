@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -174,7 +174,7 @@ class DeviceMessageFiltersRule:
 If set to `reject`, all topics in the topics list will be denied, with all other topics being allowed.
     """
 
-    topics: Optional[List[str]] = field(default_factory=list)
+    topics: Optional[list[str]] = field(default_factory=list)
     """
     List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters.
     """
@@ -325,7 +325,7 @@ class CreateRouteRequestDatabaseConfig:
 class CreateRouteRequestRestConfig:
     verb: RouteRestConfigHttpVerb
     uri: str
-    headers: Dict[str, str]
+    headers: dict[str, str]
 
 
 @dataclass
@@ -522,7 +522,7 @@ class RouteRestConfig:
     URI of the REST endpoint.
     """
 
-    headers: Dict[str, str]
+    headers: dict[str, str]
     """
     HTTP call extra headers.
     """
@@ -566,7 +566,7 @@ class UpdateRouteRequestDatabaseConfig:
 class UpdateRouteRequestRestConfig:
     verb: RouteRestConfigHttpVerb
     uri: Optional[str] = None
-    headers: Optional[Dict[str, str]] = field(default_factory=dict)
+    headers: Optional[dict[str, str]] = field(default_factory=dict)
 
 
 @dataclass
@@ -919,7 +919,7 @@ class GetDeviceMetricsRequest:
 
 @dataclass
 class GetDeviceMetricsResponse:
-    metrics: List[TimeSeries]
+    metrics: list[TimeSeries]
     """
     Metrics for a device over the requested period.
     """
@@ -972,7 +972,7 @@ class GetHubMetricsRequest:
 
 @dataclass
 class GetHubMetricsResponse:
-    metrics: List[TimeSeries]
+    metrics: list[TimeSeries]
     """
     Metrics for a Hub over the requested period.
     """
@@ -1085,7 +1085,7 @@ class ListDevicesResponse:
     Total number of devices.
     """
 
-    devices: List[Device]
+    devices: list[Device]
     """
     Page of devices.
     """
@@ -1136,7 +1136,7 @@ class ListHubsResponse:
     Total number of Hubs.
     """
 
-    hubs: List[Hub]
+    hubs: list[Hub]
     """
     A page of hubs.
     """
@@ -1187,7 +1187,7 @@ class ListNetworksResponse:
     Total number of Networks.
     """
 
-    networks: List[Network]
+    networks: list[Network]
     """
     Page of networks.
     """
@@ -1233,7 +1233,7 @@ class ListRoutesResponse:
     Total number of routes.
     """
 
-    routes: List[RouteSummary]
+    routes: list[RouteSummary]
     """
     Page of routes.
     """
@@ -1254,7 +1254,7 @@ class ListTwinDocumentsRequest:
 
 @dataclass
 class ListTwinDocumentsResponse:
-    documents: List[ListTwinDocumentsResponseDocumentSummary]
+    documents: list[ListTwinDocumentsResponseDocumentSummary]
     """
     List of the twin document.
     """
@@ -1282,7 +1282,7 @@ class PatchTwinDocumentRequest:
     If set, ensures that the current version of the document matches before persisting the update.
     """
 
-    data: Optional[Dict[str, Any]] = field(default_factory=dict)
+    data: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     A json data that will be applied on the document's current data.
 Patching rules:
@@ -1315,7 +1315,7 @@ class PutTwinDocumentRequest:
     If set, ensures that the current version of the document matches before persisting the update.
     """
 
-    data: Optional[Dict[str, Any]] = field(default_factory=dict)
+    data: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     New data that will replace the contents of the document.
     """
@@ -1455,7 +1455,7 @@ class TwinDocument:
     New version of the document.
     """
 
-    data: Optional[Dict[str, Any]] = field(default_factory=dict)
+    data: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     New data related to the document.
     """

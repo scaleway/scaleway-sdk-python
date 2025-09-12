@@ -1,6 +1,5 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from typing import List
 
 from .types import (
     BookingStatus,
@@ -9,7 +8,7 @@ from .types import (
     SessionStatus,
 )
 
-BOOKING_TRANSIENT_STATUSES: List[BookingStatus] = [
+BOOKING_TRANSIENT_STATUSES: list[BookingStatus] = [
     BookingStatus.WAITING,
     BookingStatus.VALIDATING,
     BookingStatus.CANCELLING,
@@ -17,7 +16,7 @@ BOOKING_TRANSIENT_STATUSES: List[BookingStatus] = [
 """
 Lists transient statutes of the enum :class:`BookingStatus <BookingStatus>`.
 """
-JOB_TRANSIENT_STATUSES: List[JobStatus] = [
+JOB_TRANSIENT_STATUSES: list[JobStatus] = [
     JobStatus.WAITING,
     JobStatus.RUNNING,
     JobStatus.CANCELLING,
@@ -25,7 +24,7 @@ JOB_TRANSIENT_STATUSES: List[JobStatus] = [
 """
 Lists transient statutes of the enum :class:`JobStatus <JobStatus>`.
 """
-PROCESS_TRANSIENT_STATUSES: List[ProcessStatus] = [
+PROCESS_TRANSIENT_STATUSES: list[ProcessStatus] = [
     ProcessStatus.STARTING,
     ProcessStatus.RUNNING,
     ProcessStatus.CANCELLING,
@@ -33,7 +32,7 @@ PROCESS_TRANSIENT_STATUSES: List[ProcessStatus] = [
 """
 Lists transient statutes of the enum :class:`ProcessStatus <ProcessStatus>`.
 """
-SESSION_TRANSIENT_STATUSES: List[SessionStatus] = [
+SESSION_TRANSIENT_STATUSES: list[SessionStatus] = [
     SessionStatus.STARTING,
     SessionStatus.STOPPING,
 ]

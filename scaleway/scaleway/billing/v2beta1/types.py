@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -239,7 +239,7 @@ class Discount:
     The mode of the discount.
     """
 
-    filters: List[DiscountFilter]
+    filters: list[DiscountFilter]
     """
     List of the discount scopes.
     """
@@ -470,7 +470,7 @@ class ListConsumptionsRequest:
 
 @dataclass
 class ListConsumptionsResponse:
-    consumptions: List[ListConsumptionsResponseConsumption]
+    consumptions: list[ListConsumptionsResponseConsumption]
     """
     Detailed consumption list.
     """
@@ -523,7 +523,7 @@ class ListDiscountsResponse:
     Total number of discounts.
     """
 
-    discounts: List[Discount]
+    discounts: list[Discount]
     """
     Paginated returned discounts.
     """
@@ -576,7 +576,7 @@ class ListInvoicesResponse:
     Total number of invoices.
     """
 
-    invoices: List[Invoice]
+    invoices: list[Invoice]
     """
     Paginated returned invoices.
     """
@@ -614,7 +614,7 @@ class ListTaxesRequest:
 
 @dataclass
 class ListTaxesResponse:
-    taxes: List[ListTaxesResponseTax]
+    taxes: list[ListTaxesResponseTax]
     """
     Detailed consumption tax.
     """

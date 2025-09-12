@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     TimeSeries,
@@ -82,7 +82,7 @@ class PrivateNetwork:
     UUID of the Private Network.
     """
 
-    service_ips: List[str]
+    service_ips: list[str]
     """
     List of IPv4 CIDR notation addresses of the endpoint.
     """
@@ -110,7 +110,7 @@ class EndpointSpecPrivateNetworkSpec:
     UUID of the Private Network to connect to the Database Instance.
     """
 
-    service_ips: List[str]
+    service_ips: list[str]
     """
     Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.
     """
@@ -207,7 +207,7 @@ class Endpoint:
     TCP port of the endpoint.
     """
 
-    ips: List[str]
+    ips: list[str]
     """
     List of IPv4 addresses of the endpoint.
     """
@@ -249,7 +249,7 @@ class ClusterVersion:
     Redis™ engine version.
     """
 
-    available_settings: List[AvailableClusterSetting]
+    available_settings: list[AvailableClusterSetting]
     """
     Cluster settings available to be updated.
     """
@@ -297,12 +297,12 @@ class Cluster:
     Redis™ engine version of the Database Instance.
     """
 
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     List of Database Instance endpoints.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the Database Instance.
     """
@@ -317,12 +317,12 @@ class Cluster:
     Defines whether or not TLS is enabled.
     """
 
-    cluster_settings: List[ClusterSetting]
+    cluster_settings: list[ClusterSetting]
     """
     List of Database Instance settings.
     """
 
-    acl_rules: List[ACLRule]
+    acl_rules: list[ACLRule]
     """
     List of ACL rules.
     """
@@ -342,7 +342,7 @@ class Cluster:
     Name of the user associated to the cluster.
     """
 
-    upgradable_versions: List[str]
+    upgradable_versions: list[str]
     """
     List of engine versions the Database Instance can upgrade to.
     """
@@ -408,7 +408,7 @@ class AddAclRulesRequest:
     UUID of the Database Instance you want to add ACL rules to.
     """
 
-    acl_rules: List[ACLRuleSpec]
+    acl_rules: list[ACLRuleSpec]
     """
     ACLs rules to add to the cluster.
     """
@@ -421,7 +421,7 @@ class AddAclRulesRequest:
 
 @dataclass
 class AddAclRulesResponse:
-    acl_rules: List[ACLRule]
+    acl_rules: list[ACLRule]
     """
     ACL Rules enabled for the Database Instance.
     """
@@ -439,7 +439,7 @@ class AddClusterSettingsRequest:
     UUID of the Database Instance you want to add settings to.
     """
 
-    settings: List[ClusterSetting]
+    settings: list[ClusterSetting]
     """
     Settings to add to the cluster.
     """
@@ -457,7 +457,7 @@ class AddEndpointsRequest:
     UUID of the Database Instance you want to add endpoints to.
     """
 
-    endpoints: List[EndpointSpec]
+    endpoints: list[EndpointSpec]
     """
     Endpoints to add to the Database Instance.
     """
@@ -470,7 +470,7 @@ class AddEndpointsRequest:
 
 @dataclass
 class AddEndpointsResponse:
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     Endpoints defined on the Database Instance.
     """
@@ -483,7 +483,7 @@ class AddEndpointsResponse:
 
 @dataclass
 class ClusterMetricsResponse:
-    timeseries: List[TimeSeries]
+    timeseries: list[TimeSeries]
     """
     Time series of metrics of a given cluster.
     """
@@ -491,7 +491,7 @@ class ClusterMetricsResponse:
 
 @dataclass
 class ClusterSettingsResponse:
-    settings: List[ClusterSetting]
+    settings: list[ClusterSetting]
     """
     Settings configured for a given Database Instance.
     """
@@ -539,7 +539,7 @@ class CreateClusterRequest:
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to apply to the Database Instance.
     """
@@ -549,17 +549,17 @@ class CreateClusterRequest:
     Number of nodes in the Redis™ cluster.
     """
 
-    acl_rules: Optional[List[ACLRuleSpec]] = field(default_factory=list)
+    acl_rules: Optional[list[ACLRuleSpec]] = field(default_factory=list)
     """
     List of ACLRuleSpec used to secure your publicly exposed cluster.
     """
 
-    endpoints: Optional[List[EndpointSpec]] = field(default_factory=list)
+    endpoints: Optional[list[EndpointSpec]] = field(default_factory=list)
     """
     Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
     """
 
-    cluster_settings: Optional[List[ClusterSetting]] = field(default_factory=list)
+    cluster_settings: Optional[list[ClusterSetting]] = field(default_factory=list)
     """
     List of advanced settings to be set upon Database Instance initialization.
     """
@@ -735,7 +735,7 @@ class ListClusterVersionsRequest:
 
 @dataclass
 class ListClusterVersionsResponse:
-    versions: List[ClusterVersion]
+    versions: list[ClusterVersion]
     """
     List of available Redis™ engine versions.
     """
@@ -753,7 +753,7 @@ class ListClustersRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by Database Instance tags.
     """
@@ -791,7 +791,7 @@ class ListClustersRequest:
 
 @dataclass
 class ListClustersResponse:
-    clusters: List[Cluster]
+    clusters: list[Cluster]
     """
     List all Database Instances.
     """
@@ -820,7 +820,7 @@ class ListNodeTypesRequest:
 
 @dataclass
 class ListNodeTypesResponse:
-    node_types: List[NodeType]
+    node_types: list[NodeType]
     """
     Types of node.
     """
@@ -870,7 +870,7 @@ class SetAclRulesRequest:
     UUID of the Database Instance where the ACL rules have to be set.
     """
 
-    acl_rules: List[ACLRuleSpec]
+    acl_rules: list[ACLRuleSpec]
     """
     ACLs rules to define for the cluster.
     """
@@ -883,7 +883,7 @@ class SetAclRulesRequest:
 
 @dataclass
 class SetAclRulesResponse:
-    acl_rules: List[ACLRule]
+    acl_rules: list[ACLRule]
     """
     ACL Rules enabled for the Database Instance.
     """
@@ -896,7 +896,7 @@ class SetClusterSettingsRequest:
     UUID of the Database Instance where the settings must be set.
     """
 
-    settings: List[ClusterSetting]
+    settings: list[ClusterSetting]
     """
     Settings to define for the Database Instance.
     """
@@ -914,7 +914,7 @@ class SetEndpointsRequest:
     UUID of the Database Instance where the endpoints have to be set.
     """
 
-    endpoints: List[EndpointSpec]
+    endpoints: list[EndpointSpec]
     """
     Endpoints to define for the Database Instance.
     """
@@ -927,7 +927,7 @@ class SetEndpointsRequest:
 
 @dataclass
 class SetEndpointsResponse:
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     Endpoints defined on the Database Instance.
     """
@@ -950,7 +950,7 @@ class UpdateClusterRequest:
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Database Instance tags.
     """

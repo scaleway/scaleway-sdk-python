@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from .types import (
@@ -23,7 +23,7 @@ def unmarshal_Category(data: Any) -> Category:
             "Unmarshalling the type 'Category' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -52,7 +52,7 @@ def unmarshal_Image(data: Any) -> Image:
             "Unmarshalling the type 'Image' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -119,7 +119,7 @@ def unmarshal_LocalImage(data: Any) -> LocalImage:
             "Unmarshalling the type 'LocalImage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -166,7 +166,7 @@ def unmarshal_Version(data: Any) -> Version:
             "Unmarshalling the type 'Version' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -209,7 +209,7 @@ def unmarshal_ListCategoriesResponse(data: Any) -> ListCategoriesResponse:
             "Unmarshalling the type 'ListCategoriesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("categories", None)
     if field is not None:
@@ -234,7 +234,7 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
             "Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("images", None)
     if field is not None:
@@ -259,7 +259,7 @@ def unmarshal_ListLocalImagesResponse(data: Any) -> ListLocalImagesResponse:
             "Unmarshalling the type 'ListLocalImagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("local_images", None)
     if field is not None:
@@ -284,7 +284,7 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
             "Unmarshalling the type 'ListVersionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("versions", None)
     if field is not None:

@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -832,7 +832,7 @@ class NetworkInterface:
     Network interface type.
     """
 
-    ips: List[IP]
+    ips: list[IP]
     """
     IPs of the network interface.
     """
@@ -890,7 +890,7 @@ class OS:
     True if the OS requires panel password.
     """
 
-    allowed_filesystems: List[PartitionFileSystem]
+    allowed_filesystems: list[PartitionFileSystem]
     """
     True if the OS allow file systems.
     """
@@ -900,7 +900,7 @@ class OS:
     True if the OS requires license.
     """
 
-    license_offers: List[Offer]
+    license_offers: list[Offer]
     """
     License offers available with the OS.
     """
@@ -955,7 +955,7 @@ class ServerLocation:
 
 @dataclass
 class ServerOption:
-    options: List[ServerOption]
+    options: list[ServerOption]
     offer: Optional[Offer] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
@@ -1146,7 +1146,7 @@ class Server:
     Abuse contact of the server.
     """
 
-    interfaces: List[NetworkInterface]
+    interfaces: list[NetworkInterface]
     """
     Network interfaces of the server.
     """
@@ -1156,7 +1156,7 @@ class Server:
     The zone in which is the server.
     """
 
-    options: List[ServerOption]
+    options: list[ServerOption]
     """
     Options subscribe on the server.
     """
@@ -1166,7 +1166,7 @@ class Server:
     Boolean if the server has a BMC.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Array of customs tags attached to the server.
     """
@@ -1254,7 +1254,7 @@ class FailoverBlock:
     IP of the failover block.
     """
 
-    nameservers: List[str]
+    nameservers: list[str]
     """
     Name servers.
     """
@@ -1310,7 +1310,7 @@ class RpnSanServer:
     The RPN SAN server hostname.
     """
 
-    sans: List[RpnSan]
+    sans: list[RpnSan]
     """
     RPN SANs linked to the RPN SAN server.
     """
@@ -1491,7 +1491,7 @@ class InstallPartition:
     Capacity of the installation partition.
     """
 
-    connectors: List[str]
+    connectors: list[str]
     """
     Connectors of the installation partition.
     """
@@ -1903,7 +1903,7 @@ class ServerSummary:
     Status of the server.
     """
 
-    interfaces: List[NetworkInterface]
+    interfaces: list[NetworkInterface]
     """
     Network interfaces of the server.
     """
@@ -2043,7 +2043,7 @@ class RaidController:
     Model of the RAID controller.
     """
 
-    raid_level: List[str]
+    raid_level: list[str]
     """
     RAID level of the RAID controller.
     """
@@ -2056,7 +2056,7 @@ class RaidArray:
     The RAID level.
     """
 
-    disks: List[ServerDisk]
+    disks: list[ServerDisk]
     """
     Disks on the RAID controller.
     """
@@ -2084,7 +2084,7 @@ class Partition:
     Capacity of the partition.
     """
 
-    connectors: List[str]
+    connectors: list[str]
     """
     Connectors of the partition.
     """
@@ -2102,7 +2102,7 @@ class UpdatableRaidArray:
     The RAID level.
     """
 
-    disk_ids: List[int]
+    disk_ids: list[int]
     """
     The list of Disk ID of the updatable RAID.
     """
@@ -2140,7 +2140,7 @@ class AttachFailoverIPsRequest:
     ID of the server.
     """
 
-    fips_ids: List[int]
+    fips_ids: list[int]
     """
     List of ID of failovers IP to attach.
     """
@@ -2324,7 +2324,7 @@ class CreateFailoverIPsRequest:
 @dataclass
 class CreateFailoverIPsResponse:
     total_count: int
-    services: List[Service]
+    services: list[Service]
 
 
 @dataclass
@@ -2334,7 +2334,7 @@ class CreateServerRequest:
     Offer ID of the new server.
     """
 
-    server_option_ids: List[int]
+    server_option_ids: list[int]
     """
     Server option IDs of the new server.
     """
@@ -2409,7 +2409,7 @@ class DetachFailoverIPFromMacAddressRequest:
 
 @dataclass
 class DetachFailoverIPsRequest:
-    fips_ids: List[int]
+    fips_ids: list[int]
     """
     List of IDs of failovers IP to detach.
     """
@@ -2448,7 +2448,7 @@ class GetFailoverIPRequest:
 
 @dataclass
 class GetIPv6BlockQuotasResponse:
-    quotas: List[GetIPv6BlockQuotasResponseQuota]
+    quotas: list[GetIPv6BlockQuotasResponseQuota]
     """
     Quota for each CIDR of IPv6 block.
     """
@@ -2671,7 +2671,7 @@ class IPv6Block:
     DUID of the IPv6.
     """
 
-    nameservers: List[str]
+    nameservers: list[str]
     """
     DNS linked to the IPv6.
     """
@@ -2681,7 +2681,7 @@ class IPv6Block:
     Classless InterDomain Routing notation of the IPv6.
     """
 
-    subnets: List[IPv6Block]
+    subnets: list[IPv6Block]
     """
     All IPv6 subnets.
     """
@@ -2757,7 +2757,7 @@ class IPv6BlockApiUpdateIPv6BlockRequest:
     ID of the IPv6 block.
     """
 
-    nameservers: Optional[List[str]] = field(default_factory=list)
+    nameservers: Optional[list[str]] = field(default_factory=list)
     """
     DNS to link to the IPv6.
     """
@@ -2805,12 +2805,12 @@ class InstallServerRequest:
     Root password to install on the server.
     """
 
-    partitions: Optional[List[InstallPartition]] = field(default_factory=list)
+    partitions: Optional[list[InstallPartition]] = field(default_factory=list)
     """
     Partitions to install on the server.
     """
 
-    ssh_key_ids: Optional[List[str]] = field(default_factory=list)
+    ssh_key_ids: Optional[list[str]] = field(default_factory=list)
     """
     SSH key IDs authorized on the server.
     """
@@ -2887,7 +2887,7 @@ class ListFailoverIPsResponse:
     Total count of matching failovers IP.
     """
 
-    failover_ips: List[FailoverIP]
+    failover_ips: list[FailoverIP]
     """
     List of failover IPs that match filters.
     """
@@ -2895,7 +2895,7 @@ class ListFailoverIPsResponse:
 
 @dataclass
 class ListIPv6BlockSubnetsAvailableResponse:
-    subnet_availables: List[ListIPv6BlockSubnetsAvailableResponseSubnet]
+    subnet_availables: list[ListIPv6BlockSubnetsAvailableResponseSubnet]
     """
     All available address and CIDR available in subnet.
     """
@@ -2909,7 +2909,7 @@ class ListIPv6BlockSubnetsAvailableResponse:
 @dataclass
 class ListInvoicesResponse:
     total_count: int
-    invoices: List[InvoiceSummary]
+    invoices: list[InvoiceSummary]
 
 
 @dataclass
@@ -2919,7 +2919,7 @@ class ListIpsResponse:
     Total count of authorized IPs.
     """
 
-    ips: List[RpnSanIp]
+    ips: list[RpnSanIp]
     """
     List of authorized IPs.
     """
@@ -2970,7 +2970,7 @@ class ListOSResponse:
     Total count of matching OS.
     """
 
-    os: List[OS]
+    os: list[OS]
     """
     OS that match filters.
     """
@@ -3025,7 +3025,7 @@ class ListOffersRequest:
     Get the current failover IP block offer.
     """
 
-    sold_in: Optional[List[str]] = None
+    sold_in: Optional[list[str]] = None
     """
     Filter offers depending on their datacenter.
     """
@@ -3048,7 +3048,7 @@ class ListOffersResponse:
     Total count of matching offers.
     """
 
-    offers: List[Offer]
+    offers: list[Offer]
     """
     Offers that match filters.
     """
@@ -3057,7 +3057,7 @@ class ListOffersResponse:
 @dataclass
 class ListRefundsResponse:
     total_count: int
-    refunds: List[RefundSummary]
+    refunds: list[RefundSummary]
 
 
 @dataclass
@@ -3067,7 +3067,7 @@ class ListRpnCapableSanServersResponse:
     Total count of rpn capable san servers.
     """
 
-    san_servers: List[RpnSanServer]
+    san_servers: list[RpnSanServer]
     """
     List of san servers.
     """
@@ -3080,7 +3080,7 @@ class ListRpnCapableServersResponse:
     Total count of rpn capable servers.
     """
 
-    servers: List[Server]
+    servers: list[Server]
     """
     List of servers.
     """
@@ -3093,7 +3093,7 @@ class ListRpnGroupMembersResponse:
     Total count of rpn v1 group members.
     """
 
-    members: List[RpnGroupMember]
+    members: list[RpnGroupMember]
     """
     List of rpn v1 group members.
     """
@@ -3106,7 +3106,7 @@ class ListRpnGroupsResponse:
     Total count of rpn groups.
     """
 
-    rpn_groups: List[RpnGroup]
+    rpn_groups: list[RpnGroup]
     """
     List of rpn v1 groups.
     """
@@ -3119,7 +3119,7 @@ class ListRpnInvitesResponse:
     Total count of invites.
     """
 
-    members: List[RpnGroupMember]
+    members: list[RpnGroupMember]
     """
     List of invites.
     """
@@ -3132,7 +3132,7 @@ class ListRpnSansResponse:
     Total count of matching RPN SANs.
     """
 
-    rpn_sans: List[RpnSanSummary]
+    rpn_sans: list[RpnSanSummary]
     """
     List of RPN SANs that match filters.
     """
@@ -3145,7 +3145,7 @@ class ListRpnServerCapabilitiesResponse:
     Total count of servers.
     """
 
-    servers: List[RpnServerCapability]
+    servers: list[RpnServerCapability]
     """
     List of servers and their RPN capabilities.
     """
@@ -3158,7 +3158,7 @@ class ListRpnV2CapableResourcesResponse:
     Total count of matching rpn v2 capable resources.
     """
 
-    servers: List[Server]
+    servers: list[Server]
     """
     List of rpn v2 capable resources that match filters.
     """
@@ -3171,7 +3171,7 @@ class ListRpnV2GroupLogsResponse:
     Total count of matching rpn v2 logs.
     """
 
-    logs: List[Log]
+    logs: list[Log]
     """
     List of rpn v2 logs that match filters.
     """
@@ -3184,7 +3184,7 @@ class ListRpnV2GroupsResponse:
     Total count of matching rpn v2 groups.
     """
 
-    rpn_groups: List[RpnV2Group]
+    rpn_groups: list[RpnV2Group]
     """
     List of rpn v2 groups that match filters.
     """
@@ -3197,7 +3197,7 @@ class ListRpnV2MembersResponse:
     Total count of matching rpn v2 group members.
     """
 
-    members: List[RpnV2Member]
+    members: list[RpnV2Member]
     """
     List of rpn v2 group members that match filters.
     """
@@ -3240,7 +3240,7 @@ class ListServerDisksResponse:
     Total count of matching server disks.
     """
 
-    disks: List[ServerDisk]
+    disks: list[ServerDisk]
     """
     Server disks that match filters.
     """
@@ -3283,7 +3283,7 @@ class ListServerEventsResponse:
     Total count of matching server events.
     """
 
-    events: List[ServerEvent]
+    events: list[ServerEvent]
     """
     Server events that match filters.
     """
@@ -3331,7 +3331,7 @@ class ListServersResponse:
     Total count of matching servers.
     """
 
-    servers: List[ServerSummary]
+    servers: list[ServerSummary]
     """
     Servers that match filters.
     """
@@ -3374,7 +3374,7 @@ class ListServicesResponse:
     Total count of matching services.
     """
 
-    services: List[Service]
+    services: list[Service]
     """
     Services that match filters.
     """
@@ -3410,7 +3410,7 @@ class ListSubscribableServerOptionsResponse:
     Total count of matching subscribable server options.
     """
 
-    server_options: List[Offer]
+    server_options: list[Offer]
     """
     Server options that match filters.
     """
@@ -3431,14 +3431,14 @@ class OfferServerInfo:
     bandwidth: int
     stock: OfferServerInfoStock
     commercial_range: str
-    disks: List[Disk]
-    cpus: List[CPU]
-    memories: List[Memory]
-    persistent_memories: List[PersistentMemory]
-    raid_controllers: List[RaidController]
-    available_options: List[Offer]
+    disks: list[Disk]
+    cpus: list[CPU]
+    memories: list[Memory]
+    persistent_memories: list[PersistentMemory]
+    raid_controllers: list[RaidController]
+    available_options: list[Offer]
     connectivity: int
-    stock_by_datacenter: Dict[str, OfferServerInfoStock]
+    stock_by_datacenter: dict[str, OfferServerInfoStock]
     rpn_version: Optional[int] = None
     onetime_fees: Optional[Offer] = None
 
@@ -3455,12 +3455,12 @@ class OfferServiceLevelInfo:
     customization: bool
     antidos: bool
     extra_failover_quota: int
-    available_options: List[Offer]
+    available_options: list[Offer]
 
 
 @dataclass
 class Raid:
-    raid_arrays: List[RaidArray]
+    raid_arrays: list[RaidArray]
     """
     Details about the RAID controller.
     """
@@ -3564,7 +3564,7 @@ class RpnSanApiAddIpRequest:
     RPN SAN ID.
     """
 
-    ip_ids: List[int]
+    ip_ids: list[int]
     """
     An array of IP ID.
     """
@@ -3657,7 +3657,7 @@ class RpnSanApiRemoveIpRequest:
     RPN SAN ID.
     """
 
-    ip_ids: List[int]
+    ip_ids: list[int]
     """
     An array of IP ID.
     """
@@ -3678,12 +3678,12 @@ class RpnV1ApiAddRpnGroupMembersRequest:
     The rpn v1 group ID.
     """
 
-    server_ids: Optional[List[int]] = field(default_factory=list)
+    server_ids: Optional[list[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable server IDs.
     """
 
-    san_server_ids: Optional[List[int]] = field(default_factory=list)
+    san_server_ids: Optional[list[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable RPN SAN server IDs.
     """
@@ -3696,12 +3696,12 @@ class RpnV1ApiCreateRpnGroupRequest:
     Rpn v1 group name.
     """
 
-    server_ids: Optional[List[int]] = field(default_factory=list)
+    server_ids: Optional[list[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable servers.
     """
 
-    san_server_ids: Optional[List[int]] = field(default_factory=list)
+    san_server_ids: Optional[list[int]] = field(default_factory=list)
     """
     A collection of rpn v1 capable rpn sans servers.
     """
@@ -3719,7 +3719,7 @@ class RpnV1ApiDeleteRpnGroupMembersRequest:
     The rpn v1 group ID.
     """
 
-    member_ids: List[int]
+    member_ids: list[int]
     """
     A collection of rpn v1 group members IDs.
     """
@@ -3748,7 +3748,7 @@ class RpnV1ApiLeaveRpnGroupRequest:
     The RPN V1 group ID.
     """
 
-    member_ids: List[int]
+    member_ids: list[int]
     """
     A collection of rpn v1 group members IDs.
     """
@@ -3904,7 +3904,7 @@ class RpnV1ApiRpnGroupInviteRequest:
     The RPN V1 group ID.
     """
 
-    server_ids: List[int]
+    server_ids: list[int]
     """
     A collection of external server IDs.
     """
@@ -3935,7 +3935,7 @@ class RpnV2ApiAddRpnV2MembersRequest:
     RPN V2 group ID.
     """
 
-    servers: List[int]
+    servers: list[int]
     """
     A collection of server IDs.
     """
@@ -3948,7 +3948,7 @@ class RpnV2ApiCreateRpnV2GroupRequest:
     RPN V2 group name.
     """
 
-    servers: List[int]
+    servers: list[int]
     """
     A collection of server IDs.
     """
@@ -3979,7 +3979,7 @@ class RpnV2ApiDeleteRpnV2MembersRequest:
     RPN V2 group ID.
     """
 
-    member_ids: List[int]
+    member_ids: list[int]
     """
     A collection of member IDs.
     """
@@ -4141,7 +4141,7 @@ class RpnV2ApiUpdateRpnV2VlanForMembersRequest:
     RPN V2 group ID.
     """
 
-    member_ids: List[int]
+    member_ids: list[int]
     """
     RPN V2 member IDs.
     """
@@ -4155,7 +4155,7 @@ Max: 3967.
 
 @dataclass
 class ServerDefaultPartitioning:
-    partitions: List[Partition]
+    partitions: list[Partition]
     """
     Default partitions.
     """
@@ -4165,8 +4165,8 @@ class ServerDefaultPartitioning:
 class ServerInstall:
     os_id: int
     hostname: str
-    partitions: List[Partition]
-    ssh_key_ids: List[str]
+    partitions: list[Partition]
+    ssh_key_ids: list[str]
     status: ServerInstallStatus
     user_login: Optional[str] = None
     panel_url: Optional[str] = None
@@ -4285,7 +4285,7 @@ class SubscribeStorageOptionsRequest:
     Server ID of the storage options to subscribe.
     """
 
-    options_ids: List[int]
+    options_ids: list[int]
     """
     Option IDs of the storage options to subscribe.
     """
@@ -4298,7 +4298,7 @@ class SubscribeStorageOptionsRequest:
 
 @dataclass
 class SubscribeStorageOptionsResponse:
-    services: List[Service]
+    services: list[Service]
     """
     Services subscribe storage options.
     """
@@ -4311,7 +4311,7 @@ class UpdateRaidRequest:
     ID of the server.
     """
 
-    raid_arrays: List[UpdatableRaidArray]
+    raid_arrays: list[UpdatableRaidArray]
     """
     RAIDs to update.
     """
@@ -4403,7 +4403,7 @@ class UpdateServerTagsRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of server to update.
     """

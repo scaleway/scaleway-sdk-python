@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -193,7 +193,7 @@ class WebhostingV1BackupAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListBackupsRequestOrderBy] = None,
-    ) -> List[Backup]:
+    ) -> list[Backup]:
         """
         List all available backups for a hosting account.
         :param hosting_id: UUID of the hosting account.
@@ -201,7 +201,7 @@ class WebhostingV1BackupAPI(API):
         :param page: Page number to retrieve.
         :param page_size: Number of backups to return per page.
         :param order_by: Order in which to return the list of backups.
-        :return: :class:`List[Backup] <List[Backup]>`
+        :return: :class:`list[Backup] <list[Backup]>`
 
         Usage:
         ::
@@ -383,7 +383,7 @@ class WebhostingV1BackupAPI(API):
         *,
         hosting_id: str,
         region: Optional[ScwRegion] = None,
-        item_ids: Optional[List[str]] = None,
+        item_ids: Optional[list[str]] = None,
     ) -> RestoreBackupItemsResponse:
         """
         Restore specific items from a backup (e.g., a database or mailbox).
@@ -469,13 +469,13 @@ class WebhostingV1ControlPanelAPI(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[ControlPanel]:
+    ) -> list[ControlPanel]:
         """
         "List the control panels type: cpanel or plesk.".
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number (must be a positive integer).
         :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
-        :return: :class:`List[ControlPanel] <List[ControlPanel]>`
+        :return: :class:`list[ControlPanel] <list[ControlPanel]>`
 
         Usage:
         ::
@@ -604,7 +604,7 @@ class WebhostingV1DatabaseAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
-    ) -> List[Database]:
+    ) -> list[Database]:
         """
         "List all databases within your hosting plan".
         :param hosting_id: UUID of the hosting plan.
@@ -612,7 +612,7 @@ class WebhostingV1DatabaseAPI(API):
         :param page: Page number (must be a positive integer).
         :param page_size: Number of databases to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of databases in the response.
-        :return: :class:`List[Database] <List[Database]>`
+        :return: :class:`list[Database] <list[Database]>`
 
         Usage:
         ::
@@ -809,7 +809,7 @@ class WebhostingV1DatabaseAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabaseUsersRequestOrderBy] = None,
-    ) -> List[DatabaseUser]:
+    ) -> list[DatabaseUser]:
         """
         "List all database users".
         :param hosting_id: UUID of the hosting plan.
@@ -817,7 +817,7 @@ class WebhostingV1DatabaseAPI(API):
         :param page: Page number (must be a positive integer).
         :param page_size: Number of database users to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of database users in the response.
-        :return: :class:`List[DatabaseUser] <List[DatabaseUser]>`
+        :return: :class:`list[DatabaseUser] <list[DatabaseUser]>`
 
         Usage:
         ::
@@ -1154,7 +1154,7 @@ class WebhostingV1DnsAPI(API):
         update_mail_records: Optional[bool] = None,
         update_all_records: Optional[bool] = None,
         update_nameservers: Optional[bool] = None,
-        custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]] = None,
+        custom_records: Optional[list[SyncDomainDnsRecordsRequestRecord]] = None,
         auto_config_domain_dns: Optional[AutoConfigDomainDns] = None,
     ) -> DnsRecords:
         """
@@ -1332,7 +1332,7 @@ class WebhostingV1OfferAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
         hosting_id: Optional[str] = None,
-        control_panels: Optional[List[str]] = None,
+        control_panels: Optional[list[str]] = None,
     ) -> ListOffersResponse:
         """
         List all available hosting offers along with their specific options.
@@ -1377,8 +1377,8 @@ class WebhostingV1OfferAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
         hosting_id: Optional[str] = None,
-        control_panels: Optional[List[str]] = None,
-    ) -> List[Offer]:
+        control_panels: Optional[list[str]] = None,
+    ) -> list[Offer]:
         """
         List all available hosting offers along with their specific options.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -1387,7 +1387,7 @@ class WebhostingV1OfferAPI(API):
         :param order_by: Sort order for Web Hosting offers in the response.
         :param hosting_id: UUID of the hosting plan.
         :param control_panels: Name of the control panel(s) to filter for.
-        :return: :class:`List[Offer] <List[Offer]>`
+        :return: :class:`list[Offer] <list[Offer]>`
 
         Usage:
         ::
@@ -1423,9 +1423,9 @@ class WebhostingV1HostingAPI(API):
         domain: str,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         subdomain: Optional[str] = None,
-        offer_options: Optional[List[OfferOptionRequest]] = None,
+        offer_options: Optional[list[OfferOptionRequest]] = None,
         language: Optional[StdLanguageCode] = None,
         domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None,
         skip_welcome_email: Optional[bool] = None,
@@ -1494,12 +1494,12 @@ class WebhostingV1HostingAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHostingsRequestOrderBy] = None,
-        tags: Optional[List[str]] = None,
-        statuses: Optional[List[HostingStatus]] = None,
+        tags: Optional[list[str]] = None,
+        statuses: Optional[list[HostingStatus]] = None,
         domain: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
-        control_panels: Optional[List[str]] = None,
+        control_panels: Optional[list[str]] = None,
         subdomain: Optional[str] = None,
     ) -> ListHostingsResponse:
         """
@@ -1556,14 +1556,14 @@ class WebhostingV1HostingAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHostingsRequestOrderBy] = None,
-        tags: Optional[List[str]] = None,
-        statuses: Optional[List[HostingStatus]] = None,
+        tags: Optional[list[str]] = None,
+        statuses: Optional[list[HostingStatus]] = None,
         domain: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
-        control_panels: Optional[List[str]] = None,
+        control_panels: Optional[list[str]] = None,
         subdomain: Optional[str] = None,
-    ) -> List[HostingSummary]:
+    ) -> list[HostingSummary]:
         """
         List all Web Hosting plans.
         List all of your existing Web Hosting plans. Various filters are available to limit the results, including filtering by domain, status, tag and Project ID.
@@ -1578,7 +1578,7 @@ class WebhostingV1HostingAPI(API):
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
         :param subdomain: Optional free subdomain linked to the Web Hosting plan.
-        :return: :class:`List[HostingSummary] <List[HostingSummary]>`
+        :return: :class:`list[HostingSummary] <list[HostingSummary]>`
 
         Usage:
         ::
@@ -1682,8 +1682,8 @@ class WebhostingV1HostingAPI(API):
         hosting_id: str,
         region: Optional[ScwRegion] = None,
         email: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        offer_options: Optional[List[OfferOptionRequest]] = None,
+        tags: Optional[list[str]] = None,
+        offer_options: Optional[list[OfferOptionRequest]] = None,
         offer_id: Optional[str] = None,
         protected: Optional[bool] = None,
     ) -> Hosting:
@@ -2046,13 +2046,13 @@ class WebhostingV1FreeDomainAPI(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Retrieve the list of free root domains available for a Web Hosting.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results (must be a positive integer).
         :param page_size: Number of free root domains to return (must be a positive integer lower or equal to 100).
-        :return: :class:`List[str] <List[str]>`
+        :return: :class:`list[str] <list[str]>`
 
         Usage:
         ::
@@ -2185,7 +2185,7 @@ class WebhostingV1FtpAccountAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListFtpAccountsRequestOrderBy] = None,
         domain: Optional[str] = None,
-    ) -> List[FtpAccount]:
+    ) -> list[FtpAccount]:
         """
         List all FTP accounts within your hosting plan.
         :param hosting_id: UUID of the hosting plan.
@@ -2194,7 +2194,7 @@ class WebhostingV1FtpAccountAPI(API):
         :param page_size: Number of FTP accounts to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of FTP accounts in the response.
         :param domain: Domain to filter the FTP accounts.
-        :return: :class:`List[FtpAccount] <List[FtpAccount]>`
+        :return: :class:`list[FtpAccount] <list[FtpAccount]>`
 
         Usage:
         ::
@@ -2417,7 +2417,7 @@ class WebhostingV1MailAccountAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListMailAccountsRequestOrderBy] = None,
         domain: Optional[str] = None,
-    ) -> List[MailAccount]:
+    ) -> list[MailAccount]:
         """
         List all mail accounts within your hosting plan.
         :param hosting_id: UUID of the hosting plan.
@@ -2426,7 +2426,7 @@ class WebhostingV1MailAccountAPI(API):
         :param page_size: Number of mail accounts to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order of mail accounts in the response.
         :param domain: Domain to filter the mail accounts.
-        :return: :class:`List[MailAccount] <List[MailAccount]>`
+        :return: :class:`list[MailAccount] <list[MailAccount]>`
 
         Usage:
         ::
@@ -2608,7 +2608,7 @@ class WebhostingV1WebsiteAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListWebsitesRequestOrderBy] = None,
-    ) -> List[Website]:
+    ) -> list[Website]:
         """
         List all websites for a specific hosting.
         :param hosting_id: UUID of the hosting plan.
@@ -2616,7 +2616,7 @@ class WebhostingV1WebsiteAPI(API):
         :param page: Page number (must be a positive integer).
         :param page_size: Number of websites to return (must be a positive integer lower or equal to 100).
         :param order_by: Sort order for Web Hosting websites in the response.
-        :return: :class:`List[Website] <List[Website]>`
+        :return: :class:`list[Website] <list[Website]>`
 
         Usage:
         ::

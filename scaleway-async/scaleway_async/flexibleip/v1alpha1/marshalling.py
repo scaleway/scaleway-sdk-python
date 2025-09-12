@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -30,7 +30,7 @@ def unmarshal_MACAddress(data: Any) -> MACAddress:
             "Unmarshalling the type 'MACAddress' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -83,7 +83,7 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
             "Unmarshalling the type 'FlexibleIP' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -172,7 +172,7 @@ def unmarshal_AttachFlexibleIPsResponse(data: Any) -> AttachFlexibleIPsResponse:
             "Unmarshalling the type 'AttachFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -197,7 +197,7 @@ def unmarshal_DetachFlexibleIPsResponse(data: Any) -> DetachFlexibleIPsResponse:
             "Unmarshalling the type 'DetachFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -222,7 +222,7 @@ def unmarshal_ListFlexibleIPsResponse(data: Any) -> ListFlexibleIPsResponse:
             "Unmarshalling the type 'ListFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -244,8 +244,8 @@ def unmarshal_ListFlexibleIPsResponse(data: Any) -> ListFlexibleIPsResponse:
 def marshal_AttachFlexibleIPRequest(
     request: AttachFlexibleIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.fips_ids is not None:
         output["fips_ids"] = request.fips_ids
@@ -259,8 +259,8 @@ def marshal_AttachFlexibleIPRequest(
 def marshal_CreateFlexibleIPRequest(
     request: CreateFlexibleIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -288,8 +288,8 @@ def marshal_CreateFlexibleIPRequest(
 def marshal_DetachFlexibleIPRequest(
     request: DetachFlexibleIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.fips_ids is not None:
         output["fips_ids"] = request.fips_ids
@@ -300,8 +300,8 @@ def marshal_DetachFlexibleIPRequest(
 def marshal_DuplicateMACAddrRequest(
     request: DuplicateMACAddrRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.duplicate_from_fip_id is not None:
         output["duplicate_from_fip_id"] = request.duplicate_from_fip_id
@@ -312,8 +312,8 @@ def marshal_DuplicateMACAddrRequest(
 def marshal_GenerateMACAddrRequest(
     request: GenerateMACAddrRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.mac_type is not None:
         output["mac_type"] = request.mac_type
@@ -324,8 +324,8 @@ def marshal_GenerateMACAddrRequest(
 def marshal_MoveMACAddrRequest(
     request: MoveMACAddrRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.dst_fip_id is not None:
         output["dst_fip_id"] = request.dst_fip_id
@@ -336,8 +336,8 @@ def marshal_MoveMACAddrRequest(
 def marshal_UpdateFlexibleIPRequest(
     request: UpdateFlexibleIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description

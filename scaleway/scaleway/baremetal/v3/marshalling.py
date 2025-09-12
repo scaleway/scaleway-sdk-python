@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -21,7 +21,7 @@ def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
             "Unmarshalling the type 'ServerPrivateNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -88,7 +88,7 @@ def unmarshal_ListServerPrivateNetworksResponse(
             "Unmarshalling the type 'ListServerPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server_private_networks", None)
     if field is not None:
@@ -117,7 +117,7 @@ def unmarshal_SetServerPrivateNetworksResponse(
             "Unmarshalling the type 'SetServerPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("server_private_networks", None)
     if field is not None:
@@ -135,8 +135,8 @@ def unmarshal_SetServerPrivateNetworksResponse(
 def marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
     request: PrivateNetworkApiAddServerPrivateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
@@ -150,8 +150,8 @@ def marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
 def marshal_PrivateNetworkApiSetServerPrivateNetworksRequest(
     request: PrivateNetworkApiSetServerPrivateNetworksRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.per_private_network_ipam_ip_ids is not None:
         output["per_private_network_ipam_ip_ids"] = {

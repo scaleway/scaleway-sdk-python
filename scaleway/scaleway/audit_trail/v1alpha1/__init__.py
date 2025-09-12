@@ -1,5 +1,11 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+from .types import AuthenticationEventFailureReason
+from .types import AuthenticationEventMFAType
+from .types import AuthenticationEventMethod
+from .types import AuthenticationEventOrigin
+from .types import AuthenticationEventResult
+from .types import ListAuthenticationEventsRequestOrderBy
 from .types import ListEventsRequestOrderBy
 from .types import ResourceType
 from .types import AccountOrganizationInfo
@@ -24,12 +30,15 @@ from .types import LoadBalancerLbInfo
 from .types import LoadBalancerRouteInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
+from .types import Resource
 from .types import EventPrincipal
 from .types import EventSystem
-from .types import Resource
 from .types import ProductService
+from .types import AuthenticationEvent
 from .types import Event
 from .types import Product
+from .types import ListAuthenticationEventsRequest
+from .types import ListAuthenticationEventsResponse
 from .types import ListEventsRequest
 from .types import ListEventsResponse
 from .types import ListProductsRequest
@@ -37,6 +46,12 @@ from .types import ListProductsResponse
 from .api import AuditTrailV1Alpha1API
 
 __all__ = [
+    "AuthenticationEventFailureReason",
+    "AuthenticationEventMFAType",
+    "AuthenticationEventMethod",
+    "AuthenticationEventOrigin",
+    "AuthenticationEventResult",
+    "ListAuthenticationEventsRequestOrderBy",
     "ListEventsRequestOrderBy",
     "ResourceType",
     "AccountOrganizationInfo",
@@ -61,12 +76,15 @@ __all__ = [
     "LoadBalancerRouteInfo",
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
+    "Resource",
     "EventPrincipal",
     "EventSystem",
-    "Resource",
     "ProductService",
+    "AuthenticationEvent",
     "Event",
     "Product",
+    "ListAuthenticationEventsRequest",
+    "ListAuthenticationEventsResponse",
     "ListEventsRequest",
     "ListEventsResponse",
     "ListProductsRequest",

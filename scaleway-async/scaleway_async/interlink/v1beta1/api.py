@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -81,7 +81,7 @@ class InterlinkV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         status: Optional[DedicatedConnectionStatus] = None,
         bandwidth_mbps: Optional[int] = None,
         pop_id: Optional[str] = None,
@@ -143,11 +143,11 @@ class InterlinkV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         status: Optional[DedicatedConnectionStatus] = None,
         bandwidth_mbps: Optional[int] = None,
         pop_id: Optional[str] = None,
-    ) -> List[DedicatedConnection]:
+    ) -> list[DedicatedConnection]:
         """
         List dedicated connections.
         For self-hosted users, list their dedicated physical connections in a given region. By default, the connections returned in the list are ordered by name in ascending order, though this can be modified via the `order_by` field.
@@ -162,7 +162,7 @@ class InterlinkV1Beta1API(API):
         :param status: Connection status to filter for.
         :param bandwidth_mbps: Filter for dedicated connections with this bandwidth size.
         :param pop_id: Filter for dedicated connections present in this PoP.
-        :return: :class:`List[DedicatedConnection] <List[DedicatedConnection]>`
+        :return: :class:`list[DedicatedConnection] <list[DedicatedConnection]>`
 
         Usage:
         ::
@@ -271,7 +271,7 @@ class InterlinkV1Beta1API(API):
         order_by: Optional[ListPartnersRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        pop_ids: Optional[List[str]] = None,
+        pop_ids: Optional[list[str]] = None,
     ) -> ListPartnersResponse:
         """
         List available partners.
@@ -314,8 +314,8 @@ class InterlinkV1Beta1API(API):
         order_by: Optional[ListPartnersRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        pop_ids: Optional[List[str]] = None,
-    ) -> List[Partner]:
+        pop_ids: Optional[list[str]] = None,
+    ) -> list[Partner]:
         """
         List available partners.
         List all available partners. By default, the partners returned in the list are ordered by name in ascending order, though this can be modified via the `order_by` field.
@@ -324,7 +324,7 @@ class InterlinkV1Beta1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of partners to return per page.
         :param pop_ids: Filter for partners present (offering a connection) in one of these PoPs.
-        :return: :class:`List[Partner] <List[Partner]>`
+        :return: :class:`list[Partner] <list[Partner]>`
 
         Usage:
         ::
@@ -446,7 +446,7 @@ class InterlinkV1Beta1API(API):
         partner_id: Optional[str] = None,
         link_bandwidth_mbps: Optional[int] = None,
         dedicated_available: Optional[bool] = None,
-    ) -> List[Pop]:
+    ) -> list[Pop]:
         """
         List PoPs.
         List all available PoPs (locations) for a given region. By default, the results are returned in ascending alphabetical order by name.
@@ -459,7 +459,7 @@ class InterlinkV1Beta1API(API):
         :param partner_id: Filter for PoPs hosting an available shared connection from this partner.
         :param link_bandwidth_mbps: Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
         :param dedicated_available: Filter for PoPs with a dedicated connection available for self-hosted links.
-        :return: :class:`List[Pop] <List[Pop]>`
+        :return: :class:`list[Pop] <list[Pop]>`
 
         Usage:
         ::
@@ -528,7 +528,7 @@ class InterlinkV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         status: Optional[LinkStatus] = None,
         bgp_v4_status: Optional[BgpStatus] = None,
         bgp_v6_status: Optional[BgpStatus] = None,
@@ -614,7 +614,7 @@ class InterlinkV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         status: Optional[LinkStatus] = None,
         bgp_v4_status: Optional[BgpStatus] = None,
         bgp_v6_status: Optional[BgpStatus] = None,
@@ -626,7 +626,7 @@ class InterlinkV1Beta1API(API):
         pairing_key: Optional[str] = None,
         kind: Optional[LinkKind] = None,
         connection_id: Optional[str] = None,
-    ) -> List[Link]:
+    ) -> list[Link]:
         """
         List links.
         List all your links (InterLink connections). A number of filters are available, including Project ID, name, tags and status.
@@ -649,7 +649,7 @@ class InterlinkV1Beta1API(API):
         :param pairing_key: Filter for the link with this pairing_key.
         :param kind: Filter for hosted or self-hosted links.
         :param connection_id: Filter for links self-hosted on this connection.
-        :return: :class:`List[Link] <List[Link]>`
+        :return: :class:`list[Link] <list[Link]>`
 
         Usage:
         ::
@@ -763,7 +763,7 @@ class InterlinkV1Beta1API(API):
         bandwidth_mbps: int,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         connection_id: Optional[str] = None,
         partner_id: Optional[str] = None,
         peer_asn: Optional[int] = None,
@@ -829,7 +829,7 @@ class InterlinkV1Beta1API(API):
         link_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         peer_asn: Optional[int] = None,
     ) -> Link:
         """
@@ -1157,7 +1157,7 @@ class InterlinkV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         ipv6: Optional[bool] = None,
     ) -> ListRoutingPoliciesResponse:
         """
@@ -1213,9 +1213,9 @@ class InterlinkV1Beta1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         ipv6: Optional[bool] = None,
-    ) -> List[RoutingPolicy]:
+    ) -> list[RoutingPolicy]:
         """
         List routing policies.
         List all routing policies in a given region. A routing policy can be attached to one or multiple links (InterLink connections).
@@ -1228,7 +1228,7 @@ class InterlinkV1Beta1API(API):
         :param name: Routing policy name to filter for.
         :param tags: Tags to filter for.
         :param ipv6: Filter for the routing policies based on IP prefixes version.
-        :return: :class:`List[RoutingPolicy] <List[RoutingPolicy]>`
+        :return: :class:`list[RoutingPolicy] <list[RoutingPolicy]>`
 
         Usage:
         ::
@@ -1296,9 +1296,9 @@ class InterlinkV1Beta1API(API):
         is_ipv6: bool,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        prefix_filter_in: Optional[List[str]] = None,
-        prefix_filter_out: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        prefix_filter_in: Optional[list[str]] = None,
+        prefix_filter_out: Optional[list[str]] = None,
     ) -> RoutingPolicy:
         """
         Create a routing policy.
@@ -1351,9 +1351,9 @@ class InterlinkV1Beta1API(API):
         routing_policy_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        prefix_filter_in: Optional[List[str]] = None,
-        prefix_filter_out: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        prefix_filter_in: Optional[list[str]] = None,
+        prefix_filter_out: Optional[list[str]] = None,
     ) -> RoutingPolicy:
         """
         Update a routing policy.

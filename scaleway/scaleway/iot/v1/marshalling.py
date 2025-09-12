@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -75,7 +75,7 @@ def unmarshal_DeviceMessageFiltersRule(data: Any) -> DeviceMessageFiltersRule:
             "Unmarshalling the type 'DeviceMessageFiltersRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("policy", None)
     if field is not None:
@@ -98,7 +98,7 @@ def unmarshal_DeviceMessageFilters(data: Any) -> DeviceMessageFilters:
             "Unmarshalling the type 'DeviceMessageFilters' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("publish", None)
     if field is not None:
@@ -121,7 +121,7 @@ def unmarshal_Device(data: Any) -> Device:
             "Unmarshalling the type 'Device' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -212,7 +212,7 @@ def unmarshal_Network(data: Any) -> Network:
             "Unmarshalling the type 'Network' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -265,7 +265,7 @@ def unmarshal_HubTwinsGraphiteConfig(data: Any) -> HubTwinsGraphiteConfig:
             "Unmarshalling the type 'HubTwinsGraphiteConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("push_uri", None)
     if field is not None:
@@ -282,7 +282,7 @@ def unmarshal_Hub(data: Any) -> Hub:
             "Unmarshalling the type 'Hub' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -401,7 +401,7 @@ def unmarshal_Certificate(data: Any) -> Certificate:
             "Unmarshalling the type 'Certificate' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("crt", None)
     if field is not None:
@@ -424,7 +424,7 @@ def unmarshal_CreateDeviceResponse(data: Any) -> CreateDeviceResponse:
             "Unmarshalling the type 'CreateDeviceResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("device", None)
     if field is not None:
@@ -447,7 +447,7 @@ def unmarshal_CreateNetworkResponse(data: Any) -> CreateNetworkResponse:
             "Unmarshalling the type 'CreateNetworkResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secret", None)
     if field is not None:
@@ -470,7 +470,7 @@ def unmarshal_GetDeviceCertificateResponse(data: Any) -> GetDeviceCertificateRes
             "Unmarshalling the type 'GetDeviceCertificateResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("certificate_pem", None)
     if field is not None:
@@ -493,7 +493,7 @@ def unmarshal_GetDeviceMetricsResponse(data: Any) -> GetDeviceMetricsResponse:
             "Unmarshalling the type 'GetDeviceMetricsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("metrics", None)
     if field is not None:
@@ -512,7 +512,7 @@ def unmarshal_GetHubCAResponse(data: Any) -> GetHubCAResponse:
             "Unmarshalling the type 'GetHubCAResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ca_cert_pem", None)
     if field is not None:
@@ -529,7 +529,7 @@ def unmarshal_GetHubMetricsResponse(data: Any) -> GetHubMetricsResponse:
             "Unmarshalling the type 'GetHubMetricsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("metrics", None)
     if field is not None:
@@ -548,7 +548,7 @@ def unmarshal_ListDevicesResponse(data: Any) -> ListDevicesResponse:
             "Unmarshalling the type 'ListDevicesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -573,7 +573,7 @@ def unmarshal_ListHubsResponse(data: Any) -> ListHubsResponse:
             "Unmarshalling the type 'ListHubsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -596,7 +596,7 @@ def unmarshal_ListNetworksResponse(data: Any) -> ListNetworksResponse:
             "Unmarshalling the type 'ListNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -621,7 +621,7 @@ def unmarshal_RouteSummary(data: Any) -> RouteSummary:
             "Unmarshalling the type 'RouteSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -674,7 +674,7 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
             "Unmarshalling the type 'ListRoutesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -701,7 +701,7 @@ def unmarshal_ListTwinDocumentsResponseDocumentSummary(
             "Unmarshalling the type 'ListTwinDocumentsResponseDocumentSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("document_name", None)
     if field is not None:
@@ -718,7 +718,7 @@ def unmarshal_ListTwinDocumentsResponse(data: Any) -> ListTwinDocumentsResponse:
             "Unmarshalling the type 'ListTwinDocumentsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("documents", None)
     if field is not None:
@@ -741,7 +741,7 @@ def unmarshal_RenewDeviceCertificateResponse(
             "Unmarshalling the type 'RenewDeviceCertificateResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("device", None)
     if field is not None:
@@ -764,7 +764,7 @@ def unmarshal_RouteDatabaseConfig(data: Any) -> RouteDatabaseConfig:
             "Unmarshalling the type 'RouteDatabaseConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("engine", None)
     if field is not None:
@@ -817,7 +817,7 @@ def unmarshal_RouteRestConfig(data: Any) -> RouteRestConfig:
             "Unmarshalling the type 'RouteRestConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("verb", None)
     if field is not None:
@@ -846,7 +846,7 @@ def unmarshal_RouteS3Config(data: Any) -> RouteS3Config:
             "Unmarshalling the type 'RouteS3Config' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("bucket_region", None)
     if field is not None:
@@ -881,7 +881,7 @@ def unmarshal_Route(data: Any) -> Route:
             "Unmarshalling the type 'Route' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -952,7 +952,7 @@ def unmarshal_SetDeviceCertificateResponse(data: Any) -> SetDeviceCertificateRes
             "Unmarshalling the type 'SetDeviceCertificateResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("certificate_pem", None)
     if field is not None:
@@ -975,7 +975,7 @@ def unmarshal_TwinDocument(data: Any) -> TwinDocument:
             "Unmarshalling the type 'TwinDocument' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("twin_id", None)
     if field is not None:
@@ -1007,8 +1007,8 @@ def unmarshal_TwinDocument(data: Any) -> TwinDocument:
 def marshal_DeviceMessageFiltersRule(
     request: DeviceMessageFiltersRule,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.policy is not None:
         output["policy"] = request.policy
@@ -1022,8 +1022,8 @@ def marshal_DeviceMessageFiltersRule(
 def marshal_DeviceMessageFilters(
     request: DeviceMessageFilters,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.publish is not None:
         output["publish"] = marshal_DeviceMessageFiltersRule(request.publish, defaults)
@@ -1039,8 +1039,8 @@ def marshal_DeviceMessageFilters(
 def marshal_CreateDeviceRequest(
     request: CreateDeviceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.hub_id is not None:
         output["hub_id"] = request.hub_id
@@ -1068,8 +1068,8 @@ def marshal_CreateDeviceRequest(
 def marshal_HubTwinsGraphiteConfig(
     request: HubTwinsGraphiteConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.push_uri is not None:
         output["push_uri"] = request.push_uri
@@ -1080,8 +1080,8 @@ def marshal_HubTwinsGraphiteConfig(
 def marshal_CreateHubRequest(
     request: CreateHubRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1117,8 +1117,8 @@ def marshal_CreateHubRequest(
 def marshal_CreateNetworkRequest(
     request: CreateNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -1138,8 +1138,8 @@ def marshal_CreateNetworkRequest(
 def marshal_CreateRouteRequestDatabaseConfig(
     request: CreateRouteRequestDatabaseConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.host is not None:
         output["host"] = request.host
@@ -1168,8 +1168,8 @@ def marshal_CreateRouteRequestDatabaseConfig(
 def marshal_CreateRouteRequestRestConfig(
     request: CreateRouteRequestRestConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.verb is not None:
         output["verb"] = request.verb
@@ -1186,8 +1186,8 @@ def marshal_CreateRouteRequestRestConfig(
 def marshal_CreateRouteRequestS3Config(
     request: CreateRouteRequestS3Config,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.bucket_region is not None:
         output["bucket_region"] = request.bucket_region
@@ -1207,8 +1207,8 @@ def marshal_CreateRouteRequestS3Config(
 def marshal_CreateRouteRequest(
     request: CreateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1246,8 +1246,8 @@ def marshal_CreateRouteRequest(
 def marshal_PatchTwinDocumentRequest(
     request: PatchTwinDocumentRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.version is not None:
         output["version"] = request.version
@@ -1261,8 +1261,8 @@ def marshal_PatchTwinDocumentRequest(
 def marshal_PutTwinDocumentRequest(
     request: PutTwinDocumentRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.version is not None:
         output["version"] = request.version
@@ -1276,8 +1276,8 @@ def marshal_PutTwinDocumentRequest(
 def marshal_SetDeviceCertificateRequest(
     request: SetDeviceCertificateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.certificate_pem is not None:
         output["certificate_pem"] = request.certificate_pem
@@ -1288,8 +1288,8 @@ def marshal_SetDeviceCertificateRequest(
 def marshal_SetHubCARequest(
     request: SetHubCARequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ca_cert_pem is not None:
         output["ca_cert_pem"] = request.ca_cert_pem
@@ -1303,8 +1303,8 @@ def marshal_SetHubCARequest(
 def marshal_UpdateDeviceRequest(
     request: UpdateDeviceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -1329,8 +1329,8 @@ def marshal_UpdateDeviceRequest(
 def marshal_UpdateHubRequest(
     request: UpdateHubRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1366,8 +1366,8 @@ def marshal_UpdateHubRequest(
 def marshal_UpdateRouteRequestDatabaseConfig(
     request: UpdateRouteRequestDatabaseConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.engine is not None:
         output["engine"] = request.engine
@@ -1396,8 +1396,8 @@ def marshal_UpdateRouteRequestDatabaseConfig(
 def marshal_UpdateRouteRequestRestConfig(
     request: UpdateRouteRequestRestConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.verb is not None:
         output["verb"] = request.verb
@@ -1414,8 +1414,8 @@ def marshal_UpdateRouteRequestRestConfig(
 def marshal_UpdateRouteRequestS3Config(
     request: UpdateRouteRequestS3Config,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.strategy is not None:
         output["strategy"] = request.strategy
@@ -1435,8 +1435,8 @@ def marshal_UpdateRouteRequestS3Config(
 def marshal_UpdateRouteRequest(
     request: UpdateRouteRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [

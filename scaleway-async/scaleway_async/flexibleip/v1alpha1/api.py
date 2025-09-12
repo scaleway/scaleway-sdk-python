@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -59,7 +59,7 @@ class FlexibleipV1Alpha1API(API):
         is_ipv6: bool,
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         server_id: Optional[str] = None,
         reverse: Optional[str] = None,
     ) -> FlexibleIP:
@@ -184,9 +184,9 @@ class FlexibleipV1Alpha1API(API):
         order_by: Optional[ListFlexibleIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
-        status: Optional[List[FlexibleIPStatus]] = None,
-        server_ids: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        status: Optional[list[FlexibleIPStatus]] = None,
+        server_ids: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> ListFlexibleIPsResponse:
@@ -238,12 +238,12 @@ class FlexibleipV1Alpha1API(API):
         order_by: Optional[ListFlexibleIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
-        status: Optional[List[FlexibleIPStatus]] = None,
-        server_ids: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        status: Optional[list[FlexibleIPStatus]] = None,
+        server_ids: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[FlexibleIP]:
+    ) -> list[FlexibleIP]:
         """
         List flexible IPs.
         List all flexible IPs within a given zone.
@@ -256,7 +256,7 @@ class FlexibleipV1Alpha1API(API):
         :param server_ids: Filter by server IDs, only flexible IPs with these server IDs will be returned.
         :param organization_id: Filter by Organization ID, only flexible IPs from this Organization will be returned.
         :param project_id: Filter by Project ID, only flexible IPs from this Project will be returned.
-        :return: :class:`List[FlexibleIP] <List[FlexibleIP]>`
+        :return: :class:`list[FlexibleIP] <list[FlexibleIP]>`
 
         Usage:
         ::
@@ -287,7 +287,7 @@ class FlexibleipV1Alpha1API(API):
         fip_id: str,
         zone: Optional[ScwZone] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         reverse: Optional[str] = None,
     ) -> FlexibleIP:
         """
@@ -362,7 +362,7 @@ class FlexibleipV1Alpha1API(API):
     async def attach_flexible_ip(
         self,
         *,
-        fips_ids: List[str],
+        fips_ids: list[str],
         server_id: str,
         zone: Optional[ScwZone] = None,
     ) -> AttachFlexibleIPsResponse:
@@ -404,7 +404,7 @@ class FlexibleipV1Alpha1API(API):
     async def detach_flexible_ip(
         self,
         *,
-        fips_ids: List[str],
+        fips_ids: list[str],
         zone: Optional[ScwZone] = None,
     ) -> DetachFlexibleIPsResponse:
         """

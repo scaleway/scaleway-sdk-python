@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -106,7 +106,7 @@ class ModelSupportedNode:
     Supported node type.
     """
 
-    quantizations: List[ModelSupportedQuantization]
+    quantizations: list[ModelSupportedQuantization]
     """
     Supported quantizations.
     """
@@ -146,7 +146,7 @@ This CA certificate can be retrieved using the `GetDeploymentCertificate` API ca
 
 @dataclass
 class ModelSupportInfo:
-    nodes: List[ModelSupportedNode]
+    nodes: list[ModelSupportedNode]
     """
     List of supported node types.
     """
@@ -193,7 +193,7 @@ class Deployment:
     Status of the deployment.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the deployment.
     """
@@ -203,7 +203,7 @@ class Deployment:
     Node type of the deployment.
     """
 
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     List of endpoints.
     """
@@ -276,7 +276,7 @@ class Model:
     Project ID.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the model.
     """
@@ -301,7 +301,7 @@ class Model:
     Region of the model.
     """
 
-    nodes_support: List[ModelSupportInfo]
+    nodes_support: list[ModelSupportInfo]
     """
     Supported nodes types with quantization options and context lengths.
     """
@@ -407,7 +407,7 @@ class CreateDeploymentRequest:
     Name of the node type to use.
     """
 
-    endpoints: List[EndpointSpec]
+    endpoints: list[EndpointSpec]
     """
     List of endpoints to create.
     """
@@ -433,7 +433,7 @@ class CreateDeploymentRequest:
 The terms of the EULA can be retrieved using the `GetModelEula` API call.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the deployment.
     """
@@ -608,7 +608,7 @@ class ListDeploymentsRequest:
     Filter by deployment name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tags.
     """
@@ -616,7 +616,7 @@ class ListDeploymentsRequest:
 
 @dataclass
 class ListDeploymentsResponse:
-    deployments: List[Deployment]
+    deployments: list[Deployment]
     """
     List of deployments on the current page.
     """
@@ -661,7 +661,7 @@ class ListModelsRequest:
     Filter by model name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tags.
     """
@@ -669,7 +669,7 @@ class ListModelsRequest:
 
 @dataclass
 class ListModelsResponse:
-    models: List[Model]
+    models: list[Model]
     """
     List of models on the current page.
     """
@@ -705,7 +705,7 @@ class ListNodeTypesRequest:
 
 @dataclass
 class ListNodeTypesResponse:
-    node_types: List[NodeType]
+    node_types: list[NodeType]
     """
     List of node types.
     """
@@ -733,7 +733,7 @@ class UpdateDeploymentRequest:
     Name of the deployment.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the deployment.
     """

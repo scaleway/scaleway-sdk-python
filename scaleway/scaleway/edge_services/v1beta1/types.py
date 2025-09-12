@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -308,7 +308,7 @@ class RuleHttpMatchPathFilter:
 
 @dataclass
 class ScalewayLbBackendConfig:
-    lbs: List[ScalewayLb]
+    lbs: list[ScalewayLb]
     """
     Load Balancer information.
     """
@@ -356,7 +356,7 @@ class TLSSecret:
 
 @dataclass
 class RuleHttpMatch:
-    method_filters: List[RuleHttpMatchMethodFilter]
+    method_filters: list[RuleHttpMatchMethodFilter]
     """
     HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided.
     """
@@ -440,7 +440,7 @@ class DNSStage:
     ID of the DNS stage.
     """
 
-    fqdns: List[str]
+    fqdns: list[str]
     """
     List of Fully Qualified Domain Names attached to the stage.
     """
@@ -494,7 +494,7 @@ class Pipeline:
     Status of the pipeline.
     """
 
-    errors: List[PipelineError]
+    errors: list[PipelineError]
     """
     Errors of the pipeline.
     """
@@ -552,7 +552,7 @@ class TLSStage:
     ID of the TLS stage.
     """
 
-    secrets: List[TLSSecret]
+    secrets: list[TLSSecret]
     """
     Secret (from Scaleway Secret Manager) containing your custom certificate.
     """
@@ -699,12 +699,12 @@ class ListHeadStagesResponseHeadStage:
 
 @dataclass
 class PipelineStages:
-    dns_stages: List[DNSStage]
-    tls_stages: List[TLSStage]
-    cache_stages: List[CacheStage]
-    backend_stages: List[BackendStage]
-    waf_stages: List[WafStage]
-    route_stages: List[RouteStage]
+    dns_stages: list[DNSStage]
+    tls_stages: list[TLSStage]
+    cache_stages: list[CacheStage]
+    backend_stages: list[BackendStage]
+    waf_stages: list[WafStage]
+    route_stages: list[RouteStage]
     pipeline: Optional[Pipeline] = None
 
 
@@ -735,7 +735,7 @@ class PurgeRequest:
     Date the purge request was last updated.
     """
 
-    assets: Optional[List[str]] = field(default_factory=list)
+    assets: Optional[list[str]] = field(default_factory=list)
 
     all: Optional[bool] = False
 
@@ -758,7 +758,7 @@ class SetHeadStageRequestSwapHeadStage:
 
 @dataclass
 class TLSSecretsConfig:
-    tls_secrets: List[TLSSecret]
+    tls_secrets: list[TLSSecret]
     """
     Secret information (from Secret Manager).
     """
@@ -771,7 +771,7 @@ class AddRouteRulesRequest:
     ID of the route stage to update.
     """
 
-    route_rules: Optional[List[SetRouteRulesRequestRouteRule]] = field(
+    route_rules: Optional[list[SetRouteRulesRequestRouteRule]] = field(
         default_factory=list
     )
     """
@@ -785,7 +785,7 @@ class AddRouteRulesRequest:
 
 @dataclass
 class AddRouteRulesResponse:
-    route_rules: List[RouteRule]
+    route_rules: list[RouteRule]
     """
     List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
     """
@@ -871,7 +871,7 @@ class CreateDNSStageRequest:
     Pipeline ID the DNS stage belongs to.
     """
 
-    fqdns: Optional[List[str]] = field(default_factory=list)
+    fqdns: Optional[list[str]] = field(default_factory=list)
     """
     Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
     """
@@ -908,7 +908,7 @@ class CreatePurgeRequestRequest:
     Pipeline ID in which the purge request will be created.
     """
 
-    assets: Optional[List[str]] = field(default_factory=list)
+    assets: Optional[list[str]] = field(default_factory=list)
 
     all: Optional[bool] = False
 
@@ -930,7 +930,7 @@ class CreateTLSStageRequest:
     Pipeline ID the TLS stage belongs to.
     """
 
-    secrets: Optional[List[TLSSecret]] = field(default_factory=list)
+    secrets: Optional[list[TLSSecret]] = field(default_factory=list)
     """
     Secret (from Scaleway Secret Manager) containing your custom certificate.
     """
@@ -1070,7 +1070,7 @@ class GetBillingResponse:
     Total number of extra requests processed by the WAF from the beginning of the month, not included in the subscription plans.
     """
 
-    plans_usage_details: Dict[str, PlanUsageDetails]
+    plans_usage_details: dict[str, PlanUsageDetails]
     """
     Detailed costs and usage for all Edge Services subscription plans that were activated during the month.
     """
@@ -1222,7 +1222,7 @@ class ListBackendStagesRequest:
 
 @dataclass
 class ListBackendStagesResponse:
-    stages: List[BackendStage]
+    stages: list[BackendStage]
     """
     Paginated list of backend stages.
     """
@@ -1260,7 +1260,7 @@ class ListCacheStagesRequest:
 
 @dataclass
 class ListCacheStagesResponse:
-    stages: List[CacheStage]
+    stages: list[CacheStage]
     """
     Paginated list of cache stages.
     """
@@ -1303,7 +1303,7 @@ class ListDNSStagesRequest:
 
 @dataclass
 class ListDNSStagesResponse:
-    stages: List[DNSStage]
+    stages: list[DNSStage]
     """
     Paginated list of DNS stages.
     """
@@ -1334,7 +1334,7 @@ class ListHeadStagesRequest:
 
 @dataclass
 class ListHeadStagesResponse:
-    head_stages: List[ListHeadStagesResponseHeadStage]
+    head_stages: list[ListHeadStagesResponseHeadStage]
     """
     Number of head stages to return per page.
     """
@@ -1387,7 +1387,7 @@ class ListPipelinesRequest:
 
 @dataclass
 class ListPipelinesResponse:
-    pipelines: List[Pipeline]
+    pipelines: list[Pipeline]
     """
     Paginated list of pipelines.
     """
@@ -1410,14 +1410,14 @@ class ListPipelinesWithStagesRequest:
 
 @dataclass
 class ListPipelinesWithStagesResponse:
-    pipelines: List[PipelineStages]
+    pipelines: list[PipelineStages]
     total_count: int
 
 
 @dataclass
 class ListPlansResponse:
     total_count: int
-    plans: List[PlanDetails]
+    plans: list[PlanDetails]
 
 
 @dataclass
@@ -1457,7 +1457,7 @@ class ListPurgeRequestsRequest:
 
 @dataclass
 class ListPurgeRequestsResponse:
-    purge_requests: List[PurgeRequest]
+    purge_requests: list[PurgeRequest]
     """
     Paginated list of purge requests.
     """
@@ -1478,7 +1478,7 @@ class ListRouteRulesRequest:
 
 @dataclass
 class ListRouteRulesResponse:
-    route_rules: List[RouteRule]
+    route_rules: list[RouteRule]
     """
     List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
     """
@@ -1516,7 +1516,7 @@ class ListRouteStagesRequest:
 
 @dataclass
 class ListRouteStagesResponse:
-    stages: List[RouteStage]
+    stages: list[RouteStage]
     """
     Paginated list of summarized route stages.
     """
@@ -1564,7 +1564,7 @@ class ListTLSStagesRequest:
 
 @dataclass
 class ListTLSStagesResponse:
-    stages: List[TLSStage]
+    stages: list[TLSStage]
     """
     Paginated list of TLS stages.
     """
@@ -1602,7 +1602,7 @@ class ListWafStagesRequest:
 
 @dataclass
 class ListWafStagesResponse:
-    stages: List[WafStage]
+    stages: list[WafStage]
     """
     Paginated list of WAF stages.
     """
@@ -1673,7 +1673,7 @@ class SetRouteRulesRequest:
     ID of the route stage to update.
     """
 
-    route_rules: Optional[List[SetRouteRulesRequestRouteRule]] = field(
+    route_rules: Optional[list[SetRouteRulesRequestRouteRule]] = field(
         default_factory=list
     )
     """
@@ -1683,7 +1683,7 @@ class SetRouteRulesRequest:
 
 @dataclass
 class SetRouteRulesResponse:
-    route_rules: List[RouteRule]
+    route_rules: list[RouteRule]
     """
     List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
     """
@@ -1737,7 +1737,7 @@ class UpdateDNSStageRequest:
     ID of the DNS stage to update.
     """
 
-    fqdns: Optional[List[str]] = field(default_factory=list)
+    fqdns: Optional[list[str]] = field(default_factory=list)
     """
     Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage.
     """

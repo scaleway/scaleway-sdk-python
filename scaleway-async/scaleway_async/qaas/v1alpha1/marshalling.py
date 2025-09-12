@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -63,7 +63,7 @@ def unmarshal_JobCircuit(data: Any) -> JobCircuit:
             "Unmarshalling the type 'JobCircuit' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("perceval_circuit", None)
     if field is not None:
@@ -86,7 +86,7 @@ def unmarshal_Application(data: Any) -> Application:
             "Unmarshalling the type 'Application' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -127,7 +127,7 @@ def unmarshal_Booking(data: Any) -> Booking:
             "Unmarshalling the type 'Booking' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -188,7 +188,7 @@ def unmarshal_Job(data: Any) -> Job:
             "Unmarshalling the type 'Job' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -277,7 +277,7 @@ def unmarshal_Model(data: Any) -> Model:
             "Unmarshalling the type 'Model' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -312,7 +312,7 @@ def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequiremen
             "Unmarshalling the type 'PlatformBookingRequirement' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("min_duration", None)
     if field is not None:
@@ -347,7 +347,7 @@ def unmarshal_PlatformHardware(data: Any) -> PlatformHardware:
             "Unmarshalling the type 'PlatformHardware' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -394,7 +394,7 @@ def unmarshal_Platform(data: Any) -> Platform:
             "Unmarshalling the type 'Platform' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -525,7 +525,7 @@ def unmarshal_Process(data: Any) -> Process:
             "Unmarshalling the type 'Process' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -628,7 +628,7 @@ def unmarshal_Session(data: Any) -> Session:
             "Unmarshalling the type 'Session' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -767,7 +767,7 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
             "Unmarshalling the type 'ListApplicationsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -792,7 +792,7 @@ def unmarshal_ListBookingsResponse(data: Any) -> ListBookingsResponse:
             "Unmarshalling the type 'ListBookingsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -817,7 +817,7 @@ def unmarshal_JobResult(data: Any) -> JobResult:
             "Unmarshalling the type 'JobResult' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("job_id", None)
     if field is not None:
@@ -852,7 +852,7 @@ def unmarshal_ListJobResultsResponse(data: Any) -> ListJobResultsResponse:
             "Unmarshalling the type 'ListJobResultsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -877,7 +877,7 @@ def unmarshal_ListJobsResponse(data: Any) -> ListJobsResponse:
             "Unmarshalling the type 'ListJobsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -900,7 +900,7 @@ def unmarshal_ListModelsResponse(data: Any) -> ListModelsResponse:
             "Unmarshalling the type 'ListModelsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -925,7 +925,7 @@ def unmarshal_ListPlatformsResponse(data: Any) -> ListPlatformsResponse:
             "Unmarshalling the type 'ListPlatformsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -950,7 +950,7 @@ def unmarshal_ProcessResult(data: Any) -> ProcessResult:
             "Unmarshalling the type 'ProcessResult' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("process_id", None)
     if field is not None:
@@ -979,7 +979,7 @@ def unmarshal_ListProcessResultsResponse(data: Any) -> ListProcessResultsRespons
             "Unmarshalling the type 'ListProcessResultsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1004,7 +1004,7 @@ def unmarshal_ListProcessesResponse(data: Any) -> ListProcessesResponse:
             "Unmarshalling the type 'ListProcessesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1029,7 +1029,7 @@ def unmarshal_ListSessionACLsResponse(data: Any) -> ListSessionACLsResponse:
             "Unmarshalling the type 'ListSessionACLsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1052,7 +1052,7 @@ def unmarshal_ListSessionsResponse(data: Any) -> ListSessionsResponse:
             "Unmarshalling the type 'ListSessionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1074,8 +1074,8 @@ def unmarshal_ListSessionsResponse(data: Any) -> ListSessionsResponse:
 def marshal_JobCircuit(
     request: JobCircuit,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1099,8 +1099,8 @@ def marshal_JobCircuit(
 def marshal_CreateJobRequest(
     request: CreateJobRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1129,8 +1129,8 @@ def marshal_CreateJobRequest(
 def marshal_CreateModelRequest(
     request: CreateModelRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1146,8 +1146,8 @@ def marshal_CreateModelRequest(
 def marshal_CreateProcessRequest(
     request: CreateProcessRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1175,8 +1175,8 @@ def marshal_CreateProcessRequest(
 def marshal_CreateSessionRequestBookingDemand(
     request: CreateSessionRequestBookingDemand,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.started_at is not None:
         output["started_at"] = request.started_at.isoformat()
@@ -1193,8 +1193,8 @@ def marshal_CreateSessionRequestBookingDemand(
 def marshal_CreateSessionRequest(
     request: CreateSessionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.platform_id is not None:
         output["platform_id"] = request.platform_id
@@ -1236,8 +1236,8 @@ def marshal_CreateSessionRequest(
 def marshal_UpdateBookingRequest(
     request: UpdateBookingRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -1248,8 +1248,8 @@ def marshal_UpdateBookingRequest(
 def marshal_UpdateJobRequest(
     request: UpdateJobRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1263,8 +1263,8 @@ def marshal_UpdateJobRequest(
 def marshal_UpdateProcessRequest(
     request: UpdateProcessRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1278,8 +1278,8 @@ def marshal_UpdateProcessRequest(
 def marshal_UpdateSessionRequest(
     request: UpdateSessionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

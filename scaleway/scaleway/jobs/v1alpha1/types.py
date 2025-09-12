@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -114,7 +114,7 @@ class JobDefinition:
     image_uri: str
     command: str
     project_id: str
-    environment_variables: Dict[str, str]
+    environment_variables: dict[str, str]
     description: str
     local_storage_capacity: int
     region: ScwRegion
@@ -137,7 +137,7 @@ class JobRun:
     cpu_limit: int
     memory_limit: int
     command: str
-    environment_variables: Dict[str, str]
+    environment_variables: dict[str, str]
     local_storage_capacity: int
     region: ScwRegion
     """
@@ -211,7 +211,7 @@ class CreateJobDefinitionRequest:
     UUID of the Scaleway Project containing the job.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the job.
     """
@@ -234,7 +234,7 @@ class CreateJobDefinitionSecretsRequest:
     UUID of the job definition.
     """
 
-    secrets: List[CreateJobDefinitionSecretsRequestSecretConfig]
+    secrets: list[CreateJobDefinitionSecretsRequestSecretConfig]
     """
     List of secrets to inject into the job.
     """
@@ -247,7 +247,7 @@ class CreateJobDefinitionSecretsRequest:
 
 @dataclass
 class CreateJobDefinitionSecretsResponse:
-    secrets: List[Secret]
+    secrets: list[Secret]
     """
     List of secrets created.
     """
@@ -356,7 +356,7 @@ class ListJobDefinitionSecretsRequest:
 
 @dataclass
 class ListJobDefinitionSecretsResponse:
-    secrets: List[Secret]
+    secrets: list[Secret]
     """
     List of secret references within a job definition.
     """
@@ -383,7 +383,7 @@ class ListJobDefinitionsRequest:
 
 @dataclass
 class ListJobDefinitionsResponse:
-    job_definitions: List[JobDefinition]
+    job_definitions: list[JobDefinition]
     total_count: int
 
 
@@ -401,12 +401,12 @@ class ListJobRunsRequest:
     project_id: Optional[str] = None
     organization_id: Optional[str] = None
     state: Optional[JobRunState] = None
-    states: Optional[List[JobRunState]] = field(default_factory=list)
+    states: Optional[list[JobRunState]] = field(default_factory=list)
 
 
 @dataclass
 class ListJobRunsResponse:
-    job_runs: List[JobRun]
+    job_runs: list[JobRun]
     total_count: int
 
 
@@ -420,7 +420,7 @@ class ListJobsResourcesRequest:
 
 @dataclass
 class ListJobsResourcesResponse:
-    resources: List[Resource]
+    resources: list[Resource]
 
 
 @dataclass
@@ -440,7 +440,7 @@ class StartJobDefinitionRequest:
     Contextual startup command for this specific job run.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Contextual environment variables for this specific job run.
     """
@@ -453,7 +453,7 @@ class StartJobDefinitionRequest:
 
 @dataclass
 class StartJobDefinitionResponse:
-    job_runs: List[JobRun]
+    job_runs: list[JobRun]
 
 
 @dataclass
@@ -511,7 +511,7 @@ class UpdateJobDefinitionRequest:
     Startup command.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the job.
     """

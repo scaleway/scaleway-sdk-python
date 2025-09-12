@@ -1,6 +1,5 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from typing import List
 
 from .types import (
     DNSZoneStatus,
@@ -12,20 +11,20 @@ from .types import (
     TaskStatus,
 )
 
-DNS_ZONE_TRANSIENT_STATUSES: List[DNSZoneStatus] = [
+DNS_ZONE_TRANSIENT_STATUSES: list[DNSZoneStatus] = [
     DNSZoneStatus.PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`DNSZoneStatus <DNSZoneStatus>`.
 """
-DOMAIN_FEATURE_TRANSIENT_STATUSES: List[DomainFeatureStatus] = [
+DOMAIN_FEATURE_TRANSIENT_STATUSES: list[DomainFeatureStatus] = [
     DomainFeatureStatus.ENABLING,
     DomainFeatureStatus.DISABLING,
 ]
 """
 Lists transient statutes of the enum :class:`DomainFeatureStatus <DomainFeatureStatus>`.
 """
-DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: List[
+DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: list[
     DomainRegistrationStatusTransferStatus
 ] = [
     DomainRegistrationStatusTransferStatus.PENDING,
@@ -34,7 +33,7 @@ DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: List[
 """
 Lists transient statutes of the enum :class:`DomainRegistrationStatusTransferStatus <DomainRegistrationStatusTransferStatus>`.
 """
-DOMAIN_TRANSIENT_STATUSES: List[DomainStatus] = [
+DOMAIN_TRANSIENT_STATUSES: list[DomainStatus] = [
     DomainStatus.CREATING,
     DomainStatus.RENEWING,
     DomainStatus.XFERING,
@@ -46,20 +45,20 @@ DOMAIN_TRANSIENT_STATUSES: List[DomainStatus] = [
 """
 Lists transient statutes of the enum :class:`DomainStatus <DomainStatus>`.
 """
-HOST_TRANSIENT_STATUSES: List[HostStatus] = [
+HOST_TRANSIENT_STATUSES: list[HostStatus] = [
     HostStatus.UPDATING,
     HostStatus.DELETING,
 ]
 """
 Lists transient statutes of the enum :class:`HostStatus <HostStatus>`.
 """
-SSL_CERTIFICATE_TRANSIENT_STATUSES: List[SSLCertificateStatus] = [
+SSL_CERTIFICATE_TRANSIENT_STATUSES: list[SSLCertificateStatus] = [
     SSLCertificateStatus.PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`SSLCertificateStatus <SSLCertificateStatus>`.
 """
-TASK_TRANSIENT_STATUSES: List[TaskStatus] = [
+TASK_TRANSIENT_STATUSES: list[TaskStatus] = [
     TaskStatus.PENDING,
 ]
 """

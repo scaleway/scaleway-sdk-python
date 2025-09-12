@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -60,7 +60,7 @@ def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetwork
             "Unmarshalling the type 'EndpointPrivateNetworkDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("private_network_id", None)
     if field is not None:
@@ -77,7 +77,7 @@ def unmarshal_EndpointPublicDetails(data: Any) -> EndpointPublicDetails:
             "Unmarshalling the type 'EndpointPublicDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return EndpointPublicDetails(**args)
 
@@ -88,7 +88,7 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
             "Unmarshalling the type 'Endpoint' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -135,7 +135,7 @@ def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
             "Unmarshalling the type 'InstanceSetting' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -158,7 +158,7 @@ def unmarshal_InstanceSnapshotSchedule(data: Any) -> InstanceSnapshotSchedule:
             "Unmarshalling the type 'InstanceSnapshotSchedule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("frequency_hours", None)
     if field is not None:
@@ -201,7 +201,7 @@ def unmarshal_Volume(data: Any) -> Volume:
             "Unmarshalling the type 'Volume' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -224,7 +224,7 @@ def unmarshal_Instance(data: Any) -> Instance:
             "Unmarshalling the type 'Instance' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -323,7 +323,7 @@ def unmarshal_SnapshotVolumeType(data: Any) -> SnapshotVolumeType:
             "Unmarshalling the type 'SnapshotVolumeType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -340,7 +340,7 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
             "Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -423,7 +423,7 @@ def unmarshal_UserRole(data: Any) -> UserRole:
             "Unmarshalling the type 'UserRole' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("role", None)
     if field is not None:
@@ -452,7 +452,7 @@ def unmarshal_User(data: Any) -> User:
             "Unmarshalling the type 'User' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -477,7 +477,7 @@ def unmarshal_ListInstancesResponse(data: Any) -> ListInstancesResponse:
             "Unmarshalling the type 'ListInstancesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("instances", None)
     if field is not None:
@@ -502,7 +502,7 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
             "Unmarshalling the type 'NodeTypeVolumeType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -543,7 +543,7 @@ def unmarshal_NodeType(data: Any) -> NodeType:
             "Unmarshalling the type 'NodeType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -612,7 +612,7 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
             "Unmarshalling the type 'ListNodeTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("node_types", None)
     if field is not None:
@@ -637,7 +637,7 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
             "Unmarshalling the type 'ListSnapshotsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshots", None)
     if field is not None:
@@ -662,7 +662,7 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
             "Unmarshalling the type 'ListUsersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("users", None)
     if field is not None:
@@ -687,7 +687,7 @@ def unmarshal_Setting(data: Any) -> Setting:
             "Unmarshalling the type 'Setting' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -764,7 +764,7 @@ def unmarshal_Version(data: Any) -> Version:
             "Unmarshalling the type 'Version' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("version", None)
     if field is not None:
@@ -797,7 +797,7 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
             "Unmarshalling the type 'ListVersionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("versions", None)
     if field is not None:
@@ -819,8 +819,8 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
 def marshal_EndpointSpecPrivateNetworkDetails(
     request: EndpointSpecPrivateNetworkDetails,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
@@ -831,8 +831,8 @@ def marshal_EndpointSpecPrivateNetworkDetails(
 def marshal_EndpointSpecPublicDetails(
     request: EndpointSpecPublicDetails,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -840,8 +840,8 @@ def marshal_EndpointSpecPublicDetails(
 def marshal_EndpointSpec(
     request: EndpointSpec,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -865,8 +865,8 @@ def marshal_EndpointSpec(
 def marshal_CreateEndpointRequest(
     request: CreateEndpointRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.instance_id is not None:
         output["instance_id"] = request.instance_id
@@ -880,8 +880,8 @@ def marshal_CreateEndpointRequest(
 def marshal_CreateInstanceRequestVolumeDetails(
     request: CreateInstanceRequestVolumeDetails,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.volume_size is not None:
         output["volume_size"] = request.volume_size
@@ -895,8 +895,8 @@ def marshal_CreateInstanceRequestVolumeDetails(
 def marshal_CreateInstanceRequest(
     request: CreateInstanceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.version is not None:
         output["version"] = request.version
@@ -940,8 +940,8 @@ def marshal_CreateInstanceRequest(
 def marshal_CreateSnapshotRequest(
     request: CreateSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -955,8 +955,8 @@ def marshal_CreateSnapshotRequest(
 def marshal_CreateUserRequest(
     request: CreateUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -970,8 +970,8 @@ def marshal_CreateUserRequest(
 def marshal_RestoreSnapshotRequestVolumeDetails(
     request: RestoreSnapshotRequestVolumeDetails,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.volume_type is not None:
         output["volume_type"] = request.volume_type
@@ -982,8 +982,8 @@ def marshal_RestoreSnapshotRequestVolumeDetails(
 def marshal_RestoreSnapshotRequest(
     request: RestoreSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.instance_name is not None:
         output["instance_name"] = request.instance_name
@@ -1005,8 +1005,8 @@ def marshal_RestoreSnapshotRequest(
 def marshal_UserRole(
     request: UserRole,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1029,8 +1029,8 @@ def marshal_UserRole(
 def marshal_SetUserRoleRequest(
     request: SetUserRoleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.user_name is not None:
         output["user_name"] = request.user_name
@@ -1044,8 +1044,8 @@ def marshal_SetUserRoleRequest(
 def marshal_UpdateInstanceRequest(
     request: UpdateInstanceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1059,8 +1059,8 @@ def marshal_UpdateInstanceRequest(
 def marshal_UpdateSnapshotRequest(
     request: UpdateSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1074,8 +1074,8 @@ def marshal_UpdateSnapshotRequest(
 def marshal_UpdateUserRequest(
     request: UpdateUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.password is not None:
         output["password"] = request.password
@@ -1086,8 +1086,8 @@ def marshal_UpdateUserRequest(
 def marshal_UpgradeInstanceRequest(
     request: UpgradeInstanceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [

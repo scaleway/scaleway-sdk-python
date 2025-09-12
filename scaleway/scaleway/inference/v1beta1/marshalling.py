@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -46,7 +46,7 @@ def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetwork
             "Unmarshalling the type 'EndpointPrivateNetworkDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("private_network_id", None)
     if field is not None:
@@ -63,7 +63,7 @@ def unmarshal_EndpointPublicAccessDetails(data: Any) -> EndpointPublicAccessDeta
             "Unmarshalling the type 'EndpointPublicAccessDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return EndpointPublicAccessDetails(**args)
 
@@ -74,7 +74,7 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
             "Unmarshalling the type 'Endpoint' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -115,7 +115,7 @@ def unmarshal_Deployment(data: Any) -> Deployment:
             "Unmarshalling the type 'Deployment' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -224,7 +224,7 @@ def unmarshal_ModelS3Model(data: Any) -> ModelS3Model:
             "Unmarshalling the type 'ModelS3Model' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("s3_url", None)
     if field is not None:
@@ -259,7 +259,7 @@ def unmarshal_Model(data: Any) -> Model:
             "Unmarshalling the type 'Model' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -354,7 +354,7 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
             "Unmarshalling the type 'ACLRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -383,7 +383,7 @@ def unmarshal_AddDeploymentACLRulesResponse(data: Any) -> AddDeploymentACLRulesR
             "Unmarshalling the type 'AddDeploymentACLRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -402,7 +402,7 @@ def unmarshal_Eula(data: Any) -> Eula:
             "Unmarshalling the type 'Eula' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("content", None)
     if field is not None:
@@ -421,7 +421,7 @@ def unmarshal_ListDeploymentACLRulesResponse(
             "Unmarshalling the type 'ListDeploymentACLRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -446,7 +446,7 @@ def unmarshal_ListDeploymentsResponse(data: Any) -> ListDeploymentsResponse:
             "Unmarshalling the type 'ListDeploymentsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("deployments", None)
     if field is not None:
@@ -471,7 +471,7 @@ def unmarshal_ListModelsResponse(data: Any) -> ListModelsResponse:
             "Unmarshalling the type 'ListModelsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("models", None)
     if field is not None:
@@ -496,7 +496,7 @@ def unmarshal_NodeType(data: Any) -> NodeType:
             "Unmarshalling the type 'NodeType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -579,7 +579,7 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
             "Unmarshalling the type 'ListNodeTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("node_types", None)
     if field is not None:
@@ -604,7 +604,7 @@ def unmarshal_SetDeploymentACLRulesResponse(data: Any) -> SetDeploymentACLRulesR
             "Unmarshalling the type 'SetDeploymentACLRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -620,8 +620,8 @@ def unmarshal_SetDeploymentACLRulesResponse(data: Any) -> SetDeploymentACLRulesR
 def marshal_ACLRuleRequest(
     request: ACLRuleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip is not None:
         output["ip"] = request.ip
@@ -635,8 +635,8 @@ def marshal_ACLRuleRequest(
 def marshal_AddDeploymentACLRulesRequest(
     request: AddDeploymentACLRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.acls is not None:
         output["acls"] = [
@@ -649,8 +649,8 @@ def marshal_AddDeploymentACLRulesRequest(
 def marshal_EndpointSpecPrivateNetwork(
     request: EndpointSpecPrivateNetwork,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
@@ -661,8 +661,8 @@ def marshal_EndpointSpecPrivateNetwork(
 def marshal_EndpointSpecPublic(
     request: EndpointSpecPublic,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     return output
 
@@ -670,8 +670,8 @@ def marshal_EndpointSpecPublic(
 def marshal_EndpointSpec(
     request: EndpointSpec,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -698,8 +698,8 @@ def marshal_EndpointSpec(
 def marshal_CreateDeploymentRequest(
     request: CreateDeploymentRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.model_name is not None:
         output["model_name"] = request.model_name
@@ -738,8 +738,8 @@ def marshal_CreateDeploymentRequest(
 def marshal_CreateEndpointRequest(
     request: CreateEndpointRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.deployment_id is not None:
         output["deployment_id"] = request.deployment_id
@@ -753,8 +753,8 @@ def marshal_CreateEndpointRequest(
 def marshal_SetDeploymentACLRulesRequest(
     request: SetDeploymentACLRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.acls is not None:
         output["acls"] = [
@@ -767,8 +767,8 @@ def marshal_SetDeploymentACLRulesRequest(
 def marshal_UpdateDeploymentRequest(
     request: UpdateDeploymentRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -788,8 +788,8 @@ def marshal_UpdateDeploymentRequest(
 def marshal_UpdateEndpointRequest(
     request: UpdateEndpointRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.disable_auth is not None:
         output["disable_auth"] = request.disable_auth

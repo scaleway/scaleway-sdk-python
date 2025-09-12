@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -45,7 +45,7 @@ def unmarshal_Reference(data: Any) -> Reference:
             "Unmarshalling the type 'Reference' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -92,7 +92,7 @@ def unmarshal_SnapshotParentVolume(data: Any) -> SnapshotParentVolume:
             "Unmarshalling the type 'SnapshotParentVolume' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -127,7 +127,7 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
             "Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -212,7 +212,7 @@ def unmarshal_VolumeSpecifications(data: Any) -> VolumeSpecifications:
             "Unmarshalling the type 'VolumeSpecifications' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("class", None)
     if field is not None:
@@ -235,7 +235,7 @@ def unmarshal_Volume(data: Any) -> Volume:
             "Unmarshalling the type 'Volume' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -334,7 +334,7 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
             "Unmarshalling the type 'ListSnapshotsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshots", None)
     if field is not None:
@@ -359,7 +359,7 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
             "Unmarshalling the type 'VolumeType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -394,7 +394,7 @@ def unmarshal_ListVolumeTypesResponse(data: Any) -> ListVolumeTypesResponse:
             "Unmarshalling the type 'ListVolumeTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("volume_types", None)
     if field is not None:
@@ -419,7 +419,7 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
             "Unmarshalling the type 'ListVolumesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("volumes", None)
     if field is not None:
@@ -441,8 +441,8 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
 def marshal_CreateSnapshotRequest(
     request: CreateSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.volume_id is not None:
         output["volume_id"] = request.volume_id
@@ -464,8 +464,8 @@ def marshal_CreateSnapshotRequest(
 def marshal_CreateVolumeRequestFromEmpty(
     request: CreateVolumeRequestFromEmpty,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.size is not None:
         output["size"] = request.size
@@ -476,8 +476,8 @@ def marshal_CreateVolumeRequestFromEmpty(
 def marshal_CreateVolumeRequestFromSnapshot(
     request: CreateVolumeRequestFromSnapshot,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.snapshot_id is not None:
         output["snapshot_id"] = request.snapshot_id
@@ -491,8 +491,8 @@ def marshal_CreateVolumeRequestFromSnapshot(
 def marshal_CreateVolumeRequest(
     request: CreateVolumeRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -536,8 +536,8 @@ def marshal_CreateVolumeRequest(
 def marshal_ExportSnapshotToObjectStorageRequest(
     request: ExportSnapshotToObjectStorageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.bucket is not None:
         output["bucket"] = request.bucket
@@ -551,8 +551,8 @@ def marshal_ExportSnapshotToObjectStorageRequest(
 def marshal_ImportSnapshotFromObjectStorageRequest(
     request: ImportSnapshotFromObjectStorageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.bucket is not None:
         output["bucket"] = request.bucket
@@ -580,8 +580,8 @@ def marshal_ImportSnapshotFromObjectStorageRequest(
 def marshal_ImportSnapshotFromS3Request(
     request: ImportSnapshotFromS3Request,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.bucket is not None:
         output["bucket"] = request.bucket
@@ -609,8 +609,8 @@ def marshal_ImportSnapshotFromS3Request(
 def marshal_UpdateSnapshotRequest(
     request: UpdateSnapshotRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -624,8 +624,8 @@ def marshal_UpdateSnapshotRequest(
 def marshal_UpdateVolumeRequest(
     request: UpdateVolumeRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

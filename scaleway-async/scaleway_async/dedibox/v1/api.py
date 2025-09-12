@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -284,7 +284,7 @@ class DediboxV1API(API):
         order_by: Optional[ListServersRequestOrderBy] = None,
         project_id: Optional[str] = None,
         search: Optional[str] = None,
-    ) -> List[ServerSummary]:
+    ) -> list[ServerSummary]:
         """
         List baremetal servers for project.
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -293,7 +293,7 @@ class DediboxV1API(API):
         :param order_by: Order of the servers.
         :param project_id: Filter servers by project ID.
         :param search: Filter servers by hostname.
-        :return: :class:`List[ServerSummary] <List[ServerSummary]>`
+        :return: :class:`list[ServerSummary] <list[ServerSummary]>`
 
         Usage:
         ::
@@ -507,7 +507,7 @@ class DediboxV1API(API):
         zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Offer]:
+    ) -> list[Offer]:
         """
         List subscribable server options.
         List subscribable options associated to the given server ID.
@@ -515,7 +515,7 @@ class DediboxV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Number of subscribable server option per page.
-        :return: :class:`List[Offer] <List[Offer]>`
+        :return: :class:`list[Offer] <list[Offer]>`
 
         Usage:
         ::
@@ -584,7 +584,7 @@ class DediboxV1API(API):
         self,
         *,
         offer_id: int,
-        server_option_ids: List[int],
+        server_option_ids: list[int],
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         datacenter_name: Optional[str] = None,
@@ -632,7 +632,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        options_ids: List[int],
+        options_ids: list[int],
         zone: Optional[ScwZone] = None,
     ) -> SubscribeStorageOptionsResponse:
         """
@@ -721,7 +721,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Server:
         """
         :param server_id: Server ID to update the tags.
@@ -930,7 +930,7 @@ class DediboxV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerEventsRequestOrderBy] = None,
-    ) -> List[ServerEvent]:
+    ) -> list[ServerEvent]:
         """
         List server events.
         List events associated to the given server ID.
@@ -939,7 +939,7 @@ class DediboxV1API(API):
         :param page: Page number.
         :param page_size: Number of server event per page.
         :param order_by: Order of the server events.
-        :return: :class:`List[ServerEvent] <List[ServerEvent]>`
+        :return: :class:`list[ServerEvent] <list[ServerEvent]>`
 
         Usage:
         ::
@@ -1013,7 +1013,7 @@ class DediboxV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerDisksRequestOrderBy] = None,
-    ) -> List[ServerDisk]:
+    ) -> list[ServerDisk]:
         """
         List server disks.
         List disks associated to the given server ID.
@@ -1022,7 +1022,7 @@ class DediboxV1API(API):
         :param page: Page number.
         :param page_size: Number of server disk per page.
         :param order_by: Order of the server disks.
-        :return: :class:`List[ServerDisk] <List[ServerDisk]>`
+        :return: :class:`list[ServerDisk] <list[ServerDisk]>`
 
         Usage:
         ::
@@ -1190,7 +1190,7 @@ class DediboxV1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListServicesRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[Service]:
+    ) -> list[Service]:
         """
         List services.
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -1198,7 +1198,7 @@ class DediboxV1API(API):
         :param page_size: Number of service per page.
         :param order_by: Order of the services.
         :param project_id: Project ID.
-        :return: :class:`List[Service] <List[Service]>`
+        :return: :class:`list[Service] <list[Service]>`
 
         Usage:
         ::
@@ -1230,8 +1230,8 @@ class DediboxV1API(API):
         user_password: Optional[str] = None,
         panel_password: Optional[str] = None,
         root_password: Optional[str] = None,
-        partitions: Optional[List[InstallPartition]] = None,
-        ssh_key_ids: Optional[List[str]] = None,
+        partitions: Optional[list[InstallPartition]] = None,
+        ssh_key_ids: Optional[list[str]] = None,
         license_offer_id: Optional[int] = None,
         ip_id: Optional[int] = None,
     ) -> ServerInstall:
@@ -1584,7 +1584,7 @@ class DediboxV1API(API):
         project_id: Optional[str] = None,
         is_failover_ip: Optional[bool] = None,
         is_failover_block: Optional[bool] = None,
-        sold_in: Optional[List[str]] = None,
+        sold_in: Optional[list[str]] = None,
         available_only: Optional[bool] = None,
         is_rpn_san: Optional[bool] = None,
     ) -> ListOffersResponse:
@@ -1646,10 +1646,10 @@ class DediboxV1API(API):
         project_id: Optional[str] = None,
         is_failover_ip: Optional[bool] = None,
         is_failover_block: Optional[bool] = None,
-        sold_in: Optional[List[str]] = None,
+        sold_in: Optional[list[str]] = None,
         available_only: Optional[bool] = None,
         is_rpn_san: Optional[bool] = None,
-    ) -> List[Offer]:
+    ) -> list[Offer]:
         """
         List offers.
         List all available server offers.
@@ -1665,7 +1665,7 @@ class DediboxV1API(API):
         :param sold_in: Filter offers depending on their datacenter.
         :param available_only: Set this filter to true to only return available offers.
         :param is_rpn_san: Get the RPN SAN offers.
-        :return: :class:`List[Offer] <List[Offer]>`
+        :return: :class:`list[Offer] <list[Offer]>`
 
         Usage:
         ::
@@ -1788,7 +1788,7 @@ class DediboxV1API(API):
         order_by: Optional[ListOSRequestOrderBy] = None,
         type_: Optional[OSType] = None,
         project_id: Optional[str] = None,
-    ) -> List[OS]:
+    ) -> list[OS]:
         """
         List all available OS that can be install on a baremetal server.
         :param server_id: Filter OS by compatible server ID.
@@ -1798,7 +1798,7 @@ class DediboxV1API(API):
         :param order_by: Order of the OS.
         :param type_: Type of the OS.
         :param project_id: Project ID.
-        :return: :class:`List[OS] <List[OS]>`
+        :return: :class:`list[OS] <list[OS]>`
 
         Usage:
         ::
@@ -1956,7 +1956,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        fips_ids: List[int],
+        fips_ids: list[int],
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
@@ -1995,7 +1995,7 @@ class DediboxV1API(API):
     async def detach_failover_i_ps(
         self,
         *,
-        fips_ids: List[int],
+        fips_ids: list[int],
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
@@ -2192,7 +2192,7 @@ class DediboxV1API(API):
         project_id: Optional[str] = None,
         search: Optional[str] = None,
         only_available: Optional[bool] = None,
-    ) -> List[FailoverIP]:
+    ) -> list[FailoverIP]:
         """
         List failovers for project.
         List failovers servers for project.
@@ -2204,7 +2204,7 @@ class DediboxV1API(API):
         :param search: Filter failovers IP which matching with this field.
         :param only_available: True: return all failovers IP not attached on server
         false: return all failovers IP attached on server.
-        :return: :class:`List[FailoverIP] <List[FailoverIP]>`
+        :return: :class:`list[FailoverIP] <list[FailoverIP]>`
 
         Usage:
         ::
@@ -2326,7 +2326,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        raid_arrays: List[UpdatableRaidArray],
+        raid_arrays: list[UpdatableRaidArray],
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
@@ -2516,13 +2516,13 @@ class DediboxV1BillingAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListInvoicesRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[InvoiceSummary]:
+    ) -> list[InvoiceSummary]:
         """
         :param page:
         :param page_size:
         :param order_by:
         :param project_id:
-        :return: :class:`List[InvoiceSummary] <List[InvoiceSummary]>`
+        :return: :class:`list[InvoiceSummary] <list[InvoiceSummary]>`
 
         Usage:
         ::
@@ -2638,13 +2638,13 @@ class DediboxV1BillingAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRefundsRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[RefundSummary]:
+    ) -> list[RefundSummary]:
         """
         :param page:
         :param page_size:
         :param order_by:
         :param project_id:
-        :return: :class:`List[RefundSummary] <List[RefundSummary]>`
+        :return: :class:`list[RefundSummary] <list[RefundSummary]>`
 
         Usage:
         ::
@@ -2844,7 +2844,7 @@ class DediboxV1IPv6BlockAPI(API):
         self,
         *,
         block_id: int,
-        nameservers: Optional[List[str]] = None,
+        nameservers: Optional[list[str]] = None,
     ) -> IPv6Block:
         """
         Update IPv6 block.
@@ -3028,13 +3028,13 @@ class DediboxV1RpnAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnServerCapabilitiesRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[RpnServerCapability]:
+    ) -> list[RpnServerCapability]:
         """
         :param page: Page number.
         :param page_size: Number of servers per page.
         :param order_by: Order of the servers.
         :param project_id: Filter servers by project ID.
-        :return: :class:`List[RpnServerCapability] <List[RpnServerCapability]>`
+        :return: :class:`list[RpnServerCapability] <list[RpnServerCapability]>`
 
         Usage:
         ::
@@ -3134,13 +3134,13 @@ class DediboxV1RpnSanAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnSansRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[RpnSanSummary]:
+    ) -> list[RpnSanSummary]:
         """
         :param page: Page number.
         :param page_size: Number of RPN SANs per page.
         :param order_by: Order of the RPN SANs.
         :param project_id: Filter RPN SANs by project ID.
-        :return: :class:`List[RpnSanSummary] <List[RpnSanSummary]>`
+        :return: :class:`list[RpnSanSummary] <list[RpnSanSummary]>`
 
         Usage:
         ::
@@ -3314,7 +3314,7 @@ class DediboxV1RpnSanAPI(API):
         self,
         *,
         rpn_san_id: int,
-        ip_ids: List[int],
+        ip_ids: list[int],
     ) -> None:
         """
         :param rpn_san_id: RPN SAN ID.
@@ -3349,7 +3349,7 @@ class DediboxV1RpnSanAPI(API):
         self,
         *,
         rpn_san_id: int,
-        ip_ids: List[int],
+        ip_ids: list[int],
     ) -> None:
         """
         :param rpn_san_id: RPN SAN ID.
@@ -3460,13 +3460,13 @@ class DediboxV1RpnV1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnGroupsRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[RpnGroup]:
+    ) -> list[RpnGroup]:
         """
         :param page: Page number.
         :param page_size: Number of rpn v1 groups per page.
         :param order_by: Order of the rpn v1 groups.
         :param project_id: Filter rpn v1 groups by project ID.
-        :return: :class:`List[RpnGroup] <List[RpnGroup]>`
+        :return: :class:`list[RpnGroup] <list[RpnGroup]>`
 
         Usage:
         ::
@@ -3517,8 +3517,8 @@ class DediboxV1RpnV1API(API):
         self,
         *,
         name: str,
-        server_ids: Optional[List[int]] = None,
-        san_server_ids: Optional[List[int]] = None,
+        server_ids: Optional[list[int]] = None,
+        san_server_ids: Optional[list[int]] = None,
         project_id: Optional[str] = None,
     ) -> RpnGroup:
         """
@@ -3663,14 +3663,14 @@ class DediboxV1RpnV1API(API):
         order_by: Optional[ListRpnGroupMembersRequestOrderBy] = None,
         group_id: int,
         project_id: Optional[str] = None,
-    ) -> List[RpnGroupMember]:
+    ) -> list[RpnGroupMember]:
         """
         :param page: Page number.
         :param page_size: Number of rpn v1 group members per page.
         :param order_by: Order of the rpn v1 group members.
         :param group_id: Filter rpn v1 group members by group ID.
         :param project_id: A project ID.
-        :return: :class:`List[RpnGroupMember] <List[RpnGroupMember]>`
+        :return: :class:`list[RpnGroupMember] <list[RpnGroupMember]>`
 
         Usage:
         ::
@@ -3697,7 +3697,7 @@ class DediboxV1RpnV1API(API):
         self,
         *,
         group_id: int,
-        server_ids: List[int],
+        server_ids: list[int],
         project_id: Optional[str] = None,
     ) -> None:
         """
@@ -3735,7 +3735,7 @@ class DediboxV1RpnV1API(API):
         self,
         *,
         group_id: int,
-        member_ids: List[int],
+        member_ids: list[int],
         project_id: Optional[str] = None,
     ) -> None:
         """
@@ -3773,8 +3773,8 @@ class DediboxV1RpnV1API(API):
         self,
         *,
         group_id: int,
-        server_ids: Optional[List[int]] = None,
-        san_server_ids: Optional[List[int]] = None,
+        server_ids: Optional[list[int]] = None,
+        san_server_ids: Optional[list[int]] = None,
     ) -> RpnGroup:
         """
         :param group_id: The rpn v1 group ID.
@@ -3812,7 +3812,7 @@ class DediboxV1RpnV1API(API):
         self,
         *,
         group_id: int,
-        member_ids: List[int],
+        member_ids: list[int],
     ) -> RpnGroup:
         """
         :param group_id: The rpn v1 group ID.
@@ -3887,13 +3887,13 @@ class DediboxV1RpnV1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnCapableServersRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[Server]:
+    ) -> list[Server]:
         """
         :param page: Page number.
         :param page_size: Number of rpn capable resources per page.
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
-        :return: :class:`List[Server] <List[Server]>`
+        :return: :class:`list[Server] <list[Server]>`
 
         Usage:
         ::
@@ -3955,13 +3955,13 @@ class DediboxV1RpnV1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnCapableSanServersRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[RpnSanServer]:
+    ) -> list[RpnSanServer]:
         """
         :param page: Page number.
         :param page_size: Number of rpn capable resources per page.
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
-        :return: :class:`List[RpnSanServer] <List[RpnSanServer]>`
+        :return: :class:`list[RpnSanServer] <list[RpnSanServer]>`
 
         Usage:
         ::
@@ -4023,13 +4023,13 @@ class DediboxV1RpnV1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnInvitesRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[RpnGroupMember]:
+    ) -> list[RpnGroupMember]:
         """
         :param page: Page number.
         :param page_size: Number of rpn capable resources per page.
         :param order_by: Order of the rpn capable resources.
         :param project_id: Filter rpn capable resources by project ID.
-        :return: :class:`List[RpnGroupMember] <List[RpnGroupMember]>`
+        :return: :class:`list[RpnGroupMember] <list[RpnGroupMember]>`
 
         Usage:
         ::
@@ -4147,13 +4147,13 @@ class DediboxV1RpnV2API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnV2GroupsRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[RpnV2Group]:
+    ) -> list[RpnV2Group]:
         """
         :param page: Page number.
         :param page_size: Number of rpn v2 groups per page.
         :param order_by: Order of the rpn v2 groups.
         :param project_id: Filter rpn v2 groups by project ID.
-        :return: :class:`List[RpnV2Group] <List[RpnV2Group]>`
+        :return: :class:`list[RpnV2Group] <list[RpnV2Group]>`
 
         Usage:
         ::
@@ -4222,14 +4222,14 @@ class DediboxV1RpnV2API(API):
         order_by: Optional[ListRpnV2MembersRequestOrderBy] = None,
         group_id: int,
         type_: Optional[ListRpnV2MembersRequestType] = None,
-    ) -> List[RpnV2Member]:
+    ) -> list[RpnV2Member]:
         """
         :param page: Page number.
         :param page_size: Number of rpn v2 group members per page.
         :param order_by: Order of the rpn v2 group members.
         :param group_id: RPN V2 group ID.
         :param type_: Filter members by type.
-        :return: :class:`List[RpnV2Member] <List[RpnV2Member]>`
+        :return: :class:`list[RpnV2Member] <list[RpnV2Member]>`
 
         Usage:
         ::
@@ -4317,7 +4317,7 @@ class DediboxV1RpnV2API(API):
         self,
         *,
         name: str,
-        servers: List[int],
+        servers: list[int],
         project_id: Optional[str] = None,
         type_: Optional[RpnV2GroupType] = None,
     ) -> RpnV2Group:
@@ -4419,7 +4419,7 @@ class DediboxV1RpnV2API(API):
         self,
         *,
         group_id: int,
-        servers: List[int],
+        servers: list[int],
     ) -> None:
         """
         :param group_id: RPN V2 group ID.
@@ -4454,7 +4454,7 @@ class DediboxV1RpnV2API(API):
         self,
         *,
         group_id: int,
-        member_ids: List[int],
+        member_ids: list[int],
     ) -> None:
         """
         :param group_id: RPN V2 group ID.
@@ -4527,13 +4527,13 @@ class DediboxV1RpnV2API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnV2CapableResourcesRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[Server]:
+    ) -> list[Server]:
         """
         :param page: Page number.
         :param page_size: Number of rpn v2 capable resources per page.
         :param order_by: Order of the rpn v2 capable resources.
         :param project_id: Filter rpn v2 capable resources by project ID.
-        :return: :class:`List[Server] <List[Server]>`
+        :return: :class:`list[Server] <list[Server]>`
 
         Usage:
         ::
@@ -4598,13 +4598,13 @@ class DediboxV1RpnV2API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRpnV2GroupLogsRequestOrderBy] = None,
         group_id: int,
-    ) -> List[Log]:
+    ) -> list[Log]:
         """
         :param page: Page number.
         :param page_size: Number of rpn v2 group logs per page.
         :param order_by: Order of the rpn v2 group logs.
         :param group_id: RPN V2 group ID.
-        :return: :class:`List[Log] <List[Log]>`
+        :return: :class:`list[Log] <list[Log]>`
 
         Usage:
         ::
@@ -4630,7 +4630,7 @@ class DediboxV1RpnV2API(API):
         self,
         *,
         group_id: int,
-        member_ids: List[int],
+        member_ids: list[int],
         vlan: Optional[int] = None,
     ) -> None:
         """

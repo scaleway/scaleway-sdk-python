@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -103,8 +103,8 @@ class BaremetalV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
-        tags: Optional[List[str]] = None,
-        status: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        status: Optional[list[str]] = None,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -160,13 +160,13 @@ class BaremetalV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
-        tags: Optional[List[str]] = None,
-        status: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        status: Optional[list[str]] = None,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         option_id: Optional[str] = None,
-    ) -> List[Server]:
+    ) -> list[Server]:
         """
         List Elastic Metal servers for an Organization.
         List Elastic Metal servers for a specific Organization.
@@ -180,7 +180,7 @@ class BaremetalV1API(API):
         :param organization_id: Organization ID to filter for.
         :param project_id: Project ID to filter for.
         :param option_id: Option ID to filter for.
-        :return: :class:`List[Server] <List[Server]>`
+        :return: :class:`list[Server] <list[Server]>`
 
         Usage:
         ::
@@ -285,9 +285,9 @@ class BaremetalV1API(API):
         zone: Optional[ScwZone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         install: Optional[CreateServerRequestInstall] = None,
-        option_ids: Optional[List[str]] = None,
+        option_ids: Optional[list[str]] = None,
     ) -> Server:
         """
         Create an Elastic Metal server.
@@ -349,7 +349,7 @@ class BaremetalV1API(API):
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         protected: Optional[bool] = None,
     ) -> Server:
         """
@@ -399,7 +399,7 @@ class BaremetalV1API(API):
         server_id: str,
         os_id: str,
         hostname: str,
-        ssh_key_ids: List[str],
+        ssh_key_ids: list[str],
         zone: Optional[ScwZone] = None,
         user: Optional[str] = None,
         password: Optional[str] = None,
@@ -529,7 +529,7 @@ class BaremetalV1API(API):
         server_id: str,
         zone: Optional[ScwZone] = None,
         boot_type: Optional[ServerBootType] = None,
-        ssh_key_ids: Optional[List[str]] = None,
+        ssh_key_ids: Optional[list[str]] = None,
     ) -> Server:
         """
         Reboot an Elastic Metal server.
@@ -574,7 +574,7 @@ class BaremetalV1API(API):
         server_id: str,
         zone: Optional[ScwZone] = None,
         boot_type: Optional[ServerBootType] = None,
-        ssh_key_ids: Optional[List[str]] = None,
+        ssh_key_ids: Optional[list[str]] = None,
     ) -> Server:
         """
         Start an Elastic Metal server.
@@ -697,7 +697,7 @@ class BaremetalV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerEventsRequestOrderBy] = None,
-    ) -> List[ServerEvent]:
+    ) -> list[ServerEvent]:
         """
         List server events.
         List event (i.e. start/stop/reboot) associated to the server ID.
@@ -706,7 +706,7 @@ class BaremetalV1API(API):
         :param page: Page number.
         :param page_size: Number of server events per page.
         :param order_by: Order of the server events.
-        :return: :class:`List[ServerEvent] <List[ServerEvent]>`
+        :return: :class:`list[ServerEvent] <list[ServerEvent]>`
 
         Usage:
         ::
@@ -1129,7 +1129,7 @@ class BaremetalV1API(API):
         page_size: Optional[int] = None,
         subscription_period: Optional[OfferSubscriptionPeriod] = None,
         name: Optional[str] = None,
-    ) -> List[Offer]:
+    ) -> list[Offer]:
         """
         List offers.
         List all available Elastic Metal server configurations.
@@ -1138,7 +1138,7 @@ class BaremetalV1API(API):
         :param page_size: Number of offers per page.
         :param subscription_period: Subscription period type to filter offers by.
         :param name: Offer name to filter offers by.
-        :return: :class:`List[Offer] <List[Offer]>`
+        :return: :class:`list[Offer] <list[Offer]>`
 
         Usage:
         ::
@@ -1272,7 +1272,7 @@ class BaremetalV1API(API):
         page_size: Optional[int] = None,
         offer_id: Optional[str] = None,
         name: Optional[str] = None,
-    ) -> List[Option]:
+    ) -> list[Option]:
         """
         List options.
         List all options matching with filters.
@@ -1281,7 +1281,7 @@ class BaremetalV1API(API):
         :param page_size: Number of options per page.
         :param offer_id: Offer ID to filter options for.
         :param name: Name to filter options for.
-        :return: :class:`List[Option] <List[Option]>`
+        :return: :class:`list[Option] <list[Option]>`
 
         Usage:
         ::
@@ -1351,7 +1351,7 @@ class BaremetalV1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListSettingsRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> List[Setting]:
+    ) -> list[Setting]:
         """
         List all settings.
         Return all settings for a Project ID.
@@ -1360,7 +1360,7 @@ class BaremetalV1API(API):
         :param page_size: Set the maximum list size.
         :param order_by: Sort order for items in the response.
         :param project_id: ID of the Project.
-        :return: :class:`List[Setting] <List[Setting]>`
+        :return: :class:`list[Setting] <list[Setting]>`
 
         Usage:
         ::
@@ -1468,7 +1468,7 @@ class BaremetalV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         offer_id: Optional[str] = None,
-    ) -> List[OS]:
+    ) -> list[OS]:
         """
         List available OSes.
         List all OSes that are available for installation on Elastic Metal servers.
@@ -1476,7 +1476,7 @@ class BaremetalV1API(API):
         :param page: Page number.
         :param page_size: Number of OS per page.
         :param offer_id: Offer IDs to filter OSes for.
-        :return: :class:`List[OS] <List[OS]>`
+        :return: :class:`list[OS] <list[OS]>`
 
         Usage:
         ::
@@ -1580,7 +1580,7 @@ class BaremetalV1PrivateNetworkAPI(API):
         self,
         *,
         server_id: str,
-        private_network_ids: List[str],
+        private_network_ids: list[str],
         zone: Optional[ScwZone] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
@@ -1679,7 +1679,7 @@ class BaremetalV1PrivateNetworkAPI(API):
         private_network_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[ServerPrivateNetwork]:
+    ) -> list[ServerPrivateNetwork]:
         """
         List the Private Networks of a server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -1690,7 +1690,7 @@ class BaremetalV1PrivateNetworkAPI(API):
         :param private_network_id: Filter Private Networks by Private Network ID.
         :param organization_id: Filter Private Networks by Organization ID.
         :param project_id: Filter Private Networks by Project ID.
-        :return: :class:`List[ServerPrivateNetwork] <List[ServerPrivateNetwork]>`
+        :return: :class:`list[ServerPrivateNetwork] <list[ServerPrivateNetwork]>`
 
         Usage:
         ::

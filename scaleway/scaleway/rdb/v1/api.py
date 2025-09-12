@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -215,7 +215,7 @@ class RdbV1API(API):
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[DatabaseEngine]:
+    ) -> list[DatabaseEngine]:
         """
         List available database engines.
         List the PostgreSQL and MySQL database engines available at Scaleway.
@@ -224,7 +224,7 @@ class RdbV1API(API):
         :param version: Version of the database engine.
         :param page:
         :param page_size:
-        :return: :class:`List[DatabaseEngine] <List[DatabaseEngine]>`
+        :return: :class:`list[DatabaseEngine] <list[DatabaseEngine]>`
 
         Usage:
         ::
@@ -294,7 +294,7 @@ class RdbV1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[NodeType]:
+    ) -> list[NodeType]:
         """
         List available node types.
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -302,7 +302,7 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :return: :class:`List[NodeType] <List[NodeType]>`
+        :return: :class:`list[NodeType] <list[NodeType]>`
 
         Usage:
         ::
@@ -388,7 +388,7 @@ class RdbV1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[DatabaseBackup]:
+    ) -> list[DatabaseBackup]:
         """
         List database backups.
         List all backups in a specified region, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
@@ -400,7 +400,7 @@ class RdbV1API(API):
         :param project_id: Project ID of the Project the database backups belong to.
         :param page:
         :param page_size:
-        :return: :class:`List[DatabaseBackup] <List[DatabaseBackup]>`
+        :return: :class:`list[DatabaseBackup] <list[DatabaseBackup]>`
 
         Usage:
         ::
@@ -796,7 +796,7 @@ class RdbV1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
@@ -852,7 +852,7 @@ class RdbV1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
@@ -860,7 +860,7 @@ class RdbV1API(API):
         has_maintenances: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Instance]:
+    ) -> list[Instance]:
         """
         List Database Instances.
         List all Database Instances in the specified region, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
@@ -873,7 +873,7 @@ class RdbV1API(API):
         :param has_maintenances: Filter to only list instances with a scheduled maintenance.
         :param page:
         :param page_size:
-        :return: :class:`List[Instance] <List[Instance]>`
+        :return: :class:`list[Instance] <list[Instance]>`
 
         Usage:
         ::
@@ -984,10 +984,10 @@ class RdbV1API(API):
         disable_backup: bool,
         volume_size: int,
         backup_same_region: bool,
-        tags: Optional[List[str]] = None,
-        init_settings: Optional[List[InstanceSetting]] = None,
+        tags: Optional[list[str]] = None,
+        init_settings: Optional[list[InstanceSetting]] = None,
         volume_type: Optional[VolumeType] = None,
-        init_endpoints: Optional[List[EndpointSpec]] = None,
+        init_endpoints: Optional[list[EndpointSpec]] = None,
         encryption: Optional[EncryptionAtRest] = None,
     ) -> Instance:
         """
@@ -1072,7 +1072,7 @@ class RdbV1API(API):
         backup_schedule_retention: Optional[int] = None,
         is_backup_schedule_disabled: Optional[bool] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         logs_policy: Optional[LogsPolicy] = None,
         backup_same_region: Optional[bool] = None,
         backup_schedule_start_hour: Optional[int] = None,
@@ -1362,7 +1362,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         region: Optional[ScwRegion] = None,
-        endpoint_spec: Optional[List[ReadReplicaEndpointSpec]] = None,
+        endpoint_spec: Optional[list[ReadReplicaEndpointSpec]] = None,
         same_zone: Optional[bool] = None,
     ) -> ReadReplica:
         """
@@ -1583,7 +1583,7 @@ class RdbV1API(API):
         self,
         *,
         read_replica_id: str,
-        endpoint_spec: List[ReadReplicaEndpointSpec],
+        endpoint_spec: list[ReadReplicaEndpointSpec],
         region: Optional[ScwRegion] = None,
     ) -> ReadReplica:
         """
@@ -1861,7 +1861,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        settings: List[InstanceSetting],
+        settings: list[InstanceSetting],
         region: Optional[ScwRegion] = None,
     ) -> AddInstanceSettingsResponse:
         """
@@ -1906,7 +1906,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        setting_names: List[str],
+        setting_names: list[str],
         region: Optional[ScwRegion] = None,
     ) -> DeleteInstanceSettingsResponse:
         """
@@ -1951,7 +1951,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        settings: List[InstanceSetting],
+        settings: list[InstanceSetting],
         region: Optional[ScwRegion] = None,
     ) -> SetInstanceSettingsResponse:
         """
@@ -2041,7 +2041,7 @@ class RdbV1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[ACLRule]:
+    ) -> list[ACLRule]:
         """
         List ACL rules of a Database Instance.
         List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
@@ -2049,7 +2049,7 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :return: :class:`List[ACLRule] <List[ACLRule]>`
+        :return: :class:`list[ACLRule] <list[ACLRule]>`
 
         Usage:
         ::
@@ -2075,7 +2075,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        rules: List[ACLRuleRequest],
+        rules: list[ACLRuleRequest],
         region: Optional[ScwRegion] = None,
     ) -> AddInstanceACLRulesResponse:
         """
@@ -2120,7 +2120,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        rules: List[ACLRuleRequest],
+        rules: list[ACLRuleRequest],
         region: Optional[ScwRegion] = None,
     ) -> SetInstanceACLRulesResponse:
         """
@@ -2165,7 +2165,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        acl_rule_ips: List[str],
+        acl_rule_ips: list[str],
         region: Optional[ScwRegion] = None,
     ) -> DeleteInstanceACLRulesResponse:
         """
@@ -2263,7 +2263,7 @@ class RdbV1API(API):
         order_by: Optional[ListUsersRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[User]:
+    ) -> list[User]:
         """
         List users of a Database Instance.
         List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
@@ -2273,7 +2273,7 @@ class RdbV1API(API):
         :param order_by: Criteria to use when requesting user listing.
         :param page:
         :param page_size:
-        :return: :class:`List[User] <List[User]>`
+        :return: :class:`list[User] <list[User]>`
 
         Usage:
         ::
@@ -2503,7 +2503,7 @@ class RdbV1API(API):
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Database]:
+    ) -> list[Database]:
         """
         List databases in a Database Instance.
         List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
@@ -2515,7 +2515,7 @@ class RdbV1API(API):
         :param order_by: Criteria to use when ordering database listing.
         :param page:
         :param page_size:
-        :return: :class:`List[Database] <List[Database]>`
+        :return: :class:`list[Database] <list[Database]>`
 
         Usage:
         ::
@@ -2683,7 +2683,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
         database_name: Optional[str] = None,
         user_name: Optional[str] = None,
-    ) -> List[Privilege]:
+    ) -> list[Privilege]:
         """
         List user privileges for a database.
         List privileges of a user on a database. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `database_name` and `user_name`.
@@ -2694,7 +2694,7 @@ class RdbV1API(API):
         :param page_size:
         :param database_name: Name of the database.
         :param user_name: Name of the user.
-        :return: :class:`List[Privilege] <List[Privilege]>`
+        :return: :class:`list[Privilege] <list[Privilege]>`
 
         Usage:
         ::
@@ -2835,7 +2835,7 @@ class RdbV1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Snapshot]:
+    ) -> list[Snapshot]:
         """
         List snapshots.
         List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -2847,7 +2847,7 @@ class RdbV1API(API):
         :param project_id: Project ID the snapshots belongs to.
         :param page:
         :param page_size:
-        :return: :class:`List[Snapshot] <List[Snapshot]>`
+        :return: :class:`list[Snapshot] <list[Snapshot]>`
 
         Usage:
         ::

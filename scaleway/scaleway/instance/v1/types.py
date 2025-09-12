@@ -2966,6 +2966,19 @@ class PlanBlockMigrationRequest:
 
 
 @dataclass
+class ReleaseIpToIpamRequest:
+    ip_id: str
+    """
+    ID of the IP you want to release from the Instance but retain in IPAM.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class ServerActionRequest:
     server_id: str
     """

@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -42,7 +42,7 @@ def unmarshal_DedicatedConnection(data: Any) -> DedicatedConnection:
             "Unmarshalling the type 'DedicatedConnection' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -131,7 +131,7 @@ def unmarshal_BgpConfig(data: Any) -> BgpConfig:
             "Unmarshalling the type 'BgpConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("asn", None)
     if field is not None:
@@ -160,7 +160,7 @@ def unmarshal_PartnerHost(data: Any) -> PartnerHost:
             "Unmarshalling the type 'PartnerHost' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("partner_id", None)
     if field is not None:
@@ -189,7 +189,7 @@ def unmarshal_SelfHost(data: Any) -> SelfHost:
             "Unmarshalling the type 'SelfHost' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("connection_id", None)
     if field is not None:
@@ -206,7 +206,7 @@ def unmarshal_Link(data: Any) -> Link:
             "Unmarshalling the type 'Link' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -355,7 +355,7 @@ def unmarshal_Partner(data: Any) -> Partner:
             "Unmarshalling the type 'Partner' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -408,7 +408,7 @@ def unmarshal_Pop(data: Any) -> Pop:
             "Unmarshalling the type 'Pop' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -467,7 +467,7 @@ def unmarshal_RoutingPolicy(data: Any) -> RoutingPolicy:
             "Unmarshalling the type 'RoutingPolicy' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -546,7 +546,7 @@ def unmarshal_ListDedicatedConnectionsResponse(
             "Unmarshalling the type 'ListDedicatedConnectionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("connections", None)
     if field is not None:
@@ -573,7 +573,7 @@ def unmarshal_ListLinksResponse(data: Any) -> ListLinksResponse:
             "Unmarshalling the type 'ListLinksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("links", None)
     if field is not None:
@@ -598,7 +598,7 @@ def unmarshal_ListPartnersResponse(data: Any) -> ListPartnersResponse:
             "Unmarshalling the type 'ListPartnersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("partners", None)
     if field is not None:
@@ -623,7 +623,7 @@ def unmarshal_ListPopsResponse(data: Any) -> ListPopsResponse:
             "Unmarshalling the type 'ListPopsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("pops", None)
     if field is not None:
@@ -646,7 +646,7 @@ def unmarshal_ListRoutingPoliciesResponse(data: Any) -> ListRoutingPoliciesRespo
             "Unmarshalling the type 'ListRoutingPoliciesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("routing_policies", None)
     if field is not None:
@@ -668,8 +668,8 @@ def unmarshal_ListRoutingPoliciesResponse(data: Any) -> ListRoutingPoliciesRespo
 def marshal_AttachRoutingPolicyRequest(
     request: AttachRoutingPolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.routing_policy_id is not None:
         output["routing_policy_id"] = request.routing_policy_id
@@ -680,8 +680,8 @@ def marshal_AttachRoutingPolicyRequest(
 def marshal_AttachVpcRequest(
     request: AttachVpcRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.vpc_id is not None:
         output["vpc_id"] = request.vpc_id
@@ -692,8 +692,8 @@ def marshal_AttachVpcRequest(
 def marshal_CreateLinkRequest(
     request: CreateLinkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -738,8 +738,8 @@ def marshal_CreateLinkRequest(
 def marshal_CreateRoutingPolicyRequest(
     request: CreateRoutingPolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -767,8 +767,8 @@ def marshal_CreateRoutingPolicyRequest(
 def marshal_DetachRoutingPolicyRequest(
     request: DetachRoutingPolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.routing_policy_id is not None:
         output["routing_policy_id"] = request.routing_policy_id
@@ -779,8 +779,8 @@ def marshal_DetachRoutingPolicyRequest(
 def marshal_UpdateLinkRequest(
     request: UpdateLinkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -797,8 +797,8 @@ def marshal_UpdateLinkRequest(
 def marshal_UpdateRoutingPolicyRequest(
     request: UpdateRoutingPolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

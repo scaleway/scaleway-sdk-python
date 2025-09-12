@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -72,7 +72,7 @@ def unmarshal_EmailTry(data: Any) -> EmailTry:
             "Unmarshalling the type 'EmailTry' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rank", None)
     if field is not None:
@@ -107,7 +107,7 @@ def unmarshal_Email(data: Any) -> Email:
             "Unmarshalling the type 'Email' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -210,7 +210,7 @@ def unmarshal_DomainRecordsDMARC(data: Any) -> DomainRecordsDMARC:
             "Unmarshalling the type 'DomainRecordsDMARC' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -233,7 +233,7 @@ def unmarshal_DomainRecords(data: Any) -> DomainRecords:
             "Unmarshalling the type 'DomainRecords' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dmarc", None)
     if field is not None:
@@ -250,7 +250,7 @@ def unmarshal_DomainReputation(data: Any) -> DomainReputation:
             "Unmarshalling the type 'DomainReputation' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("status", None)
     if field is not None:
@@ -293,7 +293,7 @@ def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
             "Unmarshalling the type 'DomainStatistics' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -328,7 +328,7 @@ def unmarshal_Domain(data: Any) -> Domain:
             "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -445,7 +445,7 @@ def unmarshal_OfferSubscription(data: Any) -> OfferSubscription:
             "Unmarshalling the type 'OfferSubscription' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("organization_id", None)
     if field is not None:
@@ -526,7 +526,7 @@ def unmarshal_Webhook(data: Any) -> Webhook:
             "Unmarshalling the type 'Webhook' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -593,7 +593,7 @@ def unmarshal_Blocklist(data: Any) -> Blocklist:
             "Unmarshalling the type 'Blocklist' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -658,7 +658,7 @@ def unmarshal_BulkCreateBlocklistsResponse(data: Any) -> BulkCreateBlocklistsRes
             "Unmarshalling the type 'BulkCreateBlocklistsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("blocklists", None)
     if field is not None:
@@ -677,7 +677,7 @@ def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
             "Unmarshalling the type 'CreateEmailResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("emails", None)
     if field is not None:
@@ -698,7 +698,7 @@ def unmarshal_DomainLastStatusAutoconfigState(
             "Unmarshalling the type 'DomainLastStatusAutoconfigState' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("enabled", None)
     if field is not None:
@@ -727,7 +727,7 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
             "Unmarshalling the type 'DomainLastStatusDkimRecord' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("status", None)
     if field is not None:
@@ -758,7 +758,7 @@ def unmarshal_DomainLastStatusDmarcRecord(data: Any) -> DomainLastStatusDmarcRec
             "Unmarshalling the type 'DomainLastStatusDmarcRecord' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("status", None)
     if field is not None:
@@ -789,7 +789,7 @@ def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
             "Unmarshalling the type 'DomainLastStatusSpfRecord' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("status", None)
     if field is not None:
@@ -820,7 +820,7 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
             "Unmarshalling the type 'DomainLastStatus' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain_id", None)
     if field is not None:
@@ -867,7 +867,7 @@ def unmarshal_ListBlocklistsResponse(data: Any) -> ListBlocklistsResponse:
             "Unmarshalling the type 'ListBlocklistsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -892,7 +892,7 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
             "Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -917,7 +917,7 @@ def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
             "Unmarshalling the type 'ListEmailsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -944,7 +944,7 @@ def unmarshal_ListOfferSubscriptionsResponse(
             "Unmarshalling the type 'ListOfferSubscriptionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -971,7 +971,7 @@ def unmarshal_Offer(data: Any) -> Offer:
             "Unmarshalling the type 'Offer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1036,7 +1036,7 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
             "Unmarshalling the type 'ListOffersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1061,7 +1061,7 @@ def unmarshal_Pool(data: Any) -> Pool:
             "Unmarshalling the type 'Pool' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("project_id", None)
     if field is not None:
@@ -1108,7 +1108,7 @@ def unmarshal_ListPoolsResponse(data: Any) -> ListPoolsResponse:
             "Unmarshalling the type 'ListPoolsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1133,7 +1133,7 @@ def unmarshal_WebhookEvent(data: Any) -> WebhookEvent:
             "Unmarshalling the type 'WebhookEvent' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1210,7 +1210,7 @@ def unmarshal_ListWebhookEventsResponse(data: Any) -> ListWebhookEventsResponse:
             "Unmarshalling the type 'ListWebhookEventsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1235,7 +1235,7 @@ def unmarshal_ListWebhooksResponse(data: Any) -> ListWebhooksResponse:
             "Unmarshalling the type 'ListWebhooksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1260,7 +1260,7 @@ def unmarshal_ProjectConsumption(data: Any) -> ProjectConsumption:
             "Unmarshalling the type 'ProjectConsumption' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("project_id", None)
     if field is not None:
@@ -1307,7 +1307,7 @@ def unmarshal_ProjectSettingsPeriodicReport(data: Any) -> ProjectSettingsPeriodi
             "Unmarshalling the type 'ProjectSettingsPeriodicReport' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("enabled", None)
     if field is not None:
@@ -1342,7 +1342,7 @@ def unmarshal_ProjectSettings(data: Any) -> ProjectSettings:
             "Unmarshalling the type 'ProjectSettings' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("periodic_report", None)
     if field is not None:
@@ -1359,7 +1359,7 @@ def unmarshal_Statistics(data: Any) -> Statistics:
             "Unmarshalling the type 'Statistics' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1403,8 +1403,8 @@ def unmarshal_Statistics(data: Any) -> Statistics:
 def marshal_BulkCreateBlocklistsRequest(
     request: BulkCreateBlocklistsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain_id is not None:
         output["domain_id"] = request.domain_id
@@ -1424,8 +1424,8 @@ def marshal_BulkCreateBlocklistsRequest(
 def marshal_CreateDomainRequest(
     request: CreateDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
@@ -1447,8 +1447,8 @@ def marshal_CreateDomainRequest(
 def marshal_CreateEmailRequestAddress(
     request: CreateEmailRequestAddress,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.email is not None:
         output["email"] = request.email
@@ -1462,8 +1462,8 @@ def marshal_CreateEmailRequestAddress(
 def marshal_CreateEmailRequestAttachment(
     request: CreateEmailRequestAttachment,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1480,8 +1480,8 @@ def marshal_CreateEmailRequestAttachment(
 def marshal_CreateEmailRequestHeader(
     request: CreateEmailRequestHeader,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.key is not None:
         output["key"] = request.key
@@ -1495,8 +1495,8 @@ def marshal_CreateEmailRequestHeader(
 def marshal_CreateEmailRequest(
     request: CreateEmailRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.from_ is not None:
         output["from"] = marshal_CreateEmailRequestAddress(request.from_, defaults)
@@ -1551,8 +1551,8 @@ def marshal_CreateEmailRequest(
 def marshal_CreateWebhookRequest(
     request: CreateWebhookRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain_id is not None:
         output["domain_id"] = request.domain_id
@@ -1577,8 +1577,8 @@ def marshal_CreateWebhookRequest(
 def marshal_UpdateDomainRequest(
     request: UpdateDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.autoconfig is not None:
         output["autoconfig"] = request.autoconfig
@@ -1589,8 +1589,8 @@ def marshal_UpdateDomainRequest(
 def marshal_UpdateOfferSubscriptionRequest(
     request: UpdateOfferSubscriptionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1606,8 +1606,8 @@ def marshal_UpdateOfferSubscriptionRequest(
 def marshal_UpdateProjectSettingsRequestUpdatePeriodicReport(
     request: UpdateProjectSettingsRequestUpdatePeriodicReport,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.enabled is not None:
         output["enabled"] = request.enabled
@@ -1627,8 +1627,8 @@ def marshal_UpdateProjectSettingsRequestUpdatePeriodicReport(
 def marshal_UpdateProjectSettingsRequest(
     request: UpdateProjectSettingsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.periodic_report is not None:
         output["periodic_report"] = (
@@ -1643,8 +1643,8 @@ def marshal_UpdateProjectSettingsRequest(
 def marshal_UpdateWebhookRequest(
     request: UpdateWebhookRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
