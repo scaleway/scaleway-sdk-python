@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -64,7 +64,7 @@ class ServerPrivateNetwork:
     Configuration status of the Private Network.
     """
 
-    ipam_ip_ids: List[str]
+    ipam_ip_ids: list[str]
     """
     IPAM IP IDs of the server, if it has any.
     """
@@ -87,7 +87,7 @@ class ServerPrivateNetwork:
 
 @dataclass
 class ListServerPrivateNetworksResponse:
-    server_private_networks: List[ServerPrivateNetwork]
+    server_private_networks: list[ServerPrivateNetwork]
     total_count: int
 
 
@@ -108,7 +108,7 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
+    ipam_ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     IPAM IDs of an IPs to attach to the server.
     """
@@ -176,7 +176,7 @@ class PrivateNetworkApiListServerPrivateNetworksRequest:
     Filter Private Networks by project UUID.
     """
 
-    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
+    ipam_ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter Private Networks by IPAM IP UUIDs.
     """
@@ -189,7 +189,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     UUID of the server.
     """
 
-    per_private_network_ipam_ip_ids: Dict[str, List[str]]
+    per_private_network_ipam_ip_ids: dict[str, list[str]]
     """
     Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
     """
@@ -202,4 +202,4 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
 
 @dataclass
 class SetServerPrivateNetworksResponse:
-    server_private_networks: List[ServerPrivateNetwork]
+    server_private_networks: list[ServerPrivateNetwork]

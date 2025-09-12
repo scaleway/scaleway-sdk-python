@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -314,7 +314,7 @@ class ListDatabaseBackupsRequest:
 
 @dataclass
 class ListDatabaseBackupsResponse:
-    backups: List[DatabaseBackup]
+    backups: list[DatabaseBackup]
     """
     List of the backups.
     """
@@ -367,7 +367,7 @@ class ListDatabasesRequest:
 
 @dataclass
 class ListDatabasesResponse:
-    databases: List[Database]
+    databases: list[Database]
     """
     List of the databases.
     """

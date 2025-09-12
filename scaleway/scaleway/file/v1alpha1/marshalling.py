@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -23,7 +23,7 @@ def unmarshal_FileSystem(data: Any) -> FileSystem:
             "Unmarshalling the type 'FileSystem' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -100,7 +100,7 @@ def unmarshal_Attachment(data: Any) -> Attachment:
             "Unmarshalling the type 'Attachment' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -141,7 +141,7 @@ def unmarshal_ListAttachmentsResponse(data: Any) -> ListAttachmentsResponse:
             "Unmarshalling the type 'ListAttachmentsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("attachments", None)
     if field is not None:
@@ -166,7 +166,7 @@ def unmarshal_ListFileSystemsResponse(data: Any) -> ListFileSystemsResponse:
             "Unmarshalling the type 'ListFileSystemsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("filesystems", None)
     if field is not None:
@@ -188,8 +188,8 @@ def unmarshal_ListFileSystemsResponse(data: Any) -> ListFileSystemsResponse:
 def marshal_CreateFileSystemRequest(
     request: CreateFileSystemRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -211,8 +211,8 @@ def marshal_CreateFileSystemRequest(
 def marshal_UpdateFileSystemRequest(
     request: UpdateFileSystemRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

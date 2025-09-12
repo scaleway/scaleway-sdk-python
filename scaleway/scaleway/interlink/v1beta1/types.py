@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -188,7 +188,7 @@ class DedicatedConnection:
     Name of the dedicated connection.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags associated with the dedicated connection.
     """
@@ -203,7 +203,7 @@ class DedicatedConnection:
     Bandwidth size of the dedicated connection.
     """
 
-    available_link_bandwidths: List[int]
+    available_link_bandwidths: list[int]
     """
     Size of the links supported on this dedicated connection.
     """
@@ -251,7 +251,7 @@ class Link:
     Name of the link.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags associated with the link.
     """
@@ -411,7 +411,7 @@ class Pop:
     Image URL of the PoP's logo.
     """
 
-    available_link_bandwidths_mbps: List[int]
+    available_link_bandwidths_mbps: list[int]
     """
     Available bandwidth in Mbits/s for future hosted links from available connections in this PoP.
     """
@@ -444,17 +444,17 @@ class RoutingPolicy:
     Name of the routing policy.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags associated with the routing policy.
     """
 
-    prefix_filter_in: List[str]
+    prefix_filter_in: list[str]
     """
     IP prefixes to accept from the peer (ranges of route announcements to accept).
     """
 
-    prefix_filter_out: List[str]
+    prefix_filter_out: list[str]
     """
     IP prefix filters to advertise to the peer (ranges of routes to advertise).
     """
@@ -543,7 +543,7 @@ class CreateLinkRequest:
     ID of the Project to create the link in.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the link.
     """
@@ -585,17 +585,17 @@ class CreateRoutingPolicyRequest:
     ID of the Project to create the routing policy in.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the routing policy.
     """
 
-    prefix_filter_in: Optional[List[str]] = field(default_factory=list)
+    prefix_filter_in: Optional[list[str]] = field(default_factory=list)
     """
     IP prefixes to accept from the peer (ranges of route announcements to accept).
     """
 
-    prefix_filter_out: Optional[List[str]] = field(default_factory=list)
+    prefix_filter_out: Optional[list[str]] = field(default_factory=list)
     """
     IP prefix filters to advertise to the peer (ranges of routes to advertise).
     """
@@ -788,7 +788,7 @@ class ListDedicatedConnectionsRequest:
     Link name to filter for.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
@@ -813,7 +813,7 @@ class ListDedicatedConnectionsRequest:
 
 @dataclass
 class ListDedicatedConnectionsResponse:
-    connections: List[DedicatedConnection]
+    connections: list[DedicatedConnection]
     """
     List of connections on current page.
     """
@@ -861,7 +861,7 @@ class ListLinksRequest:
     Link name to filter for.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
@@ -924,7 +924,7 @@ class ListLinksRequest:
 
 @dataclass
 class ListLinksResponse:
-    links: List[Link]
+    links: list[Link]
     """
     List of links on the current page.
     """
@@ -957,7 +957,7 @@ class ListPartnersRequest:
     Maximum number of partners to return per page.
     """
 
-    pop_ids: Optional[List[str]] = field(default_factory=list)
+    pop_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter for partners present (offering a connection) in one of these PoPs.
     """
@@ -965,7 +965,7 @@ class ListPartnersRequest:
 
 @dataclass
 class ListPartnersResponse:
-    partners: List[Partner]
+    partners: list[Partner]
     """
     List of partners on current page.
     """
@@ -1026,7 +1026,7 @@ class ListPopsRequest:
 
 @dataclass
 class ListPopsResponse:
-    pops: List[Pop]
+    pops: list[Pop]
     """
     List of PoPs on the current page.
     """
@@ -1076,7 +1076,7 @@ class ListRoutingPoliciesRequest:
     Routing policy name to filter for.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
@@ -1089,7 +1089,7 @@ class ListRoutingPoliciesRequest:
 
 @dataclass
 class ListRoutingPoliciesResponse:
-    routing_policies: List[RoutingPolicy]
+    routing_policies: list[RoutingPolicy]
     total_count: int
 
 
@@ -1110,7 +1110,7 @@ class UpdateLinkRequest:
     Name of the link.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the link.
     """
@@ -1138,17 +1138,17 @@ class UpdateRoutingPolicyRequest:
     Name of the routing policy.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the routing policy.
     """
 
-    prefix_filter_in: Optional[List[str]] = field(default_factory=list)
+    prefix_filter_in: Optional[list[str]] = field(default_factory=list)
     """
     IP prefixes to accept from the peer (ranges of route announcements to accept).
     """
 
-    prefix_filter_out: Optional[List[str]] = field(default_factory=list)
+    prefix_filter_out: Optional[list[str]] = field(default_factory=list)
     """
     IP prefix filters for routes to advertise to the peer (ranges of routes to advertise).
     """

@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -109,7 +109,7 @@ def unmarshal_Backup(data: Any) -> Backup:
             "Unmarshalling the type 'Backup' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -150,7 +150,7 @@ def unmarshal_DatabaseUser(data: Any) -> DatabaseUser:
             "Unmarshalling the type 'DatabaseUser' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("username", None)
     if field is not None:
@@ -173,7 +173,7 @@ def unmarshal_Database(data: Any) -> Database:
             "Unmarshalling the type 'Database' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("database_name", None)
     if field is not None:
@@ -196,7 +196,7 @@ def unmarshal_FtpAccount(data: Any) -> FtpAccount:
             "Unmarshalling the type 'FtpAccount' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("username", None)
     if field is not None:
@@ -219,7 +219,7 @@ def unmarshal_AutoConfigDomainDns(data: Any) -> AutoConfigDomainDns:
             "Unmarshalling the type 'AutoConfigDomainDns' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("nameservers", None)
     if field is not None:
@@ -260,7 +260,7 @@ def unmarshal_HostingDomainCustomDomain(data: Any) -> HostingDomainCustomDomain:
             "Unmarshalling the type 'HostingDomainCustomDomain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -295,7 +295,7 @@ def unmarshal_HostingDomain(data: Any) -> HostingDomain:
             "Unmarshalling the type 'HostingDomain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("subdomain", None)
     if field is not None:
@@ -318,7 +318,7 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
             "Unmarshalling the type 'HostingSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -401,7 +401,7 @@ def unmarshal_MailAccount(data: Any) -> MailAccount:
             "Unmarshalling the type 'MailAccount' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -424,7 +424,7 @@ def unmarshal_FreeDomain(data: Any) -> FreeDomain:
             "Unmarshalling the type 'FreeDomain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("slug", None)
     if field is not None:
@@ -449,7 +449,7 @@ def unmarshal_CheckFreeDomainAvailabilityResponse(
             "Unmarshalling the type 'CheckFreeDomainAvailabilityResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("is_available", None)
     if field is not None:
@@ -480,7 +480,7 @@ def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainRespo
             "Unmarshalling the type 'CheckUserOwnsDomainResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("owns_domain", None)
     if field is not None:
@@ -497,7 +497,7 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
             "Unmarshalling the type 'DnsRecord' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -550,7 +550,7 @@ def unmarshal_Nameserver(data: Any) -> Nameserver:
             "Unmarshalling the type 'Nameserver' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("hostname", None)
     if field is not None:
@@ -579,7 +579,7 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
             "Unmarshalling the type 'DnsRecords' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("records", None)
     if field is not None:
@@ -626,7 +626,7 @@ def unmarshal_Domain(data: Any) -> Domain:
             "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -683,7 +683,7 @@ def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
             "Unmarshalling the type 'PlatformControlPanelUrls' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dashboard", None)
     if field is not None:
@@ -706,7 +706,7 @@ def unmarshal_OfferOption(data: Any) -> OfferOption:
             "Unmarshalling the type 'OfferOption' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -765,7 +765,7 @@ def unmarshal_PlatformControlPanel(data: Any) -> PlatformControlPanel:
             "Unmarshalling the type 'PlatformControlPanel' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -788,7 +788,7 @@ def unmarshal_HostingUser(data: Any) -> HostingUser:
             "Unmarshalling the type 'HostingUser' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("username", None)
     if field is not None:
@@ -823,7 +823,7 @@ def unmarshal_Offer(data: Any) -> Offer:
             "Unmarshalling the type 'Offer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -890,7 +890,7 @@ def unmarshal_Platform(data: Any) -> Platform:
             "Unmarshalling the type 'Platform' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("hostname", None)
     if field is not None:
@@ -937,7 +937,7 @@ def unmarshal_Hosting(data: Any) -> Hosting:
             "Unmarshalling the type 'Hosting' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1044,7 +1044,7 @@ def unmarshal_BackupItem(data: Any) -> BackupItem:
             "Unmarshalling the type 'BackupItem' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1091,7 +1091,7 @@ def unmarshal_BackupItemGroup(data: Any) -> BackupItemGroup:
             "Unmarshalling the type 'BackupItemGroup' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -1116,7 +1116,7 @@ def unmarshal_ListBackupItemsResponse(data: Any) -> ListBackupItemsResponse:
             "Unmarshalling the type 'ListBackupItemsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1141,7 +1141,7 @@ def unmarshal_ListBackupsResponse(data: Any) -> ListBackupsResponse:
             "Unmarshalling the type 'ListBackupsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1166,7 +1166,7 @@ def unmarshal_ControlPanel(data: Any) -> ControlPanel:
             "Unmarshalling the type 'ControlPanel' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1203,7 +1203,7 @@ def unmarshal_ListControlPanelsResponse(data: Any) -> ListControlPanelsResponse:
             "Unmarshalling the type 'ListControlPanelsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1228,7 +1228,7 @@ def unmarshal_ListDatabaseUsersResponse(data: Any) -> ListDatabaseUsersResponse:
             "Unmarshalling the type 'ListDatabaseUsersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1253,7 +1253,7 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
             "Unmarshalling the type 'ListDatabasesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1278,7 +1278,7 @@ def unmarshal_ListFreeRootDomainsResponse(data: Any) -> ListFreeRootDomainsRespo
             "Unmarshalling the type 'ListFreeRootDomainsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("root_domains", None)
     if field is not None:
@@ -1301,7 +1301,7 @@ def unmarshal_ListFtpAccountsResponse(data: Any) -> ListFtpAccountsResponse:
             "Unmarshalling the type 'ListFtpAccountsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1326,7 +1326,7 @@ def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:
             "Unmarshalling the type 'ListHostingsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1351,7 +1351,7 @@ def unmarshal_ListMailAccountsResponse(data: Any) -> ListMailAccountsResponse:
             "Unmarshalling the type 'ListMailAccountsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1376,7 +1376,7 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
             "Unmarshalling the type 'ListOffersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1401,7 +1401,7 @@ def unmarshal_Website(data: Any) -> Website:
             "Unmarshalling the type 'Website' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domain", None)
     if field is not None:
@@ -1430,7 +1430,7 @@ def unmarshal_ListWebsitesResponse(data: Any) -> ListWebsitesResponse:
             "Unmarshalling the type 'ListWebsitesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1455,7 +1455,7 @@ def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordRes
             "Unmarshalling the type 'ResetHostingPasswordResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("one_time_password_b64", None)
     if field is not None:
@@ -1478,7 +1478,7 @@ def unmarshal_ResourceSummary(data: Any) -> ResourceSummary:
             "Unmarshalling the type 'ResourceSummary' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("databases_count", None)
     if field is not None:
@@ -1513,7 +1513,7 @@ def unmarshal_RestoreBackupItemsResponse(data: Any) -> RestoreBackupItemsRespons
             "Unmarshalling the type 'RestoreBackupItemsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return RestoreBackupItemsResponse(**args)
 
@@ -1524,7 +1524,7 @@ def unmarshal_RestoreBackupResponse(data: Any) -> RestoreBackupResponse:
             "Unmarshalling the type 'RestoreBackupResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return RestoreBackupResponse(**args)
 
@@ -1535,7 +1535,7 @@ def unmarshal_DomainAvailability(data: Any) -> DomainAvailability:
             "Unmarshalling the type 'DomainAvailability' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1584,7 +1584,7 @@ def unmarshal_SearchDomainsResponse(data: Any) -> SearchDomainsResponse:
             "Unmarshalling the type 'SearchDomainsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domains_available", None)
     if field is not None:
@@ -1605,7 +1605,7 @@ def unmarshal_Session(data: Any) -> Session:
             "Unmarshalling the type 'Session' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("url", None)
     if field is not None:
@@ -1619,8 +1619,8 @@ def unmarshal_Session(data: Any) -> Session:
 def marshal_BackupApiRestoreBackupItemsRequest(
     request: BackupApiRestoreBackupItemsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.item_ids is not None:
         output["item_ids"] = request.item_ids
@@ -1631,8 +1631,8 @@ def marshal_BackupApiRestoreBackupItemsRequest(
 def marshal_DatabaseApiAssignDatabaseUserRequest(
     request: DatabaseApiAssignDatabaseUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.username is not None:
         output["username"] = request.username
@@ -1643,8 +1643,8 @@ def marshal_DatabaseApiAssignDatabaseUserRequest(
 def marshal_DatabaseApiChangeDatabaseUserPasswordRequest(
     request: DatabaseApiChangeDatabaseUserPasswordRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.password is not None:
         output["password"] = request.password
@@ -1655,8 +1655,8 @@ def marshal_DatabaseApiChangeDatabaseUserPasswordRequest(
 def marshal_CreateDatabaseRequestUser(
     request: CreateDatabaseRequestUser,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.username is not None:
         output["username"] = request.username
@@ -1670,8 +1670,8 @@ def marshal_CreateDatabaseRequestUser(
 def marshal_DatabaseApiCreateDatabaseRequest(
     request: DatabaseApiCreateDatabaseRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1698,8 +1698,8 @@ def marshal_DatabaseApiCreateDatabaseRequest(
 def marshal_DatabaseApiCreateDatabaseUserRequest(
     request: DatabaseApiCreateDatabaseUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.username is not None:
         output["username"] = request.username
@@ -1713,8 +1713,8 @@ def marshal_DatabaseApiCreateDatabaseUserRequest(
 def marshal_DatabaseApiUnassignDatabaseUserRequest(
     request: DatabaseApiUnassignDatabaseUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.username is not None:
         output["username"] = request.username
@@ -1725,8 +1725,8 @@ def marshal_DatabaseApiUnassignDatabaseUserRequest(
 def marshal_DnsApiCheckUserOwnsDomainRequest(
     request: DnsApiCheckUserOwnsDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1739,8 +1739,8 @@ def marshal_DnsApiCheckUserOwnsDomainRequest(
 def marshal_AutoConfigDomainDns(
     request: AutoConfigDomainDns,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.nameservers is not None:
         output["nameservers"] = request.nameservers
@@ -1763,8 +1763,8 @@ def marshal_AutoConfigDomainDns(
 def marshal_SyncDomainDnsRecordsRequestRecord(
     request: SyncDomainDnsRecordsRequestRecord,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1778,8 +1778,8 @@ def marshal_SyncDomainDnsRecordsRequestRecord(
 def marshal_DnsApiSyncDomainDnsRecordsRequest(
     request: DnsApiSyncDomainDnsRecordsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.update_web_records is not None:
         output["update_web_records"] = request.update_web_records
@@ -1810,8 +1810,8 @@ def marshal_DnsApiSyncDomainDnsRecordsRequest(
 def marshal_FreeDomainApiCheckFreeDomainAvailabilityRequest(
     request: FreeDomainApiCheckFreeDomainAvailabilityRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.slug is not None:
         output["slug"] = request.slug
@@ -1825,8 +1825,8 @@ def marshal_FreeDomainApiCheckFreeDomainAvailabilityRequest(
 def marshal_FtpAccountApiChangeFtpAccountPasswordRequest(
     request: FtpAccountApiChangeFtpAccountPasswordRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.password is not None:
         output["password"] = request.password
@@ -1837,8 +1837,8 @@ def marshal_FtpAccountApiChangeFtpAccountPasswordRequest(
 def marshal_FtpAccountApiCreateFtpAccountRequest(
     request: FtpAccountApiCreateFtpAccountRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.username is not None:
         output["username"] = request.username
@@ -1855,8 +1855,8 @@ def marshal_FtpAccountApiCreateFtpAccountRequest(
 def marshal_HostingApiAddCustomDomainRequest(
     request: HostingApiAddCustomDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
@@ -1867,8 +1867,8 @@ def marshal_HostingApiAddCustomDomainRequest(
 def marshal_CreateHostingRequestDomainConfiguration(
     request: CreateHostingRequestDomainConfiguration,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.update_nameservers is not None:
         output["update_nameservers"] = request.update_nameservers
@@ -1888,8 +1888,8 @@ def marshal_CreateHostingRequestDomainConfiguration(
 def marshal_OfferOptionRequest(
     request: OfferOptionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -1903,8 +1903,8 @@ def marshal_OfferOptionRequest(
 def marshal_HostingApiCreateHostingRequest(
     request: HostingApiCreateHostingRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.offer_id is not None:
         output["offer_id"] = request.offer_id
@@ -1955,8 +1955,8 @@ def marshal_HostingApiCreateHostingRequest(
 def marshal_HostingApiRemoveCustomDomainRequest(
     request: HostingApiRemoveCustomDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
@@ -1967,8 +1967,8 @@ def marshal_HostingApiRemoveCustomDomainRequest(
 def marshal_HostingApiUpdateHostingRequest(
     request: HostingApiUpdateHostingRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.email is not None:
         output["email"] = request.email
@@ -1993,8 +1993,8 @@ def marshal_HostingApiUpdateHostingRequest(
 def marshal_MailAccountApiChangeMailAccountPasswordRequest(
     request: MailAccountApiChangeMailAccountPasswordRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain is not None:
         output["domain"] = request.domain
@@ -2011,8 +2011,8 @@ def marshal_MailAccountApiChangeMailAccountPasswordRequest(
 def marshal_MailAccountApiCreateMailAccountRequest(
     request: MailAccountApiCreateMailAccountRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain is not None:
         output["domain"] = request.domain
@@ -2029,8 +2029,8 @@ def marshal_MailAccountApiCreateMailAccountRequest(
 def marshal_MailAccountApiRemoveMailAccountRequest(
     request: MailAccountApiRemoveMailAccountRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.domain is not None:
         output["domain"] = request.domain

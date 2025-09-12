@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -129,14 +129,14 @@ class MongodbV1API(API):
         include_disabled: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[NodeType]:
+    ) -> list[NodeType]:
         """
         List available node types.
         :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled: Defines whether or not to include disabled types.
         :param page:
         :param page_size:
-        :return: :class:`List[NodeType] <List[NodeType]>`
+        :return: :class:`list[NodeType] <list[NodeType]>`
 
         Usage:
         ::
@@ -202,14 +202,14 @@ class MongodbV1API(API):
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Version]:
+    ) -> list[Version]:
         """
         List available MongoDB® major versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version:
         :param page:
         :param page_size:
-        :return: :class:`List[Version] <List[Version]>`
+        :return: :class:`list[Version] <list[Version]>`
 
         Usage:
         ::
@@ -233,7 +233,7 @@ class MongodbV1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
@@ -286,14 +286,14 @@ class MongodbV1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Instance]:
+    ) -> list[Instance]:
         """
         List MongoDB® Database Instances.
         List all MongoDB® Database Instances in the specified region. By default, the MongoDB® Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
@@ -305,7 +305,7 @@ class MongodbV1API(API):
         :param project_id: Project ID to list the instances of.
         :param page:
         :param page_size:
-        :return: :class:`List[Instance] <List[Instance]>`
+        :return: :class:`list[Instance] <list[Instance]>`
 
         Usage:
         ::
@@ -411,9 +411,9 @@ class MongodbV1API(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         volume: Optional[Volume] = None,
-        endpoints: Optional[List[EndpointSpec]] = None,
+        endpoints: Optional[list[EndpointSpec]] = None,
     ) -> Instance:
         """
         Create a MongoDB® Database Instance.
@@ -477,7 +477,7 @@ class MongodbV1API(API):
         instance_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         snapshot_schedule_frequency_hours: Optional[int] = None,
         snapshot_schedule_retention_days: Optional[int] = None,
         is_snapshot_schedule_enabled: Optional[bool] = None,
@@ -926,7 +926,7 @@ class MongodbV1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Snapshot]:
+    ) -> list[Snapshot]:
         """
         List snapshots.
         List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -938,7 +938,7 @@ class MongodbV1API(API):
         :param project_id: Project ID to list the snapshots of.
         :param page:
         :param page_size:
-        :return: :class:`List[Snapshot] <List[Snapshot]>`
+        :return: :class:`list[Snapshot] <list[Snapshot]>`
 
         Usage:
         ::
@@ -1053,7 +1053,7 @@ class MongodbV1API(API):
         order_by: Optional[ListUsersRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[User]:
+    ) -> list[User]:
         """
         List users of a Database Instance.
         List all users of a given Database Instance.
@@ -1063,7 +1063,7 @@ class MongodbV1API(API):
         :param order_by: Criteria to use when requesting user listing.
         :param page:
         :param page_size:
-        :return: :class:`List[User] <List[User]>`
+        :return: :class:`list[User] <list[User]>`
 
         Usage:
         ::
@@ -1227,7 +1227,7 @@ class MongodbV1API(API):
         instance_id: str,
         user_name: str,
         region: Optional[ScwRegion] = None,
-        roles: Optional[List[UserRole]] = None,
+        roles: Optional[list[UserRole]] = None,
     ) -> User:
         """
         Apply user roles.
@@ -1322,7 +1322,7 @@ class MongodbV1API(API):
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Database]:
+    ) -> list[Database]:
         """
         List databases in a Database Instance.
         List all databases of a given Database Instance.
@@ -1331,7 +1331,7 @@ class MongodbV1API(API):
         :param order_by: Criteria to use when requesting user listing.
         :param page:
         :param page_size:
-        :return: :class:`List[Database] <List[Database]>`
+        :return: :class:`list[Database] <list[Database]>`
 
         Usage:
         ::

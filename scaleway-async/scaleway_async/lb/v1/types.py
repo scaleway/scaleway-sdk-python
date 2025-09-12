@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -440,7 +440,7 @@ class Ip:
     Reverse DNS (domain name) of the IP address.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     IP tags.
     """
@@ -551,7 +551,7 @@ class Lb:
     Load Balancer status.
     """
 
-    instances: List[Instance]
+    instances: list[Instance]
     """
     List of underlying Instances.
     """
@@ -566,12 +566,12 @@ class Lb:
     Scaleway Project ID.
     """
 
-    ip: List[Ip]
+    ip: list[Ip]
     """
     List of IP addresses attached to the Load Balancer.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Load Balancer tags.
     """
@@ -687,7 +687,7 @@ class Backend:
     Cookie name for cookie-based sticky sessions.
     """
 
-    pool: List[str]
+    pool: list[str]
     """
     List of IP addresses of backend servers attached to this backend.
     """
@@ -795,7 +795,7 @@ class Certificate:
     Main domain name of certificate.
     """
 
-    subject_alternative_name: List[str]
+    subject_alternative_name: list[str]
     """
     Alternative domain names.
     """
@@ -861,7 +861,7 @@ class AclAction:
 
 @dataclass
 class AclMatch:
-    ip_subnet: List[str]
+    ip_subnet: list[str]
     """
     List of IPs or CIDR v4/v6 addresses to filter for from the client side.
     """
@@ -876,7 +876,7 @@ class AclMatch:
     Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
     """
 
-    http_filter_value: List[str]
+    http_filter_value: list[str]
     """
     List of values to filter for.
     """
@@ -909,7 +909,7 @@ class Frontend:
     Port the frontend listens on.
     """
 
-    certificate_ids: List[str]
+    certificate_ids: list[str]
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
@@ -972,7 +972,7 @@ class PrivateNetworkIpamConfig:
 
 @dataclass
 class PrivateNetworkStaticConfig:
-    ip_address: Optional[List[str]] = field(default_factory=list)
+    ip_address: Optional[list[str]] = field(default_factory=list)
     """
     Array of a local IP address for the Load Balancer on this Private Network.
     """
@@ -1007,7 +1007,7 @@ class CreateCertificateRequestLetsencryptConfig:
     Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address).
     """
 
-    subject_alternative_name: List[str]
+    subject_alternative_name: list[str]
     """
     Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address).
     """
@@ -1096,7 +1096,7 @@ class Acl:
 
 @dataclass
 class PrivateNetwork:
-    ipam_ids: List[str]
+    ipam_ids: list[str]
     """
     IPAM IDs of the booked IP addresses.
     """
@@ -1229,7 +1229,7 @@ class AddBackendServersRequest:
     Backend ID.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of IP addresses to add to backend servers.
     """
@@ -1257,7 +1257,7 @@ class AttachPrivateNetworkRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    ipam_ids: Optional[List[str]] = field(default_factory=list)
+    ipam_ids: Optional[list[str]] = field(default_factory=list)
     """
     IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
     """
@@ -1348,7 +1348,7 @@ class CreateBackendRequest:
     Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
@@ -1500,7 +1500,7 @@ class CreateFrontendRequest:
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]] = field(default_factory=list)
+    certificate_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
@@ -1528,7 +1528,7 @@ class CreateIpRequest:
     Reverse DNS (domain name) for the IP address.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
@@ -1575,12 +1575,12 @@ class CreateLbRequest:
     Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
     """
 
-    ip_ids: Optional[List[str]] = field(default_factory=list)
+    ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of IP IDs to attach to the Load Balancer.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
@@ -1887,7 +1887,7 @@ class GetSubscriberRequest:
 
 @dataclass
 class LbStats:
-    backend_servers_stats: List[BackendServerStats]
+    backend_servers_stats: list[BackendServerStats]
     """
     List of objects containing Load Balancer statistics.
     """
@@ -1895,7 +1895,7 @@ class LbStats:
 
 @dataclass
 class ListAclResponse:
-    acls: List[Acl]
+    acls: list[Acl]
     """
     List of ACL objects.
     """
@@ -1969,7 +1969,7 @@ class ListBackendStatsRequest:
 
 @dataclass
 class ListBackendStatsResponse:
-    backend_servers_stats: List[BackendServerStats]
+    backend_servers_stats: list[BackendServerStats]
     """
     List of objects containing backend server statistics.
     """
@@ -2017,7 +2017,7 @@ class ListBackendsRequest:
 
 @dataclass
 class ListBackendsResponse:
-    backends: List[Backend]
+    backends: list[Backend]
     """
     List of backend objects of a given Load Balancer.
     """
@@ -2065,7 +2065,7 @@ class ListCertificatesRequest:
 
 @dataclass
 class ListCertificatesResponse:
-    certificates: List[Certificate]
+    certificates: list[Certificate]
     """
     List of certificate objects.
     """
@@ -2113,7 +2113,7 @@ class ListFrontendsRequest:
 
 @dataclass
 class ListFrontendsResponse:
-    frontends: List[Frontend]
+    frontends: list[Frontend]
     """
     List of frontend objects of a given Load Balancer.
     """
@@ -2161,7 +2161,7 @@ class ListIPsRequest:
     IP type to filter for.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tag to filter for, only IPs with one or more matching tags will be returned.
     """
@@ -2169,7 +2169,7 @@ class ListIPsRequest:
 
 @dataclass
 class ListIpsResponse:
-    ips: List[Ip]
+    ips: list[Ip]
     """
     List of IP address objects.
     """
@@ -2212,7 +2212,7 @@ class ListLbPrivateNetworksRequest:
 
 @dataclass
 class ListLbPrivateNetworksResponse:
-    private_network: List[PrivateNetwork]
+    private_network: list[PrivateNetwork]
     """
     List of Private Network objects attached to the Load Balancer.
     """
@@ -2243,7 +2243,7 @@ class ListLbTypesRequest:
 
 @dataclass
 class ListLbTypesResponse:
-    lb_types: List[LbType]
+    lb_types: list[LbType]
     """
     List of Load Balancer commercial offer type objects.
     """
@@ -2291,7 +2291,7 @@ class ListLbsRequest:
     Project ID to filter for, only Load Balancers from this Project will be returned.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tag, only Load Balancers with one or more matching tags will be returned.
     """
@@ -2299,7 +2299,7 @@ class ListLbsRequest:
 
 @dataclass
 class ListLbsResponse:
-    lbs: List[Lb]
+    lbs: list[Lb]
     """
     List of Load Balancer objects.
     """
@@ -2342,7 +2342,7 @@ class ListRoutesRequest:
 
 @dataclass
 class ListRoutesResponse:
-    routes: List[Route]
+    routes: list[Route]
     """
     List of route objects.
     """
@@ -2395,7 +2395,7 @@ class ListSubscriberRequest:
 
 @dataclass
 class ListSubscriberResponse:
-    subscribers: List[Subscriber]
+    subscribers: list[Subscriber]
     """
     List of subscriber objects.
     """
@@ -2444,7 +2444,7 @@ class RemoveBackendServersRequest:
     Backend ID.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of IP addresses to remove from backend servers.
     """
@@ -2457,7 +2457,7 @@ class RemoveBackendServersRequest:
 
 @dataclass
 class SetAclsResponse:
-    acls: List[Acl]
+    acls: list[Acl]
     """
     List of ACL objects.
     """
@@ -2475,7 +2475,7 @@ class SetBackendServersRequest:
     Backend ID.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
@@ -2725,7 +2725,7 @@ class UpdateFrontendRequest:
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]] = field(default_factory=list)
+    certificate_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
@@ -2820,7 +2820,7 @@ class UpdateIpRequest:
     ID of the server on which to attach the flexible IP.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
@@ -2848,7 +2848,7 @@ class UpdateLbRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
@@ -2913,7 +2913,7 @@ class ZonedApiAddBackendServersRequest:
     Backend ID.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of IP addresses to add to backend servers.
     """
@@ -2941,7 +2941,7 @@ class ZonedApiAttachPrivateNetworkRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ipam_ids: Optional[List[str]] = field(default_factory=list)
+    ipam_ids: Optional[list[str]] = field(default_factory=list)
     """
     IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
     """
@@ -3032,7 +3032,7 @@ class ZonedApiCreateBackendRequest:
     Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
@@ -3184,7 +3184,7 @@ class ZonedApiCreateFrontendRequest:
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]] = field(default_factory=list)
+    certificate_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
@@ -3212,7 +3212,7 @@ class ZonedApiCreateIpRequest:
     Reverse DNS (domain name) for the IP address.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
@@ -3259,12 +3259,12 @@ class ZonedApiCreateLbRequest:
     Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
     """
 
-    ip_ids: Optional[List[str]] = field(default_factory=list)
+    ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of IP IDs to attach to the Load Balancer.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
@@ -3772,7 +3772,7 @@ class ZonedApiListIPsRequest:
     IP type to filter for.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tag to filter for, only IPs with one or more matching tags will be returned.
     """
@@ -3863,7 +3863,7 @@ class ZonedApiListLbsRequest:
     Project ID to filter for, only Load Balancers from this Project will be returned.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tag, only Load Balancers with one or more matching tags will be returned.
     """
@@ -3977,7 +3977,7 @@ class ZonedApiRemoveBackendServersRequest:
     Backend ID.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of IP addresses to remove from backend servers.
     """
@@ -3990,7 +3990,7 @@ class ZonedApiRemoveBackendServersRequest:
 
 @dataclass
 class ZonedApiSetAclsRequest:
-    acls: List[AclSpec]
+    acls: list[AclSpec]
     """
     List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
     """
@@ -4013,7 +4013,7 @@ class ZonedApiSetBackendServersRequest:
     Backend ID.
     """
 
-    server_ip: List[str]
+    server_ip: list[str]
     """
     List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
@@ -4263,7 +4263,7 @@ class ZonedApiUpdateFrontendRequest:
     Certificate ID, deprecated in favor of certificate_ids array.
     """
 
-    certificate_ids: Optional[List[str]] = field(default_factory=list)
+    certificate_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
@@ -4358,7 +4358,7 @@ class ZonedApiUpdateIpRequest:
     ID of the server on which to attach the flexible IP.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the IP.
     """
@@ -4386,7 +4386,7 @@ class ZonedApiUpdateLbRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """

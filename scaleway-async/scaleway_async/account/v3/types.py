@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -416,7 +416,7 @@ class ListContractSignaturesResponse:
     The total number of contract signatures.
     """
 
-    contract_signatures: List[ContractSignature]
+    contract_signatures: list[ContractSignature]
     """
     The paginated returned contract signatures.
     """
@@ -429,7 +429,7 @@ class ListProjectsResponse:
     Total number of Projects.
     """
 
-    projects: List[Project]
+    projects: list[Project]
     """
     Paginated returned Projects.
     """
@@ -498,7 +498,7 @@ class ProjectApiListProjectsRequest:
     Sort order of the returned Projects.
     """
 
-    project_ids: Optional[List[str]] = field(default_factory=list)
+    project_ids: Optional[list[str]] = field(default_factory=list)
     """
     Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
     """

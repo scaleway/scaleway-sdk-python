@@ -12,12 +12,15 @@ from scaleway_core.utils import (
     validate_path_param,
 )
 from .types import (
+    ListAuthenticationEventsRequestOrderBy,
     ListEventsRequestOrderBy,
     ResourceType,
+    ListAuthenticationEventsResponse,
     ListEventsResponse,
     ListProductsResponse,
 )
 from .marshalling import (
+    unmarshal_ListAuthenticationEventsResponse,
     unmarshal_ListEventsResponse,
     unmarshal_ListProductsResponse,
 )
@@ -45,6 +48,8 @@ class AuditTrailV1Alpha1API(API):
         product_name: Optional[str] = None,
         service_name: Optional[str] = None,
         resource_id: Optional[str] = None,
+        principal_id: Optional[str] = None,
+        source_ip: Optional[str] = None,
     ) -> ListEventsResponse:
         """
         List events.
@@ -63,6 +68,8 @@ class AuditTrailV1Alpha1API(API):
         :param product_name: (Optional) Name of the Scaleway product in a hyphenated format.
         :param service_name: (Optional) Name of the service of the API call performed.
         :param resource_id: (Optional) ID of the Scaleway resource.
+        :param principal_id: (Optional) ID of the User or IAM application at the origin of the event.
+        :param source_ip: (Optional) IP address at the origin of the event.
         :return: :class:`ListEventsResponse <ListEventsResponse>`
 
         Usage:
@@ -85,6 +92,7 @@ class AuditTrailV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page_size": page_size or self.client.default_page_size,
                 "page_token": page_token,
+                "principal_id": principal_id,
                 "product_name": product_name,
                 "project_id": project_id or self.client.default_project_id,
                 "recorded_after": recorded_after,
@@ -92,12 +100,63 @@ class AuditTrailV1Alpha1API(API):
                 "resource_id": resource_id,
                 "resource_type": resource_type,
                 "service_name": service_name,
+                "source_ip": source_ip,
                 "status": status,
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListEventsResponse(res.json())
+
+    async def list_authentication_events(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        recorded_after: Optional[datetime] = None,
+        recorded_before: Optional[datetime] = None,
+        order_by: Optional[ListAuthenticationEventsRequestOrderBy] = None,
+        page_size: Optional[int] = None,
+        page_token: Optional[str] = None,
+    ) -> ListAuthenticationEventsResponse:
+        """
+        List authentication events.
+        Retrieve the list of Audit Trail authentication events for a Scaleway Organization. You must specify the `organization_id`.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id:
+        :param recorded_after:
+        :param recorded_before:
+        :param order_by:
+        :param page_size:
+        :param page_token:
+        :return: :class:`ListAuthenticationEventsResponse <ListAuthenticationEventsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_authentication_events()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/authentication-events",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page_size": page_size or self.client.default_page_size,
+                "page_token": page_token,
+                "recorded_after": recorded_after,
+                "recorded_before": recorded_before,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListAuthenticationEventsResponse(res.json())
 
     async def list_products(
         self,

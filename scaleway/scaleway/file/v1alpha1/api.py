@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -122,7 +122,7 @@ class FileV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListFileSystemsResponse:
         """
         List all filesystems.
@@ -175,8 +175,8 @@ class FileV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[FileSystem]:
+        tags: Optional[list[str]] = None,
+    ) -> list[FileSystem]:
         """
         List all filesystems.
         Retrieve all filesystems in the specified region. By default, the filesystems listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
@@ -188,7 +188,7 @@ class FileV1Alpha1API(API):
         :param page_size: Number of entries per page (default: 20, max: 100).
         :param name: Filter the returned filesystems by their names.
         :param tags: Filter by tags. Only filesystems with one or more matching tags will be returned.
-        :return: :class:`List[FileSystem] <List[FileSystem]>`
+        :return: :class:`list[FileSystem] <list[FileSystem]>`
 
         Usage:
         ::
@@ -272,7 +272,7 @@ class FileV1Alpha1API(API):
         zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Attachment]:
+    ) -> list[Attachment]:
         """
         List filesystems attachments.
         List all existing attachments in a specified region.
@@ -284,7 +284,7 @@ class FileV1Alpha1API(API):
         :param zone: Filter by resource zone.
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
-        :return: :class:`List[Attachment] <List[Attachment]>`
+        :return: :class:`list[Attachment] <list[Attachment]>`
 
         Usage:
         ::
@@ -314,7 +314,7 @@ class FileV1Alpha1API(API):
         size: int,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> FileSystem:
         """
         Create a new filesystem.
@@ -396,7 +396,7 @@ class FileV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> FileSystem:
         """
         Update filesystem properties.

@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -243,14 +243,14 @@ class AccountV3ContractAPI(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListContractSignaturesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
-    ) -> List[ContractSignature]:
+    ) -> list[ContractSignature]:
         """
         List contract signatures for an Organization.
         :param page: The page number for the returned contracts.
         :param page_size: The maximum number of contracts per page.
         :param order_by: How the contracts are ordered in the response.
         :param organization_id: Filter on Organization ID.
-        :return: :class:`List[ContractSignature] <List[ContractSignature]>`
+        :return: :class:`list[ContractSignature] <list[ContractSignature]>`
 
         Usage:
         ::
@@ -323,7 +323,7 @@ class AccountV3ProjectAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListProjectsRequestOrderBy] = None,
-        project_ids: Optional[List[str]] = None,
+        project_ids: Optional[list[str]] = None,
     ) -> ListProjectsResponse:
         """
         List all Projects of an Organization.
@@ -367,8 +367,8 @@ class AccountV3ProjectAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListProjectsRequestOrderBy] = None,
-        project_ids: Optional[List[str]] = None,
-    ) -> List[Project]:
+        project_ids: Optional[list[str]] = None,
+    ) -> list[Project]:
         """
         List all Projects of an Organization.
         List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names, and IDs. Other information includes the creation and update date of the Project.
@@ -378,7 +378,7 @@ class AccountV3ProjectAPI(API):
         :param page_size: Maximum number of Project per page.
         :param order_by: Sort order of the returned Projects.
         :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
-        :return: :class:`List[Project] <List[Project]>`
+        :return: :class:`list[Project] <list[Project]>`
 
         Usage:
         ::

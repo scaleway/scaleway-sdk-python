@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -65,7 +65,7 @@ def unmarshal_Cron(data: Any) -> Cron:
             "Unmarshalling the type 'Cron' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -112,7 +112,7 @@ def unmarshal_Domain(data: Any) -> Domain:
             "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -159,7 +159,7 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
             "Unmarshalling the type 'SecretHashedValue' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key", None)
     if field is not None:
@@ -182,7 +182,7 @@ def unmarshal_Function(data: Any) -> Function:
             "Unmarshalling the type 'Function' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -359,7 +359,7 @@ def unmarshal_Namespace(data: Any) -> Namespace:
             "Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -470,7 +470,7 @@ def unmarshal_Token(data: Any) -> Token:
             "Unmarshalling the type 'Token' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -529,7 +529,7 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
             "Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("subject", None)
     if field is not None:
@@ -570,7 +570,7 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
             "Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("queue", None)
     if field is not None:
@@ -605,7 +605,7 @@ def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
             "Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("endpoint", None)
     if field is not None:
@@ -640,7 +640,7 @@ def unmarshal_Trigger(data: Any) -> Trigger:
             "Unmarshalling the type 'Trigger' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -711,7 +711,7 @@ def unmarshal_DownloadURL(data: Any) -> DownloadURL:
             "Unmarshalling the type 'DownloadURL' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("url", None)
     if field is not None:
@@ -734,7 +734,7 @@ def unmarshal_ListCronsResponse(data: Any) -> ListCronsResponse:
             "Unmarshalling the type 'ListCronsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("crons", None)
     if field is not None:
@@ -759,7 +759,7 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
             "Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("domains", None)
     if field is not None:
@@ -784,7 +784,7 @@ def unmarshal_Runtime(data: Any) -> Runtime:
             "Unmarshalling the type 'Runtime' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -855,7 +855,7 @@ def unmarshal_ListFunctionRuntimesResponse(data: Any) -> ListFunctionRuntimesRes
             "Unmarshalling the type 'ListFunctionRuntimesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("runtimes", None)
     if field is not None:
@@ -880,7 +880,7 @@ def unmarshal_ListFunctionsResponse(data: Any) -> ListFunctionsResponse:
             "Unmarshalling the type 'ListFunctionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("functions", None)
     if field is not None:
@@ -905,7 +905,7 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
             "Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("namespaces", None)
     if field is not None:
@@ -930,7 +930,7 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
             "Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("tokens", None)
     if field is not None:
@@ -955,7 +955,7 @@ def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
             "Unmarshalling the type 'ListTriggersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -980,7 +980,7 @@ def unmarshal_UploadURL(data: Any) -> UploadURL:
             "Unmarshalling the type 'UploadURL' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("url", None)
     if field is not None:
@@ -1000,8 +1000,8 @@ def unmarshal_UploadURL(data: Any) -> UploadURL:
 def marshal_CreateCronRequest(
     request: CreateCronRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.function_id is not None:
         output["function_id"] = request.function_id
@@ -1021,8 +1021,8 @@ def marshal_CreateCronRequest(
 def marshal_CreateDomainRequest(
     request: CreateDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.hostname is not None:
         output["hostname"] = request.hostname
@@ -1036,8 +1036,8 @@ def marshal_CreateDomainRequest(
 def marshal_Secret(
     request: Secret,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.key is not None:
         output["key"] = request.key
@@ -1051,8 +1051,8 @@ def marshal_Secret(
 def marshal_CreateFunctionRequest(
     request: CreateFunctionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.namespace_id is not None:
         output["namespace_id"] = request.namespace_id
@@ -1111,8 +1111,8 @@ def marshal_CreateFunctionRequest(
 def marshal_CreateNamespaceRequest(
     request: CreateNamespaceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1146,8 +1146,8 @@ def marshal_CreateNamespaceRequest(
 def marshal_CreateTokenRequest(
     request: CreateTokenRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1173,8 +1173,8 @@ def marshal_CreateTokenRequest(
 def marshal_CreateTriggerRequestMnqNatsClientConfig(
     request: CreateTriggerRequestMnqNatsClientConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.subject is not None:
         output["subject"] = request.subject
@@ -1194,8 +1194,8 @@ def marshal_CreateTriggerRequestMnqNatsClientConfig(
 def marshal_CreateTriggerRequestMnqSqsClientConfig(
     request: CreateTriggerRequestMnqSqsClientConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.queue is not None:
         output["queue"] = request.queue
@@ -1212,8 +1212,8 @@ def marshal_CreateTriggerRequestMnqSqsClientConfig(
 def marshal_CreateTriggerRequestSqsClientConfig(
     request: CreateTriggerRequestSqsClientConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.endpoint is not None:
         output["endpoint"] = request.endpoint
@@ -1233,8 +1233,8 @@ def marshal_CreateTriggerRequestSqsClientConfig(
 def marshal_CreateTriggerRequest(
     request: CreateTriggerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1272,8 +1272,8 @@ def marshal_CreateTriggerRequest(
 def marshal_UpdateCronRequest(
     request: UpdateCronRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.function_id is not None:
         output["function_id"] = request.function_id
@@ -1293,8 +1293,8 @@ def marshal_UpdateCronRequest(
 def marshal_UpdateFunctionRequest(
     request: UpdateFunctionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.environment_variables is not None:
         output["environment_variables"] = request.environment_variables
@@ -1350,8 +1350,8 @@ def marshal_UpdateFunctionRequest(
 def marshal_UpdateNamespaceRequest(
     request: UpdateNamespaceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.environment_variables is not None:
         output["environment_variables"] = request.environment_variables
@@ -1374,8 +1374,8 @@ def marshal_UpdateNamespaceRequest(
 def marshal_UpdateTriggerRequestSqsClientConfig(
     request: UpdateTriggerRequestSqsClientConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.access_key is not None:
         output["access_key"] = request.access_key
@@ -1389,8 +1389,8 @@ def marshal_UpdateTriggerRequestSqsClientConfig(
 def marshal_UpdateTriggerRequest(
     request: UpdateTriggerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [

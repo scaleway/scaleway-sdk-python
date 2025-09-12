@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -183,12 +183,12 @@ class DHCP:
     Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
     """
 
-    dns_servers_override: List[str]
+    dns_servers_override: list[str]
     """
     Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
     """
 
-    dns_search: List[str]
+    dns_search: list[str]
     """
     Array of search paths in addition to the pushed DNS configuration.
     """
@@ -345,7 +345,7 @@ class IP:
     Owning Project.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the IP address.
     """
@@ -443,12 +443,12 @@ class CreateDHCPRequest:
     Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true.
     """
 
-    dns_servers_override: Optional[List[str]] = field(default_factory=list)
+    dns_servers_override: Optional[list[str]] = field(default_factory=list)
     """
     Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
     """
 
-    dns_search: Optional[List[str]] = field(default_factory=list)
+    dns_search: Optional[list[str]] = field(default_factory=list)
     """
     Array of search paths in addition to the pushed DNS configuration.
     """
@@ -547,17 +547,17 @@ class Gateway:
     Name of the gateway.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the gateway.
     """
 
-    gateway_networks: List[GatewayNetwork]
+    gateway_networks: list[GatewayNetwork]
     """
     GatewayNetwork objects attached to the gateway (each one represents a connection to a Private Network).
     """
 
-    upstream_dns_servers: List[str]
+    upstream_dns_servers: list[str]
     """
     Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
     """
@@ -812,12 +812,12 @@ class CreateGatewayRequest:
     Name for the gateway.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the gateway.
     """
 
-    upstream_dns_servers: Optional[List[str]] = field(default_factory=list)
+    upstream_dns_servers: Optional[list[str]] = field(default_factory=list)
     """
     Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
     """
@@ -845,7 +845,7 @@ class CreateIPRequest:
     Project to create the IP address in.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to give to the IP address.
     """
@@ -1115,7 +1115,7 @@ class ListDHCPEntriesRequest:
 
 @dataclass
 class ListDHCPEntriesResponse:
-    dhcp_entries: List[DHCPEntry]
+    dhcp_entries: list[DHCPEntry]
     """
     DHCP entries in this page.
     """
@@ -1171,7 +1171,7 @@ class ListDHCPsRequest:
 
 @dataclass
 class ListDHCPsResponse:
-    dhcps: List[DHCP]
+    dhcps: list[DHCP]
     """
     First page of DHCP configuration objects.
     """
@@ -1234,7 +1234,7 @@ class ListGatewayNetworksRequest:
 
 @dataclass
 class ListGatewayNetworksResponse:
-    gateway_networks: List[GatewayNetwork]
+    gateway_networks: list[GatewayNetwork]
     """
     GatewayNetworks on this page.
     """
@@ -1255,7 +1255,7 @@ class ListGatewayTypesRequest:
 
 @dataclass
 class ListGatewayTypesResponse:
-    types: List[GatewayType]
+    types: list[GatewayType]
     """
     Available types of Public Gateway.
     """
@@ -1300,7 +1300,7 @@ class ListGatewaysRequest:
     Filter for gateways which have this search term in their name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter for gateways with these tags.
     """
@@ -1323,7 +1323,7 @@ class ListGatewaysRequest:
 
 @dataclass
 class ListGatewaysResponse:
-    gateways: List[Gateway]
+    gateways: list[Gateway]
     """
     Gateways on this page.
     """
@@ -1366,7 +1366,7 @@ class ListIPsRequest:
     Filter for IP addresses in this Project.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter for IP addresses with these tags.
     """
@@ -1384,7 +1384,7 @@ class ListIPsRequest:
 
 @dataclass
 class ListIPsResponse:
-    ips: List[IP]
+    ips: list[IP]
     """
     IP addresses on this page.
     """
@@ -1437,7 +1437,7 @@ class ListPATRulesRequest:
 
 @dataclass
 class ListPATRulesResponse:
-    pat_rules: List[PATRule]
+    pat_rules: list[PATRule]
     """
     Array of PAT rules matching the filter.
     """
@@ -1486,7 +1486,7 @@ class SetDHCPEntriesRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    dhcp_entries: Optional[List[SetDHCPEntriesRequestEntry]] = field(
+    dhcp_entries: Optional[list[SetDHCPEntriesRequestEntry]] = field(
         default_factory=list
     )
     """
@@ -1496,7 +1496,7 @@ class SetDHCPEntriesRequest:
 
 @dataclass
 class SetDHCPEntriesResponse:
-    dhcp_entries: List[DHCPEntry]
+    dhcp_entries: list[DHCPEntry]
     """
     List of DHCP entries.
     """
@@ -1509,7 +1509,7 @@ class SetPATRulesRequest:
     ID of the gateway on which to set the PAT rules.
     """
 
-    pat_rules: List[SetPATRulesRequestRule]
+    pat_rules: list[SetPATRulesRequestRule]
     """
     New list of PAT rules.
     """
@@ -1522,7 +1522,7 @@ class SetPATRulesRequest:
 
 @dataclass
 class SetPATRulesResponse:
-    pat_rules: List[PATRule]
+    pat_rules: list[PATRule]
     """
     List of PAT rules.
     """
@@ -1608,12 +1608,12 @@ class UpdateDHCPRequest:
     Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
     """
 
-    dns_servers_override: Optional[List[str]] = field(default_factory=list)
+    dns_servers_override: Optional[list[str]] = field(default_factory=list)
     """
     Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
     """
 
-    dns_search: Optional[List[str]] = field(default_factory=list)
+    dns_search: Optional[list[str]] = field(default_factory=list)
     """
     Array of search paths in addition to the pushed DNS configuration.
     """
@@ -1671,12 +1671,12 @@ class UpdateGatewayRequest:
     Name for the gateway.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the gateway.
     """
 
-    upstream_dns_servers: Optional[List[str]] = field(default_factory=list)
+    upstream_dns_servers: Optional[list[str]] = field(default_factory=list)
     """
     Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
     """
@@ -1709,7 +1709,7 @@ class UpdateIPRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to give to the IP address.
     """

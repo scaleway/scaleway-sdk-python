@@ -1,10 +1,15 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from .types import (
+    AuthenticationEventFailureReason,
+    AuthenticationEventMFAType,
+    AuthenticationEventMethod,
+    AuthenticationEventOrigin,
+    AuthenticationEventResult,
     AccountOrganizationInfo,
     AccountProjectInfo,
     AccountUserInfo,
@@ -27,14 +32,19 @@ from .types import (
     LoadBalancerRouteInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
+    Resource,
+    AuthenticationEvent,
+    ListAuthenticationEventsResponse,
     EventPrincipal,
     EventSystem,
-    Resource,
     Event,
     ListEventsResponse,
     ProductService,
     Product,
     ListProductsResponse,
+)
+from ...std.types import (
+    CountryCode as StdCountryCode,
 )
 
 
@@ -44,7 +54,7 @@ def unmarshal_AccountOrganizationInfo(data: Any) -> AccountOrganizationInfo:
             "Unmarshalling the type 'AccountOrganizationInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return AccountOrganizationInfo(**args)
 
@@ -55,7 +65,7 @@ def unmarshal_AccountProjectInfo(data: Any) -> AccountProjectInfo:
             "Unmarshalling the type 'AccountProjectInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -72,7 +82,7 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
             "Unmarshalling the type 'AccountUserInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("email", None)
     if field is not None:
@@ -95,7 +105,7 @@ def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
             "Unmarshalling the type 'AppleSiliconServerInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -118,7 +128,7 @@ def unmarshal_BaremetalServerInfo(data: Any) -> BaremetalServerInfo:
             "Unmarshalling the type 'BaremetalServerInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -141,7 +151,7 @@ def unmarshal_BaremetalSettingInfo(data: Any) -> BaremetalSettingInfo:
             "Unmarshalling the type 'BaremetalSettingInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -158,7 +168,7 @@ def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
             "Unmarshalling the type 'InstanceServerInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -175,7 +185,7 @@ def unmarshal_IpamIpInfo(data: Any) -> IpamIpInfo:
             "Unmarshalling the type 'IpamIpInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("address", None)
     if field is not None:
@@ -192,7 +202,7 @@ def unmarshal_KeyManagerKeyInfo(data: Any) -> KeyManagerKeyInfo:
             "Unmarshalling the type 'KeyManagerKeyInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return KeyManagerKeyInfo(**args)
 
@@ -203,7 +213,7 @@ def unmarshal_KubernetesACLInfo(data: Any) -> KubernetesACLInfo:
             "Unmarshalling the type 'KubernetesACLInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return KubernetesACLInfo(**args)
 
@@ -214,7 +224,7 @@ def unmarshal_KubernetesClusterInfo(data: Any) -> KubernetesClusterInfo:
             "Unmarshalling the type 'KubernetesClusterInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return KubernetesClusterInfo(**args)
 
@@ -225,7 +235,7 @@ def unmarshal_KubernetesNodeInfo(data: Any) -> KubernetesNodeInfo:
             "Unmarshalling the type 'KubernetesNodeInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -248,7 +258,7 @@ def unmarshal_KubernetesPoolInfo(data: Any) -> KubernetesPoolInfo:
             "Unmarshalling the type 'KubernetesPoolInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -271,7 +281,7 @@ def unmarshal_LoadBalancerAclInfo(data: Any) -> LoadBalancerAclInfo:
             "Unmarshalling the type 'LoadBalancerAclInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("frontend_id", None)
     if field is not None:
@@ -288,7 +298,7 @@ def unmarshal_LoadBalancerBackendInfo(data: Any) -> LoadBalancerBackendInfo:
             "Unmarshalling the type 'LoadBalancerBackendInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("lb_id", None)
     if field is not None:
@@ -311,7 +321,7 @@ def unmarshal_LoadBalancerCertificateInfo(data: Any) -> LoadBalancerCertificateI
             "Unmarshalling the type 'LoadBalancerCertificateInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("lb_id", None)
     if field is not None:
@@ -334,7 +344,7 @@ def unmarshal_LoadBalancerFrontendInfo(data: Any) -> LoadBalancerFrontendInfo:
             "Unmarshalling the type 'LoadBalancerFrontendInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("lb_id", None)
     if field is not None:
@@ -357,7 +367,7 @@ def unmarshal_LoadBalancerIpInfo(data: Any) -> LoadBalancerIpInfo:
             "Unmarshalling the type 'LoadBalancerIpInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip_address", None)
     if field is not None:
@@ -380,7 +390,7 @@ def unmarshal_LoadBalancerLbInfo(data: Any) -> LoadBalancerLbInfo:
             "Unmarshalling the type 'LoadBalancerLbInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -397,7 +407,7 @@ def unmarshal_LoadBalancerRouteInfo(data: Any) -> LoadBalancerRouteInfo:
             "Unmarshalling the type 'LoadBalancerRouteInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("frontend_id", None)
     if field is not None:
@@ -420,7 +430,7 @@ def unmarshal_SecretManagerSecretInfo(data: Any) -> SecretManagerSecretInfo:
             "Unmarshalling the type 'SecretManagerSecretInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("path", None)
     if field is not None:
@@ -445,7 +455,7 @@ def unmarshal_SecretManagerSecretVersionInfo(
             "Unmarshalling the type 'SecretManagerSecretVersionInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("revision", None)
     if field is not None:
@@ -456,47 +466,13 @@ def unmarshal_SecretManagerSecretVersionInfo(
     return SecretManagerSecretVersionInfo(**args)
 
 
-def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'EventPrincipal' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    return EventPrincipal(**args)
-
-
-def unmarshal_EventSystem(data: Any) -> EventSystem:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'EventSystem' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-    else:
-        args["name"] = None
-
-    return EventSystem(**args)
-
-
 def unmarshal_Resource(data: Any) -> Resource:
     if not isinstance(data, dict):
         raise TypeError(
             "Unmarshalling the type 'Resource' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -693,13 +669,163 @@ def unmarshal_Resource(data: Any) -> Resource:
     return Resource(**args)
 
 
+def unmarshal_AuthenticationEvent(data: Any) -> AuthenticationEvent:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AuthenticationEvent' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("source_ip", None)
+    if field is not None:
+        args["source_ip"] = field
+    else:
+        args["source_ip"] = None
+
+    field = data.get("resources", None)
+    if field is not None:
+        args["resources"] = (
+            [unmarshal_Resource(v) for v in field] if field is not None else None
+        )
+    else:
+        args["resources"] = []
+
+    field = data.get("result", None)
+    if field is not None:
+        args["result"] = field
+    else:
+        args["result"] = AuthenticationEventResult.UNKNOWN_RESULT
+
+    field = data.get("method", None)
+    if field is not None:
+        args["method"] = field
+    else:
+        args["method"] = AuthenticationEventMethod.UNKNOWN_METHOD
+
+    field = data.get("origin", None)
+    if field is not None:
+        args["origin"] = field
+    else:
+        args["origin"] = AuthenticationEventOrigin.UNKNOWN_ORIGIN
+
+    field = data.get("recorded_at", None)
+    if field is not None:
+        args["recorded_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["recorded_at"] = None
+
+    field = data.get("user_agent", None)
+    if field is not None:
+        args["user_agent"] = field
+    else:
+        args["user_agent"] = None
+
+    field = data.get("failure_reason", None)
+    if field is not None:
+        args["failure_reason"] = field
+    else:
+        args["failure_reason"] = AuthenticationEventFailureReason.UNKNOWN_FAILURE_REASON
+
+    field = data.get("country_code", None)
+    if field is not None:
+        args["country_code"] = field
+    else:
+        args["country_code"] = StdCountryCode.UNKNOWN_COUNTRY_CODE
+
+    field = data.get("mfa_type", None)
+    if field is not None:
+        args["mfa_type"] = field
+    else:
+        args["mfa_type"] = AuthenticationEventMFAType.UNKNOWN_MFA_TYPE
+
+    return AuthenticationEvent(**args)
+
+
+def unmarshal_ListAuthenticationEventsResponse(
+    data: Any,
+) -> ListAuthenticationEventsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListAuthenticationEventsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("events", None)
+    if field is not None:
+        args["events"] = (
+            [unmarshal_AuthenticationEvent(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["events"] = None
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListAuthenticationEventsResponse(**args)
+
+
+def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EventPrincipal' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    return EventPrincipal(**args)
+
+
+def unmarshal_EventSystem(data: Any) -> EventSystem:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EventSystem' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return EventSystem(**args)
+
+
 def unmarshal_Event(data: Any) -> Event:
     if not isinstance(data, dict):
         raise TypeError(
             "Unmarshalling the type 'Event' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -810,7 +936,7 @@ def unmarshal_ListEventsResponse(data: Any) -> ListEventsResponse:
             "Unmarshalling the type 'ListEventsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("events", None)
     if field is not None:
@@ -835,7 +961,7 @@ def unmarshal_ProductService(data: Any) -> ProductService:
             "Unmarshalling the type 'ProductService' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -858,7 +984,7 @@ def unmarshal_Product(data: Any) -> Product:
             "Unmarshalling the type 'Product' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("title", None)
     if field is not None:
@@ -889,7 +1015,7 @@ def unmarshal_ListProductsResponse(data: Any) -> ListProductsResponse:
             "Unmarshalling the type 'ListProductsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("products", None)
     if field is not None:

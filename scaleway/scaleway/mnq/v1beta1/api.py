@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -273,7 +273,7 @@ class MnqV1Beta1NatsAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNatsAccountsRequestOrderBy] = None,
-    ) -> List[NatsAccount]:
+    ) -> list[NatsAccount]:
         """
         List NATS accounts.
         List all NATS accounts in the specified region, for a Scaleway Organization or Project. By default, the NATS accounts returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -282,7 +282,7 @@ class MnqV1Beta1NatsAPI(API):
         :param page: Page number to return.
         :param page_size: Maximum number of NATS accounts to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[NatsAccount] <List[NatsAccount]>`
+        :return: :class:`list[NatsAccount] <list[NatsAccount]>`
 
         Usage:
         ::
@@ -471,7 +471,7 @@ class MnqV1Beta1NatsAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNatsCredentialsRequestOrderBy] = None,
-    ) -> List[NatsCredentials]:
+    ) -> list[NatsCredentials]:
         """
         List NATS credentials.
         List existing credentials in the specified NATS account. The response contains only the metadata for the credentials, not the credentials themselves, which are only returned after a **Create Credentials** call.
@@ -481,7 +481,7 @@ class MnqV1Beta1NatsAPI(API):
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[NatsCredentials] <List[NatsCredentials]>`
+        :return: :class:`list[NatsCredentials] <list[NatsCredentials]>`
 
         Usage:
         ::
@@ -833,7 +833,7 @@ class MnqV1Beta1SnsAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListSnsCredentialsRequestOrderBy] = None,
-    ) -> List[SnsCredentials]:
+    ) -> list[SnsCredentials]:
         """
         List Topics and Events credentials.
         List existing Topics and Events credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
@@ -842,7 +842,7 @@ class MnqV1Beta1SnsAPI(API):
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[SnsCredentials] <List[SnsCredentials]>`
+        :return: :class:`list[SnsCredentials] <list[SnsCredentials]>`
 
         Usage:
         ::
@@ -1193,7 +1193,7 @@ class MnqV1Beta1SqsAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListSqsCredentialsRequestOrderBy] = None,
-    ) -> List[SqsCredentials]:
+    ) -> list[SqsCredentials]:
         """
         List Queues credentials.
         List existing Queues credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
@@ -1202,7 +1202,7 @@ class MnqV1Beta1SqsAPI(API):
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[SqsCredentials] <List[SqsCredentials]>`
+        :return: :class:`list[SqsCredentials] <list[SqsCredentials]>`
 
         Usage:
         ::

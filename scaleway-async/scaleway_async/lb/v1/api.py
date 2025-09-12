@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -217,7 +217,7 @@ class LbV1ZonedAPI(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListLbsResponse:
         """
         List Load Balancers.
@@ -268,8 +268,8 @@ class LbV1ZonedAPI(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Lb]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Lb]:
         """
         List Load Balancers.
         List all Load Balancers in the specified zone, for a Scaleway Organization or Scaleway Project. By default, the Load Balancers returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -281,7 +281,7 @@ class LbV1ZonedAPI(API):
         :param organization_id: Organization ID to filter for, only Load Balancers from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
         :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
-        :return: :class:`List[Lb] <List[Lb]>`
+        :return: :class:`list[Lb] <list[Lb]>`
 
         Usage:
         ::
@@ -317,8 +317,8 @@ class LbV1ZonedAPI(API):
         ip_id: Optional[str] = None,
         assign_flexible_ip: Optional[bool] = None,
         assign_flexible_ipv6: Optional[bool] = None,
-        ip_ids: Optional[List[str]] = None,
-        tags: Optional[List[str]] = None,
+        ip_ids: Optional[list[str]] = None,
+        tags: Optional[list[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
         """
@@ -452,7 +452,7 @@ class LbV1ZonedAPI(API):
         name: str,
         description: str,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
         """
@@ -587,7 +587,7 @@ class LbV1ZonedAPI(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListIpsResponse:
         """
         List IP addresses.
@@ -638,8 +638,8 @@ class LbV1ZonedAPI(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Ip]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Ip]:
         """
         List IP addresses.
         List the Load Balancer flexible IP addresses held in the account (filtered by Organization ID or Project ID). It is also possible to search for a specific IP address.
@@ -651,7 +651,7 @@ class LbV1ZonedAPI(API):
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
-        :return: :class:`List[Ip] <List[Ip]>`
+        :return: :class:`list[Ip] <list[Ip]>`
 
         Usage:
         ::
@@ -683,7 +683,7 @@ class LbV1ZonedAPI(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         reverse: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Ip:
         """
         Create an IP address.
@@ -796,7 +796,7 @@ class LbV1ZonedAPI(API):
         zone: Optional[ScwZone] = None,
         reverse: Optional[str] = None,
         lb_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Ip:
         """
         Update an IP address.
@@ -892,7 +892,7 @@ class LbV1ZonedAPI(API):
         order_by: Optional[ListBackendsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Backend]:
+    ) -> list[Backend]:
         """
         List the backends of a given Load Balancer.
         List all the backends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each backend. The response is an array of backend objects, containing full details of each one including their configuration parameters such as protocol, port and forwarding algorithm.
@@ -902,7 +902,7 @@ class LbV1ZonedAPI(API):
         :param order_by: Sort order of backends in the response.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of backends to return.
-        :return: :class:`List[Backend] <List[Backend]>`
+        :return: :class:`list[Backend] <list[Backend]>`
 
         Usage:
         ::
@@ -936,7 +936,7 @@ class LbV1ZonedAPI(API):
         sticky_sessions_cookie_name: str,
         lb_id: str,
         health_check: HealthCheck,
-        server_ip: List[str],
+        server_ip: list[str],
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         send_proxy_v2: Optional[bool] = None,
@@ -1203,7 +1203,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
-        server_ip: List[str],
+        server_ip: list[str],
         zone: Optional[ScwZone] = None,
     ) -> Backend:
         """
@@ -1246,7 +1246,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
-        server_ip: List[str],
+        server_ip: list[str],
         zone: Optional[ScwZone] = None,
     ) -> Backend:
         """
@@ -1289,7 +1289,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
-        server_ip: List[str],
+        server_ip: list[str],
         zone: Optional[ScwZone] = None,
     ) -> Backend:
         """
@@ -1471,7 +1471,7 @@ class LbV1ZonedAPI(API):
         order_by: Optional[ListFrontendsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Frontend]:
+    ) -> list[Frontend]:
         """
         List frontends of a given Load Balancer.
         List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to.
@@ -1481,7 +1481,7 @@ class LbV1ZonedAPI(API):
         :param order_by: Sort order of frontends in the response.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of frontends to return.
-        :return: :class:`List[Frontend] <List[Frontend]>`
+        :return: :class:`list[Frontend] <list[Frontend]>`
 
         Usage:
         ::
@@ -1517,7 +1517,7 @@ class LbV1ZonedAPI(API):
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
-        certificate_ids: Optional[List[str]] = None,
+        certificate_ids: Optional[list[str]] = None,
         connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
@@ -1618,7 +1618,7 @@ class LbV1ZonedAPI(API):
         zone: Optional[ScwZone] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
-        certificate_ids: Optional[List[str]] = None,
+        certificate_ids: Optional[list[str]] = None,
         connection_rate_limit: Optional[int] = None,
         enable_access_logs: Optional[bool] = None,
     ) -> Frontend:
@@ -1756,7 +1756,7 @@ class LbV1ZonedAPI(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         frontend_id: Optional[str] = None,
-    ) -> List[Route]:
+    ) -> list[Route]:
         """
         List all routes.
         List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
@@ -1765,7 +1765,7 @@ class LbV1ZonedAPI(API):
         :param page_size: The number of route objects to return.
         :param page: The page number to return, from the paginated results.
         :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
-        :return: :class:`List[Route] <List[Route]>`
+        :return: :class:`list[Route] <list[Route]>`
 
         Usage:
         ::
@@ -2027,7 +2027,7 @@ class LbV1ZonedAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         backend_id: Optional[str] = None,
-    ) -> List[BackendServerStats]:
+    ) -> list[BackendServerStats]:
         """
         List backend server statistics.
         List information about your backend servers, including their state and the result of their last health check.
@@ -2036,7 +2036,7 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of items to return.
         :param backend_id: ID of the backend.
-        :return: :class:`List[BackendServerStats] <List[BackendServerStats]>`
+        :return: :class:`list[BackendServerStats] <list[BackendServerStats]>`
 
         Usage:
         ::
@@ -2114,7 +2114,7 @@ class LbV1ZonedAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-    ) -> List[Acl]:
+    ) -> list[Acl]:
         """
         List ACLs for a given frontend.
         List the ACLs for a given frontend, specified by its frontend ID. The response is an array of ACL objects, each one representing an ACL that denies or allows traffic based on certain conditions.
@@ -2124,7 +2124,7 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of ACLs to return.
         :param name: ACL name to filter for.
-        :return: :class:`List[Acl] <List[Acl]>`
+        :return: :class:`list[Acl] <list[Acl]>`
 
         Usage:
         ::
@@ -2327,7 +2327,7 @@ class LbV1ZonedAPI(API):
     async def set_acls(
         self,
         *,
-        acls: List[AclSpec],
+        acls: list[AclSpec],
         frontend_id: str,
         zone: Optional[ScwZone] = None,
     ) -> SetAclsResponse:
@@ -2472,7 +2472,7 @@ class LbV1ZonedAPI(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-    ) -> List[Certificate]:
+    ) -> list[Certificate]:
         """
         List all SSL/TLS certificates on a given Load Balancer.
         List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date.
@@ -2482,7 +2482,7 @@ class LbV1ZonedAPI(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of certificates to return.
         :param name: Certificate name to filter for, only certificates of this name will be returned.
-        :return: :class:`List[Certificate] <List[Certificate]>`
+        :return: :class:`list[Certificate] <list[Certificate]>`
 
         Usage:
         ::
@@ -2691,14 +2691,14 @@ class LbV1ZonedAPI(API):
         zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[LbType]:
+    ) -> list[LbType]:
         """
         List all Load Balancer offer types.
         List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
-        :return: :class:`List[LbType] <List[LbType]>`
+        :return: :class:`list[LbType] <list[LbType]>`
 
         Usage:
         ::
@@ -2861,7 +2861,7 @@ class LbV1ZonedAPI(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Subscriber]:
+    ) -> list[Subscriber]:
         """
         List all subscribers.
         List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.
@@ -2872,7 +2872,7 @@ class LbV1ZonedAPI(API):
         :param name: Subscriber name to search for.
         :param organization_id: Filter subscribers by Organization ID.
         :param project_id: Filter subscribers by Project ID.
-        :return: :class:`List[Subscriber] <List[Subscriber]>`
+        :return: :class:`list[Subscriber] <list[Subscriber]>`
 
         Usage:
         ::
@@ -3102,7 +3102,7 @@ class LbV1ZonedAPI(API):
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> List[PrivateNetwork]:
+    ) -> list[PrivateNetwork]:
         """
         List Private Networks attached to a Load Balancer.
         List the Private Networks attached to a given Load Balancer, specified by its Load Balancer ID. The response is an array of Private Network objects, giving information including the status, configuration, name and creation date of each Private Network.
@@ -3111,7 +3111,7 @@ class LbV1ZonedAPI(API):
         :param order_by: Sort order of Private Network objects in the response.
         :param page_size: Number of objects to return.
         :param page: The page number to return, from the paginated results.
-        :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
+        :return: :class:`list[PrivateNetwork] <list[PrivateNetwork]>`
 
         Usage:
         ::
@@ -3143,7 +3143,7 @@ class LbV1ZonedAPI(API):
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
-        ipam_ids: Optional[List[str]] = None,
+        ipam_ids: Optional[list[str]] = None,
     ) -> PrivateNetwork:
         """
         Attach a Load Balancer to a Private Network.
@@ -3249,7 +3249,7 @@ class LbV1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListLbsResponse:
         """
         List load balancers.
@@ -3301,8 +3301,8 @@ class LbV1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Lb]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Lb]:
         """
         List load balancers.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -3313,7 +3313,7 @@ class LbV1API(API):
         :param organization_id: Organization ID to filter for, only Load Balancers from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
         :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
-        :return: :class:`List[Lb] <List[Lb]>`
+        :return: :class:`list[Lb] <list[Lb]>`
 
         Usage:
         ::
@@ -3349,8 +3349,8 @@ class LbV1API(API):
         ip_id: Optional[str] = None,
         assign_flexible_ip: Optional[bool] = None,
         assign_flexible_ipv6: Optional[bool] = None,
-        ip_ids: Optional[List[str]] = None,
-        tags: Optional[List[str]] = None,
+        ip_ids: Optional[list[str]] = None,
+        tags: Optional[list[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
         """
@@ -3485,7 +3485,7 @@ class LbV1API(API):
         name: str,
         description: str,
         region: Optional[ScwRegion] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
         """
@@ -3623,7 +3623,7 @@ class LbV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ListIpsResponse:
         """
         List IPs.
@@ -3675,8 +3675,8 @@ class LbV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
-        tags: Optional[List[str]] = None,
-    ) -> List[Ip]:
+        tags: Optional[list[str]] = None,
+    ) -> list[Ip]:
         """
         List IPs.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -3687,7 +3687,7 @@ class LbV1API(API):
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
-        :return: :class:`List[Ip] <List[Ip]>`
+        :return: :class:`list[Ip] <list[Ip]>`
 
         Usage:
         ::
@@ -3719,7 +3719,7 @@ class LbV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         reverse: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Ip:
         """
         Create an IP.
@@ -3835,7 +3835,7 @@ class LbV1API(API):
         region: Optional[ScwRegion] = None,
         reverse: Optional[str] = None,
         lb_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Ip:
         """
         Update an IP.
@@ -3933,7 +3933,7 @@ class LbV1API(API):
         order_by: Optional[ListBackendsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Backend]:
+    ) -> list[Backend]:
         """
         List backends in a given load balancer.
         :param lb_id: Load Balancer ID.
@@ -3942,7 +3942,7 @@ class LbV1API(API):
         :param order_by: Sort order of backends in the response.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of backends to return.
-        :return: :class:`List[Backend] <List[Backend]>`
+        :return: :class:`list[Backend] <list[Backend]>`
 
         Usage:
         ::
@@ -3976,7 +3976,7 @@ class LbV1API(API):
         sticky_sessions_cookie_name: str,
         lb_id: str,
         health_check: HealthCheck,
-        server_ip: List[str],
+        server_ip: list[str],
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         send_proxy_v2: Optional[bool] = None,
@@ -4247,7 +4247,7 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
-        server_ip: List[str],
+        server_ip: list[str],
         region: Optional[ScwRegion] = None,
     ) -> Backend:
         """
@@ -4291,7 +4291,7 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
-        server_ip: List[str],
+        server_ip: list[str],
         region: Optional[ScwRegion] = None,
     ) -> Backend:
         """
@@ -4335,7 +4335,7 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
-        server_ip: List[str],
+        server_ip: list[str],
         region: Optional[ScwRegion] = None,
     ) -> Backend:
         """
@@ -4520,7 +4520,7 @@ class LbV1API(API):
         order_by: Optional[ListFrontendsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Frontend]:
+    ) -> list[Frontend]:
         """
         List frontends in a given load balancer.
         :param lb_id: Load Balancer ID.
@@ -4529,7 +4529,7 @@ class LbV1API(API):
         :param order_by: Sort order of frontends in the response.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of frontends to return.
-        :return: :class:`List[Frontend] <List[Frontend]>`
+        :return: :class:`list[Frontend] <list[Frontend]>`
 
         Usage:
         ::
@@ -4565,7 +4565,7 @@ class LbV1API(API):
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
-        certificate_ids: Optional[List[str]] = None,
+        certificate_ids: Optional[list[str]] = None,
         connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
@@ -4668,7 +4668,7 @@ class LbV1API(API):
         region: Optional[ScwRegion] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
-        certificate_ids: Optional[List[str]] = None,
+        certificate_ids: Optional[list[str]] = None,
         connection_rate_limit: Optional[int] = None,
         enable_access_logs: Optional[bool] = None,
     ) -> Frontend:
@@ -4809,7 +4809,7 @@ class LbV1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         frontend_id: Optional[str] = None,
-    ) -> List[Route]:
+    ) -> list[Route]:
         """
         List all backend redirections.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -4817,7 +4817,7 @@ class LbV1API(API):
         :param page_size: The number of route objects to return.
         :param page: The page number to return, from the paginated results.
         :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
-        :return: :class:`List[Route] <List[Route]>`
+        :return: :class:`list[Route] <list[Route]>`
 
         Usage:
         ::
@@ -5086,7 +5086,7 @@ class LbV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         backend_id: Optional[str] = None,
-    ) -> List[BackendServerStats]:
+    ) -> list[BackendServerStats]:
         """
         List backend server statistics.
         :param lb_id: Load Balancer ID.
@@ -5094,7 +5094,7 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of items to return.
         :param backend_id: ID of the backend.
-        :return: :class:`List[BackendServerStats] <List[BackendServerStats]>`
+        :return: :class:`list[BackendServerStats] <list[BackendServerStats]>`
 
         Usage:
         ::
@@ -5173,7 +5173,7 @@ class LbV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-    ) -> List[Acl]:
+    ) -> list[Acl]:
         """
         List ACL for a given frontend.
         :param frontend_id: Frontend ID (ACLs attached to this frontend will be returned in the response).
@@ -5182,7 +5182,7 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of ACLs to return.
         :param name: ACL name to filter for.
-        :return: :class:`List[Acl] <List[Acl]>`
+        :return: :class:`list[Acl] <list[Acl]>`
 
         Usage:
         ::
@@ -5494,7 +5494,7 @@ class LbV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-    ) -> List[Certificate]:
+    ) -> list[Certificate]:
         """
         List all TLS certificates on a given load balancer.
         :param lb_id: Load Balancer ID.
@@ -5503,7 +5503,7 @@ class LbV1API(API):
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of certificates to return.
         :param name: Certificate name to filter for, only certificates of this name will be returned.
-        :return: :class:`List[Certificate] <List[Certificate]>`
+        :return: :class:`list[Certificate] <list[Certificate]>`
 
         Usage:
         ::
@@ -5715,13 +5715,13 @@ class LbV1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[LbType]:
+    ) -> list[LbType]:
         """
         List all load balancer offer type.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
-        :return: :class:`List[LbType] <List[LbType]>`
+        :return: :class:`list[LbType] <list[LbType]>`
 
         Usage:
         ::
@@ -5887,7 +5887,7 @@ class LbV1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Subscriber]:
+    ) -> list[Subscriber]:
         """
         List all subscriber.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -5897,7 +5897,7 @@ class LbV1API(API):
         :param name: Subscriber name to search for.
         :param organization_id: Filter subscribers by Organization ID.
         :param project_id: Filter subscribers by Project ID.
-        :return: :class:`List[Subscriber] <List[Subscriber]>`
+        :return: :class:`list[Subscriber] <list[Subscriber]>`
 
         Usage:
         ::
@@ -6132,7 +6132,7 @@ class LbV1API(API):
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> List[PrivateNetwork]:
+    ) -> list[PrivateNetwork]:
         """
         List attached private network of load balancer.
         :param lb_id: Load Balancer ID.
@@ -6140,7 +6140,7 @@ class LbV1API(API):
         :param order_by: Sort order of Private Network objects in the response.
         :param page_size: Number of objects to return.
         :param page: The page number to return, from the paginated results.
-        :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
+        :return: :class:`list[PrivateNetwork] <list[PrivateNetwork]>`
 
         Usage:
         ::
@@ -6172,7 +6172,7 @@ class LbV1API(API):
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
-        ipam_ids: Optional[List[str]] = None,
+        ipam_ids: Optional[list[str]] = None,
     ) -> PrivateNetwork:
         """
         Add load balancer on instance private network.

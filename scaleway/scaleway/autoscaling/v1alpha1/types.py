@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -208,7 +208,7 @@ class Loadbalancer:
     Load Balancer ID.
     """
 
-    backend_ids: List[str]
+    backend_ids: list[str]
     """
     Load Balancer backend IDs.
     """
@@ -260,7 +260,7 @@ class VolumeInstanceTemplate:
     Name of the volume.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags assigned to the volume.
     """
@@ -332,7 +332,7 @@ class InstanceGroup:
     Name of the Instance group.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Instance group tags.
     """
@@ -352,7 +352,7 @@ class InstanceGroup:
     Specification of the Load Balancer linked to the Instance group.
     """
 
-    error_messages: List[str]
+    error_messages: list[str]
     """
     Any configuration errors for dependencies (Load Balancer, Private Network, Instance template etc.).
     """
@@ -420,12 +420,12 @@ class InstanceTemplate:
     Name of Instance commercial type.
     """
 
-    volumes: Dict[str, VolumeInstanceTemplate]
+    volumes: dict[str, VolumeInstanceTemplate]
     """
     Template of Instance volume.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags for the Instance template.
     """
@@ -440,7 +440,7 @@ class InstanceTemplate:
     Name of Instance template.
     """
 
-    private_network_ids: List[str]
+    private_network_ids: list[str]
     """
     Private Network IDs to attach to the new Instance.
     """
@@ -511,7 +511,7 @@ class UpdateInstanceGroupRequestCapacity:
 
 @dataclass
 class UpdateInstanceGroupRequestLoadbalancer:
-    backend_ids: Optional[List[str]] = field(default_factory=list)
+    backend_ids: Optional[list[str]] = field(default_factory=list)
     """
     Load Balancer backend IDs.
     """
@@ -583,7 +583,7 @@ class CreateInstanceGroupRequest:
     Project ID to filter for, only Instance groups from this Project will be returned.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Instance group.
     """
@@ -636,7 +636,7 @@ class CreateInstanceTemplateRequest:
     Name of Instance commercial type.
     """
 
-    volumes: Dict[str, VolumeInstanceTemplate]
+    volumes: dict[str, VolumeInstanceTemplate]
     """
     Template of Instance volume.
     """
@@ -656,7 +656,7 @@ class CreateInstanceTemplateRequest:
     Instance image ID. Can be an ID of a marketplace or personal image. This image must be compatible with `volume` and `commercial_type` template.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Instance template.
     """
@@ -686,7 +686,7 @@ class CreateInstanceTemplateRequest:
     ID of the Project containing the Instance template resource.
     """
 
-    private_network_ids: Optional[List[str]] = field(default_factory=list)
+    private_network_ids: Optional[list[str]] = field(default_factory=list)
     """
     Private Network IDs to attach to the new Instance.
     """
@@ -807,7 +807,7 @@ class ListInstanceGroupEventsRequest:
 
 @dataclass
 class ListInstanceGroupEventsResponse:
-    instance_events: List[InstanceGroupEvent]
+    instance_events: list[InstanceGroupEvent]
     """
     Paginated list of Instance groups.
     """
@@ -845,7 +845,7 @@ class ListInstanceGroupsRequest:
 
 @dataclass
 class ListInstanceGroupsResponse:
-    instance_groups: List[InstanceGroup]
+    instance_groups: list[InstanceGroup]
     """
     Paginated list of Instance groups.
     """
@@ -888,7 +888,7 @@ class ListInstancePoliciesRequest:
 
 @dataclass
 class ListInstancePoliciesResponse:
-    policies: List[InstancePolicy]
+    policies: list[InstancePolicy]
     """
     Paginated list of policies.
     """
@@ -931,7 +931,7 @@ class ListInstanceTemplatesResponse:
     Count of all templates matching the requested criteria.
     """
 
-    instance_templates: List[InstanceTemplate]
+    instance_templates: list[InstanceTemplate]
     """
     Paginated list of Instance templates.
     """
@@ -954,7 +954,7 @@ class UpdateInstanceGroupRequest:
     Name of Instance group.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
     """
@@ -1032,12 +1032,12 @@ class UpdateInstanceTemplateRequest:
     Instance image ID. Can be an ID of a marketplace or personal image. This image must be compatible with `volume` and `commercial_type` template.
     """
 
-    volumes: Optional[Dict[str, VolumeInstanceTemplate]] = field(default_factory=dict)
+    volumes: Optional[dict[str, VolumeInstanceTemplate]] = field(default_factory=dict)
     """
     Template of Instance volume.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Instance template.
     """
@@ -1067,7 +1067,7 @@ class UpdateInstanceTemplateRequest:
     Name of Instance template.
     """
 
-    private_network_ids: Optional[List[str]] = field(default_factory=list)
+    private_network_ids: Optional[list[str]] = field(default_factory=list)
     """
     Private Network IDs to attach to the new Instance.
     """

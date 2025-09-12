@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -71,7 +71,7 @@ class JobsV1Alpha1API(API):
         name: Optional[str] = None,
         local_storage_capacity: Optional[int] = None,
         project_id: Optional[str] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         job_timeout: Optional[str] = None,
         cron_schedule: Optional[CreateJobDefinitionRequestCronScheduleConfig] = None,
     ) -> JobDefinition:
@@ -222,7 +222,7 @@ class JobsV1Alpha1API(API):
         order_by: Optional[ListJobDefinitionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
-    ) -> List[JobDefinition]:
+    ) -> list[JobDefinition]:
         """
         List all your job definitions with filters.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -231,7 +231,7 @@ class JobsV1Alpha1API(API):
         :param order_by:
         :param project_id:
         :param organization_id:
-        :return: :class:`List[JobDefinition] <List[JobDefinition]>`
+        :return: :class:`list[JobDefinition] <list[JobDefinition]>`
 
         Usage:
         ::
@@ -264,7 +264,7 @@ class JobsV1Alpha1API(API):
         local_storage_capacity: Optional[int] = None,
         image_uri: Optional[str] = None,
         command: Optional[str] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
         job_timeout: Optional[str] = None,
         cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig] = None,
@@ -364,7 +364,7 @@ class JobsV1Alpha1API(API):
         job_definition_id: str,
         region: Optional[ScwRegion] = None,
         command: Optional[str] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         replicas: Optional[int] = None,
     ) -> StartJobDefinitionResponse:
         """
@@ -413,7 +413,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_definition_id: str,
-        secrets: List[CreateJobDefinitionSecretsRequestSecretConfig],
+        secrets: list[CreateJobDefinitionSecretsRequestSecretConfig],
         region: Optional[ScwRegion] = None,
     ) -> CreateJobDefinitionSecretsResponse:
         """
@@ -702,7 +702,7 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         state: Optional[JobRunState] = None,
-        states: Optional[List[JobRunState]] = None,
+        states: Optional[list[JobRunState]] = None,
     ) -> ListJobRunsResponse:
         """
         List all job runs with filters.
@@ -757,8 +757,8 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         state: Optional[JobRunState] = None,
-        states: Optional[List[JobRunState]] = None,
-    ) -> List[JobRun]:
+        states: Optional[list[JobRunState]] = None,
+    ) -> list[JobRun]:
         """
         List all job runs with filters.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -770,7 +770,7 @@ class JobsV1Alpha1API(API):
         :param organization_id:
         :param state:
         :param states:
-        :return: :class:`List[JobRun] <List[JobRun]>`
+        :return: :class:`list[JobRun] <list[JobRun]>`
 
         Usage:
         ::

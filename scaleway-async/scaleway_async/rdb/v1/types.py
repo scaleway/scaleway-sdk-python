@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -442,7 +442,7 @@ class EngineVersion:
     Database engine name.
     """
 
-    available_settings: List[EngineSetting]
+    available_settings: list[EngineSetting]
     """
     Engine settings available to be set.
     """
@@ -457,7 +457,7 @@ class EngineVersion:
     Beta status of engine version.
     """
 
-    available_init_settings: List[EngineSetting]
+    available_init_settings: list[EngineSetting]
     """
     Engine settings available to be set at database initialization.
     """
@@ -560,7 +560,7 @@ class ReadReplica:
     UUID of the Read Replica.
     """
 
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     Display Read Replica connection information.
     """
@@ -768,7 +768,7 @@ class DatabaseEngine:
     Engine logo URL.
     """
 
-    versions: List[EngineVersion]
+    versions: list[EngineVersion]
     """
     Available versions.
     """
@@ -883,17 +883,17 @@ class Instance:
     Database engine of the database (PostgreSQL, MySQL, ...).
     """
 
-    upgradable_version: List[UpgradableVersion]
+    upgradable_version: list[UpgradableVersion]
     """
     Available database engine versions for upgrade.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the Database Instance.
     """
 
-    settings: List[InstanceSetting]
+    settings: list[InstanceSetting]
     """
     Advanced settings of the Database Instance.
     """
@@ -903,7 +903,7 @@ class Instance:
     Defines whether or not High-Availability is enabled.
     """
 
-    read_replicas: List[ReadReplica]
+    read_replicas: list[ReadReplica]
     """
     Read Replicas of the Database Instance.
     """
@@ -913,12 +913,12 @@ class Instance:
     Node type of the Database Instance.
     """
 
-    init_settings: List[InstanceSetting]
+    init_settings: list[InstanceSetting]
     """
     List of engine settings to be set at database initialization.
     """
 
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     List of Database Instance endpoints.
     """
@@ -928,7 +928,7 @@ class Instance:
     Store logical backups in the same region as the Database Instance.
     """
 
-    maintenances: List[Maintenance]
+    maintenances: list[Maintenance]
     """
     List of Database Instance maintenance events.
     """
@@ -1001,7 +1001,7 @@ class NodeType:
     The Node Type is currently in beta.
     """
 
-    available_volume_types: List[NodeTypeVolumeType]
+    available_volume_types: list[NodeTypeVolumeType]
     """
     Available storage options for the Node Type.
     """
@@ -1151,7 +1151,7 @@ class AddInstanceACLRulesRequest:
     UUID of the Database Instance you want to add ACL rules to.
     """
 
-    rules: List[ACLRuleRequest]
+    rules: list[ACLRuleRequest]
     """
     ACL rules to add to the Database Instance.
     """
@@ -1164,7 +1164,7 @@ class AddInstanceACLRulesRequest:
 
 @dataclass
 class AddInstanceACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     ACL Rules enabled for the Database Instance.
     """
@@ -1177,7 +1177,7 @@ class AddInstanceSettingsRequest:
     UUID of the Database Instance you want to add settings to.
     """
 
-    settings: List[InstanceSetting]
+    settings: list[InstanceSetting]
     """
     Settings to add to the Database Instance.
     """
@@ -1190,7 +1190,7 @@ class AddInstanceSettingsRequest:
 
 @dataclass
 class AddInstanceSettingsResponse:
-    settings: List[InstanceSetting]
+    settings: list[InstanceSetting]
     """
     Settings available on the Database Instance.
     """
@@ -1376,12 +1376,12 @@ class CreateInstanceRequest:
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to apply to the Database Instance.
     """
 
-    init_settings: Optional[List[InstanceSetting]] = field(default_factory=list)
+    init_settings: Optional[list[InstanceSetting]] = field(default_factory=list)
     """
     List of engine settings to be set upon Database Instance initialization.
     """
@@ -1391,7 +1391,7 @@ class CreateInstanceRequest:
     Type of volume where data is stored (lssd, bssd, ...).
     """
 
-    init_endpoints: Optional[List[EndpointSpec]] = field(default_factory=list)
+    init_endpoints: Optional[list[EndpointSpec]] = field(default_factory=list)
     """
     One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
     """
@@ -1413,7 +1413,7 @@ class CreateReadReplicaEndpointRequest:
     UUID of the Read Replica.
     """
 
-    endpoint_spec: List[ReadReplicaEndpointSpec]
+    endpoint_spec: list[ReadReplicaEndpointSpec]
     """
     Specification of the endpoint you want to create.
     """
@@ -1436,7 +1436,7 @@ class CreateReadReplicaRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    endpoint_spec: Optional[List[ReadReplicaEndpointSpec]] = field(default_factory=list)
+    endpoint_spec: Optional[list[ReadReplicaEndpointSpec]] = field(default_factory=list)
     """
     Specification of the endpoint you want to create.
     """
@@ -1549,7 +1549,7 @@ class DeleteInstanceACLRulesRequest:
     UUID of the Database Instance you want to delete an ACL rule from.
     """
 
-    acl_rule_ips: List[str]
+    acl_rule_ips: list[str]
     """
     IP addresses defined in the ACL rules of the Database Instance.
     """
@@ -1562,7 +1562,7 @@ class DeleteInstanceACLRulesRequest:
 
 @dataclass
 class DeleteInstanceACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     IP addresses defined in the ACL rules of the Database Instance.
     """
@@ -1588,7 +1588,7 @@ class DeleteInstanceSettingsRequest:
     UUID of the Database Instance to delete settings from.
     """
 
-    setting_names: List[str]
+    setting_names: list[str]
     """
     Settings names to delete.
     """
@@ -1601,7 +1601,7 @@ class DeleteInstanceSettingsRequest:
 
 @dataclass
 class DeleteInstanceSettingsResponse:
-    settings: List[InstanceSetting]
+    settings: list[InstanceSetting]
     """
     Settings names to delete from the Database Instance.
     """
@@ -1785,7 +1785,7 @@ class GetSnapshotRequest:
 
 @dataclass
 class InstanceMetrics:
-    timeseries: List[TimeSeries]
+    timeseries: list[TimeSeries]
     """
     Time series of metrics of a Database Instance.
     """
@@ -1831,7 +1831,7 @@ class ListDatabaseBackupsRequest:
 
 @dataclass
 class ListDatabaseBackupsResponse:
-    database_backups: List[DatabaseBackup]
+    database_backups: list[DatabaseBackup]
     """
     List of database backups.
     """
@@ -1865,7 +1865,7 @@ class ListDatabaseEnginesRequest:
 
 @dataclass
 class ListDatabaseEnginesResponse:
-    engines: List[DatabaseEngine]
+    engines: list[DatabaseEngine]
     """
     List of the available database engines.
     """
@@ -1916,7 +1916,7 @@ class ListDatabasesRequest:
 
 @dataclass
 class ListDatabasesResponse:
-    databases: List[Database]
+    databases: list[Database]
     """
     List of the databases.
     """
@@ -1945,7 +1945,7 @@ class ListInstanceACLRulesRequest:
 
 @dataclass
 class ListInstanceACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     List of ACL rules present on a Database Instance.
     """
@@ -1971,7 +1971,7 @@ class ListInstanceLogsDetailsRequest:
 
 @dataclass
 class ListInstanceLogsDetailsResponse:
-    details: List[ListInstanceLogsDetailsResponseInstanceLogDetail]
+    details: list[ListInstanceLogsDetailsResponseInstanceLogDetail]
     """
     Remote Database Instance logs details.
     """
@@ -1999,7 +1999,7 @@ class ListInstanceLogsRequest:
 
 @dataclass
 class ListInstanceLogsResponse:
-    instance_logs: List[InstanceLog]
+    instance_logs: list[InstanceLog]
     """
     Available logs in a Database Instance.
     """
@@ -2012,7 +2012,7 @@ class ListInstancesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List Database Instances that have a given tag.
     """
@@ -2050,7 +2050,7 @@ class ListInstancesRequest:
 
 @dataclass
 class ListInstancesResponse:
-    instances: List[Instance]
+    instances: list[Instance]
     """
     List of all Database Instances available in an Organization or Project.
     """
@@ -2079,7 +2079,7 @@ class ListNodeTypesRequest:
 
 @dataclass
 class ListNodeTypesResponse:
-    node_types: List[NodeType]
+    node_types: list[NodeType]
     """
     Types of the node.
     """
@@ -2124,7 +2124,7 @@ class ListPrivilegesRequest:
 
 @dataclass
 class ListPrivilegesResponse:
-    privileges: List[Privilege]
+    privileges: list[Privilege]
     """
     Privileges of a user in a database in a Database Instance.
     """
@@ -2175,7 +2175,7 @@ class ListSnapshotsRequest:
 
 @dataclass
 class ListSnapshotsResponse:
-    snapshots: List[Snapshot]
+    snapshots: list[Snapshot]
     """
     List of snapshots.
     """
@@ -2214,7 +2214,7 @@ class ListUsersRequest:
 
 @dataclass
 class ListUsersResponse:
-    users: List[User]
+    users: list[User]
     """
     List of users in a Database Instance.
     """
@@ -2268,7 +2268,7 @@ class PrepareInstanceLogsRequest:
 
 @dataclass
 class PrepareInstanceLogsResponse:
-    instance_logs: List[InstanceLog]
+    instance_logs: list[InstanceLog]
     """
     Instance logs for a Database Instance between a start and an end date.
     """
@@ -2374,7 +2374,7 @@ class SetInstanceACLRulesRequest:
     UUID of the Database Instance where the ACL rules must be set.
     """
 
-    rules: List[ACLRuleRequest]
+    rules: list[ACLRuleRequest]
     """
     ACL rules to define for the Database Instance.
     """
@@ -2387,7 +2387,7 @@ class SetInstanceACLRulesRequest:
 
 @dataclass
 class SetInstanceACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     ACLs rules configured for a Database Instance.
     """
@@ -2400,7 +2400,7 @@ class SetInstanceSettingsRequest:
     UUID of the Database Instance where the settings must be set.
     """
 
-    settings: List[InstanceSetting]
+    settings: list[InstanceSetting]
     """
     Settings to define for the Database Instance.
     """
@@ -2413,7 +2413,7 @@ class SetInstanceSettingsRequest:
 
 @dataclass
 class SetInstanceSettingsResponse:
-    settings: List[InstanceSetting]
+    settings: list[InstanceSetting]
     """
     Settings configured for a Database Instance.
     """
@@ -2502,7 +2502,7 @@ class UpdateInstanceRequest:
     Name of the Database Instance.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of a Database Instance.
     """

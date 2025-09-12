@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -424,12 +424,12 @@ class Email:
     Number of attempts to send the email.
     """
 
-    last_tries: List[EmailTry]
+    last_tries: list[EmailTry]
     """
     Information about the last three attempts to send the email.
     """
 
-    flags: List[EmailFlag]
+    flags: list[EmailFlag]
     """
     Flags categorize emails. They allow you to obtain more information about recurring errors, for example.
     """
@@ -735,7 +735,7 @@ class Pool:
     Status of the pool.
     """
 
-    ips: List[str]
+    ips: list[str]
     """
     IPs of the pool.
     """
@@ -841,7 +841,7 @@ class Webhook:
     Name of the Webhook.
     """
 
-    event_types: List[WebhookEventType]
+    event_types: list[WebhookEventType]
     """
     List of event types that will trigger a Webhook Event.
     """
@@ -922,7 +922,7 @@ class BulkCreateBlocklistsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    emails: Optional[List[str]] = field(default_factory=list)
+    emails: Optional[list[str]] = field(default_factory=list)
     """
     Email blocked by the blocklist.
     """
@@ -940,7 +940,7 @@ class BulkCreateBlocklistsRequest:
 
 @dataclass
 class BulkCreateBlocklistsResponse:
-    blocklists: List[Blocklist]
+    blocklists: list[Blocklist]
     """
     List of blocklist created.
     """
@@ -1027,17 +1027,17 @@ class CreateEmailRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    to: Optional[List[CreateEmailRequestAddress]] = field(default_factory=list)
+    to: Optional[list[CreateEmailRequestAddress]] = field(default_factory=list)
     """
     An array of the primary recipient's information.
     """
 
-    cc: Optional[List[CreateEmailRequestAddress]] = field(default_factory=list)
+    cc: Optional[list[CreateEmailRequestAddress]] = field(default_factory=list)
     """
     An array of the carbon copy recipient's information.
     """
 
-    bcc: Optional[List[CreateEmailRequestAddress]] = field(default_factory=list)
+    bcc: Optional[list[CreateEmailRequestAddress]] = field(default_factory=list)
     """
     An array of the blind carbon copy recipient's information.
     """
@@ -1047,7 +1047,7 @@ class CreateEmailRequest:
     ID of the Project in which to create the email.
     """
 
-    attachments: Optional[List[CreateEmailRequestAttachment]] = field(
+    attachments: Optional[list[CreateEmailRequestAttachment]] = field(
         default_factory=list
     )
     """
@@ -1059,7 +1059,7 @@ class CreateEmailRequest:
     Maximum date to deliver the email.
     """
 
-    additional_headers: Optional[List[CreateEmailRequestHeader]] = field(
+    additional_headers: Optional[list[CreateEmailRequestHeader]] = field(
         default_factory=list
     )
     """
@@ -1069,7 +1069,7 @@ class CreateEmailRequest:
 
 @dataclass
 class CreateEmailResponse:
-    emails: List[Email]
+    emails: list[Email]
     """
     Single page of emails matching the requested criteria.
     """
@@ -1102,7 +1102,7 @@ class CreateWebhookRequest:
     ID of the project to which the Webhook belongs.
     """
 
-    event_types: Optional[List[WebhookEventType]] = field(default_factory=list)
+    event_types: Optional[list[WebhookEventType]] = field(default_factory=list)
     """
     List of event types that will trigger an event.
     """
@@ -1330,7 +1330,7 @@ class ListBlocklistsResponse:
     Number of blocklists matching the requested criteria.
     """
 
-    blocklists: List[Blocklist]
+    blocklists: list[Blocklist]
     """
     Single page of blocklists matching the requested criteria.
     """
@@ -1358,7 +1358,7 @@ class ListDomainsRequest:
     (Optional) ID of the Project in which to list the domains.
     """
 
-    status: Optional[List[DomainStatus]] = field(default_factory=list)
+    status: Optional[list[DomainStatus]] = field(default_factory=list)
     """
     (Optional) List domains under specific statuses.
     """
@@ -1381,7 +1381,7 @@ class ListDomainsResponse:
     Number of domains that match the request (without pagination).
     """
 
-    domains: List[Domain]
+    domains: list[Domain]
     """
     Single page of domains matching the requested criteria.
     """
@@ -1436,7 +1436,7 @@ class ListEmailsRequest:
     (Optional) List emails sent to this recipient's email address.
     """
 
-    statuses: Optional[List[EmailStatus]] = field(default_factory=list)
+    statuses: Optional[list[EmailStatus]] = field(default_factory=list)
     """
     (Optional) List emails with any of these statuses.
     """
@@ -1458,7 +1458,7 @@ class ListEmailsRequest:
     (Optional) List emails corresponding to specific criteria.
     """
 
-    flags: Optional[List[EmailFlag]] = field(default_factory=list)
+    flags: Optional[list[EmailFlag]] = field(default_factory=list)
     """
     (Optional) List emails containing only specific flags.
     """
@@ -1471,7 +1471,7 @@ class ListEmailsResponse:
     Number of emails matching the requested criteria.
     """
 
-    emails: List[Email]
+    emails: list[Email]
     """
     Single page of emails matching the requested criteria.
     """
@@ -1497,7 +1497,7 @@ class ListOfferSubscriptionsResponse:
     Number of offer-subscriptions matching the requested criteria.
     """
 
-    offer_subscriptions: List[OfferSubscription]
+    offer_subscriptions: list[OfferSubscription]
     """
     Single page of offer-subscriptions matching the requested criteria.
     """
@@ -1518,7 +1518,7 @@ class ListOffersResponse:
     Number of offers matching the requested criteria.
     """
 
-    offers: List[Offer]
+    offers: list[Offer]
     """
     Single page of offers matching the requested criteria.
     """
@@ -1554,7 +1554,7 @@ class ListPoolsResponse:
     Number of pools matching the requested criteria.
     """
 
-    pools: List[Pool]
+    pools: list[Pool]
     """
     Single page of pools matching the requested criteria.
     """
@@ -1594,12 +1594,12 @@ class ListWebhookEventsRequest:
     ID of the email linked to the events.
     """
 
-    event_types: Optional[List[WebhookEventType]] = field(default_factory=list)
+    event_types: Optional[list[WebhookEventType]] = field(default_factory=list)
     """
     List of event types linked to the events.
     """
 
-    statuses: Optional[List[WebhookEventStatus]] = field(default_factory=list)
+    statuses: Optional[list[WebhookEventStatus]] = field(default_factory=list)
     """
     List of event statuses.
     """
@@ -1627,7 +1627,7 @@ class ListWebhookEventsResponse:
     Number of Webhook events matching the requested criteria.
     """
 
-    webhook_events: List[WebhookEvent]
+    webhook_events: list[WebhookEvent]
     """
     Single page of Webhook events matching the requested criteria.
     """
@@ -1680,7 +1680,7 @@ class ListWebhooksResponse:
     Number of Webhooks matching the requested criteria.
     """
 
-    webhooks: List[Webhook]
+    webhooks: list[Webhook]
     """
     Single page of Webhooks matching the requested criteria.
     """
@@ -1844,7 +1844,7 @@ class UpdateWebhookRequest:
     Name of the Webhook to update.
     """
 
-    event_types: Optional[List[WebhookEventType]] = field(default_factory=list)
+    event_types: Optional[list[WebhookEventType]] = field(default_factory=list)
     """
     List of event types to update.
     """

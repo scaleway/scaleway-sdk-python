@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -62,7 +62,7 @@ class SecretV1Beta1API(API):
         protected: bool,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         description: Optional[str] = None,
         type_: Optional[SecretType] = None,
         path: Optional[str] = None,
@@ -160,7 +160,7 @@ class SecretV1Beta1API(API):
         secret_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         description: Optional[str] = None,
         path: Optional[str] = None,
         ephemeral_policy: Optional[EphemeralPolicy] = None,
@@ -252,7 +252,7 @@ class SecretV1Beta1API(API):
         order_by: Optional[ListSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
@@ -319,12 +319,12 @@ class SecretV1Beta1API(API):
         order_by: Optional[ListSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
         type_: Optional[SecretType] = None,
-    ) -> List[Secret]:
+    ) -> list[Secret]:
         """
         List secrets.
         Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
@@ -340,7 +340,7 @@ class SecretV1Beta1API(API):
         :param path: Filter by exact path (optional).
         :param ephemeral: Filter by ephemeral / not ephemeral (optional).
         :param type_: Filter by secret type (optional).
-        :return: :class:`List[Secret] <List[Secret]>`
+        :return: :class:`list[Secret] <list[Secret]>`
 
         Usage:
         ::
@@ -379,7 +379,7 @@ class SecretV1Beta1API(API):
         order_by: Optional[BrowseSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         type_: Optional[SecretType] = None,
     ) -> BrowseSecretsResponse:
         """
@@ -731,7 +731,7 @@ class SecretV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        status: Optional[List[SecretVersionStatus]] = None,
+        status: Optional[list[SecretVersionStatus]] = None,
     ) -> ListSecretVersionsResponse:
         """
         List versions of a secret using the secret's ID.
@@ -776,8 +776,8 @@ class SecretV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        status: Optional[List[SecretVersionStatus]] = None,
-    ) -> List[SecretVersion]:
+        status: Optional[list[SecretVersionStatus]] = None,
+    ) -> list[SecretVersion]:
         """
         List versions of a secret using the secret's ID.
         Retrieve the list of a given secret's versions specified by the `secret_id` and `region` parameters.
@@ -786,7 +786,7 @@ class SecretV1Beta1API(API):
         :param page:
         :param page_size:
         :param status: Filter results by status.
-        :return: :class:`List[SecretVersion] <List[SecretVersion]>`
+        :return: :class:`list[SecretVersion] <list[SecretVersion]>`
 
         Usage:
         ::
@@ -1031,7 +1031,7 @@ class SecretV1Beta1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[str]:
+    ) -> list[str]:
         """
         List tags.
         List all tags associated with secrets within a given Project.
@@ -1039,7 +1039,7 @@ class SecretV1Beta1API(API):
         :param project_id: ID of the Project to target.
         :param page:
         :param page_size:
-        :return: :class:`List[str] <List[str]>`
+        :return: :class:`list[str] <list[str]>`
 
         Usage:
         ::
@@ -1106,7 +1106,7 @@ class SecretV1Beta1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[SecretType]:
+    ) -> list[SecretType]:
         """
         List secret types.
         List all secret types created within a given Project.
@@ -1114,7 +1114,7 @@ class SecretV1Beta1API(API):
         :param project_id: ID of the Project to target.
         :param page:
         :param page_size:
-        :return: :class:`List[SecretType] <List[SecretType]>`
+        :return: :class:`list[SecretType] <list[SecretType]>`
 
         Usage:
         ::

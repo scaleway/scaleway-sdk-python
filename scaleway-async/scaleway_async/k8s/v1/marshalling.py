@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -77,7 +77,7 @@ def unmarshal_PoolUpgradePolicy(data: Any) -> PoolUpgradePolicy:
             "Unmarshalling the type 'PoolUpgradePolicy' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("max_unavailable", None)
     if field is not None:
@@ -100,7 +100,7 @@ def unmarshal_Pool(data: Any) -> Pool:
             "Unmarshalling the type 'Pool' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -261,7 +261,7 @@ def unmarshal_Version(data: Any) -> Version:
             "Unmarshalling the type 'Version' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -322,7 +322,7 @@ def unmarshal_MaintenanceWindow(data: Any) -> MaintenanceWindow:
             "Unmarshalling the type 'MaintenanceWindow' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("start_hour", None)
     if field is not None:
@@ -345,7 +345,7 @@ def unmarshal_ClusterAutoUpgrade(data: Any) -> ClusterAutoUpgrade:
             "Unmarshalling the type 'ClusterAutoUpgrade' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("enabled", None)
     if field is not None:
@@ -368,7 +368,7 @@ def unmarshal_ClusterAutoscalerConfig(data: Any) -> ClusterAutoscalerConfig:
             "Unmarshalling the type 'ClusterAutoscalerConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("scale_down_disabled", None)
     if field is not None:
@@ -439,7 +439,7 @@ def unmarshal_ClusterOpenIDConnectConfig(data: Any) -> ClusterOpenIDConnectConfi
             "Unmarshalling the type 'ClusterOpenIDConnectConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("issuer_url", None)
     if field is not None:
@@ -492,7 +492,7 @@ def unmarshal_Cluster(data: Any) -> Cluster:
             "Unmarshalling the type 'Cluster' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -685,7 +685,7 @@ def unmarshal_Node(data: Any) -> Node:
             "Unmarshalling the type 'Node' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -774,7 +774,7 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
             "Unmarshalling the type 'ACLRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -809,7 +809,7 @@ def unmarshal_AddClusterACLRulesResponse(data: Any) -> AddClusterACLRulesRespons
             "Unmarshalling the type 'AddClusterACLRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -828,7 +828,7 @@ def unmarshal_ExternalNodeCoreV1Taint(data: Any) -> ExternalNodeCoreV1Taint:
             "Unmarshalling the type 'ExternalNodeCoreV1Taint' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key", None)
     if field is not None:
@@ -857,7 +857,7 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
             "Unmarshalling the type 'ExternalNode' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -956,7 +956,7 @@ def unmarshal_ExternalNodeAuth(data: Any) -> ExternalNodeAuth:
             "Unmarshalling the type 'ExternalNodeAuth' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("node_secret_key", None)
     if field is not None:
@@ -979,7 +979,7 @@ def unmarshal_ListClusterACLRulesResponse(data: Any) -> ListClusterACLRulesRespo
             "Unmarshalling the type 'ListClusterACLRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1004,7 +1004,7 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
             "Unmarshalling the type 'ClusterType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -1077,7 +1077,7 @@ def unmarshal_ListClusterAvailableTypesResponse(
             "Unmarshalling the type 'ListClusterAvailableTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("cluster_types", None)
     if field is not None:
@@ -1104,7 +1104,7 @@ def unmarshal_ListClusterAvailableVersionsResponse(
             "Unmarshalling the type 'ListClusterAvailableVersionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("versions", None)
     if field is not None:
@@ -1123,7 +1123,7 @@ def unmarshal_ListClusterTypesResponse(data: Any) -> ListClusterTypesResponse:
             "Unmarshalling the type 'ListClusterTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1148,7 +1148,7 @@ def unmarshal_ListClustersResponse(data: Any) -> ListClustersResponse:
             "Unmarshalling the type 'ListClustersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1173,7 +1173,7 @@ def unmarshal_ListNodesResponse(data: Any) -> ListNodesResponse:
             "Unmarshalling the type 'ListNodesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1198,7 +1198,7 @@ def unmarshal_ListPoolsResponse(data: Any) -> ListPoolsResponse:
             "Unmarshalling the type 'ListPoolsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1223,7 +1223,7 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
             "Unmarshalling the type 'ListVersionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("versions", None)
     if field is not None:
@@ -1242,7 +1242,7 @@ def unmarshal_NodeMetadataCoreV1Taint(data: Any) -> NodeMetadataCoreV1Taint:
             "Unmarshalling the type 'NodeMetadataCoreV1Taint' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("key", None)
     if field is not None:
@@ -1271,7 +1271,7 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
             "Unmarshalling the type 'NodeMetadata' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1394,7 +1394,7 @@ def unmarshal_SetClusterACLRulesResponse(data: Any) -> SetClusterACLRulesRespons
             "Unmarshalling the type 'SetClusterACLRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -1410,8 +1410,8 @@ def unmarshal_SetClusterACLRulesResponse(data: Any) -> SetClusterACLRulesRespons
 def marshal_ACLRuleRequest(
     request: ACLRuleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1434,8 +1434,8 @@ def marshal_ACLRuleRequest(
 def marshal_AddClusterACLRulesRequest(
     request: AddClusterACLRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.acls is not None:
         output["acls"] = [
@@ -1448,8 +1448,8 @@ def marshal_AddClusterACLRulesRequest(
 def marshal_MaintenanceWindow(
     request: MaintenanceWindow,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.start_hour is not None:
         output["start_hour"] = request.start_hour
@@ -1463,8 +1463,8 @@ def marshal_MaintenanceWindow(
 def marshal_CreateClusterRequestPoolConfigUpgradePolicy(
     request: CreateClusterRequestPoolConfigUpgradePolicy,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.max_unavailable is not None:
         output["max_unavailable"] = request.max_unavailable
@@ -1478,8 +1478,8 @@ def marshal_CreateClusterRequestPoolConfigUpgradePolicy(
 def marshal_CreateClusterRequestAutoUpgrade(
     request: CreateClusterRequestAutoUpgrade,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.enable is not None:
         output["enable"] = request.enable
@@ -1495,8 +1495,8 @@ def marshal_CreateClusterRequestAutoUpgrade(
 def marshal_CreateClusterRequestAutoscalerConfig(
     request: CreateClusterRequestAutoscalerConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.estimator is not None:
         output["estimator"] = request.estimator
@@ -1538,8 +1538,8 @@ def marshal_CreateClusterRequestAutoscalerConfig(
 def marshal_CreateClusterRequestOpenIDConnectConfig(
     request: CreateClusterRequestOpenIDConnectConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.issuer_url is not None:
         output["issuer_url"] = request.issuer_url
@@ -1568,8 +1568,8 @@ def marshal_CreateClusterRequestOpenIDConnectConfig(
 def marshal_CreateClusterRequestPoolConfig(
     request: CreateClusterRequestPoolConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1634,8 +1634,8 @@ def marshal_CreateClusterRequestPoolConfig(
 def marshal_CreateClusterRequest(
     request: CreateClusterRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1723,8 +1723,8 @@ def marshal_CreateClusterRequest(
 def marshal_CreatePoolRequestUpgradePolicy(
     request: CreatePoolRequestUpgradePolicy,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.max_unavailable is not None:
         output["max_unavailable"] = request.max_unavailable
@@ -1738,8 +1738,8 @@ def marshal_CreatePoolRequestUpgradePolicy(
 def marshal_CreatePoolRequest(
     request: CreatePoolRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.node_type is not None:
         output["node_type"] = request.node_type
@@ -1804,8 +1804,8 @@ def marshal_CreatePoolRequest(
 def marshal_MigratePoolsToNewImagesRequest(
     request: MigratePoolsToNewImagesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.pool_ids is not None:
         output["pool_ids"] = request.pool_ids
@@ -1816,8 +1816,8 @@ def marshal_MigratePoolsToNewImagesRequest(
 def marshal_SetClusterACLRulesRequest(
     request: SetClusterACLRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.acls is not None:
         output["acls"] = [
@@ -1830,8 +1830,8 @@ def marshal_SetClusterACLRulesRequest(
 def marshal_SetClusterTypeRequest(
     request: SetClusterTypeRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -1842,8 +1842,8 @@ def marshal_SetClusterTypeRequest(
 def marshal_UpdateClusterRequestAutoUpgrade(
     request: UpdateClusterRequestAutoUpgrade,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.enable is not None:
         output["enable"] = request.enable
@@ -1859,8 +1859,8 @@ def marshal_UpdateClusterRequestAutoUpgrade(
 def marshal_UpdateClusterRequestAutoscalerConfig(
     request: UpdateClusterRequestAutoscalerConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.estimator is not None:
         output["estimator"] = request.estimator
@@ -1902,8 +1902,8 @@ def marshal_UpdateClusterRequestAutoscalerConfig(
 def marshal_UpdateClusterRequestOpenIDConnectConfig(
     request: UpdateClusterRequestOpenIDConnectConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.issuer_url is not None:
         output["issuer_url"] = request.issuer_url
@@ -1932,8 +1932,8 @@ def marshal_UpdateClusterRequestOpenIDConnectConfig(
 def marshal_UpdateClusterRequest(
     request: UpdateClusterRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1976,8 +1976,8 @@ def marshal_UpdateClusterRequest(
 def marshal_UpdatePoolRequestUpgradePolicy(
     request: UpdatePoolRequestUpgradePolicy,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.max_unavailable is not None:
         output["max_unavailable"] = request.max_unavailable
@@ -1991,8 +1991,8 @@ def marshal_UpdatePoolRequestUpgradePolicy(
 def marshal_UpdatePoolRequest(
     request: UpdatePoolRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.autoscaling is not None:
         output["autoscaling"] = request.autoscaling
@@ -2026,8 +2026,8 @@ def marshal_UpdatePoolRequest(
 def marshal_UpgradeClusterRequest(
     request: UpgradeClusterRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.version is not None:
         output["version"] = request.version
@@ -2041,8 +2041,8 @@ def marshal_UpgradeClusterRequest(
 def marshal_UpgradePoolRequest(
     request: UpgradePoolRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.version is not None:
         output["version"] = request.version

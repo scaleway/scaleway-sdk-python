@@ -1,6 +1,5 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from typing import List
 
 from .types import (
     ReferenceStatus,
@@ -8,7 +7,7 @@ from .types import (
     VolumeStatus,
 )
 
-REFERENCE_TRANSIENT_STATUSES: List[ReferenceStatus] = [
+REFERENCE_TRANSIENT_STATUSES: list[ReferenceStatus] = [
     ReferenceStatus.ATTACHING,
     ReferenceStatus.DETACHING,
     ReferenceStatus.CREATING,
@@ -16,7 +15,7 @@ REFERENCE_TRANSIENT_STATUSES: List[ReferenceStatus] = [
 """
 Lists transient statutes of the enum :class:`ReferenceStatus <ReferenceStatus>`.
 """
-SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotStatus] = [
+SNAPSHOT_TRANSIENT_STATUSES: list[SnapshotStatus] = [
     SnapshotStatus.CREATING,
     SnapshotStatus.DELETING,
     SnapshotStatus.EXPORTING,
@@ -24,7 +23,7 @@ SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotStatus] = [
 """
 Lists transient statutes of the enum :class:`SnapshotStatus <SnapshotStatus>`.
 """
-VOLUME_TRANSIENT_STATUSES: List[VolumeStatus] = [
+VOLUME_TRANSIENT_STATUSES: list[VolumeStatus] = [
     VolumeStatus.CREATING,
     VolumeStatus.DELETING,
     VolumeStatus.RESIZING,

@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -83,7 +83,7 @@ class Image:
     URL of this image's logo.
     """
 
-    categories: List[str]
+    categories: list[str]
     """
     List of categories this image belongs to.
     """
@@ -117,7 +117,7 @@ class LocalImage:
     Version you will typically use to define an image in an API call.
     """
 
-    compatible_commercial_types: List[str]
+    compatible_commercial_types: list[str]
     """
     List of all commercial types that are compatible with this local image.
     """
@@ -202,7 +202,7 @@ class ListCategoriesRequest:
 
 @dataclass
 class ListCategoriesResponse:
-    categories: List[Category]
+    categories: list[Category]
     total_count: int
 
 
@@ -241,7 +241,7 @@ class ListImagesRequest:
 
 @dataclass
 class ListImagesResponse:
-    images: List[Image]
+    images: list[Image]
     total_count: int
 
 
@@ -288,7 +288,7 @@ class ListLocalImagesRequest:
 
 @dataclass
 class ListLocalImagesResponse:
-    local_images: List[LocalImage]
+    local_images: list[LocalImage]
     total_count: int
 
 
@@ -302,5 +302,5 @@ class ListVersionsRequest:
 
 @dataclass
 class ListVersionsResponse:
-    versions: List[Version]
+    versions: list[Version]
     total_count: int

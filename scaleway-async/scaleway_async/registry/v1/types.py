@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -122,7 +122,7 @@ class Image:
     Image size in bytes, calculated from the size of image layers. One layer used in two tags of the same image is counted once but one layer used in two images is counted twice.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of docker tags of the image.
     """
@@ -411,7 +411,7 @@ class ListImagesRequest:
 
 @dataclass
 class ListImagesResponse:
-    images: List[Image]
+    images: list[Image]
     """
     Paginated list of images that match the selected filters.
     """
@@ -464,7 +464,7 @@ class ListNamespacesRequest:
 
 @dataclass
 class ListNamespacesResponse:
-    namespaces: List[Namespace]
+    namespaces: list[Namespace]
     """
     Paginated list of namespaces that match the selected filters.
     """
@@ -510,7 +510,7 @@ class ListTagsRequest:
 
 @dataclass
 class ListTagsResponse:
-    tags: List[Tag]
+    tags: list[Tag]
     """
     Paginated list of tags that match the selected filters.
     """

@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -229,15 +229,15 @@ class SchemaPartition:
 class SchemaPool:
     name: str
     type_: SchemaPoolType
-    devices: List[str]
-    options: List[str]
-    filesystem_options: List[str]
+    devices: list[str]
+    options: list[str]
+    filesystem_options: list[str]
 
 
 @dataclass
 class SchemaDisk:
     device: str
-    partitions: List[SchemaPartition]
+    partitions: list[SchemaPartition]
 
 
 @dataclass
@@ -251,19 +251,19 @@ class SchemaFilesystem:
 class SchemaRAID:
     name: str
     level: SchemaRAIDLevel
-    devices: List[str]
+    devices: list[str]
 
 
 @dataclass
 class SchemaZFS:
-    pools: List[SchemaPool]
+    pools: list[SchemaPool]
 
 
 @dataclass
 class Schema:
-    disks: List[SchemaDisk]
-    raids: List[SchemaRAID]
-    filesystems: List[SchemaFilesystem]
+    disks: list[SchemaDisk]
+    raids: list[SchemaRAID]
+    filesystems: list[SchemaFilesystem]
     zfs: Optional[SchemaZFS] = None
 
 
@@ -304,7 +304,7 @@ class CreateServerRequestInstall:
     Hostname of the server.
     """
 
-    ssh_key_ids: List[str]
+    ssh_key_ids: list[str]
     """
     SSH key IDs authorized on the server.
     """
@@ -380,7 +380,7 @@ class ServerInstall:
     Host defined during the server installation.
     """
 
-    ssh_key_ids: List[str]
+    ssh_key_ids: list[str]
     """
     SSH public key IDs defined during server installation.
     """
@@ -616,7 +616,7 @@ class PersistentMemory:
 @dataclass
 class RaidController:
     model: str
-    raid_level: List[str]
+    raid_level: list[str]
 
 
 @dataclass
@@ -646,7 +646,7 @@ class CreateServerRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to associate to the server.
     """
@@ -656,7 +656,7 @@ class CreateServerRequest:
     Object describing the configuration details of the OS installation on the server.
     """
 
-    option_ids: Optional[List[str]] = field(default_factory=list)
+    option_ids: Optional[list[str]] = field(default_factory=list)
     """
     IDs of options to enable on server.
     """
@@ -708,12 +708,12 @@ class Server:
     Offer name of the server.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Array of custom tags attached to the server.
     """
 
-    ips: List[IP]
+    ips: list[IP]
     """
     Array of IPs attached to the server.
     """
@@ -738,7 +738,7 @@ class Server:
     Status of server ping.
     """
 
-    options: List[ServerOption]
+    options: list[ServerOption]
     """
     Options enabled on the server.
     """
@@ -869,7 +869,7 @@ class Offer:
     Commercial range of the offer.
     """
 
-    disks: List[Disk]
+    disks: list[Disk]
     """
     Disks specifications of the offer.
     """
@@ -879,12 +879,12 @@ class Offer:
     Defines whether the offer is currently available.
     """
 
-    cpus: List[CPU]
+    cpus: list[CPU]
     """
     CPU specifications of the offer.
     """
 
-    memories: List[Memory]
+    memories: list[Memory]
     """
     Memory specifications of the offer.
     """
@@ -894,17 +894,17 @@ class Offer:
     Name of the quota associated to the offer.
     """
 
-    persistent_memories: List[PersistentMemory]
+    persistent_memories: list[PersistentMemory]
     """
     Persistent memory specifications of the offer.
     """
 
-    raid_controllers: List[RaidController]
+    raid_controllers: list[RaidController]
     """
     Raid controller specifications of the offer.
     """
 
-    incompatible_os_ids: List[str]
+    incompatible_os_ids: list[str]
     """
     Array of OS images IDs incompatible with the server.
     """
@@ -919,7 +919,7 @@ class Offer:
     Operation path of the service.
     """
 
-    options: List[OfferOptionOffer]
+    options: list[OfferOptionOffer]
     """
     Available options for customization of the server.
     """
@@ -934,12 +934,12 @@ class Offer:
     Defines whether the offer's bandwidth is shared or not.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Array of tags attached to the offer.
     """
 
-    gpus: List[GPU]
+    gpus: list[GPU]
     """
     GPU specifications of the offer.
     """
@@ -1280,7 +1280,7 @@ class InstallServerRequest:
     Hostname of the server.
     """
 
-    ssh_key_ids: List[str]
+    ssh_key_ids: list[str]
     """
     SSH key IDs authorized on the server.
     """
@@ -1346,7 +1346,7 @@ class ListOSResponse:
     Total count of matching OS.
     """
 
-    os: List[OS]
+    os: list[OS]
     """
     OS that match filters.
     """
@@ -1389,7 +1389,7 @@ class ListOffersResponse:
     Total count of matching offers.
     """
 
-    offers: List[Offer]
+    offers: list[Offer]
     """
     Offers that match filters.
     """
@@ -1430,7 +1430,7 @@ class ListOptionsResponse:
     Total count of matching options.
     """
 
-    options: List[Option]
+    options: list[Option]
     """
     Options that match filters.
     """
@@ -1473,7 +1473,7 @@ class ListServerEventsResponse:
     Total count of matching events.
     """
 
-    events: List[ServerEvent]
+    events: list[ServerEvent]
     """
     Server events that match filters.
     """
@@ -1481,7 +1481,7 @@ class ListServerEventsResponse:
 
 @dataclass
 class ListServerPrivateNetworksResponse:
-    server_private_networks: List[ServerPrivateNetwork]
+    server_private_networks: list[ServerPrivateNetwork]
     total_count: int
 
 
@@ -1509,12 +1509,12 @@ class ListServersRequest:
     Order of the servers.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for.
     """
 
-    status: Optional[List[str]] = field(default_factory=list)
+    status: Optional[list[str]] = field(default_factory=list)
     """
     Status to filter for.
     """
@@ -1547,7 +1547,7 @@ class ListServersResponse:
     Total count of matching servers.
     """
 
-    servers: List[Server]
+    servers: list[Server]
     """
     Array of Elastic Metal server objects matching the filters in the request.
     """
@@ -1590,7 +1590,7 @@ class ListSettingsResponse:
     Total count of matching settings.
     """
 
-    settings: List[Setting]
+    settings: list[Setting]
     """
     Settings that match filters.
     """
@@ -1697,7 +1697,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     The ID of the server.
     """
 
-    private_network_ids: List[str]
+    private_network_ids: list[str]
     """
     The IDs of the Private Networks.
     """
@@ -1725,7 +1725,7 @@ class RebootServerRequest:
     The type of boot.
     """
 
-    ssh_key_ids: Optional[List[str]] = field(default_factory=list)
+    ssh_key_ids: Optional[list[str]] = field(default_factory=list)
     """
     Additional SSH public key IDs to configure on rescue image.
     """
@@ -1733,7 +1733,7 @@ class RebootServerRequest:
 
 @dataclass
 class SetServerPrivateNetworksResponse:
-    server_private_networks: List[ServerPrivateNetwork]
+    server_private_networks: list[ServerPrivateNetwork]
 
 
 @dataclass
@@ -1771,7 +1771,7 @@ class StartServerRequest:
     The type of boot.
     """
 
-    ssh_key_ids: Optional[List[str]] = field(default_factory=list)
+    ssh_key_ids: Optional[list[str]] = field(default_factory=list)
     """
     Additional SSH public key IDs to configure on rescue image.
     """
@@ -1848,7 +1848,7 @@ class UpdateServerRequest:
     Description associated with the server, max 255 characters, not updated if null.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the server, not updated if null.
     """

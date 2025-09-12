@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
@@ -206,7 +206,7 @@ class EdgeServicesV1Beta1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         has_backend_stage_lb: Optional[bool] = None,
-    ) -> List[Pipeline]:
+    ) -> list[Pipeline]:
         """
         List pipelines.
         List all pipelines, for a Scaleway Organization or Scaleway Project. By default, the pipelines returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -217,7 +217,7 @@ class EdgeServicesV1Beta1API(API):
         :param organization_id: Organization ID to filter for. Only pipelines from this Organization will be returned.
         :param project_id: Project ID to filter for. Only pipelines from this Project will be returned.
         :param has_backend_stage_lb: Filter on backend stage. Only pipelines with a Load Balancer origin will be returned.
-        :return: :class:`List[Pipeline] <List[Pipeline]>`
+        :return: :class:`list[Pipeline] <list[Pipeline]>`
 
         Usage:
         ::
@@ -394,7 +394,7 @@ class EdgeServicesV1Beta1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[PipelineStages]:
+    ) -> list[PipelineStages]:
         """
         :param order_by:
         :param page:
@@ -402,7 +402,7 @@ class EdgeServicesV1Beta1API(API):
         :param name:
         :param organization_id:
         :param project_id:
-        :return: :class:`List[PipelineStages] <List[PipelineStages]>`
+        :return: :class:`list[PipelineStages] <list[PipelineStages]>`
 
         Usage:
         ::
@@ -533,12 +533,12 @@ class EdgeServicesV1Beta1API(API):
         pipeline_id: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[ListHeadStagesResponseHeadStage]:
+    ) -> list[ListHeadStagesResponseHeadStage]:
         """
         :param pipeline_id: ID of the pipeline to update.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of head stages to return per page.
-        :return: :class:`List[ListHeadStagesResponseHeadStage] <List[ListHeadStagesResponseHeadStage]>`
+        :return: :class:`list[ListHeadStagesResponseHeadStage] <list[ListHeadStagesResponseHeadStage]>`
 
         Usage:
         ::
@@ -657,7 +657,7 @@ class EdgeServicesV1Beta1API(API):
         page_size: Optional[int] = None,
         pipeline_id: str,
         fqdn: Optional[str] = None,
-    ) -> List[DNSStage]:
+    ) -> list[DNSStage]:
         """
         List DNS stages.
         List all DNS stages, for a Scaleway Organization or Scaleway Project. By default, the DNS stages returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -666,7 +666,7 @@ class EdgeServicesV1Beta1API(API):
         :param page_size: Number of DNS stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only DNS stages from this pipeline will be returned.
         :param fqdn: Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned.
-        :return: :class:`List[DNSStage] <List[DNSStage]>`
+        :return: :class:`list[DNSStage] <list[DNSStage]>`
 
         Usage:
         ::
@@ -692,7 +692,7 @@ class EdgeServicesV1Beta1API(API):
     def create_dns_stage(
         self,
         *,
-        fqdns: Optional[List[str]] = None,
+        fqdns: Optional[list[str]] = None,
         tls_stage_id: Optional[str] = None,
         cache_stage_id: Optional[str] = None,
         backend_stage_id: Optional[str] = None,
@@ -772,7 +772,7 @@ class EdgeServicesV1Beta1API(API):
         self,
         *,
         dns_stage_id: str,
-        fqdns: Optional[List[str]] = None,
+        fqdns: Optional[list[str]] = None,
         tls_stage_id: Optional[str] = None,
         cache_stage_id: Optional[str] = None,
         backend_stage_id: Optional[str] = None,
@@ -900,7 +900,7 @@ class EdgeServicesV1Beta1API(API):
         pipeline_id: str,
         secret_id: Optional[str] = None,
         secret_region: Optional[str] = None,
-    ) -> List[TLSStage]:
+    ) -> list[TLSStage]:
         """
         List TLS stages.
         List all TLS stages, for a Scaleway Organization or Scaleway Project. By default, the TLS stages returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -910,7 +910,7 @@ class EdgeServicesV1Beta1API(API):
         :param pipeline_id: Pipeline ID to filter for. Only TLS stages from this pipeline will be returned.
         :param secret_id: Secret ID to filter for. Only TLS stages with this Secret ID will be returned.
         :param secret_region: Secret region to filter for. Only TLS stages with a Secret in this region will be returned.
-        :return: :class:`List[TLSStage] <List[TLSStage]>`
+        :return: :class:`list[TLSStage] <list[TLSStage]>`
 
         Usage:
         ::
@@ -937,7 +937,7 @@ class EdgeServicesV1Beta1API(API):
     def create_tls_stage(
         self,
         *,
-        secrets: Optional[List[TLSSecret]] = None,
+        secrets: Optional[list[TLSSecret]] = None,
         managed_certificate: Optional[bool] = None,
         cache_stage_id: Optional[str] = None,
         backend_stage_id: Optional[str] = None,
@@ -1151,7 +1151,7 @@ class EdgeServicesV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         pipeline_id: str,
-    ) -> List[CacheStage]:
+    ) -> list[CacheStage]:
         """
         List cache stages.
         List all cache stages, for a Scaleway Organization or Scaleway Project. By default, the cache stages returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -1159,7 +1159,7 @@ class EdgeServicesV1Beta1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of cache stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only cache stages from this pipeline will be returned.
-        :return: :class:`List[CacheStage] <List[CacheStage]>`
+        :return: :class:`list[CacheStage] <list[CacheStage]>`
 
         Usage:
         ::
@@ -1402,7 +1402,7 @@ class EdgeServicesV1Beta1API(API):
         bucket_name: Optional[str] = None,
         bucket_region: Optional[str] = None,
         lb_id: Optional[str] = None,
-    ) -> List[BackendStage]:
+    ) -> list[BackendStage]:
         """
         List backend stages.
         List all backend stages, for a Scaleway Organization or Scaleway Project. By default, the backend stages returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -1413,7 +1413,7 @@ class EdgeServicesV1Beta1API(API):
         :param bucket_name: Bucket name to filter for. Only backend stages from this Bucket will be returned.
         :param bucket_region: Bucket region to filter for. Only backend stages with buckets in this region will be returned.
         :param lb_id: Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned.
-        :return: :class:`List[BackendStage] <List[BackendStage]>`
+        :return: :class:`list[BackendStage] <list[BackendStage]>`
 
         Usage:
         ::
@@ -1681,7 +1681,7 @@ class EdgeServicesV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         pipeline_id: str,
-    ) -> List[WafStage]:
+    ) -> list[WafStage]:
         """
         List WAF stages.
         List all WAF stages, for a Scaleway Organization or Scaleway Project. By default, the WAF stages returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -1689,7 +1689,7 @@ class EdgeServicesV1Beta1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of WAF stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only WAF stages from this pipeline will be returned.
-        :return: :class:`List[WafStage] <List[WafStage]>`
+        :return: :class:`list[WafStage] <list[WafStage]>`
 
         Usage:
         ::
@@ -1940,7 +1940,7 @@ class EdgeServicesV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         pipeline_id: str,
-    ) -> List[RouteStage]:
+    ) -> list[RouteStage]:
         """
         List route stages.
         List all route stages, for a given pipeline. By default, the route stages returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -1948,7 +1948,7 @@ class EdgeServicesV1Beta1API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of route stages to return per page.
         :param pipeline_id: Pipeline ID to filter for. Only route stages from this pipeline will be returned.
-        :return: :class:`List[RouteStage] <List[RouteStage]>`
+        :return: :class:`list[RouteStage] <list[RouteStage]>`
 
         Usage:
         ::
@@ -2137,7 +2137,7 @@ class EdgeServicesV1Beta1API(API):
         self,
         *,
         route_stage_id: str,
-        route_rules: Optional[List[SetRouteRulesRequestRouteRule]] = None,
+        route_rules: Optional[list[SetRouteRulesRequestRouteRule]] = None,
     ) -> SetRouteRulesResponse:
         """
         Set route rules.
@@ -2175,7 +2175,7 @@ class EdgeServicesV1Beta1API(API):
         self,
         *,
         route_stage_id: str,
-        route_rules: Optional[List[SetRouteRulesRequestRouteRule]] = None,
+        route_rules: Optional[list[SetRouteRulesRequestRouteRule]] = None,
         after_position: Optional[int] = None,
         before_position: Optional[int] = None,
     ) -> AddRouteRulesResponse:
@@ -2391,7 +2391,7 @@ class EdgeServicesV1Beta1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         pipeline_id: Optional[str] = None,
-    ) -> List[PurgeRequest]:
+    ) -> list[PurgeRequest]:
         """
         List purge requests.
         List all purge requests, for a Scaleway Organization or Scaleway Project. This enables you to retrieve a history of all previously-made purge requests. By default, the purge requests returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -2401,7 +2401,7 @@ class EdgeServicesV1Beta1API(API):
         :param organization_id: Organization ID to filter for. Only purge requests from this Project will be returned.
         :param project_id: Project ID to filter for. Only purge requests from this Project will be returned.
         :param pipeline_id: Pipeline ID to filter for. Only purge requests from this pipeline will be returned.
-        :return: :class:`List[PurgeRequest] <List[PurgeRequest]>`
+        :return: :class:`list[PurgeRequest] <list[PurgeRequest]>`
 
         Usage:
         ::
@@ -2427,7 +2427,7 @@ class EdgeServicesV1Beta1API(API):
         self,
         *,
         pipeline_id: str,
-        assets: Optional[List[str]] = None,
+        assets: Optional[list[str]] = None,
         all: Optional[bool] = None,
     ) -> PurgeRequest:
         """

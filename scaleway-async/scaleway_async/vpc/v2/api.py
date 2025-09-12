@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -75,7 +75,7 @@ class VpcV2API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         is_default: Optional[bool] = None,
@@ -134,12 +134,12 @@ class VpcV2API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         is_default: Optional[bool] = None,
         routing_enabled: Optional[bool] = None,
-    ) -> List[VPC]:
+    ) -> list[VPC]:
         """
         List VPCs.
         List existing VPCs in the specified region.
@@ -153,7 +153,7 @@ class VpcV2API(API):
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
         :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
-        :return: :class:`List[VPC] <List[VPC]>`
+        :return: :class:`list[VPC] <list[VPC]>`
 
         Usage:
         ::
@@ -186,7 +186,7 @@ class VpcV2API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> VPC:
         """
         Create a VPC.
@@ -268,7 +268,7 @@ class VpcV2API(API):
         vpc_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> VPC:
         """
         Update VPC.
@@ -349,10 +349,10 @@ class VpcV2API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        private_network_ids: Optional[List[str]] = None,
+        private_network_ids: Optional[list[str]] = None,
         vpc_id: Optional[str] = None,
         dhcp_enabled: Optional[bool] = None,
     ) -> ListPrivateNetworksResponse:
@@ -411,13 +411,13 @@ class VpcV2API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        private_network_ids: Optional[List[str]] = None,
+        private_network_ids: Optional[list[str]] = None,
         vpc_id: Optional[str] = None,
         dhcp_enabled: Optional[bool] = None,
-    ) -> List[PrivateNetwork]:
+    ) -> list[PrivateNetwork]:
         """
         List Private Networks.
         List existing Private Networks in the specified region. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
@@ -432,7 +432,7 @@ class VpcV2API(API):
         :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
         :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
-        :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
+        :return: :class:`list[PrivateNetwork] <list[PrivateNetwork]>`
 
         Usage:
         ::
@@ -466,8 +466,8 @@ class VpcV2API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
-        subnets: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
+        subnets: Optional[list[str]] = None,
         vpc_id: Optional[str] = None,
     ) -> PrivateNetwork:
         """
@@ -556,7 +556,7 @@ class VpcV2API(API):
         private_network_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         default_route_propagation_enabled: Optional[bool] = None,
     ) -> PrivateNetwork:
         """
@@ -752,7 +752,7 @@ class VpcV2API(API):
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        subnet_ids: Optional[List[str]] = None,
+        subnet_ids: Optional[list[str]] = None,
         vpc_id: Optional[str] = None,
     ) -> ListSubnetsResponse:
         """
@@ -805,9 +805,9 @@ class VpcV2API(API):
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        subnet_ids: Optional[List[str]] = None,
+        subnet_ids: Optional[list[str]] = None,
         vpc_id: Optional[str] = None,
-    ) -> List[Subnet]:
+    ) -> list[Subnet]:
         """
         List subnets.
         List any Private Network's subnets. See ListPrivateNetworks to list a specific Private Network's subnets.
@@ -819,7 +819,7 @@ class VpcV2API(API):
         :param project_id: Project ID to filter for. Only subnets belonging to this Project will be returned.
         :param subnet_ids: Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only subnets belonging to this VPC will be returned.
-        :return: :class:`List[Subnet] <List[Subnet]>`
+        :return: :class:`list[Subnet] <list[Subnet]>`
 
         Usage:
         ::
@@ -848,7 +848,7 @@ class VpcV2API(API):
         *,
         private_network_id: str,
         region: Optional[ScwRegion] = None,
-        subnets: Optional[List[str]] = None,
+        subnets: Optional[list[str]] = None,
     ) -> AddSubnetsResponse:
         """
         Add subnets to a Private Network.
@@ -894,7 +894,7 @@ class VpcV2API(API):
         *,
         private_network_id: str,
         region: Optional[ScwRegion] = None,
-        subnets: Optional[List[str]] = None,
+        subnets: Optional[list[str]] = None,
     ) -> DeleteSubnetsResponse:
         """
         Delete subnets from a Private Network.
@@ -942,7 +942,7 @@ class VpcV2API(API):
         vpc_id: str,
         destination: str,
         region: Optional[ScwRegion] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         nexthop_resource_id: Optional[str] = None,
         nexthop_private_network_id: Optional[str] = None,
     ) -> Route:
@@ -1032,7 +1032,7 @@ class VpcV2API(API):
         route_id: str,
         region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         destination: Optional[str] = None,
         nexthop_resource_id: Optional[str] = None,
         nexthop_private_network_id: Optional[str] = None,
@@ -1158,7 +1158,7 @@ class VpcV2API(API):
         self,
         *,
         vpc_id: str,
-        rules: List[AclRule],
+        rules: list[AclRule],
         is_ipv6: bool,
         default_policy: Action,
         region: Optional[ScwRegion] = None,

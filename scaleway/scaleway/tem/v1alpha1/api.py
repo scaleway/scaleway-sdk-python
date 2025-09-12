@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -107,13 +107,13 @@ class TemV1Alpha1API(API):
         text: str,
         html: str,
         region: Optional[ScwRegion] = None,
-        to: Optional[List[CreateEmailRequestAddress]] = None,
-        cc: Optional[List[CreateEmailRequestAddress]] = None,
-        bcc: Optional[List[CreateEmailRequestAddress]] = None,
+        to: Optional[list[CreateEmailRequestAddress]] = None,
+        cc: Optional[list[CreateEmailRequestAddress]] = None,
+        bcc: Optional[list[CreateEmailRequestAddress]] = None,
         project_id: Optional[str] = None,
-        attachments: Optional[List[CreateEmailRequestAttachment]] = None,
+        attachments: Optional[list[CreateEmailRequestAttachment]] = None,
         send_before: Optional[datetime] = None,
-        additional_headers: Optional[List[CreateEmailRequestHeader]] = None,
+        additional_headers: Optional[list[CreateEmailRequestHeader]] = None,
     ) -> CreateEmailResponse:
         """
         Send an email.
@@ -257,11 +257,11 @@ class TemV1Alpha1API(API):
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
         mail_rcpt: Optional[str] = None,
-        statuses: Optional[List[EmailStatus]] = None,
+        statuses: Optional[list[EmailStatus]] = None,
         subject: Optional[str] = None,
         search: Optional[str] = None,
         order_by: Optional[ListEmailsRequestOrderBy] = None,
-        flags: Optional[List[EmailFlag]] = None,
+        flags: Optional[list[EmailFlag]] = None,
     ) -> ListEmailsResponse:
         """
         List emails.
@@ -333,12 +333,12 @@ class TemV1Alpha1API(API):
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
         mail_rcpt: Optional[str] = None,
-        statuses: Optional[List[EmailStatus]] = None,
+        statuses: Optional[list[EmailStatus]] = None,
         subject: Optional[str] = None,
         search: Optional[str] = None,
         order_by: Optional[ListEmailsRequestOrderBy] = None,
-        flags: Optional[List[EmailFlag]] = None,
-    ) -> List[Email]:
+        flags: Optional[list[EmailFlag]] = None,
+    ) -> list[Email]:
         """
         List emails.
         Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
@@ -358,7 +358,7 @@ class TemV1Alpha1API(API):
         :param search: (Optional) List emails by searching to all fields.
         :param order_by: (Optional) List emails corresponding to specific criteria.
         :param flags: (Optional) List emails containing only specific flags.
-        :return: :class:`List[Email] <List[Email]>`
+        :return: :class:`list[Email] <list[Email]>`
 
         Usage:
         ::
@@ -599,7 +599,7 @@ class TemV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
-        status: Optional[List[DomainStatus]] = None,
+        status: Optional[list[DomainStatus]] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
     ) -> ListDomainsResponse:
@@ -649,10 +649,10 @@ class TemV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
-        status: Optional[List[DomainStatus]] = None,
+        status: Optional[list[DomainStatus]] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-    ) -> List[Domain]:
+    ) -> list[Domain]:
         """
         List domains.
         Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
@@ -663,7 +663,7 @@ class TemV1Alpha1API(API):
         :param status: (Optional) List domains under specific statuses.
         :param organization_id: (Optional) ID of the Organization in which to list the domains.
         :param name: (Optional) Names of the domains to list.
-        :return: :class:`List[Domain] <List[Domain]>`
+        :return: :class:`list[Domain] <list[Domain]>`
 
         Usage:
         ::
@@ -842,7 +842,7 @@ class TemV1Alpha1API(API):
         sns_arn: str,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        event_types: Optional[List[WebhookEventType]] = None,
+        event_types: Optional[list[WebhookEventType]] = None,
     ) -> Webhook:
         """
         Create a Webhook.
@@ -948,7 +948,7 @@ class TemV1Alpha1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         domain_id: Optional[str] = None,
-    ) -> List[Webhook]:
+    ) -> list[Webhook]:
         """
         List Webhooks.
         Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter.
@@ -959,7 +959,7 @@ class TemV1Alpha1API(API):
         :param project_id: (Optional) ID of the Project for which to list the Webhooks.
         :param organization_id: (Optional) ID of the Organization for which to list the Webhooks.
         :param domain_id: (Optional) ID of the Domain for which to list the Webhooks.
-        :return: :class:`List[Webhook] <List[Webhook]>`
+        :return: :class:`list[Webhook] <list[Webhook]>`
 
         Usage:
         ::
@@ -1022,7 +1022,7 @@ class TemV1Alpha1API(API):
         webhook_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        event_types: Optional[List[WebhookEventType]] = None,
+        event_types: Optional[list[WebhookEventType]] = None,
         sns_arn: Optional[str] = None,
     ) -> Webhook:
         """
@@ -1107,8 +1107,8 @@ class TemV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         email_id: Optional[str] = None,
-        event_types: Optional[List[WebhookEventType]] = None,
-        statuses: Optional[List[WebhookEventStatus]] = None,
+        event_types: Optional[list[WebhookEventType]] = None,
+        statuses: Optional[list[WebhookEventStatus]] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         domain_id: Optional[str] = None,
@@ -1171,12 +1171,12 @@ class TemV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         email_id: Optional[str] = None,
-        event_types: Optional[List[WebhookEventType]] = None,
-        statuses: Optional[List[WebhookEventStatus]] = None,
+        event_types: Optional[list[WebhookEventType]] = None,
+        statuses: Optional[list[WebhookEventStatus]] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         domain_id: Optional[str] = None,
-    ) -> List[WebhookEvent]:
+    ) -> list[WebhookEvent]:
         """
         List Webhook triggered events.
         Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`.
@@ -1191,7 +1191,7 @@ class TemV1Alpha1API(API):
         :param project_id: ID of the webhook Project.
         :param organization_id: ID of the webhook Organization.
         :param domain_id: ID of the domain to watch for triggering events.
-        :return: :class:`List[WebhookEvent] <List[WebhookEvent]>`
+        :return: :class:`list[WebhookEvent] <list[WebhookEvent]>`
 
         Usage:
         ::
@@ -1365,7 +1365,7 @@ class TemV1Alpha1API(API):
         email: Optional[str] = None,
         type_: Optional[BlocklistType] = None,
         custom: Optional[bool] = None,
-    ) -> List[Blocklist]:
+    ) -> list[Blocklist]:
         """
         List blocklists.
         Retrieve the list of blocklists.
@@ -1377,7 +1377,7 @@ class TemV1Alpha1API(API):
         :param email: (Optional) Filter by an email address.
         :param type_: (Optional) Filter by a blocklist type.
         :param custom: (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
-        :return: :class:`List[Blocklist] <List[Blocklist]>`
+        :return: :class:`list[Blocklist] <list[Blocklist]>`
 
         Usage:
         ::
@@ -1408,7 +1408,7 @@ class TemV1Alpha1API(API):
         *,
         domain_id: str,
         region: Optional[ScwRegion] = None,
-        emails: Optional[List[str]] = None,
+        emails: Optional[list[str]] = None,
         type_: Optional[BlocklistType] = None,
         reason: Optional[str] = None,
     ) -> BulkCreateBlocklistsResponse:
@@ -1634,7 +1634,7 @@ class TemV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
-    ) -> List[Pool]:
+    ) -> list[Pool]:
         """
         Get information about a sending pool.
         Retrieve information about a sending pool, including its creation status and configuration parameters.
@@ -1642,7 +1642,7 @@ class TemV1Alpha1API(API):
         :param page: Requested page number. Value must be greater or equal to 1.
         :param page_size: Requested page size. Value must be between 1 and 1000.
         :param project_id: ID of the Project.
-        :return: :class:`List[Pool] <List[Pool]>`
+        :return: :class:`list[Pool] <list[Pool]>`
 
         Usage:
         ::

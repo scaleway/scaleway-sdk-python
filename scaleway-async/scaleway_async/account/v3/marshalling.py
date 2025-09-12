@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -43,7 +43,7 @@ def unmarshal_Contract(data: Any) -> Contract:
             "Unmarshalling the type 'Contract' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -90,7 +90,7 @@ def unmarshal_ContractSignature(data: Any) -> ContractSignature:
             "Unmarshalling the type 'ContractSignature' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -137,7 +137,7 @@ def unmarshal_QualificationAiMachine(data: Any) -> QualificationAiMachine:
             "Unmarshalling the type 'QualificationAiMachine' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -154,7 +154,7 @@ def unmarshal_QualificationArchiveData(data: Any) -> QualificationArchiveData:
             "Unmarshalling the type 'QualificationArchiveData' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -171,7 +171,7 @@ def unmarshal_QualificationContainer(data: Any) -> QualificationContainer:
             "Unmarshalling the type 'QualificationContainer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -188,7 +188,7 @@ def unmarshal_QualificationDeploySoftware(data: Any) -> QualificationDeploySoftw
             "Unmarshalling the type 'QualificationDeploySoftware' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -205,7 +205,7 @@ def unmarshal_QualificationHostApplication(data: Any) -> QualificationHostApplic
             "Unmarshalling the type 'QualificationHostApplication' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -222,7 +222,7 @@ def unmarshal_QualificationHostWebsite(data: Any) -> QualificationHostWebsite:
             "Unmarshalling the type 'QualificationHostWebsite' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -239,7 +239,7 @@ def unmarshal_QualificationOtherUseCase(data: Any) -> QualificationOtherUseCase:
             "Unmarshalling the type 'QualificationOtherUseCase' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -258,7 +258,7 @@ def unmarshal_QualificationSetScalewayEnvironment(
             "Unmarshalling the type 'QualificationSetScalewayEnvironment' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -275,7 +275,7 @@ def unmarshal_QualificationShareData(data: Any) -> QualificationShareData:
             "Unmarshalling the type 'QualificationShareData' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sub_use_case", None)
     if field is not None:
@@ -292,7 +292,7 @@ def unmarshal_Qualification(data: Any) -> Qualification:
             "Unmarshalling the type 'Qualification' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("architecture_type", None)
     if field is not None:
@@ -367,7 +367,7 @@ def unmarshal_Project(data: Any) -> Project:
             "Unmarshalling the type 'Project' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -422,7 +422,7 @@ def unmarshal_CheckContractSignatureResponse(
             "Unmarshalling the type 'CheckContractSignatureResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("created", None)
     if field is not None:
@@ -447,7 +447,7 @@ def unmarshal_ListContractSignaturesResponse(
             "Unmarshalling the type 'ListContractSignaturesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -474,7 +474,7 @@ def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
             "Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -499,7 +499,7 @@ def unmarshal_ProjectQualification(data: Any) -> ProjectQualification:
             "Unmarshalling the type 'ProjectQualification' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("project_id", None)
     if field is not None:
@@ -519,8 +519,8 @@ def unmarshal_ProjectQualification(data: Any) -> ProjectQualification:
 def marshal_ContractApiCheckContractSignatureRequest(
     request: ContractApiCheckContractSignatureRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.contract_name is not None:
         output["contract_name"] = request.contract_name
@@ -539,8 +539,8 @@ def marshal_ContractApiCheckContractSignatureRequest(
 def marshal_ContractApiCreateContractSignatureRequest(
     request: ContractApiCreateContractSignatureRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.contract_name is not None:
         output["contract_name"] = request.contract_name
@@ -562,8 +562,8 @@ def marshal_ContractApiCreateContractSignatureRequest(
 def marshal_ProjectApiCreateProjectRequest(
     request: ProjectApiCreateProjectRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -582,8 +582,8 @@ def marshal_ProjectApiCreateProjectRequest(
 def marshal_QualificationAiMachine(
     request: QualificationAiMachine,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -594,8 +594,8 @@ def marshal_QualificationAiMachine(
 def marshal_QualificationArchiveData(
     request: QualificationArchiveData,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -606,8 +606,8 @@ def marshal_QualificationArchiveData(
 def marshal_QualificationContainer(
     request: QualificationContainer,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -618,8 +618,8 @@ def marshal_QualificationContainer(
 def marshal_QualificationDeploySoftware(
     request: QualificationDeploySoftware,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -630,8 +630,8 @@ def marshal_QualificationDeploySoftware(
 def marshal_QualificationHostApplication(
     request: QualificationHostApplication,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -642,8 +642,8 @@ def marshal_QualificationHostApplication(
 def marshal_QualificationHostWebsite(
     request: QualificationHostWebsite,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -654,8 +654,8 @@ def marshal_QualificationHostWebsite(
 def marshal_QualificationOtherUseCase(
     request: QualificationOtherUseCase,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -666,8 +666,8 @@ def marshal_QualificationOtherUseCase(
 def marshal_QualificationSetScalewayEnvironment(
     request: QualificationSetScalewayEnvironment,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -678,8 +678,8 @@ def marshal_QualificationSetScalewayEnvironment(
 def marshal_QualificationShareData(
     request: QualificationShareData,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.sub_use_case is not None:
         output["sub_use_case"] = request.sub_use_case
@@ -690,8 +690,8 @@ def marshal_QualificationShareData(
 def marshal_Qualification(
     request: Qualification,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -753,8 +753,8 @@ def marshal_Qualification(
 def marshal_ProjectApiSetProjectQualificationRequest(
     request: ProjectApiSetProjectQualificationRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.qualification is not None:
         output["qualification"] = marshal_Qualification(request.qualification, defaults)
@@ -765,8 +765,8 @@ def marshal_ProjectApiSetProjectQualificationRequest(
 def marshal_ProjectApiUpdateProjectRequest(
     request: ProjectApiUpdateProjectRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

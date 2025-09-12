@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -44,7 +44,7 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
             "Unmarshalling the type 'GatewayNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -121,7 +121,7 @@ def unmarshal_IP(data: Any) -> IP:
             "Unmarshalling the type 'IP' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -192,7 +192,7 @@ def unmarshal_Gateway(data: Any) -> Gateway:
             "Unmarshalling the type 'Gateway' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -325,7 +325,7 @@ def unmarshal_PatRule(data: Any) -> PatRule:
             "Unmarshalling the type 'PatRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -390,7 +390,7 @@ def unmarshal_AddBastionAllowedIPsResponse(data: Any) -> AddBastionAllowedIPsRes
             "Unmarshalling the type 'AddBastionAllowedIPsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip_ranges", None)
     if field is not None:
@@ -407,7 +407,7 @@ def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksRespo
             "Unmarshalling the type 'ListGatewayNetworksResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("gateway_networks", None)
     if field is not None:
@@ -432,7 +432,7 @@ def unmarshal_GatewayType(data: Any) -> GatewayType:
             "Unmarshalling the type 'GatewayType' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -461,7 +461,7 @@ def unmarshal_ListGatewayTypesResponse(data: Any) -> ListGatewayTypesResponse:
             "Unmarshalling the type 'ListGatewayTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("types", None)
     if field is not None:
@@ -480,7 +480,7 @@ def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
             "Unmarshalling the type 'ListGatewaysResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("gateways", None)
     if field is not None:
@@ -505,7 +505,7 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
             "Unmarshalling the type 'ListIPsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ips", None)
     if field is not None:
@@ -528,7 +528,7 @@ def unmarshal_ListPatRulesResponse(data: Any) -> ListPatRulesResponse:
             "Unmarshalling the type 'ListPatRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("pat_rules", None)
     if field is not None:
@@ -553,7 +553,7 @@ def unmarshal_SetBastionAllowedIPsResponse(data: Any) -> SetBastionAllowedIPsRes
             "Unmarshalling the type 'SetBastionAllowedIPsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ip_ranges", None)
     if field is not None:
@@ -570,7 +570,7 @@ def unmarshal_SetPatRulesResponse(data: Any) -> SetPatRulesResponse:
             "Unmarshalling the type 'SetPatRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("pat_rules", None)
     if field is not None:
@@ -586,8 +586,8 @@ def unmarshal_SetPatRulesResponse(data: Any) -> SetPatRulesResponse:
 def marshal_AddBastionAllowedIPsRequest(
     request: AddBastionAllowedIPsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip_range is not None:
         output["ip_range"] = request.ip_range
@@ -598,8 +598,8 @@ def marshal_AddBastionAllowedIPsRequest(
 def marshal_CreateGatewayNetworkRequest(
     request: CreateGatewayNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.gateway_id is not None:
         output["gateway_id"] = request.gateway_id
@@ -622,8 +622,8 @@ def marshal_CreateGatewayNetworkRequest(
 def marshal_CreateGatewayRequest(
     request: CreateGatewayRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -657,8 +657,8 @@ def marshal_CreateGatewayRequest(
 def marshal_CreateIPRequest(
     request: CreateIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -674,8 +674,8 @@ def marshal_CreateIPRequest(
 def marshal_CreatePatRuleRequest(
     request: CreatePatRuleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.gateway_id is not None:
         output["gateway_id"] = request.gateway_id
@@ -698,8 +698,8 @@ def marshal_CreatePatRuleRequest(
 def marshal_SetBastionAllowedIPsRequest(
     request: SetBastionAllowedIPsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip_ranges is not None:
         output["ip_ranges"] = request.ip_ranges
@@ -710,8 +710,8 @@ def marshal_SetBastionAllowedIPsRequest(
 def marshal_SetPatRulesRequestRule(
     request: SetPatRulesRequestRule,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.public_port is not None:
         output["public_port"] = request.public_port
@@ -731,8 +731,8 @@ def marshal_SetPatRulesRequestRule(
 def marshal_SetPatRulesRequest(
     request: SetPatRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.gateway_id is not None:
         output["gateway_id"] = request.gateway_id
@@ -748,8 +748,8 @@ def marshal_SetPatRulesRequest(
 def marshal_UpdateGatewayNetworkRequest(
     request: UpdateGatewayNetworkRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.enable_masquerade is not None:
         output["enable_masquerade"] = request.enable_masquerade
@@ -766,8 +766,8 @@ def marshal_UpdateGatewayNetworkRequest(
 def marshal_UpdateGatewayRequest(
     request: UpdateGatewayRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -790,8 +790,8 @@ def marshal_UpdateGatewayRequest(
 def marshal_UpdateIPRequest(
     request: UpdateIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -808,8 +808,8 @@ def marshal_UpdateIPRequest(
 def marshal_UpdatePatRuleRequest(
     request: UpdatePatRuleRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.public_port is not None:
         output["public_port"] = request.public_port
@@ -829,8 +829,8 @@ def marshal_UpdatePatRuleRequest(
 def marshal_UpgradeGatewayRequest(
     request: UpgradeGatewayRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_

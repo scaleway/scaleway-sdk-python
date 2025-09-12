@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.bridge import (
@@ -42,7 +42,7 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPUPhysical(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardwareCPUPhysical' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sockets", None)
     if field is not None:
@@ -85,7 +85,7 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPUVirtual(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardwareCPUVirtual' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("count", None)
     if field is not None:
@@ -104,7 +104,7 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPU(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardwareCPU' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -157,7 +157,7 @@ def unmarshal_PublicCatalogProductPropertiesHardwareGPU(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardwareGPU' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -188,7 +188,7 @@ def unmarshal_PublicCatalogProductPropertiesHardwareNetwork(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardwareNetwork' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -225,7 +225,7 @@ def unmarshal_PublicCatalogProductPropertiesHardwareRAM(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardwareRAM' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -256,7 +256,7 @@ def unmarshal_PublicCatalogProductPropertiesHardwareStorage(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardwareStorage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -281,7 +281,7 @@ def unmarshal_PublicCatalogProductPropertiesAppleSilicon(
             "Unmarshalling the type 'PublicCatalogProductPropertiesAppleSilicon' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("range", None)
     if field is not None:
@@ -306,7 +306,7 @@ def unmarshal_PublicCatalogProductPropertiesBlockStorage(
             "Unmarshalling the type 'PublicCatalogProductPropertiesBlockStorage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("min_volume_size", None)
     if field is not None:
@@ -331,7 +331,7 @@ def unmarshal_PublicCatalogProductPropertiesDedibox(
             "Unmarshalling the type 'PublicCatalogProductPropertiesDedibox' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("range", None)
     if field is not None:
@@ -356,7 +356,7 @@ def unmarshal_PublicCatalogProductPropertiesElasticMetal(
             "Unmarshalling the type 'PublicCatalogProductPropertiesElasticMetal' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("range", None)
     if field is not None:
@@ -381,7 +381,7 @@ def unmarshal_PublicCatalogProductPropertiesHardware(
             "Unmarshalling the type 'PublicCatalogProductPropertiesHardware' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("cpu", None)
     if field is not None:
@@ -424,7 +424,7 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
             "Unmarshalling the type 'PublicCatalogProductPropertiesInstance' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("range", None)
     if field is not None:
@@ -455,7 +455,7 @@ def unmarshal_PublicCatalogProductPropertiesObjectStorage(
             "Unmarshalling the type 'PublicCatalogProductPropertiesObjectStorage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return PublicCatalogProductPropertiesObjectStorage(**args)
 
@@ -468,7 +468,7 @@ def unmarshal_PublicCatalogProductEnvironmentalImpactEstimation(
             "Unmarshalling the type 'PublicCatalogProductEnvironmentalImpactEstimation' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("kg_co2_equivalent", None)
     if field is not None:
@@ -491,7 +491,7 @@ def unmarshal_PublicCatalogProductLocality(data: Any) -> PublicCatalogProductLoc
             "Unmarshalling the type 'PublicCatalogProductLocality' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("global", None)
     if field is not None:
@@ -526,7 +526,7 @@ def unmarshal_PublicCatalogProductPrice(data: Any) -> PublicCatalogProductPrice:
             "Unmarshalling the type 'PublicCatalogProductPrice' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("retail_price", None)
     if field is not None:
@@ -545,7 +545,7 @@ def unmarshal_PublicCatalogProductProperties(
             "Unmarshalling the type 'PublicCatalogProductProperties' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("hardware", None)
     if field is not None:
@@ -608,7 +608,7 @@ def unmarshal_PublicCatalogProductUnitOfMeasure(
             "Unmarshalling the type 'PublicCatalogProductUnitOfMeasure' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("unit", None)
     if field is not None:
@@ -631,7 +631,7 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
             "Unmarshalling the type 'PublicCatalogProduct' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("sku", None)
     if field is not None:
@@ -726,7 +726,7 @@ def unmarshal_ListPublicCatalogProductsResponse(
             "Unmarshalling the type 'ListPublicCatalogProductsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("products", None)
     if field is not None:
