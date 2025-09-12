@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -112,7 +112,7 @@ class RegistryV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-    ) -> List[Namespace]:
+    ) -> list[Namespace]:
         """
         List namespaces.
         List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `instance_id` and `project_id` parameters.
@@ -123,7 +123,7 @@ class RegistryV1API(API):
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
         :param name: Filter by the namespace name (exact match).
-        :return: :class:`List[Namespace] <List[Namespace]>`
+        :return: :class:`list[Namespace] <list[Namespace]>`
 
         Usage:
         ::
@@ -417,7 +417,7 @@ class RegistryV1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Image]:
+    ) -> list[Image]:
         """
         List images.
         List all images in a specified region. By default, the images listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `namespace_id` and `project_id` parameters.
@@ -429,7 +429,7 @@ class RegistryV1API(API):
         :param name: Filter by the image name (exact match).
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
-        :return: :class:`List[Image] <List[Image]>`
+        :return: :class:`list[Image] <list[Image]>`
 
         Usage:
         ::
@@ -659,7 +659,7 @@ class RegistryV1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListTagsRequestOrderBy] = None,
         name: Optional[str] = None,
-    ) -> List[Tag]:
+    ) -> list[Tag]:
         """
         List tags.
         List all tags for a given image, specified by region. By default, the tags listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `name`.
@@ -669,7 +669,7 @@ class RegistryV1API(API):
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
         :param order_by: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
         :param name: Filter by the tag name (exact match).
-        :return: :class:`List[Tag] <List[Tag]>`
+        :return: :class:`list[Tag] <list[Tag]>`
 
         Usage:
         ::

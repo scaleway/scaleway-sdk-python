@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -127,12 +127,12 @@ class PrivateNetwork:
     Region in which the Private Network is available.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags of the Private Network.
     """
 
-    subnets: List[Subnet]
+    subnets: list[Subnet]
     """
     Private Network subnets.
     """
@@ -175,7 +175,7 @@ class Route:
     Route description.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags of the Route.
     """
@@ -296,7 +296,7 @@ class VPC:
     Region of the VPC.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags for the VPC.
     """
@@ -344,7 +344,7 @@ class AddSubnetsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    subnets: Optional[List[str]] = field(default_factory=list)
+    subnets: Optional[list[str]] = field(default_factory=list)
     """
     Private Network subnets CIDR.
     """
@@ -352,7 +352,7 @@ class AddSubnetsRequest:
 
 @dataclass
 class AddSubnetsResponse:
-    subnets: List[str]
+    subnets: list[str]
 
 
 @dataclass
@@ -377,12 +377,12 @@ class CreatePrivateNetworkRequest:
     Scaleway Project in which to create the Private Network.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the Private Network.
     """
 
-    subnets: Optional[List[str]] = field(default_factory=list)
+    subnets: Optional[list[str]] = field(default_factory=list)
     """
     Private Network subnets CIDR.
     """
@@ -415,7 +415,7 @@ class CreateRouteRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Route.
     """
@@ -453,7 +453,7 @@ class CreateVPCRequest:
     Scaleway Project in which to create the VPC.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the VPC.
     """
@@ -497,7 +497,7 @@ class DeleteSubnetsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    subnets: Optional[List[str]] = field(default_factory=list)
+    subnets: Optional[list[str]] = field(default_factory=list)
     """
     Private Network subnets CIDR.
     """
@@ -505,7 +505,7 @@ class DeleteSubnetsRequest:
 
 @dataclass
 class DeleteSubnetsResponse:
-    subnets: List[str]
+    subnets: list[str]
 
 
 @dataclass
@@ -580,7 +580,7 @@ class GetAclRequest:
 
 @dataclass
 class GetAclResponse:
-    rules: List[AclRule]
+    rules: list[AclRule]
     default_policy: Action
 
 
@@ -652,7 +652,7 @@ class ListPrivateNetworksRequest:
     Name to filter for. Only Private Networks with names containing this string will be returned.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for. Only Private Networks with one or more matching tags will be returned.
     """
@@ -667,7 +667,7 @@ class ListPrivateNetworksRequest:
     Project ID to filter for. Only Private Networks belonging to this Project will be returned.
     """
 
-    private_network_ids: Optional[List[str]] = field(default_factory=list)
+    private_network_ids: Optional[list[str]] = field(default_factory=list)
     """
     Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
     """
@@ -685,7 +685,7 @@ class ListPrivateNetworksRequest:
 
 @dataclass
 class ListPrivateNetworksResponse:
-    private_networks: List[PrivateNetwork]
+    private_networks: list[PrivateNetwork]
     total_count: int
 
 
@@ -723,7 +723,7 @@ class ListSubnetsRequest:
     Project ID to filter for. Only subnets belonging to this Project will be returned.
     """
 
-    subnet_ids: Optional[List[str]] = field(default_factory=list)
+    subnet_ids: Optional[list[str]] = field(default_factory=list)
     """
     Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
     """
@@ -736,7 +736,7 @@ class ListSubnetsRequest:
 
 @dataclass
 class ListSubnetsResponse:
-    subnets: List[Subnet]
+    subnets: list[Subnet]
     total_count: int
 
 
@@ -767,7 +767,7 @@ class ListVPCsRequest:
     Name to filter for. Only VPCs with names containing this string will be returned.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for. Only VPCs with one or more matching tags will be returned.
     """
@@ -795,7 +795,7 @@ class ListVPCsRequest:
 
 @dataclass
 class ListVPCsResponse:
-    vpcs: List[VPC]
+    vpcs: list[VPC]
     total_count: int
 
 
@@ -806,7 +806,7 @@ class SetAclRequest:
     ID of the Network ACL's VPC.
     """
 
-    rules: List[AclRule]
+    rules: list[AclRule]
     """
     List of Network ACL rules.
     """
@@ -829,7 +829,7 @@ class SetAclRequest:
 
 @dataclass
 class SetAclResponse:
-    rules: List[AclRule]
+    rules: list[AclRule]
     default_policy: Action
 
 
@@ -850,7 +850,7 @@ class UpdatePrivateNetworkRequest:
     Name for the Private Network.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the Private Network.
     """
@@ -878,7 +878,7 @@ class UpdateRouteRequest:
     Route description.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Route.
     """
@@ -916,7 +916,7 @@ class UpdateVPCRequest:
     Name for the VPC.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the VPC.
     """

@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -312,12 +312,12 @@ class RuleSpecs:
     Condition expression to evaluate.
     """
 
-    permission_set_names: Optional[List[str]] = field(default_factory=list)
+    permission_set_names: Optional[list[str]] = field(default_factory=list)
     """
     Names of permission sets bound to the rule.
     """
 
-    project_ids: Optional[List[str]] = field(default_factory=list)
+    project_ids: Optional[list[str]] = field(default_factory=list)
 
     organization_id: Optional[str] = None
 
@@ -487,7 +487,7 @@ class Application:
     Number of API keys attributed to the application.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the user.
     """
@@ -543,17 +543,17 @@ class Group:
     Description of the group.
     """
 
-    user_ids: List[str]
+    user_ids: list[str]
     """
     IDs of users attached to this group.
     """
 
-    application_ids: List[str]
+    application_ids: list[str]
     """
     IDs of applications attached to this group.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated to the group.
     """
@@ -654,7 +654,7 @@ class PermissionSet:
     Description of the permission set.
     """
 
-    categories: Optional[List[str]] = field(default_factory=list)
+    categories: Optional[list[str]] = field(default_factory=list)
     """
     Categories of the permission set.
     """
@@ -712,7 +712,7 @@ class Policy:
     Number of permission sets of the policy.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the policy.
     """
@@ -763,7 +763,7 @@ class Quotum:
     Whether this quotum is applied on at the zone level, region level, or globally.
     """
 
-    limits: List[QuotumLimit]
+    limits: list[QuotumLimit]
     """
     Limits per locality.
     """
@@ -790,12 +790,12 @@ class Rule:
     Condition expression to evaluate.
     """
 
-    permission_set_names: Optional[List[str]] = field(default_factory=list)
+    permission_set_names: Optional[list[str]] = field(default_factory=list)
     """
     Names of permission sets bound to the rule.
     """
 
-    project_ids: Optional[List[str]] = field(default_factory=list)
+    project_ids: Optional[list[str]] = field(default_factory=list)
 
     organization_id: Optional[str] = None
 
@@ -940,7 +940,7 @@ class User:
     ID of the account root user associated with the user.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the user.
     """
@@ -1001,12 +1001,12 @@ class AddGroupMembersRequest:
     ID of the group.
     """
 
-    user_ids: Optional[List[str]] = field(default_factory=list)
+    user_ids: Optional[list[str]] = field(default_factory=list)
     """
     IDs of the users to add.
     """
 
-    application_ids: Optional[List[str]] = field(default_factory=list)
+    application_ids: Optional[list[str]] = field(default_factory=list)
     """
     IDs of the applications to add.
     """
@@ -1074,7 +1074,7 @@ class CreateApplicationRequest:
     ID of the Organization.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the application (maximum of 10 tags).
     """
@@ -1097,7 +1097,7 @@ class CreateGroupRequest:
     Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the group (maximum of 10 tags).
     """
@@ -1133,12 +1133,12 @@ class CreatePolicyRequest:
     ID of the Organization.
     """
 
-    rules: Optional[List[RuleSpecs]] = field(default_factory=list)
+    rules: Optional[list[RuleSpecs]] = field(default_factory=list)
     """
     Rules of the policy to create.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the policy (maximum of 10 tags).
     """
@@ -1185,7 +1185,7 @@ class CreateUserRequest:
     ID of the Organization.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the user.
     """
@@ -1401,7 +1401,7 @@ class GetUserConnectionsRequest:
 
 @dataclass
 class GetUserConnectionsResponse:
-    connections: List[Connection]
+    connections: list[Connection]
     """
     List of connections.
     """
@@ -1498,7 +1498,7 @@ class ListAPIKeysRequest:
     Filter by type of bearer.
     """
 
-    access_keys: Optional[List[str]] = field(default_factory=list)
+    access_keys: Optional[list[str]] = field(default_factory=list)
     """
     Filter by a list of access keys.
     """
@@ -1510,7 +1510,7 @@ class ListAPIKeysRequest:
 
 @dataclass
 class ListAPIKeysResponse:
-    api_keys: List[APIKey]
+    api_keys: list[APIKey]
     """
     List of API keys.
     """
@@ -1555,7 +1555,7 @@ class ListApplicationsRequest:
     Defines whether to filter out editable applications or not.
     """
 
-    application_ids: Optional[List[str]] = field(default_factory=list)
+    application_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by list of IDs.
     """
@@ -1568,7 +1568,7 @@ class ListApplicationsRequest:
 
 @dataclass
 class ListApplicationsResponse:
-    applications: List[Application]
+    applications: list[Application]
     """
     List of applications.
     """
@@ -1589,7 +1589,7 @@ class ListGracePeriodsRequest:
 
 @dataclass
 class ListGracePeriodsResponse:
-    grace_periods: List[GracePeriod]
+    grace_periods: list[GracePeriod]
     """
     List of grace periods.
     """
@@ -1624,17 +1624,17 @@ class ListGroupsRequest:
     Name of group to find.
     """
 
-    application_ids: Optional[List[str]] = field(default_factory=list)
+    application_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by a list of application IDs.
     """
 
-    user_ids: Optional[List[str]] = field(default_factory=list)
+    user_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by a list of user IDs.
     """
 
-    group_ids: Optional[List[str]] = field(default_factory=list)
+    group_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by a list of group IDs.
     """
@@ -1647,7 +1647,7 @@ class ListGroupsRequest:
 
 @dataclass
 class ListGroupsResponse:
-    groups: List[Group]
+    groups: list[Group]
     """
     List of groups.
     """
@@ -1688,7 +1688,7 @@ class ListJWTsRequest:
 
 @dataclass
 class ListJWTsResponse:
-    jwts: List[JWT]
+    jwts: list[JWT]
     total_count: int
 
 
@@ -1742,7 +1742,7 @@ class ListLogsRequest:
 
 @dataclass
 class ListLogsResponse:
-    logs: List[Log]
+    logs: list[Log]
     """
     List of logs.
     """
@@ -1780,7 +1780,7 @@ class ListPermissionSetsRequest:
 
 @dataclass
 class ListPermissionSetsResponse:
-    permission_sets: List[PermissionSet]
+    permission_sets: list[PermissionSet]
     """
     List of permission sets.
     """
@@ -1820,17 +1820,17 @@ class ListPoliciesRequest:
     Defines whether or not filter out editable policies.
     """
 
-    user_ids: Optional[List[str]] = field(default_factory=list)
+    user_ids: Optional[list[str]] = field(default_factory=list)
     """
     Defines whether or not to filter by list of user IDs.
     """
 
-    group_ids: Optional[List[str]] = field(default_factory=list)
+    group_ids: Optional[list[str]] = field(default_factory=list)
     """
     Defines whether or not to filter by list of group IDs.
     """
 
-    application_ids: Optional[List[str]] = field(default_factory=list)
+    application_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by a list of application IDs.
     """
@@ -1850,7 +1850,7 @@ class ListPoliciesRequest:
     Filter by tags containing a given string.
     """
 
-    policy_ids: Optional[List[str]] = field(default_factory=list)
+    policy_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by a list of IDs.
     """
@@ -1858,7 +1858,7 @@ class ListPoliciesRequest:
 
 @dataclass
 class ListPoliciesResponse:
-    policies: List[Policy]
+    policies: list[Policy]
     """
     List of policies.
     """
@@ -1891,7 +1891,7 @@ class ListQuotaRequest:
     Filter by Organization ID.
     """
 
-    quotum_names: Optional[List[str]] = field(default_factory=list)
+    quotum_names: Optional[list[str]] = field(default_factory=list)
     """
     List of quotum names to filter from.
     """
@@ -1899,7 +1899,7 @@ class ListQuotaRequest:
 
 @dataclass
 class ListQuotaResponse:
-    quota: List[Quotum]
+    quota: list[Quotum]
     """
     List of quota.
     """
@@ -1930,7 +1930,7 @@ class ListRulesRequest:
 
 @dataclass
 class ListRulesResponse:
-    rules: List[Rule]
+    rules: list[Rule]
     """
     Rules of the policy.
     """
@@ -1983,7 +1983,7 @@ class ListSSHKeysRequest:
 
 @dataclass
 class ListSSHKeysResponse:
-    ssh_keys: List[SSHKey]
+    ssh_keys: list[SSHKey]
     """
     List of SSH keys.
     """
@@ -2004,7 +2004,7 @@ class ListSamlCertificatesRequest:
 
 @dataclass
 class ListSamlCertificatesResponse:
-    certificates: List[SamlCertificate]
+    certificates: list[SamlCertificate]
     """
     List of SAML certificates.
     """
@@ -2032,7 +2032,7 @@ class ListUsersRequest:
     ID of the Organization to filter.
     """
 
-    user_ids: Optional[List[str]] = field(default_factory=list)
+    user_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by list of IDs.
     """
@@ -2055,7 +2055,7 @@ class ListUsersRequest:
 
 @dataclass
 class ListUsersResponse:
-    users: List[User]
+    users: list[User]
     """
     List of users.
     """
@@ -2179,8 +2179,8 @@ class Saml:
 @dataclass
 class SetGroupMembersRequest:
     group_id: str
-    user_ids: List[str]
-    application_ids: List[str]
+    user_ids: list[str]
+    application_ids: list[str]
 
 
 @dataclass
@@ -2203,7 +2203,7 @@ class SetRulesRequest:
     Id of policy to update.
     """
 
-    rules: List[RuleSpecs]
+    rules: list[RuleSpecs]
     """
     Rules of the policy to set.
     """
@@ -2211,7 +2211,7 @@ class SetRulesRequest:
 
 @dataclass
 class SetRulesResponse:
-    rules: List[Rule]
+    rules: list[Rule]
     """
     Rules of the policy.
     """
@@ -2260,7 +2260,7 @@ class UpdateApplicationRequest:
     New description for the application (max length is 200 chars).
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags for the application (maximum of 10 tags).
     """
@@ -2283,7 +2283,7 @@ class UpdateGroupRequest:
     New description for the group (max length is 200 chars).
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags for the group (maximum of 10 tags).
     """
@@ -2329,7 +2329,7 @@ class UpdatePolicyRequest:
     New description of policy (max length is 200 characters).
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags for the policy (maximum of 10 tags).
     """
@@ -2395,7 +2395,7 @@ class UpdateUserRequest:
     ID of the user to update.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags for the user (maximum of 10 tags).
     """
@@ -2454,7 +2454,7 @@ class ValidateUserMFAOTPRequest:
 
 @dataclass
 class ValidateUserMFAOTPResponse:
-    recovery_codes: List[str]
+    recovery_codes: list[str]
     """
     List of recovery codes usable for this OTP method.
     """

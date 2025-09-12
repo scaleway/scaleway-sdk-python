@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -38,7 +38,7 @@ def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
             "Unmarshalling the type 'EphemeralProperties' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("action", None)
     if field is not None:
@@ -67,7 +67,7 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
             "Unmarshalling the type 'SecretVersion' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("revision", None)
     if field is not None:
@@ -140,7 +140,7 @@ def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
             "Unmarshalling the type 'EphemeralPolicy' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("action", None)
     if field is not None:
@@ -169,7 +169,7 @@ def unmarshal_Secret(data: Any) -> Secret:
             "Unmarshalling the type 'Secret' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -290,7 +290,7 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
             "Unmarshalling the type 'AccessSecretVersionResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secret_id", None)
     if field is not None:
@@ -333,7 +333,7 @@ def unmarshal_BrowseSecretsResponseItemFolderDetails(
             "Unmarshalling the type 'BrowseSecretsResponseItemFolderDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     return BrowseSecretsResponseItemFolderDetails(**args)
 
@@ -346,7 +346,7 @@ def unmarshal_BrowseSecretsResponseItemSecretDetails(
             "Unmarshalling the type 'BrowseSecretsResponseItemSecretDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -393,7 +393,7 @@ def unmarshal_BrowseSecretsResponseItem(data: Any) -> BrowseSecretsResponseItem:
             "Unmarshalling the type 'BrowseSecretsResponseItem' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -434,7 +434,7 @@ def unmarshal_BrowseSecretsResponse(data: Any) -> BrowseSecretsResponse:
             "Unmarshalling the type 'BrowseSecretsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("items", None)
     if field is not None:
@@ -467,7 +467,7 @@ def unmarshal_ListSecretTypesResponse(data: Any) -> ListSecretTypesResponse:
             "Unmarshalling the type 'ListSecretTypesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("types", None)
     if field is not None:
@@ -490,7 +490,7 @@ def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsRespons
             "Unmarshalling the type 'ListSecretVersionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("versions", None)
     if field is not None:
@@ -515,7 +515,7 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
             "Unmarshalling the type 'ListSecretsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secrets", None)
     if field is not None:
@@ -540,7 +540,7 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
             "Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("tags", None)
     if field is not None:
@@ -560,8 +560,8 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
 def marshal_AddSecretOwnerRequest(
     request: AddSecretOwnerRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.product is not None:
         output["product"] = request.product
@@ -572,8 +572,8 @@ def marshal_AddSecretOwnerRequest(
 def marshal_EphemeralPolicy(
     request: EphemeralPolicy,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.action is not None:
         output["action"] = request.action
@@ -590,8 +590,8 @@ def marshal_EphemeralPolicy(
 def marshal_CreateSecretRequest(
     request: CreateSecretRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -630,8 +630,8 @@ def marshal_CreateSecretRequest(
 def marshal_CreateSecretVersionRequest(
     request: CreateSecretVersionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.data is not None:
         output["data"] = request.data
@@ -651,8 +651,8 @@ def marshal_CreateSecretVersionRequest(
 def marshal_UpdateSecretRequest(
     request: UpdateSecretRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -677,8 +677,8 @@ def marshal_UpdateSecretRequest(
 def marshal_EphemeralProperties(
     request: EphemeralProperties,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.action is not None:
         output["action"] = request.action
@@ -695,8 +695,8 @@ def marshal_EphemeralProperties(
 def marshal_UpdateSecretVersionRequest(
     request: UpdateSecretVersionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description

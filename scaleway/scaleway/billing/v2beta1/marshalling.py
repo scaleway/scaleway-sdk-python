@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.bridge import (
@@ -30,7 +30,7 @@ def unmarshal_DiscountCoupon(data: Any) -> DiscountCoupon:
             "Unmarshalling the type 'DiscountCoupon' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -47,7 +47,7 @@ def unmarshal_DiscountFilter(data: Any) -> DiscountFilter:
             "Unmarshalling the type 'DiscountFilter' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -76,7 +76,7 @@ def unmarshal_Discount(data: Any) -> Discount:
             "Unmarshalling the type 'Discount' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -163,7 +163,7 @@ def unmarshal_Invoice(data: Any) -> Invoice:
             "Unmarshalling the type 'Invoice' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -282,7 +282,7 @@ def unmarshal_ListConsumptionsResponseConsumption(
             "Unmarshalling the type 'ListConsumptionsResponseConsumption' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("product_name", None)
     if field is not None:
@@ -341,7 +341,7 @@ def unmarshal_ListConsumptionsResponse(data: Any) -> ListConsumptionsResponse:
             "Unmarshalling the type 'ListConsumptionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("consumptions", None)
     if field is not None:
@@ -380,7 +380,7 @@ def unmarshal_ListDiscountsResponse(data: Any) -> ListDiscountsResponse:
             "Unmarshalling the type 'ListDiscountsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -405,7 +405,7 @@ def unmarshal_ListInvoicesResponse(data: Any) -> ListInvoicesResponse:
             "Unmarshalling the type 'ListInvoicesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -430,7 +430,7 @@ def unmarshal_ListTaxesResponseTax(data: Any) -> ListTaxesResponseTax:
             "Unmarshalling the type 'ListTaxesResponseTax' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("description", None)
     if field is not None:
@@ -465,7 +465,7 @@ def unmarshal_ListTaxesResponse(data: Any) -> ListTaxesResponse:
             "Unmarshalling the type 'ListTaxesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("taxes", None)
     if field is not None:

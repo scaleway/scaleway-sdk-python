@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -91,14 +91,14 @@ class RedisV1API(API):
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         user_name: str,
         password: str,
         tls_enabled: bool,
         cluster_size: Optional[int] = None,
-        acl_rules: Optional[List[ACLRuleSpec]] = None,
-        endpoints: Optional[List[EndpointSpec]] = None,
-        cluster_settings: Optional[List[ClusterSetting]] = None,
+        acl_rules: Optional[list[ACLRuleSpec]] = None,
+        endpoints: Optional[list[EndpointSpec]] = None,
+        cluster_settings: Optional[list[ClusterSetting]] = None,
     ) -> Cluster:
         """
         Create a Redis™ Database Instance.
@@ -164,7 +164,7 @@ class RedisV1API(API):
         cluster_id: str,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         user_name: Optional[str] = None,
         password: Optional[str] = None,
     ) -> Cluster:
@@ -282,7 +282,7 @@ class RedisV1API(API):
         self,
         *,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListClustersRequestOrderBy] = None,
         project_id: Optional[str] = None,
@@ -336,7 +336,7 @@ class RedisV1API(API):
         self,
         *,
         zone: Optional[ScwZone] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListClustersRequestOrderBy] = None,
         project_id: Optional[str] = None,
@@ -344,7 +344,7 @@ class RedisV1API(API):
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Cluster]:
+    ) -> list[Cluster]:
         """
         List Redis™ Database Instances.
         List all Redis™ Database Instances (Redis™ cluster) in the specified zone. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags`, `name`, `organization_id` and `version`.
@@ -357,7 +357,7 @@ class RedisV1API(API):
         :param version: Filter by Redis™ engine version.
         :param page:
         :param page_size:
-        :return: :class:`List[Cluster] <List[Cluster]>`
+        :return: :class:`list[Cluster] <list[Cluster]>`
 
         Usage:
         ::
@@ -555,7 +555,7 @@ class RedisV1API(API):
         zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[NodeType]:
+    ) -> list[NodeType]:
         """
         List available node types.
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -563,7 +563,7 @@ class RedisV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page:
         :param page_size:
-        :return: :class:`List[NodeType] <List[NodeType]>`
+        :return: :class:`list[NodeType] <list[NodeType]>`
 
         Usage:
         ::
@@ -646,7 +646,7 @@ class RedisV1API(API):
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[ClusterVersion]:
+    ) -> list[ClusterVersion]:
         """
         List available Redis™ versions.
         List the Redis™ database engine versions available. You can define additional parameters for your query, such as `include_disabled`, `include_beta`, `include_deprecated` and `version`.
@@ -657,7 +657,7 @@ class RedisV1API(API):
         :param version: List Redis™ engine versions that match a given name pattern.
         :param page:
         :param page_size:
-        :return: :class:`List[ClusterVersion] <List[ClusterVersion]>`
+        :return: :class:`list[ClusterVersion] <list[ClusterVersion]>`
 
         Usage:
         ::
@@ -753,7 +753,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        settings: List[ClusterSetting],
+        settings: list[ClusterSetting],
         zone: Optional[ScwZone] = None,
     ) -> ClusterSettingsResponse:
         """
@@ -832,7 +832,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        settings: List[ClusterSetting],
+        settings: list[ClusterSetting],
         zone: Optional[ScwZone] = None,
     ) -> ClusterSettingsResponse:
         """
@@ -875,7 +875,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        acl_rules: List[ACLRuleSpec],
+        acl_rules: list[ACLRuleSpec],
         zone: Optional[ScwZone] = None,
     ) -> SetAclRulesResponse:
         """
@@ -918,7 +918,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        acl_rules: List[ACLRuleSpec],
+        acl_rules: list[ACLRuleSpec],
         zone: Optional[ScwZone] = None,
     ) -> AddAclRulesResponse:
         """
@@ -1025,7 +1025,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        endpoints: List[EndpointSpec],
+        endpoints: list[EndpointSpec],
         zone: Optional[ScwZone] = None,
     ) -> SetEndpointsResponse:
         """
@@ -1068,7 +1068,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        endpoints: List[EndpointSpec],
+        endpoints: list[EndpointSpec],
         zone: Optional[ScwZone] = None,
     ) -> AddEndpointsResponse:
         """

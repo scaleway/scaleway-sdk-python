@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -98,7 +98,7 @@ def unmarshal_JWT(data: Any) -> JWT:
             "Unmarshalling the type 'JWT' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("jti", None)
     if field is not None:
@@ -157,7 +157,7 @@ def unmarshal_APIKey(data: Any) -> APIKey:
             "Unmarshalling the type 'APIKey' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("access_key", None)
     if field is not None:
@@ -246,7 +246,7 @@ def unmarshal_Application(data: Any) -> Application:
             "Unmarshalling the type 'Application' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -323,7 +323,7 @@ def unmarshal_Group(data: Any) -> Group:
             "Unmarshalling the type 'Group' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -406,7 +406,7 @@ def unmarshal_Log(data: Any) -> Log:
             "Unmarshalling the type 'Log' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -471,7 +471,7 @@ def unmarshal_Policy(data: Any) -> Policy:
             "Unmarshalling the type 'Policy' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -584,7 +584,7 @@ def unmarshal_QuotumLimit(data: Any) -> QuotumLimit:
             "Unmarshalling the type 'QuotumLimit' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("global", None)
     if field is not None:
@@ -625,7 +625,7 @@ def unmarshal_Quotum(data: Any) -> Quotum:
             "Unmarshalling the type 'Quotum' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -686,7 +686,7 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
             "Unmarshalling the type 'SSHKey' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -751,7 +751,7 @@ def unmarshal_SamlCertificate(data: Any) -> SamlCertificate:
             "Unmarshalling the type 'SamlCertificate' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -792,7 +792,7 @@ def unmarshal_User(data: Any) -> User:
             "Unmarshalling the type 'User' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -919,7 +919,7 @@ def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
             "Unmarshalling the type 'EncodedJWT' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("token", None)
     if field is not None:
@@ -950,7 +950,7 @@ def unmarshal_ConnectionConnectedOrganization(
             "Unmarshalling the type 'ConnectionConnectedOrganization' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -979,7 +979,7 @@ def unmarshal_ConnectionConnectedUser(data: Any) -> ConnectionConnectedUser:
             "Unmarshalling the type 'ConnectionConnectedUser' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1008,7 +1008,7 @@ def unmarshal_Connection(data: Any) -> Connection:
             "Unmarshalling the type 'Connection' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("organization", None)
     if field is not None:
@@ -1031,7 +1031,7 @@ def unmarshal_GetUserConnectionsResponse(data: Any) -> GetUserConnectionsRespons
             "Unmarshalling the type 'GetUserConnectionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("connections", None)
     if field is not None:
@@ -1052,7 +1052,7 @@ def unmarshal_InitiateUserConnectionResponse(
             "Unmarshalling the type 'InitiateUserConnectionResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("token", None)
     if field is not None:
@@ -1069,7 +1069,7 @@ def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
             "Unmarshalling the type 'ListAPIKeysResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("api_keys", None)
     if field is not None:
@@ -1094,7 +1094,7 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
             "Unmarshalling the type 'ListApplicationsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("applications", None)
     if field is not None:
@@ -1119,7 +1119,7 @@ def unmarshal_GracePeriod(data: Any) -> GracePeriod:
             "Unmarshalling the type 'GracePeriod' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -1148,7 +1148,7 @@ def unmarshal_ListGracePeriodsResponse(data: Any) -> ListGracePeriodsResponse:
             "Unmarshalling the type 'ListGracePeriodsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("grace_periods", None)
     if field is not None:
@@ -1167,7 +1167,7 @@ def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
             "Unmarshalling the type 'ListGroupsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("groups", None)
     if field is not None:
@@ -1192,7 +1192,7 @@ def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
             "Unmarshalling the type 'ListJWTsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("jwts", None)
     if field is not None:
@@ -1215,7 +1215,7 @@ def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
             "Unmarshalling the type 'ListLogsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("logs", None)
     if field is not None:
@@ -1238,7 +1238,7 @@ def unmarshal_PermissionSet(data: Any) -> PermissionSet:
             "Unmarshalling the type 'PermissionSet' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1279,7 +1279,7 @@ def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsRespons
             "Unmarshalling the type 'ListPermissionSetsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("permission_sets", None)
     if field is not None:
@@ -1304,7 +1304,7 @@ def unmarshal_ListPoliciesResponse(data: Any) -> ListPoliciesResponse:
             "Unmarshalling the type 'ListPoliciesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("policies", None)
     if field is not None:
@@ -1329,7 +1329,7 @@ def unmarshal_ListQuotaResponse(data: Any) -> ListQuotaResponse:
             "Unmarshalling the type 'ListQuotaResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("quota", None)
     if field is not None:
@@ -1354,7 +1354,7 @@ def unmarshal_Rule(data: Any) -> Rule:
             "Unmarshalling the type 'Rule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1407,7 +1407,7 @@ def unmarshal_ListRulesResponse(data: Any) -> ListRulesResponse:
             "Unmarshalling the type 'ListRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -1432,7 +1432,7 @@ def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
             "Unmarshalling the type 'ListSSHKeysResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("ssh_keys", None)
     if field is not None:
@@ -1457,7 +1457,7 @@ def unmarshal_ListSamlCertificatesResponse(data: Any) -> ListSamlCertificatesRes
             "Unmarshalling the type 'ListSamlCertificatesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("certificates", None)
     if field is not None:
@@ -1476,7 +1476,7 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
             "Unmarshalling the type 'ListUsersResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("users", None)
     if field is not None:
@@ -1501,7 +1501,7 @@ def unmarshal_MFAOTP(data: Any) -> MFAOTP:
             "Unmarshalling the type 'MFAOTP' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secret", None)
     if field is not None:
@@ -1518,7 +1518,7 @@ def unmarshal_Organization(data: Any) -> Organization:
             "Unmarshalling the type 'Organization' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1547,7 +1547,7 @@ def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySet
             "Unmarshalling the type 'OrganizationSecuritySettings' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("enforce_password_renewal", None)
     if field is not None:
@@ -1576,7 +1576,7 @@ def unmarshal_SamlServiceProvider(data: Any) -> SamlServiceProvider:
             "Unmarshalling the type 'SamlServiceProvider' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("entity_id", None)
     if field is not None:
@@ -1599,7 +1599,7 @@ def unmarshal_Saml(data: Any) -> Saml:
             "Unmarshalling the type 'Saml' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -1640,7 +1640,7 @@ def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
             "Unmarshalling the type 'SetRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("rules", None)
     if field is not None:
@@ -1659,7 +1659,7 @@ def unmarshal_ValidateUserMFAOTPResponse(data: Any) -> ValidateUserMFAOTPRespons
             "Unmarshalling the type 'ValidateUserMFAOTPResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("recovery_codes", None)
     if field is not None:
@@ -1673,8 +1673,8 @@ def unmarshal_ValidateUserMFAOTPResponse(data: Any) -> ValidateUserMFAOTPRespons
 def marshal_AddGroupMemberRequest(
     request: AddGroupMemberRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1696,8 +1696,8 @@ def marshal_AddGroupMemberRequest(
 def marshal_AddGroupMembersRequest(
     request: AddGroupMembersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.user_ids is not None:
         output["user_ids"] = request.user_ids
@@ -1711,8 +1711,8 @@ def marshal_AddGroupMembersRequest(
 def marshal_AddSamlCertificateRequest(
     request: AddSamlCertificateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.type_ is not None:
         output["type"] = request.type_
@@ -1726,8 +1726,8 @@ def marshal_AddSamlCertificateRequest(
 def marshal_CreateAPIKeyRequest(
     request: CreateAPIKeyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1758,8 +1758,8 @@ def marshal_CreateAPIKeyRequest(
 def marshal_CreateApplicationRequest(
     request: CreateApplicationRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -1781,8 +1781,8 @@ def marshal_CreateApplicationRequest(
 def marshal_CreateGroupRequest(
     request: CreateGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description
@@ -1804,8 +1804,8 @@ def marshal_CreateGroupRequest(
 def marshal_CreateJWTRequest(
     request: CreateJWTRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.user_id is not None:
         output["user_id"] = request.user_id
@@ -1819,8 +1819,8 @@ def marshal_CreateJWTRequest(
 def marshal_RuleSpecs(
     request: RuleSpecs,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1849,8 +1849,8 @@ def marshal_RuleSpecs(
 def marshal_CreatePolicyRequest(
     request: CreatePolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1895,8 +1895,8 @@ def marshal_CreatePolicyRequest(
 def marshal_CreateSSHKeyRequest(
     request: CreateSSHKeyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.public_key is not None:
         output["public_key"] = request.public_key
@@ -1915,8 +1915,8 @@ def marshal_CreateSSHKeyRequest(
 def marshal_CreateUserRequestMember(
     request: CreateUserRequestMember,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.email is not None:
         output["email"] = request.email
@@ -1951,8 +1951,8 @@ def marshal_CreateUserRequestMember(
 def marshal_CreateUserRequest(
     request: CreateUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1980,8 +1980,8 @@ def marshal_CreateUserRequest(
 def marshal_JoinUserConnectionRequest(
     request: JoinUserConnectionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.token is not None:
         output["token"] = request.token
@@ -1992,8 +1992,8 @@ def marshal_JoinUserConnectionRequest(
 def marshal_RemoveGroupMemberRequest(
     request: RemoveGroupMemberRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2015,8 +2015,8 @@ def marshal_RemoveGroupMemberRequest(
 def marshal_RemoveUserConnectionRequest(
     request: RemoveUserConnectionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.target_user_id is not None:
         output["target_user_id"] = request.target_user_id
@@ -2027,8 +2027,8 @@ def marshal_RemoveUserConnectionRequest(
 def marshal_SetGroupMembersRequest(
     request: SetGroupMembersRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.user_ids is not None:
         output["user_ids"] = request.user_ids
@@ -2042,8 +2042,8 @@ def marshal_SetGroupMembersRequest(
 def marshal_SetOrganizationAliasRequest(
     request: SetOrganizationAliasRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.alias is not None:
         output["alias"] = request.alias
@@ -2054,8 +2054,8 @@ def marshal_SetOrganizationAliasRequest(
 def marshal_SetRulesRequest(
     request: SetRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.policy_id is not None:
         output["policy_id"] = request.policy_id
@@ -2069,8 +2069,8 @@ def marshal_SetRulesRequest(
 def marshal_UpdateAPIKeyRequest(
     request: UpdateAPIKeyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.default_project_id is not None:
         output["default_project_id"] = request.default_project_id
@@ -2084,8 +2084,8 @@ def marshal_UpdateAPIKeyRequest(
 def marshal_UpdateApplicationRequest(
     request: UpdateApplicationRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2102,8 +2102,8 @@ def marshal_UpdateApplicationRequest(
 def marshal_UpdateGroupRequest(
     request: UpdateGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2120,8 +2120,8 @@ def marshal_UpdateGroupRequest(
 def marshal_UpdateOrganizationSecuritySettingsRequest(
     request: UpdateOrganizationSecuritySettingsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.enforce_password_renewal is not None:
         output["enforce_password_renewal"] = request.enforce_password_renewal
@@ -2138,8 +2138,8 @@ def marshal_UpdateOrganizationSecuritySettingsRequest(
 def marshal_UpdatePolicyRequest(
     request: UpdatePolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2176,8 +2176,8 @@ def marshal_UpdatePolicyRequest(
 def marshal_UpdateSSHKeyRequest(
     request: UpdateSSHKeyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2191,8 +2191,8 @@ def marshal_UpdateSSHKeyRequest(
 def marshal_UpdateSamlRequest(
     request: UpdateSamlRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.entity_id is not None:
         output["entity_id"] = request.entity_id
@@ -2206,8 +2206,8 @@ def marshal_UpdateSamlRequest(
 def marshal_UpdateUserPasswordRequest(
     request: UpdateUserPasswordRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.password is not None:
         output["password"] = request.password
@@ -2218,8 +2218,8 @@ def marshal_UpdateUserPasswordRequest(
 def marshal_UpdateUserRequest(
     request: UpdateUserRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -2245,8 +2245,8 @@ def marshal_UpdateUserRequest(
 def marshal_UpdateUserUsernameRequest(
     request: UpdateUserUsernameRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.username is not None:
         output["username"] = request.username
@@ -2257,8 +2257,8 @@ def marshal_UpdateUserUsernameRequest(
 def marshal_ValidateUserMFAOTPRequest(
     request: ValidateUserMFAOTPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.one_time_password is not None:
         output["one_time_password"] = request.one_time_password

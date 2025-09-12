@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -373,7 +373,7 @@ class Container:
     Status of the container.
     """
 
-    environment_variables: Dict[str, str]
+    environment_variables: dict[str, str]
     """
     Environment variables of the container.
     """
@@ -428,7 +428,7 @@ class Container:
     Port the container listens on.
     """
 
-    secret_environment_variables: List[SecretHashedValue]
+    secret_environment_variables: list[SecretHashedValue]
     """
     Secret environment variables of the container.
     """
@@ -455,17 +455,17 @@ class Container:
     Region in which the container will be deployed.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the Serverless Container.
     """
 
-    command: List[str]
+    command: list[str]
     """
     Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
     """
 
-    args: List[str]
+    args: list[str]
     """
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
@@ -546,7 +546,7 @@ class Cron:
     Name of the cron.
     """
 
-    args: Optional[Dict[str, Any]] = field(default_factory=dict)
+    args: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
@@ -597,7 +597,7 @@ class Namespace:
     Name of the namespace.
     """
 
-    environment_variables: Dict[str, str]
+    environment_variables: dict[str, str]
     """
     Environment variables of the namespace.
     """
@@ -627,7 +627,7 @@ class Namespace:
     Registry endpoint of the namespace.
     """
 
-    secret_environment_variables: List[SecretHashedValue]
+    secret_environment_variables: list[SecretHashedValue]
     """
     Secret environment variables of the namespace.
     """
@@ -637,7 +637,7 @@ class Namespace:
     Region in which the namespace will be created.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the Serverless Container Namespace.
     """
@@ -772,7 +772,7 @@ class CreateContainerRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the container.
     """
@@ -832,7 +832,7 @@ class CreateContainerRequest:
     Port the container listens on.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the container.
     """
@@ -867,7 +867,7 @@ class CreateContainerRequest:
     Health check configuration of the container.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container.
     """
@@ -877,12 +877,12 @@ class CreateContainerRequest:
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
     """
 
-    command: Optional[List[str]] = field(default_factory=list)
+    command: Optional[list[str]] = field(default_factory=list)
     """
     Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
     """
 
-    args: Optional[List[str]] = field(default_factory=list)
+    args: Optional[list[str]] = field(default_factory=list)
     """
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
@@ -905,7 +905,7 @@ class CreateCronRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    args: Optional[Dict[str, Any]] = field(default_factory=dict)
+    args: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
@@ -946,7 +946,7 @@ class CreateNamespaceRequest:
     Name of the namespace to create.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace to create.
     """
@@ -961,12 +961,12 @@ class CreateNamespaceRequest:
     Description of the namespace to create.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace to create.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container Namespace.
     """
@@ -1244,7 +1244,7 @@ class ListContainersRequest:
 
 @dataclass
 class ListContainersResponse:
-    containers: List[Container]
+    containers: list[Container]
     """
     Array of containers.
     """
@@ -1285,7 +1285,7 @@ class ListCronsRequest:
 
 @dataclass
 class ListCronsResponse:
-    crons: List[Cron]
+    crons: list[Cron]
     """
     Array of crons.
     """
@@ -1328,7 +1328,7 @@ class ListDomainsRequest:
 
 @dataclass
 class ListDomainsResponse:
-    domains: List[Domain]
+    domains: list[Domain]
     """
     Array of domains.
     """
@@ -1381,7 +1381,7 @@ class ListNamespacesRequest:
 
 @dataclass
 class ListNamespacesResponse:
-    namespaces: List[Namespace]
+    namespaces: list[Namespace]
     """
     Array of the namespaces.
     """
@@ -1429,7 +1429,7 @@ class ListTokensRequest:
 
 @dataclass
 class ListTokensResponse:
-    tokens: List[Token]
+    tokens: list[Token]
     total_count: int
 
 
@@ -1471,7 +1471,7 @@ class ListTriggersResponse:
     Total count of existing triggers (matching any filters specified).
     """
 
-    triggers: List[Trigger]
+    triggers: list[Trigger]
     """
     Triggers on this page.
     """
@@ -1489,7 +1489,7 @@ class UpdateContainerRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the container.
     """
@@ -1554,7 +1554,7 @@ class UpdateContainerRequest:
     Port the container listens on.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     """
     During an update, secret environment variables that are not specified in this field will be kept unchanged.
 
@@ -1600,7 +1600,7 @@ For example, the following payload will delete the `TO_DELETE` secret environmen
     Health check configuration of the container.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container.
     """
@@ -1610,12 +1610,12 @@ For example, the following payload will delete the `TO_DELETE` secret environmen
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
     """
 
-    command: Optional[List[str]] = field(default_factory=list)
+    command: Optional[list[str]] = field(default_factory=list)
     """
     Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
     """
 
-    args: Optional[List[str]] = field(default_factory=list)
+    args: Optional[list[str]] = field(default_factory=list)
     """
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
@@ -1643,7 +1643,7 @@ class UpdateCronRequest:
     UNIX cron schedule.
     """
 
-    args: Optional[Dict[str, Any]] = field(default_factory=dict)
+    args: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
     """
@@ -1666,7 +1666,7 @@ class UpdateNamespaceRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    environment_variables: Optional[Dict[str, str]] = field(default_factory=dict)
+    environment_variables: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Environment variables of the namespace to update.
     """
@@ -1676,12 +1676,12 @@ class UpdateNamespaceRequest:
     Description of the namespace to update.
     """
 
-    secret_environment_variables: Optional[List[Secret]] = field(default_factory=list)
+    secret_environment_variables: Optional[list[Secret]] = field(default_factory=list)
     """
     Secret environment variables of the namespace to update.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Container Namespace.
     """

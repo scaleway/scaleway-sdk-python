@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -98,7 +98,7 @@ def unmarshal_ScalewayLb(data: Any) -> ScalewayLb:
             "Unmarshalling the type 'ScalewayLb' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -139,7 +139,7 @@ def unmarshal_ScalewayLbBackendConfig(data: Any) -> ScalewayLbBackendConfig:
             "Unmarshalling the type 'ScalewayLbBackendConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("lbs", None)
     if field is not None:
@@ -158,7 +158,7 @@ def unmarshal_ScalewayS3BackendConfig(data: Any) -> ScalewayS3BackendConfig:
             "Unmarshalling the type 'ScalewayS3BackendConfig' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("bucket_name", None)
     if field is not None:
@@ -187,7 +187,7 @@ def unmarshal_BackendStage(data: Any) -> BackendStage:
             "Unmarshalling the type 'BackendStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -234,7 +234,7 @@ def unmarshal_CacheStage(data: Any) -> CacheStage:
             "Unmarshalling the type 'CacheStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -299,7 +299,7 @@ def unmarshal_DNSStage(data: Any) -> DNSStage:
             "Unmarshalling the type 'DNSStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -364,7 +364,7 @@ def unmarshal_PipelineError(data: Any) -> PipelineError:
             "Unmarshalling the type 'PipelineError' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("stage", None)
     if field is not None:
@@ -405,7 +405,7 @@ def unmarshal_Pipeline(data: Any) -> Pipeline:
             "Unmarshalling the type 'Pipeline' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -472,7 +472,7 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
             "Unmarshalling the type 'RouteStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -513,7 +513,7 @@ def unmarshal_TLSSecret(data: Any) -> TLSSecret:
             "Unmarshalling the type 'TLSSecret' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secret_id", None)
     if field is not None:
@@ -536,7 +536,7 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
             "Unmarshalling the type 'TLSStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -617,7 +617,7 @@ def unmarshal_WafStage(data: Any) -> WafStage:
             "Unmarshalling the type 'WafStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -670,7 +670,7 @@ def unmarshal_PipelineStages(data: Any) -> PipelineStages:
             "Unmarshalling the type 'PipelineStages' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dns_stages", None)
     if field is not None:
@@ -735,7 +735,7 @@ def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
             "Unmarshalling the type 'PurgeRequest' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -788,7 +788,7 @@ def unmarshal_RuleHttpMatchPathFilter(data: Any) -> RuleHttpMatchPathFilter:
             "Unmarshalling the type 'RuleHttpMatchPathFilter' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("path_filter_type", None)
     if field is not None:
@@ -813,7 +813,7 @@ def unmarshal_RuleHttpMatch(data: Any) -> RuleHttpMatch:
             "Unmarshalling the type 'RuleHttpMatch' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("method_filters", None)
     if field is not None:
@@ -838,7 +838,7 @@ def unmarshal_RouteRule(data: Any) -> RouteRule:
             "Unmarshalling the type 'RouteRule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("position", None)
     if field is not None:
@@ -873,7 +873,7 @@ def unmarshal_AddRouteRulesResponse(data: Any) -> AddRouteRulesResponse:
             "Unmarshalling the type 'AddRouteRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("route_rules", None)
     if field is not None:
@@ -892,7 +892,7 @@ def unmarshal_CheckDomainResponse(data: Any) -> CheckDomainResponse:
             "Unmarshalling the type 'CheckDomainResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("is_valid", None)
     if field is not None:
@@ -909,7 +909,7 @@ def unmarshal_CheckLbOriginResponse(data: Any) -> CheckLbOriginResponse:
             "Unmarshalling the type 'CheckLbOriginResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("is_valid", None)
     if field is not None:
@@ -932,7 +932,7 @@ def unmarshal_CheckPEMChainResponse(data: Any) -> CheckPEMChainResponse:
             "Unmarshalling the type 'CheckPEMChainResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("is_valid", None)
     if field is not None:
@@ -949,7 +949,7 @@ def unmarshal_PlanDetails(data: Any) -> PlanDetails:
             "Unmarshalling the type 'PlanDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("plan_name", None)
     if field is not None:
@@ -984,7 +984,7 @@ def unmarshal_PlanUsageDetails(data: Any) -> PlanUsageDetails:
             "Unmarshalling the type 'PlanUsageDetails' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("plan_cost", None)
     if field is not None:
@@ -1001,7 +1001,7 @@ def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
             "Unmarshalling the type 'GetBillingResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("current_plan", None)
     if field is not None:
@@ -1094,7 +1094,7 @@ def unmarshal_HeadStageResponseHeadStage(data: Any) -> HeadStageResponseHeadStag
             "Unmarshalling the type 'HeadStageResponseHeadStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dns_stage_id", None)
     if field is not None:
@@ -1111,7 +1111,7 @@ def unmarshal_HeadStageResponse(data: Any) -> HeadStageResponse:
             "Unmarshalling the type 'HeadStageResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("head_stage", None)
     if field is not None:
@@ -1128,7 +1128,7 @@ def unmarshal_ListBackendStagesResponse(data: Any) -> ListBackendStagesResponse:
             "Unmarshalling the type 'ListBackendStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("stages", None)
     if field is not None:
@@ -1153,7 +1153,7 @@ def unmarshal_ListCacheStagesResponse(data: Any) -> ListCacheStagesResponse:
             "Unmarshalling the type 'ListCacheStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("stages", None)
     if field is not None:
@@ -1178,7 +1178,7 @@ def unmarshal_ListDNSStagesResponse(data: Any) -> ListDNSStagesResponse:
             "Unmarshalling the type 'ListDNSStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("stages", None)
     if field is not None:
@@ -1205,7 +1205,7 @@ def unmarshal_ListHeadStagesResponseHeadStage(
             "Unmarshalling the type 'ListHeadStagesResponseHeadStage' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("dns_stage_id", None)
     if field is not None:
@@ -1222,7 +1222,7 @@ def unmarshal_ListHeadStagesResponse(data: Any) -> ListHeadStagesResponse:
             "Unmarshalling the type 'ListHeadStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("head_stages", None)
     if field is not None:
@@ -1249,7 +1249,7 @@ def unmarshal_ListPipelinesResponse(data: Any) -> ListPipelinesResponse:
             "Unmarshalling the type 'ListPipelinesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("pipelines", None)
     if field is not None:
@@ -1276,7 +1276,7 @@ def unmarshal_ListPipelinesWithStagesResponse(
             "Unmarshalling the type 'ListPipelinesWithStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("pipelines", None)
     if field is not None:
@@ -1301,7 +1301,7 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
             "Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -1326,7 +1326,7 @@ def unmarshal_ListPurgeRequestsResponse(data: Any) -> ListPurgeRequestsResponse:
             "Unmarshalling the type 'ListPurgeRequestsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("purge_requests", None)
     if field is not None:
@@ -1351,7 +1351,7 @@ def unmarshal_ListRouteRulesResponse(data: Any) -> ListRouteRulesResponse:
             "Unmarshalling the type 'ListRouteRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("route_rules", None)
     if field is not None:
@@ -1376,7 +1376,7 @@ def unmarshal_ListRouteStagesResponse(data: Any) -> ListRouteStagesResponse:
             "Unmarshalling the type 'ListRouteStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("stages", None)
     if field is not None:
@@ -1401,7 +1401,7 @@ def unmarshal_ListTLSStagesResponse(data: Any) -> ListTLSStagesResponse:
             "Unmarshalling the type 'ListTLSStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("stages", None)
     if field is not None:
@@ -1426,7 +1426,7 @@ def unmarshal_ListWafStagesResponse(data: Any) -> ListWafStagesResponse:
             "Unmarshalling the type 'ListWafStagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("stages", None)
     if field is not None:
@@ -1451,7 +1451,7 @@ def unmarshal_Plan(data: Any) -> Plan:
             "Unmarshalling the type 'Plan' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("plan_name", None)
     if field is not None:
@@ -1468,7 +1468,7 @@ def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
             "Unmarshalling the type 'SetRouteRulesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("route_rules", None)
     if field is not None:
@@ -1484,8 +1484,8 @@ def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
 def marshal_RuleHttpMatchPathFilter(
     request: RuleHttpMatchPathFilter,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.path_filter_type is not None:
         output["path_filter_type"] = request.path_filter_type
@@ -1499,8 +1499,8 @@ def marshal_RuleHttpMatchPathFilter(
 def marshal_RuleHttpMatch(
     request: RuleHttpMatch,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.method_filters is not None:
         output["method_filters"] = [str(item) for item in request.method_filters]
@@ -1516,8 +1516,8 @@ def marshal_RuleHttpMatch(
 def marshal_SetRouteRulesRequestRouteRule(
     request: SetRouteRulesRequestRouteRule,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1547,8 +1547,8 @@ def marshal_SetRouteRulesRequestRouteRule(
 def marshal_AddRouteRulesRequest(
     request: AddRouteRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1578,8 +1578,8 @@ def marshal_AddRouteRulesRequest(
 def marshal_CheckDomainRequest(
     request: CheckDomainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.fqdn is not None:
         output["fqdn"] = request.fqdn
@@ -1598,8 +1598,8 @@ def marshal_CheckDomainRequest(
 def marshal_ScalewayLb(
     request: ScalewayLb,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -1624,8 +1624,8 @@ def marshal_ScalewayLb(
 def marshal_CheckLbOriginRequest(
     request: CheckLbOriginRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.lb is not None:
         output["lb"] = marshal_ScalewayLb(request.lb, defaults)
@@ -1636,8 +1636,8 @@ def marshal_CheckLbOriginRequest(
 def marshal_CheckPEMChainRequestSecretChain(
     request: CheckPEMChainRequestSecretChain,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.secret_id is not None:
         output["secret_id"] = request.secret_id
@@ -1651,8 +1651,8 @@ def marshal_CheckPEMChainRequestSecretChain(
 def marshal_CheckPEMChainRequest(
     request: CheckPEMChainRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1680,8 +1680,8 @@ def marshal_CheckPEMChainRequest(
 def marshal_ScalewayLbBackendConfig(
     request: ScalewayLbBackendConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.lbs is not None:
         output["lbs"] = [marshal_ScalewayLb(item, defaults) for item in request.lbs]
@@ -1692,8 +1692,8 @@ def marshal_ScalewayLbBackendConfig(
 def marshal_ScalewayS3BackendConfig(
     request: ScalewayS3BackendConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.bucket_name is not None:
         output["bucket_name"] = request.bucket_name
@@ -1710,8 +1710,8 @@ def marshal_ScalewayS3BackendConfig(
 def marshal_CreateBackendStageRequest(
     request: CreateBackendStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1735,8 +1735,8 @@ def marshal_CreateBackendStageRequest(
 def marshal_CreateCacheStageRequest(
     request: CreateCacheStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1769,8 +1769,8 @@ def marshal_CreateCacheStageRequest(
 def marshal_CreateDNSStageRequest(
     request: CreateDNSStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1800,8 +1800,8 @@ def marshal_CreateDNSStageRequest(
 def marshal_CreatePipelineRequest(
     request: CreatePipelineRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -1820,8 +1820,8 @@ def marshal_CreatePipelineRequest(
 def marshal_CreatePurgeRequestRequest(
     request: CreatePurgeRequestRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1842,8 +1842,8 @@ def marshal_CreatePurgeRequestRequest(
 def marshal_CreateRouteStageRequest(
     request: CreateRouteStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1860,8 +1860,8 @@ def marshal_CreateRouteStageRequest(
 def marshal_TLSSecret(
     request: TLSSecret,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.secret_id is not None:
         output["secret_id"] = request.secret_id
@@ -1877,8 +1877,8 @@ def marshal_TLSSecret(
 def marshal_CreateTLSStageRequest(
     request: CreateTLSStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1918,8 +1918,8 @@ def marshal_CreateTLSStageRequest(
 def marshal_CreateWafStageRequest(
     request: CreateWafStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1944,8 +1944,8 @@ def marshal_CreateWafStageRequest(
 def marshal_SelectPlanRequest(
     request: SelectPlanRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1961,8 +1961,8 @@ def marshal_SelectPlanRequest(
 def marshal_SetHeadStageRequestAddNewHeadStage(
     request: SetHeadStageRequestAddNewHeadStage,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.new_stage_id is not None:
         output["new_stage_id"] = request.new_stage_id
@@ -1973,8 +1973,8 @@ def marshal_SetHeadStageRequestAddNewHeadStage(
 def marshal_SetHeadStageRequestRemoveHeadStage(
     request: SetHeadStageRequestRemoveHeadStage,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.remove_stage_id is not None:
         output["remove_stage_id"] = request.remove_stage_id
@@ -1985,8 +1985,8 @@ def marshal_SetHeadStageRequestRemoveHeadStage(
 def marshal_SetHeadStageRequestSwapHeadStage(
     request: SetHeadStageRequestSwapHeadStage,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.new_stage_id is not None:
         output["new_stage_id"] = request.new_stage_id
@@ -2000,8 +2000,8 @@ def marshal_SetHeadStageRequestSwapHeadStage(
 def marshal_SetHeadStageRequest(
     request: SetHeadStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2030,8 +2030,8 @@ def marshal_SetHeadStageRequest(
 def marshal_SetRouteRulesRequest(
     request: SetRouteRulesRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.route_rules is not None:
         output["route_rules"] = [
@@ -2045,8 +2045,8 @@ def marshal_SetRouteRulesRequest(
 def marshal_UpdateBackendStageRequest(
     request: UpdateBackendStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2073,8 +2073,8 @@ def marshal_UpdateBackendStageRequest(
 def marshal_UpdateCacheStageRequest(
     request: UpdateCacheStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2107,8 +2107,8 @@ def marshal_UpdateCacheStageRequest(
 def marshal_UpdateDNSStageRequest(
     request: UpdateDNSStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2138,8 +2138,8 @@ def marshal_UpdateDNSStageRequest(
 def marshal_UpdatePipelineRequest(
     request: UpdatePipelineRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -2153,8 +2153,8 @@ def marshal_UpdatePipelineRequest(
 def marshal_UpdateRouteStageRequest(
     request: UpdateRouteStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2171,8 +2171,8 @@ def marshal_UpdateRouteStageRequest(
 def marshal_TLSSecretsConfig(
     request: TLSSecretsConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.tls_secrets is not None:
         output["tls_secrets"] = [
@@ -2185,8 +2185,8 @@ def marshal_TLSSecretsConfig(
 def marshal_UpdateTLSStageRequest(
     request: UpdateTLSStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -2226,8 +2226,8 @@ def marshal_UpdateTLSStageRequest(
 def marshal_UpdateWafStageRequest(
     request: UpdateWafStageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [

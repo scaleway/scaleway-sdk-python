@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -39,7 +39,7 @@ class BaremetalV3PrivateNetworkAPI(API):
         server_id: str,
         private_network_id: str,
         zone: Optional[ScwZone] = None,
-        ipam_ip_ids: Optional[List[str]] = None,
+        ipam_ip_ids: Optional[list[str]] = None,
     ) -> ServerPrivateNetwork:
         """
         Add a server to a Private Network.
@@ -83,7 +83,7 @@ class BaremetalV3PrivateNetworkAPI(API):
         self,
         *,
         server_id: str,
-        per_private_network_ipam_ip_ids: Dict[str, List[str]],
+        per_private_network_ipam_ip_ids: dict[str, list[str]],
         zone: Optional[ScwZone] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
@@ -133,7 +133,7 @@ class BaremetalV3PrivateNetworkAPI(API):
         private_network_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        ipam_ip_ids: Optional[List[str]] = None,
+        ipam_ip_ids: Optional[list[str]] = None,
     ) -> ListServerPrivateNetworksResponse:
         """
         List the Private Networks of a server.
@@ -187,8 +187,8 @@ class BaremetalV3PrivateNetworkAPI(API):
         private_network_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        ipam_ip_ids: Optional[List[str]] = None,
-    ) -> List[ServerPrivateNetwork]:
+        ipam_ip_ids: Optional[list[str]] = None,
+    ) -> list[ServerPrivateNetwork]:
         """
         List the Private Networks of a server.
         List the Private Networks of an Elastic Metal server.
@@ -201,7 +201,7 @@ class BaremetalV3PrivateNetworkAPI(API):
         :param organization_id: Filter Private Networks by organization UUID.
         :param project_id: Filter Private Networks by project UUID.
         :param ipam_ip_ids: Filter Private Networks by IPAM IP UUIDs.
-        :return: :class:`List[ServerPrivateNetwork] <List[ServerPrivateNetwork]>`
+        :return: :class:`list[ServerPrivateNetwork] <list[ServerPrivateNetwork]>`
 
         Usage:
         ::

@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -596,7 +596,7 @@ class Offer:
     Unique identifier used for billing.
     """
 
-    options: List[OfferOption]
+    options: list[OfferOption]
     """
     Options available for the offer.
     """
@@ -667,7 +667,7 @@ class BackupItemGroup:
     Type of items (e.g., email, database, FTP).
     """
 
-    items: List[BackupItem]
+    items: list[BackupItem]
     """
     List of individual backup items of this type.
     """
@@ -718,7 +718,7 @@ class ControlPanel:
     URL of the control panel's logo.
     """
 
-    available_languages: List[StdLanguageCode]
+    available_languages: list[StdLanguageCode]
     """
     List of available languages for the control panel.
     """
@@ -731,7 +731,7 @@ class DatabaseUser:
     Name of the database user.
     """
 
-    databases: List[str]
+    databases: list[str]
     """
     List of databases accessible by the user.
     """
@@ -744,7 +744,7 @@ class Database:
     Name of the database.
     """
 
-    users: List[str]
+    users: list[str]
     """
     List of users who have access to the database.
     """
@@ -874,7 +874,7 @@ class DomainAvailability:
     Availability status of the domain.
     """
 
-    available_actions: List[DomainAvailabilityAction]
+    available_actions: list[DomainAvailabilityAction]
     """
     A list of actions that can be performed on the domain.
     """
@@ -968,7 +968,7 @@ class BackupApiRestoreBackupItemsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    item_ids: Optional[List[str]] = field(default_factory=list)
+    item_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of backup item IDs to restore individually.
     """
@@ -1383,7 +1383,7 @@ class DnsApiSyncDomainDnsRecordsRequest:
     Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
     """
 
-    custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]] = field(
+    custom_records: Optional[list[SyncDomainDnsRecordsRequestRecord]] = field(
         default_factory=list
     )
     """
@@ -1398,12 +1398,12 @@ class DnsApiSyncDomainDnsRecordsRequest:
 
 @dataclass
 class DnsRecords:
-    records: List[DnsRecord]
+    records: list[DnsRecord]
     """
     List of DNS records.
     """
 
-    name_servers: List[Nameserver]
+    name_servers: list[Nameserver]
     """
     List of nameservers.
     """
@@ -1413,7 +1413,7 @@ class DnsRecords:
     Status of the records.
     """
 
-    dns_config: Optional[List[DomainDnsAction]] = field(default_factory=list)
+    dns_config: Optional[list[DomainDnsAction]] = field(default_factory=list)
     """
     Records dns auto configuration settings (deprecated, use auto_config_domain_dns).
     """
@@ -1446,12 +1446,12 @@ class Domain:
     Main domain for this zone.
     """
 
-    available_actions: List[DomainAction]
+    available_actions: list[DomainAction]
     """
     A list of actions that can be performed on the domain.
     """
 
-    available_dns_actions: Optional[List[DomainDnsAction]] = field(default_factory=list)
+    available_dns_actions: Optional[list[DomainDnsAction]] = field(default_factory=list)
     """
     A list of DNS-related actions that can be auto configured for the domain (deprecated, use auto_config_domain_dns instead).
     """
@@ -1619,7 +1619,7 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags associated with the Web Hosting plan.
     """
@@ -1730,7 +1730,7 @@ class HostingApiCreateHostingRequest:
     ID of the Scaleway Project in which to create the Web Hosting plan.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Web Hosting plan.
     """
@@ -1740,7 +1740,7 @@ class HostingApiCreateHostingRequest:
     The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself.
     """
 
-    offer_options: Optional[List[OfferOptionRequest]] = field(default_factory=list)
+    offer_options: Optional[list[OfferOptionRequest]] = field(default_factory=list)
     """
     List of the Web Hosting plan options IDs with their quantities.
     """
@@ -1842,12 +1842,12 @@ class HostingApiListHostingsRequest:
     Sort order for Web Hosting plans in the response.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for, only Web Hosting plans with matching tags will be returned.
     """
 
-    statuses: Optional[List[HostingStatus]] = field(default_factory=list)
+    statuses: Optional[list[HostingStatus]] = field(default_factory=list)
     """
     Statuses to filter for, only Web Hosting plans with matching statuses will be returned.
     """
@@ -1867,7 +1867,7 @@ class HostingApiListHostingsRequest:
     Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
     """
 
-    control_panels: Optional[List[str]] = field(default_factory=list)
+    control_panels: Optional[list[str]] = field(default_factory=list)
     """
     Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
     """
@@ -1926,12 +1926,12 @@ class HostingApiUpdateHostingRequest:
     New contact email for the Web Hosting plan.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags for the Web Hosting plan.
     """
 
-    offer_options: Optional[List[OfferOptionRequest]] = field(default_factory=list)
+    offer_options: Optional[list[OfferOptionRequest]] = field(default_factory=list)
     """
     List of the Web Hosting plan options IDs with their quantities.
     """
@@ -1954,7 +1954,7 @@ class ListBackupItemsResponse:
     Total number of backup item groups.
     """
 
-    groups: List[BackupItemGroup]
+    groups: list[BackupItemGroup]
     """
     List of backup item groups categorized by type.
     """
@@ -1967,7 +1967,7 @@ class ListBackupsResponse:
     Total number of available backups.
     """
 
-    backups: List[Backup]
+    backups: list[Backup]
     """
     List of available backups.
     """
@@ -1980,7 +1980,7 @@ class ListControlPanelsResponse:
     Number of control panels returned.
     """
 
-    control_panels: List[ControlPanel]
+    control_panels: list[ControlPanel]
     """
     List of control panels.
     """
@@ -1993,7 +1993,7 @@ class ListDatabaseUsersResponse:
     Total number of database users.
     """
 
-    users: List[DatabaseUser]
+    users: list[DatabaseUser]
     """
     List of database users.
     """
@@ -2006,7 +2006,7 @@ class ListDatabasesResponse:
     Total number of databases.
     """
 
-    databases: List[Database]
+    databases: list[Database]
     """
     List of databases.
     """
@@ -2014,7 +2014,7 @@ class ListDatabasesResponse:
 
 @dataclass
 class ListFreeRootDomainsResponse:
-    root_domains: List[str]
+    root_domains: list[str]
     """
     List of free root domains available for the Web Hosting.
     """
@@ -2032,7 +2032,7 @@ class ListFtpAccountsResponse:
     Total number of FTP accounts.
     """
 
-    ftp_accounts: List[FtpAccount]
+    ftp_accounts: list[FtpAccount]
     """
     List of FTP accounts.
     """
@@ -2045,7 +2045,7 @@ class ListHostingsResponse:
     Number of Web Hosting plans returned.
     """
 
-    hostings: List[HostingSummary]
+    hostings: list[HostingSummary]
     """
     List of Web Hosting plans.
     """
@@ -2058,7 +2058,7 @@ class ListMailAccountsResponse:
     Total number of mail accounts.
     """
 
-    mail_accounts: List[MailAccount]
+    mail_accounts: list[MailAccount]
     """
     List of mail accounts.
     """
@@ -2071,7 +2071,7 @@ class ListOffersResponse:
     Total number of offers.
     """
 
-    offers: List[Offer]
+    offers: list[Offer]
     """
     List of offers.
     """
@@ -2084,7 +2084,7 @@ class ListWebsitesResponse:
     Total number of websites.
     """
 
-    websites: List[Website]
+    websites: list[Website]
     """
     List of websites.
     """
@@ -2231,7 +2231,7 @@ class OfferApiListOffersRequest:
     UUID of the hosting plan.
     """
 
-    control_panels: Optional[List[str]] = field(default_factory=list)
+    control_panels: Optional[list[str]] = field(default_factory=list)
     """
     Name of the control panel(s) to filter for.
     """
@@ -2285,7 +2285,7 @@ class RestoreBackupResponse:
 
 @dataclass
 class SearchDomainsResponse:
-    domains_available: List[DomainAvailability]
+    domains_available: list[DomainAvailability]
     """
     List of domains availability.
     """

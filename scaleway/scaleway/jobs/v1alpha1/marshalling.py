@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -41,7 +41,7 @@ def unmarshal_SecretEnvVar(data: Any) -> SecretEnvVar:
             "Unmarshalling the type 'SecretEnvVar' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -58,7 +58,7 @@ def unmarshal_SecretFile(data: Any) -> SecretFile:
             "Unmarshalling the type 'SecretFile' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("path", None)
     if field is not None:
@@ -75,7 +75,7 @@ def unmarshal_Secret(data: Any) -> Secret:
             "Unmarshalling the type 'Secret' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secret_id", None)
     if field is not None:
@@ -116,7 +116,7 @@ def unmarshal_CronSchedule(data: Any) -> CronSchedule:
             "Unmarshalling the type 'CronSchedule' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("schedule", None)
     if field is not None:
@@ -139,7 +139,7 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
             "Unmarshalling the type 'JobDefinition' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -240,7 +240,7 @@ def unmarshal_JobRun(data: Any) -> JobRun:
             "Unmarshalling the type 'JobRun' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -351,7 +351,7 @@ def unmarshal_CreateJobDefinitionSecretsResponse(
             "Unmarshalling the type 'CreateJobDefinitionSecretsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secrets", None)
     if field is not None:
@@ -370,7 +370,7 @@ def unmarshal_JobsLimits(data: Any) -> JobsLimits:
             "Unmarshalling the type 'JobsLimits' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secrets_per_job_definition", None)
     if field is not None:
@@ -389,7 +389,7 @@ def unmarshal_ListJobDefinitionSecretsResponse(
             "Unmarshalling the type 'ListJobDefinitionSecretsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("secrets", None)
     if field is not None:
@@ -414,7 +414,7 @@ def unmarshal_ListJobDefinitionsResponse(data: Any) -> ListJobDefinitionsRespons
             "Unmarshalling the type 'ListJobDefinitionsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("job_definitions", None)
     if field is not None:
@@ -439,7 +439,7 @@ def unmarshal_ListJobRunsResponse(data: Any) -> ListJobRunsResponse:
             "Unmarshalling the type 'ListJobRunsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("job_runs", None)
     if field is not None:
@@ -464,7 +464,7 @@ def unmarshal_Resource(data: Any) -> Resource:
             "Unmarshalling the type 'Resource' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("cpu_limit", None)
     if field is not None:
@@ -487,7 +487,7 @@ def unmarshal_ListJobsResourcesResponse(data: Any) -> ListJobsResourcesResponse:
             "Unmarshalling the type 'ListJobsResourcesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("resources", None)
     if field is not None:
@@ -506,7 +506,7 @@ def unmarshal_StartJobDefinitionResponse(data: Any) -> StartJobDefinitionRespons
             "Unmarshalling the type 'StartJobDefinitionResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("job_runs", None)
     if field is not None:
@@ -522,8 +522,8 @@ def unmarshal_StartJobDefinitionResponse(data: Any) -> StartJobDefinitionRespons
 def marshal_CreateJobDefinitionRequestCronScheduleConfig(
     request: CreateJobDefinitionRequestCronScheduleConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.schedule is not None:
         output["schedule"] = request.schedule
@@ -537,8 +537,8 @@ def marshal_CreateJobDefinitionRequestCronScheduleConfig(
 def marshal_CreateJobDefinitionRequest(
     request: CreateJobDefinitionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.cpu_limit is not None:
         output["cpu_limit"] = request.cpu_limit
@@ -585,8 +585,8 @@ def marshal_CreateJobDefinitionRequest(
 def marshal_CreateJobDefinitionSecretsRequestSecretConfig(
     request: CreateJobDefinitionSecretsRequestSecretConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -610,8 +610,8 @@ def marshal_CreateJobDefinitionSecretsRequestSecretConfig(
 def marshal_CreateJobDefinitionSecretsRequest(
     request: CreateJobDefinitionSecretsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.secrets is not None:
         output["secrets"] = [
@@ -625,8 +625,8 @@ def marshal_CreateJobDefinitionSecretsRequest(
 def marshal_StartJobDefinitionRequest(
     request: StartJobDefinitionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.command is not None:
         output["command"] = request.command
@@ -643,8 +643,8 @@ def marshal_StartJobDefinitionRequest(
 def marshal_UpdateJobDefinitionRequestCronScheduleConfig(
     request: UpdateJobDefinitionRequestCronScheduleConfig,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.schedule is not None:
         output["schedule"] = request.schedule
@@ -658,8 +658,8 @@ def marshal_UpdateJobDefinitionRequestCronScheduleConfig(
 def marshal_UpdateJobDefinitionRequest(
     request: UpdateJobDefinitionRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -699,8 +699,8 @@ def marshal_UpdateJobDefinitionRequest(
 def marshal_UpdateJobDefinitionSecretRequest(
     request: UpdateJobDefinitionSecretRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [

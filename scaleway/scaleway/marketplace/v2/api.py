@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -98,7 +98,7 @@ class MarketplaceV2API(API):
         order_by: Optional[ListImagesRequestOrderBy] = None,
         arch: Optional[str] = None,
         category: Optional[str] = None,
-    ) -> List[Image]:
+    ) -> list[Image]:
         """
         List marketplace images.
         List all available images on the marketplace, their UUID, CPU architecture and description.
@@ -108,7 +108,7 @@ class MarketplaceV2API(API):
         :param order_by: Ordering to use.
         :param arch: Choose for which machine architecture to return images.
         :param category: Choose the category of images to get.
-        :return: :class:`List[Image] <List[Image]>`
+        :return: :class:`list[Image] <list[Image]>`
 
         Usage:
         ::
@@ -207,7 +207,7 @@ class MarketplaceV2API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         order_by: Optional[ListVersionsRequestOrderBy] = None,
-    ) -> List[Version]:
+    ) -> list[Version]:
         """
         List versions of an Image.
         Get a list of all available version of an image, specified by its `image_id` (UUID format).
@@ -215,7 +215,7 @@ class MarketplaceV2API(API):
         :param page_size:
         :param page:
         :param order_by:
-        :return: :class:`List[Version] <List[Version]>`
+        :return: :class:`list[Version] <list[Version]>`
 
         Usage:
         ::
@@ -337,7 +337,7 @@ class MarketplaceV2API(API):
         version_id: Optional[str] = None,
         image_label: Optional[str] = None,
         type_: Optional[LocalImageType] = None,
-    ) -> List[LocalImage]:
+    ) -> list[LocalImage]:
         """
         List local images from a specific image or version.
         List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
@@ -353,7 +353,7 @@ class MarketplaceV2API(API):
         :param image_label: Filter by image label.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param type_: Filter by type.
-        :return: :class:`List[LocalImage] <List[LocalImage]>`
+        :return: :class:`list[LocalImage] <list[LocalImage]>`
 
         Usage:
         ::
@@ -443,13 +443,13 @@ class MarketplaceV2API(API):
         *,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> List[Category]:
+    ) -> list[Category]:
         """
         List existing image categories.
         Get a list of all existing categories. The output can be paginated.
         :param page_size:
         :param page:
-        :return: :class:`List[Category] <List[Category]>`
+        :return: :class:`list[Category] <list[Category]>`
 
         Usage:
         ::

@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -41,7 +41,7 @@ def unmarshal_NatsAccount(data: Any) -> NatsAccount:
             "Unmarshalling the type 'NatsAccount' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -94,7 +94,7 @@ def unmarshal_File(data: Any) -> File:
             "Unmarshalling the type 'File' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -117,7 +117,7 @@ def unmarshal_NatsCredentials(data: Any) -> NatsCredentials:
             "Unmarshalling the type 'NatsCredentials' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -170,7 +170,7 @@ def unmarshal_SnsPermissions(data: Any) -> SnsPermissions:
             "Unmarshalling the type 'SnsPermissions' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("can_publish", None)
     if field is not None:
@@ -199,7 +199,7 @@ def unmarshal_SnsCredentials(data: Any) -> SnsCredentials:
             "Unmarshalling the type 'SnsCredentials' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -270,7 +270,7 @@ def unmarshal_SqsPermissions(data: Any) -> SqsPermissions:
             "Unmarshalling the type 'SqsPermissions' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("can_publish", None)
     if field is not None:
@@ -299,7 +299,7 @@ def unmarshal_SqsCredentials(data: Any) -> SqsCredentials:
             "Unmarshalling the type 'SqsCredentials' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -370,7 +370,7 @@ def unmarshal_ListNatsAccountsResponse(data: Any) -> ListNatsAccountsResponse:
             "Unmarshalling the type 'ListNatsAccountsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -395,7 +395,7 @@ def unmarshal_ListNatsCredentialsResponse(data: Any) -> ListNatsCredentialsRespo
             "Unmarshalling the type 'ListNatsCredentialsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -420,7 +420,7 @@ def unmarshal_ListSnsCredentialsResponse(data: Any) -> ListSnsCredentialsRespons
             "Unmarshalling the type 'ListSnsCredentialsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -445,7 +445,7 @@ def unmarshal_ListSqsCredentialsResponse(data: Any) -> ListSqsCredentialsRespons
             "Unmarshalling the type 'ListSqsCredentialsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -470,7 +470,7 @@ def unmarshal_SnsInfo(data: Any) -> SnsInfo:
             "Unmarshalling the type 'SnsInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("project_id", None)
     if field is not None:
@@ -517,7 +517,7 @@ def unmarshal_SqsInfo(data: Any) -> SqsInfo:
             "Unmarshalling the type 'SqsInfo' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("project_id", None)
     if field is not None:
@@ -561,8 +561,8 @@ def unmarshal_SqsInfo(data: Any) -> SqsInfo:
 def marshal_NatsApiCreateNatsAccountRequest(
     request: NatsApiCreateNatsAccountRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -578,8 +578,8 @@ def marshal_NatsApiCreateNatsAccountRequest(
 def marshal_NatsApiCreateNatsCredentialsRequest(
     request: NatsApiCreateNatsCredentialsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.nats_account_id is not None:
         output["nats_account_id"] = request.nats_account_id
@@ -593,8 +593,8 @@ def marshal_NatsApiCreateNatsCredentialsRequest(
 def marshal_NatsApiUpdateNatsAccountRequest(
     request: NatsApiUpdateNatsAccountRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -605,8 +605,8 @@ def marshal_NatsApiUpdateNatsAccountRequest(
 def marshal_SnsApiActivateSnsRequest(
     request: SnsApiActivateSnsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -619,8 +619,8 @@ def marshal_SnsApiActivateSnsRequest(
 def marshal_SnsPermissions(
     request: SnsPermissions,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.can_publish is not None:
         output["can_publish"] = request.can_publish
@@ -637,8 +637,8 @@ def marshal_SnsPermissions(
 def marshal_SnsApiCreateSnsCredentialsRequest(
     request: SnsApiCreateSnsCredentialsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -657,8 +657,8 @@ def marshal_SnsApiCreateSnsCredentialsRequest(
 def marshal_SnsApiDeactivateSnsRequest(
     request: SnsApiDeactivateSnsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -671,8 +671,8 @@ def marshal_SnsApiDeactivateSnsRequest(
 def marshal_SnsApiUpdateSnsCredentialsRequest(
     request: SnsApiUpdateSnsCredentialsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -686,8 +686,8 @@ def marshal_SnsApiUpdateSnsCredentialsRequest(
 def marshal_SqsApiActivateSqsRequest(
     request: SqsApiActivateSqsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -700,8 +700,8 @@ def marshal_SqsApiActivateSqsRequest(
 def marshal_SqsPermissions(
     request: SqsPermissions,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.can_publish is not None:
         output["can_publish"] = request.can_publish
@@ -718,8 +718,8 @@ def marshal_SqsPermissions(
 def marshal_SqsApiCreateSqsCredentialsRequest(
     request: SqsApiCreateSqsCredentialsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -738,8 +738,8 @@ def marshal_SqsApiCreateSqsCredentialsRequest(
 def marshal_SqsApiDeactivateSqsRequest(
     request: SqsApiDeactivateSqsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -752,8 +752,8 @@ def marshal_SqsApiDeactivateSqsRequest(
 def marshal_SqsApiUpdateSqsCredentialsRequest(
     request: SqsApiUpdateSqsCredentialsRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name

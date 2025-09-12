@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -103,7 +103,7 @@ class AutoscalingV1Alpha1API(API):
         loadbalancer: Loadbalancer,
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> InstanceGroup:
         """
         Create Instance group.
@@ -195,7 +195,7 @@ class AutoscalingV1Alpha1API(API):
         order_by: Optional[ListInstanceGroupsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[InstanceGroup]:
+    ) -> list[InstanceGroup]:
         """
         List Instance groups.
         List all Instance groups, for a Scaleway Organization or Scaleway Project. By default, the Instance groups returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -203,7 +203,7 @@ class AutoscalingV1Alpha1API(API):
         :param order_by: Sort order of Instance groups in the response.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
-        :return: :class:`List[InstanceGroup] <List[InstanceGroup]>`
+        :return: :class:`list[InstanceGroup] <list[InstanceGroup]>`
 
         Usage:
         ::
@@ -229,7 +229,7 @@ class AutoscalingV1Alpha1API(API):
         instance_group_id: str,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         capacity: Optional[UpdateInstanceGroupRequestCapacity] = None,
         loadbalancer: Optional[UpdateInstanceGroupRequestLoadbalancer] = None,
     ) -> InstanceGroup:
@@ -313,16 +313,16 @@ class AutoscalingV1Alpha1API(API):
         *,
         zone: Optional[ScwZone] = None,
         commercial_type: str,
-        volumes: Dict[str, VolumeInstanceTemplate],
+        volumes: dict[str, VolumeInstanceTemplate],
         image_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         security_group_id: Optional[str] = None,
         name: str,
         placement_group_id: Optional[str] = None,
         public_ips_v4_count: Optional[int] = None,
         public_ips_v6_count: Optional[int] = None,
         project_id: Optional[str] = None,
-        private_network_ids: Optional[List[str]] = None,
+        private_network_ids: Optional[list[str]] = None,
         cloud_init: Optional[str] = None,
     ) -> InstanceTemplate:
         """
@@ -388,14 +388,14 @@ class AutoscalingV1Alpha1API(API):
         zone: Optional[ScwZone] = None,
         commercial_type: Optional[str] = None,
         image_id: Optional[str] = None,
-        volumes: Optional[Dict[str, VolumeInstanceTemplate]] = None,
-        tags: Optional[List[str]] = None,
+        volumes: Optional[dict[str, VolumeInstanceTemplate]] = None,
+        tags: Optional[list[str]] = None,
         security_group_id: Optional[str] = None,
         placement_group_id: Optional[str] = None,
         public_ips_v4_count: Optional[int] = None,
         public_ips_v6_count: Optional[int] = None,
         name: Optional[str] = None,
-        private_network_ids: Optional[List[str]] = None,
+        private_network_ids: Optional[list[str]] = None,
         cloud_init: Optional[str] = None,
     ) -> InstanceTemplate:
         """
@@ -560,7 +560,7 @@ class AutoscalingV1Alpha1API(API):
         order_by: Optional[ListInstanceTemplatesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[InstanceTemplate]:
+    ) -> list[InstanceTemplate]:
         """
         List Instance templates.
         List all Instance templates, for a Scaleway Organization or Scaleway Project. By default, the Instance templates returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -568,7 +568,7 @@ class AutoscalingV1Alpha1API(API):
         :param order_by: Sort order of Instance groups in the response.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
-        :return: :class:`List[InstanceTemplate] <List[InstanceTemplate]>`
+        :return: :class:`list[InstanceTemplate] <list[InstanceTemplate]>`
 
         Usage:
         ::
@@ -759,7 +759,7 @@ class AutoscalingV1Alpha1API(API):
         order_by: Optional[ListInstancePoliciesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[InstancePolicy]:
+    ) -> list[InstancePolicy]:
         """
         List scaling policies.
         List all scaling policies, for a Scaleway Organization or Scaleway Project. By default, the policies returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -768,7 +768,7 @@ class AutoscalingV1Alpha1API(API):
         :param order_by: Sort order of Instance groups in the response.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of scaling policies to return per page.
-        :return: :class:`List[InstancePolicy] <List[InstancePolicy]>`
+        :return: :class:`list[InstancePolicy] <list[InstancePolicy]>`
 
         Usage:
         ::
@@ -906,7 +906,7 @@ class AutoscalingV1Alpha1API(API):
         order_by: Optional[ListInstanceGroupEventsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[InstanceGroupEvent]:
+    ) -> list[InstanceGroupEvent]:
         """
         List events.
         List all events for a given Instance group. By default, the events are ordered by creation date in descending order, though this can be modified via the `order_by` field.
@@ -915,7 +915,7 @@ class AutoscalingV1Alpha1API(API):
         :param order_by: Sort order of Instance groups in the response.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of Instance groups to return per page.
-        :return: :class:`List[InstanceGroupEvent] <List[InstanceGroupEvent]>`
+        :return: :class:`list[InstanceGroupEvent] <list[InstanceGroupEvent]>`
 
         Usage:
         ::

@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Any, Awaitable, Dict, List, Optional, Union
+from typing import Any, Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -163,7 +163,7 @@ class IotV1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-    ) -> List[Hub]:
+    ) -> list[Hub]:
         """
         List hubs.
         List all Hubs in the specified zone. By default, returned Hubs are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -174,7 +174,7 @@ class IotV1API(API):
         :param project_id: Only list Hubs of this Project ID.
         :param organization_id: Only list Hubs of this Organization ID.
         :param name: Hub name.
-        :return: :class:`List[Hub] <List[Hub]>`
+        :return: :class:`list[Hub] <list[Hub]>`
 
         Usage:
         ::
@@ -677,7 +677,7 @@ class IotV1API(API):
         hub_id: Optional[str] = None,
         allow_insecure: Optional[bool] = None,
         status: Optional[DeviceStatus] = None,
-    ) -> List[Device]:
+    ) -> list[Device]:
         """
         List devices.
         List all devices in the specified region. By default, returned devices are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -689,7 +689,7 @@ class IotV1API(API):
         :param hub_id: Hub ID to filter for, only devices attached to this Hub will be returned.
         :param allow_insecure: Defines whether to filter the allow_insecure flag.
         :param status: Device status (enabled, disabled, etc.).
-        :return: :class:`List[Device] <List[Device]>`
+        :return: :class:`list[Device] <list[Device]>`
 
         Usage:
         ::
@@ -1171,7 +1171,7 @@ class IotV1API(API):
         order_by: Optional[ListRoutesRequestOrderBy] = None,
         hub_id: Optional[str] = None,
         name: Optional[str] = None,
-    ) -> List[RouteSummary]:
+    ) -> list[RouteSummary]:
         """
         List routes.
         List all routes in the specified region. By default, returned routes are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -1181,7 +1181,7 @@ class IotV1API(API):
         :param order_by: Ordering of requested routes.
         :param hub_id: Hub ID to filter for.
         :param name: Route name to filter for.
-        :return: :class:`List[RouteSummary] <List[RouteSummary]>`
+        :return: :class:`list[RouteSummary] <list[RouteSummary]>`
 
         Usage:
         ::
@@ -1454,7 +1454,7 @@ class IotV1API(API):
         name: Optional[str] = None,
         hub_id: Optional[str] = None,
         topic_prefix: Optional[str] = None,
-    ) -> List[Network]:
+    ) -> list[Network]:
         """
         List the networks.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -1464,7 +1464,7 @@ class IotV1API(API):
         :param name: Network name to filter for.
         :param hub_id: Hub ID to filter for.
         :param topic_prefix: Topic prefix to filter for.
-        :return: :class:`List[Network] <List[Network]>`
+        :return: :class:`list[Network] <list[Network]>`
 
         Usage:
         ::
@@ -1648,7 +1648,7 @@ class IotV1API(API):
         document_name: str,
         region: Optional[ScwRegion] = None,
         version: Optional[int] = None,
-        data: Optional[Dict[str, Any]] = None,
+        data: Optional[dict[str, Any]] = None,
     ) -> TwinDocument:
         """
         BETA - Update a Cloud Twin Document.
@@ -1699,7 +1699,7 @@ class IotV1API(API):
         document_name: str,
         region: Optional[ScwRegion] = None,
         version: Optional[int] = None,
-        data: Optional[Dict[str, Any]] = None,
+        data: Optional[dict[str, Any]] = None,
     ) -> TwinDocument:
         """
         BETA - Patch a Cloud Twin Document.

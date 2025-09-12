@@ -174,6 +174,7 @@ from .types import ListVolumesTypesRequest
 from .types import ListVolumesTypesResponse
 from .types import MigrationPlan
 from .types import PlanBlockMigrationRequest
+from .types import ReleaseIpToIpamRequest
 from .types import ServerActionRequest
 from .types import ServerActionResponse
 from .types import ServerCompatibleTypes
@@ -380,6 +381,7 @@ __all__ = [
     "ListVolumesTypesResponse",
     "MigrationPlan",
     "PlanBlockMigrationRequest",
+    "ReleaseIpToIpamRequest",
     "ServerActionRequest",
     "ServerActionResponse",
     "ServerCompatibleTypes",

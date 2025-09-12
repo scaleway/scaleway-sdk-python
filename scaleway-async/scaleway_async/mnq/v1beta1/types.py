@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -319,7 +319,7 @@ class ListNatsAccountsResponse:
     Total count of existing NATS accounts (matching any filters specified).
     """
 
-    nats_accounts: List[NatsAccount]
+    nats_accounts: list[NatsAccount]
     """
     NATS accounts on this page.
     """
@@ -332,7 +332,7 @@ class ListNatsCredentialsResponse:
     Total count of existing credentials (matching any filters specified).
     """
 
-    nats_credentials: List[NatsCredentials]
+    nats_credentials: list[NatsCredentials]
     """
     Credentials on this page.
     """
@@ -345,7 +345,7 @@ class ListSnsCredentialsResponse:
     Total count of existing credentials (matching any filters specified).
     """
 
-    sns_credentials: List[SnsCredentials]
+    sns_credentials: list[SnsCredentials]
     """
     Topics and Events credentials on this page.
     """
@@ -358,7 +358,7 @@ class ListSqsCredentialsResponse:
     Total count of existing credentials (matching any filters specified).
     """
 
-    sqs_credentials: List[SqsCredentials]
+    sqs_credentials: list[SqsCredentials]
     """
     Queues credentials on this page.
     """

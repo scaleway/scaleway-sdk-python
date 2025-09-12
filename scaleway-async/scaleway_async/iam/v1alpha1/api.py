@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
@@ -217,7 +217,7 @@ class IamV1Alpha1API(API):
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         disabled: Optional[bool] = None,
-    ) -> List[SSHKey]:
+    ) -> list[SSHKey]:
         """
         List SSH keys.
         List SSH keys. By default, the SSH keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `organization_id`, `name`, `project_id` and `disabled`.
@@ -228,7 +228,7 @@ class IamV1Alpha1API(API):
         :param name: Name of group to find.
         :param project_id: Filter by Project ID.
         :param disabled: Defines whether to include disabled SSH keys or not.
-        :return: :class:`List[SSHKey] <List[SSHKey]>`
+        :return: :class:`list[SSHKey] <list[SSHKey]>`
 
         Usage:
         ::
@@ -394,7 +394,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
-        user_ids: Optional[List[str]] = None,
+        user_ids: Optional[list[str]] = None,
         mfa: Optional[bool] = None,
         tag: Optional[str] = None,
         type_: Optional[UserType] = None,
@@ -444,11 +444,11 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
-        user_ids: Optional[List[str]] = None,
+        user_ids: Optional[list[str]] = None,
         mfa: Optional[bool] = None,
         tag: Optional[str] = None,
         type_: Optional[UserType] = None,
-    ) -> List[User]:
+    ) -> list[User]:
         """
         List users of an Organization.
         List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `user_ids`.
@@ -460,7 +460,7 @@ class IamV1Alpha1API(API):
         :param mfa: Filter by MFA status.
         :param tag: Filter by tags containing a given string.
         :param type_: Filter by user type.
-        :return: :class:`List[User] <List[User]>`
+        :return: :class:`list[User] <list[User]>`
 
         Usage:
         ::
@@ -517,7 +517,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         user_id: str,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         email: Optional[str] = None,
         first_name: Optional[str] = None,
         last_name: Optional[str] = None,
@@ -598,7 +598,7 @@ class IamV1Alpha1API(API):
         *,
         organization_id: Optional[str] = None,
         email: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         member: Optional[CreateUserRequestMember] = None,
     ) -> User:
         """
@@ -1026,7 +1026,7 @@ class IamV1Alpha1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         editable: Optional[bool] = None,
-        application_ids: Optional[List[str]] = None,
+        application_ids: Optional[list[str]] = None,
         tag: Optional[str] = None,
     ) -> ListApplicationsResponse:
         """
@@ -1076,9 +1076,9 @@ class IamV1Alpha1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         editable: Optional[bool] = None,
-        application_ids: Optional[List[str]] = None,
+        application_ids: Optional[list[str]] = None,
         tag: Optional[str] = None,
-    ) -> List[Application]:
+    ) -> list[Application]:
         """
         List applications of an Organization.
         List the applications of an Organization. By default, the applications listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `application_ids`.
@@ -1090,7 +1090,7 @@ class IamV1Alpha1API(API):
         :param editable: Defines whether to filter out editable applications or not.
         :param application_ids: Filter by list of IDs.
         :param tag: Filter by tags containing a given string.
-        :return: :class:`List[Application] <List[Application]>`
+        :return: :class:`list[Application] <list[Application]>`
 
         Usage:
         ::
@@ -1120,7 +1120,7 @@ class IamV1Alpha1API(API):
         description: str,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Application:
         """
         Create a new application.
@@ -1191,7 +1191,7 @@ class IamV1Alpha1API(API):
         application_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Application:
         """
         Update an application.
@@ -1264,9 +1264,9 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        application_ids: Optional[List[str]] = None,
-        user_ids: Optional[List[str]] = None,
-        group_ids: Optional[List[str]] = None,
+        application_ids: Optional[list[str]] = None,
+        user_ids: Optional[list[str]] = None,
+        group_ids: Optional[list[str]] = None,
         tag: Optional[str] = None,
     ) -> ListGroupsResponse:
         """
@@ -1317,11 +1317,11 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        application_ids: Optional[List[str]] = None,
-        user_ids: Optional[List[str]] = None,
-        group_ids: Optional[List[str]] = None,
+        application_ids: Optional[list[str]] = None,
+        user_ids: Optional[list[str]] = None,
+        group_ids: Optional[list[str]] = None,
         tag: Optional[str] = None,
-    ) -> List[Group]:
+    ) -> list[Group]:
         """
         List groups.
         List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters to filter your query. Use `user_ids` or `application_ids` to list all groups certain users or applications belong to.
@@ -1334,7 +1334,7 @@ class IamV1Alpha1API(API):
         :param user_ids: Filter by a list of user IDs.
         :param group_ids: Filter by a list of group IDs.
         :param tag: Filter by tags containing a given string.
-        :return: :class:`List[Group] <List[Group]>`
+        :return: :class:`list[Group] <list[Group]>`
 
         Usage:
         ::
@@ -1365,7 +1365,7 @@ class IamV1Alpha1API(API):
         description: str,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Group:
         """
         Create a group.
@@ -1436,7 +1436,7 @@ class IamV1Alpha1API(API):
         group_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Group:
         """
         Update a group.
@@ -1478,8 +1478,8 @@ class IamV1Alpha1API(API):
         self,
         *,
         group_id: str,
-        user_ids: List[str],
-        application_ids: List[str],
+        user_ids: list[str],
+        application_ids: list[str],
     ) -> Group:
         """
         Overwrite users and applications of a group.
@@ -1564,8 +1564,8 @@ class IamV1Alpha1API(API):
         self,
         *,
         group_id: str,
-        user_ids: Optional[List[str]] = None,
-        application_ids: Optional[List[str]] = None,
+        user_ids: Optional[list[str]] = None,
+        application_ids: Optional[list[str]] = None,
     ) -> Group:
         """
         Add multiple users and applications to a group.
@@ -1679,13 +1679,13 @@ class IamV1Alpha1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         editable: Optional[bool] = None,
-        user_ids: Optional[List[str]] = None,
-        group_ids: Optional[List[str]] = None,
-        application_ids: Optional[List[str]] = None,
+        user_ids: Optional[list[str]] = None,
+        group_ids: Optional[list[str]] = None,
+        application_ids: Optional[list[str]] = None,
         no_principal: Optional[bool] = None,
         policy_name: Optional[str] = None,
         tag: Optional[str] = None,
-        policy_ids: Optional[List[str]] = None,
+        policy_ids: Optional[list[str]] = None,
     ) -> ListPoliciesResponse:
         """
         List policies of an Organization.
@@ -1741,14 +1741,14 @@ class IamV1Alpha1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         editable: Optional[bool] = None,
-        user_ids: Optional[List[str]] = None,
-        group_ids: Optional[List[str]] = None,
-        application_ids: Optional[List[str]] = None,
+        user_ids: Optional[list[str]] = None,
+        group_ids: Optional[list[str]] = None,
+        application_ids: Optional[list[str]] = None,
         no_principal: Optional[bool] = None,
         policy_name: Optional[str] = None,
         tag: Optional[str] = None,
-        policy_ids: Optional[List[str]] = None,
-    ) -> List[Policy]:
+        policy_ids: Optional[list[str]] = None,
+    ) -> list[Policy]:
         """
         List policies of an Organization.
         List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters to filter your query, such as `user_ids`, `groups_ids`, `application_ids`, and `policy_name`.
@@ -1764,7 +1764,7 @@ class IamV1Alpha1API(API):
         :param policy_name: Name of the policy to fetch.
         :param tag: Filter by tags containing a given string.
         :param policy_ids: Filter by a list of IDs.
-        :return: :class:`List[Policy] <List[Policy]>`
+        :return: :class:`list[Policy] <list[Policy]>`
 
         Usage:
         ::
@@ -1798,8 +1798,8 @@ class IamV1Alpha1API(API):
         description: str,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
-        rules: Optional[List[RuleSpecs]] = None,
-        tags: Optional[List[str]] = None,
+        rules: Optional[list[RuleSpecs]] = None,
+        tags: Optional[list[str]] = None,
         user_id: Optional[str] = None,
         group_id: Optional[str] = None,
         application_id: Optional[str] = None,
@@ -1888,7 +1888,7 @@ class IamV1Alpha1API(API):
         policy_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         user_id: Optional[str] = None,
         group_id: Optional[str] = None,
         application_id: Optional[str] = None,
@@ -2003,7 +2003,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         policy_id: str,
-        rules: List[RuleSpecs],
+        rules: list[RuleSpecs],
     ) -> SetRulesResponse:
         """
         Set rules of a given policy.
@@ -2078,14 +2078,14 @@ class IamV1Alpha1API(API):
         policy_id: str,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
-    ) -> List[Rule]:
+    ) -> list[Rule]:
         """
         List rules of a given policy.
         List the rules of a given policy. By default, the rules listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `policy_id` in the query path of your request.
         :param policy_id: Id of policy to search.
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
-        :return: :class:`List[Rule] <List[Rule]>`
+        :return: :class:`list[Rule] <list[Rule]>`
 
         Usage:
         ::
@@ -2151,7 +2151,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
-    ) -> List[PermissionSet]:
+    ) -> list[PermissionSet]:
         """
         List permission sets.
         List permission sets available for given Organization. You must define the `organization_id` in the query path of your request.
@@ -2159,7 +2159,7 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
         :param organization_id: Filter by Organization ID.
-        :return: :class:`List[PermissionSet] <List[PermissionSet]>`
+        :return: :class:`list[PermissionSet] <list[PermissionSet]>`
 
         Usage:
         ::
@@ -2194,7 +2194,7 @@ class IamV1Alpha1API(API):
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
         bearer_type: Optional[BearerType] = None,
-        access_keys: Optional[List[str]] = None,
+        access_keys: Optional[list[str]] = None,
     ) -> ListAPIKeysResponse:
         """
         List API keys.
@@ -2265,8 +2265,8 @@ class IamV1Alpha1API(API):
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
         bearer_type: Optional[BearerType] = None,
-        access_keys: Optional[List[str]] = None,
-    ) -> List[APIKey]:
+        access_keys: Optional[list[str]] = None,
+    ) -> list[APIKey]:
         """
         List API keys.
         List API keys. By default, the API keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `editable`, `expired`, `access_key` and `bearer_id`.
@@ -2285,7 +2285,7 @@ class IamV1Alpha1API(API):
         :param bearer_id: Filter by bearer ID.
         :param bearer_type: Filter by type of bearer.
         :param access_keys: Filter by a list of access keys.
-        :return: :class:`List[APIKey] <List[APIKey]>`
+        :return: :class:`list[APIKey] <list[APIKey]>`
 
         Usage:
         ::
@@ -2465,7 +2465,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
-        quotum_names: Optional[List[str]] = None,
+        quotum_names: Optional[list[str]] = None,
     ) -> ListQuotaResponse:
         """
         List all quotas in the Organization.
@@ -2506,8 +2506,8 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
-        quotum_names: Optional[List[str]] = None,
-    ) -> List[Quotum]:
+        quotum_names: Optional[list[str]] = None,
+    ) -> list[Quotum]:
         """
         List all quotas in the Organization.
         List all product and features quota for an Organization, with their associated limits. By default, the quota listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request.
@@ -2516,7 +2516,7 @@ class IamV1Alpha1API(API):
         :param page: Page number. Value must be greater than 1.
         :param organization_id: Filter by Organization ID.
         :param quotum_names: List of quotum names to filter from.
-        :return: :class:`List[Quotum] <List[Quotum]>`
+        :return: :class:`list[Quotum] <list[Quotum]>`
 
         Usage:
         ::
@@ -2621,7 +2621,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         expired: Optional[bool] = None,
-    ) -> List[JWT]:
+    ) -> list[JWT]:
         """
         List JWTs.
         :param audience_id: ID of the user to search.
@@ -2629,7 +2629,7 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater to 1.
         :param expired: Filter out expired JWTs or not.
-        :return: :class:`List[JWT] <List[JWT]>`
+        :return: :class:`list[JWT] <list[JWT]>`
 
         Usage:
         ::
@@ -2807,7 +2807,7 @@ class IamV1Alpha1API(API):
         action: Optional[LogAction] = None,
         resource_type: Optional[LogResourceType] = None,
         search: Optional[str] = None,
-    ) -> List[Log]:
+    ) -> list[Log]:
         """
         List logs.
         List logs available for given Organization. You must define the `organization_id` in the query path of your request.
@@ -2820,7 +2820,7 @@ class IamV1Alpha1API(API):
         :param action: Defined whether or not to filter out by a specific action.
         :param resource_type: Defined whether or not to filter out by a specific type of resource.
         :param search: Defined whether or not to filter out log by bearer ID or resource ID.
-        :return: :class:`List[Log] <List[Log]>`
+        :return: :class:`list[Log] <list[Log]>`
 
         Usage:
         ::

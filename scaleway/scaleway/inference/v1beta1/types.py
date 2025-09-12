@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -113,7 +113,7 @@ This CA certificate can be retrieved using the `GetDeploymentCertificate` API ca
 @dataclass
 class ModelS3Model:
     s3_url: str
-    python_dependencies: Dict[str, str]
+    python_dependencies: dict[str, str]
     node_type: Optional[str] = None
     triton_server_version: Optional[str] = None
 
@@ -184,7 +184,7 @@ class Deployment:
     Status of the deployment.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the deployment.
     """
@@ -194,7 +194,7 @@ class Deployment:
     Node type of the deployment.
     """
 
-    endpoints: List[Endpoint]
+    endpoints: list[Endpoint]
     """
     List of endpoints.
     """
@@ -267,7 +267,7 @@ class Model:
     Name of the model provider.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     List of tags applied to the model.
     """
@@ -292,7 +292,7 @@ class Model:
     Defines whether the model is public or not.
     """
 
-    compatible_node_types: List[str]
+    compatible_node_types: list[str]
     """
     Names of the node types compatible with the model.
     """
@@ -390,7 +390,7 @@ class AddDeploymentACLRulesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    acls: Optional[List[ACLRuleRequest]] = field(default_factory=list)
+    acls: Optional[list[ACLRuleRequest]] = field(default_factory=list)
     """
     List of ACL rules to add.
     """
@@ -398,7 +398,7 @@ class AddDeploymentACLRulesRequest:
 
 @dataclass
 class AddDeploymentACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     List of ACL rules added.
     """
@@ -416,7 +416,7 @@ class CreateDeploymentRequest:
     Name of the node type to use.
     """
 
-    endpoints: List[EndpointSpec]
+    endpoints: list[EndpointSpec]
     """
     List of endpoints to create.
     """
@@ -442,7 +442,7 @@ class CreateDeploymentRequest:
 The terms of the EULA can be retrieved using the `GetModelEula` API call.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the deployment.
     """
@@ -592,7 +592,7 @@ class ListDeploymentACLRulesRequest:
 
 @dataclass
 class ListDeploymentACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     List of ACL rules on the current page.
     """
@@ -642,7 +642,7 @@ class ListDeploymentsRequest:
     Filter by deployment name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tags.
     """
@@ -650,7 +650,7 @@ class ListDeploymentsRequest:
 
 @dataclass
 class ListDeploymentsResponse:
-    deployments: List[Deployment]
+    deployments: list[Deployment]
     """
     List of deployments on the current page.
     """
@@ -695,7 +695,7 @@ class ListModelsRequest:
     Filter by model name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tags.
     """
@@ -703,7 +703,7 @@ class ListModelsRequest:
 
 @dataclass
 class ListModelsResponse:
-    models: List[Model]
+    models: list[Model]
     """
     List of models on the current page.
     """
@@ -739,7 +739,7 @@ class ListNodeTypesRequest:
 
 @dataclass
 class ListNodeTypesResponse:
-    node_types: List[NodeType]
+    node_types: list[NodeType]
     """
     List of node types.
     """
@@ -762,7 +762,7 @@ class SetDeploymentACLRulesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    acls: Optional[List[ACLRuleRequest]] = field(default_factory=list)
+    acls: Optional[list[ACLRuleRequest]] = field(default_factory=list)
     """
     All existing ACL rules will be replaced by the new ones.
     """
@@ -770,7 +770,7 @@ class SetDeploymentACLRulesRequest:
 
 @dataclass
 class SetDeploymentACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     List of ACL rules that were set.
     """
@@ -793,7 +793,7 @@ class UpdateDeploymentRequest:
     Name of the deployment.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the deployment.
     """

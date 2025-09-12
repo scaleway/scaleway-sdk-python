@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Zone as ScwZone,
@@ -157,7 +157,7 @@ class OS:
     The current xcode version for this OS.
     """
 
-    compatible_server_types: List[str]
+    compatible_server_types: list[str]
     """
     List of compatible server types.
     """
@@ -190,7 +190,7 @@ class ServerTypeMemory:
 @dataclass
 class ServerTypeNetwork:
     public_bandwidth_bps: int
-    supported_bandwidth: List[int]
+    supported_bandwidth: list[int]
 
 
 @dataclass
@@ -343,7 +343,7 @@ class ServerPrivateNetwork:
     Configuration status of the Private Network.
     """
 
-    ipam_ip_ids: List[str]
+    ipam_ip_ids: list[str]
     """
     IPAM IP IDs of the server, if it has any.
     """
@@ -454,7 +454,7 @@ class BatchCreateServersRequest:
     Activate commitment for these servers. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
     """
 
-    requests: Optional[List[BatchCreateServersRequestBatchInnerCreateServerRequest]] = (
+    requests: Optional[list[BatchCreateServersRequestBatchInnerCreateServerRequest]] = (
         field(default_factory=list)
     )
     """
@@ -464,7 +464,7 @@ class BatchCreateServersRequest:
 
 @dataclass
 class BatchCreateServersResponse:
-    servers: List[Server]
+    servers: list[Server]
     """
     List of created servers.
     """
@@ -475,7 +475,7 @@ class ConnectivityDiagnostic:
     id: str
     status: ConnectivityDiagnosticDiagnosticStatus
     is_healthy: bool
-    supported_actions: List[ConnectivityDiagnosticActionType]
+    supported_actions: list[ConnectivityDiagnosticActionType]
     error_message: str
     health_details: Optional[ConnectivityDiagnosticServerHealth] = None
 
@@ -619,7 +619,7 @@ class ListOSResponse:
     Total number of OS.
     """
 
-    os: List[OS]
+    os: list[OS]
     """
     List of OS.
     """
@@ -627,7 +627,7 @@ class ListOSResponse:
 
 @dataclass
 class ListServerPrivateNetworksResponse:
-    server_private_networks: List[ServerPrivateNetwork]
+    server_private_networks: list[ServerPrivateNetwork]
     total_count: int
 
 
@@ -641,7 +641,7 @@ class ListServerTypesRequest:
 
 @dataclass
 class ListServerTypesResponse:
-    server_types: List[ServerType]
+    server_types: list[ServerType]
     """
     Available server types.
     """
@@ -689,7 +689,7 @@ class ListServersResponse:
     Total number of servers.
     """
 
-    servers: List[Server]
+    servers: list[Server]
     """
     Paginated returned servers.
     """
@@ -712,7 +712,7 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
+    ipam_ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     IPAM IDs of IPs to attach to the server.
     """
@@ -790,7 +790,7 @@ class PrivateNetworkApiListServerPrivateNetworksRequest:
     Filter Private Networks by Project ID.
     """
 
-    ipam_ip_ids: Optional[List[str]] = field(default_factory=list)
+    ipam_ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter Private Networks by IPAM IP IDs.
     """
@@ -803,7 +803,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     ID of the server.
     """
 
-    per_private_network_ipam_ip_ids: Dict[str, List[str]]
+    per_private_network_ipam_ip_ids: dict[str, list[str]]
     """
     Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
     """
@@ -847,7 +847,7 @@ class ReinstallServerRequest:
 
 @dataclass
 class SetServerPrivateNetworksResponse:
-    server_private_networks: List[ServerPrivateNetwork]
+    server_private_networks: list[ServerPrivateNetwork]
 
 
 @dataclass

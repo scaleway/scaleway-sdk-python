@@ -2,7 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -161,7 +161,7 @@ class FunctionV1Beta1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Namespace]:
+    ) -> list[Namespace]:
         """
         List all your namespaces.
         List all existing namespaces in the specified region.
@@ -172,7 +172,7 @@ class FunctionV1Beta1API(API):
         :param name: Name of the namespace.
         :param organization_id: UUID of the Organization the namespace belongs to.
         :param project_id: UUID of the Project the namespace belongs to.
-        :return: :class:`List[Namespace] <List[Namespace]>`
+        :return: :class:`list[Namespace] <list[Namespace]>`
 
         Usage:
         ::
@@ -271,11 +271,11 @@ class FunctionV1Beta1API(API):
         *,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         project_id: Optional[str] = None,
         description: Optional[str] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
-        tags: Optional[List[str]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
+        tags: Optional[list[str]] = None,
         activate_vpc_integration: Optional[bool] = None,
     ) -> Namespace:
         """
@@ -327,10 +327,10 @@ class FunctionV1Beta1API(API):
         *,
         namespace_id: str,
         region: Optional[ScwRegion] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         description: Optional[str] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
-        tags: Optional[List[str]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
+        tags: Optional[list[str]] = None,
     ) -> Namespace:
         """
         Update an existing namespace.
@@ -474,7 +474,7 @@ class FunctionV1Beta1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Function]:
+    ) -> list[Function]:
         """
         List all your functions.
         :param namespace_id: UUID of the namespace the function belongs to.
@@ -485,7 +485,7 @@ class FunctionV1Beta1API(API):
         :param name: Name of the function.
         :param organization_id: UUID of the Organization the function belongs to.
         :param project_id: UUID of the Project the function belongs to.
-        :return: :class:`List[Function] <List[Function]>`
+        :return: :class:`list[Function] <list[Function]>`
 
         Usage:
         ::
@@ -588,7 +588,7 @@ class FunctionV1Beta1API(API):
         namespace_id: str,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         runtime: Optional[FunctionRuntime] = None,
@@ -597,10 +597,10 @@ class FunctionV1Beta1API(API):
         handler: Optional[str] = None,
         privacy: Optional[FunctionPrivacy] = None,
         description: Optional[str] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
         http_option: Optional[FunctionHttpOption] = None,
         sandbox: Optional[FunctionSandbox] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         private_network_id: Optional[str] = None,
     ) -> Function:
         """
@@ -674,7 +674,7 @@ class FunctionV1Beta1API(API):
         *,
         function_id: str,
         region: Optional[ScwRegion] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        environment_variables: Optional[dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         runtime: Optional[FunctionRuntime] = None,
@@ -684,10 +684,10 @@ class FunctionV1Beta1API(API):
         handler: Optional[str] = None,
         privacy: Optional[FunctionPrivacy] = None,
         description: Optional[str] = None,
-        secret_environment_variables: Optional[List[Secret]] = None,
+        secret_environment_variables: Optional[list[Secret]] = None,
         http_option: Optional[FunctionHttpOption] = None,
         sandbox: Optional[FunctionSandbox] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         private_network_id: Optional[str] = None,
     ) -> Function:
         """
@@ -996,7 +996,7 @@ class FunctionV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListCronsRequestOrderBy] = None,
-    ) -> List[Cron]:
+    ) -> list[Cron]:
         """
         List all crons.
         List all the cronjobs in a specified region.
@@ -1005,7 +1005,7 @@ class FunctionV1Beta1API(API):
         :param page: Page number.
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
-        :return: :class:`List[Cron] <List[Cron]>`
+        :return: :class:`list[Cron] <list[Cron]>`
 
         Usage:
         ::
@@ -1105,7 +1105,7 @@ class FunctionV1Beta1API(API):
         function_id: str,
         schedule: str,
         region: Optional[ScwRegion] = None,
-        args: Optional[Dict[str, Any]] = None,
+        args: Optional[dict[str, Any]] = None,
         name: Optional[str] = None,
     ) -> Cron:
         """
@@ -1156,7 +1156,7 @@ class FunctionV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         function_id: Optional[str] = None,
         schedule: Optional[str] = None,
-        args: Optional[Dict[str, Any]] = None,
+        args: Optional[dict[str, Any]] = None,
         name: Optional[str] = None,
     ) -> Cron:
         """
@@ -1289,7 +1289,7 @@ class FunctionV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDomainsRequestOrderBy] = None,
-    ) -> List[Domain]:
+    ) -> list[Domain]:
         """
         List all domain name bindings.
         List all domain name bindings in a specified region.
@@ -1298,7 +1298,7 @@ class FunctionV1Beta1API(API):
         :param page: Page number.
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
-        :return: :class:`List[Domain] <List[Domain]>`
+        :return: :class:`list[Domain] <list[Domain]>`
 
         Usage:
         ::
@@ -1641,7 +1641,7 @@ class FunctionV1Beta1API(API):
         order_by: Optional[ListTokensRequestOrderBy] = None,
         function_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
-    ) -> List[Token]:
+    ) -> list[Token]:
         """
         List all tokens.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -1650,7 +1650,7 @@ class FunctionV1Beta1API(API):
         :param order_by: Sort order for the tokens.
         :param function_id: UUID of the function the token is associated with.
         :param namespace_id: UUID of the namespace the token is associated with.
-        :return: :class:`List[Token] <List[Token]>`
+        :return: :class:`list[Token] <list[Token]>`
 
         Usage:
         ::
@@ -1901,7 +1901,7 @@ class FunctionV1Beta1API(API):
         function_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
         project_id: Optional[str] = None,
-    ) -> List[Trigger]:
+    ) -> list[Trigger]:
         """
         List all triggers.
         List all triggers belonging to a specified Organization or Project.
@@ -1915,7 +1915,7 @@ class FunctionV1Beta1API(API):
         One-Of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
         :param project_id: ID of the project the triggers belongs to.
         One-Of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
-        :return: :class:`List[Trigger] <List[Trigger]>`
+        :return: :class:`list[Trigger] <list[Trigger]>`
 
         Usage:
         ::

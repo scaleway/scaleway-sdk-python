@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, Dict, List, Optional, Union
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -200,7 +200,7 @@ class ApplesiliconV1Alpha1API(API):
         os_id: Optional[str] = None,
         commitment_type: Optional[CommitmentType] = None,
         requests: Optional[
-            List[BatchCreateServersRequestBatchInnerCreateServerRequest]
+            list[BatchCreateServersRequestBatchInnerCreateServerRequest]
         ] = None,
     ) -> BatchCreateServersResponse:
         """
@@ -303,7 +303,7 @@ class ApplesiliconV1Alpha1API(API):
         organization_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[Server]:
+    ) -> list[Server]:
         """
         List all servers.
         List all servers in the specified zone. By default, returned servers in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
@@ -313,7 +313,7 @@ class ApplesiliconV1Alpha1API(API):
         :param organization_id: Only list servers of this Organization ID.
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
-        :return: :class:`List[Server] <List[Server]>`
+        :return: :class:`list[Server] <list[Server]>`
 
         Usage:
         ::
@@ -384,7 +384,7 @@ class ApplesiliconV1Alpha1API(API):
         page_size: Optional[int] = None,
         server_type: Optional[str] = None,
         name: Optional[str] = None,
-    ) -> List[OS]:
+    ) -> list[OS]:
         """
         List all Operating Systems (OS).
         List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
@@ -393,7 +393,7 @@ class ApplesiliconV1Alpha1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param server_type: List of compatible server types.
         :param name: Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
-        :return: :class:`List[OS] <List[OS]>`
+        :return: :class:`list[OS] <list[OS]>`
 
         Usage:
         ::
@@ -832,7 +832,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         server_id: str,
         private_network_id: str,
         zone: Optional[ScwZone] = None,
-        ipam_ip_ids: Optional[List[str]] = None,
+        ipam_ip_ids: Optional[list[str]] = None,
     ) -> ServerPrivateNetwork:
         """
         Add a server to a Private Network.
@@ -876,7 +876,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         self,
         *,
         server_id: str,
-        per_private_network_ipam_ip_ids: Dict[str, List[str]],
+        per_private_network_ipam_ip_ids: dict[str, list[str]],
         zone: Optional[ScwZone] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
@@ -926,7 +926,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         private_network_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        ipam_ip_ids: Optional[List[str]] = None,
+        ipam_ip_ids: Optional[list[str]] = None,
     ) -> ListServerPrivateNetworksResponse:
         """
         List the Private Networks of a server.
@@ -980,8 +980,8 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         private_network_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        ipam_ip_ids: Optional[List[str]] = None,
-    ) -> List[ServerPrivateNetwork]:
+        ipam_ip_ids: Optional[list[str]] = None,
+    ) -> list[ServerPrivateNetwork]:
         """
         List the Private Networks of a server.
         List the Private Networks of an Apple silicon server.
@@ -994,7 +994,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         :param organization_id: Filter Private Networks by Organization ID.
         :param project_id: Filter Private Networks by Project ID.
         :param ipam_ip_ids: Filter Private Networks by IPAM IP IDs.
-        :return: :class:`List[ServerPrivateNetwork] <List[ServerPrivateNetwork]>`
+        :return: :class:`list[ServerPrivateNetwork] <list[ServerPrivateNetwork]>`
 
         Usage:
         ::

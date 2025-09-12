@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -51,7 +51,7 @@ def unmarshal_Capacity(data: Any) -> Capacity:
             "Unmarshalling the type 'Capacity' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("max_replicas", None)
     if field is not None:
@@ -80,7 +80,7 @@ def unmarshal_Loadbalancer(data: Any) -> Loadbalancer:
             "Unmarshalling the type 'Loadbalancer' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -109,7 +109,7 @@ def unmarshal_InstanceGroup(data: Any) -> InstanceGroup:
             "Unmarshalling the type 'InstanceGroup' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -180,7 +180,7 @@ def unmarshal_Metric(data: Any) -> Metric:
             "Unmarshalling the type 'Metric' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -233,7 +233,7 @@ def unmarshal_InstancePolicy(data: Any) -> InstancePolicy:
             "Unmarshalling the type 'InstancePolicy' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -294,7 +294,7 @@ def unmarshal_VolumeInstanceTemplateFromEmpty(
             "Unmarshalling the type 'VolumeInstanceTemplateFromEmpty' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("size", None)
     if field is not None:
@@ -313,7 +313,7 @@ def unmarshal_VolumeInstanceTemplateFromSnapshot(
             "Unmarshalling the type 'VolumeInstanceTemplateFromSnapshot' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("snapshot_id", None)
     if field is not None:
@@ -336,7 +336,7 @@ def unmarshal_VolumeInstanceTemplate(data: Any) -> VolumeInstanceTemplate:
             "Unmarshalling the type 'VolumeInstanceTemplate' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("name", None)
     if field is not None:
@@ -389,7 +389,7 @@ def unmarshal_InstanceTemplate(data: Any) -> InstanceTemplate:
             "Unmarshalling the type 'InstanceTemplate' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -503,7 +503,7 @@ def unmarshal_InstanceGroupEvent(data: Any) -> InstanceGroupEvent:
             "Unmarshalling the type 'InstanceGroupEvent' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -552,7 +552,7 @@ def unmarshal_ListInstanceGroupEventsResponse(
             "Unmarshalling the type 'ListInstanceGroupEventsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("instance_events", None)
     if field is not None:
@@ -579,7 +579,7 @@ def unmarshal_ListInstanceGroupsResponse(data: Any) -> ListInstanceGroupsRespons
             "Unmarshalling the type 'ListInstanceGroupsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("instance_groups", None)
     if field is not None:
@@ -604,7 +604,7 @@ def unmarshal_ListInstancePoliciesResponse(data: Any) -> ListInstancePoliciesRes
             "Unmarshalling the type 'ListInstancePoliciesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("policies", None)
     if field is not None:
@@ -629,7 +629,7 @@ def unmarshal_ListInstanceTemplatesResponse(data: Any) -> ListInstanceTemplatesR
             "Unmarshalling the type 'ListInstanceTemplatesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -653,8 +653,8 @@ def unmarshal_ListInstanceTemplatesResponse(data: Any) -> ListInstanceTemplatesR
 def marshal_Capacity(
     request: Capacity,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.max_replicas is not None:
         output["max_replicas"] = request.max_replicas
@@ -671,8 +671,8 @@ def marshal_Capacity(
 def marshal_Loadbalancer(
     request: Loadbalancer,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.id is not None:
         output["id"] = request.id
@@ -689,8 +689,8 @@ def marshal_Loadbalancer(
 def marshal_CreateInstanceGroupRequest(
     request: CreateInstanceGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -718,8 +718,8 @@ def marshal_CreateInstanceGroupRequest(
 def marshal_Metric(
     request: Metric,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -758,8 +758,8 @@ def marshal_Metric(
 def marshal_CreateInstancePolicyRequest(
     request: CreateInstancePolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -794,8 +794,8 @@ def marshal_CreateInstancePolicyRequest(
 def marshal_VolumeInstanceTemplateFromEmpty(
     request: VolumeInstanceTemplateFromEmpty,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.size is not None:
         output["size"] = request.size
@@ -806,8 +806,8 @@ def marshal_VolumeInstanceTemplateFromEmpty(
 def marshal_VolumeInstanceTemplateFromSnapshot(
     request: VolumeInstanceTemplateFromSnapshot,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.snapshot_id is not None:
         output["snapshot_id"] = request.snapshot_id
@@ -821,8 +821,8 @@ def marshal_VolumeInstanceTemplateFromSnapshot(
 def marshal_VolumeInstanceTemplate(
     request: VolumeInstanceTemplate,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -867,8 +867,8 @@ def marshal_VolumeInstanceTemplate(
 def marshal_CreateInstanceTemplateRequest(
     request: CreateInstanceTemplateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.commercial_type is not None:
         output["commercial_type"] = request.commercial_type
@@ -917,8 +917,8 @@ def marshal_CreateInstanceTemplateRequest(
 def marshal_UpdateInstanceGroupRequestCapacity(
     request: UpdateInstanceGroupRequestCapacity,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.max_replicas is not None:
         output["max_replicas"] = request.max_replicas
@@ -935,8 +935,8 @@ def marshal_UpdateInstanceGroupRequestCapacity(
 def marshal_UpdateInstanceGroupRequestLoadbalancer(
     request: UpdateInstanceGroupRequestLoadbalancer,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.backend_ids is not None:
         output["backend_ids"] = request.backend_ids
@@ -947,8 +947,8 @@ def marshal_UpdateInstanceGroupRequestLoadbalancer(
 def marshal_UpdateInstanceGroupRequest(
     request: UpdateInstanceGroupRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.name is not None:
         output["name"] = request.name
@@ -972,8 +972,8 @@ def marshal_UpdateInstanceGroupRequest(
 def marshal_UpdateInstancePolicyRequestMetric(
     request: UpdateInstancePolicyRequestMetric,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1012,8 +1012,8 @@ def marshal_UpdateInstancePolicyRequestMetric(
 def marshal_UpdateInstancePolicyRequest(
     request: UpdateInstancePolicyRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -1047,8 +1047,8 @@ def marshal_UpdateInstancePolicyRequest(
 def marshal_UpdateInstanceTemplateRequest(
     request: UpdateInstanceTemplateRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.commercial_type is not None:
         output["commercial_type"] = request.commercial_type

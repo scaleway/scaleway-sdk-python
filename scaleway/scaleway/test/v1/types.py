@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -111,7 +111,7 @@ class ListHumansRequest:
 @dataclass
 class ListHumansResponse:
     total_count: int
-    humans: List[Human]
+    humans: list[Human]
 
 
 @dataclass

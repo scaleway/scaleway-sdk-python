@@ -4223,3 +4223,34 @@ class InstanceV1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def release_ip_to_ipam(
+        self,
+        *,
+        ip_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> None:
+        """
+        Releases the reserved IP without deleting the reservation.
+        **The IP remains available in IPAM**, which means that it is still reserved by the Organization, and can be reattached to another resource (Instance or other product).
+        :param ip_id: ID of the IP you want to release from the Instance but retain in IPAM.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+
+        Usage:
+        ::
+
+            result = await api.release_ip_to_ipam(
+                ip_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_ip_id = validate_path_param("ip_id", ip_id)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/ips/{param_ip_id}/release-to-ipam",
+            body={},
+        )
+
+        self._throw_on_error(res)

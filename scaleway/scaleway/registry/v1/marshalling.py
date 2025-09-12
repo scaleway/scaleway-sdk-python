@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -32,7 +32,7 @@ def unmarshal_Image(data: Any) -> Image:
             "Unmarshalling the type 'Image' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -103,7 +103,7 @@ def unmarshal_Namespace(data: Any) -> Namespace:
             "Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -198,7 +198,7 @@ def unmarshal_Tag(data: Any) -> Tag:
             "Unmarshalling the type 'Tag' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -251,7 +251,7 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
             "Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("images", None)
     if field is not None:
@@ -276,7 +276,7 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
             "Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("namespaces", None)
     if field is not None:
@@ -301,7 +301,7 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
             "Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("tags", None)
     if field is not None:
@@ -321,8 +321,8 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
 def marshal_CreateNamespaceRequest(
     request: CreateNamespaceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -357,8 +357,8 @@ def marshal_CreateNamespaceRequest(
 def marshal_UpdateImageRequest(
     request: UpdateImageRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.visibility is not None:
         output["visibility"] = request.visibility
@@ -369,8 +369,8 @@ def marshal_UpdateImageRequest(
 def marshal_UpdateNamespaceRequest(
     request: UpdateNamespaceRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.description is not None:
         output["description"] = request.description

@@ -1,6 +1,5 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from typing import List
 
 from .types import (
     DatabaseBackupStatus,
@@ -11,7 +10,7 @@ from .types import (
     SnapshotStatus,
 )
 
-DATABASE_BACKUP_TRANSIENT_STATUSES: List[DatabaseBackupStatus] = [
+DATABASE_BACKUP_TRANSIENT_STATUSES: list[DatabaseBackupStatus] = [
     DatabaseBackupStatus.CREATING,
     DatabaseBackupStatus.RESTORING,
     DatabaseBackupStatus.DELETING,
@@ -20,13 +19,13 @@ DATABASE_BACKUP_TRANSIENT_STATUSES: List[DatabaseBackupStatus] = [
 """
 Lists transient statutes of the enum :class:`DatabaseBackupStatus <DatabaseBackupStatus>`.
 """
-INSTANCE_LOG_TRANSIENT_STATUSES: List[InstanceLogStatus] = [
+INSTANCE_LOG_TRANSIENT_STATUSES: list[InstanceLogStatus] = [
     InstanceLogStatus.CREATING,
 ]
 """
 Lists transient statutes of the enum :class:`InstanceLogStatus <InstanceLogStatus>`.
 """
-INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
+INSTANCE_TRANSIENT_STATUSES: list[InstanceStatus] = [
     InstanceStatus.PROVISIONING,
     InstanceStatus.CONFIGURING,
     InstanceStatus.DELETING,
@@ -39,13 +38,13 @@ INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
 """
 Lists transient statutes of the enum :class:`InstanceStatus <InstanceStatus>`.
 """
-MAINTENANCE_TRANSIENT_STATUSES: List[MaintenanceStatus] = [
+MAINTENANCE_TRANSIENT_STATUSES: list[MaintenanceStatus] = [
     MaintenanceStatus.ONGOING,
 ]
 """
 Lists transient statutes of the enum :class:`MaintenanceStatus <MaintenanceStatus>`.
 """
-READ_REPLICA_TRANSIENT_STATUSES: List[ReadReplicaStatus] = [
+READ_REPLICA_TRANSIENT_STATUSES: list[ReadReplicaStatus] = [
     ReadReplicaStatus.PROVISIONING,
     ReadReplicaStatus.INITIALIZING,
     ReadReplicaStatus.DELETING,
@@ -55,7 +54,7 @@ READ_REPLICA_TRANSIENT_STATUSES: List[ReadReplicaStatus] = [
 """
 Lists transient statutes of the enum :class:`ReadReplicaStatus <ReadReplicaStatus>`.
 """
-SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotStatus] = [
+SNAPSHOT_TRANSIENT_STATUSES: list[SnapshotStatus] = [
     SnapshotStatus.CREATING,
     SnapshotStatus.RESTORING,
     SnapshotStatus.DELETING,

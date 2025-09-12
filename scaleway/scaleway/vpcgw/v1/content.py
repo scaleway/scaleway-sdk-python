@@ -1,13 +1,12 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from typing import List
 
 from .types import (
     GatewayNetworkStatus,
     GatewayStatus,
 )
 
-GATEWAY_NETWORK_TRANSIENT_STATUSES: List[GatewayNetworkStatus] = [
+GATEWAY_NETWORK_TRANSIENT_STATUSES: list[GatewayNetworkStatus] = [
     GatewayNetworkStatus.ATTACHING,
     GatewayNetworkStatus.CONFIGURING,
     GatewayNetworkStatus.DETACHING,
@@ -15,7 +14,7 @@ GATEWAY_NETWORK_TRANSIENT_STATUSES: List[GatewayNetworkStatus] = [
 """
 Lists transient statutes of the enum :class:`GatewayNetworkStatus <GatewayNetworkStatus>`.
 """
-GATEWAY_TRANSIENT_STATUSES: List[GatewayStatus] = [
+GATEWAY_TRANSIENT_STATUSES: list[GatewayStatus] = [
     GatewayStatus.ALLOCATING,
     GatewayStatus.CONFIGURING,
     GatewayStatus.STOPPING,

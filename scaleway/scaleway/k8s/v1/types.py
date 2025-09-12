@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -316,7 +316,7 @@ class ClusterOpenIDConnectConfig:
     Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
-    groups_claim: List[str]
+    groups_claim: list[str]
     """
     JWT claim to use as the user's group.
     """
@@ -326,7 +326,7 @@ class ClusterOpenIDConnectConfig:
     Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
-    required_claim: List[str]
+    required_claim: list[str]
     """
     Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
@@ -394,12 +394,12 @@ class Pool:
     Defines whether the autohealing feature is enabled for the pool.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
     """
 
-    kubelet_args: Dict[str, str]
+    kubelet_args: dict[str, str]
     """
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
@@ -580,7 +580,7 @@ class CreateClusterRequestOpenIDConnectConfig:
     Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
-    groups_claim: Optional[List[str]] = field(default_factory=list)
+    groups_claim: Optional[list[str]] = field(default_factory=list)
     """
     JWT claim to use as the user's group.
     """
@@ -590,7 +590,7 @@ class CreateClusterRequestOpenIDConnectConfig:
     Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
-    required_claim: Optional[List[str]] = field(default_factory=list)
+    required_claim: Optional[list[str]] = field(default_factory=list)
     """
     Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
@@ -628,12 +628,12 @@ class CreateClusterRequestPoolConfig:
     Defines whether the autohealing feature is enabled for the pool.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
     """
 
-    kubelet_args: Dict[str, str]
+    kubelet_args: dict[str, str]
     """
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
@@ -770,27 +770,27 @@ class Version:
     Region in which this version is available.
     """
 
-    available_cnis: List[CNI]
+    available_cnis: list[CNI]
     """
     Supported Container Network Interface (CNI) plugins for this version.
     """
 
-    available_container_runtimes: List[Runtime]
+    available_container_runtimes: list[Runtime]
     """
     Supported container runtimes for this version.
     """
 
-    available_feature_gates: List[str]
+    available_feature_gates: list[str]
     """
     Supported feature gates for this version.
     """
 
-    available_admission_plugins: List[str]
+    available_admission_plugins: list[str]
     """
     Supported admission plugins for this version.
     """
 
-    available_kubelet_args: Dict[str, str]
+    available_kubelet_args: dict[str, str]
     """
     Supported kubelet arguments for this version.
     """
@@ -838,7 +838,7 @@ class Cluster:
     ID of the Project owning the cluster.
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags associated with the cluster.
     """
@@ -868,17 +868,17 @@ class Cluster:
     Defines whether a new Kubernetes version is available.
     """
 
-    feature_gates: List[str]
+    feature_gates: list[str]
     """
     List of enabled feature gates.
     """
 
-    admission_plugins: List[str]
+    admission_plugins: list[str]
     """
     List of enabled admission plugins.
     """
 
-    apiserver_cert_sans: List[str]
+    apiserver_cert_sans: list[str]
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
@@ -996,7 +996,7 @@ class Node:
     Public IPv6 address of the node.
     """
 
-    conditions: Optional[Dict[str, str]] = field(default_factory=dict)
+    conditions: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Conditions of the node. These conditions contain the Node Problem Detector conditions, as well as some in house conditions.
     """
@@ -1112,7 +1112,7 @@ class UpdateClusterRequestOpenIDConnectConfig:
     Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
-    groups_claim: Optional[List[str]] = field(default_factory=list)
+    groups_claim: Optional[list[str]] = field(default_factory=list)
     """
     JWT claim to use as the user's group.
     """
@@ -1122,7 +1122,7 @@ class UpdateClusterRequestOpenIDConnectConfig:
     Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
-    required_claim: Optional[List[str]] = field(default_factory=list)
+    required_claim: Optional[list[str]] = field(default_factory=list)
     """
     Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
@@ -1146,7 +1146,7 @@ class AddClusterACLRulesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    acls: Optional[List[ACLRuleRequest]] = field(default_factory=list)
+    acls: Optional[list[ACLRuleRequest]] = field(default_factory=list)
     """
     ACLs to add.
     """
@@ -1154,7 +1154,7 @@ class AddClusterACLRulesRequest:
 
 @dataclass
 class AddClusterACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     ACLs that were added.
     """
@@ -1205,12 +1205,12 @@ class CreateClusterRequest:
     Cluster name.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the cluster.
     """
 
-    pools: Optional[List[CreateClusterRequestPoolConfig]] = field(default_factory=list)
+    pools: Optional[list[CreateClusterRequestPoolConfig]] = field(default_factory=list)
     """
     Pools created along with the cluster.
     """
@@ -1225,12 +1225,12 @@ class CreateClusterRequest:
     Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
     """
 
-    feature_gates: Optional[List[str]] = field(default_factory=list)
+    feature_gates: Optional[list[str]] = field(default_factory=list)
     """
     List of feature gates to enable.
     """
 
-    admission_plugins: Optional[List[str]] = field(default_factory=list)
+    admission_plugins: Optional[list[str]] = field(default_factory=list)
     """
     List of admission plugins to enable.
     """
@@ -1240,7 +1240,7 @@ class CreateClusterRequest:
     OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
-    apiserver_cert_sans: Optional[List[str]] = field(default_factory=list)
+    apiserver_cert_sans: Optional[list[str]] = field(default_factory=list)
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
@@ -1341,12 +1341,12 @@ class CreatePoolRequest:
     Customization of the container runtime is available for each pool.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
     """
 
-    kubelet_args: Optional[Dict[str, str]] = field(default_factory=dict)
+    kubelet_args: Optional[dict[str, str]] = field(default_factory=dict)
     """
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
@@ -1460,8 +1460,8 @@ class ExternalNode:
     containerd_version: str
     runc_version: str
     cni_plugins_version: str
-    node_labels: Dict[str, str]
-    node_taints: List[ExternalNodeCoreV1Taint]
+    node_labels: dict[str, str]
+    node_taints: list[ExternalNodeCoreV1Taint]
     iam_token: str
 
 
@@ -1579,7 +1579,7 @@ class ListClusterACLRulesResponse:
     Total number of ACLs that exist for the cluster.
     """
 
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     Paginated returned ACLs.
     """
@@ -1600,7 +1600,7 @@ class ListClusterAvailableTypesRequest:
 
 @dataclass
 class ListClusterAvailableTypesResponse:
-    cluster_types: List[ClusterType]
+    cluster_types: list[ClusterType]
     """
     Available cluster types for the cluster.
     """
@@ -1626,7 +1626,7 @@ class ListClusterAvailableVersionsRequest:
 
 @dataclass
 class ListClusterAvailableVersionsResponse:
-    versions: List[Version]
+    versions: list[Version]
     """
     Available Kubernetes versions for the cluster.
     """
@@ -1657,7 +1657,7 @@ class ListClusterTypesResponse:
     Total number of cluster-types.
     """
 
-    cluster_types: List[ClusterType]
+    cluster_types: list[ClusterType]
     """
     Paginated returned cluster-types.
     """
@@ -1725,7 +1725,7 @@ class ListClustersResponse:
     Total number of clusters.
     """
 
-    clusters: List[Cluster]
+    clusters: list[Cluster]
     """
     Paginated returned clusters.
     """
@@ -1781,7 +1781,7 @@ class ListNodesResponse:
     Total number of nodes.
     """
 
-    nodes: List[Node]
+    nodes: list[Node]
     """
     Paginated returned nodes.
     """
@@ -1832,7 +1832,7 @@ class ListPoolsResponse:
     Total number of pools that exists for the cluster.
     """
 
-    pools: List[Pool]
+    pools: list[Pool]
     """
     Paginated returned pools.
     """
@@ -1848,7 +1848,7 @@ class ListVersionsRequest:
 
 @dataclass
 class ListVersionsResponse:
-    versions: List[Version]
+    versions: list[Version]
     """
     Available Kubernetes versions.
     """
@@ -1862,7 +1862,7 @@ class MigratePoolsToNewImagesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    pool_ids: Optional[List[str]] = field(default_factory=list)
+    pool_ids: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -1874,14 +1874,14 @@ class NodeMetadata:
     credential_provider_config: str
     pool_version: str
     kubelet_config: str
-    node_labels: Dict[str, str]
-    node_taints: List[NodeMetadataCoreV1Taint]
+    node_labels: dict[str, str]
+    node_taints: list[NodeMetadataCoreV1Taint]
     provider_id: str
     resolvconf_path: str
     has_gpu: bool
     external_ip: str
     repo_uri: str
-    installer_tags: List[str]
+    installer_tags: list[str]
     updater_bin_url: str
     updater_bin_version: str
     updater_bin_path: str
@@ -1938,7 +1938,7 @@ class SetClusterACLRulesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    acls: Optional[List[ACLRuleRequest]] = field(default_factory=list)
+    acls: Optional[list[ACLRuleRequest]] = field(default_factory=list)
     """
     ACLs to set.
     """
@@ -1946,7 +1946,7 @@ class SetClusterACLRulesRequest:
 
 @dataclass
 class SetClusterACLRulesResponse:
-    rules: List[ACLRule]
+    rules: list[ACLRule]
     """
     ACLs that were set.
     """
@@ -1992,7 +1992,7 @@ class UpdateClusterRequest:
     New description for the cluster.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags associated with the cluster.
     """
@@ -2007,12 +2007,12 @@ class UpdateClusterRequest:
     New auto upgrade configuration for the cluster. Note that all fields needs to be set.
     """
 
-    feature_gates: Optional[List[str]] = field(default_factory=list)
+    feature_gates: Optional[list[str]] = field(default_factory=list)
     """
     List of feature gates to enable.
     """
 
-    admission_plugins: Optional[List[str]] = field(default_factory=list)
+    admission_plugins: Optional[list[str]] = field(default_factory=list)
     """
     List of admission plugins to enable.
     """
@@ -2022,7 +2022,7 @@ class UpdateClusterRequest:
     OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
-    apiserver_cert_sans: Optional[List[str]] = field(default_factory=list)
+    apiserver_cert_sans: Optional[list[str]] = field(default_factory=list)
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
@@ -2065,12 +2065,12 @@ class UpdatePoolRequest:
     New value for the pool autohealing enablement.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags associated with the pool.
     """
 
-    kubelet_args: Optional[Dict[str, str]] = field(default_factory=dict)
+    kubelet_args: Optional[dict[str, str]] = field(default_factory=dict)
     """
     New Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
