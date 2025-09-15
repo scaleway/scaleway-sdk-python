@@ -44,6 +44,7 @@ from .types import ListPopsRequest
 from .types import ListPopsResponse
 from .types import ListRoutingPoliciesRequest
 from .types import ListRoutingPoliciesResponse
+from .types import SetRoutingPolicyRequest
 from .types import UpdateLinkRequest
 from .types import UpdateRoutingPolicyRequest
 from .api import InterlinkV1Beta1API
@@ -93,6 +94,7 @@ __all__ = [
     "ListPopsResponse",
     "ListRoutingPoliciesRequest",
     "ListRoutingPoliciesResponse",
+    "SetRoutingPolicyRequest",
     "UpdateLinkRequest",
     "UpdateRoutingPolicyRequest",
     "InterlinkV1Beta1API",

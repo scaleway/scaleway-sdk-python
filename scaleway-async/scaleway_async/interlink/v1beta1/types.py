@@ -19,6 +19,7 @@ class BgpStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_BGP_STATUS = "unknown_bgp_status"
     UP = "up"
     DOWN = "down"
+    DISABLED = "disabled"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -60,6 +61,7 @@ class LinkStatus(str, Enum, metaclass=StrEnumMeta):
     DEPROVISIONING = "deprovisioning"
     DELETED = "deleted"
     LOCKED = "locked"
+    READY = "ready"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -556,6 +558,16 @@ class CreateLinkRequest:
     vlan: Optional[int] = 0
     """
     For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
+    """
+
+    routing_policy_v4_id: Optional[str] = None
+    """
+    If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created.
+    """
+
+    routing_policy_v6_id: Optional[str] = None
+    """
+    If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created.
     """
 
     connection_id: Optional[str] = None
@@ -1091,6 +1103,24 @@ class ListRoutingPoliciesRequest:
 class ListRoutingPoliciesResponse:
     routing_policies: list[RoutingPolicy]
     total_count: int
+
+
+@dataclass
+class SetRoutingPolicyRequest:
+    link_id: str
+    """
+    ID of the link to set a routing policy from.
+    """
+
+    routing_policy_id: str
+    """
+    ID of the routing policy to be set.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass

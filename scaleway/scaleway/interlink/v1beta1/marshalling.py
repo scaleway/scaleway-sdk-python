@@ -31,6 +31,7 @@ from .types import (
     CreateLinkRequest,
     CreateRoutingPolicyRequest,
     DetachRoutingPolicyRequest,
+    SetRoutingPolicyRequest,
     UpdateLinkRequest,
     UpdateRoutingPolicyRequest,
 )
@@ -732,6 +733,12 @@ def marshal_CreateLinkRequest(
     if request.vlan is not None:
         output["vlan"] = request.vlan
 
+    if request.routing_policy_v4_id is not None:
+        output["routing_policy_v4_id"] = request.routing_policy_v4_id
+
+    if request.routing_policy_v6_id is not None:
+        output["routing_policy_v6_id"] = request.routing_policy_v6_id
+
     return output
 
 
@@ -766,6 +773,18 @@ def marshal_CreateRoutingPolicyRequest(
 
 def marshal_DetachRoutingPolicyRequest(
     request: DetachRoutingPolicyRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.routing_policy_id is not None:
+        output["routing_policy_id"] = request.routing_policy_id
+
+    return output
+
+
+def marshal_SetRoutingPolicyRequest(
+    request: SetRoutingPolicyRequest,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
