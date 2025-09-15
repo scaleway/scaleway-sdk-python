@@ -1092,7 +1092,7 @@ class InterlinkV1Beta1API(API):
     ) -> Link:
         """
         Set a routing policy.
-        Replace a routing policy from an existing link. This is usefull when route propagation is enabled because it changes the routing policy "in place", without blocking all routes like a attach / detach would do.
+        Replace a routing policy from an existing link. This is useful when route propagation is enabled because it changes the routing policy "in place", without blocking all routes like a attach / detach would do.
         :param link_id: ID of the link to set a routing policy from.
         :param routing_policy_id: ID of the routing policy to be set.
         :param region: Region to target. If none is passed will use default region from the config.
