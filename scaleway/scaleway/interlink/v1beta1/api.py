@@ -38,6 +38,7 @@ from .types import (
     Partner,
     Pop,
     RoutingPolicy,
+    SetRoutingPolicyRequest,
     UpdateLinkRequest,
     UpdateRoutingPolicyRequest,
 )
@@ -61,6 +62,7 @@ from .marshalling import (
     marshal_CreateLinkRequest,
     marshal_CreateRoutingPolicyRequest,
     marshal_DetachRoutingPolicyRequest,
+    marshal_SetRoutingPolicyRequest,
     marshal_UpdateLinkRequest,
     marshal_UpdateRoutingPolicyRequest,
 )
@@ -766,6 +768,8 @@ class InterlinkV1Beta1API(API):
         partner_id: Optional[str] = None,
         peer_asn: Optional[int] = None,
         vlan: Optional[int] = None,
+        routing_policy_v4_id: Optional[str] = None,
+        routing_policy_v6_id: Optional[str] = None,
     ) -> Link:
         """
         Create a link.
@@ -782,6 +786,8 @@ class InterlinkV1Beta1API(API):
         One-Of ('host'): at most one of 'connection_id', 'partner_id' could be set.
         :param peer_asn: For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
         :param vlan: For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
+        :param routing_policy_v4_id: If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created.
+        :param routing_policy_v6_id: If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created.
         :return: :class:`Link <Link>`
 
         Usage:
@@ -811,6 +817,8 @@ class InterlinkV1Beta1API(API):
                     tags=tags,
                     peer_asn=peer_asn,
                     vlan=vlan,
+                    routing_policy_v4_id=routing_policy_v4_id,
+                    routing_policy_v6_id=routing_policy_v6_id,
                     connection_id=connection_id,
                     partner_id=partner_id,
                 ),
@@ -1064,6 +1072,51 @@ class InterlinkV1Beta1API(API):
             f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/detach-routing-policy",
             body=marshal_DetachRoutingPolicyRequest(
                 DetachRoutingPolicyRequest(
+                    link_id=link_id,
+                    routing_policy_id=routing_policy_id,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Link(res.json())
+
+    def set_routing_policy(
+        self,
+        *,
+        link_id: str,
+        routing_policy_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Link:
+        """
+        Set a routing policy.
+        Replace a routing policy from an existing link. This is useful when route propagation is enabled because it changes the routing policy "in place", without blocking all routes like a attach / detach would do.
+        :param link_id: ID of the link to set a routing policy from.
+        :param routing_policy_id: ID of the routing policy to be set.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Link <Link>`
+
+        Usage:
+        ::
+
+            result = api.set_routing_policy(
+                link_id="example",
+                routing_policy_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_link_id = validate_path_param("link_id", link_id)
+
+        res = self._request(
+            "POST",
+            f"/interlink/v1beta1/regions/{param_region}/links/{param_link_id}/set-routing-policy",
+            body=marshal_SetRoutingPolicyRequest(
+                SetRoutingPolicyRequest(
                     link_id=link_id,
                     routing_policy_id=routing_policy_id,
                     region=region,
