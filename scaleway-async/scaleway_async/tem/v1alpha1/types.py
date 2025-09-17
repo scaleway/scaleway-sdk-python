@@ -512,6 +512,24 @@ class DomainLastStatusDmarcRecord:
 
 
 @dataclass
+class DomainLastStatusMXRecord:
+    status: DomainLastStatusRecordStatus
+    """
+    Status of the MX record's configuration. This record is optional to validate a domain, but highly recommended.
+    """
+
+    last_valid_at: Optional[datetime] = None
+    """
+    Time and date the MX record was last valid.
+    """
+
+    error: Optional[str] = None
+    """
+    An error text displays in case the record is not valid.
+    """
+
+
+@dataclass
 class DomainLastStatusSpfRecord:
     status: DomainLastStatusRecordStatus
     """
@@ -1161,6 +1179,11 @@ class DomainLastStatus:
     The DMARC record verification data.
     """
 
+    mx_record: Optional[DomainLastStatusMXRecord] = None
+    """
+    The MX record verification data.
+    """
+
     autoconfig_state: Optional[DomainLastStatusAutoconfigState] = None
     """
     The verification state of domain auto-configuration.
@@ -1171,7 +1194,7 @@ class DomainLastStatus:
 class GetDomainLastStatusRequest:
     domain_id: str
     """
-    ID of the domain to delete.
+    ID of the domain to get records status.
     """
 
     region: Optional[ScwRegion] = None
