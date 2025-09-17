@@ -1,0 +1,48 @@
+interactions:
+- request:
+    body: this-is-a-test
+    headers:
+      Content-Length:
+      - '14'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: PATCH
+    uri: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/66a3b25b-4518-43c3-9e61-33b82873d617/user_data/first%20key
+  response:
+    body:
+      string: ''
+    headers:
+      date:
+      - Tue, 16 Sep 2025 17:38:32 GMT
+      server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      x-request-id:
+      - 0ed3c2da-9914-462b-b123-f0bd05e159e2
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: '{"server_id": "66a3b25b-4518-43c3-9e61-33b82873d617", "key": "first key"}'
+    headers:
+      Content-Length:
+      - '73'
+      user-agent:
+      - scaleway-sdk-python/2.0.0
+    method: GET
+    uri: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/66a3b25b-4518-43c3-9e61-33b82873d617/user_data/first%20key
+  response:
+    body:
+      string: this-is-a-test
+    headers:
+      content-length:
+      - '14'
+      date:
+      - Tue, 16 Sep 2025 17:38:33 GMT
+      server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      x-request-id:
+      - 553413c2-2def-401d-be92-3c7e7476d070
+    status:
+      code: 200
+      message: OK
+version: 1
