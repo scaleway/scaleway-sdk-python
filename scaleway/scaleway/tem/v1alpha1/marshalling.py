@@ -34,6 +34,7 @@ from .types import (
     DomainLastStatusAutoconfigState,
     DomainLastStatusDkimRecord,
     DomainLastStatusDmarcRecord,
+    DomainLastStatusMXRecord,
     DomainLastStatusSpfRecord,
     DomainLastStatus,
     ListBlocklistsResponse,
@@ -783,6 +784,37 @@ def unmarshal_DomainLastStatusDmarcRecord(data: Any) -> DomainLastStatusDmarcRec
     return DomainLastStatusDmarcRecord(**args)
 
 
+def unmarshal_DomainLastStatusMXRecord(data: Any) -> DomainLastStatusMXRecord:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DomainLastStatusMXRecord' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = DomainLastStatusRecordStatus.UNKNOWN_RECORD_STATUS
+
+    field = data.get("last_valid_at", None)
+    if field is not None:
+        args["last_valid_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_valid_at"] = None
+
+    field = data.get("error", None)
+    if field is not None:
+        args["error"] = field
+    else:
+        args["error"] = None
+
+    return DomainLastStatusMXRecord(**args)
+
+
 def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
     if not isinstance(data, dict):
         raise TypeError(
@@ -851,6 +883,12 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
         args["dmarc_record"] = unmarshal_DomainLastStatusDmarcRecord(field)
     else:
         args["dmarc_record"] = None
+
+    field = data.get("mx_record", None)
+    if field is not None:
+        args["mx_record"] = unmarshal_DomainLastStatusMXRecord(field)
+    else:
+        args["mx_record"] = None
 
     field = data.get("autoconfig_state", None)
     if field is not None:
