@@ -32,6 +32,7 @@ from .types import Email
 from .types import DomainLastStatusAutoconfigState
 from .types import DomainLastStatusDkimRecord
 from .types import DomainLastStatusDmarcRecord
+from .types import DomainLastStatusMXRecord
 from .types import DomainLastStatusSpfRecord
 from .types import Domain
 from .types import OfferSubscription
@@ -118,6 +119,7 @@ __all__ = [
     "DomainLastStatusAutoconfigState",
     "DomainLastStatusDkimRecord",
     "DomainLastStatusDmarcRecord",
+    "DomainLastStatusMXRecord",
     "DomainLastStatusSpfRecord",
     "Domain",
     "OfferSubscription",
