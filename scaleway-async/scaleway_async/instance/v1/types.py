@@ -540,6 +540,11 @@ class PrivateNIC:
     Private NIC tags.
     """
 
+    creation_date: Optional[datetime] = None
+    """
+    Private NIC creation date.
+    """
+
 
 @dataclass
 class SecurityGroupSummary:
