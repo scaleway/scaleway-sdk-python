@@ -763,9 +763,9 @@ class TemV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
     ) -> DomainLastStatus:
         """
-        Display SPF and DKIM records status and potential errors.
-        Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.
-        :param domain_id: ID of the domain to delete.
+        Display SPF, DKIM, DMARC and MX records status and potential errors.
+        Display SPF, DKIM, DMARC and MX records status and potential errors, including the found records to make debugging easier.
+        :param domain_id: ID of the domain to get records status.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DomainLastStatus <DomainLastStatus>`
 
