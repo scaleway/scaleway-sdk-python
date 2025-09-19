@@ -210,6 +210,14 @@ def unmarshal_PrivateNIC(data: Any) -> PrivateNIC:
     else:
         args["tags"] = []
 
+    field = data.get("creation_date", None)
+    if field is not None:
+        args["creation_date"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["creation_date"] = None
+
     return PrivateNIC(**args)
 
 
@@ -4717,6 +4725,9 @@ def marshal_PrivateNIC(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date.isoformat()
 
     return output
 
