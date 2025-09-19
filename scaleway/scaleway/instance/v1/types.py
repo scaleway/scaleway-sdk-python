@@ -289,6 +289,7 @@ class VolumeState(str, Enum, metaclass=StrEnumMeta):
     SNAPSHOTTING = "snapshotting"
     FETCHING = "fetching"
     SAVING = "saving"
+    ATTACHING = "attaching"
     RESIZING = "resizing"
     HOTSYNCING = "hotsyncing"
     ERROR = "error"
