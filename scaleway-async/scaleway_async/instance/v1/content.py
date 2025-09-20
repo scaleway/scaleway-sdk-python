@@ -90,6 +90,7 @@ VOLUME_TRANSIENT_STATUSES: list[VolumeState] = [
     VolumeState.SNAPSHOTTING,
     VolumeState.FETCHING,
     VolumeState.SAVING,
+    VolumeState.ATTACHING,
     VolumeState.RESIZING,
     VolumeState.HOTSYNCING,
 ]
