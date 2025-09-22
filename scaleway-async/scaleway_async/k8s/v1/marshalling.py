@@ -1343,6 +1343,12 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
     else:
         args["resolvconf_path"] = None
 
+    field = data.get("template_args", None)
+    if field is not None:
+        args["template_args"] = field
+    else:
+        args["template_args"] = None
+
     field = data.get("has_gpu", None)
     if field is not None:
         args["has_gpu"] = field

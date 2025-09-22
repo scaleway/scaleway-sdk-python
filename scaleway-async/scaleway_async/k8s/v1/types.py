@@ -1879,6 +1879,7 @@ class NodeMetadata:
     node_taints: list[NodeMetadataCoreV1Taint]
     provider_id: str
     resolvconf_path: str
+    template_args: dict[str, str]
     has_gpu: bool
     external_ip: str
     repo_uri: str
