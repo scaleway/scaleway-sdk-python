@@ -21,7 +21,10 @@ from .types import (
     WebhookEventType,
     EmailTry,
     Email,
+    DomainRecordsDKIM,
     DomainRecordsDMARC,
+    DomainRecordsMX,
+    DomainRecordsSPF,
     DomainRecords,
     DomainReputation,
     DomainStatistics,
@@ -205,6 +208,29 @@ def unmarshal_Email(data: Any) -> Email:
     return Email(**args)
 
 
+def unmarshal_DomainRecordsDKIM(data: Any) -> DomainRecordsDKIM:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DomainRecordsDKIM' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    return DomainRecordsDKIM(**args)
+
+
 def unmarshal_DomainRecordsDMARC(data: Any) -> DomainRecordsDMARC:
     if not isinstance(data, dict):
         raise TypeError(
@@ -228,6 +254,52 @@ def unmarshal_DomainRecordsDMARC(data: Any) -> DomainRecordsDMARC:
     return DomainRecordsDMARC(**args)
 
 
+def unmarshal_DomainRecordsMX(data: Any) -> DomainRecordsMX:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DomainRecordsMX' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    return DomainRecordsMX(**args)
+
+
+def unmarshal_DomainRecordsSPF(data: Any) -> DomainRecordsSPF:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DomainRecordsSPF' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    return DomainRecordsSPF(**args)
+
+
 def unmarshal_DomainRecords(data: Any) -> DomainRecords:
     if not isinstance(data, dict):
         raise TypeError(
@@ -241,6 +313,24 @@ def unmarshal_DomainRecords(data: Any) -> DomainRecords:
         args["dmarc"] = unmarshal_DomainRecordsDMARC(field)
     else:
         args["dmarc"] = None
+
+    field = data.get("dkim", None)
+    if field is not None:
+        args["dkim"] = unmarshal_DomainRecordsDKIM(field)
+    else:
+        args["dkim"] = None
+
+    field = data.get("spf", None)
+    if field is not None:
+        args["spf"] = unmarshal_DomainRecordsSPF(field)
+    else:
+        args["spf"] = None
+
+    field = data.get("mx", None)
+    if field is not None:
+        args["mx"] = unmarshal_DomainRecordsMX(field)
+    else:
+        args["mx"] = None
 
     return DomainRecords(**args)
 
