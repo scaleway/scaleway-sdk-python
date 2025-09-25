@@ -73,6 +73,14 @@ class ListAuthenticationEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListCombinedEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    RECORDED_AT_DESC = "recorded_at_desc"
+    RECORDED_AT_ASC = "recorded_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     RECORDED_AT_DESC = "recorded_at_desc"
     RECORDED_AT_ASC = "recorded_at_asc"
@@ -126,6 +134,15 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     LOAD_BALANCER_CERTIFICATE = "load_balancer_certificate"
     SFS_FILESYSTEM = "sfs_filesystem"
     VPC_PRIVATE_NETWORK = "vpc_private_network"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class SystemEventKind(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_KIND = "unknown_kind"
+    CRON = "cron"
+    NOTIFICATION = "notification"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -317,17 +334,6 @@ class EventPrincipal:
 
 
 @dataclass
-class EventSystem:
-    name: str
-
-
-@dataclass
-class ProductService:
-    name: str
-    methods: list[str]
-
-
-@dataclass
 class AuthenticationEvent:
     id: str
     """
@@ -468,7 +474,34 @@ class Event:
 
     principal: Optional[EventPrincipal] = None
 
-    system: Optional[EventSystem] = None
+
+@dataclass
+class SystemEvent:
+    id: str
+    locality: str
+    organization_id: str
+    source: str
+    system_name: str
+    resources: list[Resource]
+    kind: SystemEventKind
+    product_name: str
+    recorded_at: Optional[datetime] = None
+    project_id: Optional[str] = None
+
+
+@dataclass
+class ProductService:
+    name: str
+    methods: list[str]
+
+
+@dataclass
+class ListCombinedEventsResponseCombinedEvent:
+    api: Optional[Event] = None
+
+    auth: Optional[AuthenticationEvent] = None
+
+    system: Optional[SystemEvent] = None
 
 
 @dataclass
@@ -507,6 +540,29 @@ class ListAuthenticationEventsRequest:
 @dataclass
 class ListAuthenticationEventsResponse:
     events: list[AuthenticationEvent]
+    next_page_token: Optional[str] = None
+
+
+@dataclass
+class ListCombinedEventsRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    project_id: Optional[str] = None
+    resource_type: Optional[ResourceType] = None
+    recorded_after: Optional[datetime] = None
+    recorded_before: Optional[datetime] = None
+    order_by: Optional[ListCombinedEventsRequestOrderBy] = None
+    page_size: Optional[int] = None
+    page_token: Optional[str] = None
+
+
+@dataclass
+class ListCombinedEventsResponse:
+    events: list[ListCombinedEventsResponseCombinedEvent]
     next_page_token: Optional[str] = None
 
 
