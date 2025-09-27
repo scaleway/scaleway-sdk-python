@@ -19,7 +19,10 @@ from .types import PoolStatus
 from .types import ProjectSettingsPeriodicReportFrequency
 from .types import WebhookEventStatus
 from .types import WebhookEventType
+from .types import DomainRecordsDKIM
 from .types import DomainRecordsDMARC
+from .types import DomainRecordsMX
+from .types import DomainRecordsSPF
 from .types import EmailTry
 from .types import DomainRecords
 from .types import DomainReputation
@@ -106,7 +109,10 @@ __all__ = [
     "ProjectSettingsPeriodicReportFrequency",
     "WebhookEventStatus",
     "WebhookEventType",
+    "DomainRecordsDKIM",
     "DomainRecordsDMARC",
+    "DomainRecordsMX",
+    "DomainRecordsSPF",
     "EmailTry",
     "DomainRecords",
     "DomainReputation",
