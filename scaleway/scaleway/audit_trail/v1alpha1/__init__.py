@@ -6,8 +6,10 @@ from .types import AuthenticationEventMethod
 from .types import AuthenticationEventOrigin
 from .types import AuthenticationEventResult
 from .types import ListAuthenticationEventsRequestOrderBy
+from .types import ListCombinedEventsRequestOrderBy
 from .types import ListEventsRequestOrderBy
 from .types import ResourceType
+from .types import SystemEventKind
 from .types import AccountOrganizationInfo
 from .types import AccountProjectInfo
 from .types import AccountUserInfo
@@ -32,13 +34,16 @@ from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
 from .types import Resource
 from .types import EventPrincipal
-from .types import EventSystem
-from .types import ProductService
 from .types import AuthenticationEvent
 from .types import Event
+from .types import SystemEvent
+from .types import ProductService
+from .types import ListCombinedEventsResponseCombinedEvent
 from .types import Product
 from .types import ListAuthenticationEventsRequest
 from .types import ListAuthenticationEventsResponse
+from .types import ListCombinedEventsRequest
+from .types import ListCombinedEventsResponse
 from .types import ListEventsRequest
 from .types import ListEventsResponse
 from .types import ListProductsRequest
@@ -52,8 +57,10 @@ __all__ = [
     "AuthenticationEventOrigin",
     "AuthenticationEventResult",
     "ListAuthenticationEventsRequestOrderBy",
+    "ListCombinedEventsRequestOrderBy",
     "ListEventsRequestOrderBy",
     "ResourceType",
+    "SystemEventKind",
     "AccountOrganizationInfo",
     "AccountProjectInfo",
     "AccountUserInfo",
@@ -78,13 +85,16 @@ __all__ = [
     "SecretManagerSecretVersionInfo",
     "Resource",
     "EventPrincipal",
-    "EventSystem",
-    "ProductService",
     "AuthenticationEvent",
     "Event",
+    "SystemEvent",
+    "ProductService",
+    "ListCombinedEventsResponseCombinedEvent",
     "Product",
     "ListAuthenticationEventsRequest",
     "ListAuthenticationEventsResponse",
+    "ListCombinedEventsRequest",
+    "ListCombinedEventsResponse",
     "ListEventsRequest",
     "ListEventsResponse",
     "ListProductsRequest",
