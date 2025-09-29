@@ -242,6 +242,16 @@ class SessionStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class PlatformBookingRequirement:
+    max_booking_per_week: int
+    """
+    Maximum amount of booking allowed for one organization per week.
+    """
+
+    max_booking_per_day: int
+    """
+    Maximum amount of booking allowed for one organization per day.
+    """
+
     min_duration: Optional[str] = None
     """
     Minimal duration of any booking based on this platform.
@@ -260,6 +270,11 @@ class PlatformBookingRequirement:
     max_planification_duration: Optional[str] = None
     """
     Allowed planification time from now where the platform can be booked in the future.
+    """
+
+    min_planification_duration: Optional[str] = None
+    """
+    Minimum planification time before a platform can be booked.
     """
 
 

@@ -314,6 +314,18 @@ def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequiremen
 
     args: dict[str, Any] = {}
 
+    field = data.get("max_booking_per_week", None)
+    if field is not None:
+        args["max_booking_per_week"] = field
+    else:
+        args["max_booking_per_week"] = 0
+
+    field = data.get("max_booking_per_day", None)
+    if field is not None:
+        args["max_booking_per_day"] = field
+    else:
+        args["max_booking_per_day"] = 0
+
     field = data.get("min_duration", None)
     if field is not None:
         args["min_duration"] = field
@@ -337,6 +349,12 @@ def unmarshal_PlatformBookingRequirement(data: Any) -> PlatformBookingRequiremen
         args["max_planification_duration"] = field
     else:
         args["max_planification_duration"] = None
+
+    field = data.get("min_planification_duration", None)
+    if field is not None:
+        args["min_planification_duration"] = field
+    else:
+        args["min_planification_duration"] = None
 
     return PlatformBookingRequirement(**args)
 
