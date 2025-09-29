@@ -5,6 +5,7 @@ from .types import ConnectivityDiagnosticActionType
 from .types import ConnectivityDiagnosticDiagnosticStatus
 from .types import ListServerPrivateNetworksRequestOrderBy
 from .types import ListServersRequestOrderBy
+from .types import RunnerConfigurationProvider
 from .types import ServerPrivateNetworkServerStatus
 from .content import SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES
 from .types import ServerPrivateNetworkStatus
@@ -12,12 +13,15 @@ from .content import SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES
 from .types import ServerStatus
 from .content import SERVER_TRANSIENT_STATUSES
 from .types import ServerTypeStock
+from .types import OSSupportedServerType
 from .types import Commitment
 from .types import OS
+from .types import RunnerConfiguration
 from .types import ServerTypeCPU
 from .types import ServerTypeDisk
 from .types import ServerTypeGPU
 from .types import ServerTypeMemory
+from .types import ServerTypeNPU
 from .types import ServerTypeNetwork
 from .types import BatchCreateServersRequestBatchInnerCreateServerRequest
 from .types import Server
@@ -61,6 +65,7 @@ __all__ = [
     "ConnectivityDiagnosticDiagnosticStatus",
     "ListServerPrivateNetworksRequestOrderBy",
     "ListServersRequestOrderBy",
+    "RunnerConfigurationProvider",
     "ServerPrivateNetworkServerStatus",
     "SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES",
     "ServerPrivateNetworkStatus",
@@ -68,12 +73,15 @@ __all__ = [
     "ServerStatus",
     "SERVER_TRANSIENT_STATUSES",
     "ServerTypeStock",
+    "OSSupportedServerType",
     "Commitment",
     "OS",
+    "RunnerConfiguration",
     "ServerTypeCPU",
     "ServerTypeDisk",
     "ServerTypeGPU",
     "ServerTypeMemory",
+    "ServerTypeNPU",
     "ServerTypeNetwork",
     "BatchCreateServersRequestBatchInnerCreateServerRequest",
     "Server",

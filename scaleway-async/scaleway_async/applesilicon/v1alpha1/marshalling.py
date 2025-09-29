@@ -11,14 +11,17 @@ from .types import (
     ServerPrivateNetworkStatus,
     ServerStatus,
     ServerTypeStock,
+    OSSupportedServerType,
     OS,
     Commitment,
+    RunnerConfiguration,
     Server,
     ServerPrivateNetwork,
     ServerTypeCPU,
     ServerTypeDisk,
     ServerTypeGPU,
     ServerTypeMemory,
+    ServerTypeNPU,
     ServerTypeNetwork,
     ServerType,
     BatchCreateServersResponse,
@@ -40,6 +43,29 @@ from .types import (
     CommitmentTypeValue,
     UpdateServerRequest,
 )
+
+
+def unmarshal_OSSupportedServerType(data: Any) -> OSSupportedServerType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'OSSupportedServerType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("server_type", None)
+    if field is not None:
+        args["server_type"] = field
+    else:
+        args["server_type"] = None
+
+    field = data.get("fast_delivery_available", None)
+    if field is not None:
+        args["fast_delivery_available"] = field
+    else:
+        args["fast_delivery_available"] = None
+
+    return OSSupportedServerType(**args)
 
 
 def unmarshal_OS(data: Any) -> OS:
@@ -98,6 +124,34 @@ def unmarshal_OS(data: Any) -> OS:
     else:
         args["xcode_version"] = None
 
+    field = data.get("release_notes_url", None)
+    if field is not None:
+        args["release_notes_url"] = field
+    else:
+        args["release_notes_url"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
+    field = data.get("supported_server_types", None)
+    if field is not None:
+        args["supported_server_types"] = (
+            [unmarshal_OSSupportedServerType(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["supported_server_types"] = []
+
     field = data.get("compatible_server_types", None)
     if field is not None:
         args["compatible_server_types"] = field
@@ -128,6 +182,41 @@ def unmarshal_Commitment(data: Any) -> Commitment:
         args["cancelled"] = None
 
     return Commitment(**args)
+
+
+def unmarshal_RunnerConfiguration(data: Any) -> RunnerConfiguration:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RunnerConfiguration' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("url", None)
+    if field is not None:
+        args["url"] = field
+    else:
+        args["url"] = None
+
+    field = data.get("token", None)
+    if field is not None:
+        args["token"] = field
+    else:
+        args["token"] = None
+
+    field = data.get("provider", None)
+    if field is not None:
+        args["provider"] = field
+    else:
+        args["provider"] = None
+
+    return RunnerConfiguration(**args)
 
 
 def unmarshal_Server(data: Any) -> Server:
@@ -260,11 +349,23 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["public_bandwidth_bps"] = 0
 
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
     field = data.get("commitment", None)
     if field is not None:
         args["commitment"] = unmarshal_Commitment(field)
     else:
         args["commitment"] = None
+
+    field = data.get("runner_configuration", None)
+    if field is not None:
+        args["runner_configuration"] = unmarshal_RunnerConfiguration(field)
+    else:
+        args["runner_configuration"] = None
 
     return Server(**args)
 
@@ -360,6 +461,18 @@ def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
     else:
         args["frequency"] = None
 
+    field = data.get("sockets", None)
+    if field is not None:
+        args["sockets"] = field
+    else:
+        args["sockets"] = None
+
+    field = data.get("threads_per_core", None)
+    if field is not None:
+        args["threads_per_core"] = field
+    else:
+        args["threads_per_core"] = None
+
     return ServerTypeCPU(**args)
 
 
@@ -426,6 +539,23 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
     return ServerTypeMemory(**args)
 
 
+def unmarshal_ServerTypeNPU(data: Any) -> ServerTypeNPU:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeNPU' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("count", None)
+    if field is not None:
+        args["count"] = field
+    else:
+        args["count"] = None
+
+    return ServerTypeNPU(**args)
+
+
 def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
     if not isinstance(data, dict):
         raise TypeError(
@@ -445,6 +575,12 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
         args["supported_bandwidth"] = field
     else:
         args["supported_bandwidth"] = None
+
+    field = data.get("default_public_bandwidth", None)
+    if field is not None:
+        args["default_public_bandwidth"] = field
+    else:
+        args["default_public_bandwidth"] = None
 
     return ServerTypeNetwork(**args)
 
@@ -510,6 +646,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["default_os"] = unmarshal_OS(field)
     else:
         args["default_os"] = None
+
+    field = data.get("npu", None)
+    if field is not None:
+        args["npu"] = unmarshal_ServerTypeNPU(field)
+    else:
+        args["npu"] = None
 
     return ServerType(**args)
 
@@ -822,6 +964,27 @@ def marshal_BatchCreateServersRequest(
     return output
 
 
+def marshal_RunnerConfiguration(
+    request: RunnerConfiguration,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.url is not None:
+        output["url"] = request.url
+
+    if request.token is not None:
+        output["token"] = request.token
+
+    if request.provider is not None:
+        output["provider"] = request.provider
+
+    return output
+
+
 def marshal_CreateServerRequest(
     request: CreateServerRequest,
     defaults: ProfileDefaults,
@@ -850,6 +1013,11 @@ def marshal_CreateServerRequest(
 
     if request.commitment_type is not None:
         output["commitment_type"] = request.commitment_type
+
+    if request.runner_configuration is not None:
+        output["runner_configuration"] = marshal_RunnerConfiguration(
+            request.runner_configuration, defaults
+        )
 
     return output
 
@@ -891,6 +1059,11 @@ def marshal_ReinstallServerRequest(
 
     if request.os_id is not None:
         output["os_id"] = request.os_id
+
+    if request.runner_configuration is not None:
+        output["runner_configuration"] = marshal_RunnerConfiguration(
+            request.runner_configuration, defaults
+        )
 
     return output
 

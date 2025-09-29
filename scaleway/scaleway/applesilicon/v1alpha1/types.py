@@ -60,6 +60,15 @@ class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class RunnerConfigurationProvider(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PROVIDER = "unknown_provider"
+    GITHUB = "github"
+    GITLAB = "gitlab"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ServerPrivateNetworkServerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     ATTACHING = "attaching"
@@ -110,6 +119,12 @@ class ServerTypeStock(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class OSSupportedServerType:
+    server_type: str
+    fast_delivery_available: bool
+
+
+@dataclass
 class Commitment:
     type_: CommitmentType
     cancelled: bool
@@ -157,10 +172,38 @@ class OS:
     The current xcode version for this OS.
     """
 
-    compatible_server_types: list[str]
+    release_notes_url: str
     """
-    List of compatible server types.
+    Url of the release notes for the OS image or softwares pre-installed.
     """
+
+    description: str
+    """
+    A summary of the OS image content and configuration.
+    """
+
+    tags: list[str]
+    """
+    List of tags for the OS configuration.
+    """
+
+    supported_server_types: list[OSSupportedServerType]
+    """
+    List of server types which supports the OS configuration. Also gives information about immediate stock availability.
+    """
+
+    compatible_server_types: Optional[list[str]] = field(default_factory=list)
+    """
+    List of compatible server types. Deprecated.
+    """
+
+
+@dataclass
+class RunnerConfiguration:
+    name: str
+    url: str
+    token: str
+    provider: RunnerConfigurationProvider
 
 
 @dataclass
@@ -168,6 +211,8 @@ class ServerTypeCPU:
     name: str
     core_count: int
     frequency: int
+    sockets: int
+    threads_per_core: int
 
 
 @dataclass
@@ -188,9 +233,15 @@ class ServerTypeMemory:
 
 
 @dataclass
+class ServerTypeNPU:
+    count: int
+
+
+@dataclass
 class ServerTypeNetwork:
     public_bandwidth_bps: int
     supported_bandwidth: list[int]
+    default_public_bandwidth: int
 
 
 @dataclass
@@ -280,6 +331,11 @@ class Server:
     Public bandwidth configured for this server. Expressed in bits per second.
     """
 
+    tags: list[str]
+    """
+    A list of tags attached to the server.
+    """
+
     os: Optional[OS] = None
     """
     Initially installed OS, this does not necessarily reflect the current OS version.
@@ -303,6 +359,11 @@ class Server:
     commitment: Optional[Commitment] = None
     """
     Commitment scheme applied to this server.
+    """
+
+    runner_configuration: Optional[RunnerConfiguration] = None
+    """
+    Current runner configuration, empty if none is installed.
     """
 
 
@@ -409,6 +470,11 @@ class ServerType:
     default_os: Optional[OS] = None
     """
     The default OS for this server type.
+    """
+
+    npu: Optional[ServerTypeNPU] = None
+    """
+    NPU description.
     """
 
 
@@ -520,6 +586,11 @@ class CreateServerRequest:
     commitment_type: Optional[CommitmentType] = CommitmentType.DURATION_24H
     """
     Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
+    """
+
+    runner_configuration: Optional[RunnerConfiguration] = None
+    """
+    Specify the configuration to install an optional CICD runner on the server during installation.
     """
 
 
@@ -842,6 +913,11 @@ class ReinstallServerRequest:
     os_id: Optional[str] = None
     """
     Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
+    """
+
+    runner_configuration: Optional[RunnerConfiguration] = None
+    """
+    Specify the configuration to install an optional CICD runner on the server during installation.
     """
 
 
