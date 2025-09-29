@@ -19,6 +19,7 @@ from .types import (
     ServerTypeDisk,
     ServerTypeGPU,
     ServerTypeMemory,
+    ServerTypeNPU,
     ServerTypeNetwork,
     ServerType,
     BatchCreateServersResponse,
@@ -360,6 +361,18 @@ def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
     else:
         args["frequency"] = None
 
+    field = data.get("sockets", None)
+    if field is not None:
+        args["sockets"] = field
+    else:
+        args["sockets"] = None
+
+    field = data.get("threads_per_core", None)
+    if field is not None:
+        args["threads_per_core"] = field
+    else:
+        args["threads_per_core"] = None
+
     return ServerTypeCPU(**args)
 
 
@@ -426,6 +439,23 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
     return ServerTypeMemory(**args)
 
 
+def unmarshal_ServerTypeNPU(data: Any) -> ServerTypeNPU:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeNPU' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("count", None)
+    if field is not None:
+        args["count"] = field
+    else:
+        args["count"] = None
+
+    return ServerTypeNPU(**args)
+
+
 def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
     if not isinstance(data, dict):
         raise TypeError(
@@ -445,6 +475,12 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
         args["supported_bandwidth"] = field
     else:
         args["supported_bandwidth"] = None
+
+    field = data.get("default_public_bandwidth", None)
+    if field is not None:
+        args["default_public_bandwidth"] = field
+    else:
+        args["default_public_bandwidth"] = None
 
     return ServerTypeNetwork(**args)
 
@@ -510,6 +546,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["default_os"] = unmarshal_OS(field)
     else:
         args["default_os"] = None
+
+    field = data.get("npu", None)
+    if field is not None:
+        args["npu"] = unmarshal_ServerTypeNPU(field)
+    else:
+        args["npu"] = None
 
     return ServerType(**args)
 
