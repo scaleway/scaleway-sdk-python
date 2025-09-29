@@ -206,6 +206,19 @@ class WebhookEventType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class DomainRecordsDKIM:
+    name: str
+    """
+    Name of the DKIM TXT record.
+    """
+
+    value: str
+    """
+    Value of the DKIM TXT record.
+    """
+
+
+@dataclass
 class DomainRecordsDMARC:
     name: str
     """
@@ -215,6 +228,32 @@ class DomainRecordsDMARC:
     value: str
     """
     Value of the DMARC TXT record.
+    """
+
+
+@dataclass
+class DomainRecordsMX:
+    name: str
+    """
+    Name of the MX record.
+    """
+
+    value: str
+    """
+    Value of the MX record.
+    """
+
+
+@dataclass
+class DomainRecordsSPF:
+    name: str
+    """
+    Name of the SPF TXT record.
+    """
+
+    value: str
+    """
+    Value of the SPF TXT record.
     """
 
 
@@ -246,6 +285,21 @@ class DomainRecords:
     dmarc: Optional[DomainRecordsDMARC] = None
     """
     DMARC TXT record specification.
+    """
+
+    dkim: Optional[DomainRecordsDKIM] = None
+    """
+    DKIM TXT record specification.
+    """
+
+    spf: Optional[DomainRecordsSPF] = None
+    """
+    SPF TXT record specification.
+    """
+
+    mx: Optional[DomainRecordsMX] = None
+    """
+    MX record specification.
     """
 
 
