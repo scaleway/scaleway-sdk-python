@@ -13,14 +13,17 @@ from scaleway_core.utils import (
 )
 from .types import (
     ListAuthenticationEventsRequestOrderBy,
+    ListCombinedEventsRequestOrderBy,
     ListEventsRequestOrderBy,
     ResourceType,
     ListAuthenticationEventsResponse,
+    ListCombinedEventsResponse,
     ListEventsResponse,
     ListProductsResponse,
 )
 from .marshalling import (
     unmarshal_ListAuthenticationEventsResponse,
+    unmarshal_ListCombinedEventsResponse,
     unmarshal_ListEventsResponse,
     unmarshal_ListProductsResponse,
 )
@@ -157,6 +160,60 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListAuthenticationEventsResponse(res.json())
+
+    async def list_combined_events(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        resource_type: Optional[ResourceType] = None,
+        recorded_after: Optional[datetime] = None,
+        recorded_before: Optional[datetime] = None,
+        order_by: Optional[ListCombinedEventsRequestOrderBy] = None,
+        page_size: Optional[int] = None,
+        page_token: Optional[str] = None,
+    ) -> ListCombinedEventsResponse:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id:
+        :param project_id:
+        :param resource_type:
+        :param recorded_after:
+        :param recorded_before:
+        :param order_by:
+        :param page_size:
+        :param page_token:
+        :return: :class:`ListCombinedEventsResponse <ListCombinedEventsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_combined_events()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/combined-events",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page_size": page_size or self.client.default_page_size,
+                "page_token": page_token,
+                "project_id": project_id or self.client.default_project_id,
+                "recorded_after": recorded_after,
+                "recorded_before": recorded_before,
+                "resource_type": resource_type,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListCombinedEventsResponse(res.json())
 
     async def list_products(
         self,
