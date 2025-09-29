@@ -32,6 +32,7 @@ from .types import (
     PrivateNetworkApiAddServerPrivateNetworkRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
     ReinstallServerRequest,
+    RunnerConfiguration,
     Server,
     ServerPrivateNetwork,
     ServerType,
@@ -142,6 +143,7 @@ class ApplesiliconV1Alpha1API(API):
         project_id: Optional[str] = None,
         os_id: Optional[str] = None,
         commitment_type: Optional[CommitmentType] = None,
+        runner_configuration: Optional[RunnerConfiguration] = None,
     ) -> Server:
         """
         Create a server.
@@ -154,6 +156,7 @@ class ApplesiliconV1Alpha1API(API):
         :param project_id: Create a server in the given project ID.
         :param os_id: Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
         :param commitment_type: Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
+        :param runner_configuration: Specify the configuration to install an optional CICD runner on the server during installation.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -181,6 +184,7 @@ class ApplesiliconV1Alpha1API(API):
                     project_id=project_id,
                     os_id=os_id,
                     commitment_type=commitment_type,
+                    runner_configuration=runner_configuration,
                 ),
                 self.client,
             ),
@@ -638,6 +642,7 @@ class ApplesiliconV1Alpha1API(API):
         server_id: str,
         zone: Optional[ScwZone] = None,
         os_id: Optional[str] = None,
+        runner_configuration: Optional[RunnerConfiguration] = None,
     ) -> Server:
         """
         Reinstall a server.
@@ -645,6 +650,7 @@ class ApplesiliconV1Alpha1API(API):
         :param server_id: UUID of the server you want to reinstall.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param os_id: Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
+        :param runner_configuration: Specify the configuration to install an optional CICD runner on the server during installation.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -666,6 +672,7 @@ class ApplesiliconV1Alpha1API(API):
                     server_id=server_id,
                     zone=zone,
                     os_id=os_id,
+                    runner_configuration=runner_configuration,
                 ),
                 self.client,
             ),
