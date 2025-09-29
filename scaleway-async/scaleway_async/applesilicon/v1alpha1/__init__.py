@@ -18,6 +18,7 @@ from .types import ServerTypeCPU
 from .types import ServerTypeDisk
 from .types import ServerTypeGPU
 from .types import ServerTypeMemory
+from .types import ServerTypeNPU
 from .types import ServerTypeNetwork
 from .types import BatchCreateServersRequestBatchInnerCreateServerRequest
 from .types import Server
@@ -74,6 +75,7 @@ __all__ = [
     "ServerTypeDisk",
     "ServerTypeGPU",
     "ServerTypeMemory",
+    "ServerTypeNPU",
     "ServerTypeNetwork",
     "BatchCreateServersRequestBatchInnerCreateServerRequest",
     "Server",

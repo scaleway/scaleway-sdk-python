@@ -168,6 +168,8 @@ class ServerTypeCPU:
     name: str
     core_count: int
     frequency: int
+    sockets: int
+    threads_per_core: int
 
 
 @dataclass
@@ -188,9 +190,15 @@ class ServerTypeMemory:
 
 
 @dataclass
+class ServerTypeNPU:
+    count: int
+
+
+@dataclass
 class ServerTypeNetwork:
     public_bandwidth_bps: int
     supported_bandwidth: list[int]
+    default_public_bandwidth: int
 
 
 @dataclass
@@ -409,6 +417,11 @@ class ServerType:
     default_os: Optional[OS] = None
     """
     The default OS for this server type.
+    """
+
+    npu: Optional[ServerTypeNPU] = None
+    """
+    NPU description.
     """
 
 
