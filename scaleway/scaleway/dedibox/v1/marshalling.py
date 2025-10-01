@@ -4207,11 +4207,6 @@ def marshal_RpnV1ApiLeaveRpnGroupRequest(
     if request.member_ids is not None:
         output["member_ids"] = request.member_ids
 
-    if request.project_id is not None:
-        output["project_id"] = request.project_id
-    else:
-        output["project_id"] = defaults.default_project_id
-
     return output
 
 
