@@ -156,6 +156,7 @@ from .types import RegistrarApiListTldsRequest
 from .types import RegistrarApiLockDomainTransferRequest
 from .types import RegistrarApiRegisterExternalDomainRequest
 from .types import RegistrarApiRenewDomainsRequest
+from .types import RegistrarApiRetryInboundTransferRequest
 from .types import RegistrarApiSearchAvailableDomainsRequest
 from .types import RegistrarApiTradeDomainRequest
 from .types import RegistrarApiTransferInDomainRequest
@@ -165,6 +166,7 @@ from .types import RegistrarApiUpdateDomainHostRequest
 from .types import RegistrarApiUpdateDomainRequest
 from .types import RestoreDNSZoneVersionRequest
 from .types import RestoreDNSZoneVersionResponse
+from .types import RetryInboundTransferResponse
 from .types import SearchAvailableDomainsResponse
 from .types import UpdateDNSZoneNameserversRequest
 from .types import UpdateDNSZoneNameserversResponse
@@ -331,6 +333,7 @@ __all__ = [
     "RegistrarApiLockDomainTransferRequest",
     "RegistrarApiRegisterExternalDomainRequest",
     "RegistrarApiRenewDomainsRequest",
+    "RegistrarApiRetryInboundTransferRequest",
     "RegistrarApiSearchAvailableDomainsRequest",
     "RegistrarApiTradeDomainRequest",
     "RegistrarApiTransferInDomainRequest",
@@ -340,6 +343,7 @@ __all__ = [
     "RegistrarApiUpdateDomainRequest",
     "RestoreDNSZoneVersionRequest",
     "RestoreDNSZoneVersionResponse",
+    "RetryInboundTransferResponse",
     "SearchAvailableDomainsResponse",
     "UpdateDNSZoneNameserversRequest",
     "UpdateDNSZoneNameserversResponse",

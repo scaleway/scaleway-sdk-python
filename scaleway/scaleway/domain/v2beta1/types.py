@@ -1678,6 +1678,24 @@ class RegistrarApiRenewDomainsRequest:
 
 
 @dataclass
+class RegistrarApiRetryInboundTransferRequest:
+    domain: str
+    """
+    The domain being transfered.
+    """
+
+    project_id: Optional[str] = None
+    """
+    The project ID to associated with the inbound transfer.
+    """
+
+    auth_code: Optional[str] = None
+    """
+    An optional new auth code to replace the previous one for the retry.
+    """
+
+
+@dataclass
 class RegistrarApiSearchAvailableDomainsRequest:
     domains: list[str]
     """
@@ -1782,6 +1800,11 @@ class RestoreDNSZoneVersionRequest:
 
 @dataclass
 class RestoreDNSZoneVersionResponse:
+    pass
+
+
+@dataclass
+class RetryInboundTransferResponse:
     pass
 
 
