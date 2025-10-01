@@ -91,6 +91,7 @@ from .types import (
     RefreshDNSZoneResponse,
     RegisterExternalDomainResponse,
     RestoreDNSZoneVersionResponse,
+    RetryInboundTransferResponse,
     AvailableDomain,
     SearchAvailableDomainsResponse,
     UpdateDNSZoneNameserversResponse,
@@ -112,6 +113,7 @@ from .types import (
     RegistrarApiEnableDomainDNSSECRequest,
     RegistrarApiRegisterExternalDomainRequest,
     RegistrarApiRenewDomainsRequest,
+    RegistrarApiRetryInboundTransferRequest,
     RegistrarApiTradeDomainRequest,
     TransferInDomainRequestTransferRequest,
     RegistrarApiTransferInDomainRequest,
@@ -2539,6 +2541,17 @@ def unmarshal_RestoreDNSZoneVersionResponse(data: Any) -> RestoreDNSZoneVersionR
     return RestoreDNSZoneVersionResponse(**args)
 
 
+def unmarshal_RetryInboundTransferResponse(data: Any) -> RetryInboundTransferResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RetryInboundTransferResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return RetryInboundTransferResponse(**args)
+
+
 def unmarshal_AvailableDomain(data: Any) -> AvailableDomain:
     if not isinstance(data, dict):
         raise TypeError(
@@ -3301,6 +3314,26 @@ def marshal_RegistrarApiRenewDomainsRequest(
 
     if request.force_late_renewal is not None:
         output["force_late_renewal"] = request.force_late_renewal
+
+    return output
+
+
+def marshal_RegistrarApiRetryInboundTransferRequest(
+    request: RegistrarApiRetryInboundTransferRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.domain is not None:
+        output["domain"] = request.domain
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    if request.auth_code is not None:
+        output["auth_code"] = request.auth_code
 
     return output
 

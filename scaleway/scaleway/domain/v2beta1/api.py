@@ -86,6 +86,7 @@ from .types import (
     RegistrarApiEnableDomainDNSSECRequest,
     RegistrarApiRegisterExternalDomainRequest,
     RegistrarApiRenewDomainsRequest,
+    RegistrarApiRetryInboundTransferRequest,
     RegistrarApiTradeDomainRequest,
     RegistrarApiTransferInDomainRequest,
     RegistrarApiUpdateContactRequest,
@@ -93,6 +94,7 @@ from .types import (
     RegistrarApiUpdateDomainRequest,
     RenewableDomain,
     RestoreDNSZoneVersionResponse,
+    RetryInboundTransferResponse,
     SSLCertificate,
     SearchAvailableDomainsResponse,
     Task,
@@ -142,6 +144,7 @@ from .marshalling import (
     unmarshal_RefreshDNSZoneResponse,
     unmarshal_RegisterExternalDomainResponse,
     unmarshal_RestoreDNSZoneVersionResponse,
+    unmarshal_RetryInboundTransferResponse,
     unmarshal_SearchAvailableDomainsResponse,
     unmarshal_UpdateDNSZoneNameserversResponse,
     unmarshal_UpdateDNSZoneRecordsResponse,
@@ -157,6 +160,7 @@ from .marshalling import (
     marshal_RegistrarApiEnableDomainDNSSECRequest,
     marshal_RegistrarApiRegisterExternalDomainRequest,
     marshal_RegistrarApiRenewDomainsRequest,
+    marshal_RegistrarApiRetryInboundTransferRequest,
     marshal_RegistrarApiTradeDomainRequest,
     marshal_RegistrarApiTransferInDomainRequest,
     marshal_RegistrarApiUpdateContactRequest,
@@ -1552,6 +1556,45 @@ class DomainV2Beta1RegistrarAPI(API):
                 "organization_id": organization_id,
             },
         )
+
+    def retry_inbound_transfer(
+        self,
+        *,
+        domain: str,
+        project_id: Optional[str] = None,
+        auth_code: Optional[str] = None,
+    ) -> RetryInboundTransferResponse:
+        """
+        Retry the inbound transfer of a domain.
+        Request a retry for the transfer of a domain from another registrar to Scaleway Domains and DNS.
+        :param domain: The domain being transfered.
+        :param project_id: The project ID to associated with the inbound transfer.
+        :param auth_code: An optional new auth code to replace the previous one for the retry.
+        :return: :class:`RetryInboundTransferResponse <RetryInboundTransferResponse>`
+
+        Usage:
+        ::
+
+            result = api.retry_inbound_transfer(
+                domain="example",
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/domain/v2beta1/retry-inbound-transfer",
+            body=marshal_RegistrarApiRetryInboundTransferRequest(
+                RegistrarApiRetryInboundTransferRequest(
+                    domain=domain,
+                    project_id=project_id,
+                    auth_code=auth_code,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_RetryInboundTransferResponse(res.json())
 
     def buy_domains(
         self,
