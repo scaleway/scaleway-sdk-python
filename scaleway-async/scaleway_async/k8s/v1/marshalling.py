@@ -313,6 +313,22 @@ def unmarshal_Version(data: Any) -> Version:
     else:
         args["available_kubelet_args"] = {}
 
+    field = data.get("deprecated_at", None)
+    if field is not None:
+        args["deprecated_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["deprecated_at"] = None
+
+    field = data.get("end_of_life_at", None)
+    if field is not None:
+        args["end_of_life_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["end_of_life_at"] = None
+
     return Version(**args)
 
 
