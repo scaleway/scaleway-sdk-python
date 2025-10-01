@@ -796,6 +796,16 @@ class Version:
     Supported kubelet arguments for this version.
     """
 
+    deprecated_at: Optional[datetime] = None
+    """
+    Date from which this version will no longer be available for provisioning.
+    """
+
+    end_of_life_at: Optional[datetime] = None
+    """
+    Date from which any remaining clusters on this version will begin to be forcibly upgraded to the next minor version.
+    """
+
 
 @dataclass
 class Cluster:
