@@ -3753,11 +3753,6 @@ class RpnV1ApiLeaveRpnGroupRequest:
     A collection of rpn v1 group members IDs.
     """
 
-    project_id: Optional[str] = None
-    """
-    A project ID.
-    """
-
 
 @dataclass
 class RpnV1ApiListRpnCapableSanServersRequest:

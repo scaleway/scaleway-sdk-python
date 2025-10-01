@@ -3732,12 +3732,10 @@ class DediboxV1RpnV1API(API):
         *,
         group_id: int,
         member_ids: list[int],
-        project_id: Optional[str] = None,
     ) -> None:
         """
         :param group_id: The RPN V1 group ID.
         :param member_ids: A collection of rpn v1 group members IDs.
-        :param project_id: A project ID.
 
         Usage:
         ::
@@ -3757,7 +3755,6 @@ class DediboxV1RpnV1API(API):
                 RpnV1ApiLeaveRpnGroupRequest(
                     group_id=group_id,
                     member_ids=member_ids,
-                    project_id=project_id,
                 ),
                 self.client,
             ),
