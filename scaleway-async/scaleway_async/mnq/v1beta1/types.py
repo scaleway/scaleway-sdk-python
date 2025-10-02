@@ -185,6 +185,11 @@ class NatsCredentials:
     NATS account containing the credentials.
     """
 
+    region: ScwRegion
+    """
+    Region where the NATS account is deployed.
+    """
+
     checksum: str
     """
     Checksum of the credentials file.
