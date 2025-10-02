@@ -251,6 +251,11 @@ class Device:
     Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
     """
 
+    region: ScwRegion
+    """
+    Region of the device.
+    """
+
     last_activity_at: Optional[datetime] = None
     """
     Last connection/activity date of a device.
@@ -302,6 +307,11 @@ class Network:
     topic_prefix: str
     """
     This prefix will be prepended to all topics for this Network.
+    """
+
+    region: ScwRegion
+    """
+    Region of the network.
     """
 
     created_at: Optional[datetime] = None
@@ -451,6 +461,11 @@ class RouteSummary:
     type_: RouteRouteType
     """
     Route type.
+    """
+
+    region: ScwRegion
+    """
+    Region of the route.
     """
 
     created_at: Optional[datetime] = None
@@ -1372,6 +1387,11 @@ class Route:
     type_: RouteRouteType
     """
     Route type.
+    """
+
+    region: ScwRegion
+    """
+    Region of the route.
     """
 
     created_at: Optional[datetime] = None

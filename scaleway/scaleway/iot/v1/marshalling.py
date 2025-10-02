@@ -185,6 +185,12 @@ def unmarshal_Device(data: Any) -> Device:
     else:
         args["has_custom_certificate"] = False
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("message_filters", None)
     if field is not None:
         args["message_filters"] = unmarshal_DeviceMessageFilters(field)
@@ -249,6 +255,12 @@ def unmarshal_Network(data: Any) -> Network:
         args["topic_prefix"] = field
     else:
         args["topic_prefix"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -653,6 +665,12 @@ def unmarshal_RouteSummary(data: Any) -> RouteSummary:
     else:
         args["type_"] = RouteRouteType.UNKNOWN
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -912,6 +930,12 @@ def unmarshal_Route(data: Any) -> Route:
         args["type_"] = field
     else:
         args["type_"] = RouteRouteType.UNKNOWN
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
