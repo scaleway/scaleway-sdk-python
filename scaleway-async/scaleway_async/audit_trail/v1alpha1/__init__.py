@@ -42,6 +42,7 @@ from .types import ExportJobS3
 from .types import ListCombinedEventsResponseCombinedEvent
 from .types import Product
 from .types import CreateExportJobRequest
+from .types import DeleteExportJobRequest
 from .types import ExportJob
 from .types import ListAuthenticationEventsRequest
 from .types import ListAuthenticationEventsResponse
@@ -96,6 +97,7 @@ __all__ = [
     "ListCombinedEventsResponseCombinedEvent",
     "Product",
     "CreateExportJobRequest",
+    "DeleteExportJobRequest",
     "ExportJob",
     "ListAuthenticationEventsRequest",
     "ListAuthenticationEventsResponse",
