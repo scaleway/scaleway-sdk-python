@@ -38,8 +38,11 @@ from .types import AuthenticationEvent
 from .types import Event
 from .types import SystemEvent
 from .types import ProductService
+from .types import ExportJobS3
 from .types import ListCombinedEventsResponseCombinedEvent
 from .types import Product
+from .types import CreateExportJobRequest
+from .types import ExportJob
 from .types import ListAuthenticationEventsRequest
 from .types import ListAuthenticationEventsResponse
 from .types import ListCombinedEventsRequest
@@ -89,8 +92,11 @@ __all__ = [
     "Event",
     "SystemEvent",
     "ProductService",
+    "ExportJobS3",
     "ListCombinedEventsResponseCombinedEvent",
     "Product",
+    "CreateExportJobRequest",
+    "ExportJob",
     "ListAuthenticationEventsRequest",
     "ListAuthenticationEventsResponse",
     "ListCombinedEventsRequest",

@@ -496,6 +496,18 @@ class ProductService:
 
 
 @dataclass
+class ExportJobS3:
+    bucket: str
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    prefix: Optional[str] = None
+    project_id: Optional[str] = None
+
+
+@dataclass
 class ListCombinedEventsResponseCombinedEvent:
     api: Optional[Event] = None
 
@@ -520,6 +532,66 @@ class Product:
     """
     Specifies the API versions of the products integrated with Audit Trail. Each version defines the methods logged by Audit Trail.
     """
+
+
+@dataclass
+class CreateExportJobRequest:
+    name: str
+    """
+    Name of the export.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization to target.
+    """
+
+    tags: Optional[dict[str, str]] = field(default_factory=dict)
+    """
+    Tags of the export.
+    """
+
+    s3: Optional[ExportJobS3] = None
+
+
+@dataclass
+class ExportJob:
+    id: str
+    """
+    ID of the export job.
+    """
+
+    organization_id: str
+    """
+    ID of the targeted Organization.
+    """
+
+    name: str
+    """
+    Name of the export.
+    """
+
+    tags: dict[str, str]
+    """
+    Tags of the export.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Export job creation date.
+    """
+
+    last_run_at: Optional[datetime] = None
+    """
+    Last export date.
+    """
+
+    s3: Optional[ExportJobS3] = None
 
 
 @dataclass

@@ -4,12 +4,19 @@
 from typing import Any
 from dateutil import parser
 
+from scaleway_core.profile import ProfileDefaults
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from .types import (
     AuthenticationEventFailureReason,
     AuthenticationEventMFAType,
     AuthenticationEventMethod,
     AuthenticationEventOrigin,
     AuthenticationEventResult,
+    ExportJobS3,
+    ExportJob,
     AccountOrganizationInfo,
     AccountProjectInfo,
     AccountUserInfo,
@@ -44,10 +51,101 @@ from .types import (
     ProductService,
     Product,
     ListProductsResponse,
+    CreateExportJobRequest,
 )
 from ...std.types import (
     CountryCode as StdCountryCode,
 )
+
+
+def unmarshal_ExportJobS3(data: Any) -> ExportJobS3:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ExportJobS3' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("bucket", None)
+    if field is not None:
+        args["bucket"] = field
+    else:
+        args["bucket"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("prefix", None)
+    if field is not None:
+        args["prefix"] = field
+    else:
+        args["prefix"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    return ExportJobS3(**args)
+
+
+def unmarshal_ExportJob(data: Any) -> ExportJob:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ExportJob' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = {}
+
+    field = data.get("s3", None)
+    if field is not None:
+        args["s3"] = unmarshal_ExportJobS3(field)
+    else:
+        args["s3"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("last_run_at", None)
+    if field is not None:
+        args["last_run_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_run_at"] = None
+
+    return ExportJob(**args)
 
 
 def unmarshal_AccountOrganizationInfo(data: Any) -> AccountOrganizationInfo:
@@ -1144,3 +1242,55 @@ def unmarshal_ListProductsResponse(data: Any) -> ListProductsResponse:
         args["total_count"] = 0
 
     return ListProductsResponse(**args)
+
+
+def marshal_ExportJobS3(
+    request: ExportJobS3,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.bucket is not None:
+        output["bucket"] = request.bucket
+
+    if request.region is not None:
+        output["region"] = request.region
+    else:
+        output["region"] = defaults.default_region
+
+    if request.prefix is not None:
+        output["prefix"] = request.prefix
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+
+    return output
+
+
+def marshal_CreateExportJobRequest(
+    request: CreateExportJobRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="s3", value=request.s3, marshal_func=marshal_ExportJobS3
+                ),
+            ]
+        ),
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization_id is not None:
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
+
+    if request.tags is not None:
+        output["tags"] = {key: value for key, value in request.tags.items()}
+
+    return output
