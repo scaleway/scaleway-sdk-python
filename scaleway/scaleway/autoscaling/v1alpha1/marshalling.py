@@ -159,6 +159,12 @@ def unmarshal_InstanceGroup(data: Any) -> InstanceGroup:
     else:
         args["error_messages"] = []
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -276,6 +282,12 @@ def unmarshal_InstancePolicy(data: Any) -> InstancePolicy:
         args["instance_group_id"] = field
     else:
         args["instance_group_id"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("metric", None)
     if field is not None:
@@ -475,6 +487,12 @@ def unmarshal_InstanceTemplate(data: Any) -> InstanceTemplate:
         args["status"] = field
     else:
         args["status"] = InstanceTemplateStatus.UNKNOWN_STATUS
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("cloud_init", None)
     if field is not None:

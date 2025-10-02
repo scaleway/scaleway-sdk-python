@@ -357,6 +357,11 @@ class InstanceGroup:
     Any configuration errors for dependencies (Load Balancer, Private Network, Instance template etc.).
     """
 
+    zone: ScwZone
+    """
+    Zone for this resource.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date on which the Instance group was created.
@@ -405,6 +410,11 @@ class InstancePolicy:
     Instance group ID related to this policy.
     """
 
+    zone: ScwZone
+    """
+    Zone for this resource.
+    """
+
     metric: Optional[Metric] = None
 
 
@@ -448,6 +458,11 @@ class InstanceTemplate:
     status: InstanceTemplateStatus
     """
     Status of Instance template.
+    """
+
+    zone: ScwZone
+    """
+    Zone for this resource.
     """
 
     image_id: Optional[str] = None
