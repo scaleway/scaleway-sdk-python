@@ -41,7 +41,7 @@ class EnvironmentalFootprintV1Alpha1UserAPI(API):
         Returns a list of dates of available impact reports.
         :param organization_id: The UUID of the Organization for which you want to download a report.
         :param start_date: Start date of the search period (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). The date is inclusive.
-        :param end_date: End date of the search period (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). The date is exclusive. Defaults to today's date.
+        :param end_date: End date of the search period (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). The date is inclusive. Defaults to today's date.
         :return: :class:`ImpactReportAvailability <ImpactReportAvailability>`
 
         Usage:
@@ -75,8 +75,8 @@ class EnvironmentalFootprintV1Alpha1UserAPI(API):
         Download PDF impact report.
         Download a Scaleway impact PDF report with detailed impact data for your Scaleway projects.
         :param organization_id: The UUID of the Organization for which you want to download a report.
-        :param date: The start date of the period for which you want to download a report (ISO 8601 format, e.g., 2025-05-01T00:00:00Z).
-        :param type_: Type of report to download (e.g., monthly). Defaults to monthly.
+        :param date: The start date of the period for which you want to download a report (ISO 8601 format, e.g. 2025-05-01T00:00:00Z).
+        :param type_: Type of report to download (e.g. `monthly`).
         :return: :class:`ScwFile <ScwFile>`
 
         Usage:
@@ -117,10 +117,10 @@ class EnvironmentalFootprintV1Alpha1UserAPI(API):
         Retrieve detailed impact data.
         Retrieve detailed impact data for your Scaleway projects within a specified date range. Filter by project ID, region, zone, service category, and/or product category.
         :param organization_id: The UUID of the Organization for which you want to download a report.
-        :param start_date: Start date (inclusive) of the period for which you want to retrieve impact data (ISO 8601 format, e.g., 2025-05-01T00:00:00Z).
+        :param start_date: Start date (inclusive) of the period for which you want to retrieve impact data (ISO 8601 format, e.g. 2025-05-01T00:00:00Z).
         :param end_date: End date (exclusive) of the period for which you want to retrieve impact data (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). Defaults to today's date.
-        :param regions: List of regions to filter by (\"fr-par\"). Defaults to all regions.
-        :param zones: List of zones to filter by (\"fr-par-1\"). Defaults to all zones.
+        :param regions: List of regions to filter by (e.g. `fr-par`). Defaults to all regions.
+        :param zones: List of zones to filter by (e.g. `fr-par-1`). Defaults to all zones.
         :param project_ids: List of Project IDs to filter by. Defaults to all Projects in the Organization.
         :param service_categories: List of service categories to filter by. Defaults to all service categories.
         :param product_categories: List of product categories to filter by. Defaults to all product categories.
