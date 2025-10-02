@@ -137,6 +137,12 @@ def unmarshal_NatsCredentials(data: Any) -> NatsCredentials:
     else:
         args["nats_account_id"] = None
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("checksum", None)
     if field is not None:
         args["checksum"] = field
