@@ -1567,7 +1567,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Retry the inbound transfer of a domain.
         Request a retry for the transfer of a domain from another registrar to Scaleway Domains and DNS.
-        :param domain: The domain being transfered.
+        :param domain: The domain being transferred.
         :param project_id: The project ID to associated with the inbound transfer.
         :param auth_code: An optional new auth code to replace the previous one for the retry.
         :return: :class:`RetryInboundTransferResponse <RetryInboundTransferResponse>`
