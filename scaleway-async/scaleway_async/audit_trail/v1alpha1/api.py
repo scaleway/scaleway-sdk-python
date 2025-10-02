@@ -16,16 +16,21 @@ from .types import (
     ListCombinedEventsRequestOrderBy,
     ListEventsRequestOrderBy,
     ResourceType,
+    CreateExportJobRequest,
+    ExportJob,
+    ExportJobS3,
     ListAuthenticationEventsResponse,
     ListCombinedEventsResponse,
     ListEventsResponse,
     ListProductsResponse,
 )
 from .marshalling import (
+    unmarshal_ExportJob,
     unmarshal_ListAuthenticationEventsResponse,
     unmarshal_ListCombinedEventsResponse,
     unmarshal_ListEventsResponse,
     unmarshal_ListProductsResponse,
+    marshal_CreateExportJobRequest,
 )
 
 
@@ -248,3 +253,53 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListProductsResponse(res.json())
+
+    async def create_export_job(
+        self,
+        *,
+        name: str,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        s3: Optional[ExportJobS3] = None,
+        tags: Optional[dict[str, str]] = None,
+    ) -> ExportJob:
+        """
+        Create an export job.
+        Create an export job for a specified organization. This allows you to export audit trail events to a destination, such as an S3 bucket. The request requires the organization ID, a name for the export, and a destination configuration.
+        :param name: Name of the export.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param s3: The configuration specifying the bucket where the audit trail events will be exported.
+        One-Of ('destination'): at most one of 's3' could be set.
+        :param tags: Tags of the export.
+        :return: :class:`ExportJob <ExportJob>`
+
+        Usage:
+        ::
+
+            result = await api.create_export_job(
+                name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/audit-trail/v1alpha1/regions/{param_region}/export-jobs",
+            body=marshal_CreateExportJobRequest(
+                CreateExportJobRequest(
+                    name=name,
+                    region=region,
+                    organization_id=organization_id,
+                    tags=tags,
+                    s3=s3,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ExportJob(res.json())
