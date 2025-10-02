@@ -1567,6 +1567,12 @@ def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySet
     else:
         args["grace_period_duration"] = None
 
+    field = data.get("max_login_session_duration", None)
+    if field is not None:
+        args["max_login_session_duration"] = field
+    else:
+        args["max_login_session_duration"] = None
+
     return OrganizationSecuritySettings(**args)
 
 
@@ -2131,6 +2137,9 @@ def marshal_UpdateOrganizationSecuritySettingsRequest(
 
     if request.login_attempts_before_locked is not None:
         output["login_attempts_before_locked"] = request.login_attempts_before_locked
+
+    if request.max_login_session_duration is not None:
+        output["max_login_session_duration"] = request.max_login_session_duration
 
     return output
 

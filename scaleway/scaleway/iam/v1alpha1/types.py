@@ -2122,6 +2122,11 @@ class OrganizationSecuritySettings:
     Duration of the grace period to renew password or enable MFA.
     """
 
+    max_login_session_duration: Optional[str] = None
+    """
+    Maximum duration a login session will stay active before needing to relogin.
+    """
+
 
 @dataclass
 class RemoveGroupMemberRequest:
@@ -2309,6 +2314,11 @@ class UpdateOrganizationSecuritySettingsRequest:
     login_attempts_before_locked: Optional[int] = 0
     """
     Number of login attempts before the account is locked.
+    """
+
+    max_login_session_duration: Optional[str] = None
+    """
+    Maximum duration a login session will stay active before needing to relogin.
     """
 
 
