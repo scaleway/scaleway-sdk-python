@@ -303,3 +303,35 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ExportJob(res.json())
+
+    async def delete_export_job(
+        self,
+        *,
+        export_job_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        Delete an export job.
+        Deletes an export job for a specified id.
+        :param export_job_id: ID of the export job.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_export_job(
+                export_job_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_export_job_id = validate_path_param("export_job_id", export_job_id)
+
+        res = self._request(
+            "DELETE",
+            f"/audit-trail/v1alpha1/regions/{param_region}/export-jobs/{param_export_job_id}",
+        )
+
+        self._throw_on_error(res)

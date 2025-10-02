@@ -560,6 +560,19 @@ class CreateExportJobRequest:
 
 
 @dataclass
+class DeleteExportJobRequest:
+    export_job_id: str
+    """
+    ID of the export job.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class ExportJob:
     id: str
     """
