@@ -89,6 +89,16 @@ class ListEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListExportJobsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ResourceType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     SECM_SECRET = "secm_secret"
@@ -490,12 +500,6 @@ class SystemEvent:
 
 
 @dataclass
-class ProductService:
-    name: str
-    methods: list[str]
-
-
-@dataclass
 class ExportJobS3:
     bucket: str
     region: ScwRegion
@@ -508,12 +512,53 @@ class ExportJobS3:
 
 
 @dataclass
+class ProductService:
+    name: str
+    methods: list[str]
+
+
+@dataclass
 class ListCombinedEventsResponseCombinedEvent:
     api: Optional[Event] = None
 
     auth: Optional[AuthenticationEvent] = None
 
     system: Optional[SystemEvent] = None
+
+
+@dataclass
+class ExportJob:
+    id: str
+    """
+    ID of the export job.
+    """
+
+    organization_id: str
+    """
+    ID of the targeted Organization.
+    """
+
+    name: str
+    """
+    Name of the export.
+    """
+
+    tags: dict[str, str]
+    """
+    Tags of the export.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Export job creation date.
+    """
+
+    last_run_at: Optional[datetime] = None
+    """
+    Last export date.
+    """
+
+    s3: Optional[ExportJobS3] = None
 
 
 @dataclass
@@ -570,41 +615,6 @@ class DeleteExportJobRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-
-
-@dataclass
-class ExportJob:
-    id: str
-    """
-    ID of the export job.
-    """
-
-    organization_id: str
-    """
-    ID of the targeted Organization.
-    """
-
-    name: str
-    """
-    Name of the export.
-    """
-
-    tags: dict[str, str]
-    """
-    Tags of the export.
-    """
-
-    created_at: Optional[datetime] = None
-    """
-    Export job creation date.
-    """
-
-    last_run_at: Optional[datetime] = None
-    """
-    Last export date.
-    """
-
-    s3: Optional[ExportJobS3] = None
 
 
 @dataclass
@@ -734,6 +744,48 @@ class ListEventsResponse:
     next_page_token: Optional[str] = None
     """
     Page token to use in following calls to keep listing.
+    """
+
+
+@dataclass
+class ListExportJobsRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    Filter by Organization ID.
+    """
+
+    name: Optional[str] = None
+    """
+    (Optional) Filter by export name.
+    """
+
+    tags: Optional[dict[str, str]] = field(default_factory=dict)
+    """
+    (Optional) List of tags to filter on.
+    """
+
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+    order_by: Optional[ListExportJobsRequestOrderBy] = (
+        ListExportJobsRequestOrderBy.NAME_ASC
+    )
+
+
+@dataclass
+class ListExportJobsResponse:
+    export_jobs: list[ExportJob]
+    """
+    Single page of export jobs matching the requested criteria.
+    """
+
+    total_count: int
+    """
+    Total count of export jobs matching the requested criteria.
     """
 
 
