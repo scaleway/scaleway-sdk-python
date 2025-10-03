@@ -798,7 +798,7 @@ class Database:
 
     size: int
     """
-    Size of the database.
+    Size of the database. Set to 0 if the size retrieval is too time-consuming or `skip_size_retrieval` is set to true.
     """
 
 
@@ -1881,6 +1881,11 @@ class ListDatabasesRequest:
     instance_id: str
     """
     UUID of the Database Instance to list the databases of.
+    """
+
+    skip_size_retrieval: bool
+    """
+    Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0.
     """
 
     region: Optional[ScwRegion] = None
