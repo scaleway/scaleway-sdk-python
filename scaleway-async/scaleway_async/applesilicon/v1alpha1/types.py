@@ -915,11 +915,6 @@ class ReinstallServerRequest:
     Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
     """
 
-    runner_configuration: Optional[RunnerConfiguration] = None
-    """
-    Specify the configuration to install an optional CICD runner on the server during installation.
-    """
-
 
 @dataclass
 class SetServerPrivateNetworksResponse:
