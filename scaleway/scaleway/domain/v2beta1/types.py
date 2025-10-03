@@ -1681,7 +1681,7 @@ class RegistrarApiRenewDomainsRequest:
 class RegistrarApiRetryInboundTransferRequest:
     domain: str
     """
-    The domain being transfered.
+    The domain being transferred.
     """
 
     project_id: Optional[str] = None
