@@ -10,11 +10,13 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     ListAuthenticationEventsRequestOrderBy,
     ListCombinedEventsRequestOrderBy,
     ListEventsRequestOrderBy,
+    ListExportJobsRequestOrderBy,
     ResourceType,
     CreateExportJobRequest,
     ExportJob,
@@ -22,6 +24,7 @@ from .types import (
     ListAuthenticationEventsResponse,
     ListCombinedEventsResponse,
     ListEventsResponse,
+    ListExportJobsResponse,
     ListProductsResponse,
 )
 from .marshalling import (
@@ -29,6 +32,7 @@ from .marshalling import (
     unmarshal_ListAuthenticationEventsResponse,
     unmarshal_ListCombinedEventsResponse,
     unmarshal_ListEventsResponse,
+    unmarshal_ListExportJobsResponse,
     unmarshal_ListProductsResponse,
     marshal_CreateExportJobRequest,
 )
@@ -335,3 +339,93 @@ class AuditTrailV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    def list_export_jobs(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        name: Optional[str] = None,
+        tags: Optional[dict[str, str]] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListExportJobsRequestOrderBy] = None,
+    ) -> ListExportJobsResponse:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Filter by Organization ID.
+        :param name: (Optional) Filter by export name.
+        :param tags: (Optional) List of tags to filter on.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :return: :class:`ListExportJobsResponse <ListExportJobsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_export_jobs()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/export-jobs",
+            params={
+                "name": name,
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "tags": tags,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListExportJobsResponse(res.json())
+
+    def list_export_jobs_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        name: Optional[str] = None,
+        tags: Optional[dict[str, str]] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListExportJobsRequestOrderBy] = None,
+    ) -> list[ExportJob]:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Filter by Organization ID.
+        :param name: (Optional) Filter by export name.
+        :param tags: (Optional) List of tags to filter on.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :return: :class:`list[ExportJob] <list[ExportJob]>`
+
+        Usage:
+        ::
+
+            result = api.list_export_jobs_all()
+        """
+
+        return fetch_all_pages(
+            type=ListExportJobsResponse,
+            key="export_jobs",
+            fetcher=self.list_export_jobs,
+            args={
+                "region": region,
+                "organization_id": organization_id,
+                "name": name,
+                "tags": tags,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
