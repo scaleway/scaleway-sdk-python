@@ -48,6 +48,7 @@ from .types import (
     ListCombinedEventsResponseCombinedEvent,
     ListCombinedEventsResponse,
     ListEventsResponse,
+    ListExportJobsResponse,
     ProductService,
     Product,
     ListProductsResponse,
@@ -1163,6 +1164,31 @@ def unmarshal_ListEventsResponse(data: Any) -> ListEventsResponse:
         args["next_page_token"] = None
 
     return ListEventsResponse(**args)
+
+
+def unmarshal_ListExportJobsResponse(data: Any) -> ListExportJobsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListExportJobsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("export_jobs", None)
+    if field is not None:
+        args["export_jobs"] = (
+            [unmarshal_ExportJob(v) for v in field] if field is not None else None
+        )
+    else:
+        args["export_jobs"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListExportJobsResponse(**args)
 
 
 def unmarshal_ProductService(data: Any) -> ProductService:
