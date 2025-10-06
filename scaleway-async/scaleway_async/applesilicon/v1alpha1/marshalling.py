@@ -1060,11 +1060,6 @@ def marshal_ReinstallServerRequest(
     if request.os_id is not None:
         output["os_id"] = request.os_id
 
-    if request.runner_configuration is not None:
-        output["runner_configuration"] = marshal_RunnerConfiguration(
-            request.runner_configuration, defaults
-        )
-
     return output
 
 
