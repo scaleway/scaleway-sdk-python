@@ -141,6 +141,7 @@ class PipelineErrorCode(str, Enum, metaclass=StrEnumMeta):
     TLS_ROOT_MISSING = "tls_root_missing"
     TLS_SAN_MISMATCH = "tls_san_mismatch"
     TLS_SELF_SIGNED = "tls_self_signed"
+    TLS_CAA_MALFUNCTION = "tls_caa_malfunction"
     PIPELINE_INVALID_WORKFLOW = "pipeline_invalid_workflow"
     PIPELINE_MISSING_HEAD_STAGE = "pipeline_missing_head_stage"
 
