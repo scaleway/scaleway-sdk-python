@@ -77,6 +77,7 @@ from .types import (
     Service,
     FailoverBlock,
     FailoverIP,
+    IPv6Block,
     BMCAccess,
     Backup,
     CanOrderResponse,
@@ -85,11 +86,11 @@ from .types import (
     GetIPv6BlockQuotasResponse,
     GetRemainingQuotaResponse,
     GetRpnStatusResponse,
-    IPv6Block,
     Invoice,
     ListFailoverIPsResponse,
     ListIPv6BlockSubnetsAvailableResponseSubnet,
     ListIPv6BlockSubnetsAvailableResponse,
+    ListIPv6BlocksResponse,
     InvoiceSummary,
     ListInvoicesResponse,
     RpnSanIpRpnV2Group,
@@ -1802,6 +1803,61 @@ def unmarshal_FailoverIP(data: Any) -> FailoverIP:
     return FailoverIP(**args)
 
 
+def unmarshal_IPv6Block(data: Any) -> IPv6Block:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'IPv6Block' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = 0
+
+    field = data.get("address", None)
+    if field is not None:
+        args["address"] = field
+    else:
+        args["address"] = None
+
+    field = data.get("duid", None)
+    if field is not None:
+        args["duid"] = field
+    else:
+        args["duid"] = None
+
+    field = data.get("nameservers", None)
+    if field is not None:
+        args["nameservers"] = field
+    else:
+        args["nameservers"] = []
+
+    field = data.get("cidr", None)
+    if field is not None:
+        args["cidr"] = field
+    else:
+        args["cidr"] = 0
+
+    field = data.get("subnets", None)
+    if field is not None:
+        args["subnets"] = (
+            [unmarshal_IPv6Block(v) for v in field] if field is not None else None
+        )
+    else:
+        args["subnets"] = []
+
+    field = data.get("delegation_status", None)
+    if field is not None:
+        args["delegation_status"] = field
+    else:
+        args["delegation_status"] = IPv6BlockDelegationStatus.UNKNOWN_STATUS
+
+    return IPv6Block(**args)
+
+
 def unmarshal_BMCAccess(data: Any) -> BMCAccess:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2108,61 +2164,6 @@ def unmarshal_GetRpnStatusResponse(data: Any) -> GetRpnStatusResponse:
     return GetRpnStatusResponse(**args)
 
 
-def unmarshal_IPv6Block(data: Any) -> IPv6Block:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'IPv6Block' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = 0
-
-    field = data.get("address", None)
-    if field is not None:
-        args["address"] = field
-    else:
-        args["address"] = None
-
-    field = data.get("duid", None)
-    if field is not None:
-        args["duid"] = field
-    else:
-        args["duid"] = None
-
-    field = data.get("nameservers", None)
-    if field is not None:
-        args["nameservers"] = field
-    else:
-        args["nameservers"] = []
-
-    field = data.get("cidr", None)
-    if field is not None:
-        args["cidr"] = field
-    else:
-        args["cidr"] = 0
-
-    field = data.get("subnets", None)
-    if field is not None:
-        args["subnets"] = (
-            [unmarshal_IPv6Block(v) for v in field] if field is not None else None
-        )
-    else:
-        args["subnets"] = []
-
-    field = data.get("delegation_status", None)
-    if field is not None:
-        args["delegation_status"] = field
-    else:
-        args["delegation_status"] = IPv6BlockDelegationStatus.UNKNOWN_STATUS
-
-    return IPv6Block(**args)
-
-
 def unmarshal_Invoice(data: Any) -> Invoice:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2305,6 +2306,31 @@ def unmarshal_ListIPv6BlockSubnetsAvailableResponse(
         args["total_count"] = 0
 
     return ListIPv6BlockSubnetsAvailableResponse(**args)
+
+
+def unmarshal_ListIPv6BlocksResponse(data: Any) -> ListIPv6BlocksResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListIPv6BlocksResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = None
+
+    field = data.get("ipv6_blocks", None)
+    if field is not None:
+        args["ipv6_blocks"] = (
+            [unmarshal_IPv6Block(v) for v in field] if field is not None else None
+        )
+    else:
+        args["ipv6_blocks"] = None
+
+    return ListIPv6BlocksResponse(**args)
 
 
 def unmarshal_InvoiceSummary(data: Any) -> InvoiceSummary:

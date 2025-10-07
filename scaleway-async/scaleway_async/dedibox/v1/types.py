@@ -1577,6 +1577,44 @@ class ListIPv6BlockSubnetsAvailableResponseSubnet:
 
 
 @dataclass
+class IPv6Block:
+    id: int
+    """
+    ID of the IPv6.
+    """
+
+    address: str
+    """
+    Address of the IPv6.
+    """
+
+    duid: str
+    """
+    DUID of the IPv6.
+    """
+
+    nameservers: list[str]
+    """
+    DNS linked to the IPv6.
+    """
+
+    cidr: int
+    """
+    Classless InterDomain Routing notation of the IPv6.
+    """
+
+    subnets: list[IPv6Block]
+    """
+    All IPv6 subnets.
+    """
+
+    delegation_status: IPv6BlockDelegationStatus
+    """
+    The nameservers delegation status.
+    """
+
+
+@dataclass
 class InvoiceSummary:
     id: int
     status: InvoiceStatus
@@ -2655,44 +2693,6 @@ class GetServiceRequest:
 
 
 @dataclass
-class IPv6Block:
-    id: int
-    """
-    ID of the IPv6.
-    """
-
-    address: str
-    """
-    Address of the IPv6.
-    """
-
-    duid: str
-    """
-    DUID of the IPv6.
-    """
-
-    nameservers: list[str]
-    """
-    DNS linked to the IPv6.
-    """
-
-    cidr: int
-    """
-    Classless InterDomain Routing notation of the IPv6.
-    """
-
-    subnets: list[IPv6Block]
-    """
-    All IPv6 subnets.
-    """
-
-    delegation_status: IPv6BlockDelegationStatus
-    """
-    The nameservers delegation status.
-    """
-
-
-@dataclass
 class IPv6BlockApiCreateIPv6BlockRequest:
     project_id: Optional[str] = None
     """
@@ -2748,6 +2748,11 @@ class IPv6BlockApiListIPv6BlockSubnetsAvailableRequest:
     """
     ID of the IPv6 block.
     """
+
+
+@dataclass
+class IPv6BlockApiListIPv6BlocksRequest:
+    project_id: Optional[str] = None
 
 
 @dataclass
@@ -2904,6 +2909,12 @@ class ListIPv6BlockSubnetsAvailableResponse:
     """
     Total count of available subnets.
     """
+
+
+@dataclass
+class ListIPv6BlocksResponse:
+    total_count: int
+    ipv6_blocks: list[IPv6Block]
 
 
 @dataclass

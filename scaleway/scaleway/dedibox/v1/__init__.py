@@ -104,6 +104,7 @@ from .types import GetIPv6BlockQuotasResponseQuota
 from .types import InstallPartition
 from .types import FailoverIP
 from .types import ListIPv6BlockSubnetsAvailableResponseSubnet
+from .types import IPv6Block
 from .types import InvoiceSummary
 from .types import RpnSanIp
 from .types import RefundSummary
@@ -158,19 +159,20 @@ from .types import GetServerDefaultPartitioningRequest
 from .types import GetServerInstallRequest
 from .types import GetServerRequest
 from .types import GetServiceRequest
-from .types import IPv6Block
 from .types import IPv6BlockApiCreateIPv6BlockRequest
 from .types import IPv6BlockApiCreateIPv6BlockSubnetRequest
 from .types import IPv6BlockApiDeleteIPv6BlockRequest
 from .types import IPv6BlockApiGetIPv6BlockQuotasRequest
 from .types import IPv6BlockApiGetIPv6BlockRequest
 from .types import IPv6BlockApiListIPv6BlockSubnetsAvailableRequest
+from .types import IPv6BlockApiListIPv6BlocksRequest
 from .types import IPv6BlockApiUpdateIPv6BlockRequest
 from .types import InstallServerRequest
 from .types import Invoice
 from .types import ListFailoverIPsRequest
 from .types import ListFailoverIPsResponse
 from .types import ListIPv6BlockSubnetsAvailableResponse
+from .types import ListIPv6BlocksResponse
 from .types import ListInvoicesResponse
 from .types import ListIpsResponse
 from .types import ListOSRequest
@@ -374,6 +376,7 @@ __all__ = [
     "InstallPartition",
     "FailoverIP",
     "ListIPv6BlockSubnetsAvailableResponseSubnet",
+    "IPv6Block",
     "InvoiceSummary",
     "RpnSanIp",
     "RefundSummary",
@@ -428,19 +431,20 @@ __all__ = [
     "GetServerInstallRequest",
     "GetServerRequest",
     "GetServiceRequest",
-    "IPv6Block",
     "IPv6BlockApiCreateIPv6BlockRequest",
     "IPv6BlockApiCreateIPv6BlockSubnetRequest",
     "IPv6BlockApiDeleteIPv6BlockRequest",
     "IPv6BlockApiGetIPv6BlockQuotasRequest",
     "IPv6BlockApiGetIPv6BlockRequest",
     "IPv6BlockApiListIPv6BlockSubnetsAvailableRequest",
+    "IPv6BlockApiListIPv6BlocksRequest",
     "IPv6BlockApiUpdateIPv6BlockRequest",
     "InstallServerRequest",
     "Invoice",
     "ListFailoverIPsRequest",
     "ListFailoverIPsResponse",
     "ListIPv6BlockSubnetsAvailableResponse",
+    "ListIPv6BlocksResponse",
     "ListInvoicesResponse",
     "ListIpsResponse",
     "ListOSRequest",
