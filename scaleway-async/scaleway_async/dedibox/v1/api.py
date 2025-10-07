@@ -66,6 +66,7 @@ from .types import (
     InvoiceSummary,
     ListFailoverIPsResponse,
     ListIPv6BlockSubnetsAvailableResponse,
+    ListIPv6BlocksResponse,
     ListInvoicesResponse,
     ListIpsResponse,
     ListOSResponse,
@@ -153,6 +154,7 @@ from .marshalling import (
     unmarshal_RpnV2Group,
     unmarshal_Service,
     unmarshal_FailoverIP,
+    unmarshal_IPv6Block,
     unmarshal_BMCAccess,
     unmarshal_Backup,
     unmarshal_CanOrderResponse,
@@ -160,10 +162,10 @@ from .marshalling import (
     unmarshal_GetIPv6BlockQuotasResponse,
     unmarshal_GetRemainingQuotaResponse,
     unmarshal_GetRpnStatusResponse,
-    unmarshal_IPv6Block,
     unmarshal_Invoice,
     unmarshal_ListFailoverIPsResponse,
     unmarshal_ListIPv6BlockSubnetsAvailableResponse,
+    unmarshal_ListIPv6BlocksResponse,
     unmarshal_ListInvoicesResponse,
     unmarshal_ListIpsResponse,
     unmarshal_ListOSResponse,
@@ -2812,14 +2814,42 @@ class DediboxV1IPv6BlockAPI(API):
         self._throw_on_error(res)
         return unmarshal_IPv6Block(res.json())
 
+    async def list_i_pv6_blocks(
+        self,
+        *,
+        project_id: Optional[str] = None,
+    ) -> ListIPv6BlocksResponse:
+        """
+        List IPv6 blocks.
+        List IPv6 blocks associated given project ID.
+        :param project_id:
+        :return: :class:`ListIPv6BlocksResponse <ListIPv6BlocksResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_i_pv6_blocks()
+        """
+
+        res = self._request(
+            "GET",
+            "/dedibox/v1/ipv6-blocks",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListIPv6BlocksResponse(res.json())
+
     async def get_i_pv6_block(
         self,
         *,
         project_id: Optional[str] = None,
     ) -> IPv6Block:
         """
-        Get a specific IPv6 block.
-        Get the IPv6 block associated with the given ID.
+        Get first IPv6 block.
+        Get the first IPv6 block associated with the given project ID.
         :param project_id: ID of the project.
         :return: :class:`IPv6Block <IPv6Block>`
 
