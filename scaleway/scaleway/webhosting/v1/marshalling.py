@@ -875,6 +875,12 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["quota_warning"] = OfferOptionWarning.UNKNOWN_WARNING
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("price", None)
     if field is not None:
         args["price"] = unmarshal_Money(field)

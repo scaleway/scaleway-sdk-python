@@ -621,6 +621,11 @@ class Offer:
     Defines a warning if the maximum value for an option in the offer is exceeded.
     """
 
+    region: ScwRegion
+    """
+    Region where the offer is hosted.
+    """
+
     price: Optional[Money] = None
     """
     Price of the offer.
