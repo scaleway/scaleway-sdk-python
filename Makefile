@@ -58,6 +58,9 @@ test:
 		poetry run pytest -v; \
 	done
 
+update-goldens:
+	PYTHON_UPDATE_CASSETTES=true $(MAKE) test
+
 publish: install-dependencies
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \

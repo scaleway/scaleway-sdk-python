@@ -9,6 +9,11 @@ from scaleway_core.utils import validate_path_param
 from .api import InstanceV1API
 from .custom_marshalling import marshal_GetServerUserDataRequest
 from .custom_types import GetServerUserDataRequest, GetAllServerUserDataResponse
+from .types import (
+    VolumeServerTemplate,
+    BootType,
+    CreateServerResponse,
+)
 
 max_retry = 10
 interval = 0.01
@@ -148,61 +153,61 @@ class InstanceUtilsV1API(InstanceV1API):
         )
 
     def create_instance_server(
-            self,
-            *,
-            zone: Optional[ScwZone] = None,
-            commercial_type: str,
-            name: Optional[str] = None,
-            dynamic_ip_required: Optional[bool] = None,
-            routed_ip_enabled: Optional[bool] = None,
-            image: Optional[str] = None,
-            volumes: Optional[dict[str, VolumeServerTemplate]] = None,
-            enable_ipv6: Optional[bool] = None,
-            protected: bool = False,
-            public_ip: Optional[str] = None,
-            public_ips: Optional[list[str]] = None,
-            boot_type: Optional[BootType] = None,
-            organization: Optional[str] = None,
-            project: Optional[str] = None,
-            tags: Optional[list[str]] = None,
-            security_group: Optional[str] = None,
-            placement_group: Optional[str] = None,
-            admin_password_encryption_ssh_key_id: Optional[str] = None,
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+        commercial_type: str,
+        name: Optional[str] = None,
+        dynamic_ip_required: Optional[bool] = None,
+        routed_ip_enabled: Optional[bool] = None,
+        image: Optional[str] = None,
+        volumes: Optional[dict[str, VolumeServerTemplate]] = None,
+        enable_ipv6: Optional[bool] = None,
+        protected: bool = False,
+        public_ip: Optional[str] = None,
+        public_ips: Optional[list[str]] = None,
+        boot_type: Optional[BootType] = None,
+        organization: Optional[str] = None,
+        project: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+        security_group: Optional[str] = None,
+        placement_group: Optional[str] = None,
+        admin_password_encryption_ssh_key_id: Optional[str] = None,
     ) -> CreateServerResponse:
         """
-            Create an Instance.
-            Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.
-            Get more information in the [Technical Information](#technical-information) section of the introduction.
-            :param zone: Zone to target. If none is passed will use default zone from the config.
-            :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
-            :param name: Instance name.
-            :param dynamic_ip_required: By default, `dynamic_ip_required` is true, a dynamic ip is attached to the instance (if no flexible ip is already attached).
-            :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
-            :param image: Instance image ID or label.
-            :param volumes: Volumes attached to the server.
-            :param enable_ipv6: True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
-            :param protected: True to activate server protection option.
-            :param public_ip: ID of the reserved IP to attach to the Instance.
-            :param public_ips: A list of reserved IP IDs to attach to the Instance.
-            :param boot_type: Boot type to use.
-            :param organization: Instance Organization ID.
-            One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
-            :param project: Instance Project ID.
-            One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
-            :param tags: Instance tags.
-            :param security_group: Security group ID.
-            :param placement_group: Placement group ID if Instance must be part of a placement group.
-            :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password.
-            :return: :class:`CreateServerResponse <CreateServerResponse>`
+        Create an Instance.
+        Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.
+        Get more information in the [Technical Information](#technical-information) section of the introduction.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
+        :param name: Instance name.
+        :param dynamic_ip_required: By default, `dynamic_ip_required` is true, a dynamic ip is attached to the instance (if no flexible ip is already attached).
+        :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
+        :param image: Instance image ID or label.
+        :param volumes: Volumes attached to the server.
+        :param enable_ipv6: True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
+        :param protected: True to activate server protection option.
+        :param public_ip: ID of the reserved IP to attach to the Instance.
+        :param public_ips: A list of reserved IP IDs to attach to the Instance.
+        :param boot_type: Boot type to use.
+        :param organization: Instance Organization ID.
+        One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
+        :param project: Instance Project ID.
+        One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
+        :param tags: Instance tags.
+        :param security_group: Security group ID.
+        :param placement_group: Placement group ID if Instance must be part of a placement group.
+        :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password.
+        :return: :class:`CreateServerResponse <CreateServerResponse>`
 
-            Usage:
-            ::
+        Usage:
+        ::
 
-                result = api.create_instance_server(
-                    commercial_type="example",
-                    protected=False,
-                )
-            """
+            result = api.create_instance_server(
+                commercial_type="example",
+                protected=False,
+            )
+        """
 
         payload = {
             "zone": zone,
@@ -227,6 +232,4 @@ class InstanceUtilsV1API(InstanceV1API):
 
         clean_payload = {k: v for k, v in payload.items() if v is not None}
 
-        response = self._create_server(**clean_payload)
-
-        return response
+        return self._create_server(**clean_payload)  # type: ignore[arg-type]
