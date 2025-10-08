@@ -193,6 +193,7 @@ class Profile(ProfileDefaults, ProfileConfig):
         """
 
         has_config_profile = False
+        config_profile = None
         try:
             config_profile = cls.from_config_file(filepath, profile_name)
             has_config_profile = True
@@ -202,7 +203,7 @@ class Profile(ProfileDefaults, ProfileConfig):
             )
 
         env_profile = cls.from_env(force_none=has_config_profile)
-        if has_config_profile:
+        if has_config_profile and config_profile is not None:
             env_profile.merge(config_profile)
 
         return env_profile
