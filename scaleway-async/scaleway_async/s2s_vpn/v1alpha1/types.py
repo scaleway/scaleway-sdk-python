@@ -167,6 +167,7 @@ class VpnGatewayStatus(str, Enum, metaclass=StrEnumMeta):
 class BgpSession:
     routing_policy_id: str
     private_ip: str
+    peer_private_ip: str
 
 
 @dataclass
@@ -190,6 +191,8 @@ class VpnGatewayPublicConfig:
 @dataclass
 class CreateConnectionRequestBgpConfig:
     routing_policy_id: str
+    private_ip: Optional[str] = None
+    peer_private_ip: Optional[str] = None
 
 
 @dataclass
