@@ -66,6 +66,12 @@ def unmarshal_BgpSession(data: Any) -> BgpSession:
     else:
         args["private_ip"] = None
 
+    field = data.get("peer_private_ip", None)
+    if field is not None:
+        args["peer_private_ip"] = field
+    else:
+        args["peer_private_ip"] = None
+
     return BgpSession(**args)
 
 
@@ -782,6 +788,12 @@ def marshal_CreateConnectionRequestBgpConfig(
 
     if request.routing_policy_id is not None:
         output["routing_policy_id"] = request.routing_policy_id
+
+    if request.private_ip is not None:
+        output["private_ip"] = request.private_ip
+
+    if request.peer_private_ip is not None:
+        output["peer_private_ip"] = request.peer_private_ip
 
     return output
 
