@@ -25,7 +25,6 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.10"
 scaleway-core = "*"
-pytest-cov = ">=6.3,<8.0"
 
 [tool.poetry.group.dev.dependencies]
 scaleway-core = { path = "../scaleway-core", develop = true }
@@ -34,6 +33,7 @@ mypy = "^1.5.1"
 ty = "^0.0.1a15"
 pytest = "^8.4.1"
 pyrefly = "^0.36.1"
+pytest-cov = "^6.3.0"
 
 [build-system]
 requires = ["poetry-core"]
