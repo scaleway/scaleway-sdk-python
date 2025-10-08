@@ -7,7 +7,6 @@ from scaleway.instance.v1.custom_api import InstanceUtilsV1API
 from tests.utils import initialize_client_test
 from vcr_config import scw_vcr
 
-
 server_name = "test-sdk-python-fixture"
 server_name_extra = "test-sdk-python-extra"
 max_retry = 10
@@ -27,7 +26,7 @@ def instance_api() -> InstanceUtilsV1API:
 @pytest.fixture(scope="module")
 @scw_vcr.use_cassette
 def server(instance_api: InstanceUtilsV1API) -> Generator[Server, Any, None]:
-    instance = instance_api.create_instance_server(
+    instance = instance_api.create_server(
         commercial_type=commercial_type,
         zone=zone,
         name=server_name,

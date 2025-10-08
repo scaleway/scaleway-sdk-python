@@ -51,7 +51,7 @@ def instance_volume(
         )
     }
 
-    instance = instance_api.create_instance_server(
+    instance = instance_api.create_server(
         commercial_type=commercial_type,
         zone=zone,
         name=server_name,
@@ -131,7 +131,7 @@ def test_create_new_server(
     instance_block_api: tuple[InstanceUtilsV1API, BlockV1Alpha1API],
 ) -> None:
     instance_api, _ = instance_block_api
-    server_instance = instance_api.create_instance_server(
+    server_instance = instance_api.create_server(
         commercial_type=commercial_type,
         zone=zone,
         name=server_name_extra,

@@ -152,7 +152,7 @@ class InstanceUtilsV1API(InstanceV1API):
             f"after {max_retry} retries."
         )
 
-    def create_instance_server(
+    def create_server(
         self,
         *,
         zone: Optional[ScwZone] = None,
