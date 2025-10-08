@@ -34,8 +34,8 @@ types-python-dateutil = "^2.8.19"
 ruff = ">=0.5.0,<0.13.3"
 mypy = "^1.5.1"
 ty = "^0.0.1a15"
-pyrefly = ">=0.24.2,<0.32.0"
 pytest = "^8.4.1"
+pyrefly = "^0.36.1"
 
 [build-system]
 requires = ["poetry-core"]
