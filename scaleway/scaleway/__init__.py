@@ -22,17 +22,7 @@ from scaleway_core.utils.waiter import (
     WaitForStopCondition,
 )
 
-from scaleway_core.bridge import (
-    Money,
-    Region,
-    ALL_REGIONS,
-    Zone,
-    ALL_ZONES,
-    ScwFile,
-    ServiceInfo,
-    TimeSeriesPoint,
-    TimeSeries,
-)
+from . import _bridge
 
 __all__ = [
     "API",
@@ -43,13 +33,4 @@ __all__ = [
     "ProfileDefaults",
     "WaitForOptions",
     "WaitForStopCondition",
-    "Money",
-    "Region",
-    "ALL_REGIONS",
-    "Zone",
-    "ALL_ZONES",
-    "ScwFile",
-    "ServiceInfo",
-    "TimeSeriesPoint",
-    "TimeSeries",
 ]
