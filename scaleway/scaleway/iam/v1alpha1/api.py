@@ -3043,6 +3043,48 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
 
+    def update_organization_login_methods(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+        login_password_enabled: Optional[bool] = None,
+        login_oauth2_enabled: Optional[bool] = None,
+        login_magic_code_enabled: Optional[bool] = None,
+        login_saml_enabled: Optional[bool] = None,
+    ) -> Organization:
+        """
+        Set your Organization's allowed login methods.
+        :param organization_id: ID of the Organization.
+        :param login_password_enabled: Defines whether login with a password is enabled for the Organization.
+        :param login_oauth2_enabled: Defines whether login through OAuth2 is enabled for the Organization.
+        :param login_magic_code_enabled: Defines whether login with an authentication code is enabled for the Organization.
+        :param login_saml_enabled: Defines whether login through SAML is enabled for the Organization.
+        :return: :class:`Organization <Organization>`
+
+        Usage:
+        ::
+
+            result = api.update_organization_login_methods()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/login-methods",
+            params={
+                "login_magic_code_enabled": login_magic_code_enabled,
+                "login_oauth2_enabled": login_oauth2_enabled,
+                "login_password_enabled": login_password_enabled,
+                "login_saml_enabled": login_saml_enabled,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Organization(res.json())
+
     def get_organization_saml(
         self,
         *,

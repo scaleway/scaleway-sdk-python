@@ -2104,6 +2104,26 @@ class Organization:
     Alias of the Organization.
     """
 
+    login_password_enabled: bool
+    """
+    Defines whether login with a password is enabled for the Organization.
+    """
+
+    login_magic_code_enabled: bool
+    """
+    Defines whether login with an authentication code is enabled for the Organization.
+    """
+
+    login_oauth2_enabled: bool
+    """
+    Defines whether login through OAuth2 is enabled for the Organization.
+    """
+
+    login_saml_enabled: bool
+    """
+    Defines whether login through SAML is enabled for the Organization.
+    """
+
 
 @dataclass
 class OrganizationSecuritySettings:
@@ -2291,6 +2311,34 @@ class UpdateGroupRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     New tags for the group (maximum of 10 tags).
+    """
+
+
+@dataclass
+class UpdateOrganizationLoginMethodsRequest:
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization.
+    """
+
+    login_password_enabled: Optional[bool] = False
+    """
+    Defines whether login with a password is enabled for the Organization.
+    """
+
+    login_oauth2_enabled: Optional[bool] = False
+    """
+    Defines whether login through OAuth2 is enabled for the Organization.
+    """
+
+    login_magic_code_enabled: Optional[bool] = False
+    """
+    Defines whether login with an authentication code is enabled for the Organization.
+    """
+
+    login_saml_enabled: Optional[bool] = False
+    """
+    Defines whether login through SAML is enabled for the Organization.
     """
 
 
