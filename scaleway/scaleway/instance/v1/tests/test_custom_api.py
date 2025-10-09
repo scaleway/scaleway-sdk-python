@@ -26,7 +26,7 @@ def instance_api() -> InstanceUtilsV1API:
 @pytest.fixture(scope="module")
 @scw_vcr.use_cassette
 def server(instance_api: InstanceUtilsV1API) -> Generator[Server, Any, None]:
-    instance = instance_api._create_server(
+    instance = instance_api.create_server(
         commercial_type=commercial_type,
         zone=zone,
         name=server_name,
