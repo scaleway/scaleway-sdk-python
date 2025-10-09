@@ -16,6 +16,7 @@ from .types import (
     AuthenticationEventOrigin,
     AuthenticationEventResult,
     ExportJobS3,
+    ExportJobStatus,
     ExportJob,
     AccountOrganizationInfo,
     AccountProjectInfo,
@@ -94,6 +95,29 @@ def unmarshal_ExportJobS3(data: Any) -> ExportJobS3:
     return ExportJobS3(**args)
 
 
+def unmarshal_ExportJobStatus(data: Any) -> ExportJobStatus:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ExportJobStatus' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("code", None)
+    if field is not None:
+        args["code"] = field
+    else:
+        args["code"] = None
+
+    field = data.get("message", None)
+    if field is not None:
+        args["message"] = field
+    else:
+        args["message"] = None
+
+    return ExportJobStatus(**args)
+
+
 def unmarshal_ExportJob(data: Any) -> ExportJob:
     if not isinstance(data, dict):
         raise TypeError(
@@ -145,6 +169,12 @@ def unmarshal_ExportJob(data: Any) -> ExportJob:
         )
     else:
         args["last_run_at"] = None
+
+    field = data.get("last_status", None)
+    if field is not None:
+        args["last_status"] = unmarshal_ExportJobStatus(field)
+    else:
+        args["last_status"] = None
 
     return ExportJob(**args)
 
