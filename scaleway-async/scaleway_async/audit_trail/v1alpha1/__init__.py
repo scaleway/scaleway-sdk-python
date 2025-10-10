@@ -5,6 +5,7 @@ from .types import AuthenticationEventMFAType
 from .types import AuthenticationEventMethod
 from .types import AuthenticationEventOrigin
 from .types import AuthenticationEventResult
+from .types import ExportJobStatusCode
 from .types import ListAuthenticationEventsRequestOrderBy
 from .types import ListCombinedEventsRequestOrderBy
 from .types import ListEventsRequestOrderBy
@@ -39,6 +40,7 @@ from .types import AuthenticationEvent
 from .types import Event
 from .types import SystemEvent
 from .types import ExportJobS3
+from .types import ExportJobStatus
 from .types import ProductService
 from .types import ListCombinedEventsResponseCombinedEvent
 from .types import ExportJob
@@ -63,6 +65,7 @@ __all__ = [
     "AuthenticationEventMethod",
     "AuthenticationEventOrigin",
     "AuthenticationEventResult",
+    "ExportJobStatusCode",
     "ListAuthenticationEventsRequestOrderBy",
     "ListCombinedEventsRequestOrderBy",
     "ListEventsRequestOrderBy",
@@ -97,6 +100,7 @@ __all__ = [
     "Event",
     "SystemEvent",
     "ExportJobS3",
+    "ExportJobStatus",
     "ProductService",
     "ListCombinedEventsResponseCombinedEvent",
     "ExportJob",

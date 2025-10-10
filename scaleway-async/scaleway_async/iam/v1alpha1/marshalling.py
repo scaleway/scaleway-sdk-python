@@ -1538,6 +1538,30 @@ def unmarshal_Organization(data: Any) -> Organization:
     else:
         args["alias"] = None
 
+    field = data.get("login_password_enabled", None)
+    if field is not None:
+        args["login_password_enabled"] = field
+    else:
+        args["login_password_enabled"] = False
+
+    field = data.get("login_magic_code_enabled", None)
+    if field is not None:
+        args["login_magic_code_enabled"] = field
+    else:
+        args["login_magic_code_enabled"] = False
+
+    field = data.get("login_oauth2_enabled", None)
+    if field is not None:
+        args["login_oauth2_enabled"] = field
+    else:
+        args["login_oauth2_enabled"] = False
+
+    field = data.get("login_saml_enabled", None)
+    if field is not None:
+        args["login_saml_enabled"] = field
+    else:
+        args["login_saml_enabled"] = False
+
     return Organization(**args)
 
 

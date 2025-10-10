@@ -65,6 +65,15 @@ class AuthenticationEventResult(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ExportJobStatusCode(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_CODE = "unknown_code"
+    SUCCESS = "success"
+    FAILURE = "failure"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListAuthenticationEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     RECORDED_AT_DESC = "recorded_at_desc"
     RECORDED_AT_ASC = "recorded_at_asc"
@@ -512,6 +521,12 @@ class ExportJobS3:
 
 
 @dataclass
+class ExportJobStatus:
+    code: ExportJobStatusCode
+    message: Optional[str] = None
+
+
+@dataclass
 class ProductService:
     name: str
     methods: list[str]
@@ -540,12 +555,12 @@ class ExportJob:
 
     name: str
     """
-    Name of the export.
+    Name of the export job.
     """
 
     tags: dict[str, str]
     """
-    Tags of the export.
+    Tags of the export job.
     """
 
     created_at: Optional[datetime] = None
@@ -555,7 +570,12 @@ class ExportJob:
 
     last_run_at: Optional[datetime] = None
     """
-    Last export date.
+    Last run of export job.
+    """
+
+    last_status: Optional[ExportJobStatus] = None
+    """
+    Status of last export job.
     """
 
     s3: Optional[ExportJobS3] = None
