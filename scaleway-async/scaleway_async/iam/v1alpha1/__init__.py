@@ -124,6 +124,7 @@ from .types import UnlockUserRequest
 from .types import UpdateAPIKeyRequest
 from .types import UpdateApplicationRequest
 from .types import UpdateGroupRequest
+from .types import UpdateOrganizationLoginMethodsRequest
 from .types import UpdateOrganizationSecuritySettingsRequest
 from .types import UpdatePolicyRequest
 from .types import UpdateSSHKeyRequest
@@ -260,6 +261,7 @@ __all__ = [
     "UpdateAPIKeyRequest",
     "UpdateApplicationRequest",
     "UpdateGroupRequest",
+    "UpdateOrganizationLoginMethodsRequest",
     "UpdateOrganizationSecuritySettingsRequest",
     "UpdatePolicyRequest",
     "UpdateSSHKeyRequest",
