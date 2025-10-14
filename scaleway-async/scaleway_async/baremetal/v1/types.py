@@ -811,6 +811,11 @@ class OS:
     Defines if custom partitioning is supported by this OS.
     """
 
+    zone: ScwZone
+    """
+    Zone in which is the OS is available.
+    """
+
     ssh: Optional[OSOSField] = None
     """
     Object defining the SSH requirements to install the OS.
@@ -942,6 +947,11 @@ class Offer:
     gpus: list[GPU]
     """
     GPU specifications of the offer.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which is the offer is available.
     """
 
     price_per_hour: Optional[Money] = None
