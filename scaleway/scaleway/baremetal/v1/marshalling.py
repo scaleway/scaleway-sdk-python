@@ -824,6 +824,12 @@ def unmarshal_OS(data: Any) -> OS:
     else:
         args["custom_partitioning_supported"] = False
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     return OS(**args)
 
 
@@ -1214,6 +1220,12 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["operation_path"] = None
 
+    field = data.get("fee", None)
+    if field is not None:
+        args["fee"] = unmarshal_Money(field)
+    else:
+        args["fee"] = None
+
     field = data.get("options", None)
     if field is not None:
         args["options"] = (
@@ -1248,11 +1260,11 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["gpus"] = []
 
-    field = data.get("fee", None)
+    field = data.get("zone", None)
     if field is not None:
-        args["fee"] = unmarshal_Money(field)
+        args["zone"] = field
     else:
-        args["fee"] = None
+        args["zone"] = None
 
     field = data.get("monthly_offer_id", None)
     if field is not None:
