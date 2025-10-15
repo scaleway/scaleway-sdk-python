@@ -1,4 +1,4 @@
-# scaleway_async/_bridge.py
+# scaleway_async/bridge.py
 from scaleway_core.bridge import (
     Money,
     Region,
@@ -22,4 +22,3 @@ __all__ = [
     "TimeSeriesPoint",
     "TimeSeries",
 ]
-
