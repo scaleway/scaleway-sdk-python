@@ -806,6 +806,11 @@ class Version:
     Date from which any remaining clusters on this version will begin to be forcibly upgraded to the next minor version.
     """
 
+    released_at: Optional[datetime] = None
+    """
+    Date at which this version was made available by Kapsule product.
+    """
+
 
 @dataclass
 class Cluster:
