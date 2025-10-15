@@ -329,6 +329,14 @@ def unmarshal_Version(data: Any) -> Version:
     else:
         args["end_of_life_at"] = None
 
+    field = data.get("released_at", None)
+    if field is not None:
+        args["released_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["released_at"] = None
+
     return Version(**args)
 
 

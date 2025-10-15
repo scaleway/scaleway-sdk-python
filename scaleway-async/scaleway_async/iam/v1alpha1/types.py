@@ -227,7 +227,6 @@ class UserStatus(str, Enum, metaclass=StrEnumMeta):
 
 class UserType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
-    GUEST = "guest"
     OWNER = "owner"
     MEMBER = "member"
 
