@@ -2,54 +2,10 @@
 
 import importlib.metadata
 
-__version__: str = importlib.metadata.version(__name__)
+__version__ = importlib.metadata.version(__name__)
 
-from scaleway_core.api import (
-    API,
-    ScalewayException,
-)
+# import internal dependencies
+from ._dependancies import *
 
-from scaleway_core.client import Client
-
-from scaleway_core.profile import (
-    Profile,
-    ProfileConfig,
-    ProfileDefaults,
-)
-
-from scaleway_core.utils.waiter import (
-    WaitForOptions,
-    WaitForStopCondition,
-)
-
-from scaleway_core.bridge import (
-    Money,
-    Region,
-    ALL_REGIONS,
-    Zone,
-    ALL_ZONES,
-    ScwFile,
-    ServiceInfo,
-    TimeSeriesPoint,
-    TimeSeries,
-)
-
-__all__ = [
-    "API",
-    "ScalewayException",
-    "Client",
-    "Profile",
-    "ProfileConfig",
-    "ProfileDefaults",
-    "WaitForOptions",
-    "WaitForStopCondition",
-    "Money",
-    "Region",
-    "ALL_REGIONS",
-    "Zone",
-    "ALL_ZONES",
-    "ScwFile",
-    "ServiceInfo",
-    "TimeSeriesPoint",
-    "TimeSeries",
-]
+# optional: explicitly define __all__ for public API
+# __all__ = _dependancies.__all__
