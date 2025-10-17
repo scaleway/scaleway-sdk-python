@@ -307,6 +307,12 @@ def unmarshal_DNSStage(data: Any) -> DNSStage:
     else:
         args["id"] = None
 
+    field = data.get("default_fqdn", None)
+    if field is not None:
+        args["default_fqdn"] = field
+    else:
+        args["default_fqdn"] = None
+
     field = data.get("fqdns", None)
     if field is not None:
         args["fqdns"] = field
