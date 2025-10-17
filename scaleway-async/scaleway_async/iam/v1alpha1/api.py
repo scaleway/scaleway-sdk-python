@@ -3017,32 +3017,6 @@ class IamV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_Organization(res.json())
 
-    async def migrate_organization_guests(
-        self,
-        *,
-        organization_id: Optional[str] = None,
-    ) -> None:
-        """
-        Migrate the organization's guests to IAM members.
-        :param organization_id: ID of the Organization.
-
-        Usage:
-        ::
-
-            result = await api.migrate_organization_guests()
-        """
-
-        param_organization_id = validate_path_param(
-            "organization_id", organization_id or self.client.default_organization_id
-        )
-
-        res = self._request(
-            "POST",
-            f"/iam/v1alpha1/organizations/{param_organization_id}/migrate-guests",
-        )
-
-        self._throw_on_error(res)
-
     async def update_organization_login_methods(
         self,
         *,
