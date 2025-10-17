@@ -56,10 +56,8 @@ from .types import RegionalApiDeleteDataSourceRequest
 from .types import RegionalApiDeleteTokenRequest
 from .types import RegionalApiDisableAlertManagerRequest
 from .types import RegionalApiDisableAlertRulesRequest
-from .types import RegionalApiDisableManagedAlertsRequest
 from .types import RegionalApiEnableAlertManagerRequest
 from .types import RegionalApiEnableAlertRulesRequest
-from .types import RegionalApiEnableManagedAlertsRequest
 from .types import RegionalApiGetAlertManagerRequest
 from .types import RegionalApiGetConfigRequest
 from .types import RegionalApiGetDataSourceRequest
@@ -134,10 +132,8 @@ __all__ = [
     "RegionalApiDeleteTokenRequest",
     "RegionalApiDisableAlertManagerRequest",
     "RegionalApiDisableAlertRulesRequest",
-    "RegionalApiDisableManagedAlertsRequest",
     "RegionalApiEnableAlertManagerRequest",
     "RegionalApiEnableAlertRulesRequest",
-    "RegionalApiEnableManagedAlertsRequest",
     "RegionalApiGetAlertManagerRequest",
     "RegionalApiGetConfigRequest",
     "RegionalApiGetDataSourceRequest",

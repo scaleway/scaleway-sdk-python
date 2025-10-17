@@ -81,6 +81,7 @@ from .types import (
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
+    UpdateOrganizationLoginMethodsRequest,
     UpdateOrganizationSecuritySettingsRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
@@ -2143,6 +2144,27 @@ def marshal_UpdateGroupRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    return output
+
+
+def marshal_UpdateOrganizationLoginMethodsRequest(
+    request: UpdateOrganizationLoginMethodsRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.login_password_enabled is not None:
+        output["login_password_enabled"] = request.login_password_enabled
+
+    if request.login_oauth2_enabled is not None:
+        output["login_oauth2_enabled"] = request.login_oauth2_enabled
+
+    if request.login_magic_code_enabled is not None:
+        output["login_magic_code_enabled"] = request.login_magic_code_enabled
+
+    if request.login_saml_enabled is not None:
+        output["login_saml_enabled"] = request.login_saml_enabled
 
     return output
 

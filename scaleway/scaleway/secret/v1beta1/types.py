@@ -176,6 +176,11 @@ class SecretVersion:
     Returns `true` if the version is the latest.
     """
 
+    region: ScwRegion
+    """
+    Region of the version.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date and time of the version's creation.
