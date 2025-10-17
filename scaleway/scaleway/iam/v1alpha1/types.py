@@ -2079,14 +2079,6 @@ class MFAOTP:
 
 
 @dataclass
-class MigrateOrganizationGuestsRequest:
-    organization_id: Optional[str] = None
-    """
-    ID of the Organization.
-    """
-
-
-@dataclass
 class Organization:
     id: str
     """

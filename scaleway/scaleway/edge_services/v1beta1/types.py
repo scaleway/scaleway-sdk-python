@@ -441,9 +441,14 @@ class DNSStage:
     ID of the DNS stage.
     """
 
+    default_fqdn: str
+    """
+    Default Fully Qualified Domain Name attached to the stage.
+    """
+
     fqdns: list[str]
     """
-    List of Fully Qualified Domain Names attached to the stage.
+    List of additional (custom) Fully Qualified Domain Names attached to the stage.
     """
 
     type_: DNSStageType

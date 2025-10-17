@@ -110,7 +110,6 @@ from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
 from .types import MFAOTP
-from .types import MigrateOrganizationGuestsRequest
 from .types import Organization
 from .types import OrganizationSecuritySettings
 from .types import RemoveGroupMemberRequest
@@ -247,7 +246,6 @@ __all__ = [
     "ListUsersResponse",
     "LockUserRequest",
     "MFAOTP",
-    "MigrateOrganizationGuestsRequest",
     "Organization",
     "OrganizationSecuritySettings",
     "RemoveGroupMemberRequest",
