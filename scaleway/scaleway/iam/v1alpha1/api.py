@@ -81,6 +81,7 @@ from .types import (
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
+    UpdateOrganizationLoginMethodsRequest,
     UpdateOrganizationSecuritySettingsRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
@@ -144,6 +145,7 @@ from .marshalling import (
     marshal_UpdateAPIKeyRequest,
     marshal_UpdateApplicationRequest,
     marshal_UpdateGroupRequest,
+    marshal_UpdateOrganizationLoginMethodsRequest,
     marshal_UpdateOrganizationSecuritySettingsRequest,
     marshal_UpdatePolicyRequest,
     marshal_UpdateSSHKeyRequest,
@@ -3048,12 +3050,16 @@ class IamV1Alpha1API(API):
         res = self._request(
             "PATCH",
             f"/iam/v1alpha1/organizations/{param_organization_id}/login-methods",
-            params={
-                "login_magic_code_enabled": login_magic_code_enabled,
-                "login_oauth2_enabled": login_oauth2_enabled,
-                "login_password_enabled": login_password_enabled,
-                "login_saml_enabled": login_saml_enabled,
-            },
+            body=marshal_UpdateOrganizationLoginMethodsRequest(
+                UpdateOrganizationLoginMethodsRequest(
+                    organization_id=organization_id,
+                    login_password_enabled=login_password_enabled,
+                    login_oauth2_enabled=login_oauth2_enabled,
+                    login_magic_code_enabled=login_magic_code_enabled,
+                    login_saml_enabled=login_saml_enabled,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)
