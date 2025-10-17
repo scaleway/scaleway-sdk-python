@@ -93,6 +93,12 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     else:
         args["latest"] = False
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
