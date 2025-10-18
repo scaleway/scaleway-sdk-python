@@ -62,6 +62,7 @@ from .types import (
     ListHostingsResponse,
     ListMailAccountsResponse,
     ListOffersResponse,
+    ListRecentProgressesResponse,
     ListWebsitesResponse,
     MailAccount,
     MailAccountApiChangeMailAccountPasswordRequest,
@@ -69,6 +70,7 @@ from .types import (
     MailAccountApiRemoveMailAccountRequest,
     Offer,
     OfferOptionRequest,
+    Progress,
     ResetHostingPasswordResponse,
     ResourceSummary,
     RestoreBackupItemsResponse,
@@ -105,7 +107,9 @@ from .marshalling import (
     unmarshal_ListHostingsResponse,
     unmarshal_ListMailAccountsResponse,
     unmarshal_ListOffersResponse,
+    unmarshal_ListRecentProgressesResponse,
     unmarshal_ListWebsitesResponse,
+    unmarshal_Progress,
     unmarshal_ResetHostingPasswordResponse,
     unmarshal_ResourceSummary,
     unmarshal_RestoreBackupItemsResponse,
@@ -420,6 +424,76 @@ class WebhostingV1BackupAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_RestoreBackupItemsResponse(res.json())
+
+    async def get_progress(
+        self,
+        *,
+        hosting_id: str,
+        progress_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Progress:
+        """
+        Retrieve detailed information about a specific progress by its ID.
+        :param hosting_id: ID of the hosting associated with the progress.
+        :param progress_id: ID of the progress to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Progress <Progress>`
+
+        Usage:
+        ::
+
+            result = await api.get_progress(
+                hosting_id="example",
+                progress_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+        param_progress_id = validate_path_param("progress_id", progress_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/progresses/{param_progress_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Progress(res.json())
+
+    async def list_recent_progresses(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> ListRecentProgressesResponse:
+        """
+        List recent progresses associated with a specific backup, grouped by type.
+        :param hosting_id: ID of the hosting linked to the progress.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ListRecentProgressesResponse <ListRecentProgressesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_recent_progresses(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/progresses",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListRecentProgressesResponse(res.json())
 
 
 class WebhostingV1ControlPanelAPI(API):
