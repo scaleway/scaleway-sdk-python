@@ -288,6 +288,20 @@ class PlatformPlatformGroup(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ProgressStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    PENDING = "pending"
+    PROCESSING = "processing"
+    COMPLETED = "completed"
+    PARTIALLY_COMPLETED = "partially_completed"
+    FAILED = "failed"
+    ABORTED = "aborted"
+    NEVER_FINISHED = "never_finished"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class AutoConfigDomainDns:
     nameservers: bool
@@ -845,6 +859,29 @@ class MailAccount:
 
 
 @dataclass
+class ProgressSummary:
+    id: str
+    """
+    ID of the progress.
+    """
+
+    backup_items_count: int
+    """
+    Total number of backup items included in the progress.
+    """
+
+    percentage: int
+    """
+    Completion percentage of the progress.
+    """
+
+    status: ProgressStatus
+    """
+    Current status of the progress operation.
+    """
+
+
+@dataclass
 class Website:
     domain: str
     """
@@ -914,6 +951,24 @@ class BackupApiGetBackupRequest:
 
 
 @dataclass
+class BackupApiGetProgressRequest:
+    hosting_id: str
+    """
+    ID of the hosting associated with the progress.
+    """
+
+    progress_id: str
+    """
+    ID of the progress to retrieve.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class BackupApiListBackupItemsRequest:
     hosting_id: str
     """
@@ -958,6 +1013,19 @@ class BackupApiListBackupsRequest:
     )
     """
     Order in which to return the list of backups.
+    """
+
+
+@dataclass
+class BackupApiListRecentProgressesRequest:
+    hosting_id: str
+    """
+    ID of the hosting linked to the progress.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -2083,6 +2151,14 @@ class ListOffersResponse:
 
 
 @dataclass
+class ListRecentProgressesResponse:
+    progresses: list[ProgressSummary]
+    """
+    List of summarized progress entries.
+    """
+
+
+@dataclass
 class ListWebsitesResponse:
     total_count: int
     """
@@ -2243,6 +2319,29 @@ class OfferApiListOffersRequest:
 
 
 @dataclass
+class Progress:
+    id: str
+    """
+    ID of the progress.
+    """
+
+    backup_item_groups: list[BackupItemGroup]
+    """
+    Groups of backup items included in this progress.
+    """
+
+    percentage: int
+    """
+    Completion percentage of the progress.
+    """
+
+    status: ProgressStatus
+    """
+    Current status of the progress operation.
+    """
+
+
+@dataclass
 class ResetHostingPasswordResponse:
     one_time_password_b64: str
     """
@@ -2280,12 +2379,18 @@ class ResourceSummary:
 
 @dataclass
 class RestoreBackupItemsResponse:
-    pass
+    progress_id: str
+    """
+    Identifier used to track the item restoration progress.
+    """
 
 
 @dataclass
 class RestoreBackupResponse:
-    pass
+    progress_id: str
+    """
+    Identifier used to track the backup restoration progress.
+    """
 
 
 @dataclass

@@ -30,6 +30,7 @@ from .types import (
     OfferOptionName,
     OfferOptionWarning,
     PlatformPlatformGroup,
+    ProgressStatus,
     Backup,
     DatabaseUser,
     Database,
@@ -66,8 +67,11 @@ from .types import (
     ListHostingsResponse,
     ListMailAccountsResponse,
     ListOffersResponse,
+    ProgressSummary,
+    ListRecentProgressesResponse,
     Website,
     ListWebsitesResponse,
+    Progress,
     ResetHostingPasswordResponse,
     ResourceSummary,
     RestoreBackupItemsResponse,
@@ -1401,6 +1405,60 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
     return ListOffersResponse(**args)
 
 
+def unmarshal_ProgressSummary(data: Any) -> ProgressSummary:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ProgressSummary' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("backup_items_count", None)
+    if field is not None:
+        args["backup_items_count"] = field
+    else:
+        args["backup_items_count"] = 0
+
+    field = data.get("percentage", None)
+    if field is not None:
+        args["percentage"] = field
+    else:
+        args["percentage"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = ProgressStatus.UNKNOWN_STATUS
+
+    return ProgressSummary(**args)
+
+
+def unmarshal_ListRecentProgressesResponse(data: Any) -> ListRecentProgressesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListRecentProgressesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("progresses", None)
+    if field is not None:
+        args["progresses"] = (
+            [unmarshal_ProgressSummary(v) for v in field] if field is not None else None
+        )
+    else:
+        args["progresses"] = []
+
+    return ListRecentProgressesResponse(**args)
+
+
 def unmarshal_Website(data: Any) -> Website:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1453,6 +1511,43 @@ def unmarshal_ListWebsitesResponse(data: Any) -> ListWebsitesResponse:
         args["websites"] = []
 
     return ListWebsitesResponse(**args)
+
+
+def unmarshal_Progress(data: Any) -> Progress:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Progress' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("backup_item_groups", None)
+    if field is not None:
+        args["backup_item_groups"] = (
+            [unmarshal_BackupItemGroup(v) for v in field] if field is not None else None
+        )
+    else:
+        args["backup_item_groups"] = []
+
+    field = data.get("percentage", None)
+    if field is not None:
+        args["percentage"] = field
+    else:
+        args["percentage"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = ProgressStatus.UNKNOWN_STATUS
+
+    return Progress(**args)
 
 
 def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordResponse:
@@ -1521,6 +1616,12 @@ def unmarshal_RestoreBackupItemsResponse(data: Any) -> RestoreBackupItemsRespons
 
     args: dict[str, Any] = {}
 
+    field = data.get("progress_id", None)
+    if field is not None:
+        args["progress_id"] = field
+    else:
+        args["progress_id"] = None
+
     return RestoreBackupItemsResponse(**args)
 
 
@@ -1531,6 +1632,12 @@ def unmarshal_RestoreBackupResponse(data: Any) -> RestoreBackupResponse:
         )
 
     args: dict[str, Any] = {}
+
+    field = data.get("progress_id", None)
+    if field is not None:
+        args["progress_id"] = field
+    else:
+        args["progress_id"] = None
 
     return RestoreBackupResponse(**args)
 
