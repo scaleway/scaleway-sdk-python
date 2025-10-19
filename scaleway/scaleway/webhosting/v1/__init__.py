@@ -29,6 +29,7 @@ from .types import NameserverStatus
 from .types import OfferOptionName
 from .types import OfferOptionWarning
 from .types import PlatformPlatformGroup
+from .types import ProgressStatus
 from .types import AutoConfigDomainDns
 from .types import PlatformControlPanelUrls
 from .types import HostingDomainCustomDomain
@@ -54,11 +55,14 @@ from .types import Database
 from .types import FtpAccount
 from .types import HostingSummary
 from .types import MailAccount
+from .types import ProgressSummary
 from .types import Website
 from .types import DomainAvailability
 from .types import BackupApiGetBackupRequest
+from .types import BackupApiGetProgressRequest
 from .types import BackupApiListBackupItemsRequest
 from .types import BackupApiListBackupsRequest
+from .types import BackupApiListRecentProgressesRequest
 from .types import BackupApiRestoreBackupItemsRequest
 from .types import BackupApiRestoreBackupRequest
 from .types import CheckFreeDomainAvailabilityResponse
@@ -109,12 +113,14 @@ from .types import ListFtpAccountsResponse
 from .types import ListHostingsResponse
 from .types import ListMailAccountsResponse
 from .types import ListOffersResponse
+from .types import ListRecentProgressesResponse
 from .types import ListWebsitesResponse
 from .types import MailAccountApiChangeMailAccountPasswordRequest
 from .types import MailAccountApiCreateMailAccountRequest
 from .types import MailAccountApiListMailAccountsRequest
 from .types import MailAccountApiRemoveMailAccountRequest
 from .types import OfferApiListOffersRequest
+from .types import Progress
 from .types import ResetHostingPasswordResponse
 from .types import ResourceSummary
 from .types import RestoreBackupItemsResponse
@@ -163,6 +169,7 @@ __all__ = [
     "OfferOptionName",
     "OfferOptionWarning",
     "PlatformPlatformGroup",
+    "ProgressStatus",
     "AutoConfigDomainDns",
     "PlatformControlPanelUrls",
     "HostingDomainCustomDomain",
@@ -188,11 +195,14 @@ __all__ = [
     "FtpAccount",
     "HostingSummary",
     "MailAccount",
+    "ProgressSummary",
     "Website",
     "DomainAvailability",
     "BackupApiGetBackupRequest",
+    "BackupApiGetProgressRequest",
     "BackupApiListBackupItemsRequest",
     "BackupApiListBackupsRequest",
+    "BackupApiListRecentProgressesRequest",
     "BackupApiRestoreBackupItemsRequest",
     "BackupApiRestoreBackupRequest",
     "CheckFreeDomainAvailabilityResponse",
@@ -243,12 +253,14 @@ __all__ = [
     "ListHostingsResponse",
     "ListMailAccountsResponse",
     "ListOffersResponse",
+    "ListRecentProgressesResponse",
     "ListWebsitesResponse",
     "MailAccountApiChangeMailAccountPasswordRequest",
     "MailAccountApiCreateMailAccountRequest",
     "MailAccountApiListMailAccountsRequest",
     "MailAccountApiRemoveMailAccountRequest",
     "OfferApiListOffersRequest",
+    "Progress",
     "ResetHostingPasswordResponse",
     "ResourceSummary",
     "RestoreBackupItemsResponse",
