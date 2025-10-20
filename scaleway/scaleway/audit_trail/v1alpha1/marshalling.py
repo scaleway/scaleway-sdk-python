@@ -148,7 +148,7 @@ def unmarshal_ExportJob(data: Any) -> ExportJob:
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = {}
+        args["tags"] = []
 
     field = data.get("s3", None)
     if field is not None:
@@ -1347,6 +1347,6 @@ def marshal_CreateExportJobRequest(
         output["organization_id"] = defaults.default_organization_id
 
     if request.tags is not None:
-        output["tags"] = {key: value for key, value in request.tags.items()}
+        output["tags"] = request.tags
 
     return output

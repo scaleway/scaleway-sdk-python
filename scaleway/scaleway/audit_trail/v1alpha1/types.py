@@ -558,7 +558,7 @@ class ExportJob:
     Name of the export job.
     """
 
-    tags: dict[str, str]
+    tags: list[str]
     """
     Tags of the export job.
     """
@@ -616,7 +616,7 @@ class CreateExportJobRequest:
     ID of the Organization to target.
     """
 
-    tags: Optional[dict[str, str]] = field(default_factory=dict)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the export.
     """
@@ -784,7 +784,7 @@ class ListExportJobsRequest:
     (Optional) Filter by export name.
     """
 
-    tags: Optional[dict[str, str]] = field(default_factory=dict)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     (Optional) List of tags to filter on.
     """
