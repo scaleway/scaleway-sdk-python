@@ -265,7 +265,7 @@ class AuditTrailV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         s3: Optional[ExportJobS3] = None,
-        tags: Optional[dict[str, str]] = None,
+        tags: Optional[list[str]] = None,
     ) -> ExportJob:
         """
         Create an export job.
@@ -346,7 +346,7 @@ class AuditTrailV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[dict[str, str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListExportJobsRequestOrderBy] = None,
@@ -394,7 +394,7 @@ class AuditTrailV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
-        tags: Optional[dict[str, str]] = None,
+        tags: Optional[list[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListExportJobsRequestOrderBy] = None,
