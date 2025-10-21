@@ -179,6 +179,12 @@ def unmarshal_Booking(data: Any) -> Booking:
     else:
         args["finished_at"] = None
 
+    field = data.get("time_zone", None)
+    if field is not None:
+        args["time_zone"] = field
+    else:
+        args["time_zone"] = None
+
     return Booking(**args)
 
 
@@ -1204,6 +1210,9 @@ def marshal_CreateSessionRequestBookingDemand(
 
     if request.description is not None:
         output["description"] = request.description
+
+    if request.time_zone is not None:
+        output["time_zone"] = request.time_zone
 
     return output
 

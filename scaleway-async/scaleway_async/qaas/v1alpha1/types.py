@@ -323,6 +323,7 @@ class CreateSessionRequestBookingDemand:
     started_at: Optional[datetime] = None
     finished_at: Optional[datetime] = None
     description: Optional[str] = None
+    time_zone: Optional[str] = None
 
 
 @dataclass
@@ -393,6 +394,11 @@ class Booking:
     finished_at: Optional[datetime] = None
     """
     Time at which the booking finishes.
+    """
+
+    time_zone: Optional[str] = None
+    """
+    Time zone for the booking schedule, in tz database format (e.g. 'Europe/Paris').
     """
 
 
