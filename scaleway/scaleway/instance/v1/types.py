@@ -541,6 +541,11 @@ class PrivateNIC:
     Private NIC tags.
     """
 
+    zone: ScwZone
+    """
+    The zone in which the Private NIC is located.
+    """
+
     creation_date: Optional[datetime] = None
     """
     Private NIC creation date.
