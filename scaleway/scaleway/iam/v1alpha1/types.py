@@ -9,6 +9,7 @@ from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    ScwFile,
     Zone as ScwZone,
 )
 from scaleway_core.utils import (
@@ -2138,6 +2139,23 @@ class OrganizationSecuritySettings:
     Maximum duration a login session will stay active before needing to relogin.
     """
 
+    max_api_key_expiration_duration: Optional[str] = None
+    """
+    Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration.
+    """
+
+
+@dataclass
+class ParseSamlMetadataRequest:
+    file: ScwFile
+
+
+@dataclass
+class ParseSamlMetadataResponse:
+    single_sign_on_url: str
+    entity_id: str
+    signing_certificates: list[str]
+
 
 @dataclass
 class RemoveGroupMemberRequest:
@@ -2358,6 +2376,11 @@ class UpdateOrganizationSecuritySettingsRequest:
     max_login_session_duration: Optional[str] = None
     """
     Maximum duration a login session will stay active before needing to relogin.
+    """
+
+    max_api_key_expiration_duration: Optional[str] = None
+    """
+    Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration.
     """
 
 

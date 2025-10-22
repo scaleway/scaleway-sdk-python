@@ -5,6 +5,9 @@ from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.bridge import (
+    marshal_ScwFile,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
@@ -56,6 +59,7 @@ from .types import (
     MFAOTP,
     Organization,
     OrganizationSecuritySettings,
+    ParseSamlMetadataResponse,
     SamlServiceProvider,
     Saml,
     SetRulesResponse,
@@ -73,6 +77,7 @@ from .types import (
     CreateUserRequestMember,
     CreateUserRequest,
     JoinUserConnectionRequest,
+    ParseSamlMetadataRequest,
     RemoveGroupMemberRequest,
     RemoveUserConnectionRequest,
     SetGroupMembersRequest,
@@ -1598,7 +1603,42 @@ def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySet
     else:
         args["max_login_session_duration"] = None
 
+    field = data.get("max_api_key_expiration_duration", None)
+    if field is not None:
+        args["max_api_key_expiration_duration"] = field
+    else:
+        args["max_api_key_expiration_duration"] = None
+
     return OrganizationSecuritySettings(**args)
+
+
+def unmarshal_ParseSamlMetadataResponse(data: Any) -> ParseSamlMetadataResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ParseSamlMetadataResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("single_sign_on_url", None)
+    if field is not None:
+        args["single_sign_on_url"] = field
+    else:
+        args["single_sign_on_url"] = None
+
+    field = data.get("entity_id", None)
+    if field is not None:
+        args["entity_id"] = field
+    else:
+        args["entity_id"] = None
+
+    field = data.get("signing_certificates", None)
+    if field is not None:
+        args["signing_certificates"] = field
+    else:
+        args["signing_certificates"] = None
+
+    return ParseSamlMetadataResponse(**args)
 
 
 def unmarshal_SamlServiceProvider(data: Any) -> SamlServiceProvider:
@@ -2020,6 +2060,18 @@ def marshal_JoinUserConnectionRequest(
     return output
 
 
+def marshal_ParseSamlMetadataRequest(
+    request: ParseSamlMetadataRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.file is not None:
+        output["file"] = marshal_ScwFile(request.file, defaults)
+
+    return output
+
+
 def marshal_RemoveGroupMemberRequest(
     request: RemoveGroupMemberRequest,
     defaults: ProfileDefaults,
@@ -2186,6 +2238,11 @@ def marshal_UpdateOrganizationSecuritySettingsRequest(
 
     if request.max_login_session_duration is not None:
         output["max_login_session_duration"] = request.max_login_session_duration
+
+    if request.max_api_key_expiration_duration is not None:
+        output["max_api_key_expiration_duration"] = (
+            request.max_api_key_expiration_duration
+        )
 
     return output
 

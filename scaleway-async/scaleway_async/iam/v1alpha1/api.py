@@ -5,6 +5,9 @@ from datetime import datetime
 from typing import Optional
 
 from scaleway_core.api import API
+from scaleway_core.bridge import (
+    ScwFile,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     random_name,
@@ -64,6 +67,8 @@ from .types import (
     MFAOTP,
     Organization,
     OrganizationSecuritySettings,
+    ParseSamlMetadataRequest,
+    ParseSamlMetadataResponse,
     PermissionSet,
     Policy,
     Quotum,
@@ -123,6 +128,7 @@ from .marshalling import (
     unmarshal_MFAOTP,
     unmarshal_Organization,
     unmarshal_OrganizationSecuritySettings,
+    unmarshal_ParseSamlMetadataResponse,
     unmarshal_Saml,
     unmarshal_SetRulesResponse,
     unmarshal_ValidateUserMFAOTPResponse,
@@ -137,6 +143,7 @@ from .marshalling import (
     marshal_CreateSSHKeyRequest,
     marshal_CreateUserRequest,
     marshal_JoinUserConnectionRequest,
+    marshal_ParseSamlMetadataRequest,
     marshal_RemoveGroupMemberRequest,
     marshal_RemoveUserConnectionRequest,
     marshal_SetGroupMembersRequest,
@@ -2913,6 +2920,7 @@ class IamV1Alpha1API(API):
         grace_period_duration: Optional[str] = None,
         login_attempts_before_locked: Optional[int] = None,
         max_login_session_duration: Optional[str] = None,
+        max_api_key_expiration_duration: Optional[str] = None,
     ) -> OrganizationSecuritySettings:
         """
         Update the security settings of an Organization.
@@ -2921,6 +2929,7 @@ class IamV1Alpha1API(API):
         :param grace_period_duration: Duration of the grace period to renew password or enable MFA.
         :param login_attempts_before_locked: Number of login attempts before the account is locked.
         :param max_login_session_duration: Maximum duration a login session will stay active before needing to relogin.
+        :param max_api_key_expiration_duration: Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration.
         :return: :class:`OrganizationSecuritySettings <OrganizationSecuritySettings>`
 
         Usage:
@@ -2943,6 +2952,7 @@ class IamV1Alpha1API(API):
                     grace_period_duration=grace_period_duration,
                     login_attempts_before_locked=login_attempts_before_locked,
                     max_login_session_duration=max_login_session_duration,
+                    max_api_key_expiration_duration=max_api_key_expiration_duration,
                 ),
                 self.client,
             ),
@@ -3187,6 +3197,38 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def parse_saml_metadata(
+        self,
+        *,
+        file: ScwFile,
+    ) -> ParseSamlMetadataResponse:
+        """
+        Parse SAML xml metadata file.
+        :param file:
+        :return: :class:`ParseSamlMetadataResponse <ParseSamlMetadataResponse>`
+
+        Usage:
+        ::
+
+            result = await api.parse_saml_metadata(
+                file=,
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/iam/v1alpha1/parse-saml-metadata",
+            body=marshal_ParseSamlMetadataRequest(
+                ParseSamlMetadataRequest(
+                    file=file,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ParseSamlMetadataResponse(res.json())
 
     async def list_saml_certificates(
         self,
