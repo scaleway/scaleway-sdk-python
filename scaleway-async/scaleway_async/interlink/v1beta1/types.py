@@ -418,6 +418,11 @@ class Pop:
     Available bandwidth in Mbits/s for future hosted links from available connections in this PoP.
     """
 
+    display_name: str
+    """
+    Pretty name of the PoP. Includes name, hosting provider and location information (ex: Paris - TeleHouse TH2).
+    """
+
     region: ScwRegion
     """
     Region of the PoP.
