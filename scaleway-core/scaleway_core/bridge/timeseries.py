@@ -3,6 +3,8 @@ from datetime import datetime
 from typing import Any, Dict, List
 from dateutil import parser
 
+from scaleway_core.profile import ProfileDefaults
+
 
 @dataclass
 class TimeSeriesPoint:
@@ -36,7 +38,9 @@ def unmarshal_TimeSeriesPoint(data: Any) -> TimeSeriesPoint:
     )
 
 
-def marshal_TimeSeriesPoint(data: TimeSeriesPoint) -> Dict[str, Any]:
+def marshal_TimeSeriesPoint(
+    data: TimeSeriesPoint, _defaults: ProfileDefaults | None
+) -> Dict[str, Any]:
     """
     Marshal an instance of TimeSeriesPoint into a JSON compatible data structure.
     """
@@ -84,12 +88,14 @@ def unmarshal_TimeSeries(data: Any) -> TimeSeries:
     )
 
 
-def marshal_TimeSeries(data: TimeSeries) -> Dict[str, Any]:
+def marshal_TimeSeries(
+    data: TimeSeries, defaults: ProfileDefaults | None
+) -> Dict[str, Any]:
     """
     Marshal an instance of TimeSeries into a JSON compatible data structure.
     """
     return {
         "name": data.name,
-        "points": [marshal_TimeSeriesPoint(point) for point in data.points],
+        "points": [marshal_TimeSeriesPoint(point, defaults) for point in data.points],
         "metadata": data.metadata,
     }
