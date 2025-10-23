@@ -112,6 +112,8 @@ from .types import LockUserRequest
 from .types import MFAOTP
 from .types import Organization
 from .types import OrganizationSecuritySettings
+from .types import ParseSamlMetadataRequest
+from .types import ParseSamlMetadataResponse
 from .types import RemoveGroupMemberRequest
 from .types import RemoveUserConnectionRequest
 from .types import Saml
@@ -248,6 +250,8 @@ __all__ = [
     "MFAOTP",
     "Organization",
     "OrganizationSecuritySettings",
+    "ParseSamlMetadataRequest",
+    "ParseSamlMetadataResponse",
     "RemoveGroupMemberRequest",
     "RemoveUserConnectionRequest",
     "Saml",

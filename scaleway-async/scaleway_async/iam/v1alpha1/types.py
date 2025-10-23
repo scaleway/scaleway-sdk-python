@@ -9,6 +9,7 @@ from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    ScwFile,
     Zone as ScwZone,
 )
 from scaleway_core.utils import (
@@ -2137,6 +2138,18 @@ class OrganizationSecuritySettings:
     """
     Maximum duration a login session will stay active before needing to relogin.
     """
+
+
+@dataclass
+class ParseSamlMetadataRequest:
+    file: ScwFile
+
+
+@dataclass
+class ParseSamlMetadataResponse:
+    single_sign_on_url: str
+    entity_id: str
+    signing_certificates: list[str]
 
 
 @dataclass

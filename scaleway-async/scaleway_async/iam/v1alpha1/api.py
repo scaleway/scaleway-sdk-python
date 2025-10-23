@@ -5,6 +5,9 @@ from datetime import datetime
 from typing import Optional
 
 from scaleway_core.api import API
+from scaleway_core.bridge import (
+    ScwFile,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     random_name,
@@ -64,6 +67,8 @@ from .types import (
     MFAOTP,
     Organization,
     OrganizationSecuritySettings,
+    ParseSamlMetadataRequest,
+    ParseSamlMetadataResponse,
     PermissionSet,
     Policy,
     Quotum,
@@ -123,6 +128,7 @@ from .marshalling import (
     unmarshal_MFAOTP,
     unmarshal_Organization,
     unmarshal_OrganizationSecuritySettings,
+    unmarshal_ParseSamlMetadataResponse,
     unmarshal_Saml,
     unmarshal_SetRulesResponse,
     unmarshal_ValidateUserMFAOTPResponse,
@@ -137,6 +143,7 @@ from .marshalling import (
     marshal_CreateSSHKeyRequest,
     marshal_CreateUserRequest,
     marshal_JoinUserConnectionRequest,
+    marshal_ParseSamlMetadataRequest,
     marshal_RemoveGroupMemberRequest,
     marshal_RemoveUserConnectionRequest,
     marshal_SetGroupMembersRequest,
@@ -3187,6 +3194,38 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def parse_saml_metadata(
+        self,
+        *,
+        file: ScwFile,
+    ) -> ParseSamlMetadataResponse:
+        """
+        Parse SAML xml metadata file.
+        :param file:
+        :return: :class:`ParseSamlMetadataResponse <ParseSamlMetadataResponse>`
+
+        Usage:
+        ::
+
+            result = await api.parse_saml_metadata(
+                file=,
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/iam/v1alpha1/parse-saml-metadata",
+            body=marshal_ParseSamlMetadataRequest(
+                ParseSamlMetadataRequest(
+                    file=file,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ParseSamlMetadataResponse(res.json())
 
     async def list_saml_certificates(
         self,
