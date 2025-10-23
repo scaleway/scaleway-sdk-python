@@ -2158,18 +2158,6 @@ class ParseSamlMetadataResponse:
 
 
 @dataclass
-class ParseSamlMetadataRequest:
-    file: ScwFile
-
-
-@dataclass
-class ParseSamlMetadataResponse:
-    single_sign_on_url: str
-    entity_id: str
-    signing_certificates: list[str]
-
-
-@dataclass
 class RemoveGroupMemberRequest:
     group_id: str
     """
