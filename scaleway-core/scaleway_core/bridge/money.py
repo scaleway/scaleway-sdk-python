@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Any, Dict
 
+from scaleway_core.profile import ProfileDefaults
+
 
 @dataclass
 class Money:
@@ -48,7 +50,7 @@ def unmarshal_Money(data: Any) -> Money:
     )
 
 
-def marshal_Money(data: Money) -> Dict[str, Any]:
+def marshal_Money(data: Money, _defaults: ProfileDefaults | None) -> Dict[str, Any]:
     """
     Marshal an instance of Money into a JSON compatible data structure.
     """

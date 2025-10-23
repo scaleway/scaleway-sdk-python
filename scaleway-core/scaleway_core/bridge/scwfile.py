@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Any, Dict
 
+from scaleway_core.profile import ProfileDefaults
+
 
 @dataclass
 class ScwFile:
@@ -40,7 +42,7 @@ def unmarshal_ScwFile(data: Any) -> ScwFile:
     )
 
 
-def marshal_ScwFile(obj: ScwFile) -> Dict[str, Any]:
+def marshal_ScwFile(obj: ScwFile, _defaults: ProfileDefaults | None) -> Dict[str, Any]:
     """
     Marshals a ScwFile object into a dict.
     """
