@@ -1,6 +1,8 @@
 from decimal import Decimal
 from typing import Any, Dict
 
+from scaleway_core.profile import ProfileDefaults
+
 
 def unmarshal_Decimal(data: Any) -> Decimal:
     """
@@ -19,7 +21,7 @@ def unmarshal_Decimal(data: Any) -> Decimal:
     return Decimal(data["value"])
 
 
-def marshal_Decimal(data: Decimal) -> Dict[str, Any]:
+def marshal_Decimal(data: Decimal, _defaults: ProfileDefaults | None) -> Dict[str, Any]:
     """
     Marshal an instance of Decimal into google.protobuf.Decimal JSON representation.
     """

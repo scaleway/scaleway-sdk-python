@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
+from scaleway_core.profile import ProfileDefaults
+
 
 @dataclass
 class ServiceInfo:
@@ -48,7 +50,9 @@ def unmarshal_ServiceInfo(data: Any) -> ServiceInfo:
     )
 
 
-def marshal_ServiceInfo(obj: ServiceInfo) -> Dict[str, Any]:
+def marshal_ServiceInfo(
+    obj: ServiceInfo, _defaults: ProfileDefaults | None
+) -> Dict[str, Any]:
     """
     Marshals a ServiceInfo object into a dict.
     """
