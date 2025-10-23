@@ -1603,6 +1603,12 @@ def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySet
     else:
         args["max_login_session_duration"] = None
 
+    field = data.get("max_api_key_expiration_duration", None)
+    if field is not None:
+        args["max_api_key_expiration_duration"] = field
+    else:
+        args["max_api_key_expiration_duration"] = None
+
     return OrganizationSecuritySettings(**args)
 
 
@@ -2232,6 +2238,11 @@ def marshal_UpdateOrganizationSecuritySettingsRequest(
 
     if request.max_login_session_duration is not None:
         output["max_login_session_duration"] = request.max_login_session_duration
+
+    if request.max_api_key_expiration_duration is not None:
+        output["max_api_key_expiration_duration"] = (
+            request.max_api_key_expiration_duration
+        )
 
     return output
 

@@ -2920,6 +2920,7 @@ class IamV1Alpha1API(API):
         grace_period_duration: Optional[str] = None,
         login_attempts_before_locked: Optional[int] = None,
         max_login_session_duration: Optional[str] = None,
+        max_api_key_expiration_duration: Optional[str] = None,
     ) -> OrganizationSecuritySettings:
         """
         Update the security settings of an Organization.
@@ -2928,6 +2929,7 @@ class IamV1Alpha1API(API):
         :param grace_period_duration: Duration of the grace period to renew password or enable MFA.
         :param login_attempts_before_locked: Number of login attempts before the account is locked.
         :param max_login_session_duration: Maximum duration a login session will stay active before needing to relogin.
+        :param max_api_key_expiration_duration: Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration.
         :return: :class:`OrganizationSecuritySettings <OrganizationSecuritySettings>`
 
         Usage:
@@ -2950,6 +2952,7 @@ class IamV1Alpha1API(API):
                     grace_period_duration=grace_period_duration,
                     login_attempts_before_locked=login_attempts_before_locked,
                     max_login_session_duration=max_login_session_duration,
+                    max_api_key_expiration_duration=max_api_key_expiration_duration,
                 ),
                 self.client,
             ),
