@@ -6,6 +6,7 @@ from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    ScwFile,
     Zone as ScwZone,
 )
 from scaleway_core.utils import (
@@ -288,6 +289,7 @@ class BaremetalV1API(API):
         tags: Optional[list[str]] = None,
         install: Optional[CreateServerRequestInstall] = None,
         option_ids: Optional[list[str]] = None,
+        user_data: Optional[str] = None,
     ) -> Server:
         """
         Create an Elastic Metal server.
@@ -304,6 +306,7 @@ class BaremetalV1API(API):
         :param tags: Tags to associate to the server.
         :param install: Object describing the configuration details of the OS installation on the server.
         :param option_ids: IDs of options to enable on server.
+        :param user_data: Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -332,6 +335,7 @@ class BaremetalV1API(API):
                     tags=tags,
                     install=install,
                     option_ids=option_ids,
+                    user_data=user_data,
                     project_id=project_id,
                     organization_id=organization_id,
                 ),
@@ -351,6 +355,7 @@ class BaremetalV1API(API):
         description: Optional[str] = None,
         tags: Optional[list[str]] = None,
         protected: Optional[bool] = None,
+        user_data: Optional[str] = None,
     ) -> Server:
         """
         Update an Elastic Metal server.
@@ -361,6 +366,7 @@ class BaremetalV1API(API):
         :param description: Description associated with the server, max 255 characters, not updated if null.
         :param tags: Tags associated with the server, not updated if null.
         :param protected: If enabled, the server can not be deleted.
+        :param user_data: Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -385,6 +391,7 @@ class BaremetalV1API(API):
                     description=description,
                     tags=tags,
                     protected=protected,
+                    user_data=user_data,
                 ),
                 self.client,
             ),
@@ -406,6 +413,7 @@ class BaremetalV1API(API):
         service_user: Optional[str] = None,
         service_password: Optional[str] = None,
         partitioning_schema: Optional[Schema] = None,
+        user_data: Optional[ScwFile] = None,
     ) -> Server:
         """
         Install an Elastic Metal server.
@@ -420,6 +428,7 @@ class BaremetalV1API(API):
         :param service_user: User used for the service to install.
         :param service_password: Password used for the service to install.
         :param partitioning_schema: Partitioning schema.
+        :param user_data: Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -451,6 +460,7 @@ class BaremetalV1API(API):
                     service_user=service_user,
                     service_password=service_password,
                     partitioning_schema=partitioning_schema,
+                    user_data=user_data,
                 ),
                 self.client,
             ),

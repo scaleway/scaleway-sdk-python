@@ -7,6 +7,7 @@ from dateutil import parser
 from scaleway_core.profile import ProfileDefaults
 from scaleway_core.bridge import (
     unmarshal_Money,
+    marshal_ScwFile,
     unmarshal_TimeSeries,
 )
 from scaleway_core.utils import (
@@ -705,6 +706,12 @@ def unmarshal_Server(data: Any) -> Server:
         args["rescue_server"] = unmarshal_ServerRescueServer(field)
     else:
         args["rescue_server"] = None
+
+    field = data.get("user_data", None)
+    if field is not None:
+        args["user_data"] = field
+    else:
+        args["user_data"] = None
 
     return Server(**args)
 
@@ -1930,6 +1937,9 @@ def marshal_CreateServerRequest(
     if request.option_ids is not None:
         output["option_ids"] = request.option_ids
 
+    if request.user_data is not None:
+        output["user_data"] = request.user_data
+
     return output
 
 
@@ -1976,6 +1986,9 @@ def marshal_InstallServerRequest(
         output["partitioning_schema"] = marshal_Schema(
             request.partitioning_schema, defaults
         )
+
+    if request.user_data is not None:
+        output["user_data"] = marshal_ScwFile(request.user_data, defaults)
 
     return output
 
@@ -2075,6 +2088,9 @@ def marshal_UpdateServerRequest(
 
     if request.protected is not None:
         output["protected"] = request.protected
+
+    if request.user_data is not None:
+        output["user_data"] = request.user_data
 
     return output
 

@@ -9,6 +9,7 @@ from typing import Optional
 
 from scaleway_core.bridge import (
     Money,
+    ScwFile,
     TimeSeries,
     Zone as ScwZone,
 )
@@ -661,6 +662,11 @@ class CreateServerRequest:
     IDs of options to enable on server.
     """
 
+    user_data: Optional[str] = None
+    """
+    Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
+    """
+
     project_id: Optional[str] = None
 
     organization_id: Optional[str] = None
@@ -766,6 +772,11 @@ class Server:
     rescue_server: Optional[ServerRescueServer] = None
     """
     Configuration of rescue boot.
+    """
+
+    user_data: Optional[str] = None
+    """
+    Optional configuration data passed to cloud-init.
     """
 
 
@@ -1325,6 +1336,11 @@ class InstallServerRequest:
     Partitioning schema.
     """
 
+    user_data: Optional[ScwFile] = None
+    """
+    Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
+    """
+
 
 @dataclass
 class ListOSRequest:
@@ -1866,6 +1882,11 @@ class UpdateServerRequest:
     protected: Optional[bool] = False
     """
     If enabled, the server can not be deleted.
+    """
+
+    user_data: Optional[str] = None
+    """
+    Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
     """
 
 
