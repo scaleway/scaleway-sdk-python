@@ -2405,6 +2405,7 @@ class IamV1Alpha1API(API):
         access_key: str,
         default_project_id: Optional[str] = None,
         description: Optional[str] = None,
+        expires_at: Optional[datetime] = None,
     ) -> APIKey:
         """
         Update an API key.
@@ -2412,6 +2413,7 @@ class IamV1Alpha1API(API):
         :param access_key: Access key to update.
         :param default_project_id: New default Project ID to set.
         :param description: New description to update.
+        :param expires_at: New expiration date of the API key.
         :return: :class:`APIKey <APIKey>`
 
         Usage:
@@ -2432,6 +2434,7 @@ class IamV1Alpha1API(API):
                     access_key=access_key,
                     default_project_id=default_project_id,
                     description=description,
+                    expires_at=expires_at,
                 ),
                 self.client,
             ),
