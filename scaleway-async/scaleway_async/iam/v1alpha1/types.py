@@ -2276,6 +2276,11 @@ class UpdateAPIKeyRequest:
     New description to update.
     """
 
+    expires_at: Optional[datetime] = None
+    """
+    New expiration date of the API key.
+    """
+
 
 @dataclass
 class UpdateApplicationRequest:
