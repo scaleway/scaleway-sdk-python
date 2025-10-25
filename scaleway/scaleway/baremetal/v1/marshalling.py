@@ -777,6 +777,42 @@ def unmarshal_OS(data: Any) -> OS:
     else:
         args["logo_url"] = None
 
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+    else:
+        args["enabled"] = False
+
+    field = data.get("license_required", None)
+    if field is not None:
+        args["license_required"] = field
+    else:
+        args["license_required"] = False
+
+    field = data.get("allowed", None)
+    if field is not None:
+        args["allowed"] = field
+    else:
+        args["allowed"] = False
+
+    field = data.get("custom_partitioning_supported", None)
+    if field is not None:
+        args["custom_partitioning_supported"] = field
+    else:
+        args["custom_partitioning_supported"] = False
+
+    field = data.get("cloud_init_supported", None)
+    if field is not None:
+        args["cloud_init_supported"] = field
+    else:
+        args["cloud_init_supported"] = False
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     field = data.get("ssh", None)
     if field is not None:
         args["ssh"] = unmarshal_OSOSField(field)
@@ -807,35 +843,11 @@ def unmarshal_OS(data: Any) -> OS:
     else:
         args["service_password"] = None
 
-    field = data.get("enabled", None)
+    field = data.get("cloud_init_version", None)
     if field is not None:
-        args["enabled"] = field
+        args["cloud_init_version"] = field
     else:
-        args["enabled"] = False
-
-    field = data.get("license_required", None)
-    if field is not None:
-        args["license_required"] = field
-    else:
-        args["license_required"] = False
-
-    field = data.get("allowed", None)
-    if field is not None:
-        args["allowed"] = field
-    else:
-        args["allowed"] = False
-
-    field = data.get("custom_partitioning_supported", None)
-    if field is not None:
-        args["custom_partitioning_supported"] = field
-    else:
-        args["custom_partitioning_supported"] = False
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-    else:
-        args["zone"] = None
+        args["cloud_init_version"] = None
 
     return OS(**args)
 
