@@ -822,6 +822,11 @@ class OS:
     Defines if custom partitioning is supported by this OS.
     """
 
+    cloud_init_supported: bool
+    """
+    Defines if cloud-init is supported by this OS.
+    """
+
     zone: ScwZone
     """
     Zone in which is the OS is available.
@@ -850,6 +855,11 @@ class OS:
     service_password: Optional[OSOSField] = None
     """
     Object defining the password requirements to install the service.
+    """
+
+    cloud_init_version: Optional[str] = None
+    """
+    Defines the cloud-init API version used by this OS.
     """
 
 
