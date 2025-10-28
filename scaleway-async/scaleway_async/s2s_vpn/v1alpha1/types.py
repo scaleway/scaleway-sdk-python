@@ -237,6 +237,16 @@ class Connection:
     Who initiates the IPsec tunnel.
     """
 
+    secret_id: str
+    """
+    ID of the secret in Secret Manager which contains the PSK.
+    """
+
+    secret_revision: int
+    """
+    Version number of the secret in Secret Manager which contains the PSK.
+    """
+
     ikev2_ciphers: list[ConnectionCipher]
     """
     List of IKE v2 ciphers proposed for the IPsec tunnel.
@@ -593,14 +603,14 @@ class CreateConnectionRequest:
 
 @dataclass
 class CreateConnectionResponse:
-    pre_shared_key: str
-    """
-    New PSK generated for this connection.
-    """
-
     connection: Optional[Connection] = None
     """
     This connection.
+    """
+
+    pre_shared_key: Optional[str] = None
+    """
+    Deprecated, use secret_id & secret_revision fields.
     """
 
 
@@ -1178,14 +1188,14 @@ class RenewConnectionPskRequest:
 
 @dataclass
 class RenewConnectionPskResponse:
-    pre_shared_key: str
-    """
-    New PSK generated for this connection.
-    """
-
     connection: Optional[Connection] = None
     """
     This connection.
+    """
+
+    pre_shared_key: Optional[str] = None
+    """
+    Deprecated, use secret_id & secret_revision fields.
     """
 
 
