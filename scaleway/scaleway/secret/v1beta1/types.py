@@ -51,6 +51,7 @@ class ListSecretsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class Product(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_PRODUCT = "unknown_product"
     EDGE_SERVICES = "edge_services"
+    S2S_VPN = "s2s_vpn"
 
     def __str__(self) -> str:
         return str(self.value)
