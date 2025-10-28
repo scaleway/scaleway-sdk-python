@@ -196,6 +196,11 @@ class ListConsumptionsResponseConsumption:
     Consumed quantity.
     """
 
+    consumer_id: str
+    """
+    Organization ID of the consumer for this consumption.
+    """
+
     value: Optional[Money] = None
     """
     Monetary value of the consumption.
