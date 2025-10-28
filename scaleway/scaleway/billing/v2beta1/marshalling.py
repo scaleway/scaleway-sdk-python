@@ -326,6 +326,12 @@ def unmarshal_ListConsumptionsResponseConsumption(
     else:
         args["billed_quantity"] = None
 
+    field = data.get("consumer_id", None)
+    if field is not None:
+        args["consumer_id"] = field
+    else:
+        args["consumer_id"] = None
+
     field = data.get("value", None)
     if field is not None:
         args["value"] = unmarshal_Money(field)
