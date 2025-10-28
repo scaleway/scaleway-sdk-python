@@ -173,7 +173,7 @@ class Deployment:
 
     version: str
     """
-    Clickhouse version.
+    ClickHouse® version.
     """
 
     replica_count: int
@@ -303,7 +303,7 @@ class CreateDeploymentRequest:
 
     version: str
     """
-    Clickhouse version to use for the deployment.
+    ClickHouse® version to use for the deployment.
     """
 
     replica_count: int
