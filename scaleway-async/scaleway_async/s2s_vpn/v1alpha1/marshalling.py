@@ -154,6 +154,24 @@ def unmarshal_Connection(data: Any) -> Connection:
     else:
         args["is_ipv6"] = False
 
+    field = data.get("initiation_policy", None)
+    if field is not None:
+        args["initiation_policy"] = field
+    else:
+        args["initiation_policy"] = ConnectionInitiationPolicy.UNKNOWN_INITIATION_POLICY
+
+    field = data.get("secret_id", None)
+    if field is not None:
+        args["secret_id"] = field
+    else:
+        args["secret_id"] = None
+
+    field = data.get("secret_revision", None)
+    if field is not None:
+        args["secret_revision"] = field
+    else:
+        args["secret_revision"] = 0
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -165,12 +183,6 @@ def unmarshal_Connection(data: Any) -> Connection:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("initiation_policy", None)
-    if field is not None:
-        args["initiation_policy"] = field
-    else:
-        args["initiation_policy"] = ConnectionInitiationPolicy.UNKNOWN_INITIATION_POLICY
 
     field = data.get("ikev2_ciphers", None)
     if field is not None:
@@ -564,17 +576,17 @@ def unmarshal_CreateConnectionResponse(data: Any) -> CreateConnectionResponse:
 
     args: dict[str, Any] = {}
 
-    field = data.get("pre_shared_key", None)
-    if field is not None:
-        args["pre_shared_key"] = field
-    else:
-        args["pre_shared_key"] = None
-
     field = data.get("connection", None)
     if field is not None:
         args["connection"] = unmarshal_Connection(field)
     else:
         args["connection"] = None
+
+    field = data.get("pre_shared_key", None)
+    if field is not None:
+        args["pre_shared_key"] = field
+    else:
+        args["pre_shared_key"] = None
 
     return CreateConnectionResponse(**args)
 
@@ -747,17 +759,17 @@ def unmarshal_RenewConnectionPskResponse(data: Any) -> RenewConnectionPskRespons
 
     args: dict[str, Any] = {}
 
-    field = data.get("pre_shared_key", None)
-    if field is not None:
-        args["pre_shared_key"] = field
-    else:
-        args["pre_shared_key"] = None
-
     field = data.get("connection", None)
     if field is not None:
         args["connection"] = unmarshal_Connection(field)
     else:
         args["connection"] = None
+
+    field = data.get("pre_shared_key", None)
+    if field is not None:
+        args["pre_shared_key"] = field
+    else:
+        args["pre_shared_key"] = None
 
     return RenewConnectionPskResponse(**args)
 
