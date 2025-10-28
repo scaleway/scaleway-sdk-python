@@ -2410,6 +2410,42 @@ class Session:
 
 
 @dataclass
+class WebsiteApiCreateWebsiteRequest:
+    hosting_id: str
+    """
+    Hosting ID to which the website is attached to.
+    """
+
+    domain_name: str
+    """
+    The new domain name or subdomain to use for the website.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class WebsiteApiDeleteWebsiteRequest:
+    hosting_id: str
+    """
+    Hosting ID to which the website is detached from.
+    """
+
+    domain_name: str
+    """
+    The new domain name or subdomain attached to the website.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class WebsiteApiListWebsitesRequest:
     hosting_id: str
     """

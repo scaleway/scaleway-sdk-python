@@ -127,6 +127,8 @@ from .types import RestoreBackupItemsResponse
 from .types import RestoreBackupResponse
 from .types import SearchDomainsResponse
 from .types import Session
+from .types import WebsiteApiCreateWebsiteRequest
+from .types import WebsiteApiDeleteWebsiteRequest
 from .types import WebsiteApiListWebsitesRequest
 from .api import WebhostingV1BackupAPI
 from .api import WebhostingV1ControlPanelAPI
@@ -267,6 +269,8 @@ __all__ = [
     "RestoreBackupResponse",
     "SearchDomainsResponse",
     "Session",
+    "WebsiteApiCreateWebsiteRequest",
+    "WebsiteApiDeleteWebsiteRequest",
     "WebsiteApiListWebsitesRequest",
     "WebhostingV1BackupAPI",
     "WebhostingV1ControlPanelAPI",
