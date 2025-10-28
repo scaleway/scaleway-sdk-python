@@ -40,6 +40,7 @@ from .types import (
     HostingDomain,
     HostingSummary,
     MailAccount,
+    Website,
     FreeDomain,
     CheckFreeDomainAvailabilityResponse,
     CheckUserOwnsDomainResponse,
@@ -69,7 +70,6 @@ from .types import (
     ListOffersResponse,
     ProgressSummary,
     ListRecentProgressesResponse,
-    Website,
     ListWebsitesResponse,
     Progress,
     ResetHostingPasswordResponse,
@@ -101,6 +101,7 @@ from .types import (
     MailAccountApiChangeMailAccountPasswordRequest,
     MailAccountApiCreateMailAccountRequest,
     MailAccountApiRemoveMailAccountRequest,
+    WebsiteApiCreateWebsiteRequest,
 )
 from ...std.types import (
     LanguageCode as StdLanguageCode,
@@ -420,6 +421,35 @@ def unmarshal_MailAccount(data: Any) -> MailAccount:
         args["username"] = None
 
     return MailAccount(**args)
+
+
+def unmarshal_Website(data: Any) -> Website:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Website' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+    else:
+        args["domain"] = None
+
+    field = data.get("path", None)
+    if field is not None:
+        args["path"] = field
+    else:
+        args["path"] = None
+
+    field = data.get("ssl_status", None)
+    if field is not None:
+        args["ssl_status"] = field
+    else:
+        args["ssl_status"] = False
+
+    return Website(**args)
 
 
 def unmarshal_FreeDomain(data: Any) -> FreeDomain:
@@ -1459,35 +1489,6 @@ def unmarshal_ListRecentProgressesResponse(data: Any) -> ListRecentProgressesRes
     return ListRecentProgressesResponse(**args)
 
 
-def unmarshal_Website(data: Any) -> Website:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Website' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-    else:
-        args["domain"] = None
-
-    field = data.get("path", None)
-    if field is not None:
-        args["path"] = field
-    else:
-        args["path"] = None
-
-    field = data.get("ssl_status", None)
-    if field is not None:
-        args["ssl_status"] = field
-    else:
-        args["ssl_status"] = False
-
-    return Website(**args)
-
-
 def unmarshal_ListWebsitesResponse(data: Any) -> ListWebsitesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2150,5 +2151,17 @@ def marshal_MailAccountApiRemoveMailAccountRequest(
 
     if request.username is not None:
         output["username"] = request.username
+
+    return output
+
+
+def marshal_WebsiteApiCreateWebsiteRequest(
+    request: WebsiteApiCreateWebsiteRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.domain_name is not None:
+        output["domain_name"] = request.domain_name
 
     return output

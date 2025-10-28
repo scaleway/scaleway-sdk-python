@@ -79,6 +79,7 @@ from .types import (
     Session,
     SyncDomainDnsRecordsRequestRecord,
     Website,
+    WebsiteApiCreateWebsiteRequest,
 )
 from .content import (
     BACKUP_TRANSIENT_STATUSES,
@@ -92,6 +93,7 @@ from .marshalling import (
     unmarshal_FtpAccount,
     unmarshal_HostingSummary,
     unmarshal_MailAccount,
+    unmarshal_Website,
     unmarshal_CheckFreeDomainAvailabilityResponse,
     unmarshal_CheckUserOwnsDomainResponse,
     unmarshal_DnsRecords,
@@ -134,6 +136,7 @@ from .marshalling import (
     marshal_MailAccountApiChangeMailAccountPasswordRequest,
     marshal_MailAccountApiCreateMailAccountRequest,
     marshal_MailAccountApiRemoveMailAccountRequest,
+    marshal_WebsiteApiCreateWebsiteRequest,
 )
 from ...std.types import (
     LanguageCode as StdLanguageCode,
@@ -1949,7 +1952,7 @@ class WebhostingV1HostingAPI(API):
         region: Optional[ScwRegion] = None,
     ) -> HostingSummary:
         """
-        Attach a custom domain to a webhosting.
+        Attach a custom domain to a webhosting as an alias to the main domain.
         :param hosting_id: Hosting ID to which the custom domain is attached to.
         :param domain_name: The custom domain name to attach to the hosting.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -2712,3 +2715,82 @@ class WebhostingV1WebsiteAPI(API):
                 "order_by": order_by,
             },
         )
+
+    def create_website(
+        self,
+        *,
+        hosting_id: str,
+        domain_name: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Website:
+        """
+        Create a new website and attach it to a webhosting.
+        :param hosting_id: Hosting ID to which the website is attached to.
+        :param domain_name: The new domain name or subdomain to use for the website.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Website <Website>`
+
+        Usage:
+        ::
+
+            result = api.create_website(
+                hosting_id="example",
+                domain_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/websites",
+            body=marshal_WebsiteApiCreateWebsiteRequest(
+                WebsiteApiCreateWebsiteRequest(
+                    hosting_id=hosting_id,
+                    domain_name=domain_name,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Website(res.json())
+
+    def delete_website(
+        self,
+        *,
+        hosting_id: str,
+        domain_name: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        Delete a website from a webhosting.
+        :param hosting_id: Hosting ID to which the website is detached from.
+        :param domain_name: The new domain name or subdomain attached to the website.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_website(
+                hosting_id="example",
+                domain_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+        param_domain_name = validate_path_param("domain_name", domain_name)
+
+        res = self._request(
+            "DELETE",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/websites/{param_domain_name}",
+        )
+
+        self._throw_on_error(res)
