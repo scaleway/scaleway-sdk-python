@@ -141,7 +141,7 @@ class DatawarehouseV1Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListVersionsResponse:
         """
-        List available Clickhouse versions.
+        List available ClickHouse® versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version:
         :param page:
@@ -180,7 +180,7 @@ class DatawarehouseV1Beta1API(API):
         page_size: Optional[int] = None,
     ) -> list[Version]:
         """
-        List available Clickhouse versions.
+        List available ClickHouse® versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version:
         :param page:
@@ -397,7 +397,7 @@ class DatawarehouseV1Beta1API(API):
         Create a deployment.
         Create a new deployment.
         :param name: Name of the deployment.
-        :param version: Clickhouse version to use for the deployment.
+        :param version: ClickHouse® version to use for the deployment.
         :param replica_count: Number of replicas for the deployment.
         :param password: Password for the initial user.
         :param cpu_min: Minimum CPU count for the deployment.
@@ -515,7 +515,7 @@ class DatawarehouseV1Beta1API(API):
     ) -> Deployment:
         """
         Delete a deployment.
-        Delete a given deployment, specified by the `region` and `deployment_id` parameters. Deleting a deployment is permanent, and cannot be undone. Upon deletion, deletion all your data will be lost.
+        Delete a given deployment, specified by the `region` and `deployment_id` parameters. Deleting a deployment is permanent, and cannot be undone. Upon deletion, all your data will be lost.
         :param deployment_id: UUID of the deployment to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Deployment <Deployment>`
