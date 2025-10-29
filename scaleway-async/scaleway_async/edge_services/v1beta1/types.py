@@ -293,6 +293,11 @@ class ScalewayLb:
     Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer.
     """
 
+    has_websocket: Optional[bool] = False
+    """
+    Defines whether to forward websocket requests to the load balancer.
+    """
+
 
 @dataclass
 class RuleHttpMatchPathFilter:
