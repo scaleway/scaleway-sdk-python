@@ -130,6 +130,12 @@ def unmarshal_ScalewayLb(data: Any) -> ScalewayLb:
     else:
         args["domain_name"] = None
 
+    field = data.get("has_websocket", None)
+    if field is not None:
+        args["has_websocket"] = field
+    else:
+        args["has_websocket"] = False
+
     return ScalewayLb(**args)
 
 
@@ -1623,6 +1629,9 @@ def marshal_ScalewayLb(
 
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
+
+    if request.has_websocket is not None:
+        output["has_websocket"] = request.has_websocket
 
     return output
 
