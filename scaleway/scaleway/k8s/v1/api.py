@@ -1070,7 +1070,7 @@ class K8SV1API(API):
         :param public_ip_disabled: Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
         :param max_size: Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
         :param container_runtime: Customization of the container runtime is available for each pool.
-        :param tags: Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
+        :param tags: Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
         :param kubelet_args: Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: Pool upgrade policy.
         :param zone: Zone in which the pool's nodes will be spawned.

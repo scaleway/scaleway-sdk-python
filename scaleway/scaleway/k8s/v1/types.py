@@ -397,7 +397,7 @@ class Pool:
 
     tags: list[str]
     """
-    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
+    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
     """
 
     kubelet_args: dict[str, str]
@@ -631,7 +631,7 @@ class CreateClusterRequestPoolConfig:
 
     tags: list[str]
     """
-    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
+    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
     """
 
     kubelet_args: dict[str, str]
@@ -1359,7 +1359,7 @@ class CreatePoolRequest:
 
     tags: Optional[list[str]] = field(default_factory=list)
     """
-    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
+    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
     """
 
     kubelet_args: Optional[dict[str, str]] = field(default_factory=dict)
