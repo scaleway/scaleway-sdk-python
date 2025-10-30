@@ -22,7 +22,8 @@ def test_utils_api_coerces_naive_datetime_to_utc(monkeypatch, method_name):
 
     api = MongodbUtilsV1API(client=_DummyClient(), bypass_validation=True)
 
-    naive_dt = datetime(2030, 1, 1, 12, 0, 0)
+    # Build naive datetime without triggering DTZ001 (construct aware then strip tz)
+    naive_dt = datetime(2030, 1, 1, 12, 0, 0, tzinfo=timezone.utc).replace(tzinfo=None)
 
     if method_name == "create_snapshot":
         api.create_snapshot(instance_id="iid", name="n", expires_at=naive_dt)

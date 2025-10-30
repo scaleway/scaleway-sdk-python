@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Optional, Any
 
 from .api import MongodbV1Alpha1API
 
@@ -20,12 +20,12 @@ class MongodbUtilsV1Alpha1API(MongodbV1Alpha1API):
     - Naive datetimes for expires_at are assumed to be UTC.
     """
 
-    async def create_snapshot(self, **kwargs):
+    async def create_snapshot(self, **kwargs: Any) -> Any:
         expires_at = kwargs.get("expires_at")
         kwargs["expires_at"] = _ensure_tzaware_utc(expires_at)
         return await super().create_snapshot(**kwargs)
 
-    async def update_snapshot(self, **kwargs):
+    async def update_snapshot(self, **kwargs: Any) -> Any:
         expires_at = kwargs.get("expires_at")
         kwargs["expires_at"] = _ensure_tzaware_utc(expires_at)
         return await super().update_snapshot(**kwargs)
