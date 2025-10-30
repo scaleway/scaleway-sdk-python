@@ -2,12 +2,9 @@ from datetime import datetime, timezone
 
 import pytest
 
-from ..custom_api import MongodbUtilsV1API
-from ..api import MongodbV1API
-
-
-class _DummyClient:
-    pass
+from scaleway.mongodb.v1.custom_api import MongodbUtilsV1API
+from scaleway.mongodb.v1.api import MongodbV1API
+from tests.utils import initialize_client_test
 
 
 @pytest.mark.parametrize("method_name", ["create_snapshot", "update_snapshot"])
@@ -22,7 +19,7 @@ def test_utils_api_coerces_naive_datetime_to_utc(
 
     monkeypatch.setattr(MongodbV1API, method_name, dummy, raising=True)
 
-    api = MongodbUtilsV1API(client=_DummyClient(), bypass_validation=True)
+    api = MongodbUtilsV1API(client=initialize_client_test(), bypass_validation=True)
 
     # Build naive datetime without triggering DTZ001 (construct aware then strip tz)
     naive_dt = datetime(2030, 1, 1, 12, 0, 0, tzinfo=timezone.utc).replace(tzinfo=None)
@@ -51,7 +48,7 @@ def test_utils_api_preserves_aware_datetime(
 
     monkeypatch.setattr(MongodbV1API, method_name, dummy, raising=True)
 
-    api = MongodbUtilsV1API(client=_DummyClient(), bypass_validation=True)
+    api = MongodbUtilsV1API(client=initialize_client_test(), bypass_validation=True)
 
     aware_dt = datetime(2030, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
 

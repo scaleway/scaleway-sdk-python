@@ -29,5 +29,3 @@ class MongodbUtilsV1Alpha1API(MongodbV1Alpha1API):
         expires_at = kwargs.get("expires_at")
         kwargs["expires_at"] = _ensure_tzaware_utc(expires_at)
         return await super().update_snapshot(**kwargs)
-
-
