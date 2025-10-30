@@ -7,6 +7,7 @@ from scaleway.mongodb.v1.api import MongodbV1API
 from tests.utils import initialize_client_test
 
 
+
 @pytest.mark.parametrize("method_name", ["create_snapshot", "update_snapshot"])
 def test_utils_api_coerces_naive_datetime_to_utc(
     monkeypatch: pytest.MonkeyPatch, method_name: str

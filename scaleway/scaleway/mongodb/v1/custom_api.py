@@ -6,6 +6,7 @@ from typing import Optional, Any
 from .api import MongodbV1API
 
 
+
 def _ensure_tzaware_utc(value: Optional[datetime]) -> Optional[datetime]:
     if value is None:
         return None
