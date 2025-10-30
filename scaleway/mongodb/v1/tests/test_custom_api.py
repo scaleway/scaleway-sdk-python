@@ -2,9 +2,10 @@ from datetime import datetime, timezone
 
 import pytest
 
-from scaleway.mongodb.v1.api import MongodbV1API
 from scaleway.mongodb.v1.custom_api import MongodbUtilsV1API
+from scaleway.mongodb.v1.api import MongodbV1API
 from tests.utils import initialize_client_test
+
 
 # mypy: ignore-errors
 

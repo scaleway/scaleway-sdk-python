@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import Optional, Any
+from typing import Any, Optional
 
-from .api import MongodbV1Alpha1API
-
+from scaleway.scaleway.mongodb.v1alpha1.api import MongodbV1Alpha1API
 
 
 def _ensure_tzaware_utc(value: Optional[datetime]) -> Optional[datetime]:
@@ -31,5 +30,3 @@ class MongodbUtilsV1Alpha1API(MongodbV1Alpha1API):
         expires_at = kwargs.get("expires_at")
         kwargs["expires_at"] = _ensure_tzaware_utc(expires_at)
         return super().update_snapshot(**kwargs)
-
-

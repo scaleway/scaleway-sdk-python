@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-from scaleway.scaleway.mongodb.v1.api import MongodbV1API
+from scaleway.mongodb.v1alpha1.api import MongodbV1Alpha1API
 
 
 def _ensure_tzaware_utc(value: Optional[datetime]) -> Optional[datetime]:
@@ -14,9 +14,9 @@ def _ensure_tzaware_utc(value: Optional[datetime]) -> Optional[datetime]:
     return value
 
 
-class MongodbUtilsV1API(MongodbV1API):
+class MongodbUtilsV1Alpha1API(MongodbV1Alpha1API):
     """
-    Extensions for MongoDB V1 that provide safer ergonomics.
+    Extensions for MongoDB V1alpha1 that provide safer ergonomics.
 
     - Naive datetimes for expires_at are assumed to be UTC.
     """
