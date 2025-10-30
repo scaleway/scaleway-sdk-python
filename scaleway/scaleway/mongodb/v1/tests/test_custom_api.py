@@ -2,8 +2,8 @@ from datetime import datetime, timezone
 
 import pytest
 
-from scaleway.scaleway.mongodb.v1.custom_api import MongodbUtilsV1API
-from scaleway.scaleway.mongodb.v1.api import MongodbV1API
+from ..custom_api import MongodbUtilsV1API
+from ..api import MongodbV1API
 
 
 class _DummyClient:
@@ -11,7 +11,9 @@ class _DummyClient:
 
 
 @pytest.mark.parametrize("method_name", ["create_snapshot", "update_snapshot"])
-def test_utils_api_coerces_naive_datetime_to_utc(monkeypatch, method_name):
+def test_utils_api_coerces_naive_datetime_to_utc(
+    monkeypatch: pytest.MonkeyPatch, method_name: str
+) -> None:
     captured = {}
 
     def dummy(self, **kwargs):  # type: ignore[no-untyped-def]
@@ -38,7 +40,9 @@ def test_utils_api_coerces_naive_datetime_to_utc(monkeypatch, method_name):
 
 
 @pytest.mark.parametrize("method_name", ["create_snapshot", "update_snapshot"])
-def test_utils_api_preserves_aware_datetime(monkeypatch, method_name):
+def test_utils_api_preserves_aware_datetime(
+    monkeypatch: pytest.MonkeyPatch, method_name: str
+) -> None:
     captured = {}
 
     def dummy(self, **kwargs):  # type: ignore[no-untyped-def]
