@@ -153,6 +153,15 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     LOAD_BALANCER_CERTIFICATE = "load_balancer_certificate"
     SFS_FILESYSTEM = "sfs_filesystem"
     VPC_PRIVATE_NETWORK = "vpc_private_network"
+    EDGE_SERVICES_PLAN = "edge_services_plan"
+    EDGE_SERVICES_PIPELINE = "edge_services_pipeline"
+    EDGE_SERVICES_DNS_STAGE = "edge_services_dns_stage"
+    EDGE_SERVICES_TLS_STAGE = "edge_services_tls_stage"
+    EDGE_SERVICES_CACHE_STAGE = "edge_services_cache_stage"
+    EDGE_SERVICES_ROUTE_STAGE = "edge_services_route_stage"
+    EDGE_SERVICES_ROUTE_RULES = "edge_services_route_rules"
+    EDGE_SERVICES_WAF_STAGE = "edge_services_waf_stage"
+    EDGE_SERVICES_BACKEND_STAGE = "edge_services_backend_stage"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -198,6 +207,51 @@ class BaremetalServerInfo:
 @dataclass
 class BaremetalSettingInfo:
     type_: str
+
+
+@dataclass
+class EdgeServicesBackendStageInfo:
+    pipeline_id: Optional[str] = None
+
+
+@dataclass
+class EdgeServicesCacheStageInfo:
+    pipeline_id: Optional[str] = None
+
+
+@dataclass
+class EdgeServicesDNSStageInfo:
+    pipeline_id: Optional[str] = None
+
+
+@dataclass
+class EdgeServicesPipelineInfo:
+    name: str
+
+
+@dataclass
+class EdgeServicesPlanInfo:
+    pass
+
+
+@dataclass
+class EdgeServicesRouteRulesInfo:
+    route_stage_id: str
+
+
+@dataclass
+class EdgeServicesRouteStageInfo:
+    pipeline_id: Optional[str] = None
+
+
+@dataclass
+class EdgeServicesTLSStageInfo:
+    pipeline_id: Optional[str] = None
+
+
+@dataclass
+class EdgeServicesWAFStageInfo:
+    pipeline_id: Optional[str] = None
 
 
 @dataclass
@@ -345,6 +399,24 @@ class Resource:
     load_balancer_acl_info: Optional[LoadBalancerAclInfo] = None
 
     load_balancer_certificate_info: Optional[LoadBalancerCertificateInfo] = None
+
+    edge_services_plan_info: Optional[EdgeServicesPlanInfo] = None
+
+    edge_services_pipeline_info: Optional[EdgeServicesPipelineInfo] = None
+
+    edge_services_dns_stage_info: Optional[EdgeServicesDNSStageInfo] = None
+
+    edge_services_tls_stage_info: Optional[EdgeServicesTLSStageInfo] = None
+
+    edge_services_cache_stage_info: Optional[EdgeServicesCacheStageInfo] = None
+
+    edge_services_route_stage_info: Optional[EdgeServicesRouteStageInfo] = None
+
+    edge_services_route_rules_info: Optional[EdgeServicesRouteRulesInfo] = None
+
+    edge_services_waf_stage_info: Optional[EdgeServicesWAFStageInfo] = None
+
+    edge_services_backend_stage_info: Optional[EdgeServicesBackendStageInfo] = None
 
 
 @dataclass
