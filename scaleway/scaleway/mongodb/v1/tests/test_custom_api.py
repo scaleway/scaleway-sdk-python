@@ -1,4 +1,3 @@
-import os
 from datetime import datetime, timedelta, timezone
 
 import pytest
@@ -16,9 +15,8 @@ def test_create_snapshot_with_naive_expires_at_vcr() -> None:
     client = initialize_client_test()
     api = MongodbUtilsV1API(client, bypass_validation=True)
 
-    instance_id = os.environ.get("SCW_TEST_MONGODB_INSTANCE_ID")
-    if not instance_id:
-        pytest.skip("SCW_TEST_MONGODB_INSTANCE_ID not set for recording")
+    # Fixed value to match cassette; record once locally, then CI replays
+    instance_id = "00000000-0000-0000-0000-000000000000"
 
     # Naive datetime should be handled as UTC by the utils API
     naive_dt = datetime.now().replace(tzinfo=None) + timedelta(days=1)
