@@ -18,6 +18,15 @@ from .types import AccountUserInfo
 from .types import AppleSiliconServerInfo
 from .types import BaremetalServerInfo
 from .types import BaremetalSettingInfo
+from .types import EdgeServicesBackendStageInfo
+from .types import EdgeServicesCacheStageInfo
+from .types import EdgeServicesDNSStageInfo
+from .types import EdgeServicesPipelineInfo
+from .types import EdgeServicesPlanInfo
+from .types import EdgeServicesRouteRulesInfo
+from .types import EdgeServicesRouteStageInfo
+from .types import EdgeServicesTLSStageInfo
+from .types import EdgeServicesWAFStageInfo
 from .types import InstanceServerInfo
 from .types import IpamIpInfo
 from .types import KeyManagerKeyInfo
@@ -78,6 +87,15 @@ __all__ = [
     "AppleSiliconServerInfo",
     "BaremetalServerInfo",
     "BaremetalSettingInfo",
+    "EdgeServicesBackendStageInfo",
+    "EdgeServicesCacheStageInfo",
+    "EdgeServicesDNSStageInfo",
+    "EdgeServicesPipelineInfo",
+    "EdgeServicesPlanInfo",
+    "EdgeServicesRouteRulesInfo",
+    "EdgeServicesRouteStageInfo",
+    "EdgeServicesTLSStageInfo",
+    "EdgeServicesWAFStageInfo",
     "InstanceServerInfo",
     "IpamIpInfo",
     "KeyManagerKeyInfo",

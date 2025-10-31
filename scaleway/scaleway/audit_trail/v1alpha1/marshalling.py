@@ -24,6 +24,15 @@ from .types import (
     AppleSiliconServerInfo,
     BaremetalServerInfo,
     BaremetalSettingInfo,
+    EdgeServicesBackendStageInfo,
+    EdgeServicesCacheStageInfo,
+    EdgeServicesDNSStageInfo,
+    EdgeServicesPipelineInfo,
+    EdgeServicesPlanInfo,
+    EdgeServicesRouteRulesInfo,
+    EdgeServicesRouteStageInfo,
+    EdgeServicesTLSStageInfo,
+    EdgeServicesWAFStageInfo,
     InstanceServerInfo,
     IpamIpInfo,
     KeyManagerKeyInfo,
@@ -291,6 +300,153 @@ def unmarshal_BaremetalSettingInfo(data: Any) -> BaremetalSettingInfo:
         args["type_"] = None
 
     return BaremetalSettingInfo(**args)
+
+
+def unmarshal_EdgeServicesBackendStageInfo(data: Any) -> EdgeServicesBackendStageInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesBackendStageInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
+
+    return EdgeServicesBackendStageInfo(**args)
+
+
+def unmarshal_EdgeServicesCacheStageInfo(data: Any) -> EdgeServicesCacheStageInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesCacheStageInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
+
+    return EdgeServicesCacheStageInfo(**args)
+
+
+def unmarshal_EdgeServicesDNSStageInfo(data: Any) -> EdgeServicesDNSStageInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesDNSStageInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
+
+    return EdgeServicesDNSStageInfo(**args)
+
+
+def unmarshal_EdgeServicesPipelineInfo(data: Any) -> EdgeServicesPipelineInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesPipelineInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return EdgeServicesPipelineInfo(**args)
+
+
+def unmarshal_EdgeServicesPlanInfo(data: Any) -> EdgeServicesPlanInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesPlanInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return EdgeServicesPlanInfo(**args)
+
+
+def unmarshal_EdgeServicesRouteRulesInfo(data: Any) -> EdgeServicesRouteRulesInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesRouteRulesInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("route_stage_id", None)
+    if field is not None:
+        args["route_stage_id"] = field
+    else:
+        args["route_stage_id"] = None
+
+    return EdgeServicesRouteRulesInfo(**args)
+
+
+def unmarshal_EdgeServicesRouteStageInfo(data: Any) -> EdgeServicesRouteStageInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesRouteStageInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
+
+    return EdgeServicesRouteStageInfo(**args)
+
+
+def unmarshal_EdgeServicesTLSStageInfo(data: Any) -> EdgeServicesTLSStageInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesTLSStageInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
+
+    return EdgeServicesTLSStageInfo(**args)
+
+
+def unmarshal_EdgeServicesWAFStageInfo(data: Any) -> EdgeServicesWAFStageInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesWAFStageInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
+
+    return EdgeServicesWAFStageInfo(**args)
 
 
 def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
@@ -796,6 +952,68 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["load_balancer_certificate_info"] = None
+
+    field = data.get("edge_services_plan_info", None)
+    if field is not None:
+        args["edge_services_plan_info"] = unmarshal_EdgeServicesPlanInfo(field)
+    else:
+        args["edge_services_plan_info"] = None
+
+    field = data.get("edge_services_pipeline_info", None)
+    if field is not None:
+        args["edge_services_pipeline_info"] = unmarshal_EdgeServicesPipelineInfo(field)
+    else:
+        args["edge_services_pipeline_info"] = None
+
+    field = data.get("edge_services_dns_stage_info", None)
+    if field is not None:
+        args["edge_services_dns_stage_info"] = unmarshal_EdgeServicesDNSStageInfo(field)
+    else:
+        args["edge_services_dns_stage_info"] = None
+
+    field = data.get("edge_services_tls_stage_info", None)
+    if field is not None:
+        args["edge_services_tls_stage_info"] = unmarshal_EdgeServicesTLSStageInfo(field)
+    else:
+        args["edge_services_tls_stage_info"] = None
+
+    field = data.get("edge_services_cache_stage_info", None)
+    if field is not None:
+        args["edge_services_cache_stage_info"] = unmarshal_EdgeServicesCacheStageInfo(
+            field
+        )
+    else:
+        args["edge_services_cache_stage_info"] = None
+
+    field = data.get("edge_services_route_stage_info", None)
+    if field is not None:
+        args["edge_services_route_stage_info"] = unmarshal_EdgeServicesRouteStageInfo(
+            field
+        )
+    else:
+        args["edge_services_route_stage_info"] = None
+
+    field = data.get("edge_services_route_rules_info", None)
+    if field is not None:
+        args["edge_services_route_rules_info"] = unmarshal_EdgeServicesRouteRulesInfo(
+            field
+        )
+    else:
+        args["edge_services_route_rules_info"] = None
+
+    field = data.get("edge_services_waf_stage_info", None)
+    if field is not None:
+        args["edge_services_waf_stage_info"] = unmarshal_EdgeServicesWAFStageInfo(field)
+    else:
+        args["edge_services_waf_stage_info"] = None
+
+    field = data.get("edge_services_backend_stage_info", None)
+    if field is not None:
+        args["edge_services_backend_stage_info"] = (
+            unmarshal_EdgeServicesBackendStageInfo(field)
+        )
+    else:
+        args["edge_services_backend_stage_info"] = None
 
     return Resource(**args)
 
