@@ -382,11 +382,6 @@ class Volume:
     Zone in which the volume is located.
     """
 
-    export_uri: Optional[str] = None
-    """
-    Show the volume NBD export URI.
-    """
-
     creation_date: Optional[datetime] = None
     """
     Volume creation date.
