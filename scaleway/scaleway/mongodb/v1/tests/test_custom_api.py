@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import pytest
 
@@ -12,6 +13,12 @@ from scaleway.mongodb.v1.custom_api import MongodbUtilsV1API
 
 @scw_vcr.use_cassette
 def test_create_snapshot_with_naive_expires_at_vcr() -> None:
+    cassette = (
+        Path(__file__).with_name("cassettes")
+        / "test_create_snapshot_with_naive_expires_at_vcr.cassette.yaml"
+    )
+    if not cassette.exists():
+        pytest.skip("cassette not recorded yet; record locally then commit it")
     client = initialize_client_test()
     api = MongodbUtilsV1API(client, bypass_validation=True)
 
