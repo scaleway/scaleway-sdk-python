@@ -1883,11 +1883,6 @@ class ListDatabasesRequest:
     UUID of the Database Instance to list the databases of.
     """
 
-    skip_size_retrieval: bool
-    """
-    Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0.
-    """
-
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -1913,6 +1908,11 @@ class ListDatabasesRequest:
     )
     """
     Criteria to use when ordering database listing.
+    """
+
+    skip_size_retrieval: Optional[bool] = False
+    """
+    Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0.
     """
 
     page: Optional[int] = 0

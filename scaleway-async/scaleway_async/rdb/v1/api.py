@@ -2451,12 +2451,12 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        skip_size_retrieval: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         managed: Optional[bool] = None,
         owner: Optional[str] = None,
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
+        skip_size_retrieval: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListDatabasesResponse:
@@ -2464,12 +2464,12 @@ class RdbV1API(API):
         List databases in a Database Instance.
         List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
         :param instance_id: UUID of the Database Instance to list the databases of.
-        :param skip_size_retrieval: Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database.
         :param managed: Defines whether or not the database is managed.
         :param owner: User that owns this database.
         :param order_by: Criteria to use when ordering database listing.
+        :param skip_size_retrieval: Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0.
         :param page:
         :param page_size:
         :return: :class:`ListDatabasesResponse <ListDatabasesResponse>`
@@ -2479,7 +2479,6 @@ class RdbV1API(API):
 
             result = await api.list_databases(
                 instance_id="example",
-                skip_size_retrieval=False,
             )
         """
 
@@ -2509,12 +2508,12 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        skip_size_retrieval: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         managed: Optional[bool] = None,
         owner: Optional[str] = None,
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
+        skip_size_retrieval: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> list[Database]:
@@ -2522,12 +2521,12 @@ class RdbV1API(API):
         List databases in a Database Instance.
         List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
         :param instance_id: UUID of the Database Instance to list the databases of.
-        :param skip_size_retrieval: Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database.
         :param managed: Defines whether or not the database is managed.
         :param owner: User that owns this database.
         :param order_by: Criteria to use when ordering database listing.
+        :param skip_size_retrieval: Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0.
         :param page:
         :param page_size:
         :return: :class:`list[Database] <list[Database]>`
@@ -2537,7 +2536,6 @@ class RdbV1API(API):
 
             result = await api.list_databases_all(
                 instance_id="example",
-                skip_size_retrieval=False,
             )
         """
 
@@ -2547,12 +2545,12 @@ class RdbV1API(API):
             fetcher=self.list_databases,
             args={
                 "instance_id": instance_id,
-                "skip_size_retrieval": skip_size_retrieval,
                 "region": region,
                 "name": name,
                 "managed": managed,
                 "owner": owner,
                 "order_by": order_by,
+                "skip_size_retrieval": skip_size_retrieval,
                 "page": page,
                 "page_size": page_size,
             },
