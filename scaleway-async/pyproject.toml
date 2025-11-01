@@ -33,7 +33,7 @@ mypy = "^1.5.1"
 ty = "^0.0.1a15"
 pytest = "^8.4.1"
 pyrefly = "^0.36.1"
-pytest-cov = "^6.3.0"
+pytest-cov = ">=6.3,<8.0"
 
 [build-system]
 requires = ["poetry-core"]
