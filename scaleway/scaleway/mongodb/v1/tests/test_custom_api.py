@@ -35,7 +35,7 @@ def test_create_snapshot_with_naive_expires_at_vcr() -> None:
         instance_id = "00000000-0000-0000-0000-000000000000"
 
     # Naive datetime should be handled as UTC by the utils API
-    naive_dt = datetime.now().replace(tzinfo=None) + timedelta(days=1)
+    naive_dt = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(days=1)
 
     snapshot = api.create_snapshot(
         instance_id=instance_id,
