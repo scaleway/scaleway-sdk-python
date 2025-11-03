@@ -1234,7 +1234,8 @@ class CockpitV1RegionalAPI(API):
         project_id: Optional[str] = None,
     ) -> GetRulesCountResponse:
         """
-        Get the number of enabled rules Get a detailed count of enabled rules in the specified Project. Includes preconfigured and custom alerting and recording rules.
+        Get the number of enabled rules.
+        Get a detailed count of enabled rules in the specified Project. Includes preconfigured and custom alerting and recording rules.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to retrieve the rule count for.
         :return: :class:`GetRulesCountResponse <GetRulesCountResponse>`
