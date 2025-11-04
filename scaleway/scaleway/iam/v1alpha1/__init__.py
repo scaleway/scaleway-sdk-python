@@ -11,6 +11,7 @@ from .types import ListPermissionSetsRequestOrderBy
 from .types import ListPoliciesRequestOrderBy
 from .types import ListQuotaRequestOrderBy
 from .types import ListSSHKeysRequestOrderBy
+from .types import ListScimTokensRequestOrderBy
 from .types import ListUsersRequestOrderBy
 from .types import LocalityType
 from .types import LogAction
@@ -26,6 +27,7 @@ from .types import ConnectionConnectedUser
 from .types import QuotumLimit
 from .types import JWT
 from .types import RuleSpecs
+from .types import ScimToken
 from .types import CreateUserRequestMember
 from .types import Connection
 from .types import APIKey
@@ -51,6 +53,8 @@ from .types import CreateGroupRequest
 from .types import CreateJWTRequest
 from .types import CreatePolicyRequest
 from .types import CreateSSHKeyRequest
+from .types import CreateScimTokenRequest
+from .types import CreateScimTokenResponse
 from .types import CreateUserMFAOTPRequest
 from .types import CreateUserRequest
 from .types import DeleteAPIKeyRequest
@@ -61,9 +65,12 @@ from .types import DeletePolicyRequest
 from .types import DeleteSSHKeyRequest
 from .types import DeleteSamlCertificateRequest
 from .types import DeleteSamlRequest
+from .types import DeleteScimRequest
+from .types import DeleteScimTokenRequest
 from .types import DeleteUserMFAOTPRequest
 from .types import DeleteUserRequest
 from .types import EnableOrganizationSamlRequest
+from .types import EnableOrganizationScimRequest
 from .types import EncodedJWT
 from .types import GetAPIKeyRequest
 from .types import GetApplicationRequest
@@ -106,6 +113,8 @@ from .types import ListSSHKeysRequest
 from .types import ListSSHKeysResponse
 from .types import ListSamlCertificatesRequest
 from .types import ListSamlCertificatesResponse
+from .types import ListScimTokensRequest
+from .types import ListScimTokensResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
@@ -117,6 +126,7 @@ from .types import ParseSamlMetadataResponse
 from .types import RemoveGroupMemberRequest
 from .types import RemoveUserConnectionRequest
 from .types import Saml
+from .types import Scim
 from .types import SetGroupMembersRequest
 from .types import SetOrganizationAliasRequest
 from .types import SetRulesRequest
@@ -149,6 +159,7 @@ __all__ = [
     "ListPoliciesRequestOrderBy",
     "ListQuotaRequestOrderBy",
     "ListSSHKeysRequestOrderBy",
+    "ListScimTokensRequestOrderBy",
     "ListUsersRequestOrderBy",
     "LocalityType",
     "LogAction",
@@ -164,6 +175,7 @@ __all__ = [
     "QuotumLimit",
     "JWT",
     "RuleSpecs",
+    "ScimToken",
     "CreateUserRequestMember",
     "Connection",
     "APIKey",
@@ -189,6 +201,8 @@ __all__ = [
     "CreateJWTRequest",
     "CreatePolicyRequest",
     "CreateSSHKeyRequest",
+    "CreateScimTokenRequest",
+    "CreateScimTokenResponse",
     "CreateUserMFAOTPRequest",
     "CreateUserRequest",
     "DeleteAPIKeyRequest",
@@ -199,9 +213,12 @@ __all__ = [
     "DeleteSSHKeyRequest",
     "DeleteSamlCertificateRequest",
     "DeleteSamlRequest",
+    "DeleteScimRequest",
+    "DeleteScimTokenRequest",
     "DeleteUserMFAOTPRequest",
     "DeleteUserRequest",
     "EnableOrganizationSamlRequest",
+    "EnableOrganizationScimRequest",
     "EncodedJWT",
     "GetAPIKeyRequest",
     "GetApplicationRequest",
@@ -244,6 +261,8 @@ __all__ = [
     "ListSSHKeysResponse",
     "ListSamlCertificatesRequest",
     "ListSamlCertificatesResponse",
+    "ListScimTokensRequest",
+    "ListScimTokensResponse",
     "ListUsersRequest",
     "ListUsersResponse",
     "LockUserRequest",
@@ -255,6 +274,7 @@ __all__ = [
     "RemoveGroupMemberRequest",
     "RemoveUserConnectionRequest",
     "Saml",
+    "Scim",
     "SetGroupMembersRequest",
     "SetOrganizationAliasRequest",
     "SetRulesRequest",

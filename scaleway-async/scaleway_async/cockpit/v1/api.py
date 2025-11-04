@@ -170,13 +170,15 @@ class CockpitV1GlobalAPI(API):
         role: Optional[GrafanaUserRole] = None,
     ) -> GrafanaUser:
         """
-        Create a Grafana user.
+        (Deprecated) EOL 2026-01-20.
+        Create a Grafana user
         Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
         Each Grafana user is associated with a role: viewer or editor. A viewer can only view dashboards, whereas an editor can create and edit dashboards. Note that the `admin` username is not available for creation.
         :param login: Username of the Grafana user. Note that the `admin` username is not available for creation.
         :param project_id: ID of the Project in which to create the Grafana user.
         :param role: Role assigned to the Grafana user.
         :return: :class:`GrafanaUser <GrafanaUser>`
+        :deprecated
 
         Usage:
         ::
@@ -211,13 +213,15 @@ class CockpitV1GlobalAPI(API):
         project_id: Optional[str] = None,
     ) -> ListGrafanaUsersResponse:
         """
-        List Grafana users.
+        (Deprecated) EOL 2026-01-20.
+        List Grafana users
         List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by: Order of the Grafana users.
         :param project_id: ID of the Project to target.
         :return: :class:`ListGrafanaUsersResponse <ListGrafanaUsersResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -248,13 +252,15 @@ class CockpitV1GlobalAPI(API):
         project_id: Optional[str] = None,
     ) -> list[GrafanaUser]:
         """
-        List Grafana users.
+        (Deprecated) EOL 2026-01-20.
+        List Grafana users
         List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by: Order of the Grafana users.
         :param project_id: ID of the Project to target.
         :return: :class:`list[GrafanaUser] <list[GrafanaUser]>`
+        :deprecated
 
         Usage:
         ::
@@ -281,10 +287,12 @@ class CockpitV1GlobalAPI(API):
         grafana_user_id: int,
     ) -> None:
         """
-        Delete a Grafana user.
+        (Deprecated) EOL 2026-01-20.
+        Delete a Grafana user
         Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
         :param project_id: ID of the Project to target.
         :param grafana_user_id: ID of the Grafana user.
+        :deprecated
 
         Usage:
         ::
@@ -313,12 +321,14 @@ class CockpitV1GlobalAPI(API):
         grafana_user_id: int,
     ) -> GrafanaUser:
         """
-        Reset a Grafana user password.
+        (Deprecated) EOL 2026-01-20.
+        Reset a Grafana user password
         Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
         A new password regenerates and only displays once. Make sure that you save it.
         :param project_id: ID of the Project to target.
         :param grafana_user_id: ID of the Grafana user.
         :return: :class:`GrafanaUser <GrafanaUser>`
+        :deprecated
 
         Usage:
         ::

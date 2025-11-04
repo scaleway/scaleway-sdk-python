@@ -49,6 +49,7 @@ from .types import (
     DnsRecords,
     Domain,
     PlatformControlPanelUrls,
+    ControlPanel,
     OfferOption,
     PlatformControlPanel,
     HostingUser,
@@ -59,7 +60,6 @@ from .types import (
     BackupItemGroup,
     ListBackupItemsResponse,
     ListBackupsResponse,
-    ControlPanel,
     ListControlPanelsResponse,
     ListDatabaseUsersResponse,
     ListDatabasesResponse,
@@ -734,6 +734,43 @@ def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
     return PlatformControlPanelUrls(**args)
 
 
+def unmarshal_ControlPanel(data: Any) -> ControlPanel:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ControlPanel' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("available", None)
+    if field is not None:
+        args["available"] = field
+    else:
+        args["available"] = False
+
+    field = data.get("logo_url", None)
+    if field is not None:
+        args["logo_url"] = field
+    else:
+        args["logo_url"] = None
+
+    field = data.get("available_languages", None)
+    if field is not None:
+        args["available_languages"] = (
+            [StdLanguageCode(v) for v in field] if field is not None else None
+        )
+    else:
+        args["available_languages"] = []
+
+    return ControlPanel(**args)
+
+
 def unmarshal_OfferOption(data: Any) -> OfferOption:
     if not isinstance(data, dict):
         raise TypeError(
@@ -908,6 +945,14 @@ def unmarshal_Offer(data: Any) -> Offer:
         args["quota_warning"] = field
     else:
         args["quota_warning"] = OfferOptionWarning.UNKNOWN_WARNING
+
+    field = data.get("control_panels", None)
+    if field is not None:
+        args["control_panels"] = (
+            [unmarshal_ControlPanel(v) for v in field] if field is not None else None
+        )
+    else:
+        args["control_panels"] = []
 
     field = data.get("region", None)
     if field is not None:
@@ -1198,43 +1243,6 @@ def unmarshal_ListBackupsResponse(data: Any) -> ListBackupsResponse:
         args["backups"] = []
 
     return ListBackupsResponse(**args)
-
-
-def unmarshal_ControlPanel(data: Any) -> ControlPanel:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ControlPanel' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-    else:
-        args["name"] = None
-
-    field = data.get("available", None)
-    if field is not None:
-        args["available"] = field
-    else:
-        args["available"] = False
-
-    field = data.get("logo_url", None)
-    if field is not None:
-        args["logo_url"] = field
-    else:
-        args["logo_url"] = None
-
-    field = data.get("available_languages", None)
-    if field is not None:
-        args["available_languages"] = (
-            [StdLanguageCode(v) for v in field] if field is not None else None
-        )
-    else:
-        args["available_languages"] = []
-
-    return ControlPanel(**args)
 
 
 def unmarshal_ListControlPanelsResponse(data: Any) -> ListControlPanelsResponse:
