@@ -26,6 +26,7 @@ from .types import (
     ListPoliciesRequestOrderBy,
     ListQuotaRequestOrderBy,
     ListSSHKeysRequestOrderBy,
+    ListScimTokensRequestOrderBy,
     ListUsersRequestOrderBy,
     LogAction,
     LogResourceType,
@@ -42,6 +43,7 @@ from .types import (
     CreateJWTRequest,
     CreatePolicyRequest,
     CreateSSHKeyRequest,
+    CreateScimTokenResponse,
     CreateUserRequest,
     CreateUserRequestMember,
     EncodedJWT,
@@ -62,6 +64,7 @@ from .types import (
     ListRulesResponse,
     ListSSHKeysResponse,
     ListSamlCertificatesResponse,
+    ListScimTokensResponse,
     ListUsersResponse,
     Log,
     MFAOTP,
@@ -79,6 +82,8 @@ from .types import (
     SSHKey,
     Saml,
     SamlCertificate,
+    Scim,
+    ScimToken,
     SetGroupMembersRequest,
     SetOrganizationAliasRequest,
     SetRulesRequest,
@@ -109,6 +114,7 @@ from .marshalling import (
     unmarshal_SSHKey,
     unmarshal_SamlCertificate,
     unmarshal_User,
+    unmarshal_CreateScimTokenResponse,
     unmarshal_EncodedJWT,
     unmarshal_GetUserConnectionsResponse,
     unmarshal_InitiateUserConnectionResponse,
@@ -124,12 +130,14 @@ from .marshalling import (
     unmarshal_ListRulesResponse,
     unmarshal_ListSSHKeysResponse,
     unmarshal_ListSamlCertificatesResponse,
+    unmarshal_ListScimTokensResponse,
     unmarshal_ListUsersResponse,
     unmarshal_MFAOTP,
     unmarshal_Organization,
     unmarshal_OrganizationSecuritySettings,
     unmarshal_ParseSamlMetadataResponse,
     unmarshal_Saml,
+    unmarshal_Scim,
     unmarshal_SetRulesResponse,
     unmarshal_ValidateUserMFAOTPResponse,
     marshal_AddGroupMemberRequest,
@@ -3325,6 +3333,184 @@ class IamV1Alpha1API(API):
         res = self._request(
             "DELETE",
             f"/iam/v1alpha1/saml-certificates/{param_certificate_id}",
+        )
+
+        self._throw_on_error(res)
+
+    def enable_organization_scim(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+    ) -> Scim:
+        """
+        :param organization_id: ID of the Organization.
+        :return: :class:`Scim <Scim>`
+
+        Usage:
+        ::
+
+            result = api.enable_organization_scim()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/scim",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Scim(res.json())
+
+    def delete_scim(
+        self,
+        *,
+        scim_id: str,
+    ) -> None:
+        """
+        :param scim_id: ID of the SCIM configuration.
+
+        Usage:
+        ::
+
+            result = api.delete_scim(
+                scim_id="example",
+            )
+        """
+
+        param_scim_id = validate_path_param("scim_id", scim_id)
+
+        res = self._request(
+            "DELETE",
+            f"/iam/v1alpha1/scim/{param_scim_id}",
+        )
+
+        self._throw_on_error(res)
+
+    def list_scim_tokens(
+        self,
+        *,
+        scim_id: str,
+        order_by: Optional[ListScimTokensRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListScimTokensResponse:
+        """
+        :param scim_id: ID of the SCIM configuration.
+        :param order_by: Sort order of SCIM tokens.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :return: :class:`ListScimTokensResponse <ListScimTokensResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_scim_tokens(
+                scim_id="example",
+            )
+        """
+
+        param_scim_id = validate_path_param("scim_id", scim_id)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/scim/{param_scim_id}/tokens",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListScimTokensResponse(res.json())
+
+    def list_scim_tokens_all(
+        self,
+        *,
+        scim_id: str,
+        order_by: Optional[ListScimTokensRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[ScimToken]:
+        """
+        :param scim_id: ID of the SCIM configuration.
+        :param order_by: Sort order of SCIM tokens.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :return: :class:`list[ScimToken] <list[ScimToken]>`
+
+        Usage:
+        ::
+
+            result = api.list_scim_tokens_all(
+                scim_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListScimTokensResponse,
+            key="scim_tokens",
+            fetcher=self.list_scim_tokens,
+            args={
+                "scim_id": scim_id,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
+    def create_scim_token(
+        self,
+        *,
+        scim_id: str,
+    ) -> CreateScimTokenResponse:
+        """
+        :param scim_id: ID of the SCIM configuration.
+        :return: :class:`CreateScimTokenResponse <CreateScimTokenResponse>`
+
+        Usage:
+        ::
+
+            result = api.create_scim_token(
+                scim_id="example",
+            )
+        """
+
+        param_scim_id = validate_path_param("scim_id", scim_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/scim/{param_scim_id}/tokens",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CreateScimTokenResponse(res.json())
+
+    def delete_scim_token(
+        self,
+        *,
+        token_id: str,
+    ) -> None:
+        """
+        :param token_id: The SCIM token ID.
+
+        Usage:
+        ::
+
+            result = api.delete_scim_token(
+                token_id="example",
+            )
+        """
+
+        param_token_id = validate_path_param("token_id", token_id)
+
+        res = self._request(
+            "DELETE",
+            f"/iam/v1alpha1/scim-tokens/{param_token_id}",
         )
 
         self._throw_on_error(res)
