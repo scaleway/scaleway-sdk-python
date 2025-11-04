@@ -461,7 +461,7 @@ class CockpitV1GlobalAPI(API):
         """
         List plan types.
         Retrieve a list of available pricing plan types.
-        Deprecated: retention is now managed at the data source level.
+        Deprecated due to retention now being managed at the data source level.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by:
@@ -497,7 +497,7 @@ class CockpitV1GlobalAPI(API):
         """
         List plan types.
         Retrieve a list of available pricing plan types.
-        Deprecated: retention is now managed at the data source level.
+        Deprecated due to retention now being managed at the data source level.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by:
@@ -530,7 +530,7 @@ class CockpitV1GlobalAPI(API):
         """
         Apply a pricing plan.
         Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
-        Deprecated: retention is now managed at the data source level.
+        Deprecated due to retention now being managed at the data source level.
         :param project_id: ID of the Project.
         :param plan_name: Name of the pricing plan.
         :return: :class:`Plan <Plan>`
@@ -565,7 +565,7 @@ class CockpitV1GlobalAPI(API):
         """
         Get current plan.
         Retrieve a pricing plan for the given Project, specified by the ID of the Project.
-        Deprecated: retention is now managed at the data source level.
+        Deprecated due to retention now being managed at the data source level.
         :param project_id: ID of the Project.
         :return: :class:`Plan <Plan>`
         :deprecated
