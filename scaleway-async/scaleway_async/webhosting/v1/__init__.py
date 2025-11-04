@@ -33,6 +33,7 @@ from .types import ProgressStatus
 from .types import AutoConfigDomainDns
 from .types import PlatformControlPanelUrls
 from .types import HostingDomainCustomDomain
+from .types import ControlPanel
 from .types import OfferOption
 from .types import PlatformControlPanel
 from .types import BackupItem
@@ -49,7 +50,6 @@ from .types import Offer
 from .types import Platform
 from .types import BackupItemGroup
 from .types import Backup
-from .types import ControlPanel
 from .types import DatabaseUser
 from .types import Database
 from .types import FtpAccount
@@ -175,6 +175,7 @@ __all__ = [
     "AutoConfigDomainDns",
     "PlatformControlPanelUrls",
     "HostingDomainCustomDomain",
+    "ControlPanel",
     "OfferOption",
     "PlatformControlPanel",
     "BackupItem",
@@ -191,7 +192,6 @@ __all__ = [
     "Platform",
     "BackupItemGroup",
     "Backup",
-    "ControlPanel",
     "DatabaseUser",
     "Database",
     "FtpAccount",

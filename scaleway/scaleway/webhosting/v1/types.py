@@ -368,6 +368,29 @@ class HostingDomainCustomDomain:
 
 
 @dataclass
+class ControlPanel:
+    name: str
+    """
+    Control panel name.
+    """
+
+    available: bool
+    """
+    Define if the control panel type is available to order.
+    """
+
+    logo_url: str
+    """
+    URL of the control panel's logo.
+    """
+
+    available_languages: list[StdLanguageCode]
+    """
+    List of available languages for the control panel.
+    """
+
+
+@dataclass
 class OfferOption:
     id: str
     """
@@ -636,6 +659,11 @@ class Offer:
     Defines a warning if the maximum value for an option in the offer is exceeded.
     """
 
+    control_panels: list[ControlPanel]
+    """
+    Lists available control panels for the specified offer.
+    """
+
     region: ScwRegion
     """
     Region where the offer is hosted.
@@ -718,29 +746,6 @@ class Backup:
     created_at: Optional[datetime] = None
     """
     Creation date of the backup.
-    """
-
-
-@dataclass
-class ControlPanel:
-    name: str
-    """
-    Control panel name.
-    """
-
-    available: bool
-    """
-    Define if the control panel type is available to order.
-    """
-
-    logo_url: str
-    """
-    URL of the control panel's logo.
-    """
-
-    available_languages: list[StdLanguageCode]
-    """
-    List of available languages for the control panel.
     """
 
 
