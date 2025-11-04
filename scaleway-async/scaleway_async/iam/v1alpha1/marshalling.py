@@ -34,6 +34,8 @@ from .types import (
     SSHKey,
     SamlCertificate,
     User,
+    ScimToken,
+    CreateScimTokenResponse,
     EncodedJWT,
     ConnectionConnectedOrganization,
     ConnectionConnectedUser,
@@ -55,6 +57,7 @@ from .types import (
     ListRulesResponse,
     ListSSHKeysResponse,
     ListSamlCertificatesResponse,
+    ListScimTokensResponse,
     ListUsersResponse,
     MFAOTP,
     Organization,
@@ -62,6 +65,7 @@ from .types import (
     ParseSamlMetadataResponse,
     SamlServiceProvider,
     Saml,
+    Scim,
     SetRulesResponse,
     ValidateUserMFAOTPResponse,
     AddGroupMemberRequest,
@@ -919,6 +923,64 @@ def unmarshal_User(data: Any) -> User:
     return User(**args)
 
 
+def unmarshal_ScimToken(data: Any) -> ScimToken:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ScimToken' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("scim_id", None)
+    if field is not None:
+        args["scim_id"] = field
+    else:
+        args["scim_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("expires_at", None)
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
+
+    return ScimToken(**args)
+
+
+def unmarshal_CreateScimTokenResponse(data: Any) -> CreateScimTokenResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CreateScimTokenResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("bearer_token", None)
+    if field is not None:
+        args["bearer_token"] = field
+    else:
+        args["bearer_token"] = None
+
+    field = data.get("token", None)
+    if field is not None:
+        args["token"] = unmarshal_ScimToken(field)
+    else:
+        args["token"] = None
+
+    return CreateScimTokenResponse(**args)
+
+
 def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1476,6 +1538,31 @@ def unmarshal_ListSamlCertificatesResponse(data: Any) -> ListSamlCertificatesRes
     return ListSamlCertificatesResponse(**args)
 
 
+def unmarshal_ListScimTokensResponse(data: Any) -> ListScimTokensResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListScimTokensResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("scim_tokens", None)
+    if field is not None:
+        args["scim_tokens"] = (
+            [unmarshal_ScimToken(v) for v in field] if field is not None else None
+        )
+    else:
+        args["scim_tokens"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListScimTokensResponse(**args)
+
+
 def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1703,6 +1790,29 @@ def unmarshal_Saml(data: Any) -> Saml:
         args["service_provider"] = None
 
     return Saml(**args)
+
+
+def unmarshal_Scim(data: Any) -> Scim:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Scim' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    return Scim(**args)
 
 
 def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
