@@ -12,6 +12,7 @@ from .types import ListPartnersRequestOrderBy
 from .types import ListPopsRequestOrderBy
 from .types import ListRoutingPoliciesRequestOrderBy
 from .types import BgpConfig
+from .types import Range
 from .types import PartnerHost
 from .types import SelfHost
 from .types import DedicatedConnection
@@ -62,6 +63,7 @@ __all__ = [
     "ListPopsRequestOrderBy",
     "ListRoutingPoliciesRequestOrderBy",
     "BgpConfig",
+    "Range",
     "PartnerHost",
     "SelfHost",
     "DedicatedConnection",

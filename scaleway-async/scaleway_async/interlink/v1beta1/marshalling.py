@@ -13,6 +13,7 @@ from .types import (
     BgpStatus,
     DedicatedConnectionStatus,
     LinkStatus,
+    Range,
     DedicatedConnection,
     BgpConfig,
     PartnerHost,
@@ -35,6 +36,29 @@ from .types import (
     UpdateLinkRequest,
     UpdateRoutingPolicyRequest,
 )
+
+
+def unmarshal_Range(data: Any) -> Range:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Range' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("start", None)
+    if field is not None:
+        args["start"] = field
+    else:
+        args["start"] = None
+
+    field = data.get("end", None)
+    if field is not None:
+        args["end"] = field
+    else:
+        args["end"] = None
+
+    return Range(**args)
 
 
 def unmarshal_DedicatedConnection(data: Any) -> DedicatedConnection:
@@ -122,6 +146,12 @@ def unmarshal_DedicatedConnection(data: Any) -> DedicatedConnection:
         args["demarcation_info"] = field
     else:
         args["demarcation_info"] = None
+
+    field = data.get("vlan_range", None)
+    if field is not None:
+        args["vlan_range"] = unmarshal_Range(field)
+    else:
+        args["vlan_range"] = None
 
     return DedicatedConnection(**args)
 
