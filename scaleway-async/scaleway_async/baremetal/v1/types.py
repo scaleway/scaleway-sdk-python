@@ -1145,12 +1145,12 @@ class BMCAccess:
 
     login: str
     """
-    The login to use for the BMC (Baseboard Management Controller) access authentification.
+    The login to use for the BMC (Baseboard Management Controller) access authentication.
     """
 
     password: str
     """
-    The password to use for the BMC (Baseboard Management Controller) access authentification.
+    The password to use for the BMC (Baseboard Management Controller) access authentication.
     """
 
     expires_at: Optional[datetime] = None

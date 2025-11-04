@@ -174,7 +174,7 @@ class OS:
 
     release_notes_url: str
     """
-    Url of the release notes for the OS image or softwares pre-installed.
+    Url of the release notes for the OS image or software pre-installed.
     """
 
     description: str

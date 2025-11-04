@@ -412,7 +412,7 @@ class Domain:
 
     status: DomainStatus
     """
-    State of the doamin.
+    State of the domain.
     """
 
     error_message: Optional[str] = None
@@ -773,7 +773,7 @@ class CreateCronRequest:
 class CreateDomainRequest:
     hostname: str
     """
-    Hostame to create.
+    Hostname to create.
     """
 
     function_id: str
