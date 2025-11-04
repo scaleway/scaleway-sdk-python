@@ -131,6 +131,14 @@ class ListSSHKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListScimTokensRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -320,6 +328,14 @@ class RuleSpecs:
     project_ids: Optional[list[str]] = field(default_factory=list)
 
     organization_id: Optional[str] = None
+
+
+@dataclass
+class ScimToken:
+    id: str
+    scim_id: str
+    created_at: Optional[datetime] = None
+    expires_at: Optional[datetime] = None
 
 
 @dataclass
@@ -1171,6 +1187,27 @@ class CreateSSHKeyRequest:
 
 
 @dataclass
+class CreateScimTokenRequest:
+    scim_id: str
+    """
+    ID of the SCIM configuration.
+    """
+
+
+@dataclass
+class CreateScimTokenResponse:
+    bearer_token: str
+    """
+    The Bearer Token to use to authenticate to SCIM endpoints.
+    """
+
+    token: Optional[ScimToken] = None
+    """
+    The SCIM token metadata.
+    """
+
+
+@dataclass
 class CreateUserMFAOTPRequest:
     user_id: str
     """
@@ -1257,6 +1294,22 @@ class DeleteSamlRequest:
 
 
 @dataclass
+class DeleteScimRequest:
+    scim_id: str
+    """
+    ID of the SCIM configuration.
+    """
+
+
+@dataclass
+class DeleteScimTokenRequest:
+    token_id: str
+    """
+    The SCIM token ID.
+    """
+
+
+@dataclass
 class DeleteUserMFAOTPRequest:
     user_id: str
     """
@@ -1274,6 +1327,14 @@ class DeleteUserRequest:
 
 @dataclass
 class EnableOrganizationSamlRequest:
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization.
+    """
+
+
+@dataclass
+class EnableOrganizationScimRequest:
     organization_id: Optional[str] = None
     """
     ID of the Organization.
@@ -2011,6 +2072,44 @@ class ListSamlCertificatesResponse:
 
 
 @dataclass
+class ListScimTokensRequest:
+    scim_id: str
+    """
+    ID of the SCIM configuration.
+    """
+
+    order_by: Optional[ListScimTokensRequestOrderBy] = (
+        ListScimTokensRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of SCIM tokens.
+    """
+
+    page: Optional[int] = 0
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of items per page. Value must be between 1 and 100.
+    """
+
+
+@dataclass
+class ListScimTokensResponse:
+    scim_tokens: list[ScimToken]
+    """
+    List of SCIM tokens.
+    """
+
+    total_count: int
+    """
+    Total count of SCIM tokens.
+    """
+
+
+@dataclass
 class ListUsersRequest:
     order_by: Optional[ListUsersRequestOrderBy] = ListUsersRequestOrderBy.CREATED_AT_ASC
     """
@@ -2207,6 +2306,19 @@ class Saml:
     service_provider: Optional[SamlServiceProvider] = None
     """
     Service Provider information.
+    """
+
+
+@dataclass
+class Scim:
+    id: str
+    """
+    ID of the SCIM configuration.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date and time of SCIM configuration creation.
     """
 
 
