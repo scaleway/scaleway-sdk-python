@@ -1063,7 +1063,7 @@ class ContainerV1Beta1API(API):
         """
         Create a new cron.
         :param container_id: UUID of the container to invoke by the cron.
-        :param schedule: UNIX cron shedule.
+        :param schedule: UNIX cron schedule.
         :param region: Region to target. If none is passed will use default region from the config.
         :param args: Arguments to pass with the cron.
         :param name: Name of the cron to create.
