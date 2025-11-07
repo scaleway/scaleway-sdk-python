@@ -533,7 +533,7 @@ class Cron:
 
     schedule: str
     """
-    UNIX cron shedule.
+    UNIX cron schedule.
     """
 
     status: CronStatus
@@ -897,7 +897,7 @@ class CreateCronRequest:
 
     schedule: str
     """
-    UNIX cron shedule.
+    UNIX cron schedule.
     """
 
     region: Optional[ScwRegion] = None
