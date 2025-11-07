@@ -30,6 +30,21 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
         return str(self.value)
 
 
+class ListPublicCatalogProductsRequestStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    PUBLIC_BETA = "public_beta"
+    PREVIEW = "preview"
+    GENERAL_AVAILABILITY = "general_availability"
+    END_OF_DEPLOYMENT = "end_of_deployment"
+    END_OF_SUPPORT = "end_of_support"
+    END_OF_SALE = "end_of_sale"
+    END_OF_LIFE = "end_of_life"
+    RETIRED = "retired"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCH = "unknown_arch"
     X64 = "x64"
@@ -49,6 +64,8 @@ class PublicCatalogProductStatus(str, Enum, metaclass=StrEnumMeta):
     END_OF_DEPLOYMENT = "end_of_deployment"
     END_OF_SUPPORT = "end_of_support"
     END_OF_SALE = "end_of_sale"
+    END_OF_LIFE = "end_of_life"
+    RETIRED = "retired"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -479,6 +496,13 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
     )
     """
     The list of filtered product categories.
+    """
+
+    status: Optional[list[ListPublicCatalogProductsRequestStatus]] = field(
+        default_factory=list
+    )
+    """
+    The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
     """
 
     global_: Optional[bool] = False
