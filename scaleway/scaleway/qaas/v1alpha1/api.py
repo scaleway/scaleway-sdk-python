@@ -1396,7 +1396,7 @@ class QaasV1Alpha1API(API):
     ) -> Application:
         """
         Get application information.
-        Retrieve information about the provided **applcation ID**, such as name, type and compatible platforms.
+        Retrieve information about the provided **application ID**, such as name, type and compatible platforms.
         :param application_id: Unique ID of the application.
         :return: :class:`Application <Application>`
 
