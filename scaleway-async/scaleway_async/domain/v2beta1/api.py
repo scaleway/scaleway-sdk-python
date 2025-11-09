@@ -1116,7 +1116,7 @@ class DomainV2Beta1API(API):
     ) -> SSLCertificate:
         """
         Get a DNS zone's TLS certificate.
-        Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
+        Get the DNS zone's TLS certificate. If you do not have a certificate, the output returns `no certificate found`.
         :param dns_zone:
         :return: :class:`SSLCertificate <SSLCertificate>`
 
@@ -1148,7 +1148,7 @@ class DomainV2Beta1API(API):
     ) -> SSLCertificate:
         """
         Get a DNS zone's TLS certificate.
-        Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
+        Get the DNS zone's TLS certificate. If you do not have a certificate, the output returns `no certificate found`.
         :param dns_zone:
         :return: :class:`SSLCertificate <SSLCertificate>`
 
@@ -2582,7 +2582,7 @@ class DomainV2Beta1RegistrarAPI(API):
     ) -> GetDomainAuthCodeResponse:
         """
         Get a domain's authorization code.
-        Retrieve the authorization code to tranfer an unlocked domain. The output returns an error if the domain is locked.
+        Retrieve the authorization code to transfer an unlocked domain. The output returns an error if the domain is locked.
         Some TLDs may have a different procedure to retrieve the authorization code. In that case, the information displays in the message field.
         :param domain:
         :return: :class:`GetDomainAuthCodeResponse <GetDomainAuthCodeResponse>`
