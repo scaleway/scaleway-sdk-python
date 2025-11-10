@@ -585,7 +585,7 @@ class ListSnapshotsResponse:
 
     total_count: int
     """
-    Total number of snpashots in the project.
+    Total number of snapshots in the project.
     """
 
 

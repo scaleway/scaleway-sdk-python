@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     ListPublicCatalogProductsRequestProductType,
+    ListPublicCatalogProductsRequestStatus,
     ListPublicCatalogProductsResponse,
     PublicCatalogProduct,
 )
@@ -38,6 +39,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         region: Optional[ScwRegion] = None,
         zone: Optional[ScwZone] = None,
         datacenter: Optional[str] = None,
+        status: Optional[list[ListPublicCatalogProductsRequestStatus]] = None,
     ) -> ListPublicCatalogProductsResponse:
         """
         List all available products.
@@ -53,6 +55,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :param datacenter: Filter products by datacenter.
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
         :return: :class:`ListPublicCatalogProductsResponse <ListPublicCatalogProductsResponse>`
 
         Usage:
@@ -68,6 +71,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "product_types": product_types,
+                "status": status,
                 **resolve_one_of(
                     [
                         OneOfPossibility("datacenter", datacenter),
@@ -94,6 +98,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         region: Optional[ScwRegion] = None,
         zone: Optional[ScwZone] = None,
         datacenter: Optional[str] = None,
+        status: Optional[list[ListPublicCatalogProductsRequestStatus]] = None,
     ) -> list[PublicCatalogProduct]:
         """
         List all available products.
@@ -109,6 +114,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :param datacenter: Filter products by datacenter.
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
+        :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
         :return: :class:`list[PublicCatalogProduct] <list[PublicCatalogProduct]>`
 
         Usage:
@@ -125,6 +131,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "product_types": product_types,
+                "status": status,
                 "global_": global_,
                 "region": region,
                 "zone": zone,
