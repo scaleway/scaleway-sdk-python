@@ -194,7 +194,7 @@ class NodeTypeVolumeType:
 
     min_size_bytes: int
     """
-    Mimimum size required for the volume.
+    Minimum size required for the volume.
     """
 
     max_size_bytes: int
