@@ -98,7 +98,7 @@ select = [
 ]
 
 [tool.pyrefly.errors]
-import-error = false
+missing-import = false
 not-callable = false
 bad-return = false
 bad-assignment = false

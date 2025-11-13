@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -53,7 +53,7 @@ class IpamV1API(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         address: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         resource: Optional[CustomResource] = None,
     ) -> IP:
         """
@@ -138,7 +138,7 @@ class IpamV1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        ip_ids: Optional[List[str]] = None,
+        ip_ids: Optional[list[str]] = None,
     ) -> None:
         """
         :param region: Region to target. If none is passed will use default region from the config.
@@ -207,8 +207,8 @@ class IpamV1API(API):
         *,
         ip_id: str,
         region: Optional[ScwRegion] = None,
-        tags: Optional[List[str]] = None,
-        reverses: Optional[List[Reverse]] = None,
+        tags: Optional[list[str]] = None,
+        reverses: Optional[list[Reverse]] = None,
     ) -> IP:
         """
         Update an IP.
@@ -264,14 +264,14 @@ class IpamV1API(API):
         attached: Optional[bool] = None,
         resource_name: Optional[str] = None,
         resource_id: Optional[str] = None,
-        resource_ids: Optional[List[str]] = None,
+        resource_ids: Optional[list[str]] = None,
         resource_type: Optional[ResourceType] = None,
-        resource_types: Optional[List[ResourceType]] = None,
+        resource_types: Optional[list[ResourceType]] = None,
         mac_address: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
-        ip_ids: Optional[List[str]] = None,
+        ip_ids: Optional[list[str]] = None,
         source_vpc_id: Optional[str] = None,
     ) -> ListIPsResponse:
         """
@@ -364,16 +364,16 @@ class IpamV1API(API):
         attached: Optional[bool] = None,
         resource_name: Optional[str] = None,
         resource_id: Optional[str] = None,
-        resource_ids: Optional[List[str]] = None,
+        resource_ids: Optional[list[str]] = None,
         resource_type: Optional[ResourceType] = None,
-        resource_types: Optional[List[ResourceType]] = None,
+        resource_types: Optional[list[ResourceType]] = None,
         mac_address: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        tags: Optional[list[str]] = None,
         organization_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
-        ip_ids: Optional[List[str]] = None,
+        ip_ids: Optional[list[str]] = None,
         source_vpc_id: Optional[str] = None,
-    ) -> List[IP]:
+    ) -> list[IP]:
         """
         List existing IPs.
         List existing IPs in the specified region using various filters. For example, you can filter for IPs within a specified Private Network, or for public IPs within a specified Project. By default, the IPs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
@@ -402,7 +402,7 @@ class IpamV1API(API):
         :param ip_ids: IP IDs to filter for. Only IPs with these UUIDs will be returned.
         :param source_vpc_id:
         One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
-        :return: :class:`List[IP] <List[IP]>`
+        :return: :class:`list[IP] <list[IP]>`
 
         Usage:
         ::
