@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Any, Dict
+from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
@@ -32,7 +32,7 @@ def unmarshal_Resource(data: Any) -> Resource:
             "Unmarshalling the type 'Resource' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("type", None)
     if field is not None:
@@ -67,7 +67,7 @@ def unmarshal_Reverse(data: Any) -> Reverse:
             "Unmarshalling the type 'Reverse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("hostname", None)
     if field is not None:
@@ -90,7 +90,7 @@ def unmarshal_Source(data: Any) -> Source:
             "Unmarshalling the type 'Source' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("zonal", None)
     if field is not None:
@@ -125,7 +125,7 @@ def unmarshal_IP(data: Any) -> IP:
             "Unmarshalling the type 'IP' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("id", None)
     if field is not None:
@@ -210,7 +210,7 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
             "Unmarshalling the type 'ListIPsResponse' failed as data isn't a dictionary."
         )
 
-    args: Dict[str, Any] = {}
+    args: dict[str, Any] = {}
 
     field = data.get("total_count", None)
     if field is not None:
@@ -230,8 +230,8 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
 def marshal_CustomResource(
     request: CustomResource,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.mac_address is not None:
         output["mac_address"] = request.mac_address
@@ -245,8 +245,8 @@ def marshal_CustomResource(
 def marshal_AttachIPRequest(
     request: AttachIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.resource is not None:
         output["resource"] = marshal_CustomResource(request.resource, defaults)
@@ -257,8 +257,8 @@ def marshal_AttachIPRequest(
 def marshal_Source(
     request: Source,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
     output.update(
         resolve_one_of(
             [
@@ -284,8 +284,8 @@ def marshal_Source(
 def marshal_BookIPRequest(
     request: BookIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.source is not None:
         output["source"] = marshal_Source(request.source, defaults)
@@ -313,8 +313,8 @@ def marshal_BookIPRequest(
 def marshal_DetachIPRequest(
     request: DetachIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.resource is not None:
         output["resource"] = marshal_CustomResource(request.resource, defaults)
@@ -325,8 +325,8 @@ def marshal_DetachIPRequest(
 def marshal_MoveIPRequest(
     request: MoveIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.from_resource is not None:
         output["from_resource"] = marshal_CustomResource(
@@ -342,8 +342,8 @@ def marshal_MoveIPRequest(
 def marshal_ReleaseIPSetRequest(
     request: ReleaseIPSetRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.ip_ids is not None:
         output["ip_ids"] = request.ip_ids
@@ -354,8 +354,8 @@ def marshal_ReleaseIPSetRequest(
 def marshal_Reverse(
     request: Reverse,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.hostname is not None:
         output["hostname"] = request.hostname
@@ -369,8 +369,8 @@ def marshal_Reverse(
 def marshal_UpdateIPRequest(
     request: UpdateIPRequest,
     defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
 
     if request.tags is not None:
         output["tags"] = request.tags
