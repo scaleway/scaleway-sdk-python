@@ -645,7 +645,7 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Server:
         """
         Reinstall a server.
-        Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).
+        Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the default configuration values of the image (OS).
         :param server_id: UUID of the server you want to reinstall.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param os_id: Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.

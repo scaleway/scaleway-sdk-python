@@ -1402,7 +1402,7 @@ class FunctionV1Beta1API(API):
         """
         Create a domain name binding.
         Create a domain name binding for the function with the specified ID.
-        :param hostname: Hostame to create.
+        :param hostname: Hostname to create.
         :param function_id: UUID of the function to associate the domain with.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`

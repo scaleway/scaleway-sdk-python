@@ -1867,7 +1867,7 @@ class Log:
 
     member: Optional[RpnV2Member] = None
     """
-    RPN V2 member (if appliable).
+    RPN V2 member (if applicable).
     """
 
     created_at: Optional[datetime] = None
@@ -2198,12 +2198,12 @@ class BMCAccess:
 
     login: str
     """
-    The login to use for the BMC (Baseboard Management Controller) access authentification.
+    The login to use for the BMC (Baseboard Management Controller) access authentication.
     """
 
     password: str
     """
-    The password to use for the BMC (Baseboard Management Controller) access authentification.
+    The password to use for the BMC (Baseboard Management Controller) access authentication.
     """
 
     status: BMCAccessStatus
@@ -3521,7 +3521,7 @@ class Rescue:
 
     protocol: RescueProtocol
     """
-    Protocol of the resuce.
+    Protocol of the rescue.
     """
 
 
