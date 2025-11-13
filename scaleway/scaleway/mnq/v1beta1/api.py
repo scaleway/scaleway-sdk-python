@@ -555,7 +555,7 @@ class MnqV1Beta1SnsAPI(API):
     ) -> SnsInfo:
         """
         Get Topics and Events info.
-        Retrieve the Topics and Events information of the specified Project ID. Informations include the activation status and the Topics and Events API endpoint URL.
+        Retrieve the Topics and Events information of the specified Project ID. information include the activation status and the Topics and Events API endpoint URL.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project to retrieve Topics and Events info from.
         :return: :class:`SnsInfo <SnsInfo>`
@@ -915,7 +915,7 @@ class MnqV1Beta1SqsAPI(API):
     ) -> SqsInfo:
         """
         Get Queues info.
-        Retrieve the Queues information of the specified Project ID. Informations include the activation status and the Queues API endpoint URL.
+        Retrieve the Queues information of the specified Project ID. information include the activation status and the Queues API endpoint URL.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Project to retrieve Queues info from.
         :return: :class:`SqsInfo <SqsInfo>`
