@@ -332,7 +332,7 @@ class JobsV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
     ) -> None:
         """
-        Delete an exsisting job definition by its unique identifier.
+        Delete an existing job definition by its unique identifier.
         :param job_definition_id: UUID of the job definition to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
