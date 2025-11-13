@@ -415,7 +415,7 @@ class Hub:
 
     enable_device_auto_provisioning: bool
     """
-    When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your Hub. The Hub uses the common name of the device certifcate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
+    When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your Hub. The Hub uses the common name of the device certificate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
     """
 
     has_custom_ca: bool
