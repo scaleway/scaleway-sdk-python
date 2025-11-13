@@ -933,7 +933,7 @@ class ListGrafanaProductDashboardsResponse:
 @dataclass
 class ListGrafanaUsersResponse:
     """
-    Ouptut returned when listing Grafana users.
+    Output returned when listing Grafana users.
     """
 
     total_count: int
