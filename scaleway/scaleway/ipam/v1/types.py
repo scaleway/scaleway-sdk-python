@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -146,12 +146,12 @@ class IP:
     Defines whether the IP is an IPv6 (false = IPv4).
     """
 
-    tags: List[str]
+    tags: list[str]
     """
     Tags for the IP.
     """
 
-    reverses: List[Reverse]
+    reverses: list[Reverse]
     """
     Array of reverses associated with the IP.
     """
@@ -232,7 +232,7 @@ class BookIPRequest:
     The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already reserved, then the call will fail.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the IP.
     """
@@ -321,7 +321,7 @@ class ListIPsRequest:
     Resource ID to filter for. Only IPs attached to this resource will be returned.
     """
 
-    resource_ids: Optional[List[str]] = field(default_factory=list)
+    resource_ids: Optional[list[str]] = field(default_factory=list)
     """
     Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned.
     """
@@ -331,7 +331,7 @@ class ListIPsRequest:
     Resource type to filter for. Only IPs attached to this type of resource will be returned.
     """
 
-    resource_types: Optional[List[ResourceType]] = field(default_factory=list)
+    resource_types: Optional[list[ResourceType]] = field(default_factory=list)
     """
     Resource types to filter for. Only IPs attached to these types of resources will be returned.
     """
@@ -341,7 +341,7 @@ class ListIPsRequest:
     MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags to filter for, only IPs with one or more matching tags will be returned.
     """
@@ -356,7 +356,7 @@ class ListIPsRequest:
     Defines whether to filter only for IPv4s or IPv6s.
     """
 
-    ip_ids: Optional[List[str]] = field(default_factory=list)
+    ip_ids: Optional[list[str]] = field(default_factory=list)
     """
     IP IDs to filter for. Only IPs with these UUIDs will be returned.
     """
@@ -373,7 +373,7 @@ class ListIPsRequest:
 @dataclass
 class ListIPsResponse:
     total_count: int
-    ips: List[IP]
+    ips: list[IP]
 
 
 @dataclass
@@ -419,7 +419,7 @@ class ReleaseIPSetRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    ip_ids: Optional[List[str]] = field(default_factory=list)
+    ip_ids: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -434,12 +434,12 @@ class UpdateIPRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the IP.
     """
 
-    reverses: Optional[List[Reverse]] = field(default_factory=list)
+    reverses: Optional[list[Reverse]] = field(default_factory=list)
     """
     Array of reverse domain names associated with an IP in the subnet of the current IP.
     """
