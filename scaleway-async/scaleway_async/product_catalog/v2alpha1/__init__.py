@@ -18,6 +18,7 @@ from .types import PublicCatalogProductPropertiesDedibox
 from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
+from .types import PublicCatalogProductPropertiesManagedInference
 from .types import PublicCatalogProductPropertiesObjectStorage
 from .types import PublicCatalogProductEnvironmentalImpactEstimation
 from .types import PublicCatalogProductLocality
@@ -48,6 +49,7 @@ __all__ = [
     "PublicCatalogProductPropertiesElasticMetal",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
+    "PublicCatalogProductPropertiesManagedInference",
     "PublicCatalogProductPropertiesObjectStorage",
     "PublicCatalogProductEnvironmentalImpactEstimation",
     "PublicCatalogProductLocality",
