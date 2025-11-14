@@ -41,6 +41,8 @@ from .types import (
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
+    Product,
+    ListProductsResponse,
     ListTokensResponse,
     Usage,
     UsageOverview,
@@ -871,6 +873,66 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
         args["plans"] = []
 
     return ListPlansResponse(**args)
+
+
+def unmarshal_Product(data: Any) -> Product:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Product' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("display_name", None)
+    if field is not None:
+        args["display_name"] = field
+    else:
+        args["display_name"] = None
+
+    field = data.get("family_name", None)
+    if field is not None:
+        args["family_name"] = field
+    else:
+        args["family_name"] = None
+
+    field = data.get("resource_types", None)
+    if field is not None:
+        args["resource_types"] = field
+    else:
+        args["resource_types"] = None
+
+    return Product(**args)
+
+
+def unmarshal_ListProductsResponse(data: Any) -> ListProductsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListProductsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("products_list", None)
+    if field is not None:
+        args["products_list"] = (
+            [unmarshal_Product(v) for v in field] if field is not None else None
+        )
+    else:
+        args["products_list"] = None
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = None
+
+    return ListProductsResponse(**args)
 
 
 def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:

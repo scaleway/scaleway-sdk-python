@@ -25,6 +25,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     DEDIBOX = "dedibox"
     BLOCK_STORAGE = "block_storage"
     OBJECT_STORAGE = "object_storage"
+    MANAGED_INFERENCE = "managed_inference"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -341,6 +342,14 @@ class PublicCatalogProductPropertiesInstance:
 
 
 @dataclass
+class PublicCatalogProductPropertiesManagedInference:
+    instance_gpu_name: str
+    """
+    The name of the associated instance GPU to this node type.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesObjectStorage:
     pass
 
@@ -388,6 +397,8 @@ class PublicCatalogProductProperties:
     block_storage: Optional[PublicCatalogProductPropertiesBlockStorage] = None
 
     object_storage: Optional[PublicCatalogProductPropertiesObjectStorage] = None
+
+    managed_inference: Optional[PublicCatalogProductPropertiesManagedInference] = None
 
 
 @dataclass
