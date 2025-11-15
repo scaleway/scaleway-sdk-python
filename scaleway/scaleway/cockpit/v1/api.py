@@ -20,6 +20,7 @@ from .types import (
     ListDataSourcesRequestOrderBy,
     ListGrafanaUsersRequestOrderBy,
     ListPlansRequestOrderBy,
+    ListProductsRequestOrderBy,
     ListTokensRequestOrderBy,
     PlanName,
     TokenScope,
@@ -44,8 +45,10 @@ from .types import (
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
+    ListProductsResponse,
     ListTokensResponse,
     Plan,
+    Product,
     RegionalApiCreateContactPointRequest,
     RegionalApiCreateDataSourceRequest,
     RegionalApiCreateTokenRequest,
@@ -79,6 +82,7 @@ from .marshalling import (
     unmarshal_ListGrafanaProductDashboardsResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListPlansResponse,
+    unmarshal_ListProductsResponse,
     unmarshal_ListTokensResponse,
     unmarshal_UsageOverview,
     marshal_GlobalApiCreateGrafanaUserRequest,
@@ -1125,6 +1129,79 @@ class CockpitV1RegionalAPI(API):
         )
 
         self._throw_on_error(res)
+
+    def list_products(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListProductsRequestOrderBy] = None,
+    ) -> ListProductsResponse:
+        """
+        List all Scaleway products that send metrics and/or logs to Cockpit.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return from the paginated results.
+        :param page_size: Number of products to return per page.
+        :param order_by: Sort order for products in the response.
+        :return: :class:`ListProductsResponse <ListProductsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_products()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/products",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListProductsResponse(res.json())
+
+    def list_products_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListProductsRequestOrderBy] = None,
+    ) -> list[Product]:
+        """
+        List all Scaleway products that send metrics and/or logs to Cockpit.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return from the paginated results.
+        :param page_size: Number of products to return per page.
+        :param order_by: Sort order for products in the response.
+        :return: :class:`list[Product] <list[Product]>`
+
+        Usage:
+        ::
+
+            result = api.list_products_all()
+        """
+
+        return fetch_all_pages(
+            type=ListProductsResponse,
+            key="products_list",
+            fetcher=self.list_products,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
 
     def get_alert_manager(
         self,

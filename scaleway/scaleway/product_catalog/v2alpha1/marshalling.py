@@ -23,6 +23,7 @@ from .types import (
     PublicCatalogProductPropertiesElasticMetal,
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
+    PublicCatalogProductPropertiesManagedInference,
     PublicCatalogProductPropertiesObjectStorage,
     PublicCatalogProductEnvironmentalImpactEstimation,
     PublicCatalogProductLocality,
@@ -447,6 +448,25 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
     return PublicCatalogProductPropertiesInstance(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesManagedInference(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedInference:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedInference' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("instance_gpu_name", None)
+    if field is not None:
+        args["instance_gpu_name"] = field
+    else:
+        args["instance_gpu_name"] = None
+
+    return PublicCatalogProductPropertiesManagedInference(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesObjectStorage(
     data: Any,
 ) -> PublicCatalogProductPropertiesObjectStorage:
@@ -596,6 +616,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["object_storage"] = None
+
+    field = data.get("managed_inference", None)
+    if field is not None:
+        args["managed_inference"] = (
+            unmarshal_PublicCatalogProductPropertiesManagedInference(field)
+        )
+    else:
+        args["managed_inference"] = None
 
     return PublicCatalogProductProperties(**args)
 
