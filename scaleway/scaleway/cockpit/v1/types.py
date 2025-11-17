@@ -93,6 +93,18 @@ class ListPlansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListProductsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    DISPLAY_NAME_ASC = "display_name_asc"
+    DISPLAY_NAME_DESC = "display_name_desc"
+    FAMILY_NAME_ASC = "family_name_asc"
+    FAMILY_NAME_DESC = "family_name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListTokensRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -442,6 +454,14 @@ class Plan:
     """
     Interval of time during which Scaleway's Cockpit keeps your traces.
     """
+
+
+@dataclass
+class Product:
+    name: str
+    display_name: str
+    family_name: str
+    resource_types: list[str]
 
 
 @dataclass
@@ -965,6 +985,12 @@ class ListPlansResponse:
 
 
 @dataclass
+class ListProductsResponse:
+    products_list: list[Product]
+    total_count: int
+
+
+@dataclass
 class ListTokensResponse:
     """
     Response returned when listing tokens.
@@ -1379,6 +1405,35 @@ class RegionalApiListDataSourcesRequest:
     types: Optional[list[DataSourceType]] = field(default_factory=list)
     """
     Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
+    """
+
+
+@dataclass
+class RegionalApiListProductsRequest:
+    """
+    List all Scaleway products that send metrics and/or logs to Cockpit.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of products to return per page.
+    """
+
+    order_by: Optional[ListProductsRequestOrderBy] = (
+        ListProductsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order for products in the response.
     """
 
 
