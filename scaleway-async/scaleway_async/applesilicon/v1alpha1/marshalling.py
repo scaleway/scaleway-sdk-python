@@ -5,6 +5,10 @@ from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from .types import (
     ConnectivityDiagnosticActionType,
     ServerPrivateNetworkServerStatus,
@@ -16,6 +20,10 @@ from .types import (
     Commitment,
     RunnerConfiguration,
     Server,
+    GithubRunnerConfiguration,
+    GitlabRunnerConfiguration,
+    RunnerConfigurationV2,
+    Runner,
     ServerPrivateNetwork,
     ServerTypeCPU,
     ServerTypeDisk,
@@ -28,6 +36,7 @@ from .types import (
     ConnectivityDiagnosticServerHealth,
     ConnectivityDiagnostic,
     ListOSResponse,
+    ListRunnersResponse,
     ListServerPrivateNetworksResponse,
     ListServerTypesResponse,
     ListServersResponse,
@@ -35,11 +44,14 @@ from .types import (
     StartConnectivityDiagnosticResponse,
     BatchCreateServersRequestBatchInnerCreateServerRequest,
     BatchCreateServersRequest,
+    CreateRunnerRequest,
+    AppliedRunnerConfigurations,
     CreateServerRequest,
     PrivateNetworkApiAddServerPrivateNetworkRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
     ReinstallServerRequest,
     StartConnectivityDiagnosticRequest,
+    UpdateRunnerRequest,
     CommitmentTypeValue,
     UpdateServerRequest,
 )
@@ -293,6 +305,24 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["status"] = ServerStatus.UNKNOWN_STATUS
 
+    field = data.get("deletion_scheduled", None)
+    if field is not None:
+        args["deletion_scheduled"] = field
+    else:
+        args["deletion_scheduled"] = False
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("delivered", None)
+    if field is not None:
+        args["delivered"] = field
+    else:
+        args["delivered"] = False
+
     field = data.get("os", None)
     if field is not None:
         args["os"] = unmarshal_OS(field)
@@ -319,24 +349,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["deletable_at"] = None
 
-    field = data.get("deletion_scheduled", None)
-    if field is not None:
-        args["deletion_scheduled"] = field
-    else:
-        args["deletion_scheduled"] = False
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-    else:
-        args["zone"] = None
-
-    field = data.get("delivered", None)
-    if field is not None:
-        args["delivered"] = field
-    else:
-        args["delivered"] = False
-
     field = data.get("vpc_status", None)
     if field is not None:
         args["vpc_status"] = field
@@ -355,6 +367,12 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["tags"] = []
 
+    field = data.get("applied_runner_configuration_ids", None)
+    if field is not None:
+        args["applied_runner_configuration_ids"] = field
+    else:
+        args["applied_runner_configuration_ids"] = []
+
     field = data.get("commitment", None)
     if field is not None:
         args["commitment"] = unmarshal_Commitment(field)
@@ -368,6 +386,128 @@ def unmarshal_Server(data: Any) -> Server:
         args["runner_configuration"] = None
 
     return Server(**args)
+
+
+def unmarshal_GithubRunnerConfiguration(data: Any) -> GithubRunnerConfiguration:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GithubRunnerConfiguration' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("url", None)
+    if field is not None:
+        args["url"] = field
+    else:
+        args["url"] = None
+
+    field = data.get("token", None)
+    if field is not None:
+        args["token"] = field
+    else:
+        args["token"] = None
+
+    field = data.get("labels", None)
+    if field is not None:
+        args["labels"] = field
+    else:
+        args["labels"] = None
+
+    return GithubRunnerConfiguration(**args)
+
+
+def unmarshal_GitlabRunnerConfiguration(data: Any) -> GitlabRunnerConfiguration:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GitlabRunnerConfiguration' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("url", None)
+    if field is not None:
+        args["url"] = field
+    else:
+        args["url"] = None
+
+    field = data.get("token", None)
+    if field is not None:
+        args["token"] = field
+    else:
+        args["token"] = None
+
+    return GitlabRunnerConfiguration(**args)
+
+
+def unmarshal_RunnerConfigurationV2(data: Any) -> RunnerConfigurationV2:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RunnerConfigurationV2' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("provider", None)
+    if field is not None:
+        args["provider"] = field
+    else:
+        args["provider"] = None
+
+    field = data.get("github_configuration", None)
+    if field is not None:
+        args["github_configuration"] = unmarshal_GithubRunnerConfiguration(field)
+    else:
+        args["github_configuration"] = None
+
+    field = data.get("gitlab_configuration", None)
+    if field is not None:
+        args["gitlab_configuration"] = unmarshal_GitlabRunnerConfiguration(field)
+    else:
+        args["gitlab_configuration"] = None
+
+    return RunnerConfigurationV2(**args)
+
+
+def unmarshal_Runner(data: Any) -> Runner:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Runner' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = None
+
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+    else:
+        args["error_message"] = None
+
+    field = data.get("configuration", None)
+    if field is not None:
+        args["configuration"] = unmarshal_RunnerConfigurationV2(field)
+    else:
+        args["configuration"] = None
+
+    return Runner(**args)
 
 
 def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
@@ -800,6 +940,31 @@ def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
     return ListOSResponse(**args)
 
 
+def unmarshal_ListRunnersResponse(data: Any) -> ListRunnersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListRunnersResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = None
+
+    field = data.get("runners", None)
+    if field is not None:
+        args["runners"] = (
+            [unmarshal_Runner(v) for v in field] if field is not None else None
+        )
+    else:
+        args["runners"] = None
+
+    return ListRunnersResponse(**args)
+
+
 def unmarshal_ListServerPrivateNetworksResponse(
     data: Any,
 ) -> ListServerPrivateNetworksResponse:
@@ -964,6 +1129,101 @@ def marshal_BatchCreateServersRequest(
     return output
 
 
+def marshal_GithubRunnerConfiguration(
+    request: GithubRunnerConfiguration,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.url is not None:
+        output["url"] = request.url
+
+    if request.token is not None:
+        output["token"] = request.token
+
+    if request.labels is not None:
+        output["labels"] = request.labels
+
+    return output
+
+
+def marshal_GitlabRunnerConfiguration(
+    request: GitlabRunnerConfiguration,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.url is not None:
+        output["url"] = request.url
+
+    if request.token is not None:
+        output["token"] = request.token
+
+    return output
+
+
+def marshal_RunnerConfigurationV2(
+    request: RunnerConfigurationV2,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="github_configuration",
+                    value=request.github_configuration,
+                    marshal_func=marshal_GithubRunnerConfiguration,
+                ),
+                OneOfPossibility(
+                    param="gitlab_configuration",
+                    value=request.gitlab_configuration,
+                    marshal_func=marshal_GitlabRunnerConfiguration,
+                ),
+            ]
+        ),
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.provider is not None:
+        output["provider"] = request.provider
+
+    return output
+
+
+def marshal_CreateRunnerRequest(
+    request: CreateRunnerRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.runner_configuration is not None:
+        output["runner_configuration"] = marshal_RunnerConfigurationV2(
+            request.runner_configuration, defaults
+        )
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    return output
+
+
+def marshal_AppliedRunnerConfigurations(
+    request: AppliedRunnerConfigurations,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.runner_configuration_ids is not None:
+        output["runner_configuration_ids"] = request.runner_configuration_ids
+
+    return output
+
+
 def marshal_RunnerConfiguration(
     request: RunnerConfiguration,
     defaults: ProfileDefaults,
@@ -1017,6 +1277,11 @@ def marshal_CreateServerRequest(
     if request.runner_configuration is not None:
         output["runner_configuration"] = marshal_RunnerConfiguration(
             request.runner_configuration, defaults
+        )
+
+    if request.applied_runner_configurations is not None:
+        output["applied_runner_configurations"] = marshal_AppliedRunnerConfigurations(
+            request.applied_runner_configurations, defaults
         )
 
     return output
@@ -1075,6 +1340,20 @@ def marshal_StartConnectivityDiagnosticRequest(
     return output
 
 
+def marshal_UpdateRunnerRequest(
+    request: UpdateRunnerRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.runner_configuration is not None:
+        output["runner_configuration"] = marshal_RunnerConfigurationV2(
+            request.runner_configuration, defaults
+        )
+
+    return output
+
+
 def marshal_CommitmentTypeValue(
     request: CommitmentTypeValue,
     defaults: ProfileDefaults,
@@ -1109,5 +1388,10 @@ def marshal_UpdateServerRequest(
 
     if request.public_bandwidth_bps is not None:
         output["public_bandwidth_bps"] = request.public_bandwidth_bps
+
+    if request.applied_runner_configurations is not None:
+        output["applied_runner_configurations"] = marshal_AppliedRunnerConfigurations(
+            request.applied_runner_configurations, defaults
+        )
 
     return output

@@ -18,13 +18,16 @@ from .types import (
     CommitmentType,
     ListServerPrivateNetworksRequestOrderBy,
     ListServersRequestOrderBy,
+    AppliedRunnerConfigurations,
     BatchCreateServersRequest,
     BatchCreateServersRequestBatchInnerCreateServerRequest,
     BatchCreateServersResponse,
     CommitmentTypeValue,
     ConnectivityDiagnostic,
+    CreateRunnerRequest,
     CreateServerRequest,
     ListOSResponse,
+    ListRunnersResponse,
     ListServerPrivateNetworksResponse,
     ListServerTypesResponse,
     ListServersResponse,
@@ -32,38 +35,46 @@ from .types import (
     PrivateNetworkApiAddServerPrivateNetworkRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
     ReinstallServerRequest,
+    Runner,
     RunnerConfiguration,
+    RunnerConfigurationV2,
     Server,
     ServerPrivateNetwork,
     ServerType,
     SetServerPrivateNetworksResponse,
     StartConnectivityDiagnosticRequest,
     StartConnectivityDiagnosticResponse,
+    UpdateRunnerRequest,
     UpdateServerRequest,
 )
 from .content import (
+    RUNNER_TRANSIENT_STATUSES,
     SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES,
     SERVER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_OS,
     unmarshal_Server,
+    unmarshal_Runner,
     unmarshal_ServerPrivateNetwork,
     unmarshal_ServerType,
     unmarshal_BatchCreateServersResponse,
     unmarshal_ConnectivityDiagnostic,
     unmarshal_ListOSResponse,
+    unmarshal_ListRunnersResponse,
     unmarshal_ListServerPrivateNetworksResponse,
     unmarshal_ListServerTypesResponse,
     unmarshal_ListServersResponse,
     unmarshal_SetServerPrivateNetworksResponse,
     unmarshal_StartConnectivityDiagnosticResponse,
     marshal_BatchCreateServersRequest,
+    marshal_CreateRunnerRequest,
     marshal_CreateServerRequest,
     marshal_PrivateNetworkApiAddServerPrivateNetworkRequest,
     marshal_PrivateNetworkApiSetServerPrivateNetworksRequest,
     marshal_ReinstallServerRequest,
     marshal_StartConnectivityDiagnosticRequest,
+    marshal_UpdateRunnerRequest,
     marshal_UpdateServerRequest,
 )
 
@@ -144,6 +155,7 @@ class ApplesiliconV1Alpha1API(API):
         os_id: Optional[str] = None,
         commitment_type: Optional[CommitmentType] = None,
         runner_configuration: Optional[RunnerConfiguration] = None,
+        applied_runner_configurations: Optional[AppliedRunnerConfigurations] = None,
     ) -> Server:
         """
         Create a server.
@@ -157,6 +169,7 @@ class ApplesiliconV1Alpha1API(API):
         :param os_id: Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
         :param commitment_type: Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
         :param runner_configuration: Specify the configuration to install an optional CICD runner on the server during installation.
+        :param applied_runner_configurations: Runner configurations to apply on the server, existing ones missing from the specified configuration will be removed from the server.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -185,6 +198,7 @@ class ApplesiliconV1Alpha1API(API):
                     os_id=os_id,
                     commitment_type=commitment_type,
                     runner_configuration=runner_configuration,
+                    applied_runner_configurations=applied_runner_configurations,
                 ),
                 self.client,
             ),
@@ -529,6 +543,7 @@ class ApplesiliconV1Alpha1API(API):
         enable_vpc: Optional[bool] = None,
         commitment_type: Optional[CommitmentTypeValue] = None,
         public_bandwidth_bps: Optional[int] = None,
+        applied_runner_configurations: Optional[AppliedRunnerConfigurations] = None,
     ) -> Server:
         """
         Update a server.
@@ -540,6 +555,7 @@ class ApplesiliconV1Alpha1API(API):
         :param enable_vpc: Activate or deactivate Private Network support for this server.
         :param commitment_type: Change commitment. Use 'none' to automatically cancel a renewing commitment.
         :param public_bandwidth_bps: Public bandwidth to configure for this server. Setting an higher bandwidth incurs additional costs. Supported bandwidth levels depends on server type and can be queried using the `/server-types` endpoint.
+        :param applied_runner_configurations: Runner configurations to apply on the server, existing ones missing from the specified configuration will be removed from the server.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -565,6 +581,7 @@ class ApplesiliconV1Alpha1API(API):
                     enable_vpc=enable_vpc,
                     commitment_type=commitment_type,
                     public_bandwidth_bps=public_bandwidth_bps,
+                    applied_runner_configurations=applied_runner_configurations,
                 ),
                 self.client,
             ),
@@ -743,6 +760,268 @@ class ApplesiliconV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ConnectivityDiagnostic(res.json())
+
+    def create_runner(
+        self,
+        *,
+        runner_configuration: RunnerConfigurationV2,
+        zone: Optional[ScwZone] = None,
+        project_id: Optional[str] = None,
+    ) -> Runner:
+        """
+        Create a new runner configuration.
+        :param runner_configuration: Configuration details for the runner.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: Creates a runner in the given project_id.
+        :return: :class:`Runner <Runner>`
+
+        Usage:
+        ::
+
+            result = api.create_runner(
+                runner_configuration=RunnerConfigurationV2(),
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/runners",
+            body=marshal_CreateRunnerRequest(
+                CreateRunnerRequest(
+                    runner_configuration=runner_configuration,
+                    zone=zone,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Runner(res.json())
+
+    def get_runner(
+        self,
+        *,
+        runner_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> Runner:
+        """
+        Retrieve a runner configuration.
+        :param runner_id: ID of the runner configuration to get.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Runner <Runner>`
+
+        Usage:
+        ::
+
+            result = api.get_runner(
+                runner_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_runner_id = validate_path_param("runner_id", runner_id)
+
+        res = self._request(
+            "GET",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/runners/{param_runner_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Runner(res.json())
+
+    def wait_for_runner(
+        self,
+        *,
+        runner_id: str,
+        zone: Optional[ScwZone] = None,
+        options: Optional[WaitForOptions[Runner, bool]] = None,
+    ) -> Runner:
+        """
+        Retrieve a runner configuration.
+        :param runner_id: ID of the runner configuration to get.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Runner <Runner>`
+
+        Usage:
+        ::
+
+            result = api.get_runner(
+                runner_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in RUNNER_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_runner,
+            options=options,
+            args={
+                "runner_id": runner_id,
+                "zone": zone,
+            },
+        )
+
+    def list_runners(
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+        server_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListRunnersResponse:
+        """
+        List runner configurations associated with a server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: ID of the server for which to list applied runner configurations.
+        :param project_id: Only list servers of this project ID.
+        :param organization_id: Only list servers of this Organization ID.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :return: :class:`ListRunnersResponse <ListRunnersResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_runners()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "GET",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/runners",
+            params={
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+                "server_id": server_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListRunnersResponse(res.json())
+
+    def list_runners_all(
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+        server_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[Runner]:
+        """
+        List runner configurations associated with a server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: ID of the server for which to list applied runner configurations.
+        :param project_id: Only list servers of this project ID.
+        :param organization_id: Only list servers of this Organization ID.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :return: :class:`list[Runner] <list[Runner]>`
+
+        Usage:
+        ::
+
+            result = api.list_runners_all()
+        """
+
+        return fetch_all_pages(
+            type=ListRunnersResponse,
+            key="runners",
+            fetcher=self.list_runners,
+            args={
+                "zone": zone,
+                "server_id": server_id,
+                "project_id": project_id,
+                "organization_id": organization_id,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
+    def update_runner(
+        self,
+        *,
+        runner_id: str,
+        runner_configuration: RunnerConfigurationV2,
+        zone: Optional[ScwZone] = None,
+    ) -> Runner:
+        """
+        Create a new runner configuration.
+        :param runner_id: ID of the runner configuration to update.
+        :param runner_configuration: Configuration details for the runner.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Runner <Runner>`
+
+        Usage:
+        ::
+
+            result = api.update_runner(
+                runner_id="example",
+                runner_configuration=RunnerConfigurationV2(),
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_runner_id = validate_path_param("runner_id", runner_id)
+
+        res = self._request(
+            "PATCH",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/runners/{param_runner_id}",
+            body=marshal_UpdateRunnerRequest(
+                UpdateRunnerRequest(
+                    runner_id=runner_id,
+                    runner_configuration=runner_configuration,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Runner(res.json())
+
+    def delete_runner(
+        self,
+        *,
+        runner_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> None:
+        """
+        Create a new runner configuration.
+        :param runner_id: ID of the runner configuration to delete.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_runner(
+                runner_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_runner_id = validate_path_param("runner_id", runner_id)
+
+        res = self._request(
+            "DELETE",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/runners/{param_runner_id}",
+        )
+
+        self._throw_on_error(res)
 
 
 class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
