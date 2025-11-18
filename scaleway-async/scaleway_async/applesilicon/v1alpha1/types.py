@@ -69,6 +69,26 @@ class RunnerConfigurationProvider(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class RunnerConfigurationV2Provider(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PROVIDER = "unknown_provider"
+    GITHUB = "github"
+    GITLAB = "gitlab"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RunnerStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    WAITING = "waiting"
+    ENABLED = "enabled"
+    DISABLED = "disabled"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ServerPrivateNetworkServerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     ATTACHING = "attaching"
@@ -122,6 +142,19 @@ class ServerTypeStock(str, Enum, metaclass=StrEnumMeta):
 class OSSupportedServerType:
     server_type: str
     fast_delivery_available: bool
+
+
+@dataclass
+class GithubRunnerConfiguration:
+    url: str
+    token: str
+    labels: list[str]
+
+
+@dataclass
+class GitlabRunnerConfiguration:
+    url: str
+    token: str
 
 
 @dataclass
@@ -204,6 +237,15 @@ class RunnerConfiguration:
     url: str
     token: str
     provider: RunnerConfigurationProvider
+
+
+@dataclass
+class RunnerConfigurationV2:
+    name: str
+    provider: RunnerConfigurationV2Provider
+    github_configuration: Optional[GithubRunnerConfiguration] = None
+
+    gitlab_configuration: Optional[GitlabRunnerConfiguration] = None
 
 
 @dataclass
@@ -336,6 +378,11 @@ class Server:
     A list of tags attached to the server.
     """
 
+    applied_runner_configuration_ids: list[str]
+    """
+    Runner configurations applied on the server, optional.
+    """
+
     os: Optional[OS] = None
     """
     Initially installed OS, this does not necessarily reflect the current OS version.
@@ -375,6 +422,19 @@ class ConnectivityDiagnosticServerHealth:
     is_ssh_port_up: bool
     is_vnc_port_up: bool
     last_checkin_date: Optional[datetime] = None
+
+
+@dataclass
+class AppliedRunnerConfigurations:
+    runner_configuration_ids: list[str]
+
+
+@dataclass
+class Runner:
+    id: str
+    status: RunnerStatus
+    error_message: str
+    configuration: Optional[RunnerConfigurationV2] = None
 
 
 @dataclass
@@ -547,6 +607,24 @@ class ConnectivityDiagnostic:
 
 
 @dataclass
+class CreateRunnerRequest:
+    runner_configuration: RunnerConfigurationV2
+    """
+    Configuration details for the runner.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Creates a runner in the given project_id.
+    """
+
+
+@dataclass
 class CreateServerRequest:
     type_: str
     """
@@ -593,6 +671,24 @@ class CreateServerRequest:
     Specify the configuration to install an optional CICD runner on the server during installation.
     """
 
+    applied_runner_configurations: Optional[AppliedRunnerConfigurations] = None
+    """
+    Runner configurations to apply on the server, existing ones missing from the specified configuration will be removed from the server.
+    """
+
+
+@dataclass
+class DeleteRunnerRequest:
+    runner_id: str
+    """
+    ID of the runner configuration to delete.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
 
 @dataclass
 class DeleteServerRequest:
@@ -621,6 +717,19 @@ class GetOSRequest:
     os_id: str
     """
     UUID of the OS you want to get.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetRunnerRequest:
+    runner_id: str
+    """
+    ID of the runner configuration to get.
     """
 
     zone: Optional[ScwZone] = None
@@ -694,6 +803,45 @@ class ListOSResponse:
     """
     List of OS.
     """
+
+
+@dataclass
+class ListRunnersRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    server_id: Optional[str] = None
+    """
+    ID of the server for which to list applied runner configurations.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Only list servers of this project ID.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    Only list servers of this Organization ID.
+    """
+
+    page: Optional[int] = 0
+    """
+    Positive integer to choose the page to return.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Positive integer lower or equal to 100 to select the number of items to return.
+    """
+
+
+@dataclass
+class ListRunnersResponse:
+    total_count: int
+    runners: list[Runner]
 
 
 @dataclass
@@ -936,6 +1084,24 @@ class StartConnectivityDiagnosticResponse:
 
 
 @dataclass
+class UpdateRunnerRequest:
+    runner_id: str
+    """
+    ID of the runner configuration to update.
+    """
+
+    runner_configuration: RunnerConfigurationV2
+    """
+    Configuration details for the runner.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class UpdateServerRequest:
     server_id: str
     """
@@ -970,4 +1136,9 @@ class UpdateServerRequest:
     public_bandwidth_bps: Optional[int] = 0
     """
     Public bandwidth to configure for this server. Setting an higher bandwidth incurs additional costs. Supported bandwidth levels depends on server type and can be queried using the `/server-types` endpoint.
+    """
+
+    applied_runner_configurations: Optional[AppliedRunnerConfigurations] = None
+    """
+    Runner configurations to apply on the server, existing ones missing from the specified configuration will be removed from the server.
     """
