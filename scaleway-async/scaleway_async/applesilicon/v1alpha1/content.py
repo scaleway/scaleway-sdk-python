@@ -2,11 +2,18 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from .types import (
+    RunnerStatus,
     ServerPrivateNetworkServerStatus,
     ServerPrivateNetworkStatus,
     ServerStatus,
 )
 
+RUNNER_TRANSIENT_STATUSES: list[RunnerStatus] = [
+    RunnerStatus.WAITING,
+]
+"""
+Lists transient statutes of the enum :class:`RunnerStatus <RunnerStatus>`.
+"""
 SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES: list[
     ServerPrivateNetworkServerStatus
 ] = [
