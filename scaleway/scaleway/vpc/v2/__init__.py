@@ -5,6 +5,7 @@ from .types import Action
 from .types import ListPrivateNetworksRequestOrderBy
 from .types import ListSubnetsRequestOrderBy
 from .types import ListVPCsRequestOrderBy
+from .types import RouteType
 from .types import Subnet
 from .types import PrivateNetwork
 from .types import Route
@@ -47,6 +48,7 @@ __all__ = [
     "ListPrivateNetworksRequestOrderBy",
     "ListSubnetsRequestOrderBy",
     "ListVPCsRequestOrderBy",
+    "RouteType",
     "Subnet",
     "PrivateNetwork",
     "Route",
