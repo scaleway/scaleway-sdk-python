@@ -6,6 +6,7 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    RouteType,
     Subnet,
     PrivateNetwork,
     Route,
@@ -241,6 +242,12 @@ def unmarshal_Route(data: Any) -> Route:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = RouteType.UNKNOWN_ROUTE_TYPE
 
     return Route(**args)
 

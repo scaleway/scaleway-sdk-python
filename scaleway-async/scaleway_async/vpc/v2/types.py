@@ -62,6 +62,18 @@ class ListVPCsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class RouteType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ROUTE_TYPE = "unknown_route_type"
+    SUBNET = "subnet"
+    DEFAULT = "default"
+    CUSTOM = "custom"
+    INTERLINK = "interlink"
+    S2S_VPN = "s2s_vpn"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class Subnet:
     id: str
@@ -218,6 +230,11 @@ class Route:
     updated_at: Optional[datetime] = None
     """
     Date the Route was last modified.
+    """
+
+    type_: Optional[RouteType] = RouteType.UNKNOWN_ROUTE_TYPE
+    """
+    Type of the Route.
     """
 
 
