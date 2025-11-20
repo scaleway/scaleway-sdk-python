@@ -61,6 +61,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SCBL_SEDB_CLUSTER = "scbl_sedb_cluster"
     DTWH_DEPLOYMENT = "dtwh_deployment"
     SEDB_CLUSTER = "sedb_cluster"
+    MSGQ_CLUSTER = "msgq_cluster"
 
     def __str__(self) -> str:
         return str(self.value)
