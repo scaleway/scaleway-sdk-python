@@ -349,6 +349,11 @@ class DataSource:
     Date the data source was last updated.
     """
 
+    current_month_usage: Optional[int] = 0
+    """
+    Usage of the month in bytes.
+    """
+
 
 @dataclass
 class GrafanaProductDashboard:
