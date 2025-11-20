@@ -164,6 +164,10 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     EDGE_SERVICES_ROUTE_RULES = "edge_services_route_rules"
     EDGE_SERVICES_WAF_STAGE = "edge_services_waf_stage"
     EDGE_SERVICES_BACKEND_STAGE = "edge_services_backend_stage"
+    S2S_VPN_GATEWAY = "s2s_vpn_gateway"
+    S2S_CUSTOMER_GATEWAY = "s2s_customer_gateway"
+    S2S_ROUTING_POLICY = "s2s_routing_policy"
+    S2S_CONNECTION = "s2s_connection"
 
     def __str__(self) -> str:
         return str(self.value)
