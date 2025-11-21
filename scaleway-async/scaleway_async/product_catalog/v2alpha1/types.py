@@ -26,6 +26,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     BLOCK_STORAGE = "block_storage"
     OBJECT_STORAGE = "object_storage"
     MANAGED_INFERENCE = "managed_inference"
+    GENERATIVE_APIS = "generative_apis"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -41,6 +42,17 @@ class ListPublicCatalogProductsRequestStatus(str, Enum, metaclass=StrEnumMeta):
     END_OF_SALE = "end_of_sale"
     END_OF_LIFE = "end_of_life"
     RETIRED = "retired"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PublicCatalogProductProductBadge(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PRODUCT_BADGE = "unknown_product_badge"
+    NEW_PRODUCT = "new_product"
+    BEST_SELLER = "best_seller"
+    BEST_VALUE = "best_value"
+    POPULAR = "popular"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -296,6 +308,12 @@ class PublicCatalogProductPropertiesElasticMetal:
 
 
 @dataclass
+class PublicCatalogProductPropertiesGenerativeApis:
+    reasoning: bool
+    supported_apis: list[str]
+
+
+@dataclass
 class PublicCatalogProductPropertiesHardware:
     cpu: Optional[PublicCatalogProductPropertiesHardwareCPU] = None
     """
@@ -400,6 +418,8 @@ class PublicCatalogProductProperties:
 
     managed_inference: Optional[PublicCatalogProductPropertiesManagedInference] = None
 
+    generative_apis: Optional[PublicCatalogProductPropertiesGenerativeApis] = None
+
 
 @dataclass
 class PublicCatalogProductUnitOfMeasure:
@@ -442,6 +462,11 @@ class PublicCatalogProduct:
     status: PublicCatalogProductStatus
     """
     The status of the product.
+    """
+
+    badges: list[PublicCatalogProductProductBadge]
+    """
+    Different badges that can be associated with the product.
     """
 
     locality: Optional[PublicCatalogProductLocality] = None

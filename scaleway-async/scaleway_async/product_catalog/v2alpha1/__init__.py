@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import ListPublicCatalogProductsRequestProductType
 from .types import ListPublicCatalogProductsRequestStatus
+from .types import PublicCatalogProductProductBadge
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
 from .types import PublicCatalogProductStatus
 from .types import PublicCatalogProductUnitOfMeasureCountableUnit
@@ -16,6 +17,7 @@ from .types import PublicCatalogProductPropertiesAppleSilicon
 from .types import PublicCatalogProductPropertiesBlockStorage
 from .types import PublicCatalogProductPropertiesDedibox
 from .types import PublicCatalogProductPropertiesElasticMetal
+from .types import PublicCatalogProductPropertiesGenerativeApis
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
 from .types import PublicCatalogProductPropertiesManagedInference
@@ -33,6 +35,7 @@ from .api import ProductCatalogV2Alpha1PublicCatalogAPI
 __all__ = [
     "ListPublicCatalogProductsRequestProductType",
     "ListPublicCatalogProductsRequestStatus",
+    "PublicCatalogProductProductBadge",
     "PublicCatalogProductPropertiesHardwareCPUArch",
     "PublicCatalogProductStatus",
     "PublicCatalogProductUnitOfMeasureCountableUnit",
@@ -47,6 +50,7 @@ __all__ = [
     "PublicCatalogProductPropertiesBlockStorage",
     "PublicCatalogProductPropertiesDedibox",
     "PublicCatalogProductPropertiesElasticMetal",
+    "PublicCatalogProductPropertiesGenerativeApis",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
     "PublicCatalogProductPropertiesManagedInference",

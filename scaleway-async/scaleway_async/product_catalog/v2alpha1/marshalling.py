@@ -8,6 +8,7 @@ from scaleway_core.bridge import (
     unmarshal_Money,
 )
 from .types import (
+    PublicCatalogProductProductBadge,
     PublicCatalogProductPropertiesHardwareCPUArch,
     PublicCatalogProductStatus,
     PublicCatalogProductPropertiesHardwareCPUPhysical,
@@ -21,6 +22,7 @@ from .types import (
     PublicCatalogProductPropertiesBlockStorage,
     PublicCatalogProductPropertiesDedibox,
     PublicCatalogProductPropertiesElasticMetal,
+    PublicCatalogProductPropertiesGenerativeApis,
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
     PublicCatalogProductPropertiesManagedInference,
@@ -374,6 +376,31 @@ def unmarshal_PublicCatalogProductPropertiesElasticMetal(
     return PublicCatalogProductPropertiesElasticMetal(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesGenerativeApis(
+    data: Any,
+) -> PublicCatalogProductPropertiesGenerativeApis:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesGenerativeApis' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("reasoning", None)
+    if field is not None:
+        args["reasoning"] = field
+    else:
+        args["reasoning"] = None
+
+    field = data.get("supported_apis", None)
+    if field is not None:
+        args["supported_apis"] = field
+    else:
+        args["supported_apis"] = None
+
+    return PublicCatalogProductPropertiesGenerativeApis(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesHardware(
     data: Any,
 ) -> PublicCatalogProductPropertiesHardware:
@@ -625,6 +652,14 @@ def unmarshal_PublicCatalogProductProperties(
     else:
         args["managed_inference"] = None
 
+    field = data.get("generative_apis", None)
+    if field is not None:
+        args["generative_apis"] = (
+            unmarshal_PublicCatalogProductPropertiesGenerativeApis(field)
+        )
+    else:
+        args["generative_apis"] = None
+
     return PublicCatalogProductProperties(**args)
 
 
@@ -702,6 +737,16 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
         args["status"] = field
     else:
         args["status"] = PublicCatalogProductStatus.UNKNOWN_STATUS
+
+    field = data.get("badges", None)
+    if field is not None:
+        args["badges"] = (
+            [PublicCatalogProductProductBadge(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["badges"] = []
 
     field = data.get("locality", None)
     if field is not None:
