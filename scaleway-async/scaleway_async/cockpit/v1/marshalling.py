@@ -184,6 +184,12 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     else:
         args["updated_at"] = None
 
+    field = data.get("current_month_usage", None)
+    if field is not None:
+        args["current_month_usage"] = field
+    else:
+        args["current_month_usage"] = 0
+
     return DataSource(**args)
 
 
