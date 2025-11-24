@@ -136,6 +136,7 @@ class BlockV1API(API):
         name: Optional[str] = None,
         product_resource_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
+        volume_type: Optional[str] = None,
     ) -> ListVolumesResponse:
         """
         List volumes.
@@ -150,6 +151,7 @@ class BlockV1API(API):
         :param name: Filter the return volumes by their names.
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
+        :param volume_type: Filter by volume type.
         :return: :class:`ListVolumesResponse <ListVolumesResponse>`
 
         Usage:
@@ -176,6 +178,7 @@ class BlockV1API(API):
                 "product_resource_id": product_resource_id,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
+                "volume_type": volume_type,
             },
         )
 
@@ -195,6 +198,7 @@ class BlockV1API(API):
         name: Optional[str] = None,
         product_resource_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
+        volume_type: Optional[str] = None,
     ) -> list[Volume]:
         """
         List volumes.
@@ -209,6 +213,7 @@ class BlockV1API(API):
         :param name: Filter the return volumes by their names.
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
+        :param volume_type: Filter by volume type.
         :return: :class:`list[Volume] <list[Volume]>`
 
         Usage:
@@ -234,6 +239,7 @@ class BlockV1API(API):
                 "name": name,
                 "product_resource_id": product_resource_id,
                 "tags": tags,
+                "volume_type": volume_type,
             },
         )
 
