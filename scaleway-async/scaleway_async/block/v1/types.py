@@ -674,6 +674,11 @@ class ListVolumesRequest:
     Filter by tags. Only volumes with one or more matching tags will be returned.
     """
 
+    volume_type: Optional[str] = None
+    """
+    Filter by volume type.
+    """
+
 
 @dataclass
 class ListVolumesResponse:
