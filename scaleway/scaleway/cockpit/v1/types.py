@@ -1184,6 +1184,23 @@ class RegionalApiDisableAlertRulesRequest:
 
 
 @dataclass
+class RegionalApiDisableManagedAlertsRequest:
+    """
+    Disable the sending of managed alerts.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    ID of the Project.
+    """
+
+
+@dataclass
 class RegionalApiEnableAlertManagerRequest:
     """
     Enable the Alert manager.
@@ -1215,6 +1232,23 @@ class RegionalApiEnableAlertRulesRequest:
     rule_ids: Optional[list[str]] = field(default_factory=list)
     """
     List of IDs of the rules to enable. If empty, enables all preconfigured rules.
+    """
+
+
+@dataclass
+class RegionalApiEnableManagedAlertsRequest:
+    """
+    Enable the sending of managed alerts.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    ID of the Project.
     """
 
 
