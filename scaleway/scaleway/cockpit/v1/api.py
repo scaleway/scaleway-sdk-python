@@ -55,8 +55,10 @@ from .types import (
     RegionalApiDeleteContactPointRequest,
     RegionalApiDisableAlertManagerRequest,
     RegionalApiDisableAlertRulesRequest,
+    RegionalApiDisableManagedAlertsRequest,
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableAlertRulesRequest,
+    RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
     RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
@@ -95,8 +97,10 @@ from .marshalling import (
     marshal_RegionalApiDeleteContactPointRequest,
     marshal_RegionalApiDisableAlertManagerRequest,
     marshal_RegionalApiDisableAlertRulesRequest,
+    marshal_RegionalApiDisableManagedAlertsRequest,
     marshal_RegionalApiEnableAlertManagerRequest,
     marshal_RegionalApiEnableAlertRulesRequest,
+    marshal_RegionalApiEnableManagedAlertsRequest,
     marshal_RegionalApiTriggerTestAlertRequest,
     marshal_RegionalApiUpdateContactPointRequest,
     marshal_RegionalApiUpdateDataSourceRequest,
@@ -1598,6 +1602,84 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ListAlertsResponse(res.json())
+
+    def enable_managed_alerts(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> AlertManager:
+        """
+        Enable managed alerts.
+        Enable the sending of managed alerts for the specified Project. Managed alerts are predefined alerts that apply to Scaleway resources integrated with Cockpit by default.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project.
+        :return: :class:`AlertManager <AlertManager>`
+        :deprecated
+
+        Usage:
+        ::
+
+            result = api.enable_managed_alerts()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/cockpit/v1/regions/{param_region}/alert-manager/managed-alerts/enable",
+            body=marshal_RegionalApiEnableManagedAlertsRequest(
+                RegionalApiEnableManagedAlertsRequest(
+                    region=region,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AlertManager(res.json())
+
+    def disable_managed_alerts(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> AlertManager:
+        """
+        Disable managed alerts.
+        Disable the sending of managed alerts for the specified Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project.
+        :return: :class:`AlertManager <AlertManager>`
+        :deprecated
+
+        Usage:
+        ::
+
+            result = api.disable_managed_alerts()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/cockpit/v1/regions/{param_region}/alert-manager/managed-alerts/disable",
+            body=marshal_RegionalApiDisableManagedAlertsRequest(
+                RegionalApiDisableManagedAlertsRequest(
+                    region=region,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AlertManager(res.json())
 
     def enable_alert_rules(
         self,
