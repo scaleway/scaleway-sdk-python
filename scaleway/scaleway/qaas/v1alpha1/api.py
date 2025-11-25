@@ -95,7 +95,7 @@ from .marshalling import (
 
 class QaasV1Alpha1API(API):
     """
-    This API allows you to manage Scaleway Quantum as a Service.
+    This API allows you to allocate and program Quantum Processing Units (QPUs) to run quantum algorithms.
     """
 
     def get_job(
@@ -105,7 +105,7 @@ class QaasV1Alpha1API(API):
     ) -> Job:
         """
         Get job information.
-        Retrieve information about the provided **job ID**, such as status, payload, and result.
+        Retrieve information about the provided **job ID**, mainly used to get the current status.
         :param job_id: Unique ID of the job you want to get.
         :return: :class:`Job <Job>`
 
@@ -135,7 +135,7 @@ class QaasV1Alpha1API(API):
     ) -> Job:
         """
         Get job information.
-        Retrieve information about the provided **job ID**, such as status, payload, and result.
+        Retrieve information about the provided **job ID**, mainly used to get the current status.
         :param job_id: Unique ID of the job you want to get.
         :return: :class:`Job <Job>`
 
@@ -173,7 +173,7 @@ class QaasV1Alpha1API(API):
     ) -> ListJobsResponse:
         """
         List all jobs within a project or session.
-        Retrieve information about all jobs within a given project or session.
+        Retrieve information about all jobs within a given session.
         :param session_id: List jobs with this session ID.
         One-Of ('resource_id'): at most one of 'session_id', 'project_id' could be set.
         :param project_id: List jobs with this project ID.
@@ -222,7 +222,7 @@ class QaasV1Alpha1API(API):
     ) -> list[Job]:
         """
         List all jobs within a project or session.
-        Retrieve information about all jobs within a given project or session.
+        Retrieve information about all jobs within a given session.
         :param session_id: List jobs with this session ID.
         One-Of ('resource_id'): at most one of 'session_id', 'project_id' could be set.
         :param project_id: List jobs with this project ID.
@@ -343,7 +343,7 @@ class QaasV1Alpha1API(API):
     ) -> Job:
         """
         Create a job.
-        Create a job to be executed inside a session.
+        Create a job to be executed inside a QPU session.
         :param name: Name of the job.
         :param session_id: Session in which the job is executed.
         :param circuit: Quantum circuit that should be executed.
@@ -642,7 +642,7 @@ class QaasV1Alpha1API(API):
     ) -> Session:
         """
         Get session information.
-        Retrieve information about the provided **session ID**, such as name, status, and number of executed jobs.
+        Retrieve information about the provided **session ID**, such as name and status.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
 
@@ -672,7 +672,7 @@ class QaasV1Alpha1API(API):
     ) -> Session:
         """
         Get session information.
-        Retrieve information about the provided **session ID**, such as name, status, and number of executed jobs.
+        Retrieve information about the provided **session ID**, such as name and status.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
 
@@ -710,7 +710,7 @@ class QaasV1Alpha1API(API):
     ) -> ListSessionsResponse:
         """
         List all sessions.
-        Retrieve information about all sessions.
+        Retrieve information about all QPU sessions.
         :param platform_id: List sessions that have been created for this platform.
         :param tags: List sessions with these tags.
         :param page: Page number.
@@ -753,7 +753,7 @@ class QaasV1Alpha1API(API):
     ) -> list[Session]:
         """
         List all sessions.
-        Retrieve information about all sessions.
+        Retrieve information about all QPU sessions.
         :param platform_id: List sessions that have been created for this platform.
         :param tags: List sessions with these tags.
         :param page: Page number.
@@ -798,7 +798,7 @@ class QaasV1Alpha1API(API):
     ) -> Session:
         """
         Create a session.
-        Create a dedicated session for the specified platform.
+        Create a new QPU session for the specified platform. Once ready, jobs can be sent to this session.
         :param platform_id: ID of the Platform for which the session was created.
         :param project_id: ID of the Project in which the session was created.
         :param name: Name of the session.
@@ -896,7 +896,7 @@ class QaasV1Alpha1API(API):
     ) -> Session:
         """
         Terminate an existing session.
-        Terminate a session by its unique ID and cancel all its attached jobs and booking.
+        Terminate a session by its unique ID and cancel all its attached jobs and bookings.
         :param session_id: Unique ID of the session.
         :return: :class:`Session <Session>`
 
@@ -926,7 +926,7 @@ class QaasV1Alpha1API(API):
     ) -> None:
         """
         Delete an existing session.
-        Delete a session by its unique ID and delete all its attached job and booking.
+        Delete a session by its unique ID and delete all its attached jobs and bookings.
         :param session_id: Unique ID of the session.
 
         Usage:
