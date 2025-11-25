@@ -535,27 +535,27 @@ class Platform:
 
     provider_name: str
     """
-    Provider name of the platform.
+    Name of the technological provider of the platform in lowercase (quandela, pasqal...).
     """
 
     backend_name: str
     """
-    Name of the running backend over the platform (ascella, qsim, aer...).
+    Name of the running emulation backend or QPU model of the platform in lowercase (mosaiq, qsim, aer...).
     """
 
     type_: PlatformType
     """
-    Type of the platform.
+    Type of the platform (emulator or qpu).
     """
 
     technology: PlatformTechnology
     """
-    Technology used by the platform.
+    Quantum technology used by the platform (trapped-ion, photonic, superconducting qubits...).
     """
 
     max_qubit_count: int
     """
-    Estimated maximum number of qubits supported by the platform.
+    Maximum number of qubits supported by the platform (estimated for emulator).
     """
 
     max_shot_count: int
