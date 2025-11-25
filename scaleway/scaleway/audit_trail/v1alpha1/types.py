@@ -140,6 +140,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     INSTANCE_VOLUME = "instance_volume"
     INSTANCE_SNAPSHOT = "instance_snapshot"
     INSTANCE_IMAGE = "instance_image"
+    INSTANCE_TEMPLATE = "instance_template"
     APPLE_SILICON_SERVER = "apple_silicon_server"
     BAREMETAL_SERVER = "baremetal_server"
     BAREMETAL_SETTING = "baremetal_setting"
