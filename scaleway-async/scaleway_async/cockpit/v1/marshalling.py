@@ -56,8 +56,10 @@ from .types import (
     RegionalApiDeleteContactPointRequest,
     RegionalApiDisableAlertManagerRequest,
     RegionalApiDisableAlertRulesRequest,
+    RegionalApiDisableManagedAlertsRequest,
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableAlertRulesRequest,
+    RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
     RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
@@ -1270,6 +1272,20 @@ def marshal_RegionalApiDisableAlertRulesRequest(
     return output
 
 
+def marshal_RegionalApiDisableManagedAlertsRequest(
+    request: RegionalApiDisableManagedAlertsRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    return output
+
+
 def marshal_RegionalApiEnableAlertManagerRequest(
     request: RegionalApiEnableAlertManagerRequest,
     defaults: ProfileDefaults,
@@ -1297,6 +1313,20 @@ def marshal_RegionalApiEnableAlertRulesRequest(
 
     if request.rule_ids is not None:
         output["rule_ids"] = request.rule_ids
+
+    return output
+
+
+def marshal_RegionalApiEnableManagedAlertsRequest(
+    request: RegionalApiEnableManagedAlertsRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
 
     return output
 
