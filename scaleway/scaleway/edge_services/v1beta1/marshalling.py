@@ -23,6 +23,7 @@ from .types import (
     ScalewayLb,
     ScalewayLbBackendConfig,
     ScalewayS3BackendConfig,
+    ScalewayServerlessContainerBackendConfig,
     BackendStage,
     CacheStage,
     DNSStage,
@@ -187,6 +188,31 @@ def unmarshal_ScalewayS3BackendConfig(data: Any) -> ScalewayS3BackendConfig:
     return ScalewayS3BackendConfig(**args)
 
 
+def unmarshal_ScalewayServerlessContainerBackendConfig(
+    data: Any,
+) -> ScalewayServerlessContainerBackendConfig:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ScalewayServerlessContainerBackendConfig' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("container_id", None)
+    if field is not None:
+        args["container_id"] = field
+    else:
+        args["container_id"] = None
+
+    return ScalewayServerlessContainerBackendConfig(**args)
+
+
 def unmarshal_BackendStage(data: Any) -> BackendStage:
     if not isinstance(data, dict):
         raise TypeError(
@@ -230,6 +256,14 @@ def unmarshal_BackendStage(data: Any) -> BackendStage:
         args["scaleway_lb"] = unmarshal_ScalewayLbBackendConfig(field)
     else:
         args["scaleway_lb"] = None
+
+    field = data.get("scaleway_serverless_container", None)
+    if field is not None:
+        args["scaleway_serverless_container"] = (
+            unmarshal_ScalewayServerlessContainerBackendConfig(field)
+        )
+    else:
+        args["scaleway_serverless_container"] = None
 
     return BackendStage(**args)
 
