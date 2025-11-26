@@ -339,6 +339,16 @@ class ScalewayS3BackendConfig:
 
 
 @dataclass
+class ScalewayServerlessContainerBackendConfig:
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    container_id: str
+
+
+@dataclass
 class PipelineError:
     stage: PipelineErrorStage
     code: PipelineErrorCode
@@ -398,6 +408,10 @@ class BackendStage:
     scaleway_s3: Optional[ScalewayS3BackendConfig] = None
 
     scaleway_lb: Optional[ScalewayLbBackendConfig] = None
+
+    scaleway_serverless_container: Optional[
+        ScalewayServerlessContainerBackendConfig
+    ] = None
 
 
 @dataclass
