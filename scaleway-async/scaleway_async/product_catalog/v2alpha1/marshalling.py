@@ -398,6 +398,12 @@ def unmarshal_PublicCatalogProductPropertiesGenerativeApis(
     else:
         args["supported_apis"] = None
 
+    field = data.get("consumption_mode", None)
+    if field is not None:
+        args["consumption_mode"] = field
+    else:
+        args["consumption_mode"] = None
+
     return PublicCatalogProductPropertiesGenerativeApis(**args)
 
 

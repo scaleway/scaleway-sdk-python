@@ -3,6 +3,7 @@
 from .types import ListPublicCatalogProductsRequestProductType
 from .types import ListPublicCatalogProductsRequestStatus
 from .types import PublicCatalogProductProductBadge
+from .types import PublicCatalogProductPropertiesGenerativeApisConsumptionMode
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
 from .types import PublicCatalogProductStatus
 from .types import PublicCatalogProductUnitOfMeasureCountableUnit
@@ -36,6 +37,7 @@ __all__ = [
     "ListPublicCatalogProductsRequestProductType",
     "ListPublicCatalogProductsRequestStatus",
     "PublicCatalogProductProductBadge",
+    "PublicCatalogProductPropertiesGenerativeApisConsumptionMode",
     "PublicCatalogProductPropertiesHardwareCPUArch",
     "PublicCatalogProductStatus",
     "PublicCatalogProductUnitOfMeasureCountableUnit",
