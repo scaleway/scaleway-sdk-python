@@ -1481,6 +1481,7 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Create a new revocable token.
+        Deprecated in favor of IAM authentication.
         :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to associate the token with.
         One-Of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
@@ -1489,6 +1490,7 @@ class FunctionV1Beta1API(API):
         :param description: Description of the token.
         :param expires_at: Date on which the token expires.
         :return: :class:`Token <Token>`
+        :deprecated
 
         Usage:
         ::
