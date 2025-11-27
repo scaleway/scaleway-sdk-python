@@ -58,6 +58,17 @@ class PublicCatalogProductProductBadge(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class PublicCatalogProductPropertiesGenerativeApisConsumptionMode(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_CONSUMPTION_MODE = "unknown_consumption_mode"
+    REALTIME = "realtime"
+    BATCH = "batch"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCH = "unknown_arch"
     X64 = "x64"
@@ -311,6 +322,7 @@ class PublicCatalogProductPropertiesElasticMetal:
 class PublicCatalogProductPropertiesGenerativeApis:
     reasoning: bool
     supported_apis: list[str]
+    consumption_mode: PublicCatalogProductPropertiesGenerativeApisConsumptionMode
 
 
 @dataclass
