@@ -25,6 +25,7 @@ class DeploymentStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     LOCKING = "locking"
     UNLOCKING = "unlocking"
+    DEPLOYING = "deploying"
 
     def __str__(self) -> str:
         return str(self.value)
