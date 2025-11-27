@@ -11,6 +11,7 @@ DEPLOYMENT_TRANSIENT_STATUSES: list[DeploymentStatus] = [
     DeploymentStatus.DELETING,
     DeploymentStatus.LOCKING,
     DeploymentStatus.UNLOCKING,
+    DeploymentStatus.DEPLOYING,
 ]
 """
 Lists transient statutes of the enum :class:`DeploymentStatus <DeploymentStatus>`.
