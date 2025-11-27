@@ -1428,6 +1428,7 @@ class ContainerV1Beta1API(API):
     ) -> Token:
         """
         Create a new revocable token.
+        Deprecated in favor of IAM authentication.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id: UUID of the container to create the token for.
         One-Of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
@@ -1436,6 +1437,7 @@ class ContainerV1Beta1API(API):
         :param description: Description of the token.
         :param expires_at: Expiry date of the token.
         :return: :class:`Token <Token>`
+        :deprecated
 
         Usage:
         ::
