@@ -134,6 +134,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     ACCOUNT_USER = "account_user"
     ACCOUNT_ORGANIZATION = "account_organization"
     ACCOUNT_PROJECT = "account_project"
+    ACCOUNT_CONTRACT_SIGNATURE = "account_contract_signature"
     INSTANCE_SERVER = "instance_server"
     INSTANCE_PLACEMENT_GROUP = "instance_placement_group"
     INSTANCE_SECURITY_GROUP = "instance_security_group"
@@ -181,6 +182,24 @@ class SystemEventKind(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class AccountContractSignatureInfoAccountContractInfo:
+    id: str
+    type_: str
+    name: str
+    version: int
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+
+@dataclass
+class AccountContractSignatureInfo:
+    signed_by_account_root_user_id: str
+    signed_at: Optional[datetime] = None
+    expires_at: Optional[datetime] = None
+    contract: Optional[AccountContractSignatureInfoAccountContractInfo] = None
 
 
 @dataclass
@@ -424,6 +443,8 @@ class Resource:
     edge_services_waf_stage_info: Optional[EdgeServicesWAFStageInfo] = None
 
     edge_services_backend_stage_info: Optional[EdgeServicesBackendStageInfo] = None
+
+    account_contract_signature_info: Optional[AccountContractSignatureInfo] = None
 
 
 @dataclass

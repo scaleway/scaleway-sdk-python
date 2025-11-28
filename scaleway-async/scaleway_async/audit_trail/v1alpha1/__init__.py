@@ -12,6 +12,8 @@ from .types import ListEventsRequestOrderBy
 from .types import ListExportJobsRequestOrderBy
 from .types import ResourceType
 from .types import SystemEventKind
+from .types import AccountContractSignatureInfoAccountContractInfo
+from .types import AccountContractSignatureInfo
 from .types import AccountOrganizationInfo
 from .types import AccountProjectInfo
 from .types import AccountUserInfo
@@ -81,6 +83,8 @@ __all__ = [
     "ListExportJobsRequestOrderBy",
     "ResourceType",
     "SystemEventKind",
+    "AccountContractSignatureInfoAccountContractInfo",
+    "AccountContractSignatureInfo",
     "AccountOrganizationInfo",
     "AccountProjectInfo",
     "AccountUserInfo",
