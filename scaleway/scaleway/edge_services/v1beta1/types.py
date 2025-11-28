@@ -864,6 +864,10 @@ class CreateBackendStageRequest:
 
     scaleway_lb: Optional[ScalewayLbBackendConfig] = None
 
+    scaleway_serverless_container: Optional[
+        ScalewayServerlessContainerBackendConfig
+    ] = None
+
 
 @dataclass
 class CreateCacheStageRequest:
@@ -1729,6 +1733,10 @@ class UpdateBackendStageRequest:
     scaleway_s3: Optional[ScalewayS3BackendConfig] = None
 
     scaleway_lb: Optional[ScalewayLbBackendConfig] = None
+
+    scaleway_serverless_container: Optional[
+        ScalewayServerlessContainerBackendConfig
+    ] = None
 
 
 @dataclass
