@@ -1756,6 +1756,23 @@ def marshal_ScalewayS3BackendConfig(
     return output
 
 
+def marshal_ScalewayServerlessContainerBackendConfig(
+    request: ScalewayServerlessContainerBackendConfig,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.region is not None:
+        output["region"] = request.region
+    else:
+        output["region"] = defaults.default_region
+
+    if request.container_id is not None:
+        output["container_id"] = request.container_id
+
+    return output
+
+
 def marshal_CreateBackendStageRequest(
     request: CreateBackendStageRequest,
     defaults: ProfileDefaults,
@@ -1773,6 +1790,11 @@ def marshal_CreateBackendStageRequest(
                     param="scaleway_lb",
                     value=request.scaleway_lb,
                     marshal_func=marshal_ScalewayLbBackendConfig,
+                ),
+                OneOfPossibility(
+                    param="scaleway_serverless_container",
+                    value=request.scaleway_serverless_container,
+                    marshal_func=marshal_ScalewayServerlessContainerBackendConfig,
                 ),
             ]
         ),
@@ -2108,6 +2130,11 @@ def marshal_UpdateBackendStageRequest(
                     param="scaleway_lb",
                     value=request.scaleway_lb,
                     marshal_func=marshal_ScalewayLbBackendConfig,
+                ),
+                OneOfPossibility(
+                    param="scaleway_serverless_container",
+                    value=request.scaleway_serverless_container,
+                    marshal_func=marshal_ScalewayServerlessContainerBackendConfig,
                 ),
             ]
         ),
