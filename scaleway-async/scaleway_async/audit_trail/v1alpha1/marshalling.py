@@ -18,6 +18,8 @@ from .types import (
     ExportJobS3,
     ExportJobStatus,
     ExportJob,
+    AccountContractSignatureInfoAccountContractInfo,
+    AccountContractSignatureInfo,
     AccountOrganizationInfo,
     AccountProjectInfo,
     AccountUserInfo,
@@ -186,6 +188,92 @@ def unmarshal_ExportJob(data: Any) -> ExportJob:
         args["last_status"] = None
 
     return ExportJob(**args)
+
+
+def unmarshal_AccountContractSignatureInfoAccountContractInfo(
+    data: Any,
+) -> AccountContractSignatureInfoAccountContractInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AccountContractSignatureInfoAccountContractInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = field
+    else:
+        args["version"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return AccountContractSignatureInfoAccountContractInfo(**args)
+
+
+def unmarshal_AccountContractSignatureInfo(data: Any) -> AccountContractSignatureInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AccountContractSignatureInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("signed_by_account_root_user_id", None)
+    if field is not None:
+        args["signed_by_account_root_user_id"] = field
+    else:
+        args["signed_by_account_root_user_id"] = None
+
+    field = data.get("signed_at", None)
+    if field is not None:
+        args["signed_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["signed_at"] = None
+
+    field = data.get("expires_at", None)
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
+
+    field = data.get("contract", None)
+    if field is not None:
+        args["contract"] = unmarshal_AccountContractSignatureInfoAccountContractInfo(
+            field
+        )
+    else:
+        args["contract"] = None
+
+    return AccountContractSignatureInfo(**args)
 
 
 def unmarshal_AccountOrganizationInfo(data: Any) -> AccountOrganizationInfo:
@@ -1014,6 +1102,14 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["edge_services_backend_stage_info"] = None
+
+    field = data.get("account_contract_signature_info", None)
+    if field is not None:
+        args["account_contract_signature_info"] = (
+            unmarshal_AccountContractSignatureInfo(field)
+        )
+    else:
+        args["account_contract_signature_info"] = None
 
     return Resource(**args)
 
