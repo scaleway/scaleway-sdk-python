@@ -23,7 +23,7 @@ jobs:
       run:
         working-directory: ${{ matrix.lib }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install poetry
         run: pipx install poetry
       - name: Set up Python
