@@ -89,7 +89,7 @@ class ScalewayException(Exception):
     response: Response
 
     @property
-    def status_code(self) -> int:
+    def status_code(self) -> int | None:
         return self.response.status_code
 
     def __str__(self) -> str:
