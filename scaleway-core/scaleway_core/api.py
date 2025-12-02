@@ -86,7 +86,7 @@ class APILogger:
 
 @dataclass
 class ScalewayException(Exception):
-    response: Optional[Response]
+    response: Response
 
     @property
     def status_code(self) -> int:
