@@ -55,7 +55,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :param datacenter: Filter products by datacenter.
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
-        :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
+        :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
         :return: :class:`ListPublicCatalogProductsResponse <ListPublicCatalogProductsResponse>`
 
         Usage:
@@ -114,7 +114,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :param datacenter: Filter products by datacenter.
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
-        :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
+        :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
         :return: :class:`list[PublicCatalogProduct] <list[PublicCatalogProduct]>`
 
         Usage:

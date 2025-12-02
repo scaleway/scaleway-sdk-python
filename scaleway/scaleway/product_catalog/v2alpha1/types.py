@@ -37,6 +37,8 @@ class ListPublicCatalogProductsRequestStatus(str, Enum, metaclass=StrEnumMeta):
     PUBLIC_BETA = "public_beta"
     PREVIEW = "preview"
     GENERAL_AVAILABILITY = "general_availability"
+    END_OF_NEW_FEATURES = "end_of_new_features"
+    END_OF_GROWTH = "end_of_growth"
     END_OF_DEPLOYMENT = "end_of_deployment"
     END_OF_SUPPORT = "end_of_support"
     END_OF_SALE = "end_of_sale"
@@ -85,6 +87,8 @@ class PublicCatalogProductStatus(str, Enum, metaclass=StrEnumMeta):
     PUBLIC_BETA = "public_beta"
     PREVIEW = "preview"
     GENERAL_AVAILABILITY = "general_availability"
+    END_OF_NEW_FEATURES = "end_of_new_features"
+    END_OF_GROWTH = "end_of_growth"
     END_OF_DEPLOYMENT = "end_of_deployment"
     END_OF_SUPPORT = "end_of_support"
     END_OF_SALE = "end_of_sale"
@@ -550,7 +554,7 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
         default_factory=list
     )
     """
-    The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
+    The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
     """
 
     global_: Optional[bool] = False
