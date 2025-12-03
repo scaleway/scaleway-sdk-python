@@ -445,6 +445,7 @@ class GatewayType:
     name: str
     bandwidth: int
     allowed_connections: int
+    zones: list[str]
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
