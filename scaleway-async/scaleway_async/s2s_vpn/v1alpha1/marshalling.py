@@ -692,6 +692,12 @@ def unmarshal_GatewayType(data: Any) -> GatewayType:
     else:
         args["allowed_connections"] = None
 
+    field = data.get("zones", None)
+    if field is not None:
+        args["zones"] = field
+    else:
+        args["zones"] = None
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
