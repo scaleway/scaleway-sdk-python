@@ -1488,6 +1488,9 @@ class DomainV2Beta1RegistrarAPI(API):
         organization_id: Optional[str] = None,
     ) -> ListInboundTransfersResponse:
         """
+        List inbound domain transfers.
+        List all inbound transfer operations on the account.
+        You can filter the list of inbound transfers by domain name.
         :param page:
         :param domain:
         :param page_size:
@@ -1530,6 +1533,9 @@ class DomainV2Beta1RegistrarAPI(API):
         organization_id: Optional[str] = None,
     ) -> list[InboundTransfer]:
         """
+        List inbound domain transfers.
+        List all inbound transfer operations on the account.
+        You can filter the list of inbound transfers by domain name.
         :param page:
         :param domain:
         :param page_size:
