@@ -3337,12 +3337,41 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
 
+    def get_organization_scim(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+    ) -> Scim:
+        """
+        Get SCIM configuration of an Organization.
+        :param organization_id:
+        :return: :class:`Scim <Scim>`
+
+        Usage:
+        ::
+
+            result = api.get_organization_scim()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/scim",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Scim(res.json())
+
     def enable_organization_scim(
         self,
         *,
         organization_id: Optional[str] = None,
     ) -> Scim:
         """
+        Enable SCIM for an Organization.
         :param organization_id: ID of the Organization.
         :return: :class:`Scim <Scim>`
 
@@ -3371,6 +3400,7 @@ class IamV1Alpha1API(API):
         scim_id: str,
     ) -> None:
         """
+        Disable SCIM for an Organization.
         :param scim_id: ID of the SCIM configuration.
 
         Usage:
@@ -3399,6 +3429,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListScimTokensResponse:
         """
+        List SCIM tokens.
         :param scim_id: ID of the SCIM configuration.
         :param order_by: Sort order of SCIM tokens.
         :param page: Requested page number. Value must be greater or equal to 1.
@@ -3437,6 +3468,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> list[ScimToken]:
         """
+        List SCIM tokens.
         :param scim_id: ID of the SCIM configuration.
         :param order_by: Sort order of SCIM tokens.
         :param page: Requested page number. Value must be greater or equal to 1.
@@ -3469,6 +3501,7 @@ class IamV1Alpha1API(API):
         scim_id: str,
     ) -> CreateScimTokenResponse:
         """
+        Create a SCIM token.
         :param scim_id: ID of the SCIM configuration.
         :return: :class:`CreateScimTokenResponse <CreateScimTokenResponse>`
 
@@ -3496,6 +3529,7 @@ class IamV1Alpha1API(API):
         token_id: str,
     ) -> None:
         """
+        Delete a SCIM token.
         :param token_id: The SCIM token ID.
 
         Usage:
