@@ -25,6 +25,7 @@ from .types import (
     PublicCatalogProductPropertiesGenerativeApis,
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
+    PublicCatalogProductPropertiesLoadBalancer,
     PublicCatalogProductPropertiesManagedInference,
     PublicCatalogProductPropertiesObjectStorage,
     PublicCatalogProductEnvironmentalImpactEstimation,
@@ -481,6 +482,19 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
     return PublicCatalogProductPropertiesInstance(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesLoadBalancer(
+    data: Any,
+) -> PublicCatalogProductPropertiesLoadBalancer:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesLoadBalancer' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesLoadBalancer(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesManagedInference(
     data: Any,
 ) -> PublicCatalogProductPropertiesManagedInference:
@@ -665,6 +679,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["generative_apis"] = None
+
+    field = data.get("load_balancer", None)
+    if field is not None:
+        args["load_balancer"] = unmarshal_PublicCatalogProductPropertiesLoadBalancer(
+            field
+        )
+    else:
+        args["load_balancer"] = None
 
     return PublicCatalogProductProperties(**args)
 

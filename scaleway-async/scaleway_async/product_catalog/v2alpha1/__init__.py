@@ -21,6 +21,7 @@ from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesGenerativeApis
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
+from .types import PublicCatalogProductPropertiesLoadBalancer
 from .types import PublicCatalogProductPropertiesManagedInference
 from .types import PublicCatalogProductPropertiesObjectStorage
 from .types import PublicCatalogProductEnvironmentalImpactEstimation
@@ -55,6 +56,7 @@ __all__ = [
     "PublicCatalogProductPropertiesGenerativeApis",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
+    "PublicCatalogProductPropertiesLoadBalancer",
     "PublicCatalogProductPropertiesManagedInference",
     "PublicCatalogProductPropertiesObjectStorage",
     "PublicCatalogProductEnvironmentalImpactEstimation",
