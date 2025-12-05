@@ -27,6 +27,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     OBJECT_STORAGE = "object_storage"
     MANAGED_INFERENCE = "managed_inference"
     GENERATIVE_APIS = "generative_apis"
+    LOAD_BALANCER = "load_balancer"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -376,6 +377,11 @@ class PublicCatalogProductPropertiesInstance:
 
 
 @dataclass
+class PublicCatalogProductPropertiesLoadBalancer:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesManagedInference:
     instance_gpu_name: str
     """
@@ -435,6 +441,8 @@ class PublicCatalogProductProperties:
     managed_inference: Optional[PublicCatalogProductPropertiesManagedInference] = None
 
     generative_apis: Optional[PublicCatalogProductPropertiesGenerativeApis] = None
+
+    load_balancer: Optional[PublicCatalogProductPropertiesLoadBalancer] = None
 
 
 @dataclass
