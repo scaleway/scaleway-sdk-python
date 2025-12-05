@@ -1416,6 +1416,11 @@ class GetOrganizationSamlRequest:
 
 
 @dataclass
+class GetOrganizationScimRequest:
+    organization_id: Optional[str] = None
+
+
+@dataclass
 class GetOrganizationSecuritySettingsRequest:
     organization_id: Optional[str] = None
     """
