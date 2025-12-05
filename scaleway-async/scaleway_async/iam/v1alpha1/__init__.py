@@ -79,6 +79,7 @@ from .types import GetJWTRequest
 from .types import GetLogRequest
 from .types import GetOrganizationRequest
 from .types import GetOrganizationSamlRequest
+from .types import GetOrganizationScimRequest
 from .types import GetOrganizationSecuritySettingsRequest
 from .types import GetPolicyRequest
 from .types import GetQuotumRequest
@@ -227,6 +228,7 @@ __all__ = [
     "GetLogRequest",
     "GetOrganizationRequest",
     "GetOrganizationSamlRequest",
+    "GetOrganizationScimRequest",
     "GetOrganizationSecuritySettingsRequest",
     "GetPolicyRequest",
     "GetQuotumRequest",
