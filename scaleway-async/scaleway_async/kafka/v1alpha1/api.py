@@ -55,7 +55,7 @@ from .marshalling import (
 
 class KafkaV1Alpha1API(API):
     """
-    This API allows you to manage your Clusters for Apache Kafka®. This product is currently in Private Beta.
+    This API allows you to manage your Clusters for Apache Kafka®. This product is currently in Public Beta.
     """
 
     async def list_node_types(
