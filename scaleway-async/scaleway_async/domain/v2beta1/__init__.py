@@ -167,7 +167,9 @@ from .types import RegistrarApiUpdateDomainRequest
 from .types import RestoreDNSZoneVersionRequest
 from .types import RestoreDNSZoneVersionResponse
 from .types import RetryInboundTransferResponse
+from .types import SearchAvailableDomainsConsoleResponse
 from .types import SearchAvailableDomainsResponse
+from .types import UnauthenticatedRegistrarApiSearchAvailableDomainsConsoleRequest
 from .types import UpdateDNSZoneNameserversRequest
 from .types import UpdateDNSZoneNameserversResponse
 from .types import UpdateDNSZoneRecordsRequest
@@ -175,6 +177,7 @@ from .types import UpdateDNSZoneRecordsResponse
 from .types import UpdateDNSZoneRequest
 from .api import DomainV2Beta1API
 from .api import DomainV2Beta1RegistrarAPI
+from .api import DomainV2Beta1UnauthenticatedRegistrarAPI
 
 __all__ = [
     "ContactEmailStatus",
@@ -344,7 +347,9 @@ __all__ = [
     "RestoreDNSZoneVersionRequest",
     "RestoreDNSZoneVersionResponse",
     "RetryInboundTransferResponse",
+    "SearchAvailableDomainsConsoleResponse",
     "SearchAvailableDomainsResponse",
+    "UnauthenticatedRegistrarApiSearchAvailableDomainsConsoleRequest",
     "UpdateDNSZoneNameserversRequest",
     "UpdateDNSZoneNameserversResponse",
     "UpdateDNSZoneRecordsRequest",
@@ -352,4 +357,5 @@ __all__ = [
     "UpdateDNSZoneRequest",
     "DomainV2Beta1API",
     "DomainV2Beta1RegistrarAPI",
+    "DomainV2Beta1UnauthenticatedRegistrarAPI",
 ]
