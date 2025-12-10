@@ -93,6 +93,7 @@ from .types import (
     RestoreDNSZoneVersionResponse,
     RetryInboundTransferResponse,
     AvailableDomain,
+    SearchAvailableDomainsConsoleResponse,
     SearchAvailableDomainsResponse,
     UpdateDNSZoneNameserversResponse,
     UpdateDNSZoneRecordsResponse,
@@ -2579,6 +2580,33 @@ def unmarshal_AvailableDomain(data: Any) -> AvailableDomain:
         args["tld"] = None
 
     return AvailableDomain(**args)
+
+
+def unmarshal_SearchAvailableDomainsConsoleResponse(
+    data: Any,
+) -> SearchAvailableDomainsConsoleResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SearchAvailableDomainsConsoleResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("available_domains", None)
+    if field is not None:
+        args["available_domains"] = (
+            [unmarshal_AvailableDomain(v) for v in field] if field is not None else None
+        )
+    else:
+        args["available_domains"] = None
+
+    field = data.get("exact_match_domain", None)
+    if field is not None:
+        args["exact_match_domain"] = unmarshal_AvailableDomain(field)
+    else:
+        args["exact_match_domain"] = None
+
+    return SearchAvailableDomainsConsoleResponse(**args)
 
 
 def unmarshal_SearchAvailableDomainsResponse(
