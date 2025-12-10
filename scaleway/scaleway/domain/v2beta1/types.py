@@ -1809,11 +1809,24 @@ class RetryInboundTransferResponse:
 
 
 @dataclass
+class SearchAvailableDomainsConsoleResponse:
+    available_domains: list[AvailableDomain]
+    exact_match_domain: Optional[AvailableDomain] = None
+
+
+@dataclass
 class SearchAvailableDomainsResponse:
     available_domains: list[AvailableDomain]
     """
     Array of available domains.
     """
+
+
+@dataclass
+class UnauthenticatedRegistrarApiSearchAvailableDomainsConsoleRequest:
+    domain: str
+    strict_search: bool
+    tlds: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
