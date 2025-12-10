@@ -21,9 +21,11 @@ from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesGenerativeApis
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
+from .types import PublicCatalogProductPropertiesKeyManager
 from .types import PublicCatalogProductPropertiesLoadBalancer
 from .types import PublicCatalogProductPropertiesManagedInference
 from .types import PublicCatalogProductPropertiesObjectStorage
+from .types import PublicCatalogProductPropertiesSecretManager
 from .types import PublicCatalogProductEnvironmentalImpactEstimation
 from .types import PublicCatalogProductLocality
 from .types import PublicCatalogProductPrice
@@ -56,9 +58,11 @@ __all__ = [
     "PublicCatalogProductPropertiesGenerativeApis",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
+    "PublicCatalogProductPropertiesKeyManager",
     "PublicCatalogProductPropertiesLoadBalancer",
     "PublicCatalogProductPropertiesManagedInference",
     "PublicCatalogProductPropertiesObjectStorage",
+    "PublicCatalogProductPropertiesSecretManager",
     "PublicCatalogProductEnvironmentalImpactEstimation",
     "PublicCatalogProductLocality",
     "PublicCatalogProductPrice",
