@@ -516,6 +516,12 @@ class ContactExtensionFR:
 
 
 @dataclass
+class ContactExtensionIT:
+    european_citizenship: str
+    tax_code: str
+
+
+@dataclass
 class ContactExtensionNL:
     legal_form: ContactExtensionNLLegalForm
     legal_form_registration_number: str
@@ -603,6 +609,7 @@ class Contact:
     extension_fr: Optional[ContactExtensionFR] = None
     extension_eu: Optional[ContactExtensionEU] = None
     extension_nl: Optional[ContactExtensionNL] = None
+    extension_it: Optional[ContactExtensionIT] = None
 
 
 @dataclass
@@ -660,6 +667,7 @@ class NewContact:
     extension_eu: Optional[ContactExtensionEU] = None
     state: Optional[str] = None
     extension_nl: Optional[ContactExtensionNL] = None
+    extension_it: Optional[ContactExtensionIT] = None
 
 
 @dataclass
@@ -1768,6 +1776,7 @@ class RegistrarApiUpdateContactRequest:
     whois_opt_in: Optional[bool] = None
     state: Optional[str] = None
     extension_nl: Optional[ContactExtensionNL] = None
+    extension_it: Optional[ContactExtensionIT] = None
 
 
 @dataclass
@@ -1809,11 +1818,24 @@ class RetryInboundTransferResponse:
 
 
 @dataclass
+class SearchAvailableDomainsConsoleResponse:
+    available_domains: list[AvailableDomain]
+    exact_match_domain: Optional[AvailableDomain] = None
+
+
+@dataclass
 class SearchAvailableDomainsResponse:
     available_domains: list[AvailableDomain]
     """
     Array of available domains.
     """
+
+
+@dataclass
+class UnauthenticatedRegistrarApiSearchAvailableDomainsConsoleRequest:
+    domain: str
+    strict_search: bool
+    tlds: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
