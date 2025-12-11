@@ -7,7 +7,9 @@ from typing import Optional
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     ScwFile,
+    ServiceInfo,
     unmarshal_ScwFile,
+    unmarshal_ServiceInfo,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -35,6 +37,7 @@ from .types import (
     Contact,
     ContactExtensionEU,
     ContactExtensionFR,
+    ContactExtensionIT,
     ContactExtensionNL,
     ContactRoles,
     CreateDNSZoneRequest,
@@ -96,6 +99,7 @@ from .types import (
     RestoreDNSZoneVersionResponse,
     RetryInboundTransferResponse,
     SSLCertificate,
+    SearchAvailableDomainsConsoleResponse,
     SearchAvailableDomainsResponse,
     Task,
     Tld,
@@ -145,6 +149,7 @@ from .marshalling import (
     unmarshal_RegisterExternalDomainResponse,
     unmarshal_RestoreDNSZoneVersionResponse,
     unmarshal_RetryInboundTransferResponse,
+    unmarshal_SearchAvailableDomainsConsoleResponse,
     unmarshal_SearchAvailableDomainsResponse,
     unmarshal_UpdateDNSZoneNameserversResponse,
     unmarshal_UpdateDNSZoneRecordsResponse,
@@ -2085,6 +2090,7 @@ class DomainV2Beta1RegistrarAPI(API):
         whois_opt_in: Optional[bool] = None,
         state: Optional[str] = None,
         extension_nl: Optional[ContactExtensionNL] = None,
+        extension_it: Optional[ContactExtensionIT] = None,
     ) -> Contact:
         """
         Update contact.
@@ -2109,6 +2115,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param whois_opt_in:
         :param state:
         :param extension_nl:
+        :param extension_it:
         :return: :class:`Contact <Contact>`
 
         Usage:
@@ -2146,6 +2153,7 @@ class DomainV2Beta1RegistrarAPI(API):
                     whois_opt_in=whois_opt_in,
                     state=state,
                     extension_nl=extension_nl,
+                    extension_it=extension_it,
                 ),
                 self.client,
             ),
@@ -2975,3 +2983,65 @@ class DomainV2Beta1RegistrarAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Host(res.json())
+
+
+class DomainV2Beta1UnauthenticatedRegistrarAPI(API):
+    """
+    Unauthenticated Domain search API.
+    """
+
+    def get_service_info(
+        self,
+    ) -> ServiceInfo:
+        """
+
+        :return: :class:`ServiceInfo <ServiceInfo>`
+
+        Usage:
+        ::
+
+            result = api.get_service_info()
+        """
+
+        res = self._request(
+            "GET",
+            "/domain/v2beta1/search",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ServiceInfo(res.json())
+
+    def search_available_domains_console(
+        self,
+        *,
+        domain: str,
+        strict_search: bool,
+        tlds: Optional[list[str]] = None,
+    ) -> SearchAvailableDomainsConsoleResponse:
+        """
+        :param domain:
+        :param strict_search:
+        :param tlds:
+        :return: :class:`SearchAvailableDomainsConsoleResponse <SearchAvailableDomainsConsoleResponse>`
+
+        Usage:
+        ::
+
+            result = api.search_available_domains_console(
+                domain="example",
+                strict_search=False,
+            )
+        """
+
+        res = self._request(
+            "GET",
+            "/domain/v2beta1/search-domains-console",
+            params={
+                "domain": domain,
+                "strict_search": strict_search,
+                "tlds": tlds,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SearchAvailableDomainsConsoleResponse(res.json())
