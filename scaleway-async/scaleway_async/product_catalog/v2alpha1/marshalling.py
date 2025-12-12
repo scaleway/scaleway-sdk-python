@@ -25,9 +25,11 @@ from .types import (
     PublicCatalogProductPropertiesGenerativeApis,
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
+    PublicCatalogProductPropertiesKeyManager,
     PublicCatalogProductPropertiesLoadBalancer,
     PublicCatalogProductPropertiesManagedInference,
     PublicCatalogProductPropertiesObjectStorage,
+    PublicCatalogProductPropertiesSecretManager,
     PublicCatalogProductEnvironmentalImpactEstimation,
     PublicCatalogProductLocality,
     PublicCatalogProductPrice,
@@ -482,6 +484,19 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
     return PublicCatalogProductPropertiesInstance(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesKeyManager(
+    data: Any,
+) -> PublicCatalogProductPropertiesKeyManager:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesKeyManager' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesKeyManager(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesLoadBalancer(
     data: Any,
 ) -> PublicCatalogProductPropertiesLoadBalancer:
@@ -525,6 +540,19 @@ def unmarshal_PublicCatalogProductPropertiesObjectStorage(
     args: dict[str, Any] = {}
 
     return PublicCatalogProductPropertiesObjectStorage(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesSecretManager(
+    data: Any,
+) -> PublicCatalogProductPropertiesSecretManager:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesSecretManager' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesSecretManager(**args)
 
 
 def unmarshal_PublicCatalogProductEnvironmentalImpactEstimation(
@@ -687,6 +715,20 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["load_balancer"] = None
+
+    field = data.get("secret_manager", None)
+    if field is not None:
+        args["secret_manager"] = unmarshal_PublicCatalogProductPropertiesSecretManager(
+            field
+        )
+    else:
+        args["secret_manager"] = None
+
+    field = data.get("key_manager", None)
+    if field is not None:
+        args["key_manager"] = unmarshal_PublicCatalogProductPropertiesKeyManager(field)
+    else:
+        args["key_manager"] = None
 
     return PublicCatalogProductProperties(**args)
 
