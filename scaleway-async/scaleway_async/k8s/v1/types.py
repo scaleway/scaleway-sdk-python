@@ -211,12 +211,6 @@ class MaintenanceWindow:
 
 
 @dataclass
-class PoolUpgradePolicy:
-    max_unavailable: int
-    max_surge: int
-
-
-@dataclass
 class CreateClusterRequestPoolConfigUpgradePolicy:
     max_unavailable: Optional[int] = 0
     """
@@ -246,7 +240,7 @@ class ClusterAutoUpgrade:
 class ClusterAutoscalerConfig:
     scale_down_disabled: bool
     """
-    Disable the cluster autoscaler.
+    Forbid cluster autoscaler to scale down the cluster, defaults to false.
     """
 
     scale_down_delay_after_add: str
@@ -261,17 +255,17 @@ class ClusterAutoscalerConfig:
 
     expander: AutoscalerExpander
     """
-    Type of node group expander to be used in scale up.
+    Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details.
     """
 
     ignore_daemonsets_utilization: bool
     """
-    Ignore DaemonSet pods when calculating resource utilization for scaling down.
+    Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false.
     """
 
     balance_similar_node_groups: bool
     """
-    Detect similar node groups and balance the number of nodes between them.
+    Detect similar node groups and balance the number of nodes between them, defaults to false.
     """
 
     expendable_pods_priority_cutoff: int
@@ -281,17 +275,17 @@ class ClusterAutoscalerConfig:
 
     scale_down_unneeded_time: str
     """
-    How long a node should be unneeded before it is eligible to be scaled down.
+    How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes.
     """
 
     scale_down_utilization_threshold: float
     """
-    Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down.
+    Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down.
     """
 
     max_graceful_termination_sec: int
     """
-    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node.
+    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
     """
 
 
@@ -334,134 +328,9 @@ class ClusterOpenIDConnectConfig:
 
 
 @dataclass
-class Pool:
-    id: str
-    """
-    Pool ID.
-    """
-
-    cluster_id: str
-    """
-    Cluster ID of the pool.
-    """
-
-    name: str
-    """
-    Pool name.
-    """
-
-    status: PoolStatus
-    """
-    Pool status.
-    """
-
-    version: str
-    """
-    Pool version.
-    """
-
-    node_type: str
-    """
-    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
-    """
-
-    autoscaling: bool
-    """
-    Defines whether the autoscaling feature is enabled for the pool.
-    """
-
-    size: int
-    """
-    Size (number of nodes) of the pool.
-    """
-
-    min_size: int
-    """
-    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    max_size: int
-    """
-    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    container_runtime: Runtime
-    """
-    Customization of the container runtime is available for each pool.
-    """
-
-    autohealing: bool
-    """
-    Defines whether the autohealing feature is enabled for the pool.
-    """
-
-    tags: list[str]
-    """
-    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
-    """
-
-    kubelet_args: dict[str, str]
-    """
-    Kubelet arguments to be used by this pool. Note that this feature is experimental.
-    """
-
-    zone: ScwZone
-    """
-    Zone in which the pool's nodes will be spawned.
-    """
-
-    root_volume_type: PoolVolumeType
-    """
-    * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
-* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
-* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
-* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
-    """
-
-    public_ip_disabled: bool
-    """
-    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
-    """
-
-    security_group_id: str
-    """
-    Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
-    """
-
-    region: ScwRegion
-    """
-    Cluster region of the pool.
-    """
-
-    created_at: Optional[datetime] = None
-    """
-    Date on which the pool was created.
-    """
-
-    updated_at: Optional[datetime] = None
-    """
-    Date on which the pool was last updated.
-    """
-
-    placement_group_id: Optional[str] = None
-    """
-    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
-    """
-
-    upgrade_policy: Optional[PoolUpgradePolicy] = None
-    """
-    Pool upgrade policy.
-    """
-
-    root_volume_size: Optional[int] = 0
-    """
-    System volume disk size.
-    """
-
-    new_images_enabled: Optional[bool] = False
-    """
-    Defines whether the pool is migrated to new images.
-    """
+class PoolUpgradePolicy:
+    max_unavailable: int
+    max_surge: int
 
 
 @dataclass
@@ -515,12 +384,12 @@ class CreateClusterRequestAutoscalerConfig:
 
     expander: AutoscalerExpander
     """
-    Type of node group expander to be used in scale up.
+    Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details.
     """
 
     scale_down_disabled: Optional[bool] = False
     """
-    Disable the cluster autoscaler.
+    Forbid cluster autoscaler to scale down the cluster, defaults to false.
     """
 
     scale_down_delay_after_add: Optional[str] = None
@@ -530,12 +399,12 @@ class CreateClusterRequestAutoscalerConfig:
 
     ignore_daemonsets_utilization: Optional[bool] = False
     """
-    Ignore DaemonSet pods when calculating resource utilization for scaling down.
+    Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false.
     """
 
     balance_similar_node_groups: Optional[bool] = False
     """
-    Detect similar node groups and balance the number of nodes between them.
+    Detect similar node groups and balance the number of nodes between them, defaults to false.
     """
 
     expendable_pods_priority_cutoff: Optional[int] = 0
@@ -545,17 +414,17 @@ class CreateClusterRequestAutoscalerConfig:
 
     scale_down_unneeded_time: Optional[str] = None
     """
-    How long a node should be unneeded before it is eligible to be scaled down.
+    How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes.
     """
 
     scale_down_utilization_threshold: Optional[float] = 0.0
     """
-    Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down.
+    Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down.
     """
 
     max_graceful_termination_sec: Optional[int] = 0
     """
-    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node.
+    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
     """
 
 
@@ -931,7 +800,7 @@ class Cluster:
 
     autoscaler_config: Optional[ClusterAutoscalerConfig] = None
     """
-    Autoscaler config for the cluster.
+    Autoscaler configuration for the cluster, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md for details.
     """
 
     auto_upgrade: Optional[ClusterAutoUpgrade] = None
@@ -1034,6 +903,137 @@ class Node:
 
 
 @dataclass
+class Pool:
+    id: str
+    """
+    Pool ID.
+    """
+
+    cluster_id: str
+    """
+    Cluster ID of the pool.
+    """
+
+    name: str
+    """
+    Pool name.
+    """
+
+    status: PoolStatus
+    """
+    Pool status.
+    """
+
+    version: str
+    """
+    Pool version.
+    """
+
+    node_type: str
+    """
+    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
+    """
+
+    autoscaling: bool
+    """
+    Defines whether the autoscaling feature is enabled for the pool.
+    """
+
+    size: int
+    """
+    Size (number of nodes) of the pool.
+    """
+
+    min_size: int
+    """
+    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    max_size: int
+    """
+    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    container_runtime: Runtime
+    """
+    Customization of the container runtime is available for each pool.
+    """
+
+    autohealing: bool
+    """
+    Defines whether the autohealing feature is enabled for the pool.
+    """
+
+    tags: list[str]
+    """
+    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
+    """
+
+    kubelet_args: dict[str, str]
+    """
+    Kubelet arguments to be used by this pool. Note that this feature is experimental.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which the pool's nodes will be spawned.
+    """
+
+    root_volume_type: PoolVolumeType
+    """
+    * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
+* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
+    """
+
+    public_ip_disabled: bool
+    """
+    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+    """
+
+    security_group_id: str
+    """
+    Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
+    """
+
+    region: ScwRegion
+    """
+    Cluster region of the pool.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date on which the pool was created.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date on which the pool was last updated.
+    """
+
+    placement_group_id: Optional[str] = None
+    """
+    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
+    """
+
+    upgrade_policy: Optional[PoolUpgradePolicy] = None
+    """
+    Pool upgrade policy.
+    """
+
+    root_volume_size: Optional[int] = 0
+    """
+    System volume disk size.
+    """
+
+    new_images_enabled: Optional[bool] = False
+    """
+    Defines whether the pool is migrated to new images.
+    """
+
+
+@dataclass
 class NodeMetadataCoreV1Taint:
     key: str
     value: str
@@ -1062,12 +1062,12 @@ class UpdateClusterRequestAutoscalerConfig:
 
     expander: AutoscalerExpander
     """
-    Type of node group expander to be used in scale up.
+    Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details.
     """
 
     scale_down_disabled: Optional[bool] = False
     """
-    Disable the cluster autoscaler.
+    Forbid cluster autoscaler to scale down the cluster, defaults to false.
     """
 
     scale_down_delay_after_add: Optional[str] = None
@@ -1077,12 +1077,12 @@ class UpdateClusterRequestAutoscalerConfig:
 
     ignore_daemonsets_utilization: Optional[bool] = False
     """
-    Ignore DaemonSet pods when calculating resource utilization for scaling down.
+    Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false.
     """
 
     balance_similar_node_groups: Optional[bool] = False
     """
-    Detect similar node groups and balance the number of nodes between them.
+    Detect similar node groups and balance the number of nodes between them, defaults to false.
     """
 
     expendable_pods_priority_cutoff: Optional[int] = 0
@@ -1092,17 +1092,17 @@ class UpdateClusterRequestAutoscalerConfig:
 
     scale_down_unneeded_time: Optional[str] = None
     """
-    How long a node should be unneeded before it is eligible to be scaled down.
+    How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes.
     """
 
     scale_down_utilization_threshold: Optional[float] = 0.0
     """
-    Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down.
+    Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down.
     """
 
     max_graceful_termination_sec: Optional[int] = 0
     """
-    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node.
+    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
     """
 
 

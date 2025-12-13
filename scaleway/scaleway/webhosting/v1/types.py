@@ -1958,6 +1958,29 @@ class HostingApiListHostingsRequest:
 
 
 @dataclass
+class HostingApiMigrateControlPanelRequest:
+    hosting_id: str
+    """
+    Hosting ID to migrate to a new control panel.
+    """
+
+    control_panel_name: str
+    """
+    Control panel will migrate the hosting to a new server.
+    """
+
+    offer_id: str
+    """
+    Migration.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class HostingApiRemoveCustomDomainRequest:
     hosting_id: str
     """
