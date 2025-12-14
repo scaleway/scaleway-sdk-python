@@ -5,6 +5,11 @@ from .types import ListPublicCatalogProductsRequestStatus
 from .types import PublicCatalogProductProductBadge
 from .types import PublicCatalogProductPropertiesGenerativeApisConsumptionMode
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
+from .types import PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass
+from .types import (
+    PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType,
+)
+from .types import PublicCatalogProductPropertiesObjectStorageRestoreTypeRestoreType
 from .types import PublicCatalogProductStatus
 from .types import PublicCatalogProductUnitOfMeasureCountableUnit
 from .types import PublicCatalogProductPropertiesHardwareCPUPhysical
@@ -14,6 +19,10 @@ from .types import PublicCatalogProductPropertiesHardwareGPU
 from .types import PublicCatalogProductPropertiesHardwareNetwork
 from .types import PublicCatalogProductPropertiesHardwareRAM
 from .types import PublicCatalogProductPropertiesHardwareStorage
+from .types import PublicCatalogProductPropertiesObjectStorageClassType
+from .types import PublicCatalogProductPropertiesObjectStorageInternetTrafficType
+from .types import PublicCatalogProductPropertiesObjectStorageRegionTrafficType
+from .types import PublicCatalogProductPropertiesObjectStorageRestoreType
 from .types import PublicCatalogProductPropertiesAppleSilicon
 from .types import PublicCatalogProductPropertiesBlockStorage
 from .types import PublicCatalogProductPropertiesDedibox
@@ -21,9 +30,11 @@ from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesGenerativeApis
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
+from .types import PublicCatalogProductPropertiesKeyManager
 from .types import PublicCatalogProductPropertiesLoadBalancer
 from .types import PublicCatalogProductPropertiesManagedInference
 from .types import PublicCatalogProductPropertiesObjectStorage
+from .types import PublicCatalogProductPropertiesSecretManager
 from .types import PublicCatalogProductEnvironmentalImpactEstimation
 from .types import PublicCatalogProductLocality
 from .types import PublicCatalogProductPrice
@@ -40,6 +51,9 @@ __all__ = [
     "PublicCatalogProductProductBadge",
     "PublicCatalogProductPropertiesGenerativeApisConsumptionMode",
     "PublicCatalogProductPropertiesHardwareCPUArch",
+    "PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass",
+    "PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType",
+    "PublicCatalogProductPropertiesObjectStorageRestoreTypeRestoreType",
     "PublicCatalogProductStatus",
     "PublicCatalogProductUnitOfMeasureCountableUnit",
     "PublicCatalogProductPropertiesHardwareCPUPhysical",
@@ -49,6 +63,10 @@ __all__ = [
     "PublicCatalogProductPropertiesHardwareNetwork",
     "PublicCatalogProductPropertiesHardwareRAM",
     "PublicCatalogProductPropertiesHardwareStorage",
+    "PublicCatalogProductPropertiesObjectStorageClassType",
+    "PublicCatalogProductPropertiesObjectStorageInternetTrafficType",
+    "PublicCatalogProductPropertiesObjectStorageRegionTrafficType",
+    "PublicCatalogProductPropertiesObjectStorageRestoreType",
     "PublicCatalogProductPropertiesAppleSilicon",
     "PublicCatalogProductPropertiesBlockStorage",
     "PublicCatalogProductPropertiesDedibox",
@@ -56,9 +74,11 @@ __all__ = [
     "PublicCatalogProductPropertiesGenerativeApis",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
+    "PublicCatalogProductPropertiesKeyManager",
     "PublicCatalogProductPropertiesLoadBalancer",
     "PublicCatalogProductPropertiesManagedInference",
     "PublicCatalogProductPropertiesObjectStorage",
+    "PublicCatalogProductPropertiesSecretManager",
     "PublicCatalogProductEnvironmentalImpactEstimation",
     "PublicCatalogProductLocality",
     "PublicCatalogProductPrice",

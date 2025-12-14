@@ -49,6 +49,7 @@ from .types import (
     Hosting,
     HostingApiAddCustomDomainRequest,
     HostingApiCreateHostingRequest,
+    HostingApiMigrateControlPanelRequest,
     HostingApiRemoveCustomDomainRequest,
     HostingApiUpdateHostingRequest,
     HostingSummary,
@@ -131,6 +132,7 @@ from .marshalling import (
     marshal_FtpAccountApiCreateFtpAccountRequest,
     marshal_HostingApiAddCustomDomainRequest,
     marshal_HostingApiCreateHostingRequest,
+    marshal_HostingApiMigrateControlPanelRequest,
     marshal_HostingApiRemoveCustomDomainRequest,
     marshal_HostingApiUpdateHostingRequest,
     marshal_MailAccountApiChangeMailAccountPasswordRequest,
@@ -2023,6 +2025,54 @@ class WebhostingV1HostingAPI(API):
                 HostingApiRemoveCustomDomainRequest(
                     hosting_id=hosting_id,
                     domain_name=domain_name,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_HostingSummary(res.json())
+
+    def migrate_control_panel(
+        self,
+        *,
+        hosting_id: str,
+        control_panel_name: str,
+        offer_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> HostingSummary:
+        """
+        Migrate a hosting to a new control panel.
+        :param hosting_id: Hosting ID to migrate to a new control panel.
+        :param control_panel_name: Control panel will migrate the hosting to a new server.
+        :param offer_id: Migration.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`HostingSummary <HostingSummary>`
+
+        Usage:
+        ::
+
+            result = api.migrate_control_panel(
+                hosting_id="example",
+                control_panel_name="example",
+                offer_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/migrate-control-panel",
+            body=marshal_HostingApiMigrateControlPanelRequest(
+                HostingApiMigrateControlPanelRequest(
+                    hosting_id=hosting_id,
+                    control_panel_name=control_panel_name,
+                    offer_id=offer_id,
                     region=region,
                 ),
                 self.client,
