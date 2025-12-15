@@ -37,6 +37,7 @@ from .types import (
     Contact,
     ContactExtensionEU,
     ContactExtensionFR,
+    ContactExtensionIT,
     ContactExtensionNL,
     ContactRoles,
     CreateDNSZoneRequest,
@@ -2089,6 +2090,7 @@ class DomainV2Beta1RegistrarAPI(API):
         whois_opt_in: Optional[bool] = None,
         state: Optional[str] = None,
         extension_nl: Optional[ContactExtensionNL] = None,
+        extension_it: Optional[ContactExtensionIT] = None,
     ) -> Contact:
         """
         Update contact.
@@ -2113,6 +2115,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param whois_opt_in:
         :param state:
         :param extension_nl:
+        :param extension_it:
         :return: :class:`Contact <Contact>`
 
         Usage:
@@ -2150,6 +2153,7 @@ class DomainV2Beta1RegistrarAPI(API):
                     whois_opt_in=whois_opt_in,
                     state=state,
                     extension_nl=extension_nl,
+                    extension_it=extension_it,
                 ),
                 self.client,
             ),

@@ -26,6 +26,7 @@ from .types import (
     ContactExtensionFRTrademarkInfo,
     ContactExtensionEU,
     ContactExtensionFR,
+    ContactExtensionIT,
     ContactExtensionNL,
     ContactQuestion,
     Contact,
@@ -301,6 +302,29 @@ def unmarshal_ContactExtensionFR(data: Any) -> ContactExtensionFR:
     return ContactExtensionFR(**args)
 
 
+def unmarshal_ContactExtensionIT(data: Any) -> ContactExtensionIT:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ContactExtensionIT' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("european_citizenship", None)
+    if field is not None:
+        args["european_citizenship"] = field
+    else:
+        args["european_citizenship"] = None
+
+    field = data.get("tax_code", None)
+    if field is not None:
+        args["tax_code"] = field
+    else:
+        args["tax_code"] = None
+
+    return ContactExtensionIT(**args)
+
+
 def unmarshal_ContactExtensionNL(data: Any) -> ContactExtensionNL:
     if not isinstance(data, dict):
         raise TypeError(
@@ -512,6 +536,12 @@ def unmarshal_Contact(data: Any) -> Contact:
         args["extension_nl"] = unmarshal_ContactExtensionNL(field)
     else:
         args["extension_nl"] = None
+
+    field = data.get("extension_it", None)
+    if field is not None:
+        args["extension_it"] = unmarshal_ContactExtensionIT(field)
+    else:
+        args["extension_it"] = None
 
     return Contact(**args)
 
@@ -2974,6 +3004,21 @@ def marshal_ContactExtensionFR(
     return output
 
 
+def marshal_ContactExtensionIT(
+    request: ContactExtensionIT,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.european_citizenship is not None:
+        output["european_citizenship"] = request.european_citizenship
+
+    if request.tax_code is not None:
+        output["tax_code"] = request.tax_code
+
+    return output
+
+
 def marshal_ContactExtensionNL(
     request: ContactExtensionNL,
     defaults: ProfileDefaults,
@@ -3024,12 +3069,6 @@ def marshal_NewContact(
     if request.email is not None:
         output["email"] = request.email
 
-    if request.company_name is not None:
-        output["company_name"] = request.company_name
-
-    if request.email_alt is not None:
-        output["email_alt"] = request.email_alt
-
     if request.phone_number is not None:
         output["phone_number"] = request.phone_number
 
@@ -3042,8 +3081,11 @@ def marshal_NewContact(
     if request.city is not None:
         output["city"] = request.city
 
-    if request.country is not None:
-        output["country"] = request.country
+    if request.company_name is not None:
+        output["company_name"] = request.company_name
+
+    if request.email_alt is not None:
+        output["email_alt"] = request.email_alt
 
     if request.fax_number is not None:
         output["fax_number"] = request.fax_number
@@ -3051,11 +3093,8 @@ def marshal_NewContact(
     if request.address_line_2 is not None:
         output["address_line_2"] = request.address_line_2
 
-    if request.vat_identification_code is not None:
-        output["vat_identification_code"] = request.vat_identification_code
-
-    if request.company_identification_code is not None:
-        output["company_identification_code"] = request.company_identification_code
+    if request.country is not None:
+        output["country"] = request.country
 
     if request.lang is not None:
         output["lang"] = request.lang
@@ -3065,6 +3104,12 @@ def marshal_NewContact(
 
     if request.whois_opt_in is not None:
         output["whois_opt_in"] = request.whois_opt_in
+
+    if request.vat_identification_code is not None:
+        output["vat_identification_code"] = request.vat_identification_code
+
+    if request.company_identification_code is not None:
+        output["company_identification_code"] = request.company_identification_code
 
     if request.questions is not None:
         output["questions"] = [
@@ -3087,6 +3132,11 @@ def marshal_NewContact(
     if request.extension_nl is not None:
         output["extension_nl"] = marshal_ContactExtensionNL(
             request.extension_nl, defaults
+        )
+
+    if request.extension_it is not None:
+        output["extension_it"] = marshal_ContactExtensionIT(
+            request.extension_it, defaults
         )
 
     return output
@@ -3562,6 +3612,11 @@ def marshal_RegistrarApiUpdateContactRequest(
     if request.extension_nl is not None:
         output["extension_nl"] = marshal_ContactExtensionNL(
             request.extension_nl, defaults
+        )
+
+    if request.extension_it is not None:
+        output["extension_it"] = marshal_ContactExtensionIT(
+            request.extension_it, defaults
         )
 
     return output

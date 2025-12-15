@@ -18,12 +18,11 @@ from .content import POOL_TRANSIENT_STATUSES
 from .types import PoolVolumeType
 from .types import Runtime
 from .types import MaintenanceWindow
-from .types import PoolUpgradePolicy
 from .types import CreateClusterRequestPoolConfigUpgradePolicy
 from .types import ClusterAutoUpgrade
 from .types import ClusterAutoscalerConfig
 from .types import ClusterOpenIDConnectConfig
-from .types import Pool
+from .types import PoolUpgradePolicy
 from .types import ACLRuleRequest
 from .types import ACLRule
 from .types import CreateClusterRequestAutoUpgrade
@@ -36,6 +35,7 @@ from .types import ClusterType
 from .types import Version
 from .types import Cluster
 from .types import Node
+from .types import Pool
 from .types import NodeMetadataCoreV1Taint
 from .types import UpdateClusterRequestAutoUpgrade
 from .types import UpdateClusterRequestAutoscalerConfig
@@ -108,12 +108,11 @@ __all__ = [
     "PoolVolumeType",
     "Runtime",
     "MaintenanceWindow",
-    "PoolUpgradePolicy",
     "CreateClusterRequestPoolConfigUpgradePolicy",
     "ClusterAutoUpgrade",
     "ClusterAutoscalerConfig",
     "ClusterOpenIDConnectConfig",
-    "Pool",
+    "PoolUpgradePolicy",
     "ACLRuleRequest",
     "ACLRule",
     "CreateClusterRequestAutoUpgrade",
@@ -126,6 +125,7 @@ __all__ = [
     "Version",
     "Cluster",
     "Node",
+    "Pool",
     "NodeMetadataCoreV1Taint",
     "UpdateClusterRequestAutoUpgrade",
     "UpdateClusterRequestAutoscalerConfig",

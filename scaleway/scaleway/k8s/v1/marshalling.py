@@ -21,8 +21,6 @@ from .types import (
     PoolStatus,
     PoolVolumeType,
     Runtime,
-    PoolUpgradePolicy,
-    Pool,
     Version,
     MaintenanceWindow,
     ClusterAutoUpgrade,
@@ -30,6 +28,8 @@ from .types import (
     ClusterOpenIDConnectConfig,
     Cluster,
     Node,
+    PoolUpgradePolicy,
+    Pool,
     ACLRule,
     AddClusterACLRulesResponse,
     ExternalNodeCoreV1Taint,
@@ -69,190 +69,6 @@ from .types import (
     UpgradeClusterRequest,
     UpgradePoolRequest,
 )
-
-
-def unmarshal_PoolUpgradePolicy(data: Any) -> PoolUpgradePolicy:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'PoolUpgradePolicy' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("max_unavailable", None)
-    if field is not None:
-        args["max_unavailable"] = field
-    else:
-        args["max_unavailable"] = None
-
-    field = data.get("max_surge", None)
-    if field is not None:
-        args["max_surge"] = field
-    else:
-        args["max_surge"] = None
-
-    return PoolUpgradePolicy(**args)
-
-
-def unmarshal_Pool(data: Any) -> Pool:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Pool' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("cluster_id", None)
-    if field is not None:
-        args["cluster_id"] = field
-    else:
-        args["cluster_id"] = None
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-    else:
-        args["name"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = PoolStatus.UNKNOWN
-
-    field = data.get("version", None)
-    if field is not None:
-        args["version"] = field
-    else:
-        args["version"] = None
-
-    field = data.get("node_type", None)
-    if field is not None:
-        args["node_type"] = field
-    else:
-        args["node_type"] = None
-
-    field = data.get("autoscaling", None)
-    if field is not None:
-        args["autoscaling"] = field
-    else:
-        args["autoscaling"] = False
-
-    field = data.get("size", None)
-    if field is not None:
-        args["size"] = field
-    else:
-        args["size"] = None
-
-    field = data.get("min_size", None)
-    if field is not None:
-        args["min_size"] = field
-    else:
-        args["min_size"] = 0
-
-    field = data.get("max_size", None)
-    if field is not None:
-        args["max_size"] = field
-    else:
-        args["max_size"] = 0
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("container_runtime", None)
-    if field is not None:
-        args["container_runtime"] = field
-    else:
-        args["container_runtime"] = Runtime.UNKNOWN_RUNTIME
-
-    field = data.get("autohealing", None)
-    if field is not None:
-        args["autohealing"] = field
-    else:
-        args["autohealing"] = False
-
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-    else:
-        args["tags"] = []
-
-    field = data.get("kubelet_args", None)
-    if field is not None:
-        args["kubelet_args"] = field
-    else:
-        args["kubelet_args"] = {}
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-    else:
-        args["zone"] = None
-
-    field = data.get("root_volume_type", None)
-    if field is not None:
-        args["root_volume_type"] = field
-    else:
-        args["root_volume_type"] = PoolVolumeType.DEFAULT_VOLUME_TYPE
-
-    field = data.get("public_ip_disabled", None)
-    if field is not None:
-        args["public_ip_disabled"] = field
-    else:
-        args["public_ip_disabled"] = False
-
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
-    field = data.get("placement_group_id", None)
-    if field is not None:
-        args["placement_group_id"] = field
-    else:
-        args["placement_group_id"] = None
-
-    field = data.get("upgrade_policy", None)
-    if field is not None:
-        args["upgrade_policy"] = unmarshal_PoolUpgradePolicy(field)
-    else:
-        args["upgrade_policy"] = None
-
-    field = data.get("root_volume_size", None)
-    if field is not None:
-        args["root_volume_size"] = field
-    else:
-        args["root_volume_size"] = 0
-
-    field = data.get("new_images_enabled", None)
-    if field is not None:
-        args["new_images_enabled"] = field
-    else:
-        args["new_images_enabled"] = False
-
-    return Pool(**args)
 
 
 def unmarshal_Version(data: Any) -> Version:
@@ -790,6 +606,190 @@ def unmarshal_Node(data: Any) -> Node:
         args["updated_at"] = None
 
     return Node(**args)
+
+
+def unmarshal_PoolUpgradePolicy(data: Any) -> PoolUpgradePolicy:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PoolUpgradePolicy' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("max_unavailable", None)
+    if field is not None:
+        args["max_unavailable"] = field
+    else:
+        args["max_unavailable"] = None
+
+    field = data.get("max_surge", None)
+    if field is not None:
+        args["max_surge"] = field
+    else:
+        args["max_surge"] = None
+
+    return PoolUpgradePolicy(**args)
+
+
+def unmarshal_Pool(data: Any) -> Pool:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Pool' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("cluster_id", None)
+    if field is not None:
+        args["cluster_id"] = field
+    else:
+        args["cluster_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = PoolStatus.UNKNOWN
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = field
+    else:
+        args["version"] = None
+
+    field = data.get("node_type", None)
+    if field is not None:
+        args["node_type"] = field
+    else:
+        args["node_type"] = None
+
+    field = data.get("autoscaling", None)
+    if field is not None:
+        args["autoscaling"] = field
+    else:
+        args["autoscaling"] = False
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+    else:
+        args["size"] = None
+
+    field = data.get("min_size", None)
+    if field is not None:
+        args["min_size"] = field
+    else:
+        args["min_size"] = 0
+
+    field = data.get("max_size", None)
+    if field is not None:
+        args["max_size"] = field
+    else:
+        args["max_size"] = 0
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("container_runtime", None)
+    if field is not None:
+        args["container_runtime"] = field
+    else:
+        args["container_runtime"] = Runtime.UNKNOWN_RUNTIME
+
+    field = data.get("autohealing", None)
+    if field is not None:
+        args["autohealing"] = field
+    else:
+        args["autohealing"] = False
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
+    field = data.get("kubelet_args", None)
+    if field is not None:
+        args["kubelet_args"] = field
+    else:
+        args["kubelet_args"] = {}
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("root_volume_type", None)
+    if field is not None:
+        args["root_volume_type"] = field
+    else:
+        args["root_volume_type"] = PoolVolumeType.DEFAULT_VOLUME_TYPE
+
+    field = data.get("public_ip_disabled", None)
+    if field is not None:
+        args["public_ip_disabled"] = field
+    else:
+        args["public_ip_disabled"] = False
+
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+    else:
+        args["security_group_id"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("placement_group_id", None)
+    if field is not None:
+        args["placement_group_id"] = field
+    else:
+        args["placement_group_id"] = None
+
+    field = data.get("upgrade_policy", None)
+    if field is not None:
+        args["upgrade_policy"] = unmarshal_PoolUpgradePolicy(field)
+    else:
+        args["upgrade_policy"] = None
+
+    field = data.get("root_volume_size", None)
+    if field is not None:
+        args["root_volume_size"] = field
+    else:
+        args["root_volume_size"] = 0
+
+    field = data.get("new_images_enabled", None)
+    if field is not None:
+        args["new_images_enabled"] = field
+    else:
+        args["new_images_enabled"] = False
+
+    return Pool(**args)
 
 
 def unmarshal_ACLRule(data: Any) -> ACLRule:
