@@ -30,6 +30,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     LOAD_BALANCER = "load_balancer"
     SECRET_MANAGER = "secret_manager"
     KEY_MANAGER = "key_manager"
+    MANAGED_REDIS_DATABASE = "managed_redis_database"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -465,6 +466,11 @@ class PublicCatalogProductPropertiesManagedInference:
 
 
 @dataclass
+class PublicCatalogProductPropertiesManagedRedisDatabase:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesObjectStorage:
     class_: Optional[PublicCatalogProductPropertiesObjectStorageClassType] = None
 
@@ -535,6 +541,10 @@ class PublicCatalogProductProperties:
     load_balancer: Optional[PublicCatalogProductPropertiesLoadBalancer] = None
 
     secret_manager: Optional[PublicCatalogProductPropertiesSecretManager] = None
+
+    managed_redis_database: Optional[
+        PublicCatalogProductPropertiesManagedRedisDatabase
+    ] = None
 
     key_manager: Optional[PublicCatalogProductPropertiesKeyManager] = None
 

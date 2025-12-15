@@ -33,6 +33,7 @@ from .types import PublicCatalogProductPropertiesInstance
 from .types import PublicCatalogProductPropertiesKeyManager
 from .types import PublicCatalogProductPropertiesLoadBalancer
 from .types import PublicCatalogProductPropertiesManagedInference
+from .types import PublicCatalogProductPropertiesManagedRedisDatabase
 from .types import PublicCatalogProductPropertiesObjectStorage
 from .types import PublicCatalogProductPropertiesSecretManager
 from .types import PublicCatalogProductEnvironmentalImpactEstimation
@@ -77,6 +78,7 @@ __all__ = [
     "PublicCatalogProductPropertiesKeyManager",
     "PublicCatalogProductPropertiesLoadBalancer",
     "PublicCatalogProductPropertiesManagedInference",
+    "PublicCatalogProductPropertiesManagedRedisDatabase",
     "PublicCatalogProductPropertiesObjectStorage",
     "PublicCatalogProductPropertiesSecretManager",
     "PublicCatalogProductEnvironmentalImpactEstimation",
