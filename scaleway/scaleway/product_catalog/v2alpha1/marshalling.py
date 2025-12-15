@@ -35,6 +35,7 @@ from .types import (
     PublicCatalogProductPropertiesKeyManager,
     PublicCatalogProductPropertiesLoadBalancer,
     PublicCatalogProductPropertiesManagedInference,
+    PublicCatalogProductPropertiesManagedRedisDatabase,
     PublicCatalogProductPropertiesObjectStorage,
     PublicCatalogProductPropertiesSecretManager,
     PublicCatalogProductEnvironmentalImpactEstimation,
@@ -618,6 +619,19 @@ def unmarshal_PublicCatalogProductPropertiesManagedInference(
     return PublicCatalogProductPropertiesManagedInference(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesManagedRedisDatabase(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedRedisDatabase:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedRedisDatabase' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesManagedRedisDatabase(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesObjectStorage(
     data: Any,
 ) -> PublicCatalogProductPropertiesObjectStorage:
@@ -848,6 +862,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["secret_manager"] = None
+
+    field = data.get("managed_redis_database", None)
+    if field is not None:
+        args["managed_redis_database"] = (
+            unmarshal_PublicCatalogProductPropertiesManagedRedisDatabase(field)
+        )
+    else:
+        args["managed_redis_database"] = None
 
     field = data.get("key_manager", None)
     if field is not None:
