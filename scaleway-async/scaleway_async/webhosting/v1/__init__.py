@@ -100,6 +100,7 @@ from .types import HostingApiDeleteHostingRequest
 from .types import HostingApiGetHostingRequest
 from .types import HostingApiGetResourceSummaryRequest
 from .types import HostingApiListHostingsRequest
+from .types import HostingApiMigrateControlPanelRequest
 from .types import HostingApiRemoveCustomDomainRequest
 from .types import HostingApiResetHostingPasswordRequest
 from .types import HostingApiUpdateHostingRequest
@@ -242,6 +243,7 @@ __all__ = [
     "HostingApiGetHostingRequest",
     "HostingApiGetResourceSummaryRequest",
     "HostingApiListHostingsRequest",
+    "HostingApiMigrateControlPanelRequest",
     "HostingApiRemoveCustomDomainRequest",
     "HostingApiResetHostingPasswordRequest",
     "HostingApiUpdateHostingRequest",

@@ -485,6 +485,11 @@ class PublicCatalogProductPropertiesSecretManager:
 
 
 @dataclass
+class PublicCatalogProductPropertiesSecretManager:
+    pass
+
+
+@dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
     kg_co2_equivalent: Optional[float] = None
     m3_water_usage: Optional[float] = None

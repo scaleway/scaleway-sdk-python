@@ -96,6 +96,7 @@ from .types import (
     CreateHostingRequestDomainConfiguration,
     OfferOptionRequest,
     HostingApiCreateHostingRequest,
+    HostingApiMigrateControlPanelRequest,
     HostingApiRemoveCustomDomainRequest,
     HostingApiUpdateHostingRequest,
     MailAccountApiChangeMailAccountPasswordRequest,
@@ -2070,6 +2071,21 @@ def marshal_HostingApiCreateHostingRequest(
         output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
             request.auto_config_domain_dns, defaults
         )
+
+    return output
+
+
+def marshal_HostingApiMigrateControlPanelRequest(
+    request: HostingApiMigrateControlPanelRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.control_panel_name is not None:
+        output["control_panel_name"] = request.control_panel_name
+
+    if request.offer_id is not None:
+        output["offer_id"] = request.offer_id
 
     return output
 
