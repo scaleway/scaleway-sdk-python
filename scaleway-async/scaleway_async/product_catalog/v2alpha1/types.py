@@ -28,6 +28,8 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     MANAGED_INFERENCE = "managed_inference"
     GENERATIVE_APIS = "generative_apis"
     LOAD_BALANCER = "load_balancer"
+    SECRET_MANAGER = "secret_manager"
+    KEY_MANAGER = "key_manager"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -377,6 +379,11 @@ class PublicCatalogProductPropertiesInstance:
 
 
 @dataclass
+class PublicCatalogProductPropertiesKeyManager:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesLoadBalancer:
     pass
 
@@ -391,6 +398,11 @@ class PublicCatalogProductPropertiesManagedInference:
 
 @dataclass
 class PublicCatalogProductPropertiesObjectStorage:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesSecretManager:
     pass
 
 
@@ -443,6 +455,10 @@ class PublicCatalogProductProperties:
     generative_apis: Optional[PublicCatalogProductPropertiesGenerativeApis] = None
 
     load_balancer: Optional[PublicCatalogProductPropertiesLoadBalancer] = None
+
+    secret_manager: Optional[PublicCatalogProductPropertiesSecretManager] = None
+
+    key_manager: Optional[PublicCatalogProductPropertiesKeyManager] = None
 
 
 @dataclass
