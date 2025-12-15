@@ -53,6 +53,7 @@ from .types import Record
 from .types import RecordIdentifier
 from .types import ContactExtensionEU
 from .types import ContactExtensionFR
+from .types import ContactExtensionIT
 from .types import ContactExtensionNL
 from .types import ContactQuestion
 from .types import TldOffer
@@ -233,6 +234,7 @@ __all__ = [
     "RecordIdentifier",
     "ContactExtensionEU",
     "ContactExtensionFR",
+    "ContactExtensionIT",
     "ContactExtensionNL",
     "ContactQuestion",
     "TldOffer",
