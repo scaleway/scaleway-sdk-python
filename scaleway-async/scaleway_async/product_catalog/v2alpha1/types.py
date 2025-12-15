@@ -85,6 +85,40 @@ class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnum
         return str(self.value)
 
 
+class PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_STORAGE_CLASS = "unknown_storage_class"
+    STANDARD = "standard"
+    GLACIER = "glacier"
+    ONEZONE_IA = "onezone_ia"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_TRAFFIC_TYPE = "unknown_traffic_type"
+    INGRESS = "ingress"
+    EGRESS = "egress"
+    ALLIANCE = "alliance"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PublicCatalogProductPropertiesObjectStorageRestoreTypeRestoreType(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_RESTORE_TYPE = "unknown_restore_type"
+    STANDARD = "standard"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PublicCatalogProductStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     PUBLIC_BETA = "public_beta"
@@ -274,6 +308,40 @@ class PublicCatalogProductPropertiesHardwareStorage:
 
 
 @dataclass
+class PublicCatalogProductPropertiesObjectStorageClassType:
+    storage_class: PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass
+    """
+    The storage class.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesObjectStorageInternetTrafficType:
+    traffic_type: (
+        PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType
+    )
+    """
+    The type of internet traffic.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesObjectStorageRegionTrafficType:
+    region_destination: str
+    """
+    The destination region for the region traffic.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesObjectStorageRestoreType:
+    restore_type: PublicCatalogProductPropertiesObjectStorageRestoreTypeRestoreType
+    """
+    The type of restore.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesAppleSilicon:
     range: str
     """
@@ -398,6 +466,21 @@ class PublicCatalogProductPropertiesManagedInference:
 
 @dataclass
 class PublicCatalogProductPropertiesObjectStorage:
+    class_: Optional[PublicCatalogProductPropertiesObjectStorageClassType] = None
+
+    restore: Optional[PublicCatalogProductPropertiesObjectStorageRestoreType] = None
+
+    internet_traffic: Optional[
+        PublicCatalogProductPropertiesObjectStorageInternetTrafficType
+    ] = None
+
+    region_traffic: Optional[
+        PublicCatalogProductPropertiesObjectStorageRegionTrafficType
+    ] = None
+
+
+@dataclass
+class PublicCatalogProductPropertiesSecretManager:
     pass
 
 

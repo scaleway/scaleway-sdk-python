@@ -10,6 +10,9 @@ from scaleway_core.bridge import (
 from .types import (
     PublicCatalogProductProductBadge,
     PublicCatalogProductPropertiesHardwareCPUArch,
+    PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass,
+    PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType,
+    PublicCatalogProductPropertiesObjectStorageRestoreTypeRestoreType,
     PublicCatalogProductStatus,
     PublicCatalogProductPropertiesHardwareCPUPhysical,
     PublicCatalogProductPropertiesHardwareCPUVirtual,
@@ -18,6 +21,10 @@ from .types import (
     PublicCatalogProductPropertiesHardwareNetwork,
     PublicCatalogProductPropertiesHardwareRAM,
     PublicCatalogProductPropertiesHardwareStorage,
+    PublicCatalogProductPropertiesObjectStorageClassType,
+    PublicCatalogProductPropertiesObjectStorageInternetTrafficType,
+    PublicCatalogProductPropertiesObjectStorageRegionTrafficType,
+    PublicCatalogProductPropertiesObjectStorageRestoreType,
     PublicCatalogProductPropertiesAppleSilicon,
     PublicCatalogProductPropertiesBlockStorage,
     PublicCatalogProductPropertiesDedibox,
@@ -279,6 +286,88 @@ def unmarshal_PublicCatalogProductPropertiesHardwareStorage(
     return PublicCatalogProductPropertiesHardwareStorage(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesObjectStorageClassType(
+    data: Any,
+) -> PublicCatalogProductPropertiesObjectStorageClassType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesObjectStorageClassType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("storage_class", None)
+    if field is not None:
+        args["storage_class"] = field
+    else:
+        args["storage_class"] = (
+            PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass.UNKNOWN_STORAGE_CLASS
+        )
+
+    return PublicCatalogProductPropertiesObjectStorageClassType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesObjectStorageInternetTrafficType(
+    data: Any,
+) -> PublicCatalogProductPropertiesObjectStorageInternetTrafficType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesObjectStorageInternetTrafficType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("traffic_type", None)
+    if field is not None:
+        args["traffic_type"] = field
+    else:
+        args["traffic_type"] = (
+            PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType.UNKNOWN_TRAFFIC_TYPE
+        )
+
+    return PublicCatalogProductPropertiesObjectStorageInternetTrafficType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesObjectStorageRegionTrafficType(
+    data: Any,
+) -> PublicCatalogProductPropertiesObjectStorageRegionTrafficType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesObjectStorageRegionTrafficType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("region_destination", None)
+    if field is not None:
+        args["region_destination"] = field
+    else:
+        args["region_destination"] = None
+
+    return PublicCatalogProductPropertiesObjectStorageRegionTrafficType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesObjectStorageRestoreType(
+    data: Any,
+) -> PublicCatalogProductPropertiesObjectStorageRestoreType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesObjectStorageRestoreType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("restore_type", None)
+    if field is not None:
+        args["restore_type"] = field
+    else:
+        args["restore_type"] = (
+            PublicCatalogProductPropertiesObjectStorageRestoreTypeRestoreType.UNKNOWN_RESTORE_TYPE
+        )
+
+    return PublicCatalogProductPropertiesObjectStorageRestoreType(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesAppleSilicon(
     data: Any,
 ) -> PublicCatalogProductPropertiesAppleSilicon:
@@ -538,6 +627,42 @@ def unmarshal_PublicCatalogProductPropertiesObjectStorage(
         )
 
     args: dict[str, Any] = {}
+
+    field = data.get("class", None)
+    if field is not None:
+        args["class_"] = unmarshal_PublicCatalogProductPropertiesObjectStorageClassType(
+            field
+        )
+    else:
+        args["class_"] = None
+
+    field = data.get("restore", None)
+    if field is not None:
+        args["restore"] = (
+            unmarshal_PublicCatalogProductPropertiesObjectStorageRestoreType(field)
+        )
+    else:
+        args["restore"] = None
+
+    field = data.get("internet_traffic", None)
+    if field is not None:
+        args["internet_traffic"] = (
+            unmarshal_PublicCatalogProductPropertiesObjectStorageInternetTrafficType(
+                field
+            )
+        )
+    else:
+        args["internet_traffic"] = None
+
+    field = data.get("region_traffic", None)
+    if field is not None:
+        args["region_traffic"] = (
+            unmarshal_PublicCatalogProductPropertiesObjectStorageRegionTrafficType(
+                field
+            )
+        )
+    else:
+        args["region_traffic"] = None
 
     return PublicCatalogProductPropertiesObjectStorage(**args)
 
