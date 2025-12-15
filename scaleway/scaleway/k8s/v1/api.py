@@ -73,10 +73,10 @@ from .content import (
     POOL_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    unmarshal_Pool,
     unmarshal_Version,
     unmarshal_Cluster,
     unmarshal_Node,
+    unmarshal_Pool,
     unmarshal_AddClusterACLRulesResponse,
     unmarshal_ExternalNode,
     unmarshal_ExternalNodeAuth,
