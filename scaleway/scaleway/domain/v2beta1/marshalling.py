@@ -310,12 +310,6 @@ def unmarshal_ContactExtensionIT(data: Any) -> ContactExtensionIT:
 
     args: dict[str, Any] = {}
 
-    field = data.get("pin", None)
-    if field is not None:
-        args["pin"] = field
-    else:
-        args["pin"] = None
-
     field = data.get("european_citizenship", None)
     if field is not None:
         args["european_citizenship"] = field
@@ -3015,9 +3009,6 @@ def marshal_ContactExtensionIT(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
-
-    if request.pin is not None:
-        output["pin"] = request.pin
 
     if request.european_citizenship is not None:
         output["european_citizenship"] = request.european_citizenship
