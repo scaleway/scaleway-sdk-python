@@ -517,8 +517,9 @@ class ContactExtensionFR:
 
 @dataclass
 class ContactExtensionIT:
-    european_citizenship: str
-    tax_code: str
+    pin: str
+    european_citizenship: Optional[str] = None
+    tax_code: Optional[str] = None
 
 
 @dataclass
