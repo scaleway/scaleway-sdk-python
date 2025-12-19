@@ -377,6 +377,28 @@ def unmarshal_Volume(data: Any) -> Volume:
     else:
         args["project"] = None
 
+    field = data.get("export_uri", None)
+    if field is not None:
+        args["export_uri"] = field
+    else:
+        args["export_uri"] = None
+
+    field = data.get("creation_date", None)
+    if field is not None:
+        args["creation_date"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["creation_date"] = None
+
+    field = data.get("modification_date", None)
+    if field is not None:
+        args["modification_date"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["modification_date"] = None
+
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -394,22 +416,6 @@ def unmarshal_Volume(data: Any) -> Volume:
         args["zone"] = field
     else:
         args["zone"] = None
-
-    field = data.get("creation_date", None)
-    if field is not None:
-        args["creation_date"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["creation_date"] = None
-
-    field = data.get("modification_date", None)
-    if field is not None:
-        args["modification_date"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["modification_date"] = None
 
     field = data.get("server", None)
     if field is not None:
@@ -4024,6 +4030,15 @@ def marshal_Volume(
     else:
         output["project"] = defaults.default_project_id
 
+    if request.export_uri is not None:
+        output["export_uri"] = request.export_uri
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date.isoformat()
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date.isoformat()
+
     if request.tags is not None:
         output["tags"] = request.tags
 
@@ -4034,12 +4049,6 @@ def marshal_Volume(
         output["zone"] = request.zone
     else:
         output["zone"] = defaults.default_zone
-
-    if request.creation_date is not None:
-        output["creation_date"] = request.creation_date.isoformat()
-
-    if request.modification_date is not None:
-        output["modification_date"] = request.modification_date.isoformat()
 
     if request.server is not None:
         output["server"] = marshal_ServerSummary(request.server, defaults)
