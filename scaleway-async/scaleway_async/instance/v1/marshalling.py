@@ -1016,36 +1016,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["protected"] = False
 
-    field = data.get("routed_ip_enabled", None)
-    if field is not None:
-        args["routed_ip_enabled"] = field
-    else:
-        args["routed_ip_enabled"] = False
-
-    field = data.get("enable_ipv6", None)
-    if field is not None:
-        args["enable_ipv6"] = field
-    else:
-        args["enable_ipv6"] = False
-
-    field = data.get("image", None)
-    if field is not None:
-        args["image"] = unmarshal_Image(field)
-    else:
-        args["image"] = None
-
-    field = data.get("private_ip", None)
-    if field is not None:
-        args["private_ip"] = field
-    else:
-        args["private_ip"] = None
-
-    field = data.get("public_ip", None)
-    if field is not None:
-        args["public_ip"] = unmarshal_ServerIp(field)
-    else:
-        args["public_ip"] = None
-
     field = data.get("public_ips", None)
     if field is not None:
         args["public_ips"] = (
@@ -1104,6 +1074,66 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["arch"] = Arch.UNKNOWN_ARCH
 
+    field = data.get("private_nics", None)
+    if field is not None:
+        args["private_nics"] = (
+            [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
+        )
+    else:
+        args["private_nics"] = []
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("filesystems", None)
+    if field is not None:
+        args["filesystems"] = (
+            [unmarshal_ServerFilesystem(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["filesystems"] = []
+
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+    else:
+        args["end_of_service"] = False
+
+    field = data.get("routed_ip_enabled", None)
+    if field is not None:
+        args["routed_ip_enabled"] = field
+    else:
+        args["routed_ip_enabled"] = False
+
+    field = data.get("enable_ipv6", None)
+    if field is not None:
+        args["enable_ipv6"] = field
+    else:
+        args["enable_ipv6"] = False
+
+    field = data.get("image", None)
+    if field is not None:
+        args["image"] = unmarshal_Image(field)
+    else:
+        args["image"] = None
+
+    field = data.get("private_ip", None)
+    if field is not None:
+        args["private_ip"] = field
+    else:
+        args["private_ip"] = None
+
+    field = data.get("public_ip", None)
+    if field is not None:
+        args["public_ip"] = unmarshal_ServerIp(field)
+    else:
+        args["public_ip"] = None
+
     field = data.get("modification_date", None)
     if field is not None:
         args["modification_date"] = (
@@ -1136,36 +1166,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["placement_group"] = None
 
-    field = data.get("private_nics", None)
-    if field is not None:
-        args["private_nics"] = (
-            [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
-        )
-    else:
-        args["private_nics"] = []
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-    else:
-        args["zone"] = None
-
-    field = data.get("filesystems", None)
-    if field is not None:
-        args["filesystems"] = (
-            [unmarshal_ServerFilesystem(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["filesystems"] = []
-
-    field = data.get("end_of_service", None)
-    if field is not None:
-        args["end_of_service"] = field
-    else:
-        args["end_of_service"] = False
-
     field = data.get("admin_password_encryption_ssh_key_id", None)
     if field is not None:
         args["admin_password_encryption_ssh_key_id"] = field
@@ -1177,6 +1177,12 @@ def unmarshal_Server(data: Any) -> Server:
         args["admin_password_encrypted_value"] = field
     else:
         args["admin_password_encrypted_value"] = None
+
+    field = data.get("dns", None)
+    if field is not None:
+        args["dns"] = field
+    else:
+        args["dns"] = None
 
     return Server(**args)
 

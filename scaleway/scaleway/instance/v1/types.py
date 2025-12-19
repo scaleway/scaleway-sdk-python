@@ -939,6 +939,11 @@ class Server:
     This value is reset when admin_password_encryption_ssh_key_id is set to an empty string.
     """
 
+    dns: Optional[str] = None
+    """
+    Public DNS of the server.
+    """
+
 
 @dataclass
 class VolumeTemplate:
