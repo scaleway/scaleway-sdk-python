@@ -104,7 +104,6 @@ class PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType(
     UNKNOWN_TRAFFIC_TYPE = "unknown_traffic_type"
     INGRESS = "ingress"
     EGRESS = "egress"
-    ALLIANCE = "alliance"
 
     def __str__(self) -> str:
         return str(self.value)
