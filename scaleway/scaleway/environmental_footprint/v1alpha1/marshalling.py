@@ -221,6 +221,12 @@ def unmarshal_ImpactReportAvailability(data: Any) -> ImpactReportAvailability:
     else:
         args["month_summary_reports"] = None
 
+    field = data.get("yearly_summary_reports", None)
+    if field is not None:
+        args["yearly_summary_reports"] = field
+    else:
+        args["yearly_summary_reports"] = None
+
     return ImpactReportAvailability(**args)
 
 

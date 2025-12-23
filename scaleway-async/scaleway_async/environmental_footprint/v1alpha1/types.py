@@ -170,6 +170,11 @@ class ImpactReportAvailability:
     The list of calendar months for which impact reports are available.
     """
 
+    yearly_summary_reports: list[datetime]
+    """
+    The list of calendar years for which impact reports are available.
+    """
+
 
 @dataclass
 class UserApiDownloadImpactReportRequest:
