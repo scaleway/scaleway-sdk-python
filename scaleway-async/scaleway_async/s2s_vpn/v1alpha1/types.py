@@ -361,6 +361,11 @@ class CustomerGateway:
     AS Number of the customer gateway.
     """
 
+    region: ScwRegion
+    """
+    Region of the customer gateway.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date of the customer gateway.
