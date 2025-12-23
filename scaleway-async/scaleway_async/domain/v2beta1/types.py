@@ -518,8 +518,24 @@ class ContactExtensionFR:
 @dataclass
 class ContactExtensionIT:
     pin: str
+    """
+    Domain name registrant's Taxcode (mandatory / only optional when the trustee is used)
+
+If the requester:
+* is an Italian natural person it contains his/her Codice Fiscale (16 characters format).
+* For others than residents of IT it can contain a document number. (ID Card).
+* In all other cases it must be equal to VAT number (in the 16 characters format if nationality is IT) or the numeric Codice Fiscale.
+    """
+
     european_citizenship: Optional[str] = None
+    """
+    This option is useless anymore.
+    """
+
     tax_code: Optional[str] = None
+    """
+    Tax_code is renamed to pin.
+    """
 
 
 @dataclass
