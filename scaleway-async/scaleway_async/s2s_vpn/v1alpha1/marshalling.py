@@ -317,6 +317,12 @@ def unmarshal_CustomerGateway(data: Any) -> CustomerGateway:
     else:
         args["asn"] = 0
 
+    field = data.get("connection_ids", None)
+    if field is not None:
+        args["connection_ids"] = field
+    else:
+        args["connection_ids"] = []
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -546,6 +552,12 @@ def unmarshal_VpnGateway(data: Any) -> VpnGateway:
         args["asn"] = field
     else:
         args["asn"] = 0
+
+    field = data.get("connection_ids", None)
+    if field is not None:
+        args["connection_ids"] = field
+    else:
+        args["connection_ids"] = []
 
     field = data.get("zone", None)
     if field is not None:
