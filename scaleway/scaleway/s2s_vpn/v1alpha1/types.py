@@ -361,6 +361,11 @@ class CustomerGateway:
     AS Number of the customer gateway.
     """
 
+    connection_ids: list[str]
+    """
+    List of connection ids of the customer gateway.
+    """
+
     region: ScwRegion
     """
     Region of the customer gateway.
@@ -512,6 +517,11 @@ class VpnGateway:
     asn: int
     """
     Autonomous System Number (ASN) of the VPN gateway, used by Border Gateway Protocol (BGP) to exchange routing information with the customer gateway.
+    """
+
+    connection_ids: list[str]
+    """
+    List of connection ids of the VPN gateway.
     """
 
     zone: ScwZone
