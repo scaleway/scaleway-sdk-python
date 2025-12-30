@@ -51,6 +51,9 @@ from .types import (
     LoadBalancerRouteInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
+    VpcPrivateNetworkInfo,
+    VpcRouteInfo,
+    VpcSubnetInfo,
     Resource,
     AuthenticationEvent,
     ListAuthenticationEventsResponse,
@@ -841,6 +844,87 @@ def unmarshal_SecretManagerSecretVersionInfo(
     return SecretManagerSecretVersionInfo(**args)
 
 
+def unmarshal_VpcPrivateNetworkInfo(data: Any) -> VpcPrivateNetworkInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcPrivateNetworkInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("push_default_route", None)
+    if field is not None:
+        args["push_default_route"] = field
+    else:
+        args["push_default_route"] = None
+
+    return VpcPrivateNetworkInfo(**args)
+
+
+def unmarshal_VpcRouteInfo(data: Any) -> VpcRouteInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcRouteInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("destination", None)
+    if field is not None:
+        args["destination"] = field
+    else:
+        args["destination"] = None
+
+    field = data.get("nexthop_resource_key", None)
+    if field is not None:
+        args["nexthop_resource_key"] = field
+    else:
+        args["nexthop_resource_key"] = None
+
+    field = data.get("nexthop_private_network_key", None)
+    if field is not None:
+        args["nexthop_private_network_key"] = field
+    else:
+        args["nexthop_private_network_key"] = None
+
+    return VpcRouteInfo(**args)
+
+
+def unmarshal_VpcSubnetInfo(data: Any) -> VpcSubnetInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcSubnetInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("subnet_cidr", None)
+    if field is not None:
+        args["subnet_cidr"] = field
+    else:
+        args["subnet_cidr"] = None
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    return VpcSubnetInfo(**args)
+
+
 def unmarshal_Resource(data: Any) -> Resource:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1110,6 +1194,24 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["account_contract_signature_info"] = None
+
+    field = data.get("vpc_subnet_info", None)
+    if field is not None:
+        args["vpc_subnet_info"] = unmarshal_VpcSubnetInfo(field)
+    else:
+        args["vpc_subnet_info"] = None
+
+    field = data.get("vpc_route_info", None)
+    if field is not None:
+        args["vpc_route_info"] = unmarshal_VpcRouteInfo(field)
+    else:
+        args["vpc_route_info"] = None
+
+    field = data.get("vpc_private_network_info", None)
+    if field is not None:
+        args["vpc_private_network_info"] = unmarshal_VpcPrivateNetworkInfo(field)
+    else:
+        args["vpc_private_network_info"] = None
 
     return Resource(**args)
 
