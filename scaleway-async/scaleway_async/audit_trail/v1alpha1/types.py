@@ -373,6 +373,26 @@ class SecretManagerSecretVersionInfo:
 
 
 @dataclass
+class VpcPrivateNetworkInfo:
+    vpc_id: str
+    push_default_route: bool
+
+
+@dataclass
+class VpcRouteInfo:
+    vpc_id: str
+    destination: str
+    nexthop_resource_key: Optional[str] = None
+    nexthop_private_network_key: Optional[str] = None
+
+
+@dataclass
+class VpcSubnetInfo:
+    subnet_cidr: str
+    vpc_id: str
+
+
+@dataclass
 class Resource:
     id: str
     type_: ResourceType
@@ -449,6 +469,12 @@ class Resource:
     edge_services_backend_stage_info: Optional[EdgeServicesBackendStageInfo] = None
 
     account_contract_signature_info: Optional[AccountContractSignatureInfo] = None
+
+    vpc_subnet_info: Optional[VpcSubnetInfo] = None
+
+    vpc_route_info: Optional[VpcRouteInfo] = None
+
+    vpc_private_network_info: Optional[VpcPrivateNetworkInfo] = None
 
 
 @dataclass
