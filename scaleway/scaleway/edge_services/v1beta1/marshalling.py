@@ -24,6 +24,7 @@ from .types import (
     ScalewayLbBackendConfig,
     ScalewayS3BackendConfig,
     ScalewayServerlessContainerBackendConfig,
+    ScalewayServerlessFunctionBackendConfig,
     BackendStage,
     CacheStage,
     DNSStage,
@@ -213,6 +214,31 @@ def unmarshal_ScalewayServerlessContainerBackendConfig(
     return ScalewayServerlessContainerBackendConfig(**args)
 
 
+def unmarshal_ScalewayServerlessFunctionBackendConfig(
+    data: Any,
+) -> ScalewayServerlessFunctionBackendConfig:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ScalewayServerlessFunctionBackendConfig' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("function_id", None)
+    if field is not None:
+        args["function_id"] = field
+    else:
+        args["function_id"] = None
+
+    return ScalewayServerlessFunctionBackendConfig(**args)
+
+
 def unmarshal_BackendStage(data: Any) -> BackendStage:
     if not isinstance(data, dict):
         raise TypeError(
@@ -264,6 +290,14 @@ def unmarshal_BackendStage(data: Any) -> BackendStage:
         )
     else:
         args["scaleway_serverless_container"] = None
+
+    field = data.get("scaleway_serverless_function", None)
+    if field is not None:
+        args["scaleway_serverless_function"] = (
+            unmarshal_ScalewayServerlessFunctionBackendConfig(field)
+        )
+    else:
+        args["scaleway_serverless_function"] = None
 
     return BackendStage(**args)
 
@@ -1773,6 +1807,23 @@ def marshal_ScalewayServerlessContainerBackendConfig(
     return output
 
 
+def marshal_ScalewayServerlessFunctionBackendConfig(
+    request: ScalewayServerlessFunctionBackendConfig,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.region is not None:
+        output["region"] = request.region
+    else:
+        output["region"] = defaults.default_region
+
+    if request.function_id is not None:
+        output["function_id"] = request.function_id
+
+    return output
+
+
 def marshal_CreateBackendStageRequest(
     request: CreateBackendStageRequest,
     defaults: ProfileDefaults,
@@ -1795,6 +1846,11 @@ def marshal_CreateBackendStageRequest(
                     param="scaleway_serverless_container",
                     value=request.scaleway_serverless_container,
                     marshal_func=marshal_ScalewayServerlessContainerBackendConfig,
+                ),
+                OneOfPossibility(
+                    param="scaleway_serverless_function",
+                    value=request.scaleway_serverless_function,
+                    marshal_func=marshal_ScalewayServerlessFunctionBackendConfig,
                 ),
             ]
         ),
@@ -2135,6 +2191,11 @@ def marshal_UpdateBackendStageRequest(
                     param="scaleway_serverless_container",
                     value=request.scaleway_serverless_container,
                     marshal_func=marshal_ScalewayServerlessContainerBackendConfig,
+                ),
+                OneOfPossibility(
+                    param="scaleway_serverless_function",
+                    value=request.scaleway_serverless_function,
+                    marshal_func=marshal_ScalewayServerlessFunctionBackendConfig,
                 ),
             ]
         ),
