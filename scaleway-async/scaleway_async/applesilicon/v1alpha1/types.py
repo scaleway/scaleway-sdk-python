@@ -560,6 +560,11 @@ class BatchCreateServersRequest:
     Public bandwidth to configure for these servers. This defaults to the minimum bandwidth for the corresponding server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
     """
 
+    enable_kext: bool
+    """
+    Enable kernel extensions in this install of mac OS.
+    """
+
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
@@ -639,6 +644,11 @@ class CreateServerRequest:
     public_bandwidth_bps: int
     """
     Public bandwidth to configure for this server. This defaults to the minimum bandwidth for this server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
+    """
+
+    enable_kext: bool
+    """
+    Enable kernel extensions in this install of mac OS.
     """
 
     zone: Optional[ScwZone] = None
@@ -1051,6 +1061,11 @@ class ReinstallServerRequest:
     server_id: str
     """
     UUID of the server you want to reinstall.
+    """
+
+    enable_kext: bool
+    """
+    Enable kernel extensions in this install of mac OS.
     """
 
     zone: Optional[ScwZone] = None
