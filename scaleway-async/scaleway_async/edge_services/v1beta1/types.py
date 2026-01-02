@@ -349,6 +349,16 @@ class ScalewayServerlessContainerBackendConfig:
 
 
 @dataclass
+class ScalewayServerlessFunctionBackendConfig:
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    function_id: str
+
+
+@dataclass
 class PipelineError:
     stage: PipelineErrorStage
     code: PipelineErrorCode
@@ -412,6 +422,10 @@ class BackendStage:
     scaleway_serverless_container: Optional[
         ScalewayServerlessContainerBackendConfig
     ] = None
+
+    scaleway_serverless_function: Optional[ScalewayServerlessFunctionBackendConfig] = (
+        None
+    )
 
 
 @dataclass
@@ -867,6 +881,10 @@ class CreateBackendStageRequest:
     scaleway_serverless_container: Optional[
         ScalewayServerlessContainerBackendConfig
     ] = None
+
+    scaleway_serverless_function: Optional[ScalewayServerlessFunctionBackendConfig] = (
+        None
+    )
 
 
 @dataclass
@@ -1737,6 +1755,10 @@ class UpdateBackendStageRequest:
     scaleway_serverless_container: Optional[
         ScalewayServerlessContainerBackendConfig
     ] = None
+
+    scaleway_serverless_function: Optional[ScalewayServerlessFunctionBackendConfig] = (
+        None
+    )
 
 
 @dataclass
