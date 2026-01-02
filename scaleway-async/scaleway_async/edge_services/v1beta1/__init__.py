@@ -31,6 +31,7 @@ from .types import RuleHttpMatchPathFilter
 from .types import ScalewayLbBackendConfig
 from .types import ScalewayS3BackendConfig
 from .types import ScalewayServerlessContainerBackendConfig
+from .types import ScalewayServerlessFunctionBackendConfig
 from .types import PipelineError
 from .types import TLSSecret
 from .types import RuleHttpMatch
@@ -162,6 +163,7 @@ __all__ = [
     "ScalewayLbBackendConfig",
     "ScalewayS3BackendConfig",
     "ScalewayServerlessContainerBackendConfig",
+    "ScalewayServerlessFunctionBackendConfig",
     "PipelineError",
     "TLSSecret",
     "RuleHttpMatch",
