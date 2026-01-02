@@ -1107,6 +1107,9 @@ def marshal_BatchCreateServersRequest(
     if request.public_bandwidth_bps is not None:
         output["public_bandwidth_bps"] = request.public_bandwidth_bps
 
+    if request.enable_kext is not None:
+        output["enable_kext"] = request.enable_kext
+
     if request.project_id is not None:
         output["project_id"] = request.project_id
     else:
@@ -1260,6 +1263,9 @@ def marshal_CreateServerRequest(
     if request.public_bandwidth_bps is not None:
         output["public_bandwidth_bps"] = request.public_bandwidth_bps
 
+    if request.enable_kext is not None:
+        output["enable_kext"] = request.enable_kext
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -1321,6 +1327,9 @@ def marshal_ReinstallServerRequest(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
+
+    if request.enable_kext is not None:
+        output["enable_kext"] = request.enable_kext
 
     if request.os_id is not None:
         output["os_id"] = request.os_id

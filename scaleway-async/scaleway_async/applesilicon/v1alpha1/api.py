@@ -149,6 +149,7 @@ class ApplesiliconV1Alpha1API(API):
         type_: str,
         enable_vpc: bool,
         public_bandwidth_bps: int,
+        enable_kext: bool,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -163,6 +164,7 @@ class ApplesiliconV1Alpha1API(API):
         :param type_: Create a server of the given type.
         :param enable_vpc: Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
         :param public_bandwidth_bps: Public bandwidth to configure for this server. This defaults to the minimum bandwidth for this server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
+        :param enable_kext: Enable kernel extensions in this install of mac OS.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Create a server with this given name.
         :param project_id: Create a server in the given project ID.
@@ -179,6 +181,7 @@ class ApplesiliconV1Alpha1API(API):
                 type="example",
                 enable_vpc=False,
                 public_bandwidth_bps=1,
+                enable_kext=False,
             )
         """
 
@@ -192,6 +195,7 @@ class ApplesiliconV1Alpha1API(API):
                     type_=type_,
                     enable_vpc=enable_vpc,
                     public_bandwidth_bps=public_bandwidth_bps,
+                    enable_kext=enable_kext,
                     zone=zone,
                     name=name or random_name(prefix="as"),
                     project_id=project_id,
@@ -213,6 +217,7 @@ class ApplesiliconV1Alpha1API(API):
         type_: str,
         enable_vpc: bool,
         public_bandwidth_bps: int,
+        enable_kext: bool,
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         os_id: Optional[str] = None,
@@ -227,6 +232,7 @@ class ApplesiliconV1Alpha1API(API):
         :param type_: Create servers of the given type.
         :param enable_vpc: Activate the Private Network feature for these servers. This feature is configured through the Apple Silicon - Private Networks API.
         :param public_bandwidth_bps: Public bandwidth to configure for these servers. This defaults to the minimum bandwidth for the corresponding server type. For compatible server types, the bandwidth can be increased which incurs additional costs.
+        :param enable_kext: Enable kernel extensions in this install of mac OS.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Create servers in the given project ID.
         :param os_id: Create servers & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
@@ -241,6 +247,7 @@ class ApplesiliconV1Alpha1API(API):
                 type="example",
                 enable_vpc=False,
                 public_bandwidth_bps=1,
+                enable_kext=False,
             )
         """
 
@@ -254,6 +261,7 @@ class ApplesiliconV1Alpha1API(API):
                     type_=type_,
                     enable_vpc=enable_vpc,
                     public_bandwidth_bps=public_bandwidth_bps,
+                    enable_kext=enable_kext,
                     zone=zone,
                     project_id=project_id,
                     os_id=os_id,
@@ -657,6 +665,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
+        enable_kext: bool,
         zone: Optional[ScwZone] = None,
         os_id: Optional[str] = None,
     ) -> Server:
@@ -664,6 +673,7 @@ class ApplesiliconV1Alpha1API(API):
         Reinstall a server.
         Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the default configuration values of the image (OS).
         :param server_id: UUID of the server you want to reinstall.
+        :param enable_kext: Enable kernel extensions in this install of mac OS.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param os_id: Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
         :return: :class:`Server <Server>`
@@ -673,6 +683,7 @@ class ApplesiliconV1Alpha1API(API):
 
             result = await api.reinstall_server(
                 server_id="example",
+                enable_kext=False,
             )
         """
 
@@ -685,6 +696,7 @@ class ApplesiliconV1Alpha1API(API):
             body=marshal_ReinstallServerRequest(
                 ReinstallServerRequest(
                     server_id=server_id,
+                    enable_kext=enable_kext,
                     zone=zone,
                     os_id=os_id,
                 ),

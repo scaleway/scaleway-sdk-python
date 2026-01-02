@@ -69,6 +69,7 @@ from .types import (
     ScalewayLbBackendConfig,
     ScalewayS3BackendConfig,
     ScalewayServerlessContainerBackendConfig,
+    ScalewayServerlessFunctionBackendConfig,
     SelectPlanRequest,
     SetHeadStageRequest,
     SetHeadStageRequestAddNewHeadStage,
@@ -1448,17 +1449,22 @@ class EdgeServicesV1Beta1API(API):
         scaleway_serverless_container: Optional[
             ScalewayServerlessContainerBackendConfig
         ] = None,
+        scaleway_serverless_function: Optional[
+            ScalewayServerlessFunctionBackendConfig
+        ] = None,
     ) -> BackendStage:
         """
         Create backend stage.
         Create a new backend stage. You must specify either a `scaleway_s3` (for a Scaleway Object Storage bucket) or `scaleway_lb` (for a Scaleway Load Balancer) field to configure the origin.
         :param scaleway_s3: Scaleway Object Storage origin bucket (S3) linked to the backend stage.
-        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container' could be set.
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
         :param scaleway_lb: Scaleway Load Balancer origin linked to the backend stage.
-        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container' could be set.
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
         :param pipeline_id: Pipeline ID the Backend stage belongs to.
         :param scaleway_serverless_container:
-        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container' could be set.
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
+        :param scaleway_serverless_function:
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
         :return: :class:`BackendStage <BackendStage>`
 
         Usage:
@@ -1480,6 +1486,7 @@ class EdgeServicesV1Beta1API(API):
                     scaleway_s3=scaleway_s3,
                     scaleway_lb=scaleway_lb,
                     scaleway_serverless_container=scaleway_serverless_container,
+                    scaleway_serverless_function=scaleway_serverless_function,
                 ),
                 self.client,
             ),
@@ -1529,6 +1536,9 @@ class EdgeServicesV1Beta1API(API):
         scaleway_serverless_container: Optional[
             ScalewayServerlessContainerBackendConfig
         ] = None,
+        scaleway_serverless_function: Optional[
+            ScalewayServerlessFunctionBackendConfig
+        ] = None,
     ) -> BackendStage:
         """
         Update backend stage.
@@ -1536,11 +1546,13 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: ID of the backend stage to update.
         :param pipeline_id: Pipeline ID the Backend stage belongs to.
         :param scaleway_s3: Scaleway Object Storage origin bucket (S3) linked to the backend stage.
-        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container' could be set.
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
         :param scaleway_lb: Scaleway Load Balancer origin linked to the backend stage.
-        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container' could be set.
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
         :param scaleway_serverless_container:
-        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container' could be set.
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
+        :param scaleway_serverless_function:
+        One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
         :return: :class:`BackendStage <BackendStage>`
 
         Usage:
@@ -1566,6 +1578,7 @@ class EdgeServicesV1Beta1API(API):
                     scaleway_s3=scaleway_s3,
                     scaleway_lb=scaleway_lb,
                     scaleway_serverless_container=scaleway_serverless_container,
+                    scaleway_serverless_function=scaleway_serverless_function,
                 ),
                 self.client,
             ),
