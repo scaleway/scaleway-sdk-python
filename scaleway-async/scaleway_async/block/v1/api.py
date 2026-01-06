@@ -415,7 +415,6 @@ class BlockV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: When defined, is the new name of the volume.
         :param size: Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
-        Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
         :param tags: List of tags assigned to the volume.
         :param perf_iops: The selected value must be available for the volume's current storage class.
         :return: :class:`Volume <Volume>`
