@@ -14,6 +14,8 @@ CONTAINER_TRANSIENT_STATUSES: list[ContainerStatus] = [
     ContainerStatus.DELETING,
     ContainerStatus.CREATING,
     ContainerStatus.PENDING,
+    ContainerStatus.LOCKING,
+    ContainerStatus.UPGRADING,
 ]
 """
 Lists transient statutes of the enum :class:`ContainerStatus <ContainerStatus>`.
@@ -22,6 +24,9 @@ CRON_TRANSIENT_STATUSES: list[CronStatus] = [
     CronStatus.DELETING,
     CronStatus.CREATING,
     CronStatus.PENDING,
+    CronStatus.LOCKING,
+    CronStatus.UPGRADING,
+    CronStatus.REBALANCING,
 ]
 """
 Lists transient statutes of the enum :class:`CronStatus <CronStatus>`.
@@ -30,6 +35,8 @@ DOMAIN_TRANSIENT_STATUSES: list[DomainStatus] = [
     DomainStatus.DELETING,
     DomainStatus.CREATING,
     DomainStatus.PENDING,
+    DomainStatus.LOCKING,
+    DomainStatus.UPGRADING,
 ]
 """
 Lists transient statutes of the enum :class:`DomainStatus <DomainStatus>`.
@@ -38,6 +45,8 @@ NAMESPACE_TRANSIENT_STATUSES: list[NamespaceStatus] = [
     NamespaceStatus.DELETING,
     NamespaceStatus.CREATING,
     NamespaceStatus.PENDING,
+    NamespaceStatus.LOCKING,
+    NamespaceStatus.UPGRADING,
 ]
 """
 Lists transient statutes of the enum :class:`NamespaceStatus <NamespaceStatus>`.
@@ -53,6 +62,8 @@ TRIGGER_TRANSIENT_STATUSES: list[TriggerStatus] = [
     TriggerStatus.DELETING,
     TriggerStatus.CREATING,
     TriggerStatus.PENDING,
+    TriggerStatus.LOCKING,
+    TriggerStatus.UPGRADING,
 ]
 """
 Lists transient statutes of the enum :class:`TriggerStatus <TriggerStatus>`.
