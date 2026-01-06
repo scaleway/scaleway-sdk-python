@@ -60,6 +60,8 @@ class ContainerStatus(str, Enum, metaclass=StrEnumMeta):
     CREATING = "creating"
     PENDING = "pending"
     CREATED = "created"
+    LOCKING = "locking"
+    UPGRADING = "upgrading"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -73,6 +75,9 @@ class CronStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     CREATING = "creating"
     PENDING = "pending"
+    LOCKING = "locking"
+    UPGRADING = "upgrading"
+    REBALANCING = "rebalancing"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -85,6 +90,9 @@ class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     CREATING = "creating"
     PENDING = "pending"
+    LOCKED = "locked"
+    LOCKING = "locking"
+    UPGRADING = "upgrading"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -152,6 +160,8 @@ class NamespaceStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     CREATING = "creating"
     PENDING = "pending"
+    LOCKING = "locking"
+    UPGRADING = "upgrading"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -186,6 +196,9 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     CREATING = "creating"
     PENDING = "pending"
+    LOCKED = "locked"
+    LOCKING = "locking"
+    UPGRADING = "upgrading"
 
     def __str__(self) -> str:
         return str(self.value)
