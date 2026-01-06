@@ -643,9 +643,9 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         name: str,
+        type_: DataSourceType,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
-        type_: Optional[DataSourceType] = None,
         retention_days: Optional[int] = None,
     ) -> DataSource:
         """
@@ -653,9 +653,9 @@ class CockpitV1RegionalAPI(API):
         You must specify the data source name and type (metrics, logs, traces) upon creation.
         The name of the data source will then be used as reference to name the associated Grafana data source.
         :param name: Data source name.
+        :param type_: Data source type.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project the data source belongs to.
-        :param type_: Data source type.
         :param retention_days: Default values are 31 days for metrics, 7 days for logs and traces.
         :return: :class:`DataSource <DataSource>`
 
@@ -664,6 +664,7 @@ class CockpitV1RegionalAPI(API):
 
             result = api.create_data_source(
                 name="example",
+                type=DataSourceType.unknown_type,
             )
         """
 
@@ -677,9 +678,9 @@ class CockpitV1RegionalAPI(API):
             body=marshal_RegionalApiCreateDataSourceRequest(
                 RegionalApiCreateDataSourceRequest(
                     name=name,
+                    type_=type_,
                     region=region,
                     project_id=project_id,
-                    type_=type_,
                     retention_days=retention_days,
                 ),
                 self.client,
@@ -759,23 +760,23 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListDataSourcesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         origin: Optional[DataSourceOrigin] = None,
         types: Optional[list[DataSourceType]] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListDataSourcesRequestOrderBy] = None,
     ) -> ListDataSourcesResponse:
         """
         List data sources.
         Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Number of data sources to return per page.
-        :param order_by: Sort order for data sources in the response.
         :param project_id: Project ID to filter for, only data sources from this Project will be returned.
         :param origin: Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
         :param types: Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of data sources to return per page.
+        :param order_by: Sort order for data sources in the response.
         :return: :class:`ListDataSourcesResponse <ListDataSourcesResponse>`
 
         Usage:
@@ -808,23 +809,23 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListDataSourcesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         origin: Optional[DataSourceOrigin] = None,
         types: Optional[list[DataSourceType]] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListDataSourcesRequestOrderBy] = None,
     ) -> list[DataSource]:
         """
         List data sources.
         Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Number of data sources to return per page.
-        :param order_by: Sort order for data sources in the response.
         :param project_id: Project ID to filter for, only data sources from this Project will be returned.
         :param origin: Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
         :param types: Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of data sources to return per page.
+        :param order_by: Sort order for data sources in the response.
         :return: :class:`list[DataSource] <list[DataSource]>`
 
         Usage:
@@ -839,12 +840,12 @@ class CockpitV1RegionalAPI(API):
             fetcher=self.list_data_sources,
             args={
                 "region": region,
-                "page": page,
-                "page_size": page_size,
-                "order_by": order_by,
                 "project_id": project_id,
                 "origin": origin,
                 "types": types,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
             },
         )
 
@@ -983,22 +984,22 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        token_scopes: Optional[list[TokenScope]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
-        project_id: Optional[str] = None,
-        token_scopes: Optional[list[TokenScope]] = None,
     ) -> ListTokensResponse:
         """
         List tokens.
         Retrieve a list of all tokens in the specified region. By default, tokens returned in the list are ordered by creation date, in ascending order.
         You can filter tokens by Project ID and token scopes.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project the tokens belong to.
+        :param token_scopes: Token scopes to filter for.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of tokens to return per page.
         :param order_by: Order in which to return results.
-        :param project_id: ID of the Project the tokens belong to.
-        :param token_scopes: Token scopes to filter for.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
 
         Usage:
@@ -1030,22 +1031,22 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        token_scopes: Optional[list[TokenScope]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
-        project_id: Optional[str] = None,
-        token_scopes: Optional[list[TokenScope]] = None,
     ) -> list[Token]:
         """
         List tokens.
         Retrieve a list of all tokens in the specified region. By default, tokens returned in the list are ordered by creation date, in ascending order.
         You can filter tokens by Project ID and token scopes.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project the tokens belong to.
+        :param token_scopes: Token scopes to filter for.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of tokens to return per page.
         :param order_by: Order in which to return results.
-        :param project_id: ID of the Project the tokens belong to.
-        :param token_scopes: Token scopes to filter for.
         :return: :class:`list[Token] <list[Token]>`
 
         Usage:
@@ -1060,11 +1061,11 @@ class CockpitV1RegionalAPI(API):
             fetcher=self.list_tokens,
             args={
                 "region": region,
+                "project_id": project_id,
+                "token_scopes": token_scopes,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
-                "token_scopes": token_scopes,
             },
         )
 
@@ -1143,7 +1144,10 @@ class CockpitV1RegionalAPI(API):
         order_by: Optional[ListProductsRequestOrderBy] = None,
     ) -> ListProductsResponse:
         """
+        List Scaleway products.
         List all Scaleway products that send metrics and/or logs to Cockpit.
+        Note that all of those products send at least metrics, but only a subset send logs to Cockpit.
+        For more information, see https://www.scaleway.com/en/docs/cockpit/reference-content/cockpit-product-integration/.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return from the paginated results.
         :param page_size: Number of products to return per page.
@@ -1182,7 +1186,10 @@ class CockpitV1RegionalAPI(API):
         order_by: Optional[ListProductsRequestOrderBy] = None,
     ) -> list[Product]:
         """
+        List Scaleway products.
         List all Scaleway products that send metrics and/or logs to Cockpit.
+        Note that all of those products send at least metrics, but only a subset send logs to Cockpit.
+        For more information, see https://www.scaleway.com/en/docs/cockpit/reference-content/cockpit-product-integration/.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return from the paginated results.
         :param page_size: Number of products to return per page.
@@ -1403,17 +1410,17 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        project_id: Optional[str] = None,
     ) -> ListContactPointsResponse:
         """
         List contact points.
         Retrieve a list of contact points for the specified Project. The response lists all contact points and receivers created in Grafana or via the API.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project containing the contact points to list.
         :param page: Page number to return, from the paginated results.
         :param page_size: Total count of contact points to return per page.
-        :param project_id: ID of the Project containing the contact points to list.
         :return: :class:`ListContactPointsResponse <ListContactPointsResponse>`
 
         Usage:
@@ -1443,17 +1450,17 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        project_id: Optional[str] = None,
     ) -> list[ContactPoint]:
         """
         List contact points.
         Retrieve a list of contact points for the specified Project. The response lists all contact points and receivers created in Grafana or via the API.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project containing the contact points to list.
         :param page: Page number to return, from the paginated results.
         :param page_size: Total count of contact points to return per page.
-        :param project_id: ID of the Project containing the contact points to list.
         :return: :class:`list[ContactPoint] <list[ContactPoint]>`
 
         Usage:
@@ -1468,9 +1475,9 @@ class CockpitV1RegionalAPI(API):
             fetcher=self.list_contact_points,
             args={
                 "region": region,
+                "project_id": project_id,
                 "page": page,
                 "page_size": page_size,
-                "project_id": project_id,
             },
         )
 
