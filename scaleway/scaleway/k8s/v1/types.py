@@ -828,6 +828,11 @@ class Cluster:
     Defines whether ACL is available on the cluster.
     """
 
+    new_images_enabled: Optional[bool] = False
+    """
+    Defines whether all pools are migrated to new images.
+    """
+
 
 @dataclass
 class Node:
@@ -1020,6 +1025,11 @@ class Pool:
     root_volume_size: Optional[int] = 0
     """
     System volume disk size.
+    """
+
+    new_images_enabled: Optional[bool] = False
+    """
+    Defines whether the pool is migrated to new images.
     """
 
 
@@ -1858,6 +1868,17 @@ class ListVersionsResponse:
     """
     Available Kubernetes versions.
     """
+
+
+@dataclass
+class MigratePoolsToNewImagesRequest:
+    cluster_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    pool_ids: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
