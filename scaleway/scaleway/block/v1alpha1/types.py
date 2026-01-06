@@ -759,7 +759,6 @@ class UpdateVolumeRequest:
     size: Optional[int] = 0
     """
     Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
-Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)
