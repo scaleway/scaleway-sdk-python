@@ -1616,6 +1616,9 @@ def marshal_CreateClusterRequestPoolConfig(
     if request.container_runtime is not None:
         output["container_runtime"] = request.container_runtime
 
+    if request.autohealing is not None:
+        output["autohealing"] = request.autohealing
+
     if request.placement_group_id is not None:
         output["placement_group_id"] = request.placement_group_id
 
@@ -1624,9 +1627,6 @@ def marshal_CreateClusterRequestPoolConfig(
 
     if request.max_size is not None:
         output["max_size"] = request.max_size
-
-    if request.autohealing is not None:
-        output["autohealing"] = request.autohealing
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -1644,9 +1644,6 @@ def marshal_CreateClusterRequestPoolConfig(
     if request.root_volume_type is not None:
         output["root_volume_type"] = request.root_volume_type
 
-    if request.public_ip_disabled is not None:
-        output["public_ip_disabled"] = request.public_ip_disabled
-
     if request.upgrade_policy is not None:
         output["upgrade_policy"] = marshal_CreateClusterRequestPoolConfigUpgradePolicy(
             request.upgrade_policy, defaults
@@ -1654,6 +1651,9 @@ def marshal_CreateClusterRequestPoolConfig(
 
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
+
+    if request.public_ip_disabled is not None:
+        output["public_ip_disabled"] = request.public_ip_disabled
 
     if request.security_group_id is not None:
         output["security_group_id"] = request.security_group_id
@@ -1789,17 +1789,17 @@ def marshal_CreatePoolRequest(
     if request.min_size is not None:
         output["min_size"] = request.min_size
 
-    if request.autohealing is not None:
-        output["autohealing"] = request.autohealing
-
-    if request.public_ip_disabled is not None:
-        output["public_ip_disabled"] = request.public_ip_disabled
-
     if request.max_size is not None:
         output["max_size"] = request.max_size
 
     if request.container_runtime is not None:
         output["container_runtime"] = request.container_runtime
+
+    if request.autohealing is not None:
+        output["autohealing"] = request.autohealing
+
+    if request.public_ip_disabled is not None:
+        output["public_ip_disabled"] = request.public_ip_disabled
 
     if request.tags is not None:
         output["tags"] = request.tags
