@@ -1318,6 +1318,11 @@ class ServerType:
     CPU architecture.
     """
 
+    scratch_storage_max_volumes_count: int
+    """
+    Maximum supported number of scratch volumes.
+    """
+
     end_of_service: bool
     """
     True if this Instance type has reached end of service.

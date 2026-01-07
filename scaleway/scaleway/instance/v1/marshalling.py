@@ -2688,12 +2688,6 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     else:
         args["arch"] = Arch.UNKNOWN_ARCH
 
-    field = data.get("end_of_service", None)
-    if field is not None:
-        args["end_of_service"] = field
-    else:
-        args["end_of_service"] = False
-
     field = data.get("per_volume_constraint", None)
     if field is not None:
         args["per_volume_constraint"] = unmarshal_ServerTypeVolumeConstraintsByType(
@@ -2713,6 +2707,18 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["gpu"] = field
     else:
         args["gpu"] = 0
+
+    field = data.get("scratch_storage_max_volumes_count", None)
+    if field is not None:
+        args["scratch_storage_max_volumes_count"] = field
+    else:
+        args["scratch_storage_max_volumes_count"] = 0
+
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+    else:
+        args["end_of_service"] = False
 
     field = data.get("gpu_info", None)
     if field is not None:
