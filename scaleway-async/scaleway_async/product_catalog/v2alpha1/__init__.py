@@ -19,6 +19,9 @@ from .types import PublicCatalogProductPropertiesHardwareGPU
 from .types import PublicCatalogProductPropertiesHardwareNetwork
 from .types import PublicCatalogProductPropertiesHardwareRAM
 from .types import PublicCatalogProductPropertiesHardwareStorage
+from .types import PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType
+from .types import PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType
+from .types import PublicCatalogProductPropertiesKubernetesKosmosNodeType
 from .types import PublicCatalogProductPropertiesObjectStorageClassType
 from .types import PublicCatalogProductPropertiesObjectStorageInternetTrafficType
 from .types import PublicCatalogProductPropertiesObjectStorageRegionTrafficType
@@ -31,6 +34,7 @@ from .types import PublicCatalogProductPropertiesGenerativeApis
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
 from .types import PublicCatalogProductPropertiesKeyManager
+from .types import PublicCatalogProductPropertiesKubernetes
 from .types import PublicCatalogProductPropertiesLoadBalancer
 from .types import PublicCatalogProductPropertiesManagedInference
 from .types import PublicCatalogProductPropertiesManagedRedisDatabase
@@ -64,6 +68,9 @@ __all__ = [
     "PublicCatalogProductPropertiesHardwareNetwork",
     "PublicCatalogProductPropertiesHardwareRAM",
     "PublicCatalogProductPropertiesHardwareStorage",
+    "PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType",
+    "PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType",
+    "PublicCatalogProductPropertiesKubernetesKosmosNodeType",
     "PublicCatalogProductPropertiesObjectStorageClassType",
     "PublicCatalogProductPropertiesObjectStorageInternetTrafficType",
     "PublicCatalogProductPropertiesObjectStorageRegionTrafficType",
@@ -76,6 +83,7 @@ __all__ = [
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
     "PublicCatalogProductPropertiesKeyManager",
+    "PublicCatalogProductPropertiesKubernetes",
     "PublicCatalogProductPropertiesLoadBalancer",
     "PublicCatalogProductPropertiesManagedInference",
     "PublicCatalogProductPropertiesManagedRedisDatabase",

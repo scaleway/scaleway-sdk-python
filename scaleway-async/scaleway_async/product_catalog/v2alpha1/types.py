@@ -31,6 +31,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     SECRET_MANAGER = "secret_manager"
     KEY_MANAGER = "key_manager"
     MANAGED_REDIS_DATABASE = "managed_redis_database"
+    KUBERNETES = "kubernetes"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -308,6 +309,21 @@ class PublicCatalogProductPropertiesHardwareStorage:
 
 
 @dataclass
+class PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesKubernetesKosmosNodeType:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesObjectStorageClassType:
     storage_class: PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass
     """
@@ -452,6 +468,19 @@ class PublicCatalogProductPropertiesKeyManager:
 
 
 @dataclass
+class PublicCatalogProductPropertiesKubernetes:
+    kapsule_control_plane: Optional[
+        PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType
+    ] = None
+
+    kosmos_control_plane: Optional[
+        PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType
+    ] = None
+
+    kosmos_node: Optional[PublicCatalogProductPropertiesKubernetesKosmosNodeType] = None
+
+
+@dataclass
 class PublicCatalogProductPropertiesLoadBalancer:
     pass
 
@@ -546,6 +575,8 @@ class PublicCatalogProductProperties:
     ] = None
 
     key_manager: Optional[PublicCatalogProductPropertiesKeyManager] = None
+
+    kubernetes: Optional[PublicCatalogProductPropertiesKubernetes] = None
 
 
 @dataclass

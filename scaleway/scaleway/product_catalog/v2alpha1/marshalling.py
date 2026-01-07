@@ -21,6 +21,9 @@ from .types import (
     PublicCatalogProductPropertiesHardwareNetwork,
     PublicCatalogProductPropertiesHardwareRAM,
     PublicCatalogProductPropertiesHardwareStorage,
+    PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType,
+    PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType,
+    PublicCatalogProductPropertiesKubernetesKosmosNodeType,
     PublicCatalogProductPropertiesObjectStorageClassType,
     PublicCatalogProductPropertiesObjectStorageInternetTrafficType,
     PublicCatalogProductPropertiesObjectStorageRegionTrafficType,
@@ -33,6 +36,7 @@ from .types import (
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
     PublicCatalogProductPropertiesKeyManager,
+    PublicCatalogProductPropertiesKubernetes,
     PublicCatalogProductPropertiesLoadBalancer,
     PublicCatalogProductPropertiesManagedInference,
     PublicCatalogProductPropertiesManagedRedisDatabase,
@@ -285,6 +289,45 @@ def unmarshal_PublicCatalogProductPropertiesHardwareStorage(
         args["total"] = 0
 
     return PublicCatalogProductPropertiesHardwareStorage(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType(
+    data: Any,
+) -> PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType(
+    data: Any,
+) -> PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesKubernetesKosmosNodeType(
+    data: Any,
+) -> PublicCatalogProductPropertiesKubernetesKosmosNodeType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesKubernetesKosmosNodeType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesKubernetesKosmosNodeType(**args)
 
 
 def unmarshal_PublicCatalogProductPropertiesObjectStorageClassType(
@@ -587,6 +630,47 @@ def unmarshal_PublicCatalogProductPropertiesKeyManager(
     return PublicCatalogProductPropertiesKeyManager(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesKubernetes(
+    data: Any,
+) -> PublicCatalogProductPropertiesKubernetes:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesKubernetes' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("kapsule_control_plane", None)
+    if field is not None:
+        args["kapsule_control_plane"] = (
+            unmarshal_PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType(
+                field
+            )
+        )
+    else:
+        args["kapsule_control_plane"] = None
+
+    field = data.get("kosmos_control_plane", None)
+    if field is not None:
+        args["kosmos_control_plane"] = (
+            unmarshal_PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType(
+                field
+            )
+        )
+    else:
+        args["kosmos_control_plane"] = None
+
+    field = data.get("kosmos_node", None)
+    if field is not None:
+        args["kosmos_node"] = (
+            unmarshal_PublicCatalogProductPropertiesKubernetesKosmosNodeType(field)
+        )
+    else:
+        args["kosmos_node"] = None
+
+    return PublicCatalogProductPropertiesKubernetes(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesLoadBalancer(
     data: Any,
 ) -> PublicCatalogProductPropertiesLoadBalancer:
@@ -876,6 +960,12 @@ def unmarshal_PublicCatalogProductProperties(
         args["key_manager"] = unmarshal_PublicCatalogProductPropertiesKeyManager(field)
     else:
         args["key_manager"] = None
+
+    field = data.get("kubernetes", None)
+    if field is not None:
+        args["kubernetes"] = unmarshal_PublicCatalogProductPropertiesKubernetes(field)
+    else:
+        args["kubernetes"] = None
 
     return PublicCatalogProductProperties(**args)
 
