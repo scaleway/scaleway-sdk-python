@@ -1182,13 +1182,13 @@ def marshal_RegionalApiCreateDataSourceRequest(
     if request.name is not None:
         output["name"] = request.name
 
+    if request.type_ is not None:
+        output["type"] = request.type_
+
     if request.project_id is not None:
         output["project_id"] = request.project_id
     else:
         output["project_id"] = defaults.default_project_id
-
-    if request.type_ is not None:
-        output["type"] = request.type_
 
     if request.retention_days is not None:
         output["retention_days"] = request.retention_days

@@ -1047,6 +1047,11 @@ class RegionalApiCreateDataSourceRequest:
     Data source name.
     """
 
+    type_: DataSourceType
+    """
+    Data source type.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -1055,11 +1060,6 @@ class RegionalApiCreateDataSourceRequest:
     project_id: Optional[str] = None
     """
     ID of the Project the data source belongs to.
-    """
-
-    type_: Optional[DataSourceType] = DataSourceType.UNKNOWN_TYPE
-    """
-    Data source type.
     """
 
     retention_days: Optional[int] = 0
@@ -1387,6 +1387,11 @@ class RegionalApiListContactPointsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    project_id: Optional[str] = None
+    """
+    ID of the Project containing the contact points to list.
+    """
+
     page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
@@ -1395,11 +1400,6 @@ class RegionalApiListContactPointsRequest:
     page_size: Optional[int] = 0
     """
     Total count of contact points to return per page.
-    """
-
-    project_id: Optional[str] = None
-    """
-    ID of the Project containing the contact points to list.
     """
 
 
@@ -1412,6 +1412,21 @@ class RegionalApiListDataSourcesRequest:
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID to filter for, only data sources from this Project will be returned.
+    """
+
+    origin: Optional[DataSourceOrigin] = DataSourceOrigin.UNKNOWN_ORIGIN
+    """
+    Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
+    """
+
+    types: Optional[list[DataSourceType]] = field(default_factory=list)
+    """
+    Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
     """
 
     page: Optional[int] = 0
@@ -1429,21 +1444,6 @@ class RegionalApiListDataSourcesRequest:
     )
     """
     Sort order for data sources in the response.
-    """
-
-    project_id: Optional[str] = None
-    """
-    Project ID to filter for, only data sources from this Project will be returned.
-    """
-
-    origin: Optional[DataSourceOrigin] = DataSourceOrigin.UNKNOWN_ORIGIN
-    """
-    Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned.
-    """
-
-    types: Optional[list[DataSourceType]] = field(default_factory=list)
-    """
-    Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned.
     """
 
 
@@ -1487,6 +1487,16 @@ class RegionalApiListTokensRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    project_id: Optional[str] = None
+    """
+    ID of the Project the tokens belong to.
+    """
+
+    token_scopes: Optional[list[TokenScope]] = field(default_factory=list)
+    """
+    Token scopes to filter for.
+    """
+
     page: Optional[int] = 0
     """
     Page number to return, from the paginated results.
@@ -1502,16 +1512,6 @@ class RegionalApiListTokensRequest:
     )
     """
     Order in which to return results.
-    """
-
-    project_id: Optional[str] = None
-    """
-    ID of the Project the tokens belong to.
-    """
-
-    token_scopes: Optional[list[TokenScope]] = field(default_factory=list)
-    """
-    Token scopes to filter for.
     """
 
 
