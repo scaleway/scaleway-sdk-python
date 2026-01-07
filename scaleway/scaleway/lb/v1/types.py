@@ -77,6 +77,7 @@ class CertificateStatus(str, Enum, metaclass=StrEnumMeta):
 class CertificateType(str, Enum, metaclass=StrEnumMeta):
     LETSENCRYT = "letsencryt"
     CUSTOM = "custom"
+    LETSENCRYPT = "letsencrypt"
 
     def __str__(self) -> str:
         return str(self.value)
