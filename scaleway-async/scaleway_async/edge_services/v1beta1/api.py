@@ -504,6 +504,7 @@ class EdgeServicesV1Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListHeadStagesResponse:
         """
+        List Head stage for your pipeline.
         :param pipeline_id: ID of the pipeline to update.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of head stages to return per page.
@@ -539,6 +540,7 @@ class EdgeServicesV1Beta1API(API):
         page_size: Optional[int] = None,
     ) -> list[ListHeadStagesResponseHeadStage]:
         """
+        List Head stage for your pipeline.
         :param pipeline_id: ID of the pipeline to update.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of head stages to return per page.
