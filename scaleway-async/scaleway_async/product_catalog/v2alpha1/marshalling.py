@@ -1039,6 +1039,18 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
     else:
         args["description"] = None
 
+    field = data.get("locality", None)
+    if field is not None:
+        args["locality"] = unmarshal_PublicCatalogProductLocality(field)
+    else:
+        args["locality"] = None
+
+    field = data.get("price", None)
+    if field is not None:
+        args["price"] = unmarshal_PublicCatalogProductPrice(field)
+    else:
+        args["price"] = None
+
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -1054,18 +1066,6 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
         )
     else:
         args["badges"] = []
-
-    field = data.get("locality", None)
-    if field is not None:
-        args["locality"] = unmarshal_PublicCatalogProductLocality(field)
-    else:
-        args["locality"] = None
-
-    field = data.get("price", None)
-    if field is not None:
-        args["price"] = unmarshal_PublicCatalogProductPrice(field)
-    else:
-        args["price"] = None
 
     field = data.get("properties", None)
     if field is not None:
@@ -1094,6 +1094,22 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
         )
     else:
         args["end_of_life_at"] = None
+
+    field = data.get("end_of_growth_at", None)
+    if field is not None:
+        args["end_of_growth_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["end_of_growth_at"] = None
+
+    field = data.get("end_of_sale_at", None)
+    if field is not None:
+        args["end_of_sale_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["end_of_sale_at"] = None
 
     return PublicCatalogProduct(**args)
 
