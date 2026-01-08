@@ -659,6 +659,16 @@ class PublicCatalogProduct:
     The end of life date of the product.
     """
 
+    end_of_growth_at: Optional[datetime] = None
+    """
+    The end of growth date of the product.
+    """
+
+    end_of_sale_at: Optional[datetime] = None
+    """
+    The end of sale date of the product.
+    """
+
 
 @dataclass
 class ListPublicCatalogProductsResponse:
