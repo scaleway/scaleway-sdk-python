@@ -1,8 +1,4 @@
-"""Scaleway SDK for Python - Async"""
-
-import importlib.metadata
-
-__version__: str = importlib.metadata.version(__name__)
+# scaleway_async/_dependancies.py
 
 from scaleway_core.api import (
     API,
@@ -52,7 +48,5 @@ __all__ = [
     "ServiceInfo",
     "TimeSeriesPoint",
     "TimeSeries",
-    "InstanceV1API",
 ]
 
-from scaleway_async.instance.v1 import InstanceV1API
