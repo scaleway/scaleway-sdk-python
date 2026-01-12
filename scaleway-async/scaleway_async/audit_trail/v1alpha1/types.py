@@ -174,6 +174,12 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     S2S_CUSTOMER_GATEWAY = "s2s_customer_gateway"
     S2S_ROUTING_POLICY = "s2s_routing_policy"
     S2S_CONNECTION = "s2s_connection"
+    VPC_GW_GATEWAY = "vpc_gw_gateway"
+    VPC_GW_GATEWAY_NETWORK = "vpc_gw_gateway_network"
+    VPC_GW_DHCP = "vpc_gw_dhcp"
+    VPC_GW_DHCP_ENTRY = "vpc_gw_dhcp_entry"
+    VPC_GW_PAT_RULE = "vpc_gw_pat_rule"
+    VPC_GW_IP = "vpc_gw_ip"
 
     def __str__(self) -> str:
         return str(self.value)
