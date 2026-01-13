@@ -1979,6 +1979,12 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
     else:
         args["placement_groups_count"] = None
 
+    field = data.get("volumes_scratch_count", None)
+    if field is not None:
+        args["volumes_scratch_count"] = field
+    else:
+        args["volumes_scratch_count"] = None
+
     field = data.get("volumes_b_ssd_count", None)
     if field is not None:
         args["volumes_b_ssd_count"] = field
