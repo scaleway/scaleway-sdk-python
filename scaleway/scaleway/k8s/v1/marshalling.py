@@ -2050,6 +2050,9 @@ def marshal_UpdatePoolRequest(
             request.upgrade_policy, defaults
         )
 
+    if request.security_group_id is not None:
+        output["security_group_id"] = request.security_group_id
+
     return output
 
 
