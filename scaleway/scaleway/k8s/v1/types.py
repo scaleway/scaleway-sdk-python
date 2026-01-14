@@ -2097,6 +2097,11 @@ class UpdatePoolRequest:
     New upgrade policy for the pool.
     """
 
+    security_group_id: Optional[str] = None
+    """
+    Security group ID in which all the nodes of the pool will be moved.
+    """
+
 
 @dataclass
 class UpgradeClusterRequest:

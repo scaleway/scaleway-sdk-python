@@ -1262,6 +1262,7 @@ class K8SV1API(API):
         tags: Optional[list[str]] = None,
         kubelet_args: Optional[dict[str, str]] = None,
         upgrade_policy: Optional[UpdatePoolRequestUpgradePolicy] = None,
+        security_group_id: Optional[str] = None,
     ) -> Pool:
         """
         Update a Pool in a Cluster.
@@ -1276,6 +1277,7 @@ class K8SV1API(API):
         :param tags: New tags associated with the pool.
         :param kubelet_args: New Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: New upgrade policy for the pool.
+        :param security_group_id: Security group ID in which all the nodes of the pool will be moved.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1306,6 +1308,7 @@ class K8SV1API(API):
                     tags=tags,
                     kubelet_args=kubelet_args,
                     upgrade_policy=upgrade_policy,
+                    security_group_id=security_group_id,
                 ),
                 self.client,
             ),
