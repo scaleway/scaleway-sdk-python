@@ -158,6 +158,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListVpnGatewaysRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         statuses: Optional[list[VpnGatewayStatus]] = None,
@@ -172,6 +173,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of VPN gateways to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: VPN gateway name to filter for.
         :param tags: Tags to filter for.
         :param statuses: VPN gateway statuses to filter for.
@@ -196,6 +198,8 @@ class S2SVpnV1Alpha1API(API):
                 "gateway_types": gateway_types,
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "private_network_ids": private_network_ids,
@@ -216,6 +220,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListVpnGatewaysRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         statuses: Optional[list[VpnGatewayStatus]] = None,
@@ -230,6 +235,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of VPN gateways to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: VPN gateway name to filter for.
         :param tags: Tags to filter for.
         :param statuses: VPN gateway statuses to filter for.
@@ -253,6 +259,7 @@ class S2SVpnV1Alpha1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "name": name,
                 "tags": tags,
                 "statuses": statuses,
@@ -487,6 +494,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListConnectionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         statuses: Optional[list[ConnectionStatus]] = None,
@@ -504,6 +512,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of connections to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: Connection name to filter for.
         :param tags: Tags to filter for.
         :param statuses: Connection statuses to filter for.
@@ -532,6 +541,8 @@ class S2SVpnV1Alpha1API(API):
                 "is_ipv6": is_ipv6,
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -554,6 +565,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListConnectionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         statuses: Optional[list[ConnectionStatus]] = None,
@@ -571,6 +583,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of connections to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: Connection name to filter for.
         :param tags: Tags to filter for.
         :param statuses: Connection statuses to filter for.
@@ -597,6 +610,7 @@ class S2SVpnV1Alpha1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "name": name,
                 "tags": tags,
                 "statuses": statuses,
@@ -1020,6 +1034,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListCustomerGatewaysRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> ListCustomerGatewaysResponse:
@@ -1031,6 +1046,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of customer gateways to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: Customer gateway name to filter for.
         :param tags: Tags to filter for.
         :return: :class:`ListCustomerGatewaysResponse <ListCustomerGatewaysResponse>`
@@ -1051,6 +1067,8 @@ class S2SVpnV1Alpha1API(API):
             params={
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -1069,6 +1087,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListCustomerGatewaysRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> list[CustomerGateway]:
@@ -1080,6 +1099,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of customer gateways to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: Customer gateway name to filter for.
         :param tags: Tags to filter for.
         :return: :class:`list[CustomerGateway] <list[CustomerGateway]>`
@@ -1100,6 +1120,7 @@ class S2SVpnV1Alpha1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "name": name,
                 "tags": tags,
             },
@@ -1290,6 +1311,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRoutingPoliciesRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         ipv6: Optional[bool] = None,
@@ -1302,6 +1324,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of routing policies to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: Routing policy name to filter for.
         :param tags: Tags to filter for.
         :param ipv6: Filter for the routing policies based on IP prefixes version.
@@ -1324,6 +1347,8 @@ class S2SVpnV1Alpha1API(API):
                 "ipv6": ipv6,
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -1342,6 +1367,7 @@ class S2SVpnV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListRoutingPoliciesRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         ipv6: Optional[bool] = None,
@@ -1354,6 +1380,7 @@ class S2SVpnV1Alpha1API(API):
         :param page_size: Maximum number of routing policies to return per page.
         :param order_by: Order in which to return results.
         :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
         :param name: Routing policy name to filter for.
         :param tags: Tags to filter for.
         :param ipv6: Filter for the routing policies based on IP prefixes version.
@@ -1375,6 +1402,7 @@ class S2SVpnV1Alpha1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "name": name,
                 "tags": tags,
                 "ipv6": ipv6,
