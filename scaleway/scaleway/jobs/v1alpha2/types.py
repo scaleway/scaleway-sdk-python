@@ -232,7 +232,7 @@ class CreateJobDefinitionRequest:
 
     command: Optional[str] = None
     """
-    Deprecated in favor of startup_command.
+    Deprecated: please use startup_command instead.
     """
 
     startup_command: Optional[list[str]] = field(default_factory=list)
@@ -470,7 +470,7 @@ class StartJobDefinitionRequest:
     command: Optional[str] = None
     """
     If empty or not defined, the image's default command is used.
-Deprecated in favor of startup_command.
+Deprecated: please use startup_command instead.
     """
 
     startup_command: Optional[list[str]] = field(default_factory=list)
@@ -558,7 +558,7 @@ class UpdateJobDefinitionRequest:
 
     command: Optional[str] = None
     """
-    Deprecated in favor of startup_command.
+    Deprecated: please use startup_command instead.
     """
 
     startup_command: Optional[list[str]] = field(default_factory=list)
