@@ -38,6 +38,8 @@ from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import ListVersionsRequest
 from .types import ListVersionsResponse
+from .types import StartDeploymentRequest
+from .types import StopDeploymentRequest
 from .types import UpdateDeploymentRequest
 from .types import UpdateUserRequest
 from .api import DatawarehouseV1Beta1API
@@ -81,6 +83,8 @@ __all__ = [
     "ListUsersResponse",
     "ListVersionsRequest",
     "ListVersionsResponse",
+    "StartDeploymentRequest",
+    "StopDeploymentRequest",
     "UpdateDeploymentRequest",
     "UpdateUserRequest",
     "DatawarehouseV1Beta1API",
