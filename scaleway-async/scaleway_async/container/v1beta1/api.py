@@ -742,7 +742,10 @@ class ContainerV1Beta1API(API):
         :param memory_limit: Memory limit of the container in MB.
         :param cpu_limit: CPU limit of the container in mvCPU.
         :param timeout: Processing time limit for the container.
-        :param redeploy: Defines whether to redeploy failed containers.
+        :param redeploy: Deprecated: future versions of this API will systematically redeploy containers when needed. As such,
+        passing `redeploy: false` will be ignored. Relying on this field is discouraged.
+
+        To force the redeployment of a container, even if no configuration has changed, use the `DeployContainer` method instead.
         :param privacy: Privacy settings of the container.
         :param description: Description of the container.
         :param registry_image: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").

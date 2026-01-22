@@ -464,6 +464,10 @@ class DeleteUserRequest:
 @dataclass
 class GetDeploymentCertificateRequest:
     deployment_id: str
+    """
+    UUID of the deployment.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -660,6 +664,32 @@ class ListVersionsResponse:
     total_count: int
     """
     Total count of deployment version available.
+    """
+
+
+@dataclass
+class StartDeploymentRequest:
+    deployment_id: str
+    """
+    UUID of the deployment.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class StopDeploymentRequest:
+    deployment_id: str
+    """
+    UUID of the deployment.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 

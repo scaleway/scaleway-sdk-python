@@ -58,7 +58,7 @@ from .marshalling import (
 
 class SearchdbV1Alpha1API(API):
     """
-    The SearchDB API allows you to manage your Opensearch resources.
+    The Cloud Essentials for Opensearch API allows you to manage your Opensearch resources.
     """
 
     def create_deployment(
@@ -77,7 +77,7 @@ class SearchdbV1Alpha1API(API):
         endpoints: Optional[list[EndpointSpec]] = None,
     ) -> Deployment:
         """
-        Create a new SearchDB deployment.
+        Create a new Cloud Essentials for OpenSearch deployment.
         :param name: Name of the deployment.
         :param node_amount: Number of nodes.
         :param node_type: Node type.
@@ -139,7 +139,7 @@ class SearchdbV1Alpha1API(API):
         tags: Optional[list[str]] = None,
     ) -> Deployment:
         """
-        Update a SearchDB deployment.
+        Update a Cloud Essentials for OpenSearch deployment.
         :param deployment_id: UUID of the deployment to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the deployment.
@@ -185,7 +185,7 @@ class SearchdbV1Alpha1API(API):
         volume_size_bytes: Optional[int] = None,
     ) -> Deployment:
         """
-        Upgrade a SearchDB deployment.
+        Upgrade a Cloud Essentials for OpenSearch deployment.
         :param deployment_id: UUID of the Deployment to upgrade.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_amount: Amount of node upgrade target.
@@ -231,7 +231,7 @@ class SearchdbV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
     ) -> Deployment:
         """
-        Retrieve a specific SearchDB deployment.
+        Retrieve a specific Cloud Essentials for OpenSearch deployment.
         :param deployment_id: ID of the deployment.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Deployment <Deployment>`
@@ -265,7 +265,7 @@ class SearchdbV1Alpha1API(API):
         options: Optional[WaitForOptions[Deployment, bool]] = None,
     ) -> Deployment:
         """
-        Retrieve a specific SearchDB deployment.
+        Retrieve a specific Cloud Essentials for OpenSearch deployment.
         :param deployment_id: ID of the deployment.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Deployment <Deployment>`
@@ -300,7 +300,7 @@ class SearchdbV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
     ) -> Deployment:
         """
-        Delete a SearchDB deployment.
+        Delete a Cloud Essentials for OpenSearch deployment.
         :param deployment_id: ID of the deployment.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Deployment <Deployment>`
@@ -340,7 +340,7 @@ class SearchdbV1Alpha1API(API):
         version: Optional[str] = None,
     ) -> ListDeploymentsResponse:
         """
-        Retrieve a list of SearchDB deployments.
+        Retrieve a list of Cloud Essentials for OpenSearch deployments.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: ID of the Organization containing the deployments.
         :param project_id: ID of the Project containing the deployments.
@@ -395,7 +395,7 @@ class SearchdbV1Alpha1API(API):
         version: Optional[str] = None,
     ) -> list[Deployment]:
         """
-        Retrieve a list of SearchDB deployments.
+        Retrieve a list of Cloud Essentials for OpenSearch deployments.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: ID of the Organization containing the deployments.
         :param project_id: ID of the Project containing the deployments.
@@ -440,7 +440,7 @@ class SearchdbV1Alpha1API(API):
         version: Optional[str] = None,
     ) -> ListVersionsResponse:
         """
-        List available SearchDB versions.
+        List available Cloud Essentials for OpenSearch versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Define the order of the returned version.
         :param page: The page number to return, form the paginated results.
@@ -482,7 +482,7 @@ class SearchdbV1Alpha1API(API):
         version: Optional[str] = None,
     ) -> list[Version]:
         """
-        List available SearchDB versions.
+        List available Cloud Essentials for OpenSearch versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Define the order of the returned version.
         :param page: The page number to return, form the paginated results.
