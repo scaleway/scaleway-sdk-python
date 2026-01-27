@@ -1534,7 +1534,10 @@ class UpdateContainerRequest:
 
     redeploy: Optional[bool] = False
     """
-    Defines whether to redeploy failed containers.
+    Deprecated: future versions of this API will systematically redeploy containers when needed. As such,
+passing `redeploy: false` will be ignored. Relying on this field is discouraged.
+
+To force the redeployment of a container, even if no configuration has changed, use the `DeployContainer` method instead.
     """
 
     privacy: Optional[ContainerPrivacy] = ContainerPrivacy.UNKNOWN_PRIVACY
