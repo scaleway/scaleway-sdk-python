@@ -595,7 +595,7 @@ class ListDeploymentsResponse:
 @dataclass
 class ListNodeTypesRequest:
     """
-    Retrieve a list of available node types for a SearchDB cluster.
+    Retrieve a list of available node types for a Cloud Essentials for OpenSearch cluster.
     """
 
     region: Optional[ScwRegion] = None
@@ -624,7 +624,7 @@ class ListNodeTypesRequest:
 @dataclass
 class ListNodeTypesResponse:
     """
-    Returns a list of node types available for a SearchDB cluster.
+    Returns a list of node types available for a Cloud Essentials for OpenSearch cluster.
     """
 
     node_types: list[NodeType]

@@ -24,6 +24,7 @@ class ContractType(str, Enum, metaclass=StrEnumMeta):
     CONTAINER = "container"
     BAREMETAL = "baremetal"
     NETWORK = "network"
+    CORE = "core"
 
     def __str__(self) -> str:
         return str(self.value)
