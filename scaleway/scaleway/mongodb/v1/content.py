@@ -3,6 +3,7 @@
 
 from .types import (
     InstanceStatus,
+    MaintenanceStatus,
     SnapshotStatus,
 )
 
@@ -15,6 +16,12 @@ INSTANCE_TRANSIENT_STATUSES: list[InstanceStatus] = [
 ]
 """
 Lists transient statutes of the enum :class:`InstanceStatus <InstanceStatus>`.
+"""
+MAINTENANCE_TRANSIENT_STATUSES: list[MaintenanceStatus] = [
+    MaintenanceStatus.ONGOING,
+]
+"""
+Lists transient statutes of the enum :class:`MaintenanceStatus <MaintenanceStatus>`.
 """
 SNAPSHOT_TRANSIENT_STATUSES: list[SnapshotStatus] = [
     SnapshotStatus.CREATING,

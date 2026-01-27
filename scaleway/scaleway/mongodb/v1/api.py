@@ -20,6 +20,7 @@ from scaleway_core.utils import (
 from .types import (
     ListDatabasesRequestOrderBy,
     ListInstancesRequestOrderBy,
+    ListMaintenancesRequestOrderBy,
     ListSnapshotsRequestOrderBy,
     ListUsersRequestOrderBy,
     VolumeType,
@@ -33,10 +34,12 @@ from .types import (
     Instance,
     ListDatabasesResponse,
     ListInstancesResponse,
+    ListMaintenancesResponse,
     ListNodeTypesResponse,
     ListSnapshotsResponse,
     ListUsersResponse,
     ListVersionsResponse,
+    Maintenance,
     NodeType,
     RestoreSnapshotRequest,
     SetUserRoleRequest,
@@ -52,15 +55,18 @@ from .types import (
 )
 from .content import (
     INSTANCE_TRANSIENT_STATUSES,
+    MAINTENANCE_TRANSIENT_STATUSES,
     SNAPSHOT_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_Endpoint,
     unmarshal_Instance,
+    unmarshal_Maintenance,
     unmarshal_Snapshot,
     unmarshal_User,
     unmarshal_ListDatabasesResponse,
     unmarshal_ListInstancesResponse,
+    unmarshal_ListMaintenancesResponse,
     unmarshal_ListNodeTypesResponse,
     unmarshal_ListSnapshotsResponse,
     unmarshal_ListUsersResponse,
@@ -567,6 +573,7 @@ class MongodbV1API(API):
         instance_id: str,
         region: Optional[ScwRegion] = None,
         volume_size_bytes: Optional[int] = None,
+        version_id: Optional[str] = None,
     ) -> Instance:
         """
         Upgrade a Database Instance.
@@ -574,7 +581,9 @@ class MongodbV1API(API):
         :param instance_id: UUID of the Database Instance you want to upgrade.
         :param region: Region to target. If none is passed will use default region from the config.
         :param volume_size_bytes: Increase your Block Storage volume size.
-        One-Of ('upgrade_target'): at most one of 'volume_size_bytes' could be set.
+        One-Of ('upgrade_target'): at most one of 'volume_size_bytes', 'version_id' could be set.
+        :param version_id:
+        One-Of ('upgrade_target'): at most one of 'volume_size_bytes', 'version_id' could be set.
         :return: :class:`Instance <Instance>`
 
         Usage:
@@ -598,6 +607,7 @@ class MongodbV1API(API):
                     instance_id=instance_id,
                     region=region,
                     volume_size_bytes=volume_size_bytes,
+                    version_id=version_id,
                 ),
                 self.client,
             ),
@@ -1429,3 +1439,189 @@ class MongodbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
+
+    def list_maintenances(
+        self,
+        *,
+        instance_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListMaintenancesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListMaintenancesResponse:
+        """
+        List all the maintenances of a MongoDB® Database Instance.
+        :param instance_id: ID of the instance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Criteria to use when requesting user listing.
+        :param page:
+        :param page_size:
+        :return: :class:`ListMaintenancesResponse <ListMaintenancesResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_maintenances(
+                instance_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/mongodb/v1/regions/{param_region}/maintenances",
+            params={
+                "instance_id": instance_id,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListMaintenancesResponse(res.json())
+
+    def list_maintenances_all(
+        self,
+        *,
+        instance_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListMaintenancesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[Maintenance]:
+        """
+        List all the maintenances of a MongoDB® Database Instance.
+        :param instance_id: ID of the instance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Criteria to use when requesting user listing.
+        :param page:
+        :param page_size:
+        :return: :class:`list[Maintenance] <list[Maintenance]>`
+
+        Usage:
+        ::
+
+            result = api.list_maintenances_all(
+                instance_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListMaintenancesResponse,
+            key="maintenances",
+            fetcher=self.list_maintenances,
+            args={
+                "instance_id": instance_id,
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
+    def get_maintenance(
+        self,
+        *,
+        maintenance_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Maintenance:
+        """
+        Get a maintenance of a MongoDB® Database Instance.
+        :param maintenance_id: ID of the maintenance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Maintenance <Maintenance>`
+
+        Usage:
+        ::
+
+            result = api.get_maintenance(
+                maintenance_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_maintenance_id = validate_path_param("maintenance_id", maintenance_id)
+
+        res = self._request(
+            "GET",
+            f"/mongodb/v1/regions/{param_region}/maintenances/{param_maintenance_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Maintenance(res.json())
+
+    def wait_for_maintenance(
+        self,
+        *,
+        maintenance_id: str,
+        region: Optional[ScwRegion] = None,
+        options: Optional[WaitForOptions[Maintenance, bool]] = None,
+    ) -> Maintenance:
+        """
+        Get a maintenance of a MongoDB® Database Instance.
+        :param maintenance_id: ID of the maintenance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Maintenance <Maintenance>`
+
+        Usage:
+        ::
+
+            result = api.get_maintenance(
+                maintenance_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in MAINTENANCE_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_maintenance,
+            options=options,
+            args={
+                "maintenance_id": maintenance_id,
+                "region": region,
+            },
+        )
+
+    def apply_maintenance(
+        self,
+        *,
+        maintenance_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Maintenance:
+        """
+        Apply a maintenance of a MongoDB® Database Instance.
+        :param maintenance_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Maintenance <Maintenance>`
+
+        Usage:
+        ::
+
+            result = api.apply_maintenance(
+                maintenance_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_maintenance_id = validate_path_param("maintenance_id", maintenance_id)
+
+        res = self._request(
+            "POST",
+            f"/mongodb/v1/regions/{param_region}/maintenances/{param_maintenance_id}/apply",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Maintenance(res.json())
