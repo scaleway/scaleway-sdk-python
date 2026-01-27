@@ -50,6 +50,18 @@ class ListInstancesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListMaintenancesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    STARTS_AT_ASC = "starts_at_asc"
+    STARTS_AT_DESC = "starts_at_desc"
+    STOPS_AT_ASC = "stops_at_asc"
+    STOPS_AT_DESC = "stops_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListSnapshotsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -65,6 +77,26 @@ class ListSnapshotsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class MaintenanceAppliedBy(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_APPLIED_BY = "unknown_applied_by"
+    USER = "user"
+    ADMIN = "admin"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class MaintenanceStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    PLANNED = "planned"
+    DONE = "done"
+    CANCELLED = "cancelled"
+    ONGOING = "ongoing"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -135,6 +167,16 @@ class EndpointPublicNetworkDetails:
 
 
 @dataclass
+class EngineUpgrade:
+    new_version_id: str
+
+
+@dataclass
+class ServiceUpdate:
+    service_name: str
+
+
+@dataclass
 class EndpointSpecPrivateNetworkDetails:
     private_network_id: str
     """
@@ -189,6 +231,13 @@ class Volume:
     """
     Volume size.
     """
+
+
+@dataclass
+class Workflow:
+    engine_upgrade: Optional[EngineUpgrade] = None
+
+    service_update: Optional[ServiceUpdate] = None
 
 
 @dataclass
@@ -313,6 +362,64 @@ class Instance:
     snapshot_schedule: Optional[InstanceSnapshotSchedule] = None
     """
     Snapshot schedule configuration of the Database Instance.
+    """
+
+
+@dataclass
+class Maintenance:
+    id: str
+    """
+    ID of the maintenance.
+    """
+
+    instance_id: str
+    """
+    ID of the instance on which the maintenance is applied.
+    """
+
+    status: MaintenanceStatus
+    """
+    Current status of the maintenance.
+    """
+
+    applied_by: MaintenanceAppliedBy
+    """
+    Usertype who launched the maintenance.
+    """
+
+    reason: str
+    """
+    Reason of the maintenance.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation date of the maintenance.
+    """
+
+    starts_at: Optional[datetime] = None
+    """
+    Start date of the maintenance.
+    """
+
+    stops_at: Optional[datetime] = None
+    """
+    Stop date of the maintenance.
+    """
+
+    forced_at: Optional[datetime] = None
+    """
+    Forced application date of the maintenance.
+    """
+
+    applied_at: Optional[datetime] = None
+    """
+    Application date of the maintenance.
+    """
+
+    workflow: Optional[Workflow] = None
+    """
+    Workflow to be applied during maintenance.
     """
 
 
@@ -450,6 +557,15 @@ class Version:
     end_of_life_at: Optional[datetime] = None
     """
     Date of End of Life.
+    """
+
+
+@dataclass
+class ApplyMaintenanceRequest:
+    maintenance_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -659,6 +775,19 @@ class GetInstanceRequest:
 
 
 @dataclass
+class GetMaintenanceRequest:
+    maintenance_id: str
+    """
+    ID of the maintenance.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetSnapshotRequest:
     snapshot_id: str
     """
@@ -755,6 +884,42 @@ class ListInstancesResponse:
     total_count: int
     """
     Total count of Database Instances available in an Organization or Project.
+    """
+
+
+@dataclass
+class ListMaintenancesRequest:
+    instance_id: str
+    """
+    ID of the instance.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListMaintenancesRequestOrderBy] = (
+        ListMaintenancesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Criteria to use when requesting user listing.
+    """
+
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+
+
+@dataclass
+class ListMaintenancesResponse:
+    maintenances: list[Maintenance]
+    """
+    List of maintenances of a MongoDB© instance.
+    """
+
+    total_count: int
+    """
+    Total count of maintenances of a MongoDB© instance.
     """
 
 
@@ -1055,3 +1220,5 @@ class UpgradeInstanceRequest:
     """
 
     volume_size_bytes: Optional[int] = 0
+
+    version_id: Optional[str] = None
