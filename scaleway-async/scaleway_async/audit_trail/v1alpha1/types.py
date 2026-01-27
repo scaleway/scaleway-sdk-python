@@ -180,6 +180,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     VPC_GW_DHCP_ENTRY = "vpc_gw_dhcp_entry"
     VPC_GW_PAT_RULE = "vpc_gw_pat_rule"
     VPC_GW_IP = "vpc_gw_ip"
+    AUDIT_TRAIL_EXPORT_JOB = "audit_trail_export_job"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -232,6 +233,11 @@ class AccountUserInfo:
 class AppleSiliconServerInfo:
     id: str
     name: str
+
+
+@dataclass
+class AuditTrailExportJobInfo:
+    pass
 
 
 @dataclass
@@ -481,6 +487,8 @@ class Resource:
     vpc_route_info: Optional[VpcRouteInfo] = None
 
     vpc_private_network_info: Optional[VpcPrivateNetworkInfo] = None
+
+    audit_trail_export_job_info: Optional[AuditTrailExportJobInfo] = None
 
 
 @dataclass
