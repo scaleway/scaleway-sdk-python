@@ -932,6 +932,11 @@ class ListConnectionsRequest:
     Project ID to filter for.
     """
 
+    organization_id: Optional[str] = None
+    """
+    Organization ID to filter for.
+    """
+
     name: Optional[str] = None
     """
     Connection name to filter for.
@@ -1015,6 +1020,11 @@ class ListCustomerGatewaysRequest:
     Project ID to filter for.
     """
 
+    organization_id: Optional[str] = None
+    """
+    Organization ID to filter for.
+    """
+
     name: Optional[str] = None
     """
     Customer gateway name to filter for.
@@ -1066,6 +1076,11 @@ class ListRoutingPoliciesRequest:
     project_id: Optional[str] = None
     """
     Project ID to filter for.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    Organization ID to filter for.
     """
 
     name: Optional[str] = None
@@ -1148,6 +1163,11 @@ class ListVpnGatewaysRequest:
     project_id: Optional[str] = None
     """
     Project ID to filter for.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    Organization ID to filter for.
     """
 
     name: Optional[str] = None

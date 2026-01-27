@@ -24,6 +24,7 @@ from .types import (
     AccountProjectInfo,
     AccountUserInfo,
     AppleSiliconServerInfo,
+    AuditTrailExportJobInfo,
     BaremetalServerInfo,
     BaremetalSettingInfo,
     EdgeServicesBackendStageInfo,
@@ -351,6 +352,17 @@ def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
         args["name"] = None
 
     return AppleSiliconServerInfo(**args)
+
+
+def unmarshal_AuditTrailExportJobInfo(data: Any) -> AuditTrailExportJobInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AuditTrailExportJobInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return AuditTrailExportJobInfo(**args)
 
 
 def unmarshal_BaremetalServerInfo(data: Any) -> BaremetalServerInfo:
@@ -1212,6 +1224,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["vpc_private_network_info"] = unmarshal_VpcPrivateNetworkInfo(field)
     else:
         args["vpc_private_network_info"] = None
+
+    field = data.get("audit_trail_export_job_info", None)
+    if field is not None:
+        args["audit_trail_export_job_info"] = unmarshal_AuditTrailExportJobInfo(field)
+    else:
+        args["audit_trail_export_job_info"] = None
 
     return Resource(**args)
 

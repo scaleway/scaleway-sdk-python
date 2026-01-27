@@ -546,7 +546,9 @@ class DatawarehouseV1Beta1API(API):
         region: Optional[ScwRegion] = None,
     ) -> ScwFile:
         """
-        :param deployment_id:
+        Get deployment TLS certificate.
+        Retrieve the TLS certificate associated with a deployment.
+        :param deployment_id: UUID of the deployment.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ScwFile <ScwFile>`
 
@@ -570,6 +572,76 @@ class DatawarehouseV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
+
+    def start_deployment(
+        self,
+        *,
+        deployment_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Deployment:
+        """
+        Start a deployment.
+        Start a stopped deployment.
+        :param deployment_id: UUID of the deployment.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Deployment <Deployment>`
+
+        Usage:
+        ::
+
+            result = api.start_deployment(
+                deployment_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_deployment_id = validate_path_param("deployment_id", deployment_id)
+
+        res = self._request(
+            "POST",
+            f"/datawarehouse/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/start",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Deployment(res.json())
+
+    def stop_deployment(
+        self,
+        *,
+        deployment_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Deployment:
+        """
+        Stop a deployment.
+        Stop a running deployment.
+        :param deployment_id: UUID of the deployment.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Deployment <Deployment>`
+
+        Usage:
+        ::
+
+            result = api.stop_deployment(
+                deployment_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_deployment_id = validate_path_param("deployment_id", deployment_id)
+
+        res = self._request(
+            "POST",
+            f"/datawarehouse/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/stop",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Deployment(res.json())
 
     def list_users(
         self,
