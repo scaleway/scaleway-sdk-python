@@ -87,7 +87,7 @@ class JobsV1Alpha2API(API):
         :param image_uri: Image to use for the job.
         :param name: Name of the job definition.
         :param description: Description of the job.
-        :param command: Deprecated in favor of startup_command.
+        :param command: Deprecated: please use startup_command instead.
         :param startup_command: The main executable or entrypoint script to run.
         If both command and startup_command are provided, only startup_command will be used.
         :param args: Passed to the startup command at runtime.
@@ -289,7 +289,7 @@ class JobsV1Alpha2API(API):
         :param memory_limit: Memory limit of the job (in MiB).
         :param local_storage_capacity: Local storage capacity of the job (in MiB).
         :param image_uri: Image to use for the job.
-        :param command: Deprecated in favor of startup_command.
+        :param command: Deprecated: please use startup_command instead.
         :param startup_command: The main executable or entrypoint script to run.
         If both command and startup_command are provided, only startup_command will be used.
         :param args: Passed to the startup command at runtime.
@@ -391,7 +391,7 @@ class JobsV1Alpha2API(API):
         :param job_definition_id: UUID of the job definition to start.
         :param region: Region to target. If none is passed will use default region from the config.
         :param command: If empty or not defined, the image's default command is used.
-        Deprecated in favor of startup_command.
+        Deprecated: please use startup_command instead.
         :param startup_command: Overrides the default defined in the job image.
         The main executable or entrypoint script to run.
         If both command and startup_command are provided, only startup_command will be used.

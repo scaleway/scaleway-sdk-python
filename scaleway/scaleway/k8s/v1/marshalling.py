@@ -57,7 +57,6 @@ from .types import (
     CreateClusterRequest,
     CreatePoolRequestUpgradePolicy,
     CreatePoolRequest,
-    MigratePoolsToNewImagesRequest,
     SetClusterACLRulesRequest,
     SetClusterTypeRequest,
     UpdateClusterRequestAutoUpgrade,
@@ -510,12 +509,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["acl_available"] = False
 
-    field = data.get("new_images_enabled", None)
-    if field is not None:
-        args["new_images_enabled"] = field
-    else:
-        args["new_images_enabled"] = False
-
     return Cluster(**args)
 
 
@@ -782,12 +775,6 @@ def unmarshal_Pool(data: Any) -> Pool:
         args["root_volume_size"] = field
     else:
         args["root_volume_size"] = 0
-
-    field = data.get("new_images_enabled", None)
-    if field is not None:
-        args["new_images_enabled"] = field
-    else:
-        args["new_images_enabled"] = False
 
     return Pool(**args)
 
@@ -1827,18 +1814,6 @@ def marshal_CreatePoolRequest(
 
     if request.security_group_id is not None:
         output["security_group_id"] = request.security_group_id
-
-    return output
-
-
-def marshal_MigratePoolsToNewImagesRequest(
-    request: MigratePoolsToNewImagesRequest,
-    defaults: ProfileDefaults,
-) -> dict[str, Any]:
-    output: dict[str, Any] = {}
-
-    if request.pool_ids is not None:
-        output["pool_ids"] = request.pool_ids
 
     return output
 
