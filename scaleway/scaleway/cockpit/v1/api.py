@@ -8,8 +8,10 @@ from scaleway_core.bridge import (
     Region as ScwRegion,
 )
 from scaleway_core.utils import (
+    WaitForOptions,
     validate_path_param,
     fetch_all_pages,
+    wait_for_resource,
 )
 from .types import (
     AlertState,
@@ -18,6 +20,7 @@ from .types import (
     DataSourceType,
     GrafanaUserRole,
     ListDataSourcesRequestOrderBy,
+    ListExportersRequestOrderBy,
     ListGrafanaUsersRequestOrderBy,
     ListPlansRequestOrderBy,
     ListProductsRequestOrderBy,
@@ -30,6 +33,9 @@ from .types import (
     DataSource,
     DisableAlertRulesResponse,
     EnableAlertRulesResponse,
+    Exporter,
+    ExporterDatadogDestination,
+    ExporterOTLPDestination,
     GetConfigResponse,
     GetRulesCountResponse,
     GlobalApiCreateGrafanaUserRequest,
@@ -42,6 +48,7 @@ from .types import (
     ListAlertsResponse,
     ListContactPointsResponse,
     ListDataSourcesResponse,
+    ListExportersResponse,
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
@@ -51,6 +58,7 @@ from .types import (
     Product,
     RegionalApiCreateContactPointRequest,
     RegionalApiCreateDataSourceRequest,
+    RegionalApiCreateExporterRequest,
     RegionalApiCreateTokenRequest,
     RegionalApiDeleteContactPointRequest,
     RegionalApiDisableAlertManagerRequest,
@@ -62,12 +70,17 @@ from .types import (
     RegionalApiTriggerTestAlertRequest,
     RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
+    RegionalApiUpdateExporterRequest,
     Token,
     UsageOverview,
+)
+from .content import (
+    EXPORTER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_ContactPoint,
     unmarshal_DataSource,
+    unmarshal_Exporter,
     unmarshal_GrafanaProductDashboard,
     unmarshal_GrafanaUser,
     unmarshal_Plan,
@@ -81,6 +94,7 @@ from .marshalling import (
     unmarshal_ListAlertsResponse,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListDataSourcesResponse,
+    unmarshal_ListExportersResponse,
     unmarshal_ListGrafanaProductDashboardsResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListPlansResponse,
@@ -93,6 +107,7 @@ from .marshalling import (
     marshal_GlobalApiSyncGrafanaDataSourcesRequest,
     marshal_RegionalApiCreateContactPointRequest,
     marshal_RegionalApiCreateDataSourceRequest,
+    marshal_RegionalApiCreateExporterRequest,
     marshal_RegionalApiCreateTokenRequest,
     marshal_RegionalApiDeleteContactPointRequest,
     marshal_RegionalApiDisableAlertManagerRequest,
@@ -104,6 +119,7 @@ from .marshalling import (
     marshal_RegionalApiTriggerTestAlertRequest,
     marshal_RegionalApiUpdateContactPointRequest,
     marshal_RegionalApiUpdateDataSourceRequest,
+    marshal_RegionalApiUpdateExporterRequest,
 )
 
 
@@ -638,6 +654,321 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_GetConfigResponse(res.json())
+
+    def create_exporter(
+        self,
+        *,
+        datasource_id: str,
+        exported_products: list[str],
+        name: str,
+        region: Optional[ScwRegion] = None,
+        datadog_destination: Optional[ExporterDatadogDestination] = None,
+        otlp_destination: Optional[ExporterOTLPDestination] = None,
+        description: Optional[str] = None,
+    ) -> Exporter:
+        """
+        Create a data export.
+        Create an export to send your metrics/logs from a Scaleway data source to an external destination.
+        Current supported destination for data exports are Datadog and OTLP endpoints.
+        This feature is in Beta phase. During Beta phase, exporter can take up to 30 min to be effectively active.
+        :param datasource_id: ID of the data source linked to the data export.
+        :param exported_products: To include all products in your data export, you can use an array containing "all"
+        You can retrieve the complete list of product names using the `ListProducts` endpoint.
+        :param name: Name of the data export.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param datadog_destination: Datadog destination configuration for the data export.
+        One-Of ('destination'): at most one of 'datadog_destination', 'otlp_destination' could be set.
+        :param otlp_destination: OTLP destination configuration for the data export.
+        One-Of ('destination'): at most one of 'datadog_destination', 'otlp_destination' could be set.
+        :param description: Description of the data export.
+        :return: :class:`Exporter <Exporter>`
+
+        Usage:
+        ::
+
+            result = api.create_exporter(
+                datasource_id="example",
+                exported_products=[],
+                name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/cockpit/v1/regions/{param_region}/exporters",
+            body=marshal_RegionalApiCreateExporterRequest(
+                RegionalApiCreateExporterRequest(
+                    datasource_id=datasource_id,
+                    exported_products=exported_products,
+                    name=name,
+                    region=region,
+                    description=description,
+                    datadog_destination=datadog_destination,
+                    otlp_destination=otlp_destination,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Exporter(res.json())
+
+    def list_exporters(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        datasource_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListExportersRequestOrderBy] = None,
+    ) -> ListExportersResponse:
+        """
+        List data exports.
+        List all data exports within a given Scaleway Project, specified by its ID.
+        Optionally, specify a Scaleway data source ID to retrieve only data exports associated with that data source.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Project ID to filter for. Only data exports from this Project will be returned.
+        :param datasource_id: Data source ID to filter for. Only data exports linked to this data source will be returned.
+        :param page: Page number to return from the paginated results.
+        :param page_size: Number of data exports to return per page.
+        :param order_by: Sort order for data exports in the response.
+        :return: :class:`ListExportersResponse <ListExportersResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_exporters()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/exporters",
+            params={
+                "datasource_id": datasource_id,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListExportersResponse(res.json())
+
+    def list_exporters_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        datasource_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListExportersRequestOrderBy] = None,
+    ) -> list[Exporter]:
+        """
+        List data exports.
+        List all data exports within a given Scaleway Project, specified by its ID.
+        Optionally, specify a Scaleway data source ID to retrieve only data exports associated with that data source.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Project ID to filter for. Only data exports from this Project will be returned.
+        :param datasource_id: Data source ID to filter for. Only data exports linked to this data source will be returned.
+        :param page: Page number to return from the paginated results.
+        :param page_size: Number of data exports to return per page.
+        :param order_by: Sort order for data exports in the response.
+        :return: :class:`list[Exporter] <list[Exporter]>`
+
+        Usage:
+        ::
+
+            result = api.list_exporters_all()
+        """
+
+        return fetch_all_pages(
+            type=ListExportersResponse,
+            key="exporters",
+            fetcher=self.list_exporters,
+            args={
+                "region": region,
+                "project_id": project_id,
+                "datasource_id": datasource_id,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
+
+    def get_exporter(
+        self,
+        *,
+        exporter_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Exporter:
+        """
+        Get a data export.
+        Retrieve information about a given data export, specified by its ID.
+        :param exporter_id: ID of the data export to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Exporter <Exporter>`
+
+        Usage:
+        ::
+
+            result = api.get_exporter(
+                exporter_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_exporter_id = validate_path_param("exporter_id", exporter_id)
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/exporters/{param_exporter_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Exporter(res.json())
+
+    def wait_for_exporter(
+        self,
+        *,
+        exporter_id: str,
+        region: Optional[ScwRegion] = None,
+        options: Optional[WaitForOptions[Exporter, bool]] = None,
+    ) -> Exporter:
+        """
+        Get a data export.
+        Retrieve information about a given data export, specified by its ID.
+        :param exporter_id: ID of the data export to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Exporter <Exporter>`
+
+        Usage:
+        ::
+
+            result = api.get_exporter(
+                exporter_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in EXPORTER_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_exporter,
+            options=options,
+            args={
+                "exporter_id": exporter_id,
+                "region": region,
+            },
+        )
+
+    def delete_exporter(
+        self,
+        *,
+        exporter_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        Delete a data export.
+        Delete a given data export, specified by its ID.
+        Note that this action will immediatly and permanently delete this data exports.
+        :param exporter_id: ID of the data export to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_exporter(
+                exporter_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_exporter_id = validate_path_param("exporter_id", exporter_id)
+
+        res = self._request(
+            "DELETE",
+            f"/cockpit/v1/regions/{param_region}/exporters/{param_exporter_id}",
+        )
+
+        self._throw_on_error(res)
+
+    def update_exporter(
+        self,
+        *,
+        exporter_id: str,
+        region: Optional[ScwRegion] = None,
+        datadog_destination: Optional[ExporterDatadogDestination] = None,
+        otlp_destination: Optional[ExporterOTLPDestination] = None,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        exported_products: Optional[list[str]] = None,
+    ) -> Exporter:
+        """
+        Update a data export.
+        Update a data export attributes. Changes are effective immediatly even during Beta phase.
+        Note that you can not change the data source linked to the export. If you need to do so, you will need to re-create the export.
+        :param exporter_id: ID of the data export to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param datadog_destination: Updated Datadog destination configuration for the data export.
+        One-Of ('destination'): at most one of 'datadog_destination', 'otlp_destination' could be set.
+        :param otlp_destination: Updated OTLP destination configuration for the data export.
+        One-Of ('destination'): at most one of 'datadog_destination', 'otlp_destination' could be set.
+        :param name: Updated name of the data export.
+        :param description: Updated description of the data export.
+        :param exported_products: To include all products in your data export, you can use an array containing "all"
+        You can retrieve the complete list of product names using the `ListProducts` endpoint.
+        :return: :class:`Exporter <Exporter>`
+
+        Usage:
+        ::
+
+            result = api.update_exporter(
+                exporter_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_exporter_id = validate_path_param("exporter_id", exporter_id)
+
+        res = self._request(
+            "PATCH",
+            f"/cockpit/v1/regions/{param_region}/exporters/{param_exporter_id}",
+            body=marshal_RegionalApiUpdateExporterRequest(
+                RegionalApiUpdateExporterRequest(
+                    exporter_id=exporter_id,
+                    region=region,
+                    name=name,
+                    description=description,
+                    exported_products=exported_products,
+                    datadog_destination=datadog_destination,
+                    otlp_destination=otlp_destination,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Exporter(res.json())
 
     def create_data_source(
         self,

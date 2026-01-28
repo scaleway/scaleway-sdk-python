@@ -56,6 +56,16 @@ class DataSourceType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ExporterStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    CREATING = "creating"
+    READY = "ready"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class GrafanaUserRole(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ROLE = "unknown_role"
     EDITOR = "editor"
@@ -72,6 +82,16 @@ class ListDataSourcesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_DESC = "name_desc"
     TYPE_ASC = "type_asc"
     TYPE_DESC = "type_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListExportersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -185,6 +205,18 @@ class PreconfiguredAlertData:
 @dataclass
 class ContactPointEmail:
     to: str
+
+
+@dataclass
+class ExporterDatadogDestination:
+    api_key: Optional[str] = None
+    endpoint: Optional[str] = None
+
+
+@dataclass
+class ExporterOTLPDestination:
+    endpoint: str
+    headers: dict[str, str]
 
 
 @dataclass
@@ -353,6 +385,57 @@ class DataSource:
     """
     Usage of the month in bytes.
     """
+
+
+@dataclass
+class Exporter:
+    """
+    Data exporter.
+    """
+
+    id: str
+    """
+    ID of the data export.
+    """
+
+    name: str
+    """
+    Name of the data export.
+    """
+
+    description: str
+    """
+    Description of the data export.
+    """
+
+    datasource_id: str
+    """
+    ID of the data source linked to the data export.
+    """
+
+    status: ExporterStatus
+    """
+    Status of the data export.
+    """
+
+    exported_products: list[str]
+    """
+    List of Scaleway products name exported by the data export.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    A timestamp of the creation date of the data export.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    A timestamp of the last update date of the data export.
+    """
+
+    datadog_destination: Optional[ExporterDatadogDestination] = None
+
+    otlp_destination: Optional[ExporterOTLPDestination] = None
 
 
 @dataclass
@@ -939,6 +1022,23 @@ class ListDataSourcesResponse:
 
 
 @dataclass
+class ListExportersResponse:
+    """
+    Response returned when listing data exports.
+    """
+
+    total_count: int
+    """
+    Total count of data exports matching the request.
+    """
+
+    exporters: list[Exporter]
+    """
+    Data exports matching the request within the pagination.
+    """
+
+
+@dataclass
 class ListGrafanaProductDashboardsResponse:
     """
     Output returned when listing dashboards.
@@ -1069,6 +1169,43 @@ class RegionalApiCreateDataSourceRequest:
 
 
 @dataclass
+class RegionalApiCreateExporterRequest:
+    """
+    Create a data export.
+    """
+
+    datasource_id: str
+    """
+    ID of the data source linked to the data export.
+    """
+
+    exported_products: list[str]
+    """
+    To include all products in your data export, you can use an array containing "all"
+You can retrieve the complete list of product names using the `ListProducts` endpoint.
+    """
+
+    name: str
+    """
+    Name of the data export.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str] = None
+    """
+    Description of the data export.
+    """
+
+    datadog_destination: Optional[ExporterDatadogDestination] = None
+
+    otlp_destination: Optional[ExporterOTLPDestination] = None
+
+
+@dataclass
 class RegionalApiCreateTokenRequest:
     """
     Create a token.
@@ -1123,6 +1260,23 @@ class RegionalApiDeleteDataSourceRequest:
     data_source_id: str
     """
     ID of the data source to delete.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class RegionalApiDeleteExporterRequest:
+    """
+    Delete a data export.
+    """
+
+    exporter_id: str
+    """
+    ID of the data export to update.
     """
 
     region: Optional[ScwRegion] = None
@@ -1299,6 +1453,23 @@ class RegionalApiGetDataSourceRequest:
 
 
 @dataclass
+class RegionalApiGetExporterRequest:
+    """
+    Retrieve a specific data export.
+    """
+
+    exporter_id: str
+    """
+    ID of the data export to retrieve.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class RegionalApiGetRulesCountRequest:
     region: Optional[ScwRegion] = None
     """
@@ -1448,6 +1619,45 @@ class RegionalApiListDataSourcesRequest:
 
 
 @dataclass
+class RegionalApiListExportersRequest:
+    """
+    List all data exports.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID to filter for. Only data exports from this Project will be returned.
+    """
+
+    datasource_id: Optional[str] = None
+    """
+    Data source ID to filter for. Only data exports linked to this data source will be returned.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of data exports to return per page.
+    """
+
+    order_by: Optional[ListExportersRequestOrderBy] = (
+        ListExportersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order for data exports in the response.
+    """
+
+
+@dataclass
 class RegionalApiListProductsRequest:
     """
     List all Scaleway products that send metrics and/or logs to Cockpit.
@@ -1581,6 +1791,43 @@ class RegionalApiUpdateDataSourceRequest:
     """
     Duration for which the data will be retained in the data source.
     """
+
+
+@dataclass
+class RegionalApiUpdateExporterRequest:
+    """
+    Update an existing data export.
+    """
+
+    exporter_id: str
+    """
+    ID of the data export to update.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    Updated name of the data export.
+    """
+
+    description: Optional[str] = None
+    """
+    Updated description of the data export.
+    """
+
+    exported_products: Optional[list[str]] = field(default_factory=list)
+    """
+    To include all products in your data export, you can use an array containing "all"
+You can retrieve the complete list of product names using the `ListProducts` endpoint.
+    """
+
+    datadog_destination: Optional[ExporterDatadogDestination] = None
+
+    otlp_destination: Optional[ExporterOTLPDestination] = None
 
 
 @dataclass
