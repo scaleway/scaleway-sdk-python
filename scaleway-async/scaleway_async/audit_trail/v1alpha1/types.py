@@ -385,6 +385,20 @@ class SecretManagerSecretVersionInfo:
 
 
 @dataclass
+class VpcGwGatewayInfo:
+    gateway_type_id: str
+    vpc_id: Optional[str] = None
+    public_ip_id: Optional[str] = None
+
+
+@dataclass
+class VpcGwGatewayNetworkInfo:
+    gateway_id: str
+    pn_id: str
+    address: Optional[str] = None
+
+
+@dataclass
 class VpcPrivateNetworkInfo:
     vpc_id: str
     push_default_route: bool
@@ -489,6 +503,10 @@ class Resource:
     vpc_private_network_info: Optional[VpcPrivateNetworkInfo] = None
 
     audit_trail_export_job_info: Optional[AuditTrailExportJobInfo] = None
+
+    vpc_gw_gateway_info: Optional[VpcGwGatewayInfo] = None
+
+    vpc_gw_gateway_network_info: Optional[VpcGwGatewayNetworkInfo] = None
 
 
 @dataclass
