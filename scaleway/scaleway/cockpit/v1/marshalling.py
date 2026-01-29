@@ -14,6 +14,7 @@ from .types import (
     AlertStatus,
     DataSourceOrigin,
     DataSourceType,
+    ExporterStatus,
     GrafanaUserRole,
     PlanName,
     TokenScope,
@@ -21,6 +22,9 @@ from .types import (
     ContactPointEmail,
     ContactPoint,
     DataSource,
+    ExporterDatadogDestination,
+    ExporterOTLPDestination,
+    Exporter,
     GrafanaProductDashboard,
     GrafanaUser,
     Plan,
@@ -38,6 +42,7 @@ from .types import (
     ListAlertsResponse,
     ListContactPointsResponse,
     ListDataSourcesResponse,
+    ListExportersResponse,
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
@@ -52,6 +57,7 @@ from .types import (
     GlobalApiSyncGrafanaDataSourcesRequest,
     RegionalApiCreateContactPointRequest,
     RegionalApiCreateDataSourceRequest,
+    RegionalApiCreateExporterRequest,
     RegionalApiCreateTokenRequest,
     RegionalApiDeleteContactPointRequest,
     RegionalApiDisableAlertManagerRequest,
@@ -63,6 +69,7 @@ from .types import (
     RegionalApiTriggerTestAlertRequest,
     RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
+    RegionalApiUpdateExporterRequest,
 )
 
 
@@ -193,6 +200,123 @@ def unmarshal_DataSource(data: Any) -> DataSource:
         args["current_month_usage"] = 0
 
     return DataSource(**args)
+
+
+def unmarshal_ExporterDatadogDestination(data: Any) -> ExporterDatadogDestination:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ExporterDatadogDestination' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("api_key", None)
+    if field is not None:
+        args["api_key"] = field
+    else:
+        args["api_key"] = None
+
+    field = data.get("endpoint", None)
+    if field is not None:
+        args["endpoint"] = field
+    else:
+        args["endpoint"] = None
+
+    return ExporterDatadogDestination(**args)
+
+
+def unmarshal_ExporterOTLPDestination(data: Any) -> ExporterOTLPDestination:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ExporterOTLPDestination' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("endpoint", None)
+    if field is not None:
+        args["endpoint"] = field
+    else:
+        args["endpoint"] = None
+
+    field = data.get("headers", None)
+    if field is not None:
+        args["headers"] = field
+    else:
+        args["headers"] = None
+
+    return ExporterOTLPDestination(**args)
+
+
+def unmarshal_Exporter(data: Any) -> Exporter:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Exporter' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    field = data.get("datasource_id", None)
+    if field is not None:
+        args["datasource_id"] = field
+    else:
+        args["datasource_id"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = ExporterStatus.UNKNOWN_STATUS
+
+    field = data.get("exported_products", None)
+    if field is not None:
+        args["exported_products"] = field
+    else:
+        args["exported_products"] = []
+
+    field = data.get("datadog_destination", None)
+    if field is not None:
+        args["datadog_destination"] = unmarshal_ExporterDatadogDestination(field)
+    else:
+        args["datadog_destination"] = None
+
+    field = data.get("otlp_destination", None)
+    if field is not None:
+        args["otlp_destination"] = unmarshal_ExporterOTLPDestination(field)
+    else:
+        args["otlp_destination"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Exporter(**args)
 
 
 def unmarshal_GrafanaProductDashboard(data: Any) -> GrafanaProductDashboard:
@@ -804,6 +928,31 @@ def unmarshal_ListDataSourcesResponse(data: Any) -> ListDataSourcesResponse:
     return ListDataSourcesResponse(**args)
 
 
+def unmarshal_ListExportersResponse(data: Any) -> ListExportersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListExportersResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("exporters", None)
+    if field is not None:
+        args["exporters"] = (
+            [unmarshal_Exporter(v) for v in field] if field is not None else None
+        )
+    else:
+        args["exporters"] = []
+
+    return ListExportersResponse(**args)
+
+
 def unmarshal_ListGrafanaProductDashboardsResponse(
     data: Any,
 ) -> ListGrafanaProductDashboardsResponse:
@@ -1196,6 +1345,73 @@ def marshal_RegionalApiCreateDataSourceRequest(
     return output
 
 
+def marshal_ExporterDatadogDestination(
+    request: ExporterDatadogDestination,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.api_key is not None:
+        output["api_key"] = request.api_key
+
+    if request.endpoint is not None:
+        output["endpoint"] = request.endpoint
+
+    return output
+
+
+def marshal_ExporterOTLPDestination(
+    request: ExporterOTLPDestination,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.endpoint is not None:
+        output["endpoint"] = request.endpoint
+
+    if request.headers is not None:
+        output["headers"] = {key: value for key, value in request.headers.items()}
+
+    return output
+
+
+def marshal_RegionalApiCreateExporterRequest(
+    request: RegionalApiCreateExporterRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="datadog_destination",
+                    value=request.datadog_destination,
+                    marshal_func=marshal_ExporterDatadogDestination,
+                ),
+                OneOfPossibility(
+                    param="otlp_destination",
+                    value=request.otlp_destination,
+                    marshal_func=marshal_ExporterOTLPDestination,
+                ),
+            ]
+        ),
+    )
+
+    if request.datasource_id is not None:
+        output["datasource_id"] = request.datasource_id
+
+    if request.exported_products is not None:
+        output["exported_products"] = request.exported_products
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    return output
+
+
 def marshal_RegionalApiCreateTokenRequest(
     request: RegionalApiCreateTokenRequest,
     defaults: ProfileDefaults,
@@ -1384,5 +1600,39 @@ def marshal_RegionalApiUpdateDataSourceRequest(
 
     if request.retention_days is not None:
         output["retention_days"] = request.retention_days
+
+    return output
+
+
+def marshal_RegionalApiUpdateExporterRequest(
+    request: RegionalApiUpdateExporterRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="datadog_destination",
+                    value=request.datadog_destination,
+                    marshal_func=marshal_ExporterDatadogDestination,
+                ),
+                OneOfPossibility(
+                    param="otlp_destination",
+                    value=request.otlp_destination,
+                    marshal_func=marshal_ExporterOTLPDestination,
+                ),
+            ]
+        ),
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.exported_products is not None:
+        output["exported_products"] = request.exported_products
 
     return output
