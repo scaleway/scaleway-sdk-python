@@ -52,6 +52,8 @@ from .types import (
     LoadBalancerRouteInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
+    VpcGwGatewayInfo,
+    VpcGwGatewayNetworkInfo,
     VpcPrivateNetworkInfo,
     VpcRouteInfo,
     VpcSubnetInfo,
@@ -856,6 +858,64 @@ def unmarshal_SecretManagerSecretVersionInfo(
     return SecretManagerSecretVersionInfo(**args)
 
 
+def unmarshal_VpcGwGatewayInfo(data: Any) -> VpcGwGatewayInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcGwGatewayInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("gateway_type_id", None)
+    if field is not None:
+        args["gateway_type_id"] = field
+    else:
+        args["gateway_type_id"] = None
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("public_ip_id", None)
+    if field is not None:
+        args["public_ip_id"] = field
+    else:
+        args["public_ip_id"] = None
+
+    return VpcGwGatewayInfo(**args)
+
+
+def unmarshal_VpcGwGatewayNetworkInfo(data: Any) -> VpcGwGatewayNetworkInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcGwGatewayNetworkInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("gateway_id", None)
+    if field is not None:
+        args["gateway_id"] = field
+    else:
+        args["gateway_id"] = None
+
+    field = data.get("pn_id", None)
+    if field is not None:
+        args["pn_id"] = field
+    else:
+        args["pn_id"] = None
+
+    field = data.get("address", None)
+    if field is not None:
+        args["address"] = field
+    else:
+        args["address"] = None
+
+    return VpcGwGatewayNetworkInfo(**args)
+
+
 def unmarshal_VpcPrivateNetworkInfo(data: Any) -> VpcPrivateNetworkInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1230,6 +1290,18 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["audit_trail_export_job_info"] = unmarshal_AuditTrailExportJobInfo(field)
     else:
         args["audit_trail_export_job_info"] = None
+
+    field = data.get("vpc_gw_gateway_info", None)
+    if field is not None:
+        args["vpc_gw_gateway_info"] = unmarshal_VpcGwGatewayInfo(field)
+    else:
+        args["vpc_gw_gateway_info"] = None
+
+    field = data.get("vpc_gw_gateway_network_info", None)
+    if field is not None:
+        args["vpc_gw_gateway_network_info"] = unmarshal_VpcGwGatewayNetworkInfo(field)
+    else:
+        args["vpc_gw_gateway_network_info"] = None
 
     return Resource(**args)
 

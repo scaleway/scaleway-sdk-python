@@ -46,6 +46,8 @@ from .types import LoadBalancerLbInfo
 from .types import LoadBalancerRouteInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
+from .types import VpcGwGatewayInfo
+from .types import VpcGwGatewayNetworkInfo
 from .types import VpcPrivateNetworkInfo
 from .types import VpcRouteInfo
 from .types import VpcSubnetInfo
@@ -121,6 +123,8 @@ __all__ = [
     "LoadBalancerRouteInfo",
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
+    "VpcGwGatewayInfo",
+    "VpcGwGatewayNetworkInfo",
     "VpcPrivateNetworkInfo",
     "VpcRouteInfo",
     "VpcSubnetInfo",
