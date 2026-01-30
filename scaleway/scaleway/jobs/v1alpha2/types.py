@@ -28,6 +28,7 @@ class JobRunReason(str, Enum, metaclass=StrEnumMeta):
     EXITED_WITH_ERROR = "exited_with_error"
     SECRET_DISABLED = "secret_disabled"
     SECRET_NOT_FOUND = "secret_not_found"
+    QUOTA_EXCEEDED = "quota_exceeded"
 
     def __str__(self) -> str:
         return str(self.value)
