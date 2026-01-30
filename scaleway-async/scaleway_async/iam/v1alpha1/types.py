@@ -139,6 +139,14 @@ class ListScimTokensRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListUserWebAuthnAuthenticatorsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -895,6 +903,29 @@ class SamlCertificate:
 
 
 @dataclass
+class WebAuthnAuthenticator:
+    id: str
+    """
+    The ID of the authenticator.
+    """
+
+    name: str
+    """
+    The name of the authenticator.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    The creation date.
+    """
+
+    last_login_at: Optional[datetime] = None
+    """
+    The timestamp of the last successful login using the authenticator.
+    """
+
+
+@dataclass
 class User:
     id: str
     """
@@ -1326,6 +1357,11 @@ class DeleteUserRequest:
 
 
 @dataclass
+class DeleteWebAuthnAuthenticatorRequest:
+    authenticator_id: str
+
+
+@dataclass
 class EnableOrganizationSamlRequest:
     organization_id: Optional[str] = None
     """
@@ -1356,6 +1392,67 @@ class EncodedJWT:
     jwt: Optional[JWT] = None
     """
     The renewed JWT.
+    """
+
+
+@dataclass
+class FinishUserWebAuthnRegistrationRequest:
+    user_id: str
+    """
+    The ID of the user on which to finish a webauthn registration.
+    """
+
+    ceremony_id: str
+    """
+    The ceremony ID returned by StartUserWebAuthnRegistration.
+    """
+
+    authenticator_name: str
+    """
+    Name of the WebAuthn Authenticator to create.
+    """
+
+    origin: str
+    """
+    The domain on which the registration is occurring.
+    """
+
+    raw_id: str
+    """
+    Unique identifier of the key used by the authenticator.
+    """
+
+    client_data_json: str
+    """
+    JSON representation of the client data.
+    """
+
+    authenticator_data: str
+    """
+    Data about the authenticator that performed the authentication.
+    """
+
+    attestation_object: str
+    """
+    Attestation Object.
+    """
+
+    public_key: str
+    """
+    Public key that allows to verify signature.
+    """
+
+    public_key_algorithm: int
+    """
+    Algorithm used for the signature (see https://www.iana.org/assignments/cose/cose.xhtml#algorithms).
+    """
+
+
+@dataclass
+class FinishUserWebAuthnRegistrationResponse:
+    authenticator_id: str
+    """
+    The ID of the new authenticator created.
     """
 
 
@@ -2115,6 +2212,44 @@ class ListScimTokensResponse:
 
 
 @dataclass
+class ListUserWebAuthnAuthenticatorsRequest:
+    user_id: str
+    """
+    A user ID to filter the authenticators for.
+    """
+
+    order_by: Optional[ListUserWebAuthnAuthenticatorsRequestOrderBy] = (
+        ListUserWebAuthnAuthenticatorsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of the Authenticators.
+    """
+
+    page: Optional[int] = 0
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of items per page. Value must be between 1 and 100.
+    """
+
+
+@dataclass
+class ListUserWebAuthnAuthenticatorsResponse:
+    total_count: int
+    """
+    The total number of authenticators.
+    """
+
+    authenticators: list[WebAuthnAuthenticator]
+    """
+    The list of authenticators.
+    """
+
+
+@dataclass
 class ListUsersRequest:
     order_by: Optional[ListUsersRequestOrderBy] = ListUsersRequestOrderBy.CREATED_AT_ASC
     """
@@ -2365,6 +2500,47 @@ class SetRulesResponse:
     rules: list[Rule]
     """
     Rules of the policy.
+    """
+
+
+@dataclass
+class StartUserWebAuthnRegistrationRequest:
+    user_id: str
+    """
+    The ID of the user on which to start registering a WebAuthn authenticator.
+    """
+
+    origin: str
+    """
+    The URL from which the registration request originated.
+    """
+
+
+@dataclass
+class StartUserWebAuthnRegistrationResponse:
+    ceremony_id: str
+    """
+    A unique ID for this registration attempt, to reuse when calling FinishUserWebAuthnRegistration.
+    """
+
+    challenge: str
+    """
+    Random bytes constituting the challenge to solve for the credentials creation.
+    """
+
+    public_key_algorithms: list[int]
+    """
+    List of algorithms supported by the relying party, as COSE algorithm identifiers.
+    """
+
+    exclude_credentials: list[str]
+    """
+    List of credentials that cannot be used to fulfill the ceremony.
+    """
+
+    timeout: Optional[str] = None
+    """
+    Maximum duration of the registration ceremony, in milliseconds.
     """
 
 
@@ -2630,6 +2806,19 @@ class UpdateUserUsernameRequest:
     username: str
     """
     The new username.
+    """
+
+
+@dataclass
+class UpdateWebAuthnAuthenticatorRequest:
+    authenticator_id: str
+    """
+    The ID of the authenticator to update.
+    """
+
+    authenticator_name: Optional[str] = None
+    """
+    A new name for this authenticator.
     """
 
 

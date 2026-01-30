@@ -33,10 +33,12 @@ from .types import (
     Quotum,
     SSHKey,
     SamlCertificate,
+    WebAuthnAuthenticator,
     User,
     ScimToken,
     CreateScimTokenResponse,
     EncodedJWT,
+    FinishUserWebAuthnRegistrationResponse,
     ConnectionConnectedOrganization,
     ConnectionConnectedUser,
     Connection,
@@ -58,6 +60,7 @@ from .types import (
     ListSSHKeysResponse,
     ListSamlCertificatesResponse,
     ListScimTokensResponse,
+    ListUserWebAuthnAuthenticatorsResponse,
     ListUsersResponse,
     MFAOTP,
     Organization,
@@ -67,6 +70,7 @@ from .types import (
     Saml,
     Scim,
     SetRulesResponse,
+    StartUserWebAuthnRegistrationResponse,
     ValidateUserMFAOTPResponse,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
@@ -80,6 +84,7 @@ from .types import (
     CreateSSHKeyRequest,
     CreateUserRequestMember,
     CreateUserRequest,
+    FinishUserWebAuthnRegistrationRequest,
     JoinUserConnectionRequest,
     ParseSamlMetadataRequest,
     RemoveGroupMemberRequest,
@@ -98,6 +103,7 @@ from .types import (
     UpdateUserPasswordRequest,
     UpdateUserRequest,
     UpdateUserUsernameRequest,
+    UpdateWebAuthnAuthenticatorRequest,
     ValidateUserMFAOTPRequest,
 )
 
@@ -796,6 +802,43 @@ def unmarshal_SamlCertificate(data: Any) -> SamlCertificate:
     return SamlCertificate(**args)
 
 
+def unmarshal_WebAuthnAuthenticator(data: Any) -> WebAuthnAuthenticator:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WebAuthnAuthenticator' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("last_login_at", None)
+    if field is not None:
+        args["last_login_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_login_at"] = None
+
+    return WebAuthnAuthenticator(**args)
+
+
 def unmarshal_User(data: Any) -> User:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1008,6 +1051,25 @@ def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
         args["jwt"] = None
 
     return EncodedJWT(**args)
+
+
+def unmarshal_FinishUserWebAuthnRegistrationResponse(
+    data: Any,
+) -> FinishUserWebAuthnRegistrationResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'FinishUserWebAuthnRegistrationResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("authenticator_id", None)
+    if field is not None:
+        args["authenticator_id"] = field
+    else:
+        args["authenticator_id"] = None
+
+    return FinishUserWebAuthnRegistrationResponse(**args)
 
 
 def unmarshal_ConnectionConnectedOrganization(
@@ -1563,6 +1625,35 @@ def unmarshal_ListScimTokensResponse(data: Any) -> ListScimTokensResponse:
     return ListScimTokensResponse(**args)
 
 
+def unmarshal_ListUserWebAuthnAuthenticatorsResponse(
+    data: Any,
+) -> ListUserWebAuthnAuthenticatorsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListUserWebAuthnAuthenticatorsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("authenticators", None)
+    if field is not None:
+        args["authenticators"] = (
+            [unmarshal_WebAuthnAuthenticator(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["authenticators"] = []
+
+    return ListUserWebAuthnAuthenticatorsResponse(**args)
+
+
 def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1832,6 +1923,49 @@ def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
         args["rules"] = []
 
     return SetRulesResponse(**args)
+
+
+def unmarshal_StartUserWebAuthnRegistrationResponse(
+    data: Any,
+) -> StartUserWebAuthnRegistrationResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'StartUserWebAuthnRegistrationResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("ceremony_id", None)
+    if field is not None:
+        args["ceremony_id"] = field
+    else:
+        args["ceremony_id"] = None
+
+    field = data.get("challenge", None)
+    if field is not None:
+        args["challenge"] = field
+    else:
+        args["challenge"] = None
+
+    field = data.get("public_key_algorithms", None)
+    if field is not None:
+        args["public_key_algorithms"] = field
+    else:
+        args["public_key_algorithms"] = []
+
+    field = data.get("exclude_credentials", None)
+    if field is not None:
+        args["exclude_credentials"] = field
+    else:
+        args["exclude_credentials"] = []
+
+    field = data.get("timeout", None)
+    if field is not None:
+        args["timeout"] = field
+    else:
+        args["timeout"] = None
+
+    return StartUserWebAuthnRegistrationResponse(**args)
 
 
 def unmarshal_ValidateUserMFAOTPResponse(data: Any) -> ValidateUserMFAOTPResponse:
@@ -2158,6 +2292,42 @@ def marshal_CreateUserRequest(
     return output
 
 
+def marshal_FinishUserWebAuthnRegistrationRequest(
+    request: FinishUserWebAuthnRegistrationRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ceremony_id is not None:
+        output["ceremony_id"] = request.ceremony_id
+
+    if request.authenticator_name is not None:
+        output["authenticator_name"] = request.authenticator_name
+
+    if request.origin is not None:
+        output["origin"] = request.origin
+
+    if request.raw_id is not None:
+        output["raw_id"] = request.raw_id
+
+    if request.client_data_json is not None:
+        output["client_data_json"] = request.client_data_json
+
+    if request.authenticator_data is not None:
+        output["authenticator_data"] = request.authenticator_data
+
+    if request.attestation_object is not None:
+        output["attestation_object"] = request.attestation_object
+
+    if request.public_key is not None:
+        output["public_key"] = request.public_key
+
+    if request.public_key_algorithm is not None:
+        output["public_key_algorithm"] = request.public_key_algorithm
+
+    return output
+
+
 def marshal_JoinUserConnectionRequest(
     request: JoinUserConnectionRequest,
     defaults: ProfileDefaults,
@@ -2475,6 +2645,18 @@ def marshal_UpdateUserUsernameRequest(
 
     if request.username is not None:
         output["username"] = request.username
+
+    return output
+
+
+def marshal_UpdateWebAuthnAuthenticatorRequest(
+    request: UpdateWebAuthnAuthenticatorRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.authenticator_name is not None:
+        output["authenticator_name"] = request.authenticator_name
 
     return output
 

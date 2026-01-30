@@ -27,6 +27,7 @@ from .types import (
     ListQuotaRequestOrderBy,
     ListSSHKeysRequestOrderBy,
     ListScimTokensRequestOrderBy,
+    ListUserWebAuthnAuthenticatorsRequestOrderBy,
     ListUsersRequestOrderBy,
     LogAction,
     LogResourceType,
@@ -47,6 +48,8 @@ from .types import (
     CreateUserRequest,
     CreateUserRequestMember,
     EncodedJWT,
+    FinishUserWebAuthnRegistrationRequest,
+    FinishUserWebAuthnRegistrationResponse,
     GetUserConnectionsResponse,
     Group,
     InitiateUserConnectionResponse,
@@ -65,6 +68,7 @@ from .types import (
     ListSSHKeysResponse,
     ListSamlCertificatesResponse,
     ListScimTokensResponse,
+    ListUserWebAuthnAuthenticatorsResponse,
     ListUsersResponse,
     Log,
     MFAOTP,
@@ -88,6 +92,7 @@ from .types import (
     SetOrganizationAliasRequest,
     SetRulesRequest,
     SetRulesResponse,
+    StartUserWebAuthnRegistrationResponse,
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
@@ -99,9 +104,11 @@ from .types import (
     UpdateUserPasswordRequest,
     UpdateUserRequest,
     UpdateUserUsernameRequest,
+    UpdateWebAuthnAuthenticatorRequest,
     User,
     ValidateUserMFAOTPRequest,
     ValidateUserMFAOTPResponse,
+    WebAuthnAuthenticator,
 )
 from .marshalling import (
     unmarshal_JWT,
@@ -113,9 +120,11 @@ from .marshalling import (
     unmarshal_Quotum,
     unmarshal_SSHKey,
     unmarshal_SamlCertificate,
+    unmarshal_WebAuthnAuthenticator,
     unmarshal_User,
     unmarshal_CreateScimTokenResponse,
     unmarshal_EncodedJWT,
+    unmarshal_FinishUserWebAuthnRegistrationResponse,
     unmarshal_GetUserConnectionsResponse,
     unmarshal_InitiateUserConnectionResponse,
     unmarshal_ListAPIKeysResponse,
@@ -131,6 +140,7 @@ from .marshalling import (
     unmarshal_ListSSHKeysResponse,
     unmarshal_ListSamlCertificatesResponse,
     unmarshal_ListScimTokensResponse,
+    unmarshal_ListUserWebAuthnAuthenticatorsResponse,
     unmarshal_ListUsersResponse,
     unmarshal_MFAOTP,
     unmarshal_Organization,
@@ -139,6 +149,7 @@ from .marshalling import (
     unmarshal_Saml,
     unmarshal_Scim,
     unmarshal_SetRulesResponse,
+    unmarshal_StartUserWebAuthnRegistrationResponse,
     unmarshal_ValidateUserMFAOTPResponse,
     marshal_AddGroupMemberRequest,
     marshal_AddGroupMembersRequest,
@@ -150,6 +161,7 @@ from .marshalling import (
     marshal_CreatePolicyRequest,
     marshal_CreateSSHKeyRequest,
     marshal_CreateUserRequest,
+    marshal_FinishUserWebAuthnRegistrationRequest,
     marshal_JoinUserConnectionRequest,
     marshal_ParseSamlMetadataRequest,
     marshal_RemoveGroupMemberRequest,
@@ -168,6 +180,7 @@ from .marshalling import (
     marshal_UpdateUserPasswordRequest,
     marshal_UpdateUserRequest,
     marshal_UpdateUserUsernameRequest,
+    marshal_UpdateWebAuthnAuthenticatorRequest,
     marshal_ValidateUserMFAOTPRequest,
 )
 
@@ -3545,6 +3558,253 @@ class IamV1Alpha1API(API):
         res = self._request(
             "DELETE",
             f"/iam/v1alpha1/scim-tokens/{param_token_id}",
+        )
+
+        self._throw_on_error(res)
+
+    def start_user_web_authn_registration(
+        self,
+        *,
+        user_id: str,
+        origin: str,
+    ) -> StartUserWebAuthnRegistrationResponse:
+        """
+        Start registering a WebAuthn authenticator.
+        :param user_id: The ID of the user on which to start registering a WebAuthn authenticator.
+        :param origin: The URL from which the registration request originated.
+        :return: :class:`StartUserWebAuthnRegistrationResponse <StartUserWebAuthnRegistrationResponse>`
+
+        Usage:
+        ::
+
+            result = api.start_user_web_authn_registration(
+                user_id="example",
+                origin="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/start-webauthn-registration",
+            params={
+                "origin": origin,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_StartUserWebAuthnRegistrationResponse(res.json())
+
+    def finish_user_web_authn_registration(
+        self,
+        *,
+        user_id: str,
+        ceremony_id: str,
+        authenticator_name: str,
+        origin: str,
+        raw_id: str,
+        client_data_json: str,
+        authenticator_data: str,
+        attestation_object: str,
+        public_key: str,
+        public_key_algorithm: int,
+    ) -> FinishUserWebAuthnRegistrationResponse:
+        """
+        Complete a WebAuthen authenticator registration.
+        :param user_id: The ID of the user on which to finish a webauthn registration.
+        :param ceremony_id: The ceremony ID returned by StartUserWebAuthnRegistration.
+        :param authenticator_name: Name of the WebAuthn Authenticator to create.
+        :param origin: The domain on which the registration is occurring.
+        :param raw_id: Unique identifier of the key used by the authenticator.
+        :param client_data_json: JSON representation of the client data.
+        :param authenticator_data: Data about the authenticator that performed the authentication.
+        :param attestation_object: Attestation Object.
+        :param public_key: Public key that allows to verify signature.
+        :param public_key_algorithm: Algorithm used for the signature (see https://www.iana.org/assignments/cose/cose.xhtml#algorithms).
+        :return: :class:`FinishUserWebAuthnRegistrationResponse <FinishUserWebAuthnRegistrationResponse>`
+
+        Usage:
+        ::
+
+            result = api.finish_user_web_authn_registration(
+                user_id="example",
+                ceremony_id="example",
+                authenticator_name="example",
+                origin="example",
+                raw_id="example",
+                client_data_json="example",
+                authenticator_data="example",
+                attestation_object="example",
+                public_key="example",
+                public_key_algorithm=1,
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/finish-webauthn-registration",
+            body=marshal_FinishUserWebAuthnRegistrationRequest(
+                FinishUserWebAuthnRegistrationRequest(
+                    user_id=user_id,
+                    ceremony_id=ceremony_id,
+                    authenticator_name=authenticator_name,
+                    origin=origin,
+                    raw_id=raw_id,
+                    client_data_json=client_data_json,
+                    authenticator_data=authenticator_data,
+                    attestation_object=attestation_object,
+                    public_key=public_key,
+                    public_key_algorithm=public_key_algorithm,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_FinishUserWebAuthnRegistrationResponse(res.json())
+
+    def list_user_web_authn_authenticators(
+        self,
+        *,
+        order_by: Optional[ListUserWebAuthnAuthenticatorsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        user_id: str,
+    ) -> ListUserWebAuthnAuthenticatorsResponse:
+        """
+        List all of a user's WebAuthn Authenticators.
+        :param order_by: Sort order of the Authenticators.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :param user_id: A user ID to filter the authenticators for.
+        :return: :class:`ListUserWebAuthnAuthenticatorsResponse <ListUserWebAuthnAuthenticatorsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_user_web_authn_authenticators(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/users/{param_user_id}/webauthn-authenticators",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListUserWebAuthnAuthenticatorsResponse(res.json())
+
+    def list_user_web_authn_authenticators_all(
+        self,
+        *,
+        order_by: Optional[ListUserWebAuthnAuthenticatorsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        user_id: str,
+    ) -> list[WebAuthnAuthenticator]:
+        """
+        List all of a user's WebAuthn Authenticators.
+        :param order_by: Sort order of the Authenticators.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :param user_id: A user ID to filter the authenticators for.
+        :return: :class:`list[WebAuthnAuthenticator] <list[WebAuthnAuthenticator]>`
+
+        Usage:
+        ::
+
+            result = api.list_user_web_authn_authenticators_all(
+                user_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListUserWebAuthnAuthenticatorsResponse,
+            key="authenticators",
+            fetcher=self.list_user_web_authn_authenticators,
+            args={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "user_id": user_id,
+            },
+        )
+
+    def update_web_authn_authenticator(
+        self,
+        *,
+        authenticator_id: str,
+        authenticator_name: Optional[str] = None,
+    ) -> WebAuthnAuthenticator:
+        """
+        Update a WebAuthn authenticator.
+        :param authenticator_id: The ID of the authenticator to update.
+        :param authenticator_name: A new name for this authenticator.
+        :return: :class:`WebAuthnAuthenticator <WebAuthnAuthenticator>`
+
+        Usage:
+        ::
+
+            result = api.update_web_authn_authenticator(
+                authenticator_id="example",
+            )
+        """
+
+        param_authenticator_id = validate_path_param(
+            "authenticator_id", authenticator_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/iam/v1alpha1/webauthn-authenticator/{param_authenticator_id}",
+            body=marshal_UpdateWebAuthnAuthenticatorRequest(
+                UpdateWebAuthnAuthenticatorRequest(
+                    authenticator_id=authenticator_id,
+                    authenticator_name=authenticator_name,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_WebAuthnAuthenticator(res.json())
+
+    def delete_web_authn_authenticator(
+        self,
+        *,
+        authenticator_id: str,
+    ) -> None:
+        """
+        Delete a WebAuthn authenticator.
+        :param authenticator_id:
+
+        Usage:
+        ::
+
+            result = api.delete_web_authn_authenticator(
+                authenticator_id="example",
+            )
+        """
+
+        param_authenticator_id = validate_path_param(
+            "authenticator_id", authenticator_id
+        )
+
+        res = self._request(
+            "DELETE",
+            f"/iam/v1alpha1/webauthn-authenticator/{param_authenticator_id}",
+            body={},
         )
 
         self._throw_on_error(res)
