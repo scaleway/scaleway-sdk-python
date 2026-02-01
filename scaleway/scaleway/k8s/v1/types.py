@@ -516,9 +516,9 @@ class CreateClusterRequestPoolConfig:
     root_volume_type: PoolVolumeType
     """
     * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
-* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
-* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
-* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
+* `sbs_5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+* `sbs_15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Not available for new pools, use `sbs_5k` or `sbs_15k` instead.
     """
 
     public_ip_disabled: bool
@@ -977,9 +977,9 @@ class Pool:
     root_volume_type: PoolVolumeType
     """
     * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
-* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
-* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
-* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
+* `sbs_5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+* `sbs_15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Not available for new pools, use `sbs_5k` or `sbs_15k` instead.
     """
 
     public_ip_disabled: bool
@@ -1370,9 +1370,9 @@ class CreatePoolRequest:
     root_volume_type: Optional[PoolVolumeType] = PoolVolumeType.DEFAULT_VOLUME_TYPE
     """
     * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
-* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
-* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
-* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
+* `sbs_5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+* `sbs_15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Not available for new pools, use `sbs_5k` or `sbs_15k` instead.
     """
 
     root_volume_size: Optional[int] = 0
