@@ -498,21 +498,21 @@ windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pyrefly"
-version = "0.47.0"
+version = "0.50.1"
 description = "A fast type checker and language server for Python with powerful IDE features"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "pyrefly-0.47.0-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:d3b3e72c98101860f85d5b48fca7841b42dd1506ed10403212766494db623708"},
-    {file = "pyrefly-0.47.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:7ff9b7028d9040e13f57fab850c0f69441f507b4fd274f8f9baf5699db7c5b2e"},
-    {file = "pyrefly-0.47.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:91c2ce4b67f9b2759895368fe5d87049a4b69692470715590db4aaee13622bf5"},
-    {file = "pyrefly-0.47.0-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:1398652b7df45a1da4502df3342b3ee7b03ab8312af204f60f1dfa5358c26f95"},
-    {file = "pyrefly-0.47.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e1c0a7cc57eb06055adffe2c215f4a32ebb25b47229783ef466917bf42f512e5"},
-    {file = "pyrefly-0.47.0-py3-none-win32.whl", hash = "sha256:fad61ce868667b9a2cd9b612b43c8221110c6221400db56c01e7457f18fe92dc"},
-    {file = "pyrefly-0.47.0-py3-none-win_amd64.whl", hash = "sha256:9ff04b85de4d75a5dd47decbd31dfbead959f12d228d056b1f627d9da31f9d76"},
-    {file = "pyrefly-0.47.0-py3-none-win_arm64.whl", hash = "sha256:501e1fb1f90d4b04b44bf4874972804758b49e1880f4dde6b6750050f80a563b"},
-    {file = "pyrefly-0.47.0.tar.gz", hash = "sha256:e732b281ce6fc127b2031f5ec2ae141299ee621de55e7091f3667f33c97b3bb3"},
+    {file = "pyrefly-0.50.1-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:16ea4052b3df75206f5677a87ca7ee6c4c3a92b086081250206e98c60d85e7a8"},
+    {file = "pyrefly-0.50.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:aac15d38f3ad548b2cd50a7fc054241743e32753a32872fe5d4bb88982d29b35"},
+    {file = "pyrefly-0.50.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:603c4f7893eba4f8472523cfceb41f200a30ae89c0af90f4ba03de4eebf9732b"},
+    {file = "pyrefly-0.50.1-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:2d2408be4b1f618ef80855042d6a3599128546a067654878002e34fdd56bfc54"},
+    {file = "pyrefly-0.50.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9483e700ec0e156b249c2805896833c1393eda787f0b83ab430084c2723fec7e"},
+    {file = "pyrefly-0.50.1-py3-none-win32.whl", hash = "sha256:68ff5eac338bfc74469f67ff79cc3500e826b51a753bba349ac2cfcb5705b32b"},
+    {file = "pyrefly-0.50.1-py3-none-win_amd64.whl", hash = "sha256:ef9b5644cfef560fefe3e5093a78128f17d8d055eb01c5306e88644063c37a38"},
+    {file = "pyrefly-0.50.1-py3-none-win_arm64.whl", hash = "sha256:b813120b2de86122933c424ebdb8e905e13191e72fca6403ea75ca94154eb898"},
+    {file = "pyrefly-0.50.1.tar.gz", hash = "sha256:1859f36fb1dc4a903ba2298442c224dfadcda7fce5691aebd6bbc21c5f703299"},
 ]
 
 [[package]]
@@ -835,4 +835,4 @@ zstd = ["backports-zstd (>=1.0.0) ; python_version < \"3.14\""]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "14184f2e07f68f18a2adcda0896eb3c9f087cbc753911331cde25856db08927a"
+content-hash = "0913c1d574abc6b3cf35d62f2d636c51d28674401667d98a4cd600973e196c2e"
