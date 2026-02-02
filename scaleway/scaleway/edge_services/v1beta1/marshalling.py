@@ -1055,6 +1055,12 @@ def unmarshal_PlanDetails(data: Any) -> PlanDetails:
     else:
         args["waf_requests"] = 0
 
+    field = data.get("backend_limit", None)
+    if field is not None:
+        args["backend_limit"] = field
+    else:
+        args["backend_limit"] = 0
+
     return PlanDetails(**args)
 
 
