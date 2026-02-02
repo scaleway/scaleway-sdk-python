@@ -12,6 +12,7 @@ from .types import ListPoliciesRequestOrderBy
 from .types import ListQuotaRequestOrderBy
 from .types import ListSSHKeysRequestOrderBy
 from .types import ListScimTokensRequestOrderBy
+from .types import ListUserWebAuthnAuthenticatorsRequestOrderBy
 from .types import ListUsersRequestOrderBy
 from .types import LocalityType
 from .types import LogAction
@@ -41,6 +42,7 @@ from .types import Quotum
 from .types import Rule
 from .types import SSHKey
 from .types import SamlCertificate
+from .types import WebAuthnAuthenticator
 from .types import User
 from .types import SamlServiceProvider
 from .types import AddGroupMemberRequest
@@ -69,9 +71,12 @@ from .types import DeleteScimRequest
 from .types import DeleteScimTokenRequest
 from .types import DeleteUserMFAOTPRequest
 from .types import DeleteUserRequest
+from .types import DeleteWebAuthnAuthenticatorRequest
 from .types import EnableOrganizationSamlRequest
 from .types import EnableOrganizationScimRequest
 from .types import EncodedJWT
+from .types import FinishUserWebAuthnRegistrationRequest
+from .types import FinishUserWebAuthnRegistrationResponse
 from .types import GetAPIKeyRequest
 from .types import GetApplicationRequest
 from .types import GetGroupRequest
@@ -116,6 +121,8 @@ from .types import ListSamlCertificatesRequest
 from .types import ListSamlCertificatesResponse
 from .types import ListScimTokensRequest
 from .types import ListScimTokensResponse
+from .types import ListUserWebAuthnAuthenticatorsRequest
+from .types import ListUserWebAuthnAuthenticatorsResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
@@ -132,6 +139,8 @@ from .types import SetGroupMembersRequest
 from .types import SetOrganizationAliasRequest
 from .types import SetRulesRequest
 from .types import SetRulesResponse
+from .types import StartUserWebAuthnRegistrationRequest
+from .types import StartUserWebAuthnRegistrationResponse
 from .types import UnlockUserRequest
 from .types import UpdateAPIKeyRequest
 from .types import UpdateApplicationRequest
@@ -144,6 +153,7 @@ from .types import UpdateSamlRequest
 from .types import UpdateUserPasswordRequest
 from .types import UpdateUserRequest
 from .types import UpdateUserUsernameRequest
+from .types import UpdateWebAuthnAuthenticatorRequest
 from .types import ValidateUserMFAOTPRequest
 from .types import ValidateUserMFAOTPResponse
 from .api import IamV1Alpha1API
@@ -161,6 +171,7 @@ __all__ = [
     "ListQuotaRequestOrderBy",
     "ListSSHKeysRequestOrderBy",
     "ListScimTokensRequestOrderBy",
+    "ListUserWebAuthnAuthenticatorsRequestOrderBy",
     "ListUsersRequestOrderBy",
     "LocalityType",
     "LogAction",
@@ -190,6 +201,7 @@ __all__ = [
     "Rule",
     "SSHKey",
     "SamlCertificate",
+    "WebAuthnAuthenticator",
     "User",
     "SamlServiceProvider",
     "AddGroupMemberRequest",
@@ -218,9 +230,12 @@ __all__ = [
     "DeleteScimTokenRequest",
     "DeleteUserMFAOTPRequest",
     "DeleteUserRequest",
+    "DeleteWebAuthnAuthenticatorRequest",
     "EnableOrganizationSamlRequest",
     "EnableOrganizationScimRequest",
     "EncodedJWT",
+    "FinishUserWebAuthnRegistrationRequest",
+    "FinishUserWebAuthnRegistrationResponse",
     "GetAPIKeyRequest",
     "GetApplicationRequest",
     "GetGroupRequest",
@@ -265,6 +280,8 @@ __all__ = [
     "ListSamlCertificatesResponse",
     "ListScimTokensRequest",
     "ListScimTokensResponse",
+    "ListUserWebAuthnAuthenticatorsRequest",
+    "ListUserWebAuthnAuthenticatorsResponse",
     "ListUsersRequest",
     "ListUsersResponse",
     "LockUserRequest",
@@ -281,6 +298,8 @@ __all__ = [
     "SetOrganizationAliasRequest",
     "SetRulesRequest",
     "SetRulesResponse",
+    "StartUserWebAuthnRegistrationRequest",
+    "StartUserWebAuthnRegistrationResponse",
     "UnlockUserRequest",
     "UpdateAPIKeyRequest",
     "UpdateApplicationRequest",
@@ -293,6 +312,7 @@ __all__ = [
     "UpdateUserPasswordRequest",
     "UpdateUserRequest",
     "UpdateUserUsernameRequest",
+    "UpdateWebAuthnAuthenticatorRequest",
     "ValidateUserMFAOTPRequest",
     "ValidateUserMFAOTPResponse",
     "IamV1Alpha1API",
