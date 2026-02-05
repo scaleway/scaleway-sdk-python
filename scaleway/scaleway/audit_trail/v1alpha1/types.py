@@ -181,6 +181,12 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     VPC_GW_PAT_RULE = "vpc_gw_pat_rule"
     VPC_GW_IP = "vpc_gw_ip"
     AUDIT_TRAIL_EXPORT_JOB = "audit_trail_export_job"
+    RDB_INSTANCE = "rdb_instance"
+    RDB_INSTANCE_BACKUP = "rdb_instance_backup"
+    RDB_INSTANCE_ENDPOINT = "rdb_instance_endpoint"
+    RDB_INSTANCE_LOGS = "rdb_instance_logs"
+    RDB_INSTANCE_READ_REPLICA = "rdb_instance_read_replica"
+    RDB_INSTANCE_SNAPSHOT = "rdb_instance_snapshot"
 
     def __str__(self) -> str:
         return str(self.value)
