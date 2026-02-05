@@ -72,15 +72,15 @@ class DatalabV1Beta1API(API):
         Create a new Data Lab. In this call, one can personalize the node counts, add a notebook, choose the private network, define the persistent volume storage capacity.
         :param name: The name of the Data Lab.
         :param description: The description of the Data Lab.
-        :param has_notebook: Whether a JupyterLab notebook shall be created with the Data Lab or not.
+        :param has_notebook: Select this option to include a notebook as part of the Data Lab.
         :param spark_version: The version of Spark running inside the Data Lab, available options can be viewed at ListClusterVersions.
-        :param private_network_id: The private network to which the Data Lab is connected. Important for accessing the Spark Master URL from a private cluster.
+        :param private_network_id: The unique identifier of the private network the Data Lab will be attached to.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: The unique identifier of the project where the Data Lab will be created.
         :param tags: The tags of the Data Lab.
-        :param main: The Spark main node configuration of the Data Lab, has one parameter `node_type` which specifies the compute node type of the main node. See ListNodeTypes for available options.
-        :param worker: The Spark worker node configuration of the Data Lab, has two parameters `node_type` for selecting the type of the worker node, and `node_count` for specifying the amount of nodes.
-        :param total_storage: The total storage selected by the user for Spark workers. This means the workers will not use more then this amount for their workload.
+        :param main: The cluster main node specification. It holds the parameters `node_type` which specifies the node type of the main node. See ListNodeTypes for available options. See ListNodeTypes for available options.
+        :param worker: The cluster worker node specification. It holds the parameters `node_type` which specifies the node type of the worker node and `node_count` for specifying the amount of nodes.
+        :param total_storage: The maximum persistent volume storage that will be available during workload.
         :return: :class:`Datalab <Datalab>`
 
         Usage:
@@ -386,12 +386,12 @@ class DatalabV1Beta1API(API):
         resource_type: Optional[ListNodeTypesRequestResourceType] = None,
     ) -> ListNodeTypesResponse:
         """
-        List the available compute node types upon which a Data Lab can be created.
+        List the available compute node types for creating a Data Lab.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
         :param order_by: The order by field. Available fields are `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`.
-        :param targets: Filter on the wanted targets, whether it's for main node or worker.
+        :param targets: Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node.
         :param resource_type: Filter based on node type ( `cpu`/`gpu`/`all` ).
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
 
@@ -431,12 +431,12 @@ class DatalabV1Beta1API(API):
         resource_type: Optional[ListNodeTypesRequestResourceType] = None,
     ) -> list[NodeType]:
         """
-        List the available compute node types upon which a Data Lab can be created.
+        List the available compute node types for creating a Data Lab.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
         :param order_by: The order by field. Available fields are `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`.
-        :param targets: Filter on the wanted targets, whether it's for main node or worker.
+        :param targets: Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node.
         :param resource_type: Filter based on node type ( `cpu`/`gpu`/`all` ).
         :return: :class:`list[NodeType] <list[NodeType]>`
 
@@ -469,7 +469,7 @@ class DatalabV1Beta1API(API):
         order_by: Optional[ListNotebookVersionsRequestOrderBy] = None,
     ) -> ListNotebookVersionsResponse:
         """
-        List available notebook versions.
+        Lists available notebook versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
@@ -508,7 +508,7 @@ class DatalabV1Beta1API(API):
         order_by: Optional[ListNotebookVersionsRequestOrderBy] = None,
     ) -> list[Notebook]:
         """
-        List available notebook versions.
+        Lists available notebook versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
