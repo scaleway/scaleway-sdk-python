@@ -250,7 +250,7 @@ class Datalab:
 
     project_id: str
     """
-    The identifier of the project where the Data Lab has been created.
+    The unique identifier of the project where the Data Lab has been created.
     """
 
     name: str
@@ -270,7 +270,7 @@ class Datalab:
 
     status: DatalabStatus
     """
-    The status of the Data Lab. For a working Data Lab this should be `ready`.
+    The status of the Data Lab. For a working Data Lab the status is marked as `ready`.
     """
 
     region: ScwRegion
@@ -290,17 +290,17 @@ class Datalab:
 
     private_network_id: str
     """
-    The private network to which the data lab is connected. This is important for accessing the Spark Master URL.
+    The unique identifier of the private network to which the Data Lab is attached to.
     """
 
     main: Optional[DatalabSparkMain] = None
     """
-    The Spark Main node specification of Data lab. It holds the parameters `node_type` the compute node type of the main node, `spark_ui_url` where the Spark UI is available, `spark_master_url` with which one can connect to the cluster from within one's VPC, `root_volume` the size of the volume assigned to the main node.
+    The Spark Main node specification of Data lab. It holds the parameters `node_type`, `spark_ui_url` (available to reach Spark UI), `spark_master_url` (used to reach the cluster within a VPC), `root_volume` (size of the volume assigned to the cluster).
     """
 
     worker: Optional[DatalabSparkWorker] = None
     """
-    The worker node specification of the Data Lab. It presents the parameters `node_type` the compute node type of each worker node, `node_count` the number of worker nodes currently in the cluster, `root_volume` the root volume size of each executor.
+    The cluster worker nodes specification. It holds the parameters `node_type`, `node_count`, `root_volume` (size of the volume assigned to the cluster).
     """
 
     created_at: Optional[datetime] = None
@@ -315,17 +315,17 @@ class Datalab:
 
     notebook_url: Optional[str] = None
     """
-    The URL of said notebook if exists.
+    The URL of the notebook if available.
     """
 
     total_storage: Optional[Volume] = None
     """
-    The total storage selected by the user for Spark.
+    The total persistent volume storage selected to run Spark.
     """
 
     notebook_master_url: Optional[str] = None
     """
-    The URL to the Spark Master endpoint from, and only from the perspective of the JupyterLab Notebook. This is NOT the URL to use for accessing the cluster from a private server.
+    The URL that is used to reach the cluster from the notebook when available. This URL cannot be used to reach the cluster from a server.
     """
 
 
@@ -436,7 +436,7 @@ class CreateDatalabRequest:
 
     has_notebook: bool
     """
-    Whether a JupyterLab notebook shall be created with the Data Lab or not.
+    Select this option to include a notebook as part of the Data Lab.
     """
 
     spark_version: str
@@ -446,7 +446,7 @@ class CreateDatalabRequest:
 
     private_network_id: str
     """
-    The private network to which the Data Lab is connected. Important for accessing the Spark Master URL from a private cluster.
+    The unique identifier of the private network the Data Lab will be attached to.
     """
 
     region: Optional[ScwRegion] = None
@@ -466,17 +466,17 @@ class CreateDatalabRequest:
 
     main: Optional[CreateDatalabRequestSparkMain] = None
     """
-    The Spark main node configuration of the Data Lab, has one parameter `node_type` which specifies the compute node type of the main node. See ListNodeTypes for available options.
+    The cluster main node specification. It holds the parameters `node_type` which specifies the node type of the main node. See ListNodeTypes for available options. See ListNodeTypes for available options.
     """
 
     worker: Optional[CreateDatalabRequestSparkWorker] = None
     """
-    The Spark worker node configuration of the Data Lab, has two parameters `node_type` for selecting the type of the worker node, and `node_count` for specifying the amount of nodes.
+    The cluster worker node specification. It holds the parameters `node_type` which specifies the node type of the worker node and `node_count` for specifying the amount of nodes.
     """
 
     total_storage: Optional[Volume] = None
     """
-    The total storage selected by the user for Spark workers. This means the workers will not use more then this amount for their workload.
+    The maximum persistent volume storage that will be available during workload.
     """
 
 
@@ -563,7 +563,7 @@ class ListClusterVersionsResponse:
 @dataclass
 class ListDatalabsRequest:
     """
-    A request to list Datalabs.
+    A request to list Data Labs.
     """
 
     region: Optional[ScwRegion] = None
@@ -620,7 +620,7 @@ class ListDatalabsResponse:
 
     total_count: int
     """
-    The total count of Datalabs.
+    The total count of Data Labs.
     """
 
 
@@ -654,7 +654,7 @@ class ListNodeTypesRequest:
 
     targets: Optional[list[NodeTypeTarget]] = field(default_factory=list)
     """
-    Filter on the wanted targets, whether it's for main node or worker.
+    Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node.
     """
 
     resource_type: Optional[ListNodeTypesRequestResourceType] = (
