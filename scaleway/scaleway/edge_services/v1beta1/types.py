@@ -717,6 +717,11 @@ class PlanDetails:
     Number of WAF requests included in subscription plan.
     """
 
+    backend_limit: int
+    """
+    Number of backends per pipeline included in subscription plan.
+    """
+
 
 @dataclass
 class PlanUsageDetails:
