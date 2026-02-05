@@ -137,6 +137,7 @@ class BlockV1API(API):
         product_resource_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
         volume_type: Optional[str] = None,
+        volume_ids: Optional[list[str]] = None,
     ) -> ListVolumesResponse:
         """
         List volumes.
@@ -152,6 +153,7 @@ class BlockV1API(API):
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
         :param volume_type: Filter by volume type.
+        :param volume_ids: Filter by volume IDs.
         :return: :class:`ListVolumesResponse <ListVolumesResponse>`
 
         Usage:
@@ -178,6 +180,7 @@ class BlockV1API(API):
                 "product_resource_id": product_resource_id,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
+                "volume_ids": volume_ids,
                 "volume_type": volume_type,
             },
         )
@@ -199,6 +202,7 @@ class BlockV1API(API):
         product_resource_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
         volume_type: Optional[str] = None,
+        volume_ids: Optional[list[str]] = None,
     ) -> list[Volume]:
         """
         List volumes.
@@ -214,6 +218,7 @@ class BlockV1API(API):
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
         :param volume_type: Filter by volume type.
+        :param volume_ids: Filter by volume IDs.
         :return: :class:`list[Volume] <list[Volume]>`
 
         Usage:
@@ -240,6 +245,7 @@ class BlockV1API(API):
                 "product_resource_id": product_resource_id,
                 "tags": tags,
                 "volume_type": volume_type,
+                "volume_ids": volume_ids,
             },
         )
 

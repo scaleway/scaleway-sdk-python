@@ -679,6 +679,11 @@ class ListVolumesRequest:
     Filter by volume type.
     """
 
+    volume_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter by volume IDs.
+    """
+
 
 @dataclass
 class ListVolumesResponse:
