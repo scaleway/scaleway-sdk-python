@@ -52,6 +52,16 @@ class ListSubnetsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListVPCConnectorsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListVPCsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -69,6 +79,15 @@ class RouteType(str, Enum, metaclass=StrEnumMeta):
     CUSTOM = "custom"
     INTERLINK = "interlink"
     S2S_VPN = "s2s_vpn"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class VPCConnectorStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_VPC_CONNECTOR_STATUS = "unknown_vpc_connector_status"
+    ORPHAN = "orphan"
+    PEERED = "peered"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -239,6 +258,13 @@ class Route:
 
 
 @dataclass
+class VPCConnectorPeerInfo:
+    organization_id: str
+    project_id: str
+    vpc_name: str
+
+
+@dataclass
 class AclRule:
     protocol: AclRuleProtocol
     """
@@ -283,6 +309,69 @@ class AclRule:
     description: Optional[str] = None
     """
     Rule description.
+    """
+
+
+@dataclass
+class VPCConnector:
+    id: str
+    """
+    VPC connector ID.
+    """
+
+    name: str
+    """
+    VPC connector name.
+    """
+
+    organization_id: str
+    """
+    Scaleway Organization the VPC connector belongs to.
+    """
+
+    project_id: str
+    """
+    Scaleway Project the VPC connector belongs to.
+    """
+
+    vpc_id: str
+    """
+    VPC the VPC connector belongs to (origin VPC).
+    """
+
+    target_vpc_id: str
+    """
+    VPC with which the VPC connector is peered (target VPC).
+    """
+
+    status: VPCConnectorStatus
+    """
+    Status of the VPC connector.
+    """
+
+    region: ScwRegion
+    """
+    Region of the VPC connector.
+    """
+
+    tags: list[str]
+    """
+    Tags for the VPC connector.
+    """
+
+    peer_info: Optional[VPCConnectorPeerInfo] = None
+    """
+    Peer info of target VPC. Available when status is Peered.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date the VPC connector was created.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date the VPC connector was last modified.
     """
 
 
@@ -449,6 +538,34 @@ class CreateRouteRequest:
 
 
 @dataclass
+class CreateVPCConnectorRequest:
+    vpc_id: str
+    """
+    VPC ID to filter for. Only connectors belonging to this VPC will be returned.
+    """
+
+    target_vpc_id: str
+    """
+    Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    Name for the VPC connector.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Tags for the VPC connector.
+    """
+
+
+@dataclass
 class CreateVPCRequest:
     enable_routing: bool
     """
@@ -523,6 +640,19 @@ class DeleteSubnetsRequest:
 @dataclass
 class DeleteSubnetsResponse:
     subnets: list[str]
+
+
+@dataclass
+class DeleteVPCConnectorRequest:
+    vpc_connector_id: str
+    """
+    VPC connector ID.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
@@ -619,6 +749,19 @@ class GetRouteRequest:
     route_id: str
     """
     Route ID.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetVPCConnectorRequest:
+    vpc_connector_id: str
+    """
+    VPC connector ID.
     """
 
     region: Optional[ScwRegion] = None
@@ -754,6 +897,74 @@ class ListSubnetsRequest:
 @dataclass
 class ListSubnetsResponse:
     subnets: list[Subnet]
+    total_count: int
+
+
+@dataclass
+class ListVPCConnectorsRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListVPCConnectorsRequestOrderBy] = (
+        ListVPCConnectorsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of the returned VPC connectors.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of VPC connectors to return per page.
+    """
+
+    name: Optional[str] = None
+    """
+    Name to filter for. Only connectors with names containing this string will be returned.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Tags to filter for. Only connectors with one or more matching tags will be returned.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    Organization ID to filter for. Only connectors belonging to this Organization will be returned.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID to filter for. Only connectors belonging to this Project will be returned.
+    """
+
+    vpc_id: Optional[str] = None
+    """
+    VPC ID to filter for. Only connectors belonging to this VPC will be returned.
+    """
+
+    target_vpc_id: Optional[str] = None
+    """
+    Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned.
+    """
+
+    status: Optional[VPCConnectorStatus] = (
+        VPCConnectorStatus.UNKNOWN_VPC_CONNECTOR_STATUS
+    )
+    """
+    Status of the VPC connector.
+    """
+
+
+@dataclass
+class ListVPCConnectorsResponse:
+    vpc_connectors: list[VPCConnector]
     total_count: int
 
 
@@ -913,6 +1124,29 @@ class UpdateRouteRequest:
     nexthop_private_network_id: Optional[str] = None
     """
     ID of the nexthop private network.
+    """
+
+
+@dataclass
+class UpdateVPCConnectorRequest:
+    vpc_connector_id: str
+    """
+    VPC connector ID.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    Name for the VPC connector.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Tags for the VPC connector.
     """
 
 
