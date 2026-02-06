@@ -31,6 +31,7 @@ from .types import (
     CreateRoutingPolicyRequest,
     CreateVpnGatewayRequest,
     CreateVpnGatewayRequestPublicConfig,
+    CreateVpnGatewayRequestPublicTunnelConfig,
     CustomerGateway,
     DetachRoutingPolicyRequest,
     GatewayType,
@@ -351,6 +352,9 @@ class S2SVpnV1Alpha1API(API):
         project_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
         public_config: Optional[CreateVpnGatewayRequestPublicConfig] = None,
+        public_tunnel_config: Optional[
+            CreateVpnGatewayRequestPublicTunnelConfig
+        ] = None,
         ipam_private_ipv4_id: Optional[str] = None,
         ipam_private_ipv6_id: Optional[str] = None,
         zone: Optional[ScwZone] = None,
@@ -364,7 +368,9 @@ class S2SVpnV1Alpha1API(API):
         :param project_id: ID of the Project to create the VPN gateway in.
         :param tags: List of tags to apply to the VPN gateway.
         :param public_config: Public endpoint configuration of the VPN gateway.
-        One-Of ('endpoint'): at most one of 'public_config' could be set.
+        One-Of ('endpoint'): at most one of 'public_config', 'public_tunnel_config' could be set.
+        :param public_tunnel_config:
+        One-Of ('endpoint'): at most one of 'public_config', 'public_tunnel_config' could be set.
         :param ipam_private_ipv4_id: ID of the IPAM private IPv4 address to attach to the VPN gateway.
         :param ipam_private_ipv6_id: ID of the IPAM private IPv6 address to attach to the VPN gateway.
         :param zone: Availability Zone where the VPN gateway should be provisioned. If no zone is specified, the VPN gateway will be automatically placed.
@@ -399,6 +405,7 @@ class S2SVpnV1Alpha1API(API):
                     ipam_private_ipv6_id=ipam_private_ipv6_id,
                     zone=zone,
                     public_config=public_config,
+                    public_tunnel_config=public_tunnel_config,
                 ),
                 self.client,
             ),

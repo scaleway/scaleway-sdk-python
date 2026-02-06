@@ -178,6 +178,17 @@ class ConnectionCipher:
 
 
 @dataclass
+class CreateVpnGatewayRequestDualIpTunnel:
+    ipam_ipv4_id: Optional[str] = None
+    ipam_ipv6_id: Optional[str] = None
+
+
+@dataclass
+class CreateVpnGatewayRequestSingleIpTunnel:
+    ipam_id: Optional[str] = None
+
+
+@dataclass
 class VpnGatewayPrivateConfig:
     pass
 
@@ -327,6 +338,15 @@ class Connection:
 class CreateVpnGatewayRequestPublicConfig:
     ipam_ipv4_id: Optional[str] = None
     ipam_ipv6_id: Optional[str] = None
+
+
+@dataclass
+class CreateVpnGatewayRequestPublicTunnelConfig:
+    single_ipv4_tunnel: Optional[CreateVpnGatewayRequestSingleIpTunnel] = None
+
+    single_ipv6_tunnel: Optional[CreateVpnGatewayRequestSingleIpTunnel] = None
+
+    dual_ipv4v6_tunnel: Optional[CreateVpnGatewayRequestDualIpTunnel] = None
 
 
 @dataclass
@@ -754,6 +774,8 @@ class CreateVpnGatewayRequest:
     """
 
     public_config: Optional[CreateVpnGatewayRequestPublicConfig] = None
+
+    public_tunnel_config: Optional[CreateVpnGatewayRequestPublicTunnelConfig] = None
 
 
 @dataclass

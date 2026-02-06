@@ -35,7 +35,10 @@ from .types import (
     CreateConnectionRequest,
     CreateCustomerGatewayRequest,
     CreateRoutingPolicyRequest,
+    CreateVpnGatewayRequestDualIpTunnel,
+    CreateVpnGatewayRequestSingleIpTunnel,
     CreateVpnGatewayRequestPublicConfig,
+    CreateVpnGatewayRequestPublicTunnelConfig,
     CreateVpnGatewayRequest,
     DetachRoutingPolicyRequest,
     SetRoutingPolicyRequest,
@@ -947,6 +950,33 @@ def marshal_CreateRoutingPolicyRequest(
     return output
 
 
+def marshal_CreateVpnGatewayRequestDualIpTunnel(
+    request: CreateVpnGatewayRequestDualIpTunnel,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ipam_ipv4_id is not None:
+        output["ipam_ipv4_id"] = request.ipam_ipv4_id
+
+    if request.ipam_ipv6_id is not None:
+        output["ipam_ipv6_id"] = request.ipam_ipv6_id
+
+    return output
+
+
+def marshal_CreateVpnGatewayRequestSingleIpTunnel(
+    request: CreateVpnGatewayRequestSingleIpTunnel,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ipam_id is not None:
+        output["ipam_id"] = request.ipam_id
+
+    return output
+
+
 def marshal_CreateVpnGatewayRequestPublicConfig(
     request: CreateVpnGatewayRequestPublicConfig,
     defaults: ProfileDefaults,
@@ -958,6 +988,36 @@ def marshal_CreateVpnGatewayRequestPublicConfig(
 
     if request.ipam_ipv6_id is not None:
         output["ipam_ipv6_id"] = request.ipam_ipv6_id
+
+    return output
+
+
+def marshal_CreateVpnGatewayRequestPublicTunnelConfig(
+    request: CreateVpnGatewayRequestPublicTunnelConfig,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="single_ipv4_tunnel",
+                    value=request.single_ipv4_tunnel,
+                    marshal_func=marshal_CreateVpnGatewayRequestSingleIpTunnel,
+                ),
+                OneOfPossibility(
+                    param="single_ipv6_tunnel",
+                    value=request.single_ipv6_tunnel,
+                    marshal_func=marshal_CreateVpnGatewayRequestSingleIpTunnel,
+                ),
+                OneOfPossibility(
+                    param="dual_ipv4v6_tunnel",
+                    value=request.dual_ipv4v6_tunnel,
+                    marshal_func=marshal_CreateVpnGatewayRequestDualIpTunnel,
+                ),
+            ]
+        ),
+    )
 
     return output
 
@@ -974,6 +1034,11 @@ def marshal_CreateVpnGatewayRequest(
                     param="public_config",
                     value=request.public_config,
                     marshal_func=marshal_CreateVpnGatewayRequestPublicConfig,
+                ),
+                OneOfPossibility(
+                    param="public_tunnel_config",
+                    value=request.public_tunnel_config,
+                    marshal_func=marshal_CreateVpnGatewayRequestPublicTunnelConfig,
                 ),
             ]
         ),
