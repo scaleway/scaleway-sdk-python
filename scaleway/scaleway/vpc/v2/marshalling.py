@@ -213,6 +213,12 @@ def unmarshal_Route(data: Any) -> Route:
     else:
         args["destination"] = None
 
+    field = data.get("nexthop_resource_id", None)
+    if field is not None:
+        args["nexthop_resource_id"] = field
+    else:
+        args["nexthop_resource_id"] = None
+
     field = data.get("is_read_only", None)
     if field is not None:
         args["is_read_only"] = field
@@ -225,17 +231,17 @@ def unmarshal_Route(data: Any) -> Route:
     else:
         args["region"] = None
 
-    field = data.get("nexthop_resource_id", None)
-    if field is not None:
-        args["nexthop_resource_id"] = field
-    else:
-        args["nexthop_resource_id"] = None
-
     field = data.get("nexthop_private_network_id", None)
     if field is not None:
         args["nexthop_private_network_id"] = field
     else:
         args["nexthop_private_network_id"] = None
+
+    field = data.get("nexthop_vpc_connector_id", None)
+    if field is not None:
+        args["nexthop_vpc_connector_id"] = field
+    else:
+        args["nexthop_vpc_connector_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -767,6 +773,9 @@ def marshal_CreateRouteRequest(
     if request.nexthop_private_network_id is not None:
         output["nexthop_private_network_id"] = request.nexthop_private_network_id
 
+    if request.nexthop_vpc_connector_id is not None:
+        output["nexthop_vpc_connector_id"] = request.nexthop_vpc_connector_id
+
     return output
 
 
@@ -920,6 +929,9 @@ def marshal_UpdateRouteRequest(
 
     if request.nexthop_private_network_id is not None:
         output["nexthop_private_network_id"] = request.nexthop_private_network_id
+
+    if request.nexthop_vpc_connector_id is not None:
+        output["nexthop_vpc_connector_id"] = request.nexthop_vpc_connector_id
 
     return output
 
