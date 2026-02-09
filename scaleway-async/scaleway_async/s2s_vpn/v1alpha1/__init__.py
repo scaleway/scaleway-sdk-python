@@ -16,11 +16,14 @@ from .types import VpnGatewayStatus
 from .content import VPN_GATEWAY_TRANSIENT_STATUSES
 from .types import BgpSession
 from .types import ConnectionCipher
+from .types import CreateVpnGatewayRequestDualIpTunnel
+from .types import CreateVpnGatewayRequestSingleIpTunnel
 from .types import VpnGatewayPrivateConfig
 from .types import VpnGatewayPublicConfig
 from .types import CreateConnectionRequestBgpConfig
 from .types import Connection
 from .types import CreateVpnGatewayRequestPublicConfig
+from .types import CreateVpnGatewayRequestPublicTunnelConfig
 from .types import CustomerGateway
 from .types import RoutingPolicy
 from .types import GatewayType
@@ -77,11 +80,14 @@ __all__ = [
     "VPN_GATEWAY_TRANSIENT_STATUSES",
     "BgpSession",
     "ConnectionCipher",
+    "CreateVpnGatewayRequestDualIpTunnel",
+    "CreateVpnGatewayRequestSingleIpTunnel",
     "VpnGatewayPrivateConfig",
     "VpnGatewayPublicConfig",
     "CreateConnectionRequestBgpConfig",
     "Connection",
     "CreateVpnGatewayRequestPublicConfig",
+    "CreateVpnGatewayRequestPublicTunnelConfig",
     "CustomerGateway",
     "RoutingPolicy",
     "GatewayType",
