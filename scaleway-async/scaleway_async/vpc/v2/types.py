@@ -241,6 +241,11 @@ class Route:
     ID of the nexthop private network.
     """
 
+    nexthop_vpc_connector_id: Optional[str] = None
+    """
+    ID of the nexthop VPC connector.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the Route was created.
@@ -534,6 +539,11 @@ class CreateRouteRequest:
     nexthop_private_network_id: Optional[str] = None
     """
     ID of the nexthop private network.
+    """
+
+    nexthop_vpc_connector_id: Optional[str] = None
+    """
+    ID of the nexthop VPC Connector.
     """
 
 
@@ -1124,6 +1134,11 @@ class UpdateRouteRequest:
     nexthop_private_network_id: Optional[str] = None
     """
     ID of the nexthop private network.
+    """
+
+    nexthop_vpc_connector_id: Optional[str] = None
+    """
+    ID of the nexthop VPC connector.
     """
 
 

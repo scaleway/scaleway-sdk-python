@@ -955,6 +955,7 @@ class VpcV2API(API):
         tags: Optional[list[str]] = None,
         nexthop_resource_id: Optional[str] = None,
         nexthop_private_network_id: Optional[str] = None,
+        nexthop_vpc_connector_id: Optional[str] = None,
     ) -> Route:
         """
         Create a Route.
@@ -966,6 +967,7 @@ class VpcV2API(API):
         :param tags: Tags of the Route.
         :param nexthop_resource_id: ID of the nexthop resource.
         :param nexthop_private_network_id: ID of the nexthop private network.
+        :param nexthop_vpc_connector_id: ID of the nexthop VPC Connector.
         :return: :class:`Route <Route>`
 
         Usage:
@@ -994,6 +996,7 @@ class VpcV2API(API):
                     tags=tags,
                     nexthop_resource_id=nexthop_resource_id,
                     nexthop_private_network_id=nexthop_private_network_id,
+                    nexthop_vpc_connector_id=nexthop_vpc_connector_id,
                 ),
                 self.client,
             ),
@@ -1046,6 +1049,7 @@ class VpcV2API(API):
         destination: Optional[str] = None,
         nexthop_resource_id: Optional[str] = None,
         nexthop_private_network_id: Optional[str] = None,
+        nexthop_vpc_connector_id: Optional[str] = None,
     ) -> Route:
         """
         Update Route.
@@ -1057,6 +1061,7 @@ class VpcV2API(API):
         :param destination: Destination of the Route.
         :param nexthop_resource_id: ID of the nexthop resource.
         :param nexthop_private_network_id: ID of the nexthop private network.
+        :param nexthop_vpc_connector_id: ID of the nexthop VPC connector.
         :return: :class:`Route <Route>`
 
         Usage:
@@ -1084,6 +1089,7 @@ class VpcV2API(API):
                     destination=destination,
                     nexthop_resource_id=nexthop_resource_id,
                     nexthop_private_network_id=nexthop_private_network_id,
+                    nexthop_vpc_connector_id=nexthop_vpc_connector_id,
                 ),
                 self.client,
             ),
