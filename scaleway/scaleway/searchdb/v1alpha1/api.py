@@ -6,6 +6,8 @@ from typing import Optional
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    ScwFile,
+    unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -874,3 +876,35 @@ class SearchdbV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    def get_deployment_certificate_authority(
+        self,
+        *,
+        deployment_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> ScwFile:
+        """
+        :param deployment_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ScwFile <ScwFile>`
+
+        Usage:
+        ::
+
+            result = api.get_deployment_certificate_authority(
+                deployment_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_deployment_id = validate_path_param("deployment_id", deployment_id)
+
+        res = self._request(
+            "GET",
+            f"/searchdb/v1alpha1/regions/{param_region}/deployments/{param_deployment_id}/certificate-authority",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ScwFile(res.json())
