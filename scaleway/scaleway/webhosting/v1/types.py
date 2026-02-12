@@ -1859,6 +1859,24 @@ class HostingApiCreateSessionRequest:
 
 
 @dataclass
+class HostingApiDeleteHostingDomainsRequest:
+    hosting_id: str
+    """
+    Hosting ID of the Web Hosting plan from which to delete domains.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    domains: Optional[list[str]] = field(default_factory=list)
+    """
+    List of domains to delete from the Web Hosting plan.
+    """
+
+
+@dataclass
 class HostingApiDeleteHostingRequest:
     hosting_id: str
     """
@@ -2003,6 +2021,37 @@ class HostingApiResetHostingPasswordRequest:
     hosting_id: str
     """
     UUID of the hosting.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class HostingApiResetHostingRequest:
+    hosting_id: str
+    """
+    Hosting ID of the Web Hosting plan to reset.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class HostingApiUpdateHostingFreeDomainRequest:
+    hosting_id: str
+    """
+    Hosting ID of the Web Hosting plan to update.
+    """
+
+    free_domain: str
+    """
+    New free domain to associate with the Web Hosting plan.
     """
 
     region: Optional[ScwRegion] = None
