@@ -96,8 +96,10 @@ from .types import (
     CreateHostingRequestDomainConfiguration,
     OfferOptionRequest,
     HostingApiCreateHostingRequest,
+    HostingApiDeleteHostingDomainsRequest,
     HostingApiMigrateControlPanelRequest,
     HostingApiRemoveCustomDomainRequest,
+    HostingApiUpdateHostingFreeDomainRequest,
     HostingApiUpdateHostingRequest,
     MailAccountApiChangeMailAccountPasswordRequest,
     MailAccountApiCreateMailAccountRequest,
@@ -2075,6 +2077,18 @@ def marshal_HostingApiCreateHostingRequest(
     return output
 
 
+def marshal_HostingApiDeleteHostingDomainsRequest(
+    request: HostingApiDeleteHostingDomainsRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.domains is not None:
+        output["domains"] = request.domains
+
+    return output
+
+
 def marshal_HostingApiMigrateControlPanelRequest(
     request: HostingApiMigrateControlPanelRequest,
     defaults: ProfileDefaults,
@@ -2098,6 +2112,18 @@ def marshal_HostingApiRemoveCustomDomainRequest(
 
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
+
+    return output
+
+
+def marshal_HostingApiUpdateHostingFreeDomainRequest(
+    request: HostingApiUpdateHostingFreeDomainRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.free_domain is not None:
+        output["free_domain"] = request.free_domain
 
     return output
 

@@ -49,8 +49,10 @@ from .types import (
     Hosting,
     HostingApiAddCustomDomainRequest,
     HostingApiCreateHostingRequest,
+    HostingApiDeleteHostingDomainsRequest,
     HostingApiMigrateControlPanelRequest,
     HostingApiRemoveCustomDomainRequest,
+    HostingApiUpdateHostingFreeDomainRequest,
     HostingApiUpdateHostingRequest,
     HostingSummary,
     ListBackupItemsResponse,
@@ -132,8 +134,10 @@ from .marshalling import (
     marshal_FtpAccountApiCreateFtpAccountRequest,
     marshal_HostingApiAddCustomDomainRequest,
     marshal_HostingApiCreateHostingRequest,
+    marshal_HostingApiDeleteHostingDomainsRequest,
     marshal_HostingApiMigrateControlPanelRequest,
     marshal_HostingApiRemoveCustomDomainRequest,
+    marshal_HostingApiUpdateHostingFreeDomainRequest,
     marshal_HostingApiUpdateHostingRequest,
     marshal_MailAccountApiChangeMailAccountPasswordRequest,
     marshal_MailAccountApiCreateMailAccountRequest,
@@ -2081,6 +2085,130 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_HostingSummary(res.json())
+
+    def reset_hosting(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Hosting:
+        """
+        Reset a Web Hosting plan.
+        Reset a Web Hosting plan to its initial state, specified by its `hosting_id`. This permanently deletes all hosting data including files, databases and emails. The hosting will be re-provisioned.
+        :param hosting_id: Hosting ID of the Web Hosting plan to reset.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Hosting <Hosting>`
+
+        Usage:
+        ::
+
+            result = api.reset_hosting(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/reset",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Hosting(res.json())
+
+    def delete_hosting_domains(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[ScwRegion] = None,
+        domains: Optional[list[str]] = None,
+    ) -> Hosting:
+        """
+        Delete domains from a Web Hosting plan.
+        Remove one or more domains from a Web Hosting plan, specified by its `hosting_id`. This permanently deletes the domains and all services tied to them, including mailboxes, FTP accounts and DNS zones.
+        :param hosting_id: Hosting ID of the Web Hosting plan from which to delete domains.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param domains: List of domains to delete from the Web Hosting plan.
+        :return: :class:`Hosting <Hosting>`
+
+        Usage:
+        ::
+
+            result = api.delete_hosting_domains(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/delete-domains",
+            body=marshal_HostingApiDeleteHostingDomainsRequest(
+                HostingApiDeleteHostingDomainsRequest(
+                    hosting_id=hosting_id,
+                    region=region,
+                    domains=domains,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Hosting(res.json())
+
+    def update_hosting_free_domain(
+        self,
+        *,
+        hosting_id: str,
+        free_domain: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Hosting:
+        """
+        Update the free domain of a Web Hosting plan.
+        Change the free domain associated with a Web Hosting plan, specified by its `hosting_id`.
+        :param hosting_id: Hosting ID of the Web Hosting plan to update.
+        :param free_domain: New free domain to associate with the Web Hosting plan.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Hosting <Hosting>`
+
+        Usage:
+        ::
+
+            result = api.update_hosting_free_domain(
+                hosting_id="example",
+                free_domain="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "PATCH",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/update-free-domain",
+            body=marshal_HostingApiUpdateHostingFreeDomainRequest(
+                HostingApiUpdateHostingFreeDomainRequest(
+                    hosting_id=hosting_id,
+                    free_domain=free_domain,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Hosting(res.json())
 
 
 class WebhostingV1FreeDomainAPI(API):

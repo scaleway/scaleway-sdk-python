@@ -96,6 +96,7 @@ from .types import Hosting
 from .types import HostingApiAddCustomDomainRequest
 from .types import HostingApiCreateHostingRequest
 from .types import HostingApiCreateSessionRequest
+from .types import HostingApiDeleteHostingDomainsRequest
 from .types import HostingApiDeleteHostingRequest
 from .types import HostingApiGetHostingRequest
 from .types import HostingApiGetResourceSummaryRequest
@@ -103,6 +104,8 @@ from .types import HostingApiListHostingsRequest
 from .types import HostingApiMigrateControlPanelRequest
 from .types import HostingApiRemoveCustomDomainRequest
 from .types import HostingApiResetHostingPasswordRequest
+from .types import HostingApiResetHostingRequest
+from .types import HostingApiUpdateHostingFreeDomainRequest
 from .types import HostingApiUpdateHostingRequest
 from .types import ListBackupItemsResponse
 from .types import ListBackupsResponse
@@ -239,6 +242,7 @@ __all__ = [
     "HostingApiAddCustomDomainRequest",
     "HostingApiCreateHostingRequest",
     "HostingApiCreateSessionRequest",
+    "HostingApiDeleteHostingDomainsRequest",
     "HostingApiDeleteHostingRequest",
     "HostingApiGetHostingRequest",
     "HostingApiGetResourceSummaryRequest",
@@ -246,6 +250,8 @@ __all__ = [
     "HostingApiMigrateControlPanelRequest",
     "HostingApiRemoveCustomDomainRequest",
     "HostingApiResetHostingPasswordRequest",
+    "HostingApiResetHostingRequest",
+    "HostingApiUpdateHostingFreeDomainRequest",
     "HostingApiUpdateHostingRequest",
     "ListBackupItemsResponse",
     "ListBackupsResponse",
