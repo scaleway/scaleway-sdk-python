@@ -7,12 +7,9 @@ from dateutil import parser
 from scaleway_core.profile import ProfileDefaults
 from .types import (
     RouteType,
-    VPCConnectorStatus,
     Subnet,
     PrivateNetwork,
     Route,
-    VPCConnectorPeerInfo,
-    VPCConnector,
     VPC,
     AddSubnetsResponse,
     DeleteSubnetsResponse,
@@ -20,19 +17,16 @@ from .types import (
     GetAclResponse,
     ListPrivateNetworksResponse,
     ListSubnetsResponse,
-    ListVPCConnectorsResponse,
     ListVPCsResponse,
     SetAclResponse,
     AddSubnetsRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
-    CreateVPCConnectorRequest,
     CreateVPCRequest,
     DeleteSubnetsRequest,
     SetAclRequest,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
-    UpdateVPCConnectorRequest,
     UpdateVPCRequest,
 )
 
@@ -262,118 +256,6 @@ def unmarshal_Route(data: Any) -> Route:
         args["type_"] = RouteType.UNKNOWN_ROUTE_TYPE
 
     return Route(**args)
-
-
-def unmarshal_VPCConnectorPeerInfo(data: Any) -> VPCConnectorPeerInfo:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'VPCConnectorPeerInfo' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-    else:
-        args["organization_id"] = None
-
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-    else:
-        args["project_id"] = None
-
-    field = data.get("vpc_name", None)
-    if field is not None:
-        args["vpc_name"] = field
-    else:
-        args["vpc_name"] = None
-
-    return VPCConnectorPeerInfo(**args)
-
-
-def unmarshal_VPCConnector(data: Any) -> VPCConnector:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'VPCConnector' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-    else:
-        args["name"] = None
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-    else:
-        args["organization_id"] = None
-
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-    else:
-        args["project_id"] = None
-
-    field = data.get("vpc_id", None)
-    if field is not None:
-        args["vpc_id"] = field
-    else:
-        args["vpc_id"] = None
-
-    field = data.get("target_vpc_id", None)
-    if field is not None:
-        args["target_vpc_id"] = field
-    else:
-        args["target_vpc_id"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = VPCConnectorStatus.UNKNOWN_VPC_CONNECTOR_STATUS
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-    else:
-        args["tags"] = []
-
-    field = data.get("peer_info", None)
-    if field is not None:
-        args["peer_info"] = unmarshal_VPCConnectorPeerInfo(field)
-    else:
-        args["peer_info"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    return VPCConnector(**args)
 
 
 def unmarshal_VPC(data: Any) -> VPC:
@@ -633,31 +515,6 @@ def unmarshal_ListSubnetsResponse(data: Any) -> ListSubnetsResponse:
     return ListSubnetsResponse(**args)
 
 
-def unmarshal_ListVPCConnectorsResponse(data: Any) -> ListVPCConnectorsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListVPCConnectorsResponse' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("vpc_connectors", None)
-    if field is not None:
-        args["vpc_connectors"] = (
-            [unmarshal_VPCConnector(v) for v in field] if field is not None else None
-        )
-    else:
-        args["vpc_connectors"] = None
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-    else:
-        args["total_count"] = None
-
-    return ListVPCConnectorsResponse(**args)
-
-
 def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -775,27 +632,6 @@ def marshal_CreateRouteRequest(
 
     if request.nexthop_vpc_connector_id is not None:
         output["nexthop_vpc_connector_id"] = request.nexthop_vpc_connector_id
-
-    return output
-
-
-def marshal_CreateVPCConnectorRequest(
-    request: CreateVPCConnectorRequest,
-    defaults: ProfileDefaults,
-) -> dict[str, Any]:
-    output: dict[str, Any] = {}
-
-    if request.vpc_id is not None:
-        output["vpc_id"] = request.vpc_id
-
-    if request.target_vpc_id is not None:
-        output["target_vpc_id"] = request.target_vpc_id
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.tags is not None:
-        output["tags"] = request.tags
 
     return output
 
@@ -932,21 +768,6 @@ def marshal_UpdateRouteRequest(
 
     if request.nexthop_vpc_connector_id is not None:
         output["nexthop_vpc_connector_id"] = request.nexthop_vpc_connector_id
-
-    return output
-
-
-def marshal_UpdateVPCConnectorRequest(
-    request: UpdateVPCConnectorRequest,
-    defaults: ProfileDefaults,
-) -> dict[str, Any]:
-    output: dict[str, Any] = {}
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.tags is not None:
-        output["tags"] = request.tags
 
     return output
 

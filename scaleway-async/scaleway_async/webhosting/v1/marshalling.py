@@ -346,17 +346,35 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     else:
         args["status"] = HostingStatus.UNKNOWN_STATUS
 
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+    else:
+        args["domain"] = None
+
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
     else:
         args["protected"] = False
 
+    field = data.get("dns_status", None)
+    if field is not None:
+        args["dns_status"] = field
+    else:
+        args["dns_status"] = DnsRecordsStatus.UNKNOWN_STATUS
+
     field = data.get("offer_name", None)
     if field is not None:
         args["offer_name"] = field
     else:
         args["offer_name"] = None
+
+    field = data.get("domain_status", None)
+    if field is not None:
+        args["domain_status"] = field
+    else:
+        args["domain_status"] = DomainStatus.UNKNOWN_STATUS
 
     field = data.get("region", None)
     if field is not None:
@@ -375,24 +393,6 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-    else:
-        args["domain"] = None
-
-    field = data.get("dns_status", None)
-    if field is not None:
-        args["dns_status"] = field
-    else:
-        args["dns_status"] = DnsRecordsStatus.UNKNOWN_STATUS
-
-    field = data.get("domain_status", None)
-    if field is not None:
-        args["domain_status"] = field
-    else:
-        args["domain_status"] = DomainStatus.UNKNOWN_STATUS
 
     field = data.get("domain_info", None)
     if field is not None:
@@ -1045,6 +1045,12 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     else:
         args["status"] = HostingStatus.UNKNOWN_STATUS
 
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+    else:
+        args["domain"] = None
+
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -1056,12 +1062,6 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["created_at"] = None
-
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-    else:
-        args["domain"] = None
 
     field = data.get("offer", None)
     if field is not None:
@@ -1081,6 +1081,12 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     else:
         args["tags"] = []
 
+    field = data.get("dns_status", None)
+    if field is not None:
+        args["dns_status"] = field
+    else:
+        args["dns_status"] = DnsRecordsStatus.UNKNOWN_STATUS
+
     field = data.get("ipv4", None)
     if field is not None:
         args["ipv4"] = field
@@ -1093,29 +1099,23 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     else:
         args["protected"] = False
 
+    field = data.get("domain_status", None)
+    if field is not None:
+        args["domain_status"] = field
+    else:
+        args["domain_status"] = DomainStatus.UNKNOWN_STATUS
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
     else:
         args["region"] = None
 
-    field = data.get("dns_status", None)
-    if field is not None:
-        args["dns_status"] = field
-    else:
-        args["dns_status"] = DnsRecordsStatus.UNKNOWN_STATUS
-
     field = data.get("user", None)
     if field is not None:
         args["user"] = unmarshal_HostingUser(field)
     else:
         args["user"] = None
-
-    field = data.get("domain_status", None)
-    if field is not None:
-        args["domain_status"] = field
-    else:
-        args["domain_status"] = DomainStatus.UNKNOWN_STATUS
 
     field = data.get("domain_info", None)
     if field is not None:
@@ -1570,17 +1570,17 @@ def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordRes
 
     args: dict[str, Any] = {}
 
-    field = data.get("one_time_password_b64", None)
-    if field is not None:
-        args["one_time_password_b64"] = field
-    else:
-        args["one_time_password_b64"] = None
-
     field = data.get("one_time_password", None)
     if field is not None:
         args["one_time_password"] = field
     else:
         args["one_time_password"] = None
+
+    field = data.get("one_time_password_b64", None)
+    if field is not None:
+        args["one_time_password_b64"] = field
+    else:
+        args["one_time_password_b64"] = None
 
     return ResetHostingPasswordResponse(**args)
 

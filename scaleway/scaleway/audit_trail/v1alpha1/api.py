@@ -18,6 +18,7 @@ from .types import (
     ListCombinedEventsRequestOrderBy,
     ListEventsRequestOrderBy,
     ListExportJobsRequestOrderBy,
+    ListSystemEventsRequestOrderBy,
     ResourceType,
     AlertRule,
     CreateExportJobRequest,
@@ -33,6 +34,7 @@ from .types import (
     ListEventsResponse,
     ListExportJobsResponse,
     ListProductsResponse,
+    ListSystemEventsResponse,
     SetEnabledAlertRulesRequest,
     SetEnabledAlertRulesResponse,
 )
@@ -46,6 +48,7 @@ from .marshalling import (
     unmarshal_ListEventsResponse,
     unmarshal_ListExportJobsResponse,
     unmarshal_ListProductsResponse,
+    unmarshal_ListSystemEventsResponse,
     unmarshal_SetEnabledAlertRulesResponse,
     marshal_CreateExportJobRequest,
     marshal_DisableAlertRulesRequest,
@@ -185,6 +188,56 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListAuthenticationEventsResponse(res.json())
+
+    def list_system_events(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        recorded_after: Optional[datetime] = None,
+        recorded_before: Optional[datetime] = None,
+        order_by: Optional[ListSystemEventsRequestOrderBy] = None,
+        page_size: Optional[int] = None,
+        page_token: Optional[str] = None,
+    ) -> ListSystemEventsResponse:
+        """
+        List system events.
+        Retrieve the list of Audit Trail system events for a Scaleway Organization. You must specify the `organization_id`.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization containing the Audit Trail system events.
+        :param recorded_after: (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail system events are retrieved. Returns `one hour ago` by default.
+        :param recorded_before: (Optional) The `recorded_before` parameter defines the latest timestamp up to which Audit Trail system events are retrieved. Returns `now` by default.
+        :param order_by:
+        :param page_size:
+        :param page_token:
+        :return: :class:`ListSystemEventsResponse <ListSystemEventsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_system_events()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/system-events",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page_size": page_size or self.client.default_page_size,
+                "page_token": page_token,
+                "recorded_after": recorded_after,
+                "recorded_before": recorded_before,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListSystemEventsResponse(res.json())
 
     def list_combined_events(
         self,

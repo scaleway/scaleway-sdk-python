@@ -16,6 +16,7 @@ from .types import (
     AuthenticationEventMethod,
     AuthenticationEventOrigin,
     AuthenticationEventResult,
+    SystemEventKind,
     ExportJobS3,
     ExportJobStatus,
     ExportJob,
@@ -28,6 +29,7 @@ from .types import (
     AccountOrganizationInfo,
     AccountProjectInfo,
     AccountUserInfo,
+    AppleSiliconRunnerInfo,
     AppleSiliconServerInfo,
     AuditTrailExportJobInfo,
     BaremetalServerInfo,
@@ -75,6 +77,7 @@ from .types import (
     ProductService,
     Product,
     ListProductsResponse,
+    ListSystemEventsResponse,
     SetEnabledAlertRulesResponse,
     CreateExportJobRequest,
     DisableAlertRulesRequest,
@@ -438,6 +441,29 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
         args["phone_number"] = None
 
     return AccountUserInfo(**args)
+
+
+def unmarshal_AppleSiliconRunnerInfo(data: Any) -> AppleSiliconRunnerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AppleSiliconRunnerInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return AppleSiliconRunnerInfo(**args)
 
 
 def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
@@ -1410,6 +1436,12 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["vpc_gw_gateway_network_info"] = None
 
+    field = data.get("apple_silicon_runner_info", None)
+    if field is not None:
+        args["apple_silicon_runner_info"] = unmarshal_AppleSiliconRunnerInfo(field)
+    else:
+        args["apple_silicon_runner_info"] = None
+
     return Resource(**args)
 
 
@@ -1677,6 +1709,12 @@ def unmarshal_SystemEvent(data: Any) -> SystemEvent:
     else:
         args["organization_id"] = None
 
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+    else:
+        args["product_name"] = None
+
     field = data.get("source", None)
     if field is not None:
         args["source"] = field
@@ -1695,19 +1733,13 @@ def unmarshal_SystemEvent(data: Any) -> SystemEvent:
             [unmarshal_Resource(v) for v in field] if field is not None else None
         )
     else:
-        args["resources"] = None
+        args["resources"] = []
 
     field = data.get("kind", None)
     if field is not None:
         args["kind"] = field
     else:
-        args["kind"] = None
-
-    field = data.get("product_name", None)
-    if field is not None:
-        args["product_name"] = field
-    else:
-        args["product_name"] = None
+        args["kind"] = SystemEventKind.UNKNOWN_KIND
 
     field = data.get("recorded_at", None)
     if field is not None:
@@ -1911,6 +1943,31 @@ def unmarshal_ListProductsResponse(data: Any) -> ListProductsResponse:
         args["total_count"] = 0
 
     return ListProductsResponse(**args)
+
+
+def unmarshal_ListSystemEventsResponse(data: Any) -> ListSystemEventsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListSystemEventsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("events", None)
+    if field is not None:
+        args["events"] = (
+            [unmarshal_SystemEvent(v) for v in field] if field is not None else None
+        )
+    else:
+        args["events"] = []
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListSystemEventsResponse(**args)
 
 
 def unmarshal_SetEnabledAlertRulesResponse(data: Any) -> SetEnabledAlertRulesResponse:

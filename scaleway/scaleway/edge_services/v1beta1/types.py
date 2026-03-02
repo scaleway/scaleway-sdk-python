@@ -144,6 +144,7 @@ class PipelineErrorCode(str, Enum, metaclass=StrEnumMeta):
     TLS_CAA_MALFUNCTION = "tls_caa_malfunction"
     PIPELINE_INVALID_WORKFLOW = "pipeline_invalid_workflow"
     PIPELINE_MISSING_HEAD_STAGE = "pipeline_missing_head_stage"
+    PIPELINE_WEBSOCKET_LIMIT = "pipeline_websocket_limit"
 
     def __str__(self) -> str:
         return str(self.value)

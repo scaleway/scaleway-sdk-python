@@ -142,27 +142,94 @@ class Secret:
 @dataclass
 class JobDefinition:
     id: str
+    """
+    UUID of the job definition.
+    """
+
     name: str
+    """
+    Name of the job definition.
+    """
+
     project_id: str
+    """
+    UUID of the Scaleway Project containing the job.
+    """
+
     cpu_limit: int
+    """
+    CPU limit of the job (in mvCPU).
+    """
+
     memory_limit: int
+    """
+    Memory limit of the job (in MiB).
+    """
+
     local_storage_capacity: int
+    """
+    Local storage capacity of the job (in MiB).
+    """
+
     image_uri: str
+    """
+    Image to use for the job.
+    """
+
+    command: str
+    """
+    Deprecated, please use startup_command instead.
+    """
+
     environment_variables: dict[str, str]
+    """
+    Environment variables of the job.
+    """
+
     description: str
+    """
+    Description of the job.
+    """
+
     startup_command: list[str]
+    """
+    Job startup command.
+    """
+
     args: list[str]
+    """
+    Job arguments passed to the startup command at runtime.
+    """
+
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
 
     created_at: Optional[datetime] = None
+    """
+    Creation date of the job definition.
+    """
+
     updated_at: Optional[datetime] = None
-    command: Optional[str] = None
+    """
+    Last update date of the job definition.
+    """
+
     job_timeout: Optional[str] = None
+    """
+    Timeout of the job in seconds.
+    """
+
     cron_schedule: Optional[CronSchedule] = None
+    """
+    Configure a cron for the job.
+    """
+
     retry_policy: Optional[RetryPolicy] = None
+    """
+    Retry behaviour in case of job failure.
+    """
 
 
 @dataclass
@@ -174,29 +241,104 @@ class Resource:
 @dataclass
 class JobRun:
     id: str
+    """
+    UUID of the job run.
+    """
+
     job_definition_id: str
+    """
+    UUID of the job definition.
+    """
+
     state: JobRunState
+    """
+    State of the job run.
+    """
+
     cpu_limit: int
+    """
+    CPU limit of the job (in mvCPU).
+    """
+
     memory_limit: int
+    """
+    Memory limit of the job (in MiB).
+    """
+
     local_storage_capacity: int
+    """
+    Local storage capacity of the job (in MiB).
+    """
+
+    command: str
+    """
+    Deprecated, please use startup_command instead.
+    """
+
     environment_variables: dict[str, str]
+    """
+    Environment variables of the job run.
+    """
+
     startup_command: list[str]
+    """
+    Job startup command.
+    """
+
     args: list[str]
+    """
+    Job arguments passed to the startup command at runtime.
+    """
+
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
 
     created_at: Optional[datetime] = None
+    """
+    Creation date of the job run.
+    """
+
     updated_at: Optional[datetime] = None
+    """
+    Last update date of the job run.
+    """
+
     started_at: Optional[datetime] = None
+    """
+    Start date of the job run.
+    """
+
     terminated_at: Optional[datetime] = None
+    """
+    Termination date of the job run.
+    """
+
     run_duration: Optional[str] = None
-    reason: Optional[JobRunReason] = None
-    exit_code: Optional[int] = None
+    """
+    Duration of the job run.
+    """
+
+    reason: Optional[JobRunReason] = JobRunReason.UNKNOWN_REASON
+    """
+    Reason for failure if the job failed.
+    """
+
+    exit_code: Optional[int] = 0
+    """
+    Exit code of the job.
+    """
+
     error_message: Optional[str] = None
-    command: Optional[str] = None
-    attempts: Optional[int] = None
+    """
+    Error message if the job failed.
+    """
+
+    attempts: Optional[int] = 0
+    """
+    Number of retry attempts.
+    """
 
 
 @dataclass
@@ -227,6 +369,11 @@ class CreateJobDefinitionRequest:
     Image to use for the job.
     """
 
+    command: str
+    """
+    Deprecated: please use startup_command instead.
+    """
+
     description: str
     """
     Description of the job.
@@ -240,11 +387,6 @@ class CreateJobDefinitionRequest:
     name: Optional[str] = None
     """
     Name of the job definition.
-    """
-
-    command: Optional[str] = None
-    """
-    Deprecated: please use startup_command instead.
     """
 
     startup_command: Optional[list[str]] = field(default_factory=list)

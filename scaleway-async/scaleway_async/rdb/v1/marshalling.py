@@ -13,6 +13,9 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ACLRuleAction,
+    ACLRuleDirection,
+    ACLRuleProtocol,
     DatabaseBackupStatus,
     EndpointPrivateNetworkDetailsProvisioningMode,
     EngineSettingPropertyType,
@@ -1018,19 +1021,19 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
     if field is not None:
         args["protocol"] = field
     else:
-        args["protocol"] = None
+        args["protocol"] = ACLRuleProtocol.TCP
 
     field = data.get("direction", None)
     if field is not None:
         args["direction"] = field
     else:
-        args["direction"] = None
+        args["direction"] = ACLRuleDirection.INBOUND
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
     else:
-        args["action"] = None
+        args["action"] = ACLRuleAction.ALLOW
 
     field = data.get("description", None)
     if field is not None:
@@ -1042,7 +1045,7 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
     if field is not None:
         args["port"] = field
     else:
-        args["port"] = None
+        args["port"] = 0
 
     return ACLRule(**args)
 
@@ -1622,18 +1625,6 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     else:
         args["memory"] = 0
 
-    field = data.get("disabled", None)
-    if field is not None:
-        args["disabled"] = field
-    else:
-        args["disabled"] = False
-
-    field = data.get("beta", None)
-    if field is not None:
-        args["beta"] = field
-    else:
-        args["beta"] = False
-
     field = data.get("volume_constraint", None)
     if field is not None:
         args["volume_constraint"] = unmarshal_NodeTypeVolumeConstraintSizes(field)
@@ -1645,6 +1636,18 @@ def unmarshal_NodeType(data: Any) -> NodeType:
         args["is_bssd_compatible"] = field
     else:
         args["is_bssd_compatible"] = False
+
+    field = data.get("disabled", None)
+    if field is not None:
+        args["disabled"] = field
+    else:
+        args["disabled"] = False
+
+    field = data.get("beta", None)
+    if field is not None:
+        args["beta"] = field
+    else:
+        args["beta"] = False
 
     field = data.get("available_volume_types", None)
     if field is not None:

@@ -805,14 +805,29 @@ class HostingSummary:
     Status of the Web Hosting plan.
     """
 
+    domain: str
+    """
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
+    """
+
     protected: bool
     """
     Whether the hosting is protected or not.
     """
 
+    dns_status: DnsRecordsStatus
+    """
+    DNS status of the Web Hosting plan.
+    """
+
     offer_name: str
     """
     Name of the active offer for the Web Hosting plan.
+    """
+
+    domain_status: DomainStatus
+    """
+    Main domain status of the Web Hosting plan.
     """
 
     region: ScwRegion
@@ -828,21 +843,6 @@ class HostingSummary:
     updated_at: Optional[datetime] = None
     """
     Date on which the Web Hosting plan was last updated.
-    """
-
-    domain: Optional[str] = None
-    """
-    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
-    """
-
-    dns_status: Optional[DnsRecordsStatus] = DnsRecordsStatus.UNKNOWN_STATUS
-    """
-    DNS status of the Web Hosting plan.
-    """
-
-    domain_status: Optional[DomainStatus] = DomainStatus.UNKNOWN_STATUS
-    """
-    Main domain status of the Web Hosting plan.
     """
 
     domain_info: Optional[HostingDomain] = None
@@ -1437,29 +1437,29 @@ class DnsApiSyncDomainDnsRecordsRequest:
     Domain for which the DNS records will be synchronized.
     """
 
-    region: Optional[ScwRegion] = None
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    update_web_records: Optional[bool] = False
+    update_web_records: bool
     """
     Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).
     """
 
-    update_mail_records: Optional[bool] = False
+    update_mail_records: bool
     """
     Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).
     """
 
-    update_all_records: Optional[bool] = False
+    update_all_records: bool
     """
     Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns).
     """
 
-    update_nameservers: Optional[bool] = False
+    update_nameservers: bool
     """
     Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     custom_records: Optional[list[SyncDomainDnsRecordsRequestRecord]] = field(
@@ -1492,7 +1492,7 @@ class DnsRecords:
     Status of the records.
     """
 
-    dns_config: Optional[list[DomainDnsAction]] = field(default_factory=list)
+    dns_config: list[DomainDnsAction]
     """
     Records dns auto configuration settings (deprecated, use auto_config_domain_dns).
     """
@@ -1530,7 +1530,7 @@ class Domain:
     A list of actions that can be performed on the domain.
     """
 
-    available_dns_actions: Optional[list[DomainDnsAction]] = field(default_factory=list)
+    available_dns_actions: list[DomainDnsAction]
     """
     A list of DNS-related actions that can be auto configured for the domain (deprecated, use auto_config_domain_dns instead).
     """
@@ -1698,9 +1698,19 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
+    domain: str
+    """
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
+    """
+
     tags: list[str]
     """
     List of tags associated with the Web Hosting plan.
+    """
+
+    dns_status: DnsRecordsStatus
+    """
+    DNS status of the Web Hosting plan (deprecated, use domain_info).
     """
 
     ipv4: str
@@ -1711,6 +1721,11 @@ class Hosting:
     protected: bool
     """
     Whether the hosting is protected or not.
+    """
+
+    domain_status: DomainStatus
+    """
+    Main domain status of the Web Hosting plan (deprecated, use domain_info).
     """
 
     region: ScwRegion
@@ -1728,11 +1743,6 @@ class Hosting:
     Date on which the Web Hosting plan was created.
     """
 
-    domain: Optional[str] = None
-    """
-    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
-    """
-
     offer: Optional[Offer] = None
     """
     Details of the Web Hosting plan offer and options.
@@ -1743,19 +1753,9 @@ class Hosting:
     Details of the hosting platform.
     """
 
-    dns_status: Optional[DnsRecordsStatus] = DnsRecordsStatus.UNKNOWN_STATUS
-    """
-    DNS status of the Web Hosting plan (deprecated, use domain_info).
-    """
-
     user: Optional[HostingUser] = None
     """
     Details of the hosting user.
-    """
-
-    domain_status: Optional[DomainStatus] = DomainStatus.UNKNOWN_STATUS
-    """
-    Main domain status of the Web Hosting plan (deprecated, use domain_info).
     """
 
     domain_info: Optional[HostingDomain] = None
@@ -2421,14 +2421,14 @@ class Progress:
 
 @dataclass
 class ResetHostingPasswordResponse:
+    one_time_password: str
+    """
+    New temporary password (deprecated, use password_b64 instead).
+    """
+
     one_time_password_b64: str
     """
     New temporary password, encoded in base64.
-    """
-
-    one_time_password: Optional[str] = None
-    """
-    New temporary password (deprecated, use password_b64 instead).
     """
 
 
@@ -2550,4 +2550,22 @@ class WebsiteApiListWebsitesRequest:
     )
     """
     Sort order for Web Hosting websites in the response.
+    """
+
+
+@dataclass
+class WebsiteApiResetWebsiteRequest:
+    hosting_id: str
+    """
+    Hosting ID to which the website is attached to.
+    """
+
+    domain_name: str
+    """
+    The domain name with which the website is associated.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """

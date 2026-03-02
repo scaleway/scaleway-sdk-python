@@ -16,22 +16,18 @@ from .types import (
     Action,
     ListPrivateNetworksRequestOrderBy,
     ListSubnetsRequestOrderBy,
-    ListVPCConnectorsRequestOrderBy,
     ListVPCsRequestOrderBy,
-    VPCConnectorStatus,
     AclRule,
     AddSubnetsRequest,
     AddSubnetsResponse,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
-    CreateVPCConnectorRequest,
     CreateVPCRequest,
     DeleteSubnetsRequest,
     DeleteSubnetsResponse,
     GetAclResponse,
     ListPrivateNetworksResponse,
     ListSubnetsResponse,
-    ListVPCConnectorsResponse,
     ListVPCsResponse,
     PrivateNetwork,
     Route,
@@ -40,34 +36,28 @@ from .types import (
     Subnet,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
-    UpdateVPCConnectorRequest,
     UpdateVPCRequest,
     VPC,
-    VPCConnector,
 )
 from .marshalling import (
     unmarshal_PrivateNetwork,
     unmarshal_Route,
-    unmarshal_VPCConnector,
     unmarshal_VPC,
     unmarshal_AddSubnetsResponse,
     unmarshal_DeleteSubnetsResponse,
     unmarshal_GetAclResponse,
     unmarshal_ListPrivateNetworksResponse,
     unmarshal_ListSubnetsResponse,
-    unmarshal_ListVPCConnectorsResponse,
     unmarshal_ListVPCsResponse,
     unmarshal_SetAclResponse,
     marshal_AddSubnetsRequest,
     marshal_CreatePrivateNetworkRequest,
     marshal_CreateRouteRequest,
-    marshal_CreateVPCConnectorRequest,
     marshal_CreateVPCRequest,
     marshal_DeleteSubnetsRequest,
     marshal_SetAclRequest,
     marshal_UpdatePrivateNetworkRequest,
     marshal_UpdateRouteRequest,
-    marshal_UpdateVPCConnectorRequest,
     marshal_UpdateVPCRequest,
 )
 
@@ -1222,290 +1212,3 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetAclResponse(res.json())
-
-    def list_vpc_connectors(
-        self,
-        *,
-        region: Optional[ScwRegion] = None,
-        order_by: Optional[ListVPCConnectorsRequestOrderBy] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        name: Optional[str] = None,
-        tags: Optional[list[str]] = None,
-        organization_id: Optional[str] = None,
-        project_id: Optional[str] = None,
-        vpc_id: Optional[str] = None,
-        target_vpc_id: Optional[str] = None,
-        status: Optional[VPCConnectorStatus] = None,
-    ) -> ListVPCConnectorsResponse:
-        """
-        List VPC connectors.
-        List existing VPC connectors in the specified region.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by: Sort order of the returned VPC connectors.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Maximum number of VPC connectors to return per page.
-        :param name: Name to filter for. Only connectors with names containing this string will be returned.
-        :param tags: Tags to filter for. Only connectors with one or more matching tags will be returned.
-        :param organization_id: Organization ID to filter for. Only connectors belonging to this Organization will be returned.
-        :param project_id: Project ID to filter for. Only connectors belonging to this Project will be returned.
-        :param vpc_id: VPC ID to filter for. Only connectors belonging to this VPC will be returned.
-        :param target_vpc_id: Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned.
-        :param status: Status of the VPC connector.
-        :return: :class:`ListVPCConnectorsResponse <ListVPCConnectorsResponse>`
-
-        Usage:
-        ::
-
-            result = api.list_vpc_connectors()
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "GET",
-            f"/vpc/v2/regions/{param_region}/vpc-connectors",
-            params={
-                "name": name,
-                "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
-                "page": page,
-                "page_size": page_size or self.client.default_page_size,
-                "project_id": project_id or self.client.default_project_id,
-                "status": status,
-                "tags": tags,
-                "target_vpc_id": target_vpc_id,
-                "vpc_id": vpc_id,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListVPCConnectorsResponse(res.json())
-
-    def list_vpc_connectors_all(
-        self,
-        *,
-        region: Optional[ScwRegion] = None,
-        order_by: Optional[ListVPCConnectorsRequestOrderBy] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        name: Optional[str] = None,
-        tags: Optional[list[str]] = None,
-        organization_id: Optional[str] = None,
-        project_id: Optional[str] = None,
-        vpc_id: Optional[str] = None,
-        target_vpc_id: Optional[str] = None,
-        status: Optional[VPCConnectorStatus] = None,
-    ) -> list[VPCConnector]:
-        """
-        List VPC connectors.
-        List existing VPC connectors in the specified region.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by: Sort order of the returned VPC connectors.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Maximum number of VPC connectors to return per page.
-        :param name: Name to filter for. Only connectors with names containing this string will be returned.
-        :param tags: Tags to filter for. Only connectors with one or more matching tags will be returned.
-        :param organization_id: Organization ID to filter for. Only connectors belonging to this Organization will be returned.
-        :param project_id: Project ID to filter for. Only connectors belonging to this Project will be returned.
-        :param vpc_id: VPC ID to filter for. Only connectors belonging to this VPC will be returned.
-        :param target_vpc_id: Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned.
-        :param status: Status of the VPC connector.
-        :return: :class:`list[VPCConnector] <list[VPCConnector]>`
-
-        Usage:
-        ::
-
-            result = api.list_vpc_connectors_all()
-        """
-
-        return fetch_all_pages(
-            type=ListVPCConnectorsResponse,
-            key="vpc_connectors",
-            fetcher=self.list_vpc_connectors,
-            args={
-                "region": region,
-                "order_by": order_by,
-                "page": page,
-                "page_size": page_size,
-                "name": name,
-                "tags": tags,
-                "organization_id": organization_id,
-                "project_id": project_id,
-                "vpc_id": vpc_id,
-                "target_vpc_id": target_vpc_id,
-                "status": status,
-            },
-        )
-
-    def create_vpc_connector(
-        self,
-        *,
-        vpc_id: str,
-        target_vpc_id: str,
-        region: Optional[ScwRegion] = None,
-        name: Optional[str] = None,
-        tags: Optional[list[str]] = None,
-    ) -> VPCConnector:
-        """
-        Create a VPC connector.
-        Create a new VPC connector in the specified region.
-        :param vpc_id: VPC ID to filter for. Only connectors belonging to this VPC will be returned.
-        :param target_vpc_id: Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param name: Name for the VPC connector.
-        :param tags: Tags for the VPC connector.
-        :return: :class:`VPCConnector <VPCConnector>`
-
-        Usage:
-        ::
-
-            result = api.create_vpc_connector(
-                vpc_id="example",
-                target_vpc_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "POST",
-            f"/vpc/v2/regions/{param_region}/vpc-connectors",
-            body=marshal_CreateVPCConnectorRequest(
-                CreateVPCConnectorRequest(
-                    vpc_id=vpc_id,
-                    target_vpc_id=target_vpc_id,
-                    region=region,
-                    name=name or random_name(prefix="VPCConnector"),
-                    tags=tags,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_VPCConnector(res.json())
-
-    def get_vpc_connector(
-        self,
-        *,
-        vpc_connector_id: str,
-        region: Optional[ScwRegion] = None,
-    ) -> VPCConnector:
-        """
-        Get a VPC connector.
-        Retrieve details of an existing VPC connector, specified by its VPC connector ID.
-        :param vpc_connector_id: VPC connector ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :return: :class:`VPCConnector <VPCConnector>`
-
-        Usage:
-        ::
-
-            result = api.get_vpc_connector(
-                vpc_connector_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_vpc_connector_id = validate_path_param(
-            "vpc_connector_id", vpc_connector_id
-        )
-
-        res = self._request(
-            "GET",
-            f"/vpc/v2/regions/{param_region}/vpc-connectors/{param_vpc_connector_id}",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_VPCConnector(res.json())
-
-    def update_vpc_connector(
-        self,
-        *,
-        vpc_connector_id: str,
-        region: Optional[ScwRegion] = None,
-        name: Optional[str] = None,
-        tags: Optional[list[str]] = None,
-    ) -> VPCConnector:
-        """
-        Update VPC connector.
-        Update parameters including name and tags of the specified VPC connector.
-        :param vpc_connector_id: VPC connector ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param name: Name for the VPC connector.
-        :param tags: Tags for the VPC connector.
-        :return: :class:`VPCConnector <VPCConnector>`
-
-        Usage:
-        ::
-
-            result = api.update_vpc_connector(
-                vpc_connector_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_vpc_connector_id = validate_path_param(
-            "vpc_connector_id", vpc_connector_id
-        )
-
-        res = self._request(
-            "PATCH",
-            f"/vpc/v2/regions/{param_region}/vpc-connectors/{param_vpc_connector_id}",
-            body=marshal_UpdateVPCConnectorRequest(
-                UpdateVPCConnectorRequest(
-                    vpc_connector_id=vpc_connector_id,
-                    region=region,
-                    name=name,
-                    tags=tags,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_VPCConnector(res.json())
-
-    def delete_vpc_connector(
-        self,
-        *,
-        vpc_connector_id: str,
-        region: Optional[ScwRegion] = None,
-    ) -> None:
-        """
-        Delete a VPC connector.
-        Delete a VPC connector specified by its VPC connector ID.
-        :param vpc_connector_id: VPC connector ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-
-        Usage:
-        ::
-
-            result = api.delete_vpc_connector(
-                vpc_connector_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_vpc_connector_id = validate_path_param(
-            "vpc_connector_id", vpc_connector_id
-        )
-
-        res = self._request(
-            "DELETE",
-            f"/vpc/v2/regions/{param_region}/vpc-connectors/{param_vpc_connector_id}",
-        )
-
-        self._throw_on_error(res)
