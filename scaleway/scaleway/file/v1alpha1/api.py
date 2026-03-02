@@ -123,6 +123,7 @@ class FileV1Alpha1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
+        filesystem_ids: Optional[list[str]] = None,
     ) -> ListFileSystemsResponse:
         """
         List all filesystems.
@@ -135,6 +136,7 @@ class FileV1Alpha1API(API):
         :param page_size: Number of entries per page (default: 20, max: 100).
         :param name: Filter the returned filesystems by their names.
         :param tags: Filter by tags. Only filesystems with one or more matching tags will be returned.
+        :param filesystem_ids: Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned.
         :return: :class:`ListFileSystemsResponse <ListFileSystemsResponse>`
 
         Usage:
@@ -151,6 +153,7 @@ class FileV1Alpha1API(API):
             "GET",
             f"/file/v1alpha1/regions/{param_region}/filesystems",
             params={
+                "filesystem_ids": filesystem_ids,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -176,6 +179,7 @@ class FileV1Alpha1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
+        filesystem_ids: Optional[list[str]] = None,
     ) -> list[FileSystem]:
         """
         List all filesystems.
@@ -188,6 +192,7 @@ class FileV1Alpha1API(API):
         :param page_size: Number of entries per page (default: 20, max: 100).
         :param name: Filter the returned filesystems by their names.
         :param tags: Filter by tags. Only filesystems with one or more matching tags will be returned.
+        :param filesystem_ids: Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned.
         :return: :class:`list[FileSystem] <list[FileSystem]>`
 
         Usage:
@@ -209,6 +214,7 @@ class FileV1Alpha1API(API):
                 "page_size": page_size,
                 "name": name,
                 "tags": tags,
+                "filesystem_ids": filesystem_ids,
             },
         )
 

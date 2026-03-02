@@ -314,6 +314,11 @@ class ListFileSystemsRequest:
     Filter by tags. Only filesystems with one or more matching tags will be returned.
     """
 
+    filesystem_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned.
+    """
+
 
 @dataclass
 class ListFileSystemsResponse:
