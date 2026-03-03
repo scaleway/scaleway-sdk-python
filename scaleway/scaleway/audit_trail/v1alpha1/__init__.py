@@ -20,6 +20,7 @@ from .types import AccountContractSignatureInfo
 from .types import AccountOrganizationInfo
 from .types import AccountProjectInfo
 from .types import AccountUserInfo
+from .types import AppleSiliconRunnerInfo
 from .types import AppleSiliconServerInfo
 from .types import AuditTrailExportJobInfo
 from .types import BaremetalServerInfo
@@ -111,6 +112,7 @@ __all__ = [
     "AccountOrganizationInfo",
     "AccountProjectInfo",
     "AccountUserInfo",
+    "AppleSiliconRunnerInfo",
     "AppleSiliconServerInfo",
     "AuditTrailExportJobInfo",
     "BaremetalServerInfo",

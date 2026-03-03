@@ -209,6 +209,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     MONGODB_INSTANCE = "mongodb_instance"
     MONGODB_INSTANCE_SNAPSHOT = "mongodb_instance_snapshot"
     MONGODB_INSTANCE_ENDPOINT = "mongodb_instance_endpoint"
+    APPLE_SILICON_RUNNER = "apple_silicon_runner"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -255,6 +256,12 @@ class AccountProjectInfo:
 class AccountUserInfo:
     email: str
     phone_number: Optional[str] = None
+
+
+@dataclass
+class AppleSiliconRunnerInfo:
+    id: str
+    name: str
 
 
 @dataclass
@@ -535,6 +542,8 @@ class Resource:
     vpc_gw_gateway_info: Optional[VpcGwGatewayInfo] = None
 
     vpc_gw_gateway_network_info: Optional[VpcGwGatewayNetworkInfo] = None
+
+    apple_silicon_runner_info: Optional[AppleSiliconRunnerInfo] = None
 
 
 @dataclass

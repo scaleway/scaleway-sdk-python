@@ -29,6 +29,7 @@ from .types import (
     AccountOrganizationInfo,
     AccountProjectInfo,
     AccountUserInfo,
+    AppleSiliconRunnerInfo,
     AppleSiliconServerInfo,
     AuditTrailExportJobInfo,
     BaremetalServerInfo,
@@ -440,6 +441,29 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
         args["phone_number"] = None
 
     return AccountUserInfo(**args)
+
+
+def unmarshal_AppleSiliconRunnerInfo(data: Any) -> AppleSiliconRunnerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AppleSiliconRunnerInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    return AppleSiliconRunnerInfo(**args)
 
 
 def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
@@ -1411,6 +1435,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["vpc_gw_gateway_network_info"] = unmarshal_VpcGwGatewayNetworkInfo(field)
     else:
         args["vpc_gw_gateway_network_info"] = None
+
+    field = data.get("apple_silicon_runner_info", None)
+    if field is not None:
+        args["apple_silicon_runner_info"] = unmarshal_AppleSiliconRunnerInfo(field)
+    else:
+        args["apple_silicon_runner_info"] = None
 
     return Resource(**args)
 
