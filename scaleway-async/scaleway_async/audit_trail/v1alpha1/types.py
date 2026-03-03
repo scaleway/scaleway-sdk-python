@@ -119,6 +119,14 @@ class ListExportJobsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListSystemEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    RECORDED_AT_DESC = "recorded_at_desc"
+    RECORDED_AT_ASC = "recorded_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ResourceType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     SECM_SECRET = "secm_secret"
@@ -676,15 +684,54 @@ class Event:
 @dataclass
 class SystemEvent:
     id: str
+    """
+    ID of the system event.
+    """
+
     locality: str
+    """
+    Locality of the system event.
+    """
+
     organization_id: str
-    source: str
-    system_name: str
-    resources: list[Resource]
-    kind: SystemEventKind
+    """
+    Organization ID containing the system event.
+    """
+
     product_name: str
+    """
+    Name of the Scaleway product in a hyphenated format.
+    """
+
+    source: str
+    """
+    Source of the system event.
+    """
+
+    system_name: str
+    """
+    Name of the jobs, notification, etc.
+    """
+
+    resources: list[Resource]
+    """
+    Resources attached to the event.
+    """
+
+    kind: SystemEventKind
+    """
+    Source of the event (unknown, cron or notification).
+    """
+
     recorded_at: Optional[datetime] = None
+    """
+    Timestamp of the system event.
+    """
+
     project_id: Optional[str] = None
+    """
+    Project of the resource attached to the system event.
+    """
 
 
 @dataclass
@@ -1120,6 +1167,48 @@ class ListProductsResponse:
     total_count: int
     """
     Number of integrated products.
+    """
+
+
+@dataclass
+class ListSystemEventsRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization containing the Audit Trail system events.
+    """
+
+    recorded_after: Optional[datetime] = None
+    """
+    (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail system events are retrieved. Returns `one hour ago` by default.
+    """
+
+    recorded_before: Optional[datetime] = None
+    """
+    (Optional) The `recorded_before` parameter defines the latest timestamp up to which Audit Trail system events are retrieved. Returns `now` by default.
+    """
+
+    order_by: Optional[ListSystemEventsRequestOrderBy] = (
+        ListSystemEventsRequestOrderBy.RECORDED_AT_DESC
+    )
+    page_size: Optional[int] = 0
+    page_token: Optional[str] = None
+
+
+@dataclass
+class ListSystemEventsResponse:
+    events: list[SystemEvent]
+    """
+    Single page of system events matching the requested criteria.
+    """
+
+    next_page_token: Optional[str] = None
+    """
+    Page token to use in following calls to keep listing.
     """
 
 
