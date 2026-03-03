@@ -22,6 +22,7 @@ from .types import ServiceUpdate
 from .types import EndpointSpecPrivateNetworkDetails
 from .types import EndpointSpecPublicNetworkDetails
 from .types import Endpoint
+from .types import InstanceSetting
 from .types import InstanceSnapshotSchedule
 from .types import Volume
 from .types import Workflow
@@ -93,6 +94,7 @@ __all__ = [
     "EndpointSpecPrivateNetworkDetails",
     "EndpointSpecPublicNetworkDetails",
     "Endpoint",
+    "InstanceSetting",
     "InstanceSnapshotSchedule",
     "Volume",
     "Workflow",

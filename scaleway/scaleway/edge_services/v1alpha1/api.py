@@ -1648,8 +1648,8 @@ class EdgeServicesV1Alpha1API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status not in PURGE_REQUEST_TRANSIENT_STATUSES
+            options.stop = lambda res: (
+                res.status not in PURGE_REQUEST_TRANSIENT_STATUSES
             )
 
         return wait_for_resource(

@@ -212,6 +212,12 @@ class Endpoint:
 
 
 @dataclass
+class InstanceSetting:
+    name: str
+    value: str
+
+
+@dataclass
 class InstanceSnapshotSchedule:
     frequency_hours: int
     retention_days: int
@@ -347,6 +353,11 @@ class Instance:
     region: ScwRegion
     """
     Region the Database Instance is in.
+    """
+
+    settings: list[InstanceSetting]
+    """
+    List of settings applied to the Database Instance.
     """
 
     volume: Optional[Volume] = None
