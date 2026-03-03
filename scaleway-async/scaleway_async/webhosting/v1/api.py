@@ -1232,22 +1232,22 @@ class WebhostingV1DnsAPI(API):
         self,
         *,
         domain: str,
+        update_web_records: bool,
+        update_mail_records: bool,
+        update_all_records: bool,
+        update_nameservers: bool,
         region: Optional[ScwRegion] = None,
-        update_web_records: Optional[bool] = None,
-        update_mail_records: Optional[bool] = None,
-        update_all_records: Optional[bool] = None,
-        update_nameservers: Optional[bool] = None,
         custom_records: Optional[list[SyncDomainDnsRecordsRequestRecord]] = None,
         auto_config_domain_dns: Optional[AutoConfigDomainDns] = None,
     ) -> DnsRecords:
         """
         Synchronize your DNS records on the Elements Console and on cPanel.
         :param domain: Domain for which the DNS records will be synchronized.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param update_web_records: Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).
         :param update_mail_records: Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).
         :param update_all_records: Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns).
         :param update_nameservers: Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
+        :param region: Region to target. If none is passed will use default region from the config.
         :param custom_records: Custom records to synchronize.
         :param auto_config_domain_dns: Whether or not to synchronize each types of records.
         :return: :class:`DnsRecords <DnsRecords>`
@@ -1257,6 +1257,10 @@ class WebhostingV1DnsAPI(API):
 
             result = await api.sync_domain_dns_records(
                 domain="example",
+                update_web_records=False,
+                update_mail_records=False,
+                update_all_records=False,
+                update_nameservers=False,
             )
         """
 
@@ -1271,11 +1275,11 @@ class WebhostingV1DnsAPI(API):
             body=marshal_DnsApiSyncDomainDnsRecordsRequest(
                 DnsApiSyncDomainDnsRecordsRequest(
                     domain=domain,
-                    region=region,
                     update_web_records=update_web_records,
                     update_mail_records=update_mail_records,
                     update_all_records=update_all_records,
                     update_nameservers=update_nameservers,
+                    region=region,
                     custom_records=custom_records,
                     auto_config_domain_dns=auto_config_domain_dns,
                 ),
@@ -2972,3 +2976,43 @@ class WebhostingV1WebsiteAPI(API):
         )
 
         self._throw_on_error(res)
+
+    async def reset_website(
+        self,
+        *,
+        hosting_id: str,
+        domain_name: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Website:
+        """
+        Delete a website's content, all files and directories. This.
+        Permanently deletes data including files and configurations. The
+        website will display the default welcome page.
+        :param hosting_id: Hosting ID to which the website is attached to.
+        :param domain_name: The domain name with which the website is associated.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Website <Website>`
+
+        Usage:
+        ::
+
+            result = await api.reset_website(
+                hosting_id="example",
+                domain_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+        param_domain_name = validate_path_param("domain_name", domain_name)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/websites/{param_domain_name}/reset",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Website(res.json())

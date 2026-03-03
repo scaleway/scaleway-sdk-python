@@ -128,14 +128,14 @@ class Endpoint:
     Unique identifier of the Endpoint.
     """
 
+    dns_record: str
+    """
+    DNS entry to access to the service. Now deprecated. Use the `url` field from `services` field instead.
+    """
+
     services: list[EndpointService]
     """
     List of available services, their ports and URLs.
-    """
-
-    dns_record: Optional[str] = None
-    """
-    DNS entry to access to the service. Now deprecated. Use the `url` field from `services` field instead.
     """
 
     public: Optional[EndpointPublicDetails] = None
