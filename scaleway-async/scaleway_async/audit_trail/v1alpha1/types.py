@@ -206,6 +206,9 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     RDB_INSTANCE_LOGS = "rdb_instance_logs"
     RDB_INSTANCE_READ_REPLICA = "rdb_instance_read_replica"
     RDB_INSTANCE_SNAPSHOT = "rdb_instance_snapshot"
+    MONGODB_INSTANCE = "mongodb_instance"
+    MONGODB_INSTANCE_SNAPSHOT = "mongodb_instance_snapshot"
+    MONGODB_INSTANCE_ENDPOINT = "mongodb_instance_endpoint"
 
     def __str__(self) -> str:
         return str(self.value)
