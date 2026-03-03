@@ -20,6 +20,7 @@ from .types import (
     EndpointPrivateNetworkDetails,
     EndpointPublicNetworkDetails,
     Endpoint,
+    InstanceSetting,
     InstanceSnapshotSchedule,
     Volume,
     Instance,
@@ -124,6 +125,29 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
         args["public_network"] = None
 
     return Endpoint(**args)
+
+
+def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InstanceSetting' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    return InstanceSetting(**args)
 
 
 def unmarshal_InstanceSnapshotSchedule(data: Any) -> InstanceSnapshotSchedule:
@@ -267,6 +291,14 @@ def unmarshal_Instance(data: Any) -> Instance:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("settings", None)
+    if field is not None:
+        args["settings"] = (
+            [unmarshal_InstanceSetting(v) for v in field] if field is not None else None
+        )
+    else:
+        args["settings"] = []
 
     field = data.get("volume", None)
     if field is not None:
