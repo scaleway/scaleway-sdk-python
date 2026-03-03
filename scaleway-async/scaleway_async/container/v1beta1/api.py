@@ -267,6 +267,7 @@ class ContainerV1Beta1API(API):
     async def create_namespace(
         self,
         *,
+        activate_vpc_integration: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         environment_variables: Optional[dict[str, str]] = None,
@@ -274,11 +275,11 @@ class ContainerV1Beta1API(API):
         description: Optional[str] = None,
         secret_environment_variables: Optional[list[Secret]] = None,
         tags: Optional[list[str]] = None,
-        activate_vpc_integration: Optional[bool] = None,
     ) -> Namespace:
         """
         Create a new namespace.
         Create a new namespace in a specified region.
+        :param activate_vpc_integration: Setting this field to true doesn't matter anymore. It will be removed in a near future.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the namespace to create.
         :param environment_variables: Environment variables of the namespace to create.
@@ -286,13 +287,14 @@ class ContainerV1Beta1API(API):
         :param description: Description of the namespace to create.
         :param secret_environment_variables: Secret environment variables of the namespace to create.
         :param tags: Tags of the Serverless Container Namespace.
-        :param activate_vpc_integration: Setting this field to true doesn't matter anymore. It will be removed in a near future.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = await api.create_namespace()
+            result = await api.create_namespace(
+                activate_vpc_integration=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -304,6 +306,7 @@ class ContainerV1Beta1API(API):
             f"/containers/v1beta1/regions/{param_region}/namespaces",
             body=marshal_CreateNamespaceRequest(
                 CreateNamespaceRequest(
+                    activate_vpc_integration=activate_vpc_integration,
                     region=region,
                     name=name or random_name(prefix="cns"),
                     environment_variables=environment_variables,
@@ -311,7 +314,6 @@ class ContainerV1Beta1API(API):
                     description=description,
                     secret_environment_variables=secret_environment_variables,
                     tags=tags,
-                    activate_vpc_integration=activate_vpc_integration,
                 ),
                 self.client,
             ),
