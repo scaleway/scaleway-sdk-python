@@ -134,6 +134,7 @@ from .types import Session
 from .types import WebsiteApiCreateWebsiteRequest
 from .types import WebsiteApiDeleteWebsiteRequest
 from .types import WebsiteApiListWebsitesRequest
+from .types import WebsiteApiResetWebsiteRequest
 from .api import WebhostingV1BackupAPI
 from .api import WebhostingV1ControlPanelAPI
 from .api import WebhostingV1DatabaseAPI
@@ -280,6 +281,7 @@ __all__ = [
     "WebsiteApiCreateWebsiteRequest",
     "WebsiteApiDeleteWebsiteRequest",
     "WebsiteApiListWebsitesRequest",
+    "WebsiteApiResetWebsiteRequest",
     "WebhostingV1BackupAPI",
     "WebhostingV1ControlPanelAPI",
     "WebhostingV1DatabaseAPI",

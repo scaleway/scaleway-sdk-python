@@ -977,6 +977,16 @@ class User:
     Type of user.
     """
 
+    two_factor_enabled: bool
+    """
+    Deprecated, use "mfa" instead.
+    """
+
+    status: UserStatus
+    """
+    Status of user invitation.
+    """
+
     mfa: bool
     """
     Defines whether MFA is enabled.
@@ -1010,16 +1020,6 @@ class User:
     last_login_at: Optional[datetime] = None
     """
     Date of the last login.
-    """
-
-    two_factor_enabled: Optional[bool] = False
-    """
-    Deprecated, use "mfa" instead.
-    """
-
-    status: Optional[UserStatus] = UserStatus.UNKNOWN_STATUS
-    """
-    Status of user invitation.
     """
 
 

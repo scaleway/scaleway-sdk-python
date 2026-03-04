@@ -13,6 +13,9 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ContactEmailStatus,
+    ContactLegalForm,
+    ContactStatus,
     DomainFeatureStatus,
     DomainStatus,
     InboundTransferStatus,
@@ -126,6 +129,9 @@ from .types import (
     UpdateDNSZoneNameserversRequest,
     UpdateDNSZoneRecordsRequest,
     UpdateDNSZoneRequest,
+)
+from ...std.types import (
+    LanguageCode as StdLanguageCode,
 )
 
 
@@ -310,12 +316,6 @@ def unmarshal_ContactExtensionIT(data: Any) -> ContactExtensionIT:
 
     args: dict[str, Any] = {}
 
-    field = data.get("pin", None)
-    if field is not None:
-        args["pin"] = field
-    else:
-        args["pin"] = None
-
     field = data.get("european_citizenship", None)
     if field is not None:
         args["european_citizenship"] = field
@@ -327,6 +327,12 @@ def unmarshal_ContactExtensionIT(data: Any) -> ContactExtensionIT:
         args["tax_code"] = field
     else:
         args["tax_code"] = None
+
+    field = data.get("pin", None)
+    if field is not None:
+        args["pin"] = field
+    else:
+        args["pin"] = None
 
     return ContactExtensionIT(**args)
 
@@ -395,7 +401,7 @@ def unmarshal_Contact(data: Any) -> Contact:
     if field is not None:
         args["legal_form"] = field
     else:
-        args["legal_form"] = None
+        args["legal_form"] = ContactLegalForm.LEGAL_FORM_UNKNOWN
 
     field = data.get("firstname", None)
     if field is not None:
@@ -485,27 +491,25 @@ def unmarshal_Contact(data: Any) -> Contact:
     if field is not None:
         args["lang"] = field
     else:
-        args["lang"] = None
+        args["lang"] = StdLanguageCode.UNKNOWN_LANGUAGE_CODE
 
     field = data.get("resale", None)
     if field is not None:
         args["resale"] = field
     else:
-        args["resale"] = None
+        args["resale"] = False
 
     field = data.get("whois_opt_in", None)
     if field is not None:
         args["whois_opt_in"] = field
     else:
-        args["whois_opt_in"] = None
+        args["whois_opt_in"] = False
 
-    field = data.get("questions", None)
+    field = data.get("email_status", None)
     if field is not None:
-        args["questions"] = (
-            [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
-        )
+        args["email_status"] = field
     else:
-        args["questions"] = None
+        args["email_status"] = ContactEmailStatus.EMAIL_STATUS_UNKNOWN
 
     field = data.get("extension_fr", None)
     if field is not None:
@@ -519,12 +523,6 @@ def unmarshal_Contact(data: Any) -> Contact:
     else:
         args["extension_eu"] = None
 
-    field = data.get("email_status", None)
-    if field is not None:
-        args["email_status"] = field
-    else:
-        args["email_status"] = None
-
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
@@ -535,7 +533,15 @@ def unmarshal_Contact(data: Any) -> Contact:
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = ContactStatus.STATUS_UNKNOWN
+
+    field = data.get("questions", None)
+    if field is not None:
+        args["questions"] = (
+            [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
+        )
+    else:
+        args["questions"] = []
 
     field = data.get("extension_nl", None)
     if field is not None:
@@ -3016,14 +3022,14 @@ def marshal_ContactExtensionIT(
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
-    if request.pin is not None:
-        output["pin"] = request.pin
-
     if request.european_citizenship is not None:
         output["european_citizenship"] = request.european_citizenship
 
     if request.tax_code is not None:
         output["tax_code"] = request.tax_code
+
+    if request.pin is not None:
+        output["pin"] = request.pin
 
     return output
 
@@ -3114,16 +3120,16 @@ def marshal_NewContact(
     if request.whois_opt_in is not None:
         output["whois_opt_in"] = request.whois_opt_in
 
+    if request.questions is not None:
+        output["questions"] = [
+            marshal_ContactQuestion(item, defaults) for item in request.questions
+        ]
+
     if request.vat_identification_code is not None:
         output["vat_identification_code"] = request.vat_identification_code
 
     if request.company_identification_code is not None:
         output["company_identification_code"] = request.company_identification_code
-
-    if request.questions is not None:
-        output["questions"] = [
-            marshal_ContactQuestion(item, defaults) for item in request.questions
-        ]
 
     if request.extension_fr is not None:
         output["extension_fr"] = marshal_ContactExtensionFR(
@@ -3596,12 +3602,6 @@ def marshal_RegistrarApiUpdateContactRequest(
     if request.resale is not None:
         output["resale"] = request.resale
 
-    if request.questions is not None:
-        output["questions"] = [
-            marshal_UpdateContactRequestQuestion(item, defaults)
-            for item in request.questions
-        ]
-
     if request.extension_fr is not None:
         output["extension_fr"] = marshal_ContactExtensionFR(
             request.extension_fr, defaults
@@ -3612,12 +3612,6 @@ def marshal_RegistrarApiUpdateContactRequest(
             request.extension_eu, defaults
         )
 
-    if request.whois_opt_in is not None:
-        output["whois_opt_in"] = request.whois_opt_in
-
-    if request.state is not None:
-        output["state"] = request.state
-
     if request.extension_nl is not None:
         output["extension_nl"] = marshal_ContactExtensionNL(
             request.extension_nl, defaults
@@ -3627,6 +3621,18 @@ def marshal_RegistrarApiUpdateContactRequest(
         output["extension_it"] = marshal_ContactExtensionIT(
             request.extension_it, defaults
         )
+
+    if request.whois_opt_in is not None:
+        output["whois_opt_in"] = request.whois_opt_in
+
+    if request.state is not None:
+        output["state"] = request.state
+
+    if request.questions is not None:
+        output["questions"] = [
+            marshal_UpdateContactRequestQuestion(item, defaults)
+            for item in request.questions
+        ]
 
     return output
 

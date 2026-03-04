@@ -768,15 +768,15 @@ class RegistryV1API(API):
         self,
         *,
         tag_id: str,
+        force: bool,
         region: Optional[ScwRegion] = None,
-        force: Optional[bool] = None,
     ) -> Tag:
         """
         Delete a tag.
         Delete a given image tag. You must specify, in the endpoint, the `region` and `tag_id` parameters of the tag you want to delete.
         :param tag_id: UUID of the tag.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param force: If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Tag <Tag>`
 
         Usage:
@@ -784,6 +784,7 @@ class RegistryV1API(API):
 
             result = api.delete_tag(
                 tag_id="example",
+                force=False,
             )
         """
 
