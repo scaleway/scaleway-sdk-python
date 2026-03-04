@@ -134,8 +134,6 @@ class InstanceUtilsV1API(InstanceV1API):
                 content=user_data[key],
             )
 
-        return None
-
     def wait_instance_server(self, server_id: str, zone: ScwZone) -> GetServerResponse:
         wait_interval = interval
         for i in range(1, max_retry):
