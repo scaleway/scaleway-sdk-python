@@ -584,6 +584,12 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
     else:
         args["updated_at"] = None
 
+    field = data.get("backend_stage_id", None)
+    if field is not None:
+        args["backend_stage_id"] = field
+    else:
+        args["backend_stage_id"] = None
+
     return RouteStage(**args)
 
 
@@ -943,6 +949,12 @@ def unmarshal_RouteRule(data: Any) -> RouteRule:
         args["backend_stage_id"] = field
     else:
         args["backend_stage_id"] = None
+
+    field = data.get("waf_stage_id", None)
+    if field is not None:
+        args["waf_stage_id"] = field
+    else:
+        args["waf_stage_id"] = None
 
     return RouteRule(**args)
 
@@ -1623,6 +1635,9 @@ def marshal_SetRouteRulesRequestRouteRule(
                     value=request.backend_stage_id,
                     marshal_func=None,
                 ),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
             ]
         ),
     )
@@ -1983,6 +1998,11 @@ def marshal_CreateRouteStageRequest(
                 OneOfPossibility(
                     param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
                 ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
+                ),
             ]
         ),
     )
@@ -2303,6 +2323,11 @@ def marshal_UpdateRouteStageRequest(
             [
                 OneOfPossibility(
                     param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
                 ),
             ]
         ),
