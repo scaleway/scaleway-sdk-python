@@ -3,7 +3,9 @@
 from .types import BackupItemType
 from .types import BackupStatus
 from .content import BACKUP_TRANSIENT_STATUSES
+from .types import BillingMode
 from .types import CheckFreeDomainAvailabilityResponseUnavailableReason
+from .types import CommitmentType
 from .types import DnsRecordStatus
 from .types import DnsRecordType
 from .types import DnsRecordsStatus
@@ -34,6 +36,7 @@ from .types import AutoConfigDomainDns
 from .types import PlatformControlPanelUrls
 from .types import HostingDomainCustomDomain
 from .types import ControlPanel
+from .types import OfferCommitment
 from .types import OfferOption
 from .types import PlatformControlPanel
 from .types import BackupItem
@@ -134,6 +137,7 @@ from .types import Session
 from .types import WebsiteApiCreateWebsiteRequest
 from .types import WebsiteApiDeleteWebsiteRequest
 from .types import WebsiteApiListWebsitesRequest
+from .types import WebsiteApiResetWebsiteRequest
 from .api import WebhostingV1BackupAPI
 from .api import WebhostingV1ControlPanelAPI
 from .api import WebhostingV1DatabaseAPI
@@ -149,7 +153,9 @@ __all__ = [
     "BackupItemType",
     "BackupStatus",
     "BACKUP_TRANSIENT_STATUSES",
+    "BillingMode",
     "CheckFreeDomainAvailabilityResponseUnavailableReason",
+    "CommitmentType",
     "DnsRecordStatus",
     "DnsRecordType",
     "DnsRecordsStatus",
@@ -180,6 +186,7 @@ __all__ = [
     "PlatformControlPanelUrls",
     "HostingDomainCustomDomain",
     "ControlPanel",
+    "OfferCommitment",
     "OfferOption",
     "PlatformControlPanel",
     "BackupItem",
@@ -280,6 +287,7 @@ __all__ = [
     "WebsiteApiCreateWebsiteRequest",
     "WebsiteApiDeleteWebsiteRequest",
     "WebsiteApiListWebsitesRequest",
+    "WebsiteApiResetWebsiteRequest",
     "WebhostingV1BackupAPI",
     "WebhostingV1ControlPanelAPI",
     "WebhostingV1DatabaseAPI",
