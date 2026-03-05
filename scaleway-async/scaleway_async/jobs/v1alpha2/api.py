@@ -64,14 +64,14 @@ class JobsV1Alpha2API(API):
     async def create_job_definition(
         self,
         *,
-        region: Optional[ScwRegion] = None,
         cpu_limit: int,
         memory_limit: int,
         local_storage_capacity: int,
         image_uri: str,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
+        command: str,
         description: str,
-        command: Optional[str] = None,
         startup_command: Optional[list[str]] = None,
         args: Optional[list[str]] = None,
         project_id: Optional[str] = None,
@@ -82,14 +82,14 @@ class JobsV1Alpha2API(API):
     ) -> JobDefinition:
         """
         Create a new job definition in a specified Project.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param cpu_limit: CPU limit of the job (in mvCPU).
         :param memory_limit: Memory limit of the job (in MiB).
         :param local_storage_capacity: Local storage capacity of the job (in MiB).
         :param image_uri: Image to use for the job.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the job definition.
-        :param description: Description of the job.
         :param command: Deprecated: please use startup_command instead.
+        :param description: Description of the job.
         :param startup_command: The main executable or entrypoint script to run.
         If both command and startup_command are provided, only startup_command will be used.
         :param args: Passed to the startup command at runtime.
@@ -109,6 +109,7 @@ class JobsV1Alpha2API(API):
                 memory_limit=1,
                 local_storage_capacity=1,
                 image_uri="example",
+                command="example",
                 description="example",
             )
         """
@@ -122,14 +123,14 @@ class JobsV1Alpha2API(API):
             f"/serverless-jobs/v1alpha2/regions/{param_region}/job-definitions",
             body=marshal_CreateJobDefinitionRequest(
                 CreateJobDefinitionRequest(
-                    region=region,
                     cpu_limit=cpu_limit,
                     memory_limit=memory_limit,
                     local_storage_capacity=local_storage_capacity,
                     image_uri=image_uri,
+                    region=region,
                     name=name or random_name(prefix="job"),
-                    description=description,
                     command=command,
+                    description=description,
                     startup_command=startup_command,
                     args=args,
                     project_id=project_id,
