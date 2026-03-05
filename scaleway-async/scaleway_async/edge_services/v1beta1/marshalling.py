@@ -944,6 +944,12 @@ def unmarshal_RouteRule(data: Any) -> RouteRule:
     else:
         args["backend_stage_id"] = None
 
+    field = data.get("waf_stage_id", None)
+    if field is not None:
+        args["waf_stage_id"] = field
+    else:
+        args["waf_stage_id"] = None
+
     return RouteRule(**args)
 
 
@@ -1622,6 +1628,9 @@ def marshal_SetRouteRulesRequestRouteRule(
                     param="backend_stage_id",
                     value=request.backend_stage_id,
                     marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
                 ),
             ]
         ),
