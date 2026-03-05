@@ -32,10 +32,10 @@ class TestServerUserData(unittest.TestCase):
         key = "first key"
         content = b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x10"
         self.instance_api.set_server_user_data(
-            server_id=self.server.server.id, key=key, content=content
+            server_id=self.server.server.id, key=key, content=content # type: ignore[possibly-missing-attribute]
         )
         user_data = self.instance_api.get_server_user_data(
-            server_id=self.server.server.id, key=key
+            server_id=self.server.server.id, key=key # type: ignore[possibly-missing-attribute]
         )
         self.assertIsNotNone(user_data)
 
@@ -56,9 +56,9 @@ class TestServerUserData(unittest.TestCase):
             key: content,
         }
         self.instance_api.set_all_server_user_data(
-            server_id=self.server.server.id, user_data=user_data
+            server_id=self.server.server.id, user_data=user_data # type: ignore[possibly-missing-attribute]
         )
         response = self.instance_api.get_all_server_user_data(
-            server_id=self.server.server.id
+            server_id=self.server.server.id # type: ignore[possibly-missing-attribute]
         )
         self.assertIsNotNone(response)
