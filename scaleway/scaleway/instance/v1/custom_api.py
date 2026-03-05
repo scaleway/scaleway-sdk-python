@@ -111,7 +111,7 @@ class InstanceUtilsV1API(InstanceV1API):
         server_id: str,
         user_data: Dict[str, bytes],
         zone: Optional[ScwZone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
 
@@ -133,8 +133,6 @@ class InstanceUtilsV1API(InstanceV1API):
                 key=key,
                 content=user_data[key],
             )
-
-        return None
 
     def wait_instance_server(self, server_id: str, zone: ScwZone) -> GetServerResponse:
         wait_interval = interval
