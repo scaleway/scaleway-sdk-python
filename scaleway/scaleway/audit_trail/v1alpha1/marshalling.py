@@ -31,6 +31,7 @@ from .types import (
     AccountUserInfo,
     AppleSiliconRunnerInfo,
     AppleSiliconServerInfo,
+    AuditTrailAlertRuleInfo,
     AuditTrailExportJobInfo,
     BaremetalServerInfo,
     BaremetalSettingInfo,
@@ -487,6 +488,17 @@ def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
         args["name"] = None
 
     return AppleSiliconServerInfo(**args)
+
+
+def unmarshal_AuditTrailAlertRuleInfo(data: Any) -> AuditTrailAlertRuleInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AuditTrailAlertRuleInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return AuditTrailAlertRuleInfo(**args)
 
 
 def unmarshal_AuditTrailExportJobInfo(data: Any) -> AuditTrailExportJobInfo:
@@ -1441,6 +1453,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["apple_silicon_runner_info"] = unmarshal_AppleSiliconRunnerInfo(field)
     else:
         args["apple_silicon_runner_info"] = None
+
+    field = data.get("audit_trail_alert_rule_info", None)
+    if field is not None:
+        args["audit_trail_alert_rule_info"] = unmarshal_AuditTrailAlertRuleInfo(field)
+    else:
+        args["audit_trail_alert_rule_info"] = None
 
     return Resource(**args)
 
