@@ -672,6 +672,8 @@ class SetRouteRulesRequestRouteRule:
 
     backend_stage_id: Optional[str] = None
 
+    waf_stage_id: Optional[str] = None
+
 
 @dataclass
 class RouteRule:
@@ -688,6 +690,8 @@ class RouteRule:
     rule_http_match: Optional[RuleHttpMatch] = None
 
     backend_stage_id: Optional[str] = None
+
+    waf_stage_id: Optional[str] = None
 
 
 @dataclass
