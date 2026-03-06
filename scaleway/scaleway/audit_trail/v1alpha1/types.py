@@ -210,6 +210,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     MONGODB_INSTANCE_SNAPSHOT = "mongodb_instance_snapshot"
     MONGODB_INSTANCE_ENDPOINT = "mongodb_instance_endpoint"
     APPLE_SILICON_RUNNER = "apple_silicon_runner"
+    AUDIT_TRAIL_ALERT_RULE = "audit_trail_alert_rule"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -268,6 +269,11 @@ class AppleSiliconRunnerInfo:
 class AppleSiliconServerInfo:
     id: str
     name: str
+
+
+@dataclass
+class AuditTrailAlertRuleInfo:
+    pass
 
 
 @dataclass
@@ -544,6 +550,8 @@ class Resource:
     vpc_gw_gateway_network_info: Optional[VpcGwGatewayNetworkInfo] = None
 
     apple_silicon_runner_info: Optional[AppleSiliconRunnerInfo] = None
+
+    audit_trail_alert_rule_info: Optional[AuditTrailAlertRuleInfo] = None
 
 
 @dataclass
