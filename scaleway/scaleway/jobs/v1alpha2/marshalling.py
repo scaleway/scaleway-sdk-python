@@ -10,6 +10,8 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    JobRunReason,
+    JobRunState,
     SecretEnvVar,
     SecretFile,
     Secret,
@@ -17,6 +19,8 @@ from .types import (
     RetryPolicy,
     JobDefinition,
     JobRun,
+    TriggerCronConfig,
+    Trigger,
     CreateSecretsResponse,
     JobLimits,
     ListJobDefinitionsResponse,
@@ -24,15 +28,20 @@ from .types import (
     ListJobResourcesResponse,
     ListJobRunsResponse,
     ListSecretsResponse,
+    ListTriggersResponse,
     StartJobDefinitionResponse,
     CreateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
     CreateSecretsRequestSecretConfig,
     CreateSecretsRequest,
+    CreateTriggerRequestCronConfig,
+    CreateTriggerRequest,
     StartJobDefinitionRequest,
     UpdateJobDefinitionRequestCronScheduleConfig,
     UpdateJobDefinitionRequest,
     UpdateSecretRequest,
+    UpdateTriggerRequestCronConfig,
+    UpdateTriggerRequest,
 )
 
 
@@ -187,19 +196,19 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     if field is not None:
         args["cpu_limit"] = field
     else:
-        args["cpu_limit"] = None
+        args["cpu_limit"] = 0
 
     field = data.get("memory_limit", None)
     if field is not None:
         args["memory_limit"] = field
     else:
-        args["memory_limit"] = None
+        args["memory_limit"] = 0
 
     field = data.get("local_storage_capacity", None)
     if field is not None:
         args["local_storage_capacity"] = field
     else:
-        args["local_storage_capacity"] = None
+        args["local_storage_capacity"] = 0
 
     field = data.get("image_uri", None)
     if field is not None:
@@ -207,11 +216,17 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     else:
         args["image_uri"] = None
 
+    field = data.get("command", None)
+    if field is not None:
+        args["command"] = field
+    else:
+        args["command"] = None
+
     field = data.get("environment_variables", None)
     if field is not None:
         args["environment_variables"] = field
     else:
-        args["environment_variables"] = None
+        args["environment_variables"] = {}
 
     field = data.get("created_at", None)
     if field is not None:
@@ -224,12 +239,6 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("command", None)
-    if field is not None:
-        args["command"] = field
-    else:
-        args["command"] = None
 
     field = data.get("job_timeout", None)
     if field is not None:
@@ -247,13 +256,13 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     if field is not None:
         args["startup_command"] = field
     else:
-        args["startup_command"] = None
+        args["startup_command"] = []
 
     field = data.get("args", None)
     if field is not None:
         args["args"] = field
     else:
-        args["args"] = None
+        args["args"] = []
 
     field = data.get("region", None)
     if field is not None:
@@ -300,13 +309,7 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     if field is not None:
         args["state"] = field
     else:
-        args["state"] = None
-
-    field = data.get("cpu_limit", None)
-    if field is not None:
-        args["cpu_limit"] = field
-    else:
-        args["cpu_limit"] = None
+        args["state"] = JobRunState.UNKNOWN_STATE
 
     field = data.get("created_at", None)
     if field is not None:
@@ -326,35 +329,47 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     else:
         args["started_at"] = None
 
+    field = data.get("cpu_limit", None)
+    if field is not None:
+        args["cpu_limit"] = field
+    else:
+        args["cpu_limit"] = 0
+
     field = data.get("memory_limit", None)
     if field is not None:
         args["memory_limit"] = field
     else:
-        args["memory_limit"] = None
+        args["memory_limit"] = 0
 
     field = data.get("local_storage_capacity", None)
     if field is not None:
         args["local_storage_capacity"] = field
     else:
-        args["local_storage_capacity"] = None
+        args["local_storage_capacity"] = 0
+
+    field = data.get("command", None)
+    if field is not None:
+        args["command"] = field
+    else:
+        args["command"] = None
 
     field = data.get("environment_variables", None)
     if field is not None:
         args["environment_variables"] = field
     else:
-        args["environment_variables"] = None
+        args["environment_variables"] = {}
 
     field = data.get("startup_command", None)
     if field is not None:
         args["startup_command"] = field
     else:
-        args["startup_command"] = None
+        args["startup_command"] = []
 
     field = data.get("args", None)
     if field is not None:
         args["args"] = field
     else:
-        args["args"] = None
+        args["args"] = []
 
     field = data.get("region", None)
     if field is not None:
@@ -380,13 +395,13 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     if field is not None:
         args["reason"] = field
     else:
-        args["reason"] = None
+        args["reason"] = JobRunReason.UNKNOWN_REASON
 
     field = data.get("exit_code", None)
     if field is not None:
         args["exit_code"] = field
     else:
-        args["exit_code"] = None
+        args["exit_code"] = 0
 
     field = data.get("error_message", None)
     if field is not None:
@@ -394,19 +409,95 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     else:
         args["error_message"] = None
 
-    field = data.get("command", None)
-    if field is not None:
-        args["command"] = field
-    else:
-        args["command"] = None
-
     field = data.get("attempts", None)
     if field is not None:
         args["attempts"] = field
     else:
-        args["attempts"] = None
+        args["attempts"] = 0
 
     return JobRun(**args)
+
+
+def unmarshal_TriggerCronConfig(data: Any) -> TriggerCronConfig:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'TriggerCronConfig' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("schedule", None)
+    if field is not None:
+        args["schedule"] = field
+    else:
+        args["schedule"] = None
+
+    field = data.get("timezone", None)
+    if field is not None:
+        args["timezone"] = field
+    else:
+        args["timezone"] = None
+
+    field = data.get("startup_command", None)
+    if field is not None:
+        args["startup_command"] = field
+    else:
+        args["startup_command"] = []
+
+    field = data.get("args", None)
+    if field is not None:
+        args["args"] = field
+    else:
+        args["args"] = []
+
+    return TriggerCronConfig(**args)
+
+
+def unmarshal_Trigger(data: Any) -> Trigger:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Trigger' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("job_definition_id", None)
+    if field is not None:
+        args["job_definition_id"] = field
+    else:
+        args["job_definition_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("cron_config", None)
+    if field is not None:
+        args["cron_config"] = unmarshal_TriggerCronConfig(field)
+    else:
+        args["cron_config"] = None
+
+    return Trigger(**args)
 
 
 def unmarshal_CreateSecretsResponse(data: Any) -> CreateSecretsResponse:
@@ -562,6 +653,31 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
     return ListSecretsResponse(**args)
 
 
+def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListTriggersResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("triggers", None)
+    if field is not None:
+        args["triggers"] = (
+            [unmarshal_Trigger(v) for v in field] if field is not None else None
+        )
+    else:
+        args["triggers"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListTriggersResponse(**args)
+
+
 def unmarshal_StartJobDefinitionResponse(data: Any) -> StartJobDefinitionResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -629,11 +745,11 @@ def marshal_CreateJobDefinitionRequest(
     if request.name is not None:
         output["name"] = request.name
 
-    if request.description is not None:
-        output["description"] = request.description
-
     if request.command is not None:
         output["command"] = request.command
+
+    if request.description is not None:
+        output["description"] = request.description
 
     if request.startup_command is not None:
         output["startup_command"] = request.startup_command
@@ -704,6 +820,53 @@ def marshal_CreateSecretsRequest(
             marshal_CreateSecretsRequestSecretConfig(item, defaults)
             for item in request.secrets
         ]
+
+    return output
+
+
+def marshal_CreateTriggerRequestCronConfig(
+    request: CreateTriggerRequestCronConfig,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.schedule is not None:
+        output["schedule"] = request.schedule
+
+    if request.timezone is not None:
+        output["timezone"] = request.timezone
+
+    if request.startup_command is not None:
+        output["startup_command"] = request.startup_command
+
+    if request.args is not None:
+        output["args"] = request.args
+
+    return output
+
+
+def marshal_CreateTriggerRequest(
+    request: CreateTriggerRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="cron_config",
+                    value=request.cron_config,
+                    marshal_func=marshal_CreateTriggerRequestCronConfig,
+                ),
+            ]
+        ),
+    )
+
+    if request.job_definition_id is not None:
+        output["job_definition_id"] = request.job_definition_id
+
+    if request.name is not None:
+        output["name"] = request.name
 
     return output
 
@@ -815,5 +978,49 @@ def marshal_UpdateSecretRequest(
 
     if request.secret_manager_version is not None:
         output["secret_manager_version"] = request.secret_manager_version
+
+    return output
+
+
+def marshal_UpdateTriggerRequestCronConfig(
+    request: UpdateTriggerRequestCronConfig,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.schedule is not None:
+        output["schedule"] = request.schedule
+
+    if request.timezone is not None:
+        output["timezone"] = request.timezone
+
+    if request.startup_command is not None:
+        output["startup_command"] = request.startup_command
+
+    if request.args is not None:
+        output["args"] = request.args
+
+    return output
+
+
+def marshal_UpdateTriggerRequest(
+    request: UpdateTriggerRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="cron_config",
+                    value=request.cron_config,
+                    marshal_func=marshal_UpdateTriggerRequestCronConfig,
+                ),
+            ]
+        ),
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
 
     return output

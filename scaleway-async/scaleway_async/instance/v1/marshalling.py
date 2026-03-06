@@ -353,6 +353,12 @@ def unmarshal_Volume(data: Any) -> Volume:
     else:
         args["name"] = None
 
+    field = data.get("export_uri", None)
+    if field is not None:
+        args["export_uri"] = field
+    else:
+        args["export_uri"] = None
+
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
@@ -376,12 +382,6 @@ def unmarshal_Volume(data: Any) -> Volume:
         args["project"] = field
     else:
         args["project"] = None
-
-    field = data.get("export_uri", None)
-    if field is not None:
-        args["export_uri"] = field
-    else:
-        args["export_uri"] = None
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -990,6 +990,18 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["commercial_type"] = None
 
+    field = data.get("dynamic_ip_required", None)
+    if field is not None:
+        args["dynamic_ip_required"] = field
+    else:
+        args["dynamic_ip_required"] = False
+
+    field = data.get("routed_ip_enabled", None)
+    if field is not None:
+        args["routed_ip_enabled"] = field
+    else:
+        args["routed_ip_enabled"] = False
+
     field = data.get("creation_date", None)
     if field is not None:
         args["creation_date"] = (
@@ -998,11 +1010,11 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["creation_date"] = None
 
-    field = data.get("dynamic_ip_required", None)
+    field = data.get("enable_ipv6", None)
     if field is not None:
-        args["dynamic_ip_required"] = field
+        args["enable_ipv6"] = field
     else:
-        args["dynamic_ip_required"] = False
+        args["enable_ipv6"] = False
 
     field = data.get("hostname", None)
     if field is not None:
@@ -1068,54 +1080,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["state_detail"] = None
 
-    field = data.get("arch", None)
-    if field is not None:
-        args["arch"] = field
-    else:
-        args["arch"] = Arch.UNKNOWN_ARCH
-
-    field = data.get("private_nics", None)
-    if field is not None:
-        args["private_nics"] = (
-            [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
-        )
-    else:
-        args["private_nics"] = []
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-    else:
-        args["zone"] = None
-
-    field = data.get("filesystems", None)
-    if field is not None:
-        args["filesystems"] = (
-            [unmarshal_ServerFilesystem(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["filesystems"] = []
-
-    field = data.get("end_of_service", None)
-    if field is not None:
-        args["end_of_service"] = field
-    else:
-        args["end_of_service"] = False
-
-    field = data.get("routed_ip_enabled", None)
-    if field is not None:
-        args["routed_ip_enabled"] = field
-    else:
-        args["routed_ip_enabled"] = False
-
-    field = data.get("enable_ipv6", None)
-    if field is not None:
-        args["enable_ipv6"] = field
-    else:
-        args["enable_ipv6"] = False
-
     field = data.get("image", None)
     if field is not None:
         args["image"] = unmarshal_Image(field)
@@ -1159,6 +1123,42 @@ def unmarshal_Server(data: Any) -> Server:
         args["security_group"] = unmarshal_SecurityGroupSummary(field)
     else:
         args["security_group"] = None
+
+    field = data.get("arch", None)
+    if field is not None:
+        args["arch"] = field
+    else:
+        args["arch"] = Arch.UNKNOWN_ARCH
+
+    field = data.get("private_nics", None)
+    if field is not None:
+        args["private_nics"] = (
+            [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
+        )
+    else:
+        args["private_nics"] = []
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("filesystems", None)
+    if field is not None:
+        args["filesystems"] = (
+            [unmarshal_ServerFilesystem(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["filesystems"] = []
+
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+    else:
+        args["end_of_service"] = False
 
     field = data.get("placement_group", None)
     if field is not None:
@@ -1436,6 +1436,12 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     else:
         args["tags"] = []
 
+    field = data.get("organization_default", None)
+    if field is not None:
+        args["organization_default"] = field
+    else:
+        args["organization_default"] = False
+
     field = data.get("project_default", None)
     if field is not None:
         args["project_default"] = field
@@ -1467,12 +1473,6 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
         args["zone"] = field
     else:
         args["zone"] = None
-
-    field = data.get("organization_default", None)
-    if field is not None:
-        args["organization_default"] = field
-    else:
-        args["organization_default"] = False
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -1905,97 +1905,97 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
     if field is not None:
         args["volumes_count"] = field
     else:
-        args["volumes_count"] = None
+        args["volumes_count"] = 0
 
     field = data.get("running_servers_count", None)
     if field is not None:
         args["running_servers_count"] = field
     else:
-        args["running_servers_count"] = None
+        args["running_servers_count"] = 0
 
     field = data.get("servers_by_types", None)
     if field is not None:
         args["servers_by_types"] = field
     else:
-        args["servers_by_types"] = None
+        args["servers_by_types"] = {}
 
     field = data.get("images_count", None)
     if field is not None:
         args["images_count"] = field
     else:
-        args["images_count"] = None
+        args["images_count"] = 0
 
     field = data.get("snapshots_count", None)
     if field is not None:
         args["snapshots_count"] = field
     else:
-        args["snapshots_count"] = None
+        args["snapshots_count"] = 0
 
     field = data.get("servers_count", None)
     if field is not None:
         args["servers_count"] = field
     else:
-        args["servers_count"] = None
+        args["servers_count"] = 0
 
     field = data.get("ips_count", None)
     if field is not None:
         args["ips_count"] = field
     else:
-        args["ips_count"] = None
+        args["ips_count"] = 0
 
     field = data.get("security_groups_count", None)
     if field is not None:
         args["security_groups_count"] = field
     else:
-        args["security_groups_count"] = None
+        args["security_groups_count"] = 0
 
     field = data.get("ips_unused", None)
     if field is not None:
         args["ips_unused"] = field
     else:
-        args["ips_unused"] = None
+        args["ips_unused"] = 0
 
     field = data.get("volumes_l_ssd_count", None)
     if field is not None:
         args["volumes_l_ssd_count"] = field
     else:
-        args["volumes_l_ssd_count"] = None
+        args["volumes_l_ssd_count"] = 0
 
     field = data.get("volumes_l_ssd_total_size", None)
     if field is not None:
         args["volumes_l_ssd_total_size"] = field
     else:
-        args["volumes_l_ssd_total_size"] = None
+        args["volumes_l_ssd_total_size"] = 0
 
     field = data.get("private_nics_count", None)
     if field is not None:
         args["private_nics_count"] = field
     else:
-        args["private_nics_count"] = None
+        args["private_nics_count"] = 0
 
     field = data.get("placement_groups_count", None)
     if field is not None:
         args["placement_groups_count"] = field
     else:
-        args["placement_groups_count"] = None
+        args["placement_groups_count"] = 0
 
     field = data.get("volumes_scratch_count", None)
     if field is not None:
         args["volumes_scratch_count"] = field
     else:
-        args["volumes_scratch_count"] = None
+        args["volumes_scratch_count"] = 0
 
     field = data.get("volumes_b_ssd_count", None)
     if field is not None:
         args["volumes_b_ssd_count"] = field
     else:
-        args["volumes_b_ssd_count"] = None
+        args["volumes_b_ssd_count"] = 0
 
     field = data.get("volumes_b_ssd_total_size", None)
     if field is not None:
         args["volumes_b_ssd_total_size"] = field
     else:
-        args["volumes_b_ssd_total_size"] = None
+        args["volumes_b_ssd_total_size"] = 0
 
     return Dashboard(**args)
 
@@ -3712,6 +3712,9 @@ def marshal_CreateServerRequest(
     if request.commercial_type is not None:
         output["commercial_type"] = request.commercial_type
 
+    if request.enable_ipv6 is not None:
+        output["enable_ipv6"] = request.enable_ipv6
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -3729,9 +3732,6 @@ def marshal_CreateServerRequest(
             key: marshal_VolumeServerTemplate(value, defaults)
             for key, value in request.volumes.items()
         }
-
-    if request.enable_ipv6 is not None:
-        output["enable_ipv6"] = request.enable_ipv6
 
     if request.protected is not None:
         output["protected"] = request.protected
@@ -4032,6 +4032,9 @@ def marshal_Volume(
     if request.name is not None:
         output["name"] = request.name
 
+    if request.export_uri is not None:
+        output["export_uri"] = request.export_uri
+
     if request.size is not None:
         output["size"] = request.size
 
@@ -4047,9 +4050,6 @@ def marshal_Volume(
         output["project"] = request.project
     else:
         output["project"] = defaults.default_project_id
-
-    if request.export_uri is not None:
-        output["export_uri"] = request.export_uri
 
     if request.creation_date is not None:
         output["creation_date"] = request.creation_date.isoformat()
@@ -4544,17 +4544,20 @@ def marshal__SetSecurityGroupRequest(
     if request.tags is not None:
         output["tags"] = request.tags
 
-    if request.creation_date is not None:
-        output["creation_date"] = request.creation_date.isoformat()
-
-    if request.modification_date is not None:
-        output["modification_date"] = request.modification_date.isoformat()
+    if request.organization_default is not None:
+        output["organization_default"] = request.organization_default
 
     if request.project_default is not None:
         output["project_default"] = request.project_default
 
     if request.stateful is not None:
         output["stateful"] = request.stateful
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date.isoformat()
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date.isoformat()
 
     if request.inbound_default_policy is not None:
         output["inbound_default_policy"] = request.inbound_default_policy
@@ -4571,9 +4574,6 @@ def marshal__SetSecurityGroupRequest(
         output["project"] = request.project
     else:
         output["project"] = defaults.default_project_id
-
-    if request.organization_default is not None:
-        output["organization_default"] = request.organization_default
 
     if request.servers is not None:
         output["servers"] = [
@@ -4884,13 +4884,16 @@ def marshal__SetServerRequest(
     if request.commercial_type is not None:
         output["commercial_type"] = request.commercial_type
 
+    if request.dynamic_ip_required is not None:
+        output["dynamic_ip_required"] = request.dynamic_ip_required
+
     if request.organization is not None:
         output["organization"] = request.organization
     else:
         output["organization"] = defaults.default_organization_id
 
-    if request.dynamic_ip_required is not None:
-        output["dynamic_ip_required"] = request.dynamic_ip_required
+    if request.enable_ipv6 is not None:
+        output["enable_ipv6"] = request.enable_ipv6
 
     if request.hostname is not None:
         output["hostname"] = request.hostname
@@ -4917,9 +4920,6 @@ def marshal__SetServerRequest(
 
     if request.routed_ip_enabled is not None:
         output["routed_ip_enabled"] = request.routed_ip_enabled
-
-    if request.enable_ipv6 is not None:
-        output["enable_ipv6"] = request.enable_ipv6
 
     if request.image is not None:
         output["image"] = marshal_Image(request.image, defaults)

@@ -205,6 +205,11 @@ class OS:
     The current xcode version for this OS.
     """
 
+    compatible_server_types: list[str]
+    """
+    List of compatible server types. Deprecated.
+    """
+
     release_notes_url: str
     """
     Url of the release notes for the OS image or software pre-installed.
@@ -223,11 +228,6 @@ class OS:
     supported_server_types: list[OSSupportedServerType]
     """
     List of server types which supports the OS configuration. Also gives information about immediate stock availability.
-    """
-
-    compatible_server_types: Optional[list[str]] = field(default_factory=list)
-    """
-    List of compatible server types. Deprecated.
     """
 
 
