@@ -51,7 +51,7 @@ def scrub_data(data):
     return data
 
 
-def scrub_json_string(raw: bytes | str) -> bytes | str:
+def scrub_json_string(raw: bytes | str) -> str:
     if isinstance(raw, bytes):
         raw = raw.decode("utf-8")
 
