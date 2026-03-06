@@ -65,6 +65,7 @@ from .types import (
     VpcPrivateNetworkInfo,
     VpcRouteInfo,
     VpcSubnetInfo,
+    VpcVpcConnectorInfo,
     Resource,
     AuthenticationEvent,
     ListAuthenticationEventsResponse,
@@ -1142,6 +1143,29 @@ def unmarshal_VpcSubnetInfo(data: Any) -> VpcSubnetInfo:
     return VpcSubnetInfo(**args)
 
 
+def unmarshal_VpcVpcConnectorInfo(data: Any) -> VpcVpcConnectorInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcVpcConnectorInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("target_vpc_id", None)
+    if field is not None:
+        args["target_vpc_id"] = field
+    else:
+        args["target_vpc_id"] = None
+
+    return VpcVpcConnectorInfo(**args)
+
+
 def unmarshal_Resource(data: Any) -> Resource:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1459,6 +1483,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["audit_trail_alert_rule_info"] = unmarshal_AuditTrailAlertRuleInfo(field)
     else:
         args["audit_trail_alert_rule_info"] = None
+
+    field = data.get("vpc_vpc_connector_info", None)
+    if field is not None:
+        args["vpc_vpc_connector_info"] = unmarshal_VpcVpcConnectorInfo(field)
+    else:
+        args["vpc_vpc_connector_info"] = None
 
     return Resource(**args)
 
