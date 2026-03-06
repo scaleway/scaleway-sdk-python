@@ -584,6 +584,8 @@ class RouteStage:
 
     waf_stage_id: Optional[str] = None
 
+    backend_stage_id: Optional[str] = None
+
 
 @dataclass
 class TLSStage:
@@ -978,6 +980,8 @@ class CreateRouteStageRequest:
     """
 
     waf_stage_id: Optional[str] = None
+
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -1840,6 +1844,8 @@ class UpdateRouteStageRequest:
     """
 
     waf_stage_id: Optional[str] = None
+
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
