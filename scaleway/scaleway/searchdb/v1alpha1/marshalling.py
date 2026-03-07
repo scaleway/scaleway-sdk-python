@@ -110,6 +110,12 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     else:
         args["id"] = None
 
+    field = data.get("dns_record", None)
+    if field is not None:
+        args["dns_record"] = field
+    else:
+        args["dns_record"] = None
+
     field = data.get("services", None)
     if field is not None:
         args["services"] = (
@@ -117,12 +123,6 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
         )
     else:
         args["services"] = []
-
-    field = data.get("dns_record", None)
-    if field is not None:
-        args["dns_record"] = field
-    else:
-        args["dns_record"] = None
 
     field = data.get("public", None)
     if field is not None:
