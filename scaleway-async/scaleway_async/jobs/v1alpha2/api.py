@@ -17,11 +17,14 @@ from .types import (
     JobRunState,
     ListJobDefinitionsRequestOrderBy,
     ListJobRunsRequestOrderBy,
+    ListTriggersRequestOrderBy,
     CreateJobDefinitionRequest,
     CreateJobDefinitionRequestCronScheduleConfig,
     CreateSecretsRequest,
     CreateSecretsRequestSecretConfig,
     CreateSecretsResponse,
+    CreateTriggerRequest,
+    CreateTriggerRequestCronConfig,
     JobDefinition,
     JobLimits,
     JobRun,
@@ -29,30 +32,38 @@ from .types import (
     ListJobResourcesResponse,
     ListJobRunsResponse,
     ListSecretsResponse,
+    ListTriggersResponse,
     RetryPolicy,
     Secret,
     StartJobDefinitionRequest,
     StartJobDefinitionResponse,
+    Trigger,
     UpdateJobDefinitionRequest,
     UpdateJobDefinitionRequestCronScheduleConfig,
     UpdateSecretRequest,
+    UpdateTriggerRequest,
+    UpdateTriggerRequestCronConfig,
 )
 from .marshalling import (
     unmarshal_Secret,
     unmarshal_JobDefinition,
     unmarshal_JobRun,
+    unmarshal_Trigger,
     unmarshal_CreateSecretsResponse,
     unmarshal_JobLimits,
     unmarshal_ListJobDefinitionsResponse,
     unmarshal_ListJobResourcesResponse,
     unmarshal_ListJobRunsResponse,
     unmarshal_ListSecretsResponse,
+    unmarshal_ListTriggersResponse,
     unmarshal_StartJobDefinitionResponse,
     marshal_CreateJobDefinitionRequest,
     marshal_CreateSecretsRequest,
+    marshal_CreateTriggerRequest,
     marshal_StartJobDefinitionRequest,
     marshal_UpdateJobDefinitionRequest,
     marshal_UpdateSecretRequest,
+    marshal_UpdateTriggerRequest,
 )
 
 
@@ -64,14 +75,14 @@ class JobsV1Alpha2API(API):
     async def create_job_definition(
         self,
         *,
-        region: Optional[ScwRegion] = None,
         cpu_limit: int,
         memory_limit: int,
         local_storage_capacity: int,
         image_uri: str,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
+        command: str,
         description: str,
-        command: Optional[str] = None,
         startup_command: Optional[list[str]] = None,
         args: Optional[list[str]] = None,
         project_id: Optional[str] = None,
@@ -82,14 +93,14 @@ class JobsV1Alpha2API(API):
     ) -> JobDefinition:
         """
         Create a new job definition in a specified Project.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param cpu_limit: CPU limit of the job (in mvCPU).
         :param memory_limit: Memory limit of the job (in MiB).
         :param local_storage_capacity: Local storage capacity of the job (in MiB).
         :param image_uri: Image to use for the job.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the job definition.
-        :param description: Description of the job.
         :param command: Deprecated: please use startup_command instead.
+        :param description: Description of the job.
         :param startup_command: The main executable or entrypoint script to run.
         If both command and startup_command are provided, only startup_command will be used.
         :param args: Passed to the startup command at runtime.
@@ -109,6 +120,7 @@ class JobsV1Alpha2API(API):
                 memory_limit=1,
                 local_storage_capacity=1,
                 image_uri="example",
+                command="example",
                 description="example",
             )
         """
@@ -122,14 +134,14 @@ class JobsV1Alpha2API(API):
             f"/serverless-jobs/v1alpha2/regions/{param_region}/job-definitions",
             body=marshal_CreateJobDefinitionRequest(
                 CreateJobDefinitionRequest(
-                    region=region,
                     cpu_limit=cpu_limit,
                     memory_limit=memory_limit,
                     local_storage_capacity=local_storage_capacity,
                     image_uri=image_uri,
+                    region=region,
                     name=name or random_name(prefix="job"),
-                    description=description,
                     command=command,
+                    description=description,
                     startup_command=startup_command,
                     args=args,
                     project_id=project_id,
@@ -810,6 +822,247 @@ class JobsV1Alpha2API(API):
         res = self._request(
             "DELETE",
             f"/serverless-jobs/v1alpha2/regions/{param_region}/secrets/{param_secret_id}",
+        )
+
+        self._throw_on_error(res)
+
+    async def create_trigger(
+        self,
+        *,
+        job_definition_id: str,
+        name: str,
+        region: Optional[ScwRegion] = None,
+        cron_config: Optional[CreateTriggerRequestCronConfig] = None,
+    ) -> Trigger:
+        """
+        Create a trigger.
+        :param job_definition_id: UUID of the job definition.
+        :param name: Name of the trigger.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param cron_config: Configuration of the CRON trigger.
+        One-Of ('config'): at most one of 'cron_config' could be set.
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = await api.create_trigger(
+                job_definition_id="example",
+                name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/serverless-jobs/v1alpha2/regions/{param_region}/triggers",
+            body=marshal_CreateTriggerRequest(
+                CreateTriggerRequest(
+                    job_definition_id=job_definition_id,
+                    name=name,
+                    region=region,
+                    cron_config=cron_config,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trigger(res.json())
+
+    async def get_trigger(
+        self,
+        *,
+        trigger_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Trigger:
+        """
+        Get a trigger.
+        :param trigger_id: UUID of the trigger.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = await api.get_trigger(
+                trigger_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_trigger_id = validate_path_param("trigger_id", trigger_id)
+
+        res = self._request(
+            "GET",
+            f"/serverless-jobs/v1alpha2/regions/{param_region}/triggers/{param_trigger_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trigger(res.json())
+
+    async def list_triggers(
+        self,
+        *,
+        job_definition_id: str,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListTriggersRequestOrderBy] = None,
+    ) -> ListTriggersResponse:
+        """
+        List triggers of a job definition.
+        :param job_definition_id: UUID of the job definition.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number from paginated list of triggers.
+        :param page_size: Number of triggers per page.
+        :param order_by: Sorting order of triggers.
+        :return: :class:`ListTriggersResponse <ListTriggersResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_triggers(
+                job_definition_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/serverless-jobs/v1alpha2/regions/{param_region}/triggers",
+            params={
+                "job_definition_id": job_definition_id,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListTriggersResponse(res.json())
+
+    async def list_triggers_all(
+        self,
+        *,
+        job_definition_id: str,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListTriggersRequestOrderBy] = None,
+    ) -> list[Trigger]:
+        """
+        List triggers of a job definition.
+        :param job_definition_id: UUID of the job definition.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number from paginated list of triggers.
+        :param page_size: Number of triggers per page.
+        :param order_by: Sorting order of triggers.
+        :return: :class:`list[Trigger] <list[Trigger]>`
+
+        Usage:
+        ::
+
+            result = await api.list_triggers_all(
+                job_definition_id="example",
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListTriggersResponse,
+            key="triggers",
+            fetcher=self.list_triggers,
+            args={
+                "job_definition_id": job_definition_id,
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
+
+    async def update_trigger(
+        self,
+        *,
+        trigger_id: str,
+        region: Optional[ScwRegion] = None,
+        name: Optional[str] = None,
+        cron_config: Optional[UpdateTriggerRequestCronConfig] = None,
+    ) -> Trigger:
+        """
+        Update a trigger.
+        :param trigger_id: UUID of the trigger.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: Name of the trigger.
+        :param cron_config: Configuration of the CRON trigger.
+        One-Of ('config'): at most one of 'cron_config' could be set.
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = await api.update_trigger(
+                trigger_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_trigger_id = validate_path_param("trigger_id", trigger_id)
+
+        res = self._request(
+            "PATCH",
+            f"/serverless-jobs/v1alpha2/regions/{param_region}/triggers/{param_trigger_id}",
+            body=marshal_UpdateTriggerRequest(
+                UpdateTriggerRequest(
+                    trigger_id=trigger_id,
+                    region=region,
+                    name=name,
+                    cron_config=cron_config,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trigger(res.json())
+
+    async def delete_trigger(
+        self,
+        *,
+        trigger_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        Delete a trigger.
+        :param trigger_id: UUID of the trigger.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_trigger(
+                trigger_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_trigger_id = validate_path_param("trigger_id", trigger_id)
+
+        res = self._request(
+            "DELETE",
+            f"/serverless-jobs/v1alpha2/regions/{param_region}/triggers/{param_trigger_id}",
         )
 
         self._throw_on_error(res)
