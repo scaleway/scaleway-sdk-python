@@ -56,6 +56,7 @@ from .types import VpcGwGatewayNetworkInfo
 from .types import VpcPrivateNetworkInfo
 from .types import VpcRouteInfo
 from .types import VpcSubnetInfo
+from .types import VpcVpcConnectorInfo
 from .types import Resource
 from .types import EventPrincipal
 from .types import AuthenticationEvent
@@ -149,6 +150,7 @@ __all__ = [
     "VpcPrivateNetworkInfo",
     "VpcRouteInfo",
     "VpcSubnetInfo",
+    "VpcVpcConnectorInfo",
     "Resource",
     "EventPrincipal",
     "AuthenticationEvent",
