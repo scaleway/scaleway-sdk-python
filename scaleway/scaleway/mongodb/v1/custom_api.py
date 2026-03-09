@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-from scaleway.mongodb.v1.api import MongodbV1API  # type: ignore[import-untyped]
+from scaleway.mongodb.v1.api import MongodbV1API
 
 
 def _ensure_tzaware_utc(value: Optional[datetime]) -> Optional[datetime]:
@@ -14,7 +14,7 @@ def _ensure_tzaware_utc(value: Optional[datetime]) -> Optional[datetime]:
     return value
 
 
-class MongodbUtilsV1API(MongodbV1API):  # type: ignore[misc]
+class MongodbUtilsV1API(MongodbV1API):
     """
     Extensions for MongoDB V1 that provide safer ergonomics.
 
