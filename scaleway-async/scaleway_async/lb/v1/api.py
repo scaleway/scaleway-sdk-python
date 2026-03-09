@@ -939,7 +939,7 @@ class LbV1ZonedAPI(API):
         server_ip: list[str],
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
-        send_proxy_v2: Optional[bool] = None,
+        send_proxy_v2: bool,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
@@ -993,6 +993,7 @@ class LbV1ZonedAPI(API):
                 lb_id="example",
                 health_check=HealthCheck(),
                 server_ip=[],
+                send_proxy_v2=False,
             )
         """
 
@@ -1077,8 +1078,8 @@ class LbV1ZonedAPI(API):
         forward_port_algorithm: ForwardPortAlgorithm,
         sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
+        send_proxy_v2: bool,
         zone: Optional[ScwZone] = None,
-        send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
@@ -1102,8 +1103,8 @@ class LbV1ZonedAPI(API):
         :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
         :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
         :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param timeout_server: Maximum allowed time for a backend server to process a request.
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
@@ -1129,6 +1130,7 @@ class LbV1ZonedAPI(API):
                 forward_port_algorithm=ForwardPortAlgorithm.roundrobin,
                 sticky_sessions=StickySessionsType.none,
                 sticky_sessions_cookie_name="example",
+                send_proxy_v2=False,
             )
         """
 
@@ -1147,8 +1149,8 @@ class LbV1ZonedAPI(API):
                     forward_port_algorithm=forward_port_algorithm,
                     sticky_sessions=sticky_sessions,
                     sticky_sessions_cookie_name=sticky_sessions_cookie_name,
-                    zone=zone,
                     send_proxy_v2=send_proxy_v2,
+                    zone=zone,
                     timeout_server=timeout_server,
                     timeout_connect=timeout_connect,
                     timeout_tunnel=timeout_tunnel,
@@ -3979,7 +3981,7 @@ class LbV1API(API):
         server_ip: list[str],
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
-        send_proxy_v2: Optional[bool] = None,
+        send_proxy_v2: bool,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
@@ -4032,6 +4034,7 @@ class LbV1API(API):
                 lb_id="example",
                 health_check=HealthCheck(),
                 server_ip=[],
+                send_proxy_v2=False,
             )
         """
 
@@ -4119,8 +4122,8 @@ class LbV1API(API):
         forward_port_algorithm: ForwardPortAlgorithm,
         sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
+        send_proxy_v2: bool,
         region: Optional[ScwRegion] = None,
-        send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
@@ -4143,8 +4146,8 @@ class LbV1API(API):
         :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
         :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
         :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param timeout_server: Maximum allowed time for a backend server to process a request.
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
@@ -4170,6 +4173,7 @@ class LbV1API(API):
                 forward_port_algorithm=ForwardPortAlgorithm.roundrobin,
                 sticky_sessions=StickySessionsType.none,
                 sticky_sessions_cookie_name="example",
+                send_proxy_v2=False,
             )
         """
 
@@ -4190,8 +4194,8 @@ class LbV1API(API):
                     forward_port_algorithm=forward_port_algorithm,
                     sticky_sessions=sticky_sessions,
                     sticky_sessions_cookie_name=sticky_sessions_cookie_name,
-                    region=region,
                     send_proxy_v2=send_proxy_v2,
+                    region=region,
                     timeout_server=timeout_server,
                     timeout_connect=timeout_connect,
                     timeout_tunnel=timeout_tunnel,
