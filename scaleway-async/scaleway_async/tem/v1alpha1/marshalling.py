@@ -137,17 +137,17 @@ def unmarshal_Email(data: Any) -> Email:
     else:
         args["mail_from"] = None
 
-    field = data.get("mail_rcpt", None)
-    if field is not None:
-        args["mail_rcpt"] = field
-    else:
-        args["mail_rcpt"] = None
-
     field = data.get("rcpt_to", None)
     if field is not None:
         args["rcpt_to"] = field
     else:
         args["rcpt_to"] = None
+
+    field = data.get("mail_rcpt", None)
+    if field is not None:
+        args["mail_rcpt"] = field
+    else:
+        args["mail_rcpt"] = None
 
     field = data.get("rcpt_type", None)
     if field is not None:
@@ -1558,6 +1558,9 @@ def marshal_CreateDomainRequest(
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
 
+    if request.accept_tos is not None:
+        output["accept_tos"] = request.accept_tos
+
     if request.autoconfig is not None:
         output["autoconfig"] = request.autoconfig
 
@@ -1565,9 +1568,6 @@ def marshal_CreateDomainRequest(
         output["project_id"] = request.project_id
     else:
         output["project_id"] = defaults.default_project_id
-
-    if request.accept_tos is not None:
-        output["accept_tos"] = request.accept_tos
 
     return output
 

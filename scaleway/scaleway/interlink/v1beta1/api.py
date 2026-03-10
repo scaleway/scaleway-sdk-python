@@ -251,8 +251,8 @@ class InterlinkV1Beta1API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status not in DEDICATED_CONNECTION_TRANSIENT_STATUSES
+            options.stop = lambda res: (
+                res.status not in DEDICATED_CONNECTION_TRANSIENT_STATUSES
             )
 
         return wait_for_resource(
