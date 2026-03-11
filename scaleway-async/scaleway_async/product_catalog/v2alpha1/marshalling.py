@@ -10,6 +10,7 @@ from scaleway_core.bridge import (
 from .types import (
     PublicCatalogProductProductBadge,
     PublicCatalogProductPropertiesHardwareCPUArch,
+    PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass,
     PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass,
     PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass,
     PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType,
@@ -25,6 +26,9 @@ from .types import (
     PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType,
     PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType,
     PublicCatalogProductPropertiesKubernetesKosmosNodeType,
+    PublicCatalogProductPropertiesManagedMongoDBManagementType,
+    PublicCatalogProductPropertiesManagedMongoDBNodeType,
+    PublicCatalogProductPropertiesManagedMongoDBStorageType,
     PublicCatalogProductPropertiesManagedRelationalDatabaseManagementType,
     PublicCatalogProductPropertiesManagedRelationalDatabaseMultiAzType,
     PublicCatalogProductPropertiesManagedRelationalDatabaseNodeType,
@@ -44,6 +48,7 @@ from .types import (
     PublicCatalogProductPropertiesKubernetes,
     PublicCatalogProductPropertiesLoadBalancer,
     PublicCatalogProductPropertiesManagedInference,
+    PublicCatalogProductPropertiesManagedMongoDB,
     PublicCatalogProductPropertiesManagedRedisDatabase,
     PublicCatalogProductPropertiesManagedRelationalDatabase,
     PublicCatalogProductPropertiesObjectStorage,
@@ -334,6 +339,53 @@ def unmarshal_PublicCatalogProductPropertiesKubernetesKosmosNodeType(
     args: dict[str, Any] = {}
 
     return PublicCatalogProductPropertiesKubernetesKosmosNodeType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesManagedMongoDBManagementType(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedMongoDBManagementType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedMongoDBManagementType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesManagedMongoDBManagementType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesManagedMongoDBNodeType(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedMongoDBNodeType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedMongoDBNodeType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesManagedMongoDBNodeType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesManagedMongoDBStorageType(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedMongoDBStorageType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedMongoDBStorageType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("storage_class", None)
+    if field is not None:
+        args["storage_class"] = field
+    else:
+        args["storage_class"] = (
+            PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass.UNKNOWN_STORAGE_CLASS
+        )
+
+    return PublicCatalogProductPropertiesManagedMongoDBStorageType(**args)
 
 
 def unmarshal_PublicCatalogProductPropertiesManagedRelationalDatabaseManagementType(
@@ -769,6 +821,43 @@ def unmarshal_PublicCatalogProductPropertiesManagedInference(
     return PublicCatalogProductPropertiesManagedInference(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesManagedMongoDB(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedMongoDB:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedMongoDB' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("management", None)
+    if field is not None:
+        args["management"] = (
+            unmarshal_PublicCatalogProductPropertiesManagedMongoDBManagementType(field)
+        )
+    else:
+        args["management"] = None
+
+    field = data.get("node", None)
+    if field is not None:
+        args["node"] = unmarshal_PublicCatalogProductPropertiesManagedMongoDBNodeType(
+            field
+        )
+    else:
+        args["node"] = None
+
+    field = data.get("storage", None)
+    if field is not None:
+        args["storage"] = (
+            unmarshal_PublicCatalogProductPropertiesManagedMongoDBStorageType(field)
+        )
+    else:
+        args["storage"] = None
+
+    return PublicCatalogProductPropertiesManagedMongoDB(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesManagedRedisDatabase(
     data: Any,
 ) -> PublicCatalogProductPropertiesManagedRedisDatabase:
@@ -1093,6 +1182,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["managed_relational_database"] = None
+
+    field = data.get("managed_mongodb", None)
+    if field is not None:
+        args["managed_mongodb"] = (
+            unmarshal_PublicCatalogProductPropertiesManagedMongoDB(field)
+        )
+    else:
+        args["managed_mongodb"] = None
 
     return PublicCatalogProductProperties(**args)
 

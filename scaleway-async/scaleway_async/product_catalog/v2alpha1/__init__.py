@@ -5,6 +5,7 @@ from .types import ListPublicCatalogProductsRequestStatus
 from .types import PublicCatalogProductProductBadge
 from .types import PublicCatalogProductPropertiesGenerativeApisConsumptionMode
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
+from .types import PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass
 from .types import (
     PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass,
 )
@@ -25,6 +26,9 @@ from .types import PublicCatalogProductPropertiesHardwareStorage
 from .types import PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType
 from .types import PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType
 from .types import PublicCatalogProductPropertiesKubernetesKosmosNodeType
+from .types import PublicCatalogProductPropertiesManagedMongoDBManagementType
+from .types import PublicCatalogProductPropertiesManagedMongoDBNodeType
+from .types import PublicCatalogProductPropertiesManagedMongoDBStorageType
 from .types import PublicCatalogProductPropertiesManagedRelationalDatabaseManagementType
 from .types import PublicCatalogProductPropertiesManagedRelationalDatabaseMultiAzType
 from .types import PublicCatalogProductPropertiesManagedRelationalDatabaseNodeType
@@ -44,6 +48,7 @@ from .types import PublicCatalogProductPropertiesKeyManager
 from .types import PublicCatalogProductPropertiesKubernetes
 from .types import PublicCatalogProductPropertiesLoadBalancer
 from .types import PublicCatalogProductPropertiesManagedInference
+from .types import PublicCatalogProductPropertiesManagedMongoDB
 from .types import PublicCatalogProductPropertiesManagedRedisDatabase
 from .types import PublicCatalogProductPropertiesManagedRelationalDatabase
 from .types import PublicCatalogProductPropertiesObjectStorage
@@ -64,6 +69,7 @@ __all__ = [
     "PublicCatalogProductProductBadge",
     "PublicCatalogProductPropertiesGenerativeApisConsumptionMode",
     "PublicCatalogProductPropertiesHardwareCPUArch",
+    "PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass",
     "PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass",
     "PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass",
     "PublicCatalogProductPropertiesObjectStorageInternetTrafficTypeTrafficType",
@@ -80,6 +86,9 @@ __all__ = [
     "PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType",
     "PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType",
     "PublicCatalogProductPropertiesKubernetesKosmosNodeType",
+    "PublicCatalogProductPropertiesManagedMongoDBManagementType",
+    "PublicCatalogProductPropertiesManagedMongoDBNodeType",
+    "PublicCatalogProductPropertiesManagedMongoDBStorageType",
     "PublicCatalogProductPropertiesManagedRelationalDatabaseManagementType",
     "PublicCatalogProductPropertiesManagedRelationalDatabaseMultiAzType",
     "PublicCatalogProductPropertiesManagedRelationalDatabaseNodeType",
@@ -99,6 +108,7 @@ __all__ = [
     "PublicCatalogProductPropertiesKubernetes",
     "PublicCatalogProductPropertiesLoadBalancer",
     "PublicCatalogProductPropertiesManagedInference",
+    "PublicCatalogProductPropertiesManagedMongoDB",
     "PublicCatalogProductPropertiesManagedRedisDatabase",
     "PublicCatalogProductPropertiesManagedRelationalDatabase",
     "PublicCatalogProductPropertiesObjectStorage",
