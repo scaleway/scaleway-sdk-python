@@ -453,6 +453,11 @@ class Email:
     Email address of the sender.
     """
 
+    rcpt_to: str
+    """
+    Deprecated. Email address of the recipient.
+    """
+
     mail_rcpt: str
     """
     Email address of the recipient.
@@ -486,11 +491,6 @@ class Email:
     flags: list[EmailFlag]
     """
     Flags categorize emails. They allow you to obtain more information about recurring errors, for example.
-    """
-
-    rcpt_to: Optional[str] = None
-    """
-    Deprecated. Email address of the recipient.
     """
 
     created_at: Optional[datetime] = None
@@ -1051,6 +1051,11 @@ class CreateDomainRequest:
     Fully qualified domain dame.
     """
 
+    accept_tos: bool
+    """
+    Deprecated. Accept Scaleway's Terms of Service.
+    """
+
     autoconfig: bool
     """
     Activate auto-configuration of the domain's DNS zone.
@@ -1064,11 +1069,6 @@ class CreateDomainRequest:
     project_id: Optional[str] = None
     """
     ID of the project to which the domain belongs.
-    """
-
-    accept_tos: Optional[bool] = False
-    """
-    Deprecated. Accept Scaleway's Terms of Service.
     """
 
 

@@ -347,6 +347,11 @@ class Volume:
     Volume name.
     """
 
+    export_uri: str
+    """
+    Show the volume NBD export URI (deprecated, will always be empty).
+    """
+
     size: int
     """
     Volume disk size.
@@ -380,11 +385,6 @@ class Volume:
     zone: ScwZone
     """
     Zone in which the volume is located.
-    """
-
-    export_uri: Optional[str] = None
-    """
-    Show the volume NBD export URI (deprecated, will always be empty).
     """
 
     creation_date: Optional[datetime] = None
@@ -804,6 +804,16 @@ class Server:
     True if a dynamic IPv4 is required.
     """
 
+    routed_ip_enabled: bool
+    """
+    True to configure the instance so it uses the routed IP mode. Use of `routed_ip_enabled` as `False` is deprecated.
+    """
+
+    enable_ipv6: bool
+    """
+    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
+    """
+
     hostname: str
     """
     Instance host name.
@@ -877,16 +887,6 @@ class Server:
     creation_date: Optional[datetime] = None
     """
     Instance creation date.
-    """
-
-    routed_ip_enabled: Optional[bool] = False
-    """
-    True to configure the instance so it uses the routed IP mode. Use of `routed_ip_enabled` as `False` is deprecated.
-    """
-
-    enable_ipv6: Optional[bool] = False
-    """
-    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
     """
 
     image: Optional[Image] = None
@@ -1039,6 +1039,11 @@ class SecurityGroup:
     Security group tags.
     """
 
+    organization_default: bool
+    """
+    True if it is your default security group for this Organization ID.
+    """
+
     project_default: bool
     """
     True if it is your default security group for this Project ID.
@@ -1062,11 +1067,6 @@ class SecurityGroup:
     zone: ScwZone
     """
     Zone in which the security group is located.
-    """
-
-    organization_default: Optional[bool] = False
-    """
-    True if it is your default security group for this Organization ID.
     """
 
     creation_date: Optional[datetime] = None
@@ -1265,8 +1265,8 @@ class Dashboard:
     private_nics_count: int
     placement_groups_count: int
     volumes_scratch_count: int
-    volumes_b_ssd_count: Optional[int] = None
-    volumes_b_ssd_total_size: Optional[int] = None
+    volumes_b_ssd_count: int
+    volumes_b_ssd_total_size: int
 
 
 @dataclass
@@ -1294,6 +1294,11 @@ class GetServerTypesAvailabilityResponseAvailability:
 
 @dataclass
 class ServerType:
+    monthly_price: float
+    """
+    Estimated monthly price, for a 30 days month, in Euro.
+    """
+
     hourly_price: float
     """
     Hourly price in Euro.
@@ -1327,11 +1332,6 @@ class ServerType:
     end_of_service: bool
     """
     True if this Instance type has reached end of service.
-    """
-
-    monthly_price: Optional[float] = 0.0
-    """
-    Estimated monthly price, for a 30 days month, in Euro.
     """
 
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType] = None
@@ -1783,6 +1783,11 @@ class CreateServerRequest:
     Define the Instance commercial type (i.e. GP1-S).
     """
 
+    enable_ipv6: bool
+    """
+    True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
+    """
+
     protected: bool
     """
     True to activate server protection option.
@@ -1816,11 +1821,6 @@ class CreateServerRequest:
     volumes: Optional[dict[str, VolumeServerTemplate]] = field(default_factory=dict)
     """
     Volumes attached to the server.
-    """
-
-    enable_ipv6: Optional[bool] = False
-    """
-    True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
     """
 
     public_ip: Optional[str] = None

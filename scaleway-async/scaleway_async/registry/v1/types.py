@@ -314,14 +314,14 @@ class DeleteTagRequest:
     UUID of the tag.
     """
 
+    force: bool
+    """
+    If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    force: Optional[bool] = False
-    """
-    If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
     """
 
 
