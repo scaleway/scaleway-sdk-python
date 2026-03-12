@@ -927,6 +927,18 @@ def unmarshal_User(data: Any) -> User:
     else:
         args["type_"] = UserType.UNKNOWN_TYPE
 
+    field = data.get("two_factor_enabled", None)
+    if field is not None:
+        args["two_factor_enabled"] = field
+    else:
+        args["two_factor_enabled"] = False
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = UserStatus.UNKNOWN_STATUS
+
     field = data.get("mfa", None)
     if field is not None:
         args["mfa"] = field
@@ -950,18 +962,6 @@ def unmarshal_User(data: Any) -> User:
         args["locked"] = field
     else:
         args["locked"] = False
-
-    field = data.get("two_factor_enabled", None)
-    if field is not None:
-        args["two_factor_enabled"] = field
-    else:
-        args["two_factor_enabled"] = False
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = UserStatus.UNKNOWN_STATUS
 
     return User(**args)
 
