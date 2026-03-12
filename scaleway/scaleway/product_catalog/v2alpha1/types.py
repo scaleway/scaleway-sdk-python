@@ -33,6 +33,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     MANAGED_REDIS_DATABASE = "managed_redis_database"
     KUBERNETES = "kubernetes"
     MANAGED_RELATIONAL_DATABASE = "managed_relational_database"
+    MANAGED_MONGODB = "managed_mongodb"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -83,6 +84,19 @@ class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnum
     ARM64 = "arm64"
     RISCV = "riscv"
     APPLE_SILICON = "apple_silicon"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_STORAGE_CLASS = "unknown_storage_class"
+    SBS_5K = "sbs_5k"
+    SBS_5K_SNAPSHOT = "sbs_5k_snapshot"
+    SBS_15K = "sbs_15k"
+    SBS_15K_SNAPSHOT = "sbs_15k_snapshot"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -342,6 +356,24 @@ class PublicCatalogProductPropertiesKubernetesKosmosNodeType:
 
 
 @dataclass
+class PublicCatalogProductPropertiesManagedMongoDBManagementType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesManagedMongoDBNodeType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesManagedMongoDBStorageType:
+    storage_class: PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass
+    """
+    The type of Storage class.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesManagedRelationalDatabaseManagementType:
     pass
 
@@ -537,6 +569,17 @@ class PublicCatalogProductPropertiesManagedInference:
 
 
 @dataclass
+class PublicCatalogProductPropertiesManagedMongoDB:
+    management: Optional[PublicCatalogProductPropertiesManagedMongoDBManagementType] = (
+        None
+    )
+
+    node: Optional[PublicCatalogProductPropertiesManagedMongoDBNodeType] = None
+
+    storage: Optional[PublicCatalogProductPropertiesManagedMongoDBStorageType] = None
+
+
+@dataclass
 class PublicCatalogProductPropertiesManagedRedisDatabase:
     pass
 
@@ -643,6 +686,8 @@ class PublicCatalogProductProperties:
     managed_relational_database: Optional[
         PublicCatalogProductPropertiesManagedRelationalDatabase
     ] = None
+
+    managed_mongodb: Optional[PublicCatalogProductPropertiesManagedMongoDB] = None
 
 
 @dataclass
