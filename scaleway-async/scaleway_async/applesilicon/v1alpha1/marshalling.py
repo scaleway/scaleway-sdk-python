@@ -136,6 +136,12 @@ def unmarshal_OS(data: Any) -> OS:
     else:
         args["xcode_version"] = None
 
+    field = data.get("compatible_server_types", None)
+    if field is not None:
+        args["compatible_server_types"] = field
+    else:
+        args["compatible_server_types"] = []
+
     field = data.get("release_notes_url", None)
     if field is not None:
         args["release_notes_url"] = field
@@ -163,12 +169,6 @@ def unmarshal_OS(data: Any) -> OS:
         )
     else:
         args["supported_server_types"] = []
-
-    field = data.get("compatible_server_types", None)
-    if field is not None:
-        args["compatible_server_types"] = field
-    else:
-        args["compatible_server_types"] = []
 
     return OS(**args)
 

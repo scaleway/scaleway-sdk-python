@@ -66,6 +66,14 @@ class ListJobRunsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListTriggersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class SecretEnvVar:
     name: str
@@ -94,6 +102,29 @@ class RetryPolicy:
     max_retries: int
     """
     Maximum number of retries upon a job failure.
+    """
+
+
+@dataclass
+class TriggerCronConfig:
+    schedule: str
+    """
+    CRON schedule in UNIX format.
+    """
+
+    timezone: str
+    """
+    Time zone for the CRON schedule.
+    """
+
+    startup_command: list[str]
+    """
+    Startup command that will be used by the triggered job.
+    """
+
+    args: list[str]
+    """
+    Arguments passed to the startup command used by the triggered job.
     """
 
 
@@ -140,29 +171,119 @@ class Secret:
 
 
 @dataclass
+class CreateTriggerRequestCronConfig:
+    schedule: str
+    """
+    CRON schedule in UNIX format.
+    """
+
+    timezone: str
+    """
+    Time zone for the CRON schedule.
+    """
+
+    startup_command: list[str]
+    """
+    Startup command that will be used by the triggered job.
+    """
+
+    args: list[str]
+    """
+    Arguments passed to the startup command used by the triggered job.
+    """
+
+
+@dataclass
 class JobDefinition:
     id: str
+    """
+    UUID of the job definition.
+    """
+
     name: str
+    """
+    Name of the job definition.
+    """
+
     project_id: str
+    """
+    UUID of the Scaleway Project containing the job.
+    """
+
     cpu_limit: int
+    """
+    CPU limit of the job (in mvCPU).
+    """
+
     memory_limit: int
+    """
+    Memory limit of the job (in MiB).
+    """
+
     local_storage_capacity: int
+    """
+    Local storage capacity of the job (in MiB).
+    """
+
     image_uri: str
+    """
+    Image to use for the job.
+    """
+
+    command: str
+    """
+    Deprecated, please use startup_command instead.
+    """
+
     environment_variables: dict[str, str]
+    """
+    Environment variables of the job.
+    """
+
     description: str
+    """
+    Description of the job.
+    """
+
     startup_command: list[str]
+    """
+    Job startup command.
+    """
+
     args: list[str]
+    """
+    Job arguments passed to the startup command at runtime.
+    """
+
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
 
     created_at: Optional[datetime] = None
+    """
+    Creation date of the job definition.
+    """
+
     updated_at: Optional[datetime] = None
-    command: Optional[str] = None
+    """
+    Last update date of the job definition.
+    """
+
     job_timeout: Optional[str] = None
+    """
+    Timeout of the job in seconds.
+    """
+
     cron_schedule: Optional[CronSchedule] = None
+    """
+    Configure a cron for the job.
+    """
+
     retry_policy: Optional[RetryPolicy] = None
+    """
+    Retry behaviour in case of job failure.
+    """
 
 
 @dataclass
@@ -174,35 +295,163 @@ class Resource:
 @dataclass
 class JobRun:
     id: str
+    """
+    UUID of the job run.
+    """
+
     job_definition_id: str
+    """
+    UUID of the job definition.
+    """
+
     state: JobRunState
+    """
+    State of the job run.
+    """
+
     cpu_limit: int
+    """
+    CPU limit of the job (in mvCPU).
+    """
+
     memory_limit: int
+    """
+    Memory limit of the job (in MiB).
+    """
+
     local_storage_capacity: int
+    """
+    Local storage capacity of the job (in MiB).
+    """
+
+    command: str
+    """
+    Deprecated, please use startup_command instead.
+    """
+
     environment_variables: dict[str, str]
+    """
+    Environment variables of the job run.
+    """
+
     startup_command: list[str]
+    """
+    Job startup command.
+    """
+
     args: list[str]
+    """
+    Job arguments passed to the startup command at runtime.
+    """
+
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
 
     created_at: Optional[datetime] = None
+    """
+    Creation date of the job run.
+    """
+
     updated_at: Optional[datetime] = None
+    """
+    Last update date of the job run.
+    """
+
     started_at: Optional[datetime] = None
+    """
+    Start date of the job run.
+    """
+
     terminated_at: Optional[datetime] = None
+    """
+    Termination date of the job run.
+    """
+
     run_duration: Optional[str] = None
-    reason: Optional[JobRunReason] = None
-    exit_code: Optional[int] = None
+    """
+    Duration of the job run.
+    """
+
+    reason: Optional[JobRunReason] = JobRunReason.UNKNOWN_REASON
+    """
+    Reason for failure if the job failed.
+    """
+
+    exit_code: Optional[int] = 0
+    """
+    Exit code of the job.
+    """
+
     error_message: Optional[str] = None
-    command: Optional[str] = None
-    attempts: Optional[int] = None
+    """
+    Error message if the job failed.
+    """
+
+    attempts: Optional[int] = 0
+    """
+    Number of retry attempts.
+    """
+
+
+@dataclass
+class Trigger:
+    id: str
+    """
+    UUID of the trigger.
+    """
+
+    job_definition_id: str
+    """
+    UUID of the job definition.
+    """
+
+    name: str
+    """
+    Human readable name of the trigger.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation time of the trigger.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Last update time of the trigger.
+    """
+
+    cron_config: Optional[TriggerCronConfig] = None
 
 
 @dataclass
 class UpdateJobDefinitionRequestCronScheduleConfig:
     schedule: Optional[str] = None
     timezone: Optional[str] = None
+
+
+@dataclass
+class UpdateTriggerRequestCronConfig:
+    schedule: Optional[str] = None
+    """
+    CRON schedule in UNIX format.
+    """
+
+    timezone: Optional[str] = None
+    """
+    Time zone for the CRON schedule.
+    """
+
+    startup_command: Optional[list[str]] = field(default_factory=list)
+    """
+    Startup command that will be used by the triggered job.
+    """
+
+    args: Optional[list[str]] = field(default_factory=list)
+    """
+    Arguments passed to the startup command used by the triggered job.
+    """
 
 
 @dataclass
@@ -227,6 +476,11 @@ class CreateJobDefinitionRequest:
     Image to use for the job.
     """
 
+    command: str
+    """
+    Deprecated: please use startup_command instead.
+    """
+
     description: str
     """
     Description of the job.
@@ -240,11 +494,6 @@ class CreateJobDefinitionRequest:
     name: Optional[str] = None
     """
     Name of the job definition.
-    """
-
-    command: Optional[str] = None
-    """
-    Deprecated: please use startup_command instead.
     """
 
     startup_command: Optional[list[str]] = field(default_factory=list)
@@ -312,6 +561,26 @@ class CreateSecretsResponse:
 
 
 @dataclass
+class CreateTriggerRequest:
+    job_definition_id: str
+    """
+    UUID of the job definition.
+    """
+
+    name: str
+    """
+    Name of the trigger.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    cron_config: Optional[CreateTriggerRequestCronConfig] = None
+
+
+@dataclass
 class DeleteJobDefinitionRequest:
     job_definition_id: str
     """
@@ -329,6 +598,19 @@ class DeleteSecretRequest:
     secret_id: str
     """
     UUID of the secret reference within the job.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteTriggerRequest:
+    trigger_id: str
+    """
+    UUID of the trigger.
     """
 
     region: Optional[ScwRegion] = None
@@ -376,6 +658,19 @@ class GetSecretRequest:
     secret_id: str
     """
     UUID of the secret reference within the job.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetTriggerRequest:
+    trigger_id: str
+    """
+    UUID of the trigger.
     """
 
     region: Optional[ScwRegion] = None
@@ -469,6 +764,49 @@ class ListSecretsResponse:
     total_count: int
     """
     Total count of secret references within a job definition.
+    """
+
+
+@dataclass
+class ListTriggersRequest:
+    job_definition_id: str
+    """
+    UUID of the job definition.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number from paginated list of triggers.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of triggers per page.
+    """
+
+    order_by: Optional[ListTriggersRequestOrderBy] = (
+        ListTriggersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sorting order of triggers.
+    """
+
+
+@dataclass
+class ListTriggersResponse:
+    triggers: list[Trigger]
+    """
+    List of triggers.
+    """
+
+    total_count: int
+    """
+    Total count of triggers.
     """
 
 
@@ -636,3 +974,23 @@ class UpdateSecretRequest:
     path: Optional[str] = None
 
     env_var_name: Optional[str] = None
+
+
+@dataclass
+class UpdateTriggerRequest:
+    trigger_id: str
+    """
+    UUID of the trigger.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    Name of the trigger.
+    """
+
+    cron_config: Optional[UpdateTriggerRequestCronConfig] = None

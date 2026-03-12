@@ -3324,6 +3324,34 @@ class IamV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_SamlCertificate(res.json())
 
+    def get_saml_certificate(
+        self,
+        *,
+        certificate_id: str,
+    ) -> SamlCertificate:
+        """
+        Get a SAML certificate.
+        :param certificate_id: ID of the certificate to get.
+        :return: :class:`SamlCertificate <SamlCertificate>`
+
+        Usage:
+        ::
+
+            result = api.get_saml_certificate(
+                certificate_id="example",
+            )
+        """
+
+        param_certificate_id = validate_path_param("certificate_id", certificate_id)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/saml-certificates/{param_certificate_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SamlCertificate(res.json())
+
     def delete_saml_certificate(
         self,
         *,
