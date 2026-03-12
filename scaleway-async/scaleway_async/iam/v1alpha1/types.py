@@ -1555,6 +1555,14 @@ class GetSSHKeyRequest:
 
 
 @dataclass
+class GetSamlCertificateRequest:
+    certificate_id: str
+    """
+    ID of the certificate to get.
+    """
+
+
+@dataclass
 class GetUserConnectionsRequest:
     user_id: str
     """
