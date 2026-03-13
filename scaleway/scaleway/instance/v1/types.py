@@ -1265,8 +1265,8 @@ class Dashboard:
     private_nics_count: int
     placement_groups_count: int
     volumes_scratch_count: int
-    volumes_b_ssd_count: Optional[int] = None
-    volumes_b_ssd_total_size: Optional[int] = None
+    volumes_b_ssd_count: Optional[int] = 0
+    volumes_b_ssd_total_size: Optional[int] = 0
 
 
 @dataclass
