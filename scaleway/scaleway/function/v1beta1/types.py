@@ -628,6 +628,11 @@ class Namespace:
     List of tags applied to the Serverless Function Namespace.
     """
 
+    vpc_integration_activated: bool
+    """
+    The value of this field doesn't matter anymore, and will be removed in a near future.
+    """
+
     error_message: Optional[str] = None
     """
     Error message if the namespace is in "error" state.
@@ -648,11 +653,6 @@ class Namespace:
     Last update date of the namespace.
     """
 
-    vpc_integration_activated: Optional[bool] = False
-    """
-    The value of this field doesn't matter anymore, and will be removed in a near future.
-    """
-
 
 @dataclass
 class Token:
@@ -666,14 +666,14 @@ class Token:
     String of the token.
     """
 
+    public_key: str
+    """
+    Public key of the token.
+    """
+
     status: TokenStatus
     """
     Status of the token.
-    """
-
-    public_key: Optional[str] = None
-    """
-    Public key of the token.
     """
 
     description: Optional[str] = None
@@ -875,6 +875,11 @@ class CreateFunctionRequest:
 
 @dataclass
 class CreateNamespaceRequest:
+    activate_vpc_integration: bool
+    """
+    Setting this field to true doesn't matter anymore. It will be removed in a near future.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -904,11 +909,6 @@ class CreateNamespaceRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the Serverless Function Namespace.
-    """
-
-    activate_vpc_integration: Optional[bool] = False
-    """
-    Setting this field to true doesn't matter anymore. It will be removed in a near future.
     """
 
 

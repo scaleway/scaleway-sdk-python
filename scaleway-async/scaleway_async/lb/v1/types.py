@@ -693,6 +693,11 @@ class Backend:
     List of IP addresses of backend servers attached to this backend.
     """
 
+    send_proxy_v2: bool
+    """
+    Deprecated in favor of proxy_protocol field.
+    """
+
     on_marked_down_action: OnMarkedDownAction
     """
     Action to take when a backend server is marked as down.
@@ -711,11 +716,6 @@ class Backend:
     lb: Optional[Lb] = None
     """
     Load Balancer the backend is attached to.
-    """
-
-    send_proxy_v2: Optional[bool] = False
-    """
-    Deprecated in favor of proxy_protocol field.
     """
 
     timeout_server: Optional[str] = None
@@ -1354,6 +1354,11 @@ class CreateBackendRequest:
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
+    send_proxy_v2: bool
+    """
+    Deprecated in favor of proxy_protocol field.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -1362,11 +1367,6 @@ class CreateBackendRequest:
     name: Optional[str] = None
     """
     Name for the backend.
-    """
-
-    send_proxy_v2: Optional[bool] = False
-    """
-    Deprecated in favor of proxy_protocol field.
     """
 
     timeout_server: Optional[str] = None
@@ -2593,14 +2593,14 @@ class UpdateBackendRequest:
     Cookie name for cookie-based sticky sessions.
     """
 
+    send_proxy_v2: bool
+    """
+    Deprecated in favor of proxy_protocol field.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    send_proxy_v2: Optional[bool] = False
-    """
-    Deprecated in favor of proxy_protocol field.
     """
 
     timeout_server: Optional[str] = None
@@ -3038,6 +3038,11 @@ class ZonedApiCreateBackendRequest:
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
+    send_proxy_v2: bool
+    """
+    Deprecated in favor of proxy_protocol field.
+    """
+
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
@@ -3046,11 +3051,6 @@ class ZonedApiCreateBackendRequest:
     name: Optional[str] = None
     """
     Name for the backend.
-    """
-
-    send_proxy_v2: Optional[bool] = False
-    """
-    Deprecated in favor of proxy_protocol field.
     """
 
     timeout_server: Optional[str] = None
@@ -4131,14 +4131,14 @@ class ZonedApiUpdateBackendRequest:
     Cookie name for cookie-based sticky sessions.
     """
 
+    send_proxy_v2: bool
+    """
+    Deprecated in favor of proxy_protocol field.
+    """
+
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    send_proxy_v2: Optional[bool] = False
-    """
-    Deprecated in favor of proxy_protocol field.
     """
 
     timeout_server: Optional[str] = None
