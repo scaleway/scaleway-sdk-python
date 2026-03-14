@@ -572,6 +572,12 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
     else:
         args["waf_stage_id"] = None
 
+    field = data.get("backend_stage_id", None)
+    if field is not None:
+        args["backend_stage_id"] = field
+    else:
+        args["backend_stage_id"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -583,12 +589,6 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("backend_stage_id", None)
-    if field is not None:
-        args["backend_stage_id"] = field
-    else:
-        args["backend_stage_id"] = None
 
     return RouteStage(**args)
 
