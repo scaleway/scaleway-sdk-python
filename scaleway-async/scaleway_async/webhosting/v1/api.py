@@ -1517,6 +1517,7 @@ class WebhostingV1HostingAPI(API):
         domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None,
         skip_welcome_email: Optional[bool] = None,
         auto_config_domain_dns: Optional[AutoConfigDomainDns] = None,
+        offer_commitment_id: Optional[str] = None,
     ) -> Hosting:
         """
         Order a Web Hosting plan.
@@ -1533,6 +1534,7 @@ class WebhostingV1HostingAPI(API):
         :param domain_configuration: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_config_domain_dns instead).
         :param skip_welcome_email: Indicates whether to skip a welcome email to the contact email containing hosting info.
         :param auto_config_domain_dns: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_update_* fields instead).
+        :param offer_commitment_id: Offer commitment ID to which the hosting will be engaged.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -1566,6 +1568,7 @@ class WebhostingV1HostingAPI(API):
                     domain_configuration=domain_configuration,
                     skip_welcome_email=skip_welcome_email,
                     auto_config_domain_dns=auto_config_domain_dns,
+                    offer_commitment_id=offer_commitment_id,
                 ),
                 self.client,
             ),

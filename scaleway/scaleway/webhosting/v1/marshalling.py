@@ -51,10 +51,11 @@ from .types import (
     DnsRecords,
     Domain,
     PlatformControlPanelUrls,
-    ControlPanel,
     OfferCommitment,
+    ControlPanel,
     OfferOption,
     PlatformControlPanel,
+    HostingCommitment,
     HostingUser,
     Offer,
     Platform,
@@ -740,43 +741,6 @@ def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
     return PlatformControlPanelUrls(**args)
 
 
-def unmarshal_ControlPanel(data: Any) -> ControlPanel:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ControlPanel' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-    else:
-        args["name"] = None
-
-    field = data.get("available", None)
-    if field is not None:
-        args["available"] = field
-    else:
-        args["available"] = False
-
-    field = data.get("logo_url", None)
-    if field is not None:
-        args["logo_url"] = field
-    else:
-        args["logo_url"] = None
-
-    field = data.get("available_languages", None)
-    if field is not None:
-        args["available_languages"] = (
-            [StdLanguageCode(v) for v in field] if field is not None else None
-        )
-    else:
-        args["available_languages"] = []
-
-    return ControlPanel(**args)
-
-
 def unmarshal_OfferCommitment(data: Any) -> OfferCommitment:
     if not isinstance(data, dict):
         raise TypeError(
@@ -828,6 +792,43 @@ def unmarshal_OfferCommitment(data: Any) -> OfferCommitment:
         args["next"] = None
 
     return OfferCommitment(**args)
+
+
+def unmarshal_ControlPanel(data: Any) -> ControlPanel:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ControlPanel' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("available", None)
+    if field is not None:
+        args["available"] = field
+    else:
+        args["available"] = False
+
+    field = data.get("logo_url", None)
+    if field is not None:
+        args["logo_url"] = field
+    else:
+        args["logo_url"] = None
+
+    field = data.get("available_languages", None)
+    if field is not None:
+        args["available_languages"] = (
+            [StdLanguageCode(v) for v in field] if field is not None else None
+        )
+    else:
+        args["available_languages"] = []
+
+    return ControlPanel(**args)
 
 
 def unmarshal_OfferOption(data: Any) -> OfferOption:
@@ -910,6 +911,41 @@ def unmarshal_PlatformControlPanel(data: Any) -> PlatformControlPanel:
         args["urls"] = None
 
     return PlatformControlPanel(**args)
+
+
+def unmarshal_HostingCommitment(data: Any) -> HostingCommitment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'HostingCommitment' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("delete_hosting_at_end", None)
+    if field is not None:
+        args["delete_hosting_at_end"] = field
+    else:
+        args["delete_hosting_at_end"] = False
+
+    field = data.get("offer_commitment", None)
+    if field is not None:
+        args["offer_commitment"] = unmarshal_OfferCommitment(field)
+    else:
+        args["offer_commitment"] = None
+
+    field = data.get("start_at", None)
+    if field is not None:
+        args["start_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_at"] = None
+
+    field = data.get("end_at", None)
+    if field is not None:
+        args["end_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["end_at"] = None
+
+    return HostingCommitment(**args)
 
 
 def unmarshal_HostingUser(data: Any) -> HostingUser:
@@ -1186,6 +1222,12 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["domain_info"] = unmarshal_HostingDomain(field)
     else:
         args["domain_info"] = None
+
+    field = data.get("commitment", None)
+    if field is not None:
+        args["commitment"] = unmarshal_HostingCommitment(field)
+    else:
+        args["commitment"] = None
 
     return Hosting(**args)
 
@@ -2137,6 +2179,9 @@ def marshal_HostingApiCreateHostingRequest(
         output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
             request.auto_config_domain_dns, defaults
         )
+
+    if request.offer_commitment_id is not None:
+        output["offer_commitment_id"] = request.offer_commitment_id
 
     return output
 
