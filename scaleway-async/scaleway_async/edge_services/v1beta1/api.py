@@ -703,6 +703,7 @@ class EdgeServicesV1Beta1API(API):
         cache_stage_id: Optional[str] = None,
         backend_stage_id: Optional[str] = None,
         pipeline_id: str,
+        wildcard_domain: Optional[bool] = None,
     ) -> DNSStage:
         """
         Create DNS stage.
@@ -715,6 +716,7 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: Backend stage ID the DNS stage will be linked to.
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :param pipeline_id: Pipeline ID the DNS stage belongs to.
+        :param wildcard_domain: Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
         :return: :class:`DNSStage <DNSStage>`
 
         Usage:
@@ -734,6 +736,7 @@ class EdgeServicesV1Beta1API(API):
                 CreateDNSStageRequest(
                     fqdns=fqdns,
                     pipeline_id=pipeline_id,
+                    wildcard_domain=wildcard_domain,
                     tls_stage_id=tls_stage_id,
                     cache_stage_id=cache_stage_id,
                     backend_stage_id=backend_stage_id,
@@ -782,6 +785,7 @@ class EdgeServicesV1Beta1API(API):
         tls_stage_id: Optional[str] = None,
         cache_stage_id: Optional[str] = None,
         backend_stage_id: Optional[str] = None,
+        wildcard_domain: Optional[bool] = None,
     ) -> DNSStage:
         """
         Update DNS stage.
@@ -794,6 +798,7 @@ class EdgeServicesV1Beta1API(API):
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :param backend_stage_id: Backend stage ID the DNS stage will be linked to.
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
+        :param wildcard_domain: Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
         :return: :class:`DNSStage <DNSStage>`
 
         Usage:
@@ -813,6 +818,7 @@ class EdgeServicesV1Beta1API(API):
                 UpdateDNSStageRequest(
                     dns_stage_id=dns_stage_id,
                     fqdns=fqdns,
+                    wildcard_domain=wildcard_domain,
                     tls_stage_id=tls_stage_id,
                     cache_stage_id=cache_stage_id,
                     backend_stage_id=backend_stage_id,

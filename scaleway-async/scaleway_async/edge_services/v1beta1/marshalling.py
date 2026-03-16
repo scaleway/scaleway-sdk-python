@@ -405,6 +405,12 @@ def unmarshal_DNSStage(data: Any) -> DNSStage:
     else:
         args["pipeline_id"] = None
 
+    field = data.get("wildcard_domain", None)
+    if field is not None:
+        args["wildcard_domain"] = field
+    else:
+        args["wildcard_domain"] = False
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -1072,6 +1078,12 @@ def unmarshal_PlanDetails(data: Any) -> PlanDetails:
         args["backend_limit"] = field
     else:
         args["backend_limit"] = 0
+
+    field = data.get("wildcard_domain", None)
+    if field is not None:
+        args["wildcard_domain"] = field
+    else:
+        args["wildcard_domain"] = False
 
     return PlanDetails(**args)
 
@@ -1942,6 +1954,9 @@ def marshal_CreateDNSStageRequest(
     if request.fqdns is not None:
         output["fqdns"] = request.fqdns
 
+    if request.wildcard_domain is not None:
+        output["wildcard_domain"] = request.wildcard_domain
+
     return output
 
 
@@ -2294,6 +2309,9 @@ def marshal_UpdateDNSStageRequest(
 
     if request.fqdns is not None:
         output["fqdns"] = request.fqdns
+
+    if request.wildcard_domain is not None:
+        output["wildcard_domain"] = request.wildcard_domain
 
     return output
 
