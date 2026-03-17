@@ -35,8 +35,8 @@ from .types import ProgressStatus
 from .types import AutoConfigDomainDns
 from .types import PlatformControlPanelUrls
 from .types import HostingDomainCustomDomain
-from .types import ControlPanel
 from .types import OfferCommitment
+from .types import ControlPanel
 from .types import OfferOption
 from .types import PlatformControlPanel
 from .types import BackupItem
@@ -48,6 +48,7 @@ from .types import OfferOptionRequest
 from .types import SyncDomainDnsRecordsRequestRecord
 from .types import DnsRecord
 from .types import Nameserver
+from .types import HostingCommitment
 from .types import HostingUser
 from .types import Offer
 from .types import Platform
@@ -185,8 +186,8 @@ __all__ = [
     "AutoConfigDomainDns",
     "PlatformControlPanelUrls",
     "HostingDomainCustomDomain",
-    "ControlPanel",
     "OfferCommitment",
+    "ControlPanel",
     "OfferOption",
     "PlatformControlPanel",
     "BackupItem",
@@ -198,6 +199,7 @@ __all__ = [
     "SyncDomainDnsRecordsRequestRecord",
     "DnsRecord",
     "Nameserver",
+    "HostingCommitment",
     "HostingUser",
     "Offer",
     "Platform",

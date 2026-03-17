@@ -1232,22 +1232,22 @@ class WebhostingV1DnsAPI(API):
         self,
         *,
         domain: str,
-        update_web_records: bool,
-        update_mail_records: bool,
-        update_all_records: bool,
-        update_nameservers: bool,
         region: Optional[ScwRegion] = None,
+        update_web_records: Optional[bool] = None,
+        update_mail_records: Optional[bool] = None,
+        update_all_records: Optional[bool] = None,
+        update_nameservers: Optional[bool] = None,
         custom_records: Optional[list[SyncDomainDnsRecordsRequestRecord]] = None,
         auto_config_domain_dns: Optional[AutoConfigDomainDns] = None,
     ) -> DnsRecords:
         """
         Synchronize your DNS records on the Elements Console and on cPanel.
         :param domain: Domain for which the DNS records will be synchronized.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param update_web_records: Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).
         :param update_mail_records: Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).
         :param update_all_records: Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns).
         :param update_nameservers: Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
-        :param region: Region to target. If none is passed will use default region from the config.
         :param custom_records: Custom records to synchronize.
         :param auto_config_domain_dns: Whether or not to synchronize each types of records.
         :return: :class:`DnsRecords <DnsRecords>`
@@ -1257,10 +1257,6 @@ class WebhostingV1DnsAPI(API):
 
             result = api.sync_domain_dns_records(
                 domain="example",
-                update_web_records=False,
-                update_mail_records=False,
-                update_all_records=False,
-                update_nameservers=False,
             )
         """
 
@@ -1275,11 +1271,11 @@ class WebhostingV1DnsAPI(API):
             body=marshal_DnsApiSyncDomainDnsRecordsRequest(
                 DnsApiSyncDomainDnsRecordsRequest(
                     domain=domain,
+                    region=region,
                     update_web_records=update_web_records,
                     update_mail_records=update_mail_records,
                     update_all_records=update_all_records,
                     update_nameservers=update_nameservers,
-                    region=region,
                     custom_records=custom_records,
                     auto_config_domain_dns=auto_config_domain_dns,
                 ),
@@ -1517,6 +1513,7 @@ class WebhostingV1HostingAPI(API):
         domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None,
         skip_welcome_email: Optional[bool] = None,
         auto_config_domain_dns: Optional[AutoConfigDomainDns] = None,
+        offer_commitment_id: Optional[str] = None,
     ) -> Hosting:
         """
         Order a Web Hosting plan.
@@ -1533,6 +1530,7 @@ class WebhostingV1HostingAPI(API):
         :param domain_configuration: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_config_domain_dns instead).
         :param skip_welcome_email: Indicates whether to skip a welcome email to the contact email containing hosting info.
         :param auto_config_domain_dns: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_update_* fields instead).
+        :param offer_commitment_id: Offer commitment ID to which the hosting will be engaged.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -1566,6 +1564,7 @@ class WebhostingV1HostingAPI(API):
                     domain_configuration=domain_configuration,
                     skip_welcome_email=skip_welcome_email,
                     auto_config_domain_dns=auto_config_domain_dns,
+                    offer_commitment_id=offer_commitment_id,
                 ),
                 self.client,
             ),
