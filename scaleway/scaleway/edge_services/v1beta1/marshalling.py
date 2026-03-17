@@ -36,6 +36,7 @@ from .types import (
     WafStage,
     PipelineStages,
     PurgeRequest,
+    RuleHttpMatchHostFilter,
     RuleHttpMatchPathFilter,
     RuleHttpMatch,
     RouteRule,
@@ -874,6 +875,29 @@ def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
     return PurgeRequest(**args)
 
 
+def unmarshal_RuleHttpMatchHostFilter(data: Any) -> RuleHttpMatchHostFilter:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RuleHttpMatchHostFilter' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("host_filter_type", None)
+    if field is not None:
+        args["host_filter_type"] = field
+    else:
+        args["host_filter_type"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    return RuleHttpMatchHostFilter(**args)
+
+
 def unmarshal_RuleHttpMatchPathFilter(data: Any) -> RuleHttpMatchPathFilter:
     if not isinstance(data, dict):
         raise TypeError(
@@ -920,6 +944,12 @@ def unmarshal_RuleHttpMatch(data: Any) -> RuleHttpMatch:
         args["path_filter"] = unmarshal_RuleHttpMatchPathFilter(field)
     else:
         args["path_filter"] = None
+
+    field = data.get("host_filter", None)
+    if field is not None:
+        args["host_filter"] = unmarshal_RuleHttpMatchHostFilter(field)
+    else:
+        args["host_filter"] = None
 
     return RuleHttpMatch(**args)
 
@@ -1591,6 +1621,21 @@ def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
     return SetRouteRulesResponse(**args)
 
 
+def marshal_RuleHttpMatchHostFilter(
+    request: RuleHttpMatchHostFilter,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.host_filter_type is not None:
+        output["host_filter_type"] = request.host_filter_type
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    return output
+
+
 def marshal_RuleHttpMatchPathFilter(
     request: RuleHttpMatchPathFilter,
     defaults: ProfileDefaults,
@@ -1618,6 +1663,11 @@ def marshal_RuleHttpMatch(
     if request.path_filter is not None:
         output["path_filter"] = marshal_RuleHttpMatchPathFilter(
             request.path_filter, defaults
+        )
+
+    if request.host_filter is not None:
+        output["host_filter"] = marshal_RuleHttpMatchHostFilter(
+            request.host_filter, defaults
         )
 
     return output
