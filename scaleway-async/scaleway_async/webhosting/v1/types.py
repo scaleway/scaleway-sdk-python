@@ -386,29 +386,6 @@ class HostingDomainCustomDomain:
 
 
 @dataclass
-class ControlPanel:
-    name: str
-    """
-    Control panel name.
-    """
-
-    available: bool
-    """
-    Define if the control panel type is available to order.
-    """
-
-    logo_url: str
-    """
-    URL of the control panel's logo.
-    """
-
-    available_languages: list[StdLanguageCode]
-    """
-    List of available languages for the control panel.
-    """
-
-
-@dataclass
 class OfferCommitment:
     id: str
     """
@@ -443,6 +420,29 @@ class OfferCommitment:
     next: Optional[OfferCommitment] = None
     """
     Next offer commitment.
+    """
+
+
+@dataclass
+class ControlPanel:
+    name: str
+    """
+    Control panel name.
+    """
+
+    available: bool
+    """
+    Define if the control panel type is available to order.
+    """
+
+    logo_url: str
+    """
+    URL of the control panel's logo.
+    """
+
+    available_languages: list[StdLanguageCode]
+    """
+    List of available languages for the control panel.
     """
 
 
@@ -647,6 +647,31 @@ class Nameserver:
     is_default: bool
     """
     Defines whether the nameserver is the default one.
+    """
+
+
+@dataclass
+class HostingCommitment:
+    delete_hosting_at_end: bool
+    """
+    The hosting may be deleted, automatically renewed, or switched to
+its configured post-commitment offer, which may have a different 
+price and billing period.
+    """
+
+    offer_commitment: Optional[OfferCommitment] = None
+    """
+    Offer commitment for the specified hosting.
+    """
+
+    start_at: Optional[datetime] = None
+    """
+    Date and time the commitment started.
+    """
+
+    end_at: Optional[datetime] = None
+    """
+    Date and time the commitment ends.
     """
 
 
@@ -1824,6 +1849,11 @@ class Hosting:
     Domain configuration block (subdomain, optional custom domain, and DNS settings).
     """
 
+    commitment: Optional[HostingCommitment] = None
+    """
+    Commitment details to which the hosting is engaged.
+    """
+
 
 @dataclass
 class HostingApiAddCustomDomainRequest:
@@ -1903,6 +1933,11 @@ class HostingApiCreateHostingRequest:
     auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_update_* fields instead).
+    """
+
+    offer_commitment_id: Optional[str] = None
+    """
+    Offer commitment ID to which the hosting will be engaged.
     """
 
 
