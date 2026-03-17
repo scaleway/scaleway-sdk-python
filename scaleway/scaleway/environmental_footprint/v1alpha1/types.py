@@ -26,6 +26,9 @@ class ProductCategory(str, Enum, metaclass=StrEnumMeta):
     OBJECT_STORAGE = "object_storage"
     LOAD_BALANCER = "load_balancer"
     KUBERNETES = "kubernetes"
+    MANAGED_RELATIONAL_DATABASES = "managed_relational_databases"
+    MANAGED_MONGODB = "managed_mongodb"
+    MANAGED_REDIS = "managed_redis"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -47,6 +50,7 @@ class ServiceCategory(str, Enum, metaclass=StrEnumMeta):
     STORAGE = "storage"
     NETWORK = "network"
     CONTAINERS = "containers"
+    DATABASES = "databases"
 
     def __str__(self) -> str:
         return str(self.value)
