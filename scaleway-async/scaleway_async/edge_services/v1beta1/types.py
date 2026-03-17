@@ -213,6 +213,14 @@ class PurgeRequestStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class RuleHttpMatchHostFilterHostFilterType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_HOST_FILTER = "unknown_host_filter"
+    REGEX = "regex"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class RuleHttpMatchMethodFilter(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_METHOD_FILTER = "unknown_method_filter"
     GET = "get"
@@ -300,6 +308,12 @@ class ScalewayLb:
     """
     Defines whether to forward websocket requests to the load balancer.
     """
+
+
+@dataclass
+class RuleHttpMatchHostFilter:
+    host_filter_type: RuleHttpMatchHostFilterHostFilterType
+    value: str
 
 
 @dataclass
@@ -393,6 +407,11 @@ class RuleHttpMatch:
     path_filter: Optional[RuleHttpMatchPathFilter] = None
     """
     HTTP URL path to filter for. A request whose path matches the given filter will be considered to match the rule. All paths will match if none is provided.
+    """
+
+    host_filter: Optional[RuleHttpMatchHostFilter] = None
+    """
+    Host to filter for. A request whose host matches the given filter will be considered to match the rule. All hosts will match if none is provided.
     """
 
 
