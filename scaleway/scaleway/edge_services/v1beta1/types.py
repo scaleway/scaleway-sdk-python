@@ -135,6 +135,8 @@ class PipelineErrorCode(str, Enum, metaclass=StrEnumMeta):
     TLS_KEY_TOO_MANY = "tls_key_too_many"
     TLS_MANAGED_DOMAIN_RATE_LIMIT = "tls_managed_domain_rate_limit"
     TLS_MANAGED_INTERNAL = "tls_managed_internal"
+    TLS_MANAGED_UNSUPPORTED = "tls_managed_unsupported"
+    TLS_NOT_WILDCARD = "tls_not_wildcard"
     TLS_PAIR_MISMATCH = "tls_pair_mismatch"
     TLS_ROOT_INCONSISTENT = "tls_root_inconsistent"
     TLS_ROOT_INCORRECT = "tls_root_incorrect"
@@ -495,6 +497,11 @@ class DNSStage:
     Pipeline ID the DNS stage belongs to.
     """
 
+    wildcard_domain: bool
+    """
+    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the DNS stage was created.
@@ -729,6 +736,11 @@ class PlanDetails:
     Number of backends per pipeline included in subscription plan.
     """
 
+    wildcard_domain: bool
+    """
+    Support of wildcard subdomains for the customized domain.
+    """
+
 
 @dataclass
 class PlanUsageDetails:
@@ -933,6 +945,11 @@ class CreateDNSStageRequest:
     fqdns: Optional[list[str]] = field(default_factory=list)
     """
     Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
+    """
+
+    wildcard_domain: Optional[bool] = False
+    """
+    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
     """
 
     tls_stage_id: Optional[str] = None
@@ -1809,6 +1826,11 @@ class UpdateDNSStageRequest:
     fqdns: Optional[list[str]] = field(default_factory=list)
     """
     Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage.
+    """
+
+    wildcard_domain: Optional[bool] = False
+    """
+    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
     """
 
     tls_stage_id: Optional[str] = None
