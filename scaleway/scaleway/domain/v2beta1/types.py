@@ -1733,6 +1733,11 @@ class RegistrarApiSearchAvailableDomainsRequest:
     Search exact match.
     """
 
+    include_exact_match: bool
+    """
+    If an exact match is found, include it in response as a separate element.
+    """
+
     tlds: Optional[list[str]] = field(default_factory=list)
     """
     Array of tlds to search on.
@@ -1846,6 +1851,11 @@ class SearchAvailableDomainsResponse:
     available_domains: list[AvailableDomain]
     """
     Array of available domains.
+    """
+
+    exact_match_domain: Optional[AvailableDomain] = None
+    """
+    If an exact match was asked and found, the result is in this field.
     """
 
 

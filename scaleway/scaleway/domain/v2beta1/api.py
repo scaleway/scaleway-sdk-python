@@ -2693,6 +2693,7 @@ class DomainV2Beta1RegistrarAPI(API):
         *,
         domains: list[str],
         strict_search: bool,
+        include_exact_match: bool,
         tlds: Optional[list[str]] = None,
     ) -> SearchAvailableDomainsResponse:
         """
@@ -2702,6 +2703,7 @@ class DomainV2Beta1RegistrarAPI(API):
         If the TLD list is empty or not set, the search returns the results from the most popular TLDs.
         :param domains: A list of domain to search, TLD is optional.
         :param strict_search: Search exact match.
+        :param include_exact_match: If an exact match is found, include it in response as a separate element.
         :param tlds: Array of tlds to search on.
         :return: :class:`SearchAvailableDomainsResponse <SearchAvailableDomainsResponse>`
 
@@ -2711,6 +2713,7 @@ class DomainV2Beta1RegistrarAPI(API):
             result = api.search_available_domains(
                 domains=[],
                 strict_search=False,
+                include_exact_match=False,
             )
         """
 
@@ -2719,6 +2722,7 @@ class DomainV2Beta1RegistrarAPI(API):
             "/domain/v2beta1/search-domains",
             params={
                 "domains": domains,
+                "include_exact_match": include_exact_match,
                 "strict_search": strict_search,
                 "tlds": tlds,
             },

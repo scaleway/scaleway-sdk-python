@@ -2675,6 +2675,12 @@ def unmarshal_SearchAvailableDomainsResponse(
     else:
         args["available_domains"] = []
 
+    field = data.get("exact_match_domain", None)
+    if field is not None:
+        args["exact_match_domain"] = unmarshal_AvailableDomain(field)
+    else:
+        args["exact_match_domain"] = None
+
     return SearchAvailableDomainsResponse(**args)
 
 
