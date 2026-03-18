@@ -9,6 +9,7 @@ from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -126,6 +127,27 @@ class EndpointSpecPrivateNetworkDetails:
 
 @dataclass
 class EndpointSpecPublicDetails:
+    pass
+
+
+@dataclass
+class ClusterMonoAZDetails:
+    """
+    MonoAZ details.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone is the zone on which the cluster nodes are deployed.
+    """
+
+
+@dataclass
+class ClusterMultiAZDetails:
+    """
+    MultiAZ details.
+    """
+
     pass
 
 
@@ -331,6 +353,10 @@ class Cluster:
     Last update date (must follow the ISO 8601 format).
     """
 
+    multi_az: Optional[ClusterMultiAZDetails] = None
+
+    mono_az: Optional[ClusterMonoAZDetails] = None
+
 
 @dataclass
 class NodeType:
@@ -459,6 +485,10 @@ class CreateClusterRequest:
     """
     Password for the kafka user.
     """
+
+    multi_az: Optional[ClusterMultiAZDetails] = None
+
+    mono_az: Optional[ClusterMonoAZDetails] = None
 
 
 @dataclass
