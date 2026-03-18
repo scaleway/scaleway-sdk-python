@@ -180,7 +180,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     VPC_SUBNET = "vpc_subnet"
     VPC_ROUTE = "vpc_route"
     VPC_ACL = "vpc_acl"
-    VPC_VPC_CONNECTOR = "vpc_vpc_connector"
+    VPC_CONNECTOR = "vpc_connector"
     EDGE_SERVICES_PLAN = "edge_services_plan"
     EDGE_SERVICES_PIPELINE = "edge_services_pipeline"
     EDGE_SERVICES_DNS_STAGE = "edge_services_dns_stage"
@@ -427,6 +427,12 @@ class SecretManagerSecretVersionInfo:
 
 
 @dataclass
+class VpcConnectorInfo:
+    vpc_id: str
+    target_vpc_id: str
+
+
+@dataclass
 class VpcGwGatewayInfo:
     gateway_type_id: str
     vpc_id: Optional[str] = None
@@ -458,12 +464,6 @@ class VpcRouteInfo:
 class VpcSubnetInfo:
     subnet_cidr: str
     vpc_id: str
-
-
-@dataclass
-class VpcVpcConnectorInfo:
-    vpc_id: str
-    target_vpc_id: str
 
 
 @dataclass
@@ -560,7 +560,7 @@ class Resource:
 
     audit_trail_alert_rule_info: Optional[AuditTrailAlertRuleInfo] = None
 
-    vpc_vpc_connector_info: Optional[VpcVpcConnectorInfo] = None
+    vpc_connector_info: Optional[VpcConnectorInfo] = None
 
 
 @dataclass

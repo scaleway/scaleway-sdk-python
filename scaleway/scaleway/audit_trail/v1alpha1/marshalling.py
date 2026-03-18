@@ -60,12 +60,12 @@ from .types import (
     LoadBalancerRouteInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
+    VpcConnectorInfo,
     VpcGwGatewayInfo,
     VpcGwGatewayNetworkInfo,
     VpcPrivateNetworkInfo,
     VpcRouteInfo,
     VpcSubnetInfo,
-    VpcVpcConnectorInfo,
     Resource,
     AuthenticationEvent,
     ListAuthenticationEventsResponse,
@@ -1004,6 +1004,29 @@ def unmarshal_SecretManagerSecretVersionInfo(
     return SecretManagerSecretVersionInfo(**args)
 
 
+def unmarshal_VpcConnectorInfo(data: Any) -> VpcConnectorInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcConnectorInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("target_vpc_id", None)
+    if field is not None:
+        args["target_vpc_id"] = field
+    else:
+        args["target_vpc_id"] = None
+
+    return VpcConnectorInfo(**args)
+
+
 def unmarshal_VpcGwGatewayInfo(data: Any) -> VpcGwGatewayInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1141,29 +1164,6 @@ def unmarshal_VpcSubnetInfo(data: Any) -> VpcSubnetInfo:
         args["vpc_id"] = None
 
     return VpcSubnetInfo(**args)
-
-
-def unmarshal_VpcVpcConnectorInfo(data: Any) -> VpcVpcConnectorInfo:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'VpcVpcConnectorInfo' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("vpc_id", None)
-    if field is not None:
-        args["vpc_id"] = field
-    else:
-        args["vpc_id"] = None
-
-    field = data.get("target_vpc_id", None)
-    if field is not None:
-        args["target_vpc_id"] = field
-    else:
-        args["target_vpc_id"] = None
-
-    return VpcVpcConnectorInfo(**args)
 
 
 def unmarshal_Resource(data: Any) -> Resource:
@@ -1484,11 +1484,11 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["audit_trail_alert_rule_info"] = None
 
-    field = data.get("vpc_vpc_connector_info", None)
+    field = data.get("vpc_connector_info", None)
     if field is not None:
-        args["vpc_vpc_connector_info"] = unmarshal_VpcVpcConnectorInfo(field)
+        args["vpc_connector_info"] = unmarshal_VpcConnectorInfo(field)
     else:
-        args["vpc_vpc_connector_info"] = None
+        args["vpc_connector_info"] = None
 
     return Resource(**args)
 
