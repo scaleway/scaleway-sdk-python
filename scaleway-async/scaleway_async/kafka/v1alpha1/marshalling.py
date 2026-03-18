@@ -16,6 +16,8 @@ from .types import (
     EndpointPrivateNetworkDetails,
     EndpointPublicDetails,
     Endpoint,
+    ClusterMonoAZDetails,
+    ClusterMultiAZDetails,
     ClusterSetting,
     Volume,
     Cluster,
@@ -110,6 +112,34 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
         args["public_network"] = None
 
     return Endpoint(**args)
+
+
+def unmarshal_ClusterMonoAZDetails(data: Any) -> ClusterMonoAZDetails:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ClusterMonoAZDetails' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    return ClusterMonoAZDetails(**args)
+
+
+def unmarshal_ClusterMultiAZDetails(data: Any) -> ClusterMultiAZDetails:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ClusterMultiAZDetails' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return ClusterMultiAZDetails(**args)
 
 
 def unmarshal_ClusterSetting(data: Any) -> ClusterSetting:
@@ -277,6 +307,18 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("multi_az", None)
+    if field is not None:
+        args["multi_az"] = unmarshal_ClusterMultiAZDetails(field)
+    else:
+        args["multi_az"] = None
+
+    field = data.get("mono_az", None)
+    if field is not None:
+        args["mono_az"] = unmarshal_ClusterMonoAZDetails(field)
+    else:
+        args["mono_az"] = None
 
     return Cluster(**args)
 
@@ -735,6 +777,27 @@ def marshal_EndpointSpecPublicDetails(
     return output
 
 
+def marshal_ClusterMonoAZDetails(
+    request: ClusterMonoAZDetails,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.zone is not None:
+        output["zone"] = request.zone
+
+    return output
+
+
+def marshal_ClusterMultiAZDetails(
+    request: ClusterMultiAZDetails,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    return output
+
+
 def marshal_CreateClusterRequestVolumeSpec(
     request: CreateClusterRequestVolumeSpec,
     defaults: ProfileDefaults,
@@ -780,6 +843,22 @@ def marshal_CreateClusterRequest(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="multi_az",
+                    value=request.multi_az,
+                    marshal_func=marshal_ClusterMultiAZDetails,
+                ),
+                OneOfPossibility(
+                    param="mono_az",
+                    value=request.mono_az,
+                    marshal_func=marshal_ClusterMonoAZDetails,
+                ),
+            ]
+        ),
+    )
 
     if request.version is not None:
         output["version"] = request.version

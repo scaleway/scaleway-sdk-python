@@ -20,6 +20,8 @@ from .types import (
     ListClustersRequestOrderBy,
     ListUsersRequestOrderBy,
     Cluster,
+    ClusterMonoAZDetails,
+    ClusterMultiAZDetails,
     CreateClusterRequest,
     CreateClusterRequestVolumeSpec,
     CreateEndpointRequest,
@@ -382,30 +384,36 @@ class KafkaV1Alpha1API(API):
         *,
         version: str,
         node_amount: int,
-        node_type: str,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
+        node_type: str,
         volume: Optional[CreateClusterRequestVolumeSpec] = None,
         endpoints: Optional[list[EndpointSpec]] = None,
         user_name: Optional[str] = None,
         password: Optional[str] = None,
+        multi_az: Optional[ClusterMultiAZDetails] = None,
+        mono_az: Optional[ClusterMonoAZDetails] = None,
     ) -> Cluster:
         """
         Create a Kafka cluster.
         Create a new Kafka cluster.
         :param version: Version of Kafka.
         :param node_amount: Number of nodes to use for the Kafka cluster.
-        :param node_type: Type of node to use for the Kafka cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: The ID of the Project in which the Kafka cluster will be created.
         :param name: Name of the Kafka cluster.
         :param tags: Tags to apply to the Kafka cluster.
+        :param node_type: Type of node to use for the Kafka cluster.
         :param volume: Kafka volume information.
         :param endpoints: One or multiple EndpointSpec used to expose your Kafka cluster.
         :param user_name: Username for the kafka user.
         :param password: Password for the kafka user.
+        :param multi_az: MultiAZ tell the cluster is deployed on multiple availability zones in the region.
+        One-Of ('availability'): at most one of 'multi_az', 'mono_az' could be set.
+        :param mono_az: MonoAZ details.
+        One-Of ('availability'): at most one of 'multi_az', 'mono_az' could be set.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -438,6 +446,8 @@ class KafkaV1Alpha1API(API):
                     endpoints=endpoints,
                     user_name=user_name,
                     password=password,
+                    multi_az=multi_az,
+                    mono_az=mono_az,
                 ),
                 self.client,
             ),
