@@ -51,12 +51,12 @@ from .types import LoadBalancerLbInfo
 from .types import LoadBalancerRouteInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
+from .types import VpcConnectorInfo
 from .types import VpcGwGatewayInfo
 from .types import VpcGwGatewayNetworkInfo
 from .types import VpcPrivateNetworkInfo
 from .types import VpcRouteInfo
 from .types import VpcSubnetInfo
-from .types import VpcVpcConnectorInfo
 from .types import Resource
 from .types import EventPrincipal
 from .types import AuthenticationEvent
@@ -145,12 +145,12 @@ __all__ = [
     "LoadBalancerRouteInfo",
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
+    "VpcConnectorInfo",
     "VpcGwGatewayInfo",
     "VpcGwGatewayNetworkInfo",
     "VpcPrivateNetworkInfo",
     "VpcRouteInfo",
     "VpcSubnetInfo",
-    "VpcVpcConnectorInfo",
     "Resource",
     "EventPrincipal",
     "AuthenticationEvent",
