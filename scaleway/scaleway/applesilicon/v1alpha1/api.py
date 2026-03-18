@@ -1104,9 +1104,8 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status
-                not in SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES
+            options.stop = lambda res: (
+                res.status not in SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES
             )
 
         return wait_for_resource(
