@@ -1905,97 +1905,97 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
     if field is not None:
         args["volumes_count"] = field
     else:
-        args["volumes_count"] = None
+        args["volumes_count"] = 0
 
     field = data.get("running_servers_count", None)
     if field is not None:
         args["running_servers_count"] = field
     else:
-        args["running_servers_count"] = None
+        args["running_servers_count"] = 0
 
     field = data.get("servers_by_types", None)
     if field is not None:
         args["servers_by_types"] = field
     else:
-        args["servers_by_types"] = None
+        args["servers_by_types"] = {}
 
     field = data.get("images_count", None)
     if field is not None:
         args["images_count"] = field
     else:
-        args["images_count"] = None
+        args["images_count"] = 0
 
     field = data.get("snapshots_count", None)
     if field is not None:
         args["snapshots_count"] = field
     else:
-        args["snapshots_count"] = None
+        args["snapshots_count"] = 0
 
     field = data.get("servers_count", None)
     if field is not None:
         args["servers_count"] = field
     else:
-        args["servers_count"] = None
+        args["servers_count"] = 0
 
     field = data.get("ips_count", None)
     if field is not None:
         args["ips_count"] = field
     else:
-        args["ips_count"] = None
+        args["ips_count"] = 0
 
     field = data.get("security_groups_count", None)
     if field is not None:
         args["security_groups_count"] = field
     else:
-        args["security_groups_count"] = None
+        args["security_groups_count"] = 0
 
     field = data.get("ips_unused", None)
     if field is not None:
         args["ips_unused"] = field
     else:
-        args["ips_unused"] = None
+        args["ips_unused"] = 0
 
     field = data.get("volumes_l_ssd_count", None)
     if field is not None:
         args["volumes_l_ssd_count"] = field
     else:
-        args["volumes_l_ssd_count"] = None
+        args["volumes_l_ssd_count"] = 0
 
     field = data.get("volumes_l_ssd_total_size", None)
     if field is not None:
         args["volumes_l_ssd_total_size"] = field
     else:
-        args["volumes_l_ssd_total_size"] = None
+        args["volumes_l_ssd_total_size"] = 0
 
     field = data.get("private_nics_count", None)
     if field is not None:
         args["private_nics_count"] = field
     else:
-        args["private_nics_count"] = None
+        args["private_nics_count"] = 0
 
     field = data.get("placement_groups_count", None)
     if field is not None:
         args["placement_groups_count"] = field
     else:
-        args["placement_groups_count"] = None
+        args["placement_groups_count"] = 0
 
     field = data.get("volumes_scratch_count", None)
     if field is not None:
         args["volumes_scratch_count"] = field
     else:
-        args["volumes_scratch_count"] = None
+        args["volumes_scratch_count"] = 0
 
     field = data.get("volumes_b_ssd_count", None)
     if field is not None:
         args["volumes_b_ssd_count"] = field
     else:
-        args["volumes_b_ssd_count"] = None
+        args["volumes_b_ssd_count"] = 0
 
     field = data.get("volumes_b_ssd_total_size", None)
     if field is not None:
         args["volumes_b_ssd_total_size"] = field
     else:
-        args["volumes_b_ssd_total_size"] = None
+        args["volumes_b_ssd_total_size"] = 0
 
     return Dashboard(**args)
 
