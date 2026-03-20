@@ -1066,7 +1066,7 @@ class CreateDomainRequest:
     ID of the project to which the domain belongs.
     """
 
-    accept_tos: Optional[bool] = False
+    accept_tos: Optional[bool] = None
     """
     Deprecated. Accept Scaleway's Terms of Service.
     """
