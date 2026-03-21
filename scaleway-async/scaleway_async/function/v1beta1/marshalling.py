@@ -437,12 +437,6 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     else:
         args["tags"] = []
 
-    field = data.get("vpc_integration_activated", None)
-    if field is not None:
-        args["vpc_integration_activated"] = field
-    else:
-        args["vpc_integration_activated"] = False
-
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
@@ -460,6 +454,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("vpc_integration_activated", None)
+    if field is not None:
+        args["vpc_integration_activated"] = field
+    else:
+        args["vpc_integration_activated"] = None
 
     return Namespace(**args)
 
@@ -484,12 +484,6 @@ def unmarshal_Token(data: Any) -> Token:
     else:
         args["token"] = None
 
-    field = data.get("public_key", None)
-    if field is not None:
-        args["public_key"] = field
-    else:
-        args["public_key"] = None
-
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -507,6 +501,12 @@ def unmarshal_Token(data: Any) -> Token:
         args["namespace_id"] = field
     else:
         args["namespace_id"] = None
+
+    field = data.get("public_key", None)
+    if field is not None:
+        args["public_key"] = field
+    else:
+        args["public_key"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -1114,9 +1114,6 @@ def marshal_CreateNamespaceRequest(
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
-    if request.activate_vpc_integration is not None:
-        output["activate_vpc_integration"] = request.activate_vpc_integration
-
     if request.name is not None:
         output["name"] = request.name
 
@@ -1139,6 +1136,9 @@ def marshal_CreateNamespaceRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.activate_vpc_integration is not None:
+        output["activate_vpc_integration"] = request.activate_vpc_integration
 
     return output
 
