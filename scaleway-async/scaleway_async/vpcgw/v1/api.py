@@ -696,8 +696,8 @@ class VpcgwV1API(API):
             options = WaitForOptions()
 
         if not options.stop:
-            options.stop = (
-                lambda res: res.status not in GATEWAY_NETWORK_TRANSIENT_STATUSES
+            options.stop = lambda res: (
+                res.status not in GATEWAY_NETWORK_TRANSIENT_STATUSES
             )
 
         return await wait_for_resource_async(
