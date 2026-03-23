@@ -423,6 +423,11 @@ class Exporter:
     List of Scaleway products name exported by the data export.
     """
 
+    region: ScwRegion
+    """
+    The region in which the export is located.
+    """
+
     created_at: Optional[datetime] = None
     """
     A timestamp of the creation date of the data export.
