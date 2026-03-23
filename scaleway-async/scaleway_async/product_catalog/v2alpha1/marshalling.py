@@ -569,13 +569,13 @@ def unmarshal_PublicCatalogProductPropertiesBlockStorage(
     if field is not None:
         args["min_volume_size"] = field
     else:
-        args["min_volume_size"] = 0
+        args["min_volume_size"] = None
 
     field = data.get("max_volume_size", None)
     if field is not None:
         args["max_volume_size"] = field
     else:
-        args["max_volume_size"] = 0
+        args["max_volume_size"] = None
 
     return PublicCatalogProductPropertiesBlockStorage(**args)
 
