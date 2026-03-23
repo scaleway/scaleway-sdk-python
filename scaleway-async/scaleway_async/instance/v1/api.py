@@ -521,12 +521,12 @@ class InstanceV1API(API):
         *,
         zone: Optional[ScwZone] = None,
         commercial_type: str,
+        enable_ipv6: bool,
         name: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
         image: Optional[str] = None,
         volumes: Optional[dict[str, VolumeServerTemplate]] = None,
-        enable_ipv6: Optional[bool] = None,
         protected: bool,
         public_ip: Optional[str] = None,
         public_ips: Optional[list[str]] = None,
@@ -544,12 +544,12 @@ class InstanceV1API(API):
         Get more information in the [Technical Information](#technical-information) section of the introduction.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
+        :param enable_ipv6: True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param name: Instance name.
         :param dynamic_ip_required: By default, `dynamic_ip_required` is true, a dynamic ip is attached to the instance (if no flexible ip is already attached).
         :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
         :param image: Instance image ID or label.
         :param volumes: Volumes attached to the server.
-        :param enable_ipv6: True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param protected: True to activate server protection option.
         :param public_ip: ID of the reserved IP to attach to the Instance.
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
@@ -569,6 +569,7 @@ class InstanceV1API(API):
 
             result = await api._create_server(
                 commercial_type="example",
+                enable_ipv6=False,
                 protected=False,
             )
         """
@@ -582,12 +583,12 @@ class InstanceV1API(API):
                 CreateServerRequest(
                     zone=zone,
                     commercial_type=commercial_type,
+                    enable_ipv6=enable_ipv6,
                     name=name or random_name(prefix="srv"),
                     dynamic_ip_required=dynamic_ip_required,
                     routed_ip_enabled=routed_ip_enabled,
                     image=image,
                     volumes=volumes,
-                    enable_ipv6=enable_ipv6,
                     protected=protected,
                     public_ip=public_ip,
                     public_ips=public_ips,
@@ -676,6 +677,7 @@ class InstanceV1API(API):
         name: str,
         commercial_type: str,
         dynamic_ip_required: bool,
+        enable_ipv6: bool,
         hostname: str,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -683,7 +685,6 @@ class InstanceV1API(API):
         tags: Optional[list[str]] = None,
         creation_date: Optional[datetime] = None,
         routed_ip_enabled: Optional[bool] = None,
-        enable_ipv6: Optional[bool] = None,
         image: Optional[Image] = None,
         protected: bool,
         private_ip: Optional[str] = None,
@@ -709,6 +710,7 @@ class InstanceV1API(API):
         :param name: Instance name.
         :param commercial_type: Instance commercial type (eg. GP1-M).
         :param dynamic_ip_required: True if a dynamic IPv4 is required.
+        :param enable_ipv6: True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param hostname: Instance host name.
         :param organization: Instance Organization ID.
         :param project: Instance Project ID.
@@ -716,7 +718,6 @@ class InstanceV1API(API):
         :param tags: Tags associated with the Instance.
         :param creation_date: Instance creation date.
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
-        :param enable_ipv6: True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param image: Provide information on the Instance image.
         :param protected: Instance protection option is activated.
         :param private_ip: Instance private IP address (deprecated and always `null` when `routed_ip_enabled` is `True`).
@@ -745,6 +746,7 @@ class InstanceV1API(API):
                 name="example",
                 commercial_type="example",
                 dynamic_ip_required=False,
+                enable_ipv6=False,
                 hostname="example",
                 protected=False,
                 state_detail="example",
@@ -763,8 +765,9 @@ class InstanceV1API(API):
                     id=id,
                     name=name,
                     commercial_type=commercial_type,
-                    organization=organization,
                     dynamic_ip_required=dynamic_ip_required,
+                    organization=organization,
+                    enable_ipv6=enable_ipv6,
                     hostname=hostname,
                     protected=protected,
                     state_detail=state_detail,
@@ -773,7 +776,6 @@ class InstanceV1API(API):
                     tags=tags,
                     creation_date=creation_date,
                     routed_ip_enabled=routed_ip_enabled,
-                    enable_ipv6=enable_ipv6,
                     image=image,
                     private_ip=private_ip,
                     public_ip=public_ip,
@@ -2522,15 +2524,15 @@ class InstanceV1API(API):
         description: str,
         enable_default_security: bool,
         tags: Optional[list[str]] = None,
-        creation_date: Optional[datetime] = None,
-        modification_date: Optional[datetime] = None,
+        organization_default: bool,
         project_default: bool,
         stateful: bool,
+        creation_date: Optional[datetime] = None,
+        modification_date: Optional[datetime] = None,
         inbound_default_policy: Optional[SecurityGroupPolicy] = None,
         outbound_default_policy: Optional[SecurityGroupPolicy] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
-        organization_default: Optional[bool] = None,
         servers: Optional[list[ServerSummary]] = None,
     ) -> _SetSecurityGroupResponse:
         """
@@ -2542,15 +2544,15 @@ class InstanceV1API(API):
         :param description: Description of the security group.
         :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
         :param tags: Tags of the security group.
-        :param creation_date: Creation date of the security group (will be ignored).
-        :param modification_date: Modification date of the security group (will be ignored).
+        :param organization_default: Please use project_default instead.
         :param project_default: True use this security group for future Instances created in this project.
         :param stateful: True to set the security group as stateful.
+        :param creation_date: Creation date of the security group (will be ignored).
+        :param modification_date: Modification date of the security group (will be ignored).
         :param inbound_default_policy: Default inbound policy.
         :param outbound_default_policy: Default outbound policy.
         :param organization: Security groups Organization ID.
         :param project: Security group Project ID.
-        :param organization_default: Please use project_default instead.
         :param servers: Instances attached to this security group.
         :return: :class:`_SetSecurityGroupResponse <_SetSecurityGroupResponse>`
 
@@ -2562,6 +2564,7 @@ class InstanceV1API(API):
                 name="example",
                 description="example",
                 enable_default_security=False,
+                organization_default=False,
                 project_default=False,
                 stateful=False,
             )
@@ -2581,15 +2584,15 @@ class InstanceV1API(API):
                     description=description,
                     enable_default_security=enable_default_security,
                     tags=tags,
-                    creation_date=creation_date,
-                    modification_date=modification_date,
+                    organization_default=organization_default,
                     project_default=project_default,
                     stateful=stateful,
+                    creation_date=creation_date,
+                    modification_date=modification_date,
                     inbound_default_policy=inbound_default_policy,
                     outbound_default_policy=outbound_default_policy,
                     organization=organization,
                     project=project,
-                    organization_default=organization_default,
                     servers=servers,
                 ),
                 self.client,

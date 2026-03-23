@@ -70,13 +70,9 @@ class _SetSecurityGroupRequest:
     """
     Tags of the security group.
     """
-    creation_date: Optional[datetime]
+    organization_default: bool
     """
-    Creation date of the security group (will be ignored).
-    """
-    modification_date: Optional[datetime]
-    """
-    Modification date of the security group (will be ignored).
+    Please use project_default instead.
     """
     project_default: bool
     """
@@ -85,6 +81,14 @@ class _SetSecurityGroupRequest:
     stateful: bool
     """
     True to set the security group as stateful.
+    """
+    creation_date: Optional[datetime]
+    """
+    Creation date of the security group (will be ignored).
+    """
+    modification_date: Optional[datetime]
+    """
+    Modification date of the security group (will be ignored).
     """
     inbound_default_policy: Optional[SecurityGroupPolicy]
     """
@@ -101,10 +105,6 @@ class _SetSecurityGroupRequest:
     project: Optional[str]
     """
     Security group Project ID.
-    """
-    organization_default: Optional[bool]
-    """
-    Please use project_default instead.
     """
     servers: Optional[list[ServerSummary]]
     """
@@ -159,13 +159,17 @@ class _SetServerRequest:
     """
     Instance commercial type (eg. GP1-M).
     """
+    dynamic_ip_required: bool
+    """
+    True if a dynamic IPv4 is required.
+    """
     organization: Optional[str]
     """
     Instance Organization ID.
     """
-    dynamic_ip_required: bool
+    enable_ipv6: bool
     """
-    True if a dynamic IPv4 is required.
+    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
     """
     hostname: str
     """
@@ -198,10 +202,6 @@ class _SetServerRequest:
     routed_ip_enabled: Optional[bool]
     """
     True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
-    """
-    enable_ipv6: Optional[bool]
-    """
-    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
     """
     image: Optional[Image]
     """
