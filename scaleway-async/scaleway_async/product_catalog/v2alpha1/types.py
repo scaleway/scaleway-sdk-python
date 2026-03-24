@@ -447,12 +447,12 @@ class PublicCatalogProductPropertiesAppleSilicon:
 
 @dataclass
 class PublicCatalogProductPropertiesBlockStorage:
-    min_volume_size: int
+    min_volume_size: Optional[int] = None
     """
     The minimum size of storage volume for this product in bytes. Deprecated.
     """
 
-    max_volume_size: int
+    max_volume_size: Optional[int] = None
     """
     The maximum size of storage volume for this product in bytes. Deprecated.
     """
