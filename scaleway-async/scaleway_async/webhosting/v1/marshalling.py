@@ -1676,17 +1676,17 @@ def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordRes
 
     args: dict[str, Any] = {}
 
-    field = data.get("one_time_password", None)
-    if field is not None:
-        args["one_time_password"] = field
-    else:
-        args["one_time_password"] = None
-
     field = data.get("one_time_password_b64", None)
     if field is not None:
         args["one_time_password_b64"] = field
     else:
         args["one_time_password_b64"] = None
+
+    field = data.get("one_time_password", None)
+    if field is not None:
+        args["one_time_password"] = field
+    else:
+        args["one_time_password"] = None
 
     return ResetHostingPasswordResponse(**args)
 

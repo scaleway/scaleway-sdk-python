@@ -484,12 +484,6 @@ def unmarshal_Token(data: Any) -> Token:
     else:
         args["token"] = None
 
-    field = data.get("public_key", None)
-    if field is not None:
-        args["public_key"] = field
-    else:
-        args["public_key"] = None
-
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -507,6 +501,12 @@ def unmarshal_Token(data: Any) -> Token:
         args["namespace_id"] = field
     else:
         args["namespace_id"] = None
+
+    field = data.get("public_key", None)
+    if field is not None:
+        args["public_key"] = field
+    else:
+        args["public_key"] = None
 
     field = data.get("description", None)
     if field is not None:

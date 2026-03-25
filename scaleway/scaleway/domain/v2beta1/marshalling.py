@@ -3034,14 +3034,14 @@ def marshal_ContactExtensionIT(
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
+    if request.pin is not None:
+        output["pin"] = request.pin
+
     if request.european_citizenship is not None:
         output["european_citizenship"] = request.european_citizenship
 
     if request.tax_code is not None:
         output["tax_code"] = request.tax_code
-
-    if request.pin is not None:
-        output["pin"] = request.pin
 
     return output
 
@@ -3132,11 +3132,6 @@ def marshal_NewContact(
     if request.whois_opt_in is not None:
         output["whois_opt_in"] = request.whois_opt_in
 
-    if request.questions is not None:
-        output["questions"] = [
-            marshal_ContactQuestion(item, defaults) for item in request.questions
-        ]
-
     if request.vat_identification_code is not None:
         output["vat_identification_code"] = request.vat_identification_code
 
@@ -3165,6 +3160,11 @@ def marshal_NewContact(
         output["extension_it"] = marshal_ContactExtensionIT(
             request.extension_it, defaults
         )
+
+    if request.questions is not None:
+        output["questions"] = [
+            marshal_ContactQuestion(item, defaults) for item in request.questions
+        ]
 
     return output
 

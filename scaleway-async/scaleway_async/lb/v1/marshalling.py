@@ -167,12 +167,6 @@ def unmarshal_Ip(data: Any) -> Ip:
     else:
         args["tags"] = []
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -184,6 +178,12 @@ def unmarshal_Ip(data: Any) -> Ip:
         args["lb_id"] = field
     else:
         args["lb_id"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return Ip(**args)
 
