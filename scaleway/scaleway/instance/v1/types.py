@@ -879,12 +879,12 @@ class Server:
     Instance creation date.
     """
 
-    routed_ip_enabled: Optional[bool] = False
+    routed_ip_enabled: Optional[bool] = None
     """
     True to configure the instance so it uses the routed IP mode. Use of `routed_ip_enabled` as `False` is deprecated.
     """
 
-    enable_ipv6: Optional[bool] = False
+    enable_ipv6: Optional[bool] = None
     """
     True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
     """
@@ -1064,7 +1064,7 @@ class SecurityGroup:
     Zone in which the security group is located.
     """
 
-    organization_default: Optional[bool] = False
+    organization_default: Optional[bool] = None
     """
     True if it is your default security group for this Organization ID.
     """
@@ -1329,7 +1329,7 @@ class ServerType:
     True if this Instance type has reached end of service.
     """
 
-    monthly_price: Optional[float] = 0.0
+    monthly_price: Optional[float] = None
     """
     Estimated monthly price, for a 30 days month, in Euro.
     """
@@ -1724,7 +1724,7 @@ class CreateSecurityGroupRequest:
 
     organization: Optional[str] = None
 
-    organization_default: Optional[bool] = False
+    organization_default: Optional[bool] = None
 
     project_default: Optional[bool] = False
 
@@ -1803,7 +1803,7 @@ class CreateServerRequest:
     By default, `dynamic_ip_required` is true, a dynamic ip is attached to the instance (if no flexible ip is already attached).
     """
 
-    routed_ip_enabled: Optional[bool] = False
+    routed_ip_enabled: Optional[bool] = None
     """
     If true, configure the Instance so it uses the new routed IP mode.
     """
@@ -1818,7 +1818,7 @@ class CreateServerRequest:
     Volumes attached to the server.
     """
 
-    enable_ipv6: Optional[bool] = False
+    enable_ipv6: Optional[bool] = None
     """
     True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
     """
@@ -3354,7 +3354,7 @@ class UpdateSecurityGroupRequest:
     Tags of the security group.
     """
 
-    organization_default: Optional[bool] = False
+    organization_default: Optional[bool] = None
     """
     Please use project_default instead.
     """
@@ -3469,7 +3469,7 @@ class UpdateServerRequest:
 
     volumes: Optional[dict[str, VolumeServerTemplate]] = field(default_factory=dict)
     dynamic_ip_required: Optional[bool] = False
-    routed_ip_enabled: Optional[bool] = False
+    routed_ip_enabled: Optional[bool] = None
     """
     True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
     """
@@ -3479,7 +3479,7 @@ class UpdateServerRequest:
     A list of reserved IP IDs to attach to the Instance.
     """
 
-    enable_ipv6: Optional[bool] = False
+    enable_ipv6: Optional[bool] = None
     protected: Optional[bool] = False
     """
     True to activate server protection option.
