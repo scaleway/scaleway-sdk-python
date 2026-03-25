@@ -167,12 +167,6 @@ def unmarshal_Ip(data: Any) -> Ip:
     else:
         args["tags"] = []
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -184,6 +178,12 @@ def unmarshal_Ip(data: Any) -> Ip:
         args["lb_id"] = field
     else:
         args["lb_id"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return Ip(**args)
 
@@ -515,12 +515,6 @@ def unmarshal_Instance(data: Any) -> Instance:
     else:
         args["ip_address"] = None
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -538,6 +532,12 @@ def unmarshal_Instance(data: Any) -> Instance:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return Instance(**args)
 
@@ -644,12 +644,6 @@ def unmarshal_Lb(data: Any) -> Lb:
     else:
         args["route_count"] = 0
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -673,6 +667,12 @@ def unmarshal_Lb(data: Any) -> Lb:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return Lb(**args)
 
@@ -1645,17 +1645,17 @@ def unmarshal_LbType(data: Any) -> LbType:
     else:
         args["description"] = None
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return LbType(**args)
 
