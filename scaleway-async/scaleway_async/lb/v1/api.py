@@ -337,7 +337,7 @@ class LbV1ZonedAPI(API):
         :param assign_flexible_ipv6: Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
         :param ip_ids: List of IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
-        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
         :return: :class:`Lb <Lb>`
 
         Usage:
@@ -463,7 +463,7 @@ class LbV1ZonedAPI(API):
         :param description: Load Balancer description.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: List of tags for the Load Balancer.
-        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
         :return: :class:`Lb <Lb>`
 
         Usage:
@@ -3368,7 +3368,7 @@ class LbV1API(API):
         :param assign_flexible_ipv6: Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
         :param ip_ids: List of IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
-        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
         :return: :class:`Lb <Lb>`
 
         Usage:
@@ -3495,7 +3495,7 @@ class LbV1API(API):
         :param description: Load Balancer description.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List of tags for the Load Balancer.
-        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+        :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
         :return: :class:`Lb <Lb>`
 
         Usage:
