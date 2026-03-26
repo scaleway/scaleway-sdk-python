@@ -356,6 +356,29 @@ class PublicCatalogProductPropertiesKubernetesKosmosNodeType:
 
 
 @dataclass
+class PublicCatalogProductPropertiesLoadBalancerIPV4Type:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesLoadBalancerNodeType:
+    offer_id: str
+    """
+    The offer ID of the Load Balancer product.
+    """
+
+    multi_cloud_provider: bool
+    """
+    Whether the Load Balancer product is available for multi-cloud providers.
+    """
+
+    bandwidth: int
+    """
+    The bandwidth of the Load Balancer product in bits per second.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesManagedMongoDBManagementType:
     pass
 
@@ -447,12 +470,12 @@ class PublicCatalogProductPropertiesAppleSilicon:
 
 @dataclass
 class PublicCatalogProductPropertiesBlockStorage:
-    min_volume_size: int
+    min_volume_size: Optional[int] = None
     """
     The minimum size of storage volume for this product in bytes. Deprecated.
     """
 
-    max_volume_size: int
+    max_volume_size: Optional[int] = None
     """
     The maximum size of storage volume for this product in bytes. Deprecated.
     """
@@ -557,7 +580,9 @@ class PublicCatalogProductPropertiesKubernetes:
 
 @dataclass
 class PublicCatalogProductPropertiesLoadBalancer:
-    pass
+    node: Optional[PublicCatalogProductPropertiesLoadBalancerNodeType] = None
+
+    ipv4: Optional[PublicCatalogProductPropertiesLoadBalancerIPV4Type] = None
 
 
 @dataclass
