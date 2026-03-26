@@ -161,6 +161,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     INSTANCE_SNAPSHOT = "instance_snapshot"
     INSTANCE_IMAGE = "instance_image"
     INSTANCE_TEMPLATE = "instance_template"
+    INSTANCE_PRIVATE_NETWORK_INTERFACE = "instance_private_network_interface"
     APPLE_SILICON_SERVER = "apple_silicon_server"
     BAREMETAL_SERVER = "baremetal_server"
     BAREMETAL_SETTING = "baremetal_setting"
@@ -336,6 +337,13 @@ class EdgeServicesTLSStageInfo:
 @dataclass
 class EdgeServicesWAFStageInfo:
     pipeline_id: Optional[str] = None
+
+
+@dataclass
+class InstancePrivateNetworkInterfaceInfo:
+    private_network_id: str
+    server_id: Optional[str] = None
+    security_group_id: Optional[str] = None
 
 
 @dataclass
@@ -561,6 +569,10 @@ class Resource:
     audit_trail_alert_rule_info: Optional[AuditTrailAlertRuleInfo] = None
 
     vpc_connector_info: Optional[VpcConnectorInfo] = None
+
+    instance_private_network_interface_info: Optional[
+        InstancePrivateNetworkInterfaceInfo
+    ] = None
 
 
 @dataclass
