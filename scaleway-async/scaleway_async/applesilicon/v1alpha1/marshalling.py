@@ -168,7 +168,7 @@ def unmarshal_OS(data: Any) -> OS:
     if field is not None:
         args["compatible_server_types"] = field
     else:
-        args["compatible_server_types"] = []
+        args["compatible_server_types"] = None
 
     return OS(**args)
 
