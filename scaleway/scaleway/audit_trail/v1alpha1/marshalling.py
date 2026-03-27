@@ -44,6 +44,7 @@ from .types import (
     EdgeServicesRouteStageInfo,
     EdgeServicesTLSStageInfo,
     EdgeServicesWAFStageInfo,
+    InstancePrivateNetworkInterfaceInfo,
     InstanceServerInfo,
     IpamIpInfo,
     KeyManagerKeyInfo,
@@ -698,6 +699,37 @@ def unmarshal_EdgeServicesWAFStageInfo(data: Any) -> EdgeServicesWAFStageInfo:
         args["pipeline_id"] = None
 
     return EdgeServicesWAFStageInfo(**args)
+
+
+def unmarshal_InstancePrivateNetworkInterfaceInfo(
+    data: Any,
+) -> InstancePrivateNetworkInterfaceInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InstancePrivateNetworkInterfaceInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
+    field = data.get("server_id", None)
+    if field is not None:
+        args["server_id"] = field
+    else:
+        args["server_id"] = None
+
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+    else:
+        args["security_group_id"] = None
+
+    return InstancePrivateNetworkInterfaceInfo(**args)
 
 
 def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
@@ -1489,6 +1521,14 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["vpc_connector_info"] = unmarshal_VpcConnectorInfo(field)
     else:
         args["vpc_connector_info"] = None
+
+    field = data.get("instance_private_network_interface_info", None)
+    if field is not None:
+        args["instance_private_network_interface_info"] = (
+            unmarshal_InstancePrivateNetworkInterfaceInfo(field)
+        )
+    else:
+        args["instance_private_network_interface_info"] = None
 
     return Resource(**args)
 

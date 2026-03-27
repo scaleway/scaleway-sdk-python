@@ -447,8 +447,8 @@ class IpamV1API(API):
         region: Optional[ScwRegion] = None,
     ) -> IP:
         """
-        Attach IP to custom resource.
-        Attach an existing reserved IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.
+        Attach private IP to custom resource.
+        Attach an existing reserved private IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.
         :param ip_id: IP ID.
         :param resource: Custom resource to be attached to the IP.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -492,7 +492,7 @@ class IpamV1API(API):
         region: Optional[ScwRegion] = None,
     ) -> IP:
         """
-        Detach IP from a custom resource.
+        Detach private IP from a custom resource.
         Detach a private IP from a custom resource. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for detaching IP addresses from standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
         :param ip_id: IP ID.
         :param resource: Custom resource currently attached to the IP.
@@ -538,7 +538,7 @@ class IpamV1API(API):
         to_resource: Optional[CustomResource] = None,
     ) -> IP:
         """
-        Move IP to a custom resource.
+        Move private IP to a custom resource.
         Move an existing reserved private IP from one custom resource (e.g. a virtual machine hosted on an Elastic Metal server) to another custom resource. This will detach it from the first resource, and attach it to the second. Do not use this method for moving IP addresses between standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
         :param ip_id: IP ID.
         :param from_resource: Custom resource currently attached to the IP.
