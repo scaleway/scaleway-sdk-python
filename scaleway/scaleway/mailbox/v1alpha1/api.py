@@ -498,16 +498,12 @@ class MailboxV1Alpha1API(API):
         self,
         *,
         mailbox_id: str,
-        display_name: Optional[str] = None,
-        recovery_email: Optional[str] = None,
         subscription_period: Optional[MailboxSubscriptionPeriod] = None,
         new_password: Optional[str] = None,
     ) -> Mailbox:
         """
-        Update a mailbox name, recovery email, subscription period or password with its ID.
+        Update a mailbox subscription period or password with its ID.
         :param mailbox_id: ID of the mailbox to update.
-        :param display_name: (Optional) New display name of the mailbox.
-        :param recovery_email: (Optional) New recovery email for the mailbox.
         :param subscription_period: (Optional) New subscription period for the mailbox.
         :param new_password: (Optional) New password of the mailbox.
         :return: :class:`Mailbox <Mailbox>`
@@ -528,8 +524,6 @@ class MailboxV1Alpha1API(API):
             body=marshal_UpdateMailboxRequest(
                 UpdateMailboxRequest(
                     mailbox_id=mailbox_id,
-                    display_name=display_name,
-                    recovery_email=recovery_email,
                     subscription_period=subscription_period,
                     new_password=new_password,
                 ),

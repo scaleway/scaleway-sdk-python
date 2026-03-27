@@ -515,12 +515,6 @@ def unmarshal_Instance(data: Any) -> Instance:
     else:
         args["ip_address"] = None
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -538,6 +532,12 @@ def unmarshal_Instance(data: Any) -> Instance:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return Instance(**args)
 
@@ -644,12 +644,6 @@ def unmarshal_Lb(data: Any) -> Lb:
     else:
         args["route_count"] = 0
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -673,6 +667,12 @@ def unmarshal_Lb(data: Any) -> Lb:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return Lb(**args)
 
@@ -733,12 +733,6 @@ def unmarshal_Backend(data: Any) -> Backend:
     else:
         args["pool"] = []
 
-    field = data.get("send_proxy_v2", None)
-    if field is not None:
-        args["send_proxy_v2"] = field
-    else:
-        args["send_proxy_v2"] = False
-
     field = data.get("on_marked_down_action", None)
     if field is not None:
         args["on_marked_down_action"] = field
@@ -762,6 +756,12 @@ def unmarshal_Backend(data: Any) -> Backend:
         args["lb"] = unmarshal_Lb(field)
     else:
         args["lb"] = None
+
+    field = data.get("send_proxy_v2", None)
+    if field is not None:
+        args["send_proxy_v2"] = field
+    else:
+        args["send_proxy_v2"] = None
 
     field = data.get("timeout_server", None)
     if field is not None:
@@ -1224,7 +1224,7 @@ def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfi
     if field is not None:
         args["ip_address"] = field
     else:
-        args["ip_address"] = []
+        args["ip_address"] = None
 
     return PrivateNetworkStaticConfig(**args)
 
@@ -1645,17 +1645,17 @@ def unmarshal_LbType(data: Any) -> LbType:
     else:
         args["description"] = None
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return LbType(**args)
 

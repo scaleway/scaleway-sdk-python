@@ -792,9 +792,9 @@ class Quotum:
     Limits per locality.
     """
 
-    limit: Optional[int] = 0
+    limit: Optional[int] = None
 
-    unlimited: Optional[bool] = False
+    unlimited: Optional[bool] = None
 
 
 @dataclass
@@ -977,16 +977,6 @@ class User:
     Type of user.
     """
 
-    two_factor_enabled: bool
-    """
-    Deprecated, use "mfa" instead.
-    """
-
-    status: UserStatus
-    """
-    Status of user invitation.
-    """
-
     mfa: bool
     """
     Defines whether MFA is enabled.
@@ -1020,6 +1010,16 @@ class User:
     last_login_at: Optional[datetime] = None
     """
     Date of the last login.
+    """
+
+    two_factor_enabled: Optional[bool] = None
+    """
+    Deprecated, use "mfa" instead.
+    """
+
+    status: Optional[UserStatus] = None
+    """
+    Status of user invitation.
     """
 
 
