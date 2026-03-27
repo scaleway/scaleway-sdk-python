@@ -535,14 +535,6 @@ def unmarshal_Contact(data: Any) -> Contact:
     else:
         args["status"] = ContactStatus.STATUS_UNKNOWN
 
-    field = data.get("questions", None)
-    if field is not None:
-        args["questions"] = (
-            [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
-        )
-    else:
-        args["questions"] = []
-
     field = data.get("extension_nl", None)
     if field is not None:
         args["extension_nl"] = unmarshal_ContactExtensionNL(field)
@@ -554,6 +546,14 @@ def unmarshal_Contact(data: Any) -> Contact:
         args["extension_it"] = unmarshal_ContactExtensionIT(field)
     else:
         args["extension_it"] = None
+
+    field = data.get("questions", None)
+    if field is not None:
+        args["questions"] = (
+            [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
+        )
+    else:
+        args["questions"] = None
 
     return Contact(**args)
 

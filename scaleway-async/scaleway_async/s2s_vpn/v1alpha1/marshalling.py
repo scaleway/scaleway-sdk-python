@@ -253,13 +253,13 @@ def unmarshal_Connection(data: Any) -> Connection:
     if field is not None:
         args["tunnel_status_ipv4"] = field
     else:
-        args["tunnel_status_ipv4"] = TunnelStatus.UNKNOWN_TUNNEL_STATUS
+        args["tunnel_status_ipv4"] = None
 
     field = data.get("tunnel_status_ipv6", None)
     if field is not None:
         args["tunnel_status_ipv6"] = field
     else:
-        args["tunnel_status_ipv6"] = TunnelStatus.UNKNOWN_TUNNEL_STATUS
+        args["tunnel_status_ipv6"] = None
 
     field = data.get("bgp_session_ipv4", None)
     if field is not None:
