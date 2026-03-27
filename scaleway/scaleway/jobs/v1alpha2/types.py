@@ -369,12 +369,12 @@ class JobRun:
     Duration of the job run.
     """
 
-    reason: Optional[JobRunReason] = None
+    reason: Optional[JobRunReason] = JobRunReason.UNKNOWN_REASON
     """
     Reason for failure if the job failed.
     """
 
-    exit_code: Optional[int] = None
+    exit_code: Optional[int] = 0
     """
     Exit code of the job.
     """
@@ -389,7 +389,7 @@ class JobRun:
     Deprecated, please use startup_command instead.
     """
 
-    attempts: Optional[int] = None
+    attempts: Optional[int] = 0
     """
     Number of retry attempts.
     """
