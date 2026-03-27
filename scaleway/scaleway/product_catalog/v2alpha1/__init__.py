@@ -26,6 +26,8 @@ from .types import PublicCatalogProductPropertiesHardwareStorage
 from .types import PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType
 from .types import PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType
 from .types import PublicCatalogProductPropertiesKubernetesKosmosNodeType
+from .types import PublicCatalogProductPropertiesLoadBalancerIPV4Type
+from .types import PublicCatalogProductPropertiesLoadBalancerNodeType
 from .types import PublicCatalogProductPropertiesManagedMongoDBManagementType
 from .types import PublicCatalogProductPropertiesManagedMongoDBNodeType
 from .types import PublicCatalogProductPropertiesManagedMongoDBStorageType
@@ -86,6 +88,8 @@ __all__ = [
     "PublicCatalogProductPropertiesKubernetesKapsuleControlPlaneType",
     "PublicCatalogProductPropertiesKubernetesKosmosControlPlaneType",
     "PublicCatalogProductPropertiesKubernetesKosmosNodeType",
+    "PublicCatalogProductPropertiesLoadBalancerIPV4Type",
+    "PublicCatalogProductPropertiesLoadBalancerNodeType",
     "PublicCatalogProductPropertiesManagedMongoDBManagementType",
     "PublicCatalogProductPropertiesManagedMongoDBNodeType",
     "PublicCatalogProductPropertiesManagedMongoDBStorageType",
