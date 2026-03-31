@@ -19,6 +19,8 @@ from .types import (
     AclRule,
     GetAclResponse,
     ListPrivateNetworksResponse,
+    ListSubnetOverlapsResponseSubnetOverlap,
+    ListSubnetOverlapsResponse,
     ListSubnetsResponse,
     ListVPCConnectorsResponse,
     ListVPCsResponse,
@@ -606,6 +608,70 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
         args["total_count"] = None
 
     return ListPrivateNetworksResponse(**args)
+
+
+def unmarshal_ListSubnetOverlapsResponseSubnetOverlap(
+    data: Any,
+) -> ListSubnetOverlapsResponseSubnetOverlap:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListSubnetOverlapsResponseSubnetOverlap' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("subnet_id", None)
+    if field is not None:
+        args["subnet_id"] = field
+    else:
+        args["subnet_id"] = None
+
+    field = data.get("subnet", None)
+    if field is not None:
+        args["subnet"] = field
+    else:
+        args["subnet"] = None
+
+    field = data.get("target_subnet_id", None)
+    if field is not None:
+        args["target_subnet_id"] = field
+    else:
+        args["target_subnet_id"] = None
+
+    field = data.get("target_subnet", None)
+    if field is not None:
+        args["target_subnet"] = field
+    else:
+        args["target_subnet"] = None
+
+    return ListSubnetOverlapsResponseSubnetOverlap(**args)
+
+
+def unmarshal_ListSubnetOverlapsResponse(data: Any) -> ListSubnetOverlapsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListSubnetOverlapsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("subnet_overlaps", None)
+    if field is not None:
+        args["subnet_overlaps"] = (
+            [unmarshal_ListSubnetOverlapsResponseSubnetOverlap(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["subnet_overlaps"] = None
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = None
+
+    return ListSubnetOverlapsResponse(**args)
 
 
 def unmarshal_ListSubnetsResponse(data: Any) -> ListSubnetsResponse:

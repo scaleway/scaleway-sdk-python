@@ -393,11 +393,6 @@ class Instance:
     Instance IP address.
     """
 
-    region: ScwRegion
-    """
-    The region the Instance is in.
-    """
-
     zone: ScwZone
     """
     The zone the Instance is in.
@@ -411,6 +406,11 @@ class Instance:
     updated_at: Optional[datetime] = None
     """
     Date on which the Instance was last updated.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    The region the Instance is in.
     """
 
 
@@ -446,11 +446,6 @@ class Ip:
     IP tags.
     """
 
-    region: ScwRegion
-    """
-    The region the IP address is in.
-    """
-
     zone: ScwZone
     """
     The zone the IP address is in.
@@ -459,6 +454,11 @@ class Ip:
     lb_id: Optional[str] = None
     """
     Load Balancer ID.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    The region the IP address is in.
     """
 
 
@@ -607,11 +607,6 @@ class Lb:
     Number of routes configured on the Load Balancer.
     """
 
-    region: ScwRegion
-    """
-    The region the Load Balancer is in.
-    """
-
     zone: ScwZone
     """
     The zone the Load Balancer is in.
@@ -630,6 +625,11 @@ class Lb:
     updated_at: Optional[datetime] = None
     """
     Date on which the Load Balancer was last updated.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    The region the Load Balancer is in.
     """
 
 
@@ -713,7 +713,7 @@ class Backend:
     Load Balancer the backend is attached to.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -973,7 +973,7 @@ class PrivateNetworkIpamConfig:
 
 @dataclass
 class PrivateNetworkStaticConfig:
-    ip_address: list[str]
+    ip_address: Optional[list[str]] = field(default_factory=list)
     """
     Array of a local IP address for the Load Balancer on this Private Network.
     """
@@ -1151,14 +1151,14 @@ class LbType:
     Load Balancer commercial offer type description.
     """
 
-    region: ScwRegion
-    """
-    The region the Load Balancer stock is in.
-    """
-
     zone: ScwZone
     """
     The zone the Load Balancer stock is in.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    The region the Load Balancer stock is in.
     """
 
 
@@ -1364,7 +1364,7 @@ class CreateBackendRequest:
     Name for the backend.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -2598,7 +2598,7 @@ class UpdateBackendRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -3048,7 +3048,7 @@ class ZonedApiCreateBackendRequest:
     Name for the backend.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -4136,7 +4136,7 @@ class ZonedApiUpdateBackendRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """

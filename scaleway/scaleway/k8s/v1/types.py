@@ -814,11 +814,6 @@ class Cluster:
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
 
-    acl_available: bool
-    """
-    Defines whether ACL is available on the cluster.
-    """
-
     iam_nodes_group_id: str
     """
     IAM group that nodes are members of (this field might be empty during early stage of cluster creation).
@@ -872,6 +867,11 @@ class Cluster:
     commitment_ends_at: Optional[datetime] = None
     """
     Date on which it will be possible to switch to a smaller offer.
+    """
+
+    acl_available: Optional[bool] = None
+    """
+    Defines whether ACL is available on the cluster.
     """
 
 
