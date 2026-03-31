@@ -69,7 +69,10 @@ def scrub_json_string(raw: bytes | str) -> bytes | str:
 
 def scrub_response_body(response):
     body = response["body"]["string"]
-    response["body"]["string"] = scrub_json_string(body).encode("utf-8")
+    scrubbed = scrub_json_string(body)
+    if isinstance(scrubbed, str):
+        scrubbed = scrubbed.encode("utf-8")
+    response["body"]["string"] = scrubbed
     return response
 
 
