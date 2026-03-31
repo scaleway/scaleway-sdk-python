@@ -313,12 +313,12 @@ class Connection:
     Last modification date of the connection.
     """
 
-    tunnel_status_ipv4: Optional[TunnelStatus] = TunnelStatus.UNKNOWN_TUNNEL_STATUS
+    tunnel_status_ipv4: Optional[TunnelStatus] = None
     """
     Status of the IPv4 IPsec tunnel.
     """
 
-    tunnel_status_ipv6: Optional[TunnelStatus] = TunnelStatus.UNKNOWN_TUNNEL_STATUS
+    tunnel_status_ipv6: Optional[TunnelStatus] = None
     """
     Status of the IPv6 IPsec tunnel.
     """
