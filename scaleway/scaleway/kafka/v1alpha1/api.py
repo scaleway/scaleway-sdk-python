@@ -463,7 +463,6 @@ class KafkaV1Alpha1API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
-        version: Optional[str] = None,
     ) -> Cluster:
         """
         Update a Kafka cluster.
@@ -472,7 +471,6 @@ class KafkaV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the Kafka Cluster.
         :param tags: Tags of a Kafka Cluster.
-        :param version: Version of Kafka.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -497,7 +495,6 @@ class KafkaV1Alpha1API(API):
                     region=region,
                     name=name,
                     tags=tags,
-                    version=version,
                 ),
                 self.client,
             ),
