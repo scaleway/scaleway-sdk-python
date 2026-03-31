@@ -437,12 +437,6 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     else:
         args["tags"] = []
 
-    field = data.get("vpc_integration_activated", None)
-    if field is not None:
-        args["vpc_integration_activated"] = field
-    else:
-        args["vpc_integration_activated"] = False
-
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
@@ -460,6 +454,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("vpc_integration_activated", None)
+    if field is not None:
+        args["vpc_integration_activated"] = field
+    else:
+        args["vpc_integration_activated"] = None
 
     return Namespace(**args)
 

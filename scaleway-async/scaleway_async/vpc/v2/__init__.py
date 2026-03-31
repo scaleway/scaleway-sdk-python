@@ -3,6 +3,7 @@
 from .types import AclRuleProtocol
 from .types import Action
 from .types import ListPrivateNetworksRequestOrderBy
+from .types import ListSubnetOverlapsRequestOrderBy
 from .types import ListSubnetsRequestOrderBy
 from .types import ListVPCConnectorsRequestOrderBy
 from .types import ListVPCsRequestOrderBy
@@ -13,6 +14,7 @@ from .types import PrivateNetwork
 from .types import Route
 from .types import VPCConnectorPeerInfo
 from .types import AclRule
+from .types import ListSubnetOverlapsResponseSubnetOverlap
 from .types import VPCConnector
 from .types import VPC
 from .types import AddSubnetsRequest
@@ -38,6 +40,8 @@ from .types import GetVPCConnectorRequest
 from .types import GetVPCRequest
 from .types import ListPrivateNetworksRequest
 from .types import ListPrivateNetworksResponse
+from .types import ListSubnetOverlapsRequest
+from .types import ListSubnetOverlapsResponse
 from .types import ListSubnetsRequest
 from .types import ListSubnetsResponse
 from .types import ListVPCConnectorsRequest
@@ -56,6 +60,7 @@ __all__ = [
     "AclRuleProtocol",
     "Action",
     "ListPrivateNetworksRequestOrderBy",
+    "ListSubnetOverlapsRequestOrderBy",
     "ListSubnetsRequestOrderBy",
     "ListVPCConnectorsRequestOrderBy",
     "ListVPCsRequestOrderBy",
@@ -66,6 +71,7 @@ __all__ = [
     "Route",
     "VPCConnectorPeerInfo",
     "AclRule",
+    "ListSubnetOverlapsResponseSubnetOverlap",
     "VPCConnector",
     "VPC",
     "AddSubnetsRequest",
@@ -91,6 +97,8 @@ __all__ = [
     "GetVPCRequest",
     "ListPrivateNetworksRequest",
     "ListPrivateNetworksResponse",
+    "ListSubnetOverlapsRequest",
+    "ListSubnetOverlapsResponse",
     "ListSubnetsRequest",
     "ListSubnetsResponse",
     "ListVPCConnectorsRequest",

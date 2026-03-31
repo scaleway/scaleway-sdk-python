@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 from .types import (
     Action,
     ListPrivateNetworksRequestOrderBy,
+    ListSubnetOverlapsRequestOrderBy,
     ListSubnetsRequestOrderBy,
     ListVPCConnectorsRequestOrderBy,
     ListVPCsRequestOrderBy,
@@ -30,6 +31,8 @@ from .types import (
     DeleteSubnetsResponse,
     GetAclResponse,
     ListPrivateNetworksResponse,
+    ListSubnetOverlapsResponse,
+    ListSubnetOverlapsResponseSubnetOverlap,
     ListSubnetsResponse,
     ListVPCConnectorsResponse,
     ListVPCsResponse,
@@ -54,6 +57,7 @@ from .marshalling import (
     unmarshal_DeleteSubnetsResponse,
     unmarshal_GetAclResponse,
     unmarshal_ListPrivateNetworksResponse,
+    unmarshal_ListSubnetOverlapsResponse,
     unmarshal_ListSubnetsResponse,
     unmarshal_ListVPCConnectorsResponse,
     unmarshal_ListVPCsResponse,
@@ -1509,3 +1513,90 @@ class VpcV2API(API):
         )
 
         self._throw_on_error(res)
+
+    def list_subnet_overlaps(
+        self,
+        *,
+        vpc_connector_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListSubnetOverlapsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListSubnetOverlapsResponse:
+        """
+        List subnet overlaps.
+        List subnet overlaps between the VPCConnector VPC and the target VPC or for a specific subnet if specified.
+        :param vpc_connector_id: VPCConnector ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Sort order of the returned Subnet overlaps.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of Subnet overlaps to return per page.
+        :return: :class:`ListSubnetOverlapsResponse <ListSubnetOverlapsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_subnet_overlaps(
+                vpc_connector_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_connector_id = validate_path_param(
+            "vpc_connector_id", vpc_connector_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/vpc/v2/regions/{param_region}/vpc-connectors/{param_vpc_connector_id}/subnet-overlaps",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListSubnetOverlapsResponse(res.json())
+
+    def list_subnet_overlaps_all(
+        self,
+        *,
+        vpc_connector_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListSubnetOverlapsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[ListSubnetOverlapsResponseSubnetOverlap]:
+        """
+        List subnet overlaps.
+        List subnet overlaps between the VPCConnector VPC and the target VPC or for a specific subnet if specified.
+        :param vpc_connector_id: VPCConnector ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Sort order of the returned Subnet overlaps.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of Subnet overlaps to return per page.
+        :return: :class:`list[ListSubnetOverlapsResponseSubnetOverlap] <list[ListSubnetOverlapsResponseSubnetOverlap]>`
+
+        Usage:
+        ::
+
+            result = api.list_subnet_overlaps_all(
+                vpc_connector_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListSubnetOverlapsResponse,
+            key="subnet_overlaps",
+            fetcher=self.list_subnet_overlaps,
+            args={
+                "vpc_connector_id": vpc_connector_id,
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
