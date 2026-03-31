@@ -733,12 +733,6 @@ def unmarshal_Backend(data: Any) -> Backend:
     else:
         args["pool"] = []
 
-    field = data.get("send_proxy_v2", None)
-    if field is not None:
-        args["send_proxy_v2"] = field
-    else:
-        args["send_proxy_v2"] = False
-
     field = data.get("on_marked_down_action", None)
     if field is not None:
         args["on_marked_down_action"] = field
@@ -762,6 +756,12 @@ def unmarshal_Backend(data: Any) -> Backend:
         args["lb"] = unmarshal_Lb(field)
     else:
         args["lb"] = None
+
+    field = data.get("send_proxy_v2", None)
+    if field is not None:
+        args["send_proxy_v2"] = field
+    else:
+        args["send_proxy_v2"] = None
 
     field = data.get("timeout_server", None)
     if field is not None:
@@ -1224,7 +1224,7 @@ def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfi
     if field is not None:
         args["ip_address"] = field
     else:
-        args["ip_address"] = []
+        args["ip_address"] = None
 
     return PrivateNetworkStaticConfig(**args)
 

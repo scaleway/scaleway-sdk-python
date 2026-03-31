@@ -44,6 +44,16 @@ class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListSubnetOverlapsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    SUBNET_ASC = "subnet_asc"
+    SUBNET_DESC = "subnet_desc"
+    TARGET_SUBNET_ASC = "target_subnet_asc"
+    TARGET_SUBNET_DESC = "target_subnet_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListSubnetsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -316,6 +326,14 @@ class AclRule:
     """
     Rule description.
     """
+
+
+@dataclass
+class ListSubnetOverlapsResponseSubnetOverlap:
+    subnet_id: str
+    subnet: str
+    target_subnet_id: str
+    target_subnet: str
 
 
 @dataclass
@@ -857,6 +875,42 @@ class ListPrivateNetworksRequest:
 @dataclass
 class ListPrivateNetworksResponse:
     private_networks: list[PrivateNetwork]
+    total_count: int
+
+
+@dataclass
+class ListSubnetOverlapsRequest:
+    vpc_connector_id: str
+    """
+    VPCConnector ID.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListSubnetOverlapsRequestOrderBy] = (
+        ListSubnetOverlapsRequestOrderBy.SUBNET_ASC
+    )
+    """
+    Sort order of the returned Subnet overlaps.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of Subnet overlaps to return per page.
+    """
+
+
+@dataclass
+class ListSubnetOverlapsResponse:
+    subnet_overlaps: list[ListSubnetOverlapsResponseSubnetOverlap]
     total_count: int
 
 

@@ -46,23 +46,11 @@ def unmarshal_Mailbox(data: Any) -> Mailbox:
     else:
         args["domain_id"] = None
 
-    field = data.get("display_name", None)
-    if field is not None:
-        args["display_name"] = field
-    else:
-        args["display_name"] = None
-
     field = data.get("email", None)
     if field is not None:
         args["email"] = field
     else:
         args["email"] = None
-
-    field = data.get("recovery_email", None)
-    if field is not None:
-        args["recovery_email"] = field
-    else:
-        args["recovery_email"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -449,12 +437,6 @@ def marshal_BatchCreateMailboxesRequestMailboxParameters(
     if request.password is not None:
         output["password"] = request.password
 
-    if request.display_name is not None:
-        output["display_name"] = request.display_name
-
-    if request.recovery_email is not None:
-        output["recovery_email"] = request.recovery_email
-
     return output
 
 
@@ -501,12 +483,6 @@ def marshal_UpdateMailboxRequest(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
-
-    if request.display_name is not None:
-        output["display_name"] = request.display_name
-
-    if request.recovery_email is not None:
-        output["recovery_email"] = request.recovery_email
 
     if request.subscription_period is not None:
         output["subscription_period"] = request.subscription_period

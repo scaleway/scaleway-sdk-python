@@ -115,8 +115,6 @@ class MailboxSubscriptionPeriod(str, Enum, metaclass=StrEnumMeta):
 class BatchCreateMailboxesRequestMailboxParameters:
     local_part: str
     password: str
-    display_name: Optional[str] = None
-    recovery_email: Optional[str] = None
 
 
 @dataclass
@@ -131,19 +129,9 @@ class Mailbox:
     ID of the domain to which the mailbox belongs.
     """
 
-    display_name: str
-    """
-    Name of the mailbox.
-    """
-
     email: str
     """
     Email address of the mailbox as local_part@domain.
-    """
-
-    recovery_email: str
-    """
-    Recovery email for the mailbox.
     """
 
     status: MailboxStatus
@@ -538,16 +526,6 @@ class UpdateMailboxRequest:
     mailbox_id: str
     """
     ID of the mailbox to update.
-    """
-
-    display_name: Optional[str] = None
-    """
-    (Optional) New display name of the mailbox.
-    """
-
-    recovery_email: Optional[str] = None
-    """
-    (Optional) New recovery email for the mailbox.
     """
 
     subscription_period: Optional[MailboxSubscriptionPeriod] = (
