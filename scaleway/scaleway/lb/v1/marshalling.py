@@ -1639,6 +1639,18 @@ def unmarshal_LbType(data: Any) -> LbType:
     else:
         args["stock_status"] = LbTypeStock.UNKNOWN
 
+    field = data.get("bandwidth", None)
+    if field is not None:
+        args["bandwidth"] = field
+    else:
+        args["bandwidth"] = 0
+
+    field = data.get("multicloud", None)
+    if field is not None:
+        args["multicloud"] = field
+    else:
+        args["multicloud"] = False
+
     field = data.get("description", None)
     if field is not None:
         args["description"] = field

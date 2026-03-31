@@ -1146,6 +1146,16 @@ class LbType:
     Current stock status for a given Load Balancer type.
     """
 
+    bandwidth: int
+    """
+    Maximum bandwidth for a given Load Balancer type.
+    """
+
+    multicloud: bool
+    """
+    Ability to handle backend servers outside Scaleway for a given Load Balancer type.
+    """
+
     description: str
     """
     Load Balancer commercial offer type description.
