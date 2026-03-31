@@ -189,12 +189,12 @@ class DomainV2Beta1API(API):
         self,
         *,
         domain: str,
+        dns_zone: str,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListDNSZonesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        dns_zone: Optional[str] = None,
         dns_zones: Optional[list[str]] = None,
         created_after: Optional[datetime] = None,
         created_before: Optional[datetime] = None,
@@ -205,12 +205,12 @@ class DomainV2Beta1API(API):
         List DNS zones.
         Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
         :param domain: Domain on which to filter the returned DNS zones.
+        :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :param organization_id: Organization ID on which to filter the returned DNS zones.
         :param project_id: Project ID on which to filter the returned DNS zones.
         :param order_by: Sort order of the returned DNS zones.
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones to return per page.
-        :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :param dns_zones: DNS zones on which to filter the returned DNS zones.
         :param created_after: Only list DNS zones created after this date.
         :param created_before: Only list DNS zones created before this date.
@@ -223,6 +223,7 @@ class DomainV2Beta1API(API):
 
             result = api.list_dns_zones(
                 domain="example",
+                dns_zone="example",
             )
         """
 
@@ -253,12 +254,12 @@ class DomainV2Beta1API(API):
         self,
         *,
         domain: str,
+        dns_zone: str,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListDNSZonesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        dns_zone: Optional[str] = None,
         dns_zones: Optional[list[str]] = None,
         created_after: Optional[datetime] = None,
         created_before: Optional[datetime] = None,
@@ -269,12 +270,12 @@ class DomainV2Beta1API(API):
         List DNS zones.
         Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
         :param domain: Domain on which to filter the returned DNS zones.
+        :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :param organization_id: Organization ID on which to filter the returned DNS zones.
         :param project_id: Project ID on which to filter the returned DNS zones.
         :param order_by: Sort order of the returned DNS zones.
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones to return per page.
-        :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :param dns_zones: DNS zones on which to filter the returned DNS zones.
         :param created_after: Only list DNS zones created after this date.
         :param created_before: Only list DNS zones created before this date.
@@ -287,6 +288,7 @@ class DomainV2Beta1API(API):
 
             result = api.list_dns_zones_all(
                 domain="example",
+                dns_zone="example",
             )
         """
 
@@ -296,12 +298,12 @@ class DomainV2Beta1API(API):
             fetcher=self.list_dns_zones,
             args={
                 "domain": domain,
+                "dns_zone": dns_zone,
                 "organization_id": organization_id,
                 "project_id": project_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
-                "dns_zone": dns_zone,
                 "dns_zones": dns_zones,
                 "created_after": created_after,
                 "created_before": created_before,
@@ -774,7 +776,7 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-        content: Optional[str] = None,
+        content: str,
         project_id: Optional[str] = None,
         format: Optional[RawFormat] = None,
         bind_source: Optional[ImportRawDNSZoneRequestBindSource] = None,
@@ -798,6 +800,7 @@ class DomainV2Beta1API(API):
 
             result = api.import_raw_dns_zone(
                 dns_zone="example",
+                content="example",
             )
         """
 

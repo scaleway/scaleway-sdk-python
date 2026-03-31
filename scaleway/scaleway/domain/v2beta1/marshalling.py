@@ -316,12 +316,6 @@ def unmarshal_ContactExtensionIT(data: Any) -> ContactExtensionIT:
 
     args: dict[str, Any] = {}
 
-    field = data.get("pin", None)
-    if field is not None:
-        args["pin"] = field
-    else:
-        args["pin"] = None
-
     field = data.get("european_citizenship", None)
     if field is not None:
         args["european_citizenship"] = field
@@ -333,6 +327,12 @@ def unmarshal_ContactExtensionIT(data: Any) -> ContactExtensionIT:
         args["tax_code"] = field
     else:
         args["tax_code"] = None
+
+    field = data.get("pin", None)
+    if field is not None:
+        args["pin"] = field
+    else:
+        args["pin"] = None
 
     return ContactExtensionIT(**args)
 
@@ -535,6 +535,14 @@ def unmarshal_Contact(data: Any) -> Contact:
     else:
         args["status"] = ContactStatus.STATUS_UNKNOWN
 
+    field = data.get("questions", None)
+    if field is not None:
+        args["questions"] = (
+            [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
+        )
+    else:
+        args["questions"] = []
+
     field = data.get("extension_nl", None)
     if field is not None:
         args["extension_nl"] = unmarshal_ContactExtensionNL(field)
@@ -546,14 +554,6 @@ def unmarshal_Contact(data: Any) -> Contact:
         args["extension_it"] = unmarshal_ContactExtensionIT(field)
     else:
         args["extension_it"] = None
-
-    field = data.get("questions", None)
-    if field is not None:
-        args["questions"] = (
-            [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
-        )
-    else:
-        args["questions"] = None
 
     return Contact(**args)
 

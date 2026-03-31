@@ -1108,13 +1108,13 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["routed_ip_enabled"] = field
     else:
-        args["routed_ip_enabled"] = None
+        args["routed_ip_enabled"] = False
 
     field = data.get("enable_ipv6", None)
     if field is not None:
         args["enable_ipv6"] = field
     else:
-        args["enable_ipv6"] = None
+        args["enable_ipv6"] = False
 
     field = data.get("image", None)
     if field is not None:
@@ -1472,7 +1472,7 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     if field is not None:
         args["organization_default"] = field
     else:
-        args["organization_default"] = None
+        args["organization_default"] = False
 
     field = data.get("creation_date", None)
     if field is not None:
@@ -1905,85 +1905,85 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
     if field is not None:
         args["volumes_count"] = field
     else:
-        args["volumes_count"] = 0
+        args["volumes_count"] = None
 
     field = data.get("running_servers_count", None)
     if field is not None:
         args["running_servers_count"] = field
     else:
-        args["running_servers_count"] = 0
+        args["running_servers_count"] = None
 
     field = data.get("servers_by_types", None)
     if field is not None:
         args["servers_by_types"] = field
     else:
-        args["servers_by_types"] = {}
+        args["servers_by_types"] = None
 
     field = data.get("images_count", None)
     if field is not None:
         args["images_count"] = field
     else:
-        args["images_count"] = 0
+        args["images_count"] = None
 
     field = data.get("snapshots_count", None)
     if field is not None:
         args["snapshots_count"] = field
     else:
-        args["snapshots_count"] = 0
+        args["snapshots_count"] = None
 
     field = data.get("servers_count", None)
     if field is not None:
         args["servers_count"] = field
     else:
-        args["servers_count"] = 0
+        args["servers_count"] = None
 
     field = data.get("ips_count", None)
     if field is not None:
         args["ips_count"] = field
     else:
-        args["ips_count"] = 0
+        args["ips_count"] = None
 
     field = data.get("security_groups_count", None)
     if field is not None:
         args["security_groups_count"] = field
     else:
-        args["security_groups_count"] = 0
+        args["security_groups_count"] = None
 
     field = data.get("ips_unused", None)
     if field is not None:
         args["ips_unused"] = field
     else:
-        args["ips_unused"] = 0
+        args["ips_unused"] = None
 
     field = data.get("volumes_l_ssd_count", None)
     if field is not None:
         args["volumes_l_ssd_count"] = field
     else:
-        args["volumes_l_ssd_count"] = 0
+        args["volumes_l_ssd_count"] = None
 
     field = data.get("volumes_l_ssd_total_size", None)
     if field is not None:
         args["volumes_l_ssd_total_size"] = field
     else:
-        args["volumes_l_ssd_total_size"] = 0
+        args["volumes_l_ssd_total_size"] = None
 
     field = data.get("private_nics_count", None)
     if field is not None:
         args["private_nics_count"] = field
     else:
-        args["private_nics_count"] = 0
+        args["private_nics_count"] = None
 
     field = data.get("placement_groups_count", None)
     if field is not None:
         args["placement_groups_count"] = field
     else:
-        args["placement_groups_count"] = 0
+        args["placement_groups_count"] = None
 
     field = data.get("volumes_scratch_count", None)
     if field is not None:
         args["volumes_scratch_count"] = field
     else:
-        args["volumes_scratch_count"] = 0
+        args["volumes_scratch_count"] = None
 
     field = data.get("volumes_b_ssd_count", None)
     if field is not None:
@@ -2662,7 +2662,7 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     if field is not None:
         args["monthly_price"] = field
     else:
-        args["monthly_price"] = None
+        args["monthly_price"] = 0.0
 
     field = data.get("hourly_price", None)
     if field is not None:
