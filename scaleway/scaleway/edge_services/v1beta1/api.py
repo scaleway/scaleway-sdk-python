@@ -701,6 +701,7 @@ class EdgeServicesV1Beta1API(API):
         cache_stage_id: Optional[str] = None,
         backend_stage_id: Optional[str] = None,
         pipeline_id: str,
+        wildcard_domain: Optional[bool] = None,
     ) -> DNSStage:
         """
         Create DNS stage.
@@ -713,6 +714,7 @@ class EdgeServicesV1Beta1API(API):
         :param backend_stage_id: Backend stage ID the DNS stage will be linked to.
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :param pipeline_id: Pipeline ID the DNS stage belongs to.
+        :param wildcard_domain: Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
         :return: :class:`DNSStage <DNSStage>`
 
         Usage:
@@ -732,6 +734,7 @@ class EdgeServicesV1Beta1API(API):
                 CreateDNSStageRequest(
                     fqdns=fqdns,
                     pipeline_id=pipeline_id,
+                    wildcard_domain=wildcard_domain,
                     tls_stage_id=tls_stage_id,
                     cache_stage_id=cache_stage_id,
                     backend_stage_id=backend_stage_id,
@@ -780,6 +783,7 @@ class EdgeServicesV1Beta1API(API):
         tls_stage_id: Optional[str] = None,
         cache_stage_id: Optional[str] = None,
         backend_stage_id: Optional[str] = None,
+        wildcard_domain: Optional[bool] = None,
     ) -> DNSStage:
         """
         Update DNS stage.
@@ -792,6 +796,7 @@ class EdgeServicesV1Beta1API(API):
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :param backend_stage_id: Backend stage ID the DNS stage will be linked to.
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
+        :param wildcard_domain: Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
         :return: :class:`DNSStage <DNSStage>`
 
         Usage:
@@ -811,6 +816,7 @@ class EdgeServicesV1Beta1API(API):
                 UpdateDNSStageRequest(
                     dns_stage_id=dns_stage_id,
                     fqdns=fqdns,
+                    wildcard_domain=wildcard_domain,
                     tls_stage_id=tls_stage_id,
                     cache_stage_id=cache_stage_id,
                     backend_stage_id=backend_stage_id,
@@ -2003,13 +2009,16 @@ class EdgeServicesV1Beta1API(API):
         *,
         pipeline_id: str,
         waf_stage_id: Optional[str] = None,
+        backend_stage_id: Optional[str] = None,
     ) -> RouteStage:
         """
         Create route stage.
         Create a new route stage. You must specify the `waf_stage_id` field to customize the route.
         :param pipeline_id: Pipeline ID the route stage belongs to.
         :param waf_stage_id: ID of the WAF stage HTTP requests should be forwarded to when no rules are matched.
-        One-Of ('next'): at most one of 'waf_stage_id' could be set.
+        One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
+        :param backend_stage_id:
+        One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
         :return: :class:`RouteStage <RouteStage>`
 
         Usage:
@@ -2029,6 +2038,7 @@ class EdgeServicesV1Beta1API(API):
                 CreateRouteStageRequest(
                     pipeline_id=pipeline_id,
                     waf_stage_id=waf_stage_id,
+                    backend_stage_id=backend_stage_id,
                 ),
                 self.client,
             ),
@@ -2071,13 +2081,16 @@ class EdgeServicesV1Beta1API(API):
         *,
         route_stage_id: str,
         waf_stage_id: Optional[str] = None,
+        backend_stage_id: Optional[str] = None,
     ) -> RouteStage:
         """
         Update route stage.
         Update the parameters of an existing route stage, specified by its `route_stage_id`.
         :param route_stage_id: ID of the route stage to update.
         :param waf_stage_id: ID of the WAF stage HTTP requests should be forwarded to when no rules are matched.
-        One-Of ('next'): at most one of 'waf_stage_id' could be set.
+        One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
+        :param backend_stage_id:
+        One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
         :return: :class:`RouteStage <RouteStage>`
 
         Usage:
@@ -2097,6 +2110,7 @@ class EdgeServicesV1Beta1API(API):
                 UpdateRouteStageRequest(
                     route_stage_id=route_stage_id,
                     waf_stage_id=waf_stage_id,
+                    backend_stage_id=backend_stage_id,
                 ),
                 self.client,
             ),

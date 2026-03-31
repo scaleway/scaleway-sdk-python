@@ -292,6 +292,12 @@ def unmarshal_Exporter(data: Any) -> Exporter:
     else:
         args["exported_products"] = []
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("datadog_destination", None)
     if field is not None:
         args["datadog_destination"] = unmarshal_ExporterDatadogDestination(field)

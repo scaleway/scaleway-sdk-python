@@ -713,7 +713,7 @@ class Backend:
     Load Balancer the backend is attached to.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -1364,7 +1364,7 @@ class CreateBackendRequest:
     Name for the backend.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -1590,7 +1590,7 @@ class CreateLbRequest:
         SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
     )
     """
-    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
     """
 
     project_id: Optional[str] = None
@@ -2598,7 +2598,7 @@ class UpdateBackendRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -2858,7 +2858,7 @@ class UpdateLbRequest:
         SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
     )
     """
-    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
     """
 
 
@@ -3048,7 +3048,7 @@ class ZonedApiCreateBackendRequest:
     Name for the backend.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -3274,7 +3274,7 @@ class ZonedApiCreateLbRequest:
         SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
     )
     """
-    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
     """
 
     project_id: Optional[str] = None
@@ -4136,7 +4136,7 @@ class ZonedApiUpdateBackendRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    send_proxy_v2: Optional[bool] = False
+    send_proxy_v2: Optional[bool] = None
     """
     Deprecated in favor of proxy_protocol field.
     """
@@ -4396,7 +4396,7 @@ class ZonedApiUpdateLbRequest:
         SSLCompatibilityLevel.SSL_COMPATIBILITY_LEVEL_UNKNOWN
     )
     """
-    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
     """
 
 

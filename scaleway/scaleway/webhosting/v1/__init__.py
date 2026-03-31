@@ -3,7 +3,9 @@
 from .types import BackupItemType
 from .types import BackupStatus
 from .content import BACKUP_TRANSIENT_STATUSES
+from .types import BillingMode
 from .types import CheckFreeDomainAvailabilityResponseUnavailableReason
+from .types import CommitmentType
 from .types import DnsRecordStatus
 from .types import DnsRecordType
 from .types import DnsRecordsStatus
@@ -33,6 +35,7 @@ from .types import ProgressStatus
 from .types import AutoConfigDomainDns
 from .types import PlatformControlPanelUrls
 from .types import HostingDomainCustomDomain
+from .types import OfferCommitment
 from .types import ControlPanel
 from .types import OfferOption
 from .types import PlatformControlPanel
@@ -45,6 +48,7 @@ from .types import OfferOptionRequest
 from .types import SyncDomainDnsRecordsRequestRecord
 from .types import DnsRecord
 from .types import Nameserver
+from .types import HostingCommitment
 from .types import HostingUser
 from .types import Offer
 from .types import Platform
@@ -134,6 +138,7 @@ from .types import Session
 from .types import WebsiteApiCreateWebsiteRequest
 from .types import WebsiteApiDeleteWebsiteRequest
 from .types import WebsiteApiListWebsitesRequest
+from .types import WebsiteApiResetWebsiteRequest
 from .api import WebhostingV1BackupAPI
 from .api import WebhostingV1ControlPanelAPI
 from .api import WebhostingV1DatabaseAPI
@@ -149,7 +154,9 @@ __all__ = [
     "BackupItemType",
     "BackupStatus",
     "BACKUP_TRANSIENT_STATUSES",
+    "BillingMode",
     "CheckFreeDomainAvailabilityResponseUnavailableReason",
+    "CommitmentType",
     "DnsRecordStatus",
     "DnsRecordType",
     "DnsRecordsStatus",
@@ -179,6 +186,7 @@ __all__ = [
     "AutoConfigDomainDns",
     "PlatformControlPanelUrls",
     "HostingDomainCustomDomain",
+    "OfferCommitment",
     "ControlPanel",
     "OfferOption",
     "PlatformControlPanel",
@@ -191,6 +199,7 @@ __all__ = [
     "SyncDomainDnsRecordsRequestRecord",
     "DnsRecord",
     "Nameserver",
+    "HostingCommitment",
     "HostingUser",
     "Offer",
     "Platform",
@@ -280,6 +289,7 @@ __all__ = [
     "WebsiteApiCreateWebsiteRequest",
     "WebsiteApiDeleteWebsiteRequest",
     "WebsiteApiListWebsitesRequest",
+    "WebsiteApiResetWebsiteRequest",
     "WebhostingV1BackupAPI",
     "WebhostingV1ControlPanelAPI",
     "WebhostingV1DatabaseAPI",

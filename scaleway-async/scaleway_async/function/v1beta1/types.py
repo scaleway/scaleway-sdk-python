@@ -648,7 +648,7 @@ class Namespace:
     Last update date of the namespace.
     """
 
-    vpc_integration_activated: Optional[bool] = False
+    vpc_integration_activated: Optional[bool] = None
     """
     The value of this field doesn't matter anymore, and will be removed in a near future.
     """
@@ -906,7 +906,7 @@ class CreateNamespaceRequest:
     Tags of the Serverless Function Namespace.
     """
 
-    activate_vpc_integration: Optional[bool] = False
+    activate_vpc_integration: Optional[bool] = None
     """
     Setting this field to true doesn't matter anymore. It will be removed in a near future.
     """

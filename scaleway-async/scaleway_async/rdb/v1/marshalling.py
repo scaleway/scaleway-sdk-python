@@ -13,6 +13,9 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ACLRuleAction,
+    ACLRuleDirection,
+    ACLRuleProtocol,
     DatabaseBackupStatus,
     EndpointPrivateNetworkDetailsProvisioningMode,
     EngineSettingPropertyType,
@@ -1018,19 +1021,19 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
     if field is not None:
         args["protocol"] = field
     else:
-        args["protocol"] = None
+        args["protocol"] = ACLRuleProtocol.TCP
 
     field = data.get("direction", None)
     if field is not None:
         args["direction"] = field
     else:
-        args["direction"] = None
+        args["direction"] = ACLRuleDirection.INBOUND
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
     else:
-        args["action"] = None
+        args["action"] = ACLRuleAction.ALLOW
 
     field = data.get("description", None)
     if field is not None:
@@ -1644,7 +1647,7 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     if field is not None:
         args["is_bssd_compatible"] = field
     else:
-        args["is_bssd_compatible"] = False
+        args["is_bssd_compatible"] = None
 
     field = data.get("available_volume_types", None)
     if field is not None:

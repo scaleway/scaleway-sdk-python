@@ -161,6 +161,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     INSTANCE_SNAPSHOT = "instance_snapshot"
     INSTANCE_IMAGE = "instance_image"
     INSTANCE_TEMPLATE = "instance_template"
+    INSTANCE_PRIVATE_NETWORK_INTERFACE = "instance_private_network_interface"
     APPLE_SILICON_SERVER = "apple_silicon_server"
     BAREMETAL_SERVER = "baremetal_server"
     BAREMETAL_SETTING = "baremetal_setting"
@@ -180,6 +181,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     VPC_SUBNET = "vpc_subnet"
     VPC_ROUTE = "vpc_route"
     VPC_ACL = "vpc_acl"
+    VPC_CONNECTOR = "vpc_connector"
     EDGE_SERVICES_PLAN = "edge_services_plan"
     EDGE_SERVICES_PIPELINE = "edge_services_pipeline"
     EDGE_SERVICES_DNS_STAGE = "edge_services_dns_stage"
@@ -210,6 +212,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     MONGODB_INSTANCE_SNAPSHOT = "mongodb_instance_snapshot"
     MONGODB_INSTANCE_ENDPOINT = "mongodb_instance_endpoint"
     APPLE_SILICON_RUNNER = "apple_silicon_runner"
+    AUDIT_TRAIL_ALERT_RULE = "audit_trail_alert_rule"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -271,6 +274,11 @@ class AppleSiliconServerInfo:
 
 
 @dataclass
+class AuditTrailAlertRuleInfo:
+    pass
+
+
+@dataclass
 class AuditTrailExportJobInfo:
     pass
 
@@ -329,6 +337,13 @@ class EdgeServicesTLSStageInfo:
 @dataclass
 class EdgeServicesWAFStageInfo:
     pipeline_id: Optional[str] = None
+
+
+@dataclass
+class InstancePrivateNetworkInterfaceInfo:
+    private_network_id: str
+    server_id: Optional[str] = None
+    security_group_id: Optional[str] = None
 
 
 @dataclass
@@ -417,6 +432,12 @@ class SecretManagerSecretInfo:
 @dataclass
 class SecretManagerSecretVersionInfo:
     revision: int
+
+
+@dataclass
+class VpcConnectorInfo:
+    vpc_id: str
+    target_vpc_id: str
 
 
 @dataclass
@@ -544,6 +565,14 @@ class Resource:
     vpc_gw_gateway_network_info: Optional[VpcGwGatewayNetworkInfo] = None
 
     apple_silicon_runner_info: Optional[AppleSiliconRunnerInfo] = None
+
+    audit_trail_alert_rule_info: Optional[AuditTrailAlertRuleInfo] = None
+
+    vpc_connector_info: Optional[VpcConnectorInfo] = None
+
+    instance_private_network_interface_info: Optional[
+        InstancePrivateNetworkInterfaceInfo
+    ] = None
 
 
 @dataclass

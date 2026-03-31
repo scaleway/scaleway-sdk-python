@@ -479,6 +479,7 @@ class Record:
     type_: RecordType
     id: str
     comment: Optional[str] = None
+    updated_at: Optional[datetime] = None
     geo_ip_config: Optional[RecordGeoIPConfig] = None
 
     http_service_config: Optional[RecordHTTPServiceConfig] = None
@@ -517,6 +518,16 @@ class ContactExtensionFR:
 
 @dataclass
 class ContactExtensionIT:
+    european_citizenship: str
+    """
+    This option is useless anymore.
+    """
+
+    tax_code: str
+    """
+    Tax_code is renamed to pin.
+    """
+
     pin: str
     """
     Domain name registrant's Taxcode (mandatory / only optional when the trustee is used)
@@ -525,16 +536,6 @@ If the requester:
 * is an Italian natural person it contains his/her Codice Fiscale (16 characters format).
 * For others than residents of IT it can contain a document number. (ID Card).
 * In all other cases it must be equal to VAT number (in the 16 characters format if nationality is IT) or the numeric Codice Fiscale.
-    """
-
-    european_citizenship: Optional[str] = None
-    """
-    This option is useless anymore.
-    """
-
-    tax_code: Optional[str] = None
-    """
-    Tax_code is renamed to pin.
     """
 
 
@@ -622,7 +623,7 @@ class Contact:
     email_status: ContactEmailStatus
     state: str
     status: ContactStatus
-    questions: Optional[list[ContactQuestion]] = field(default_factory=list)
+    questions: list[ContactQuestion]
     extension_fr: Optional[ContactExtensionFR] = None
     extension_eu: Optional[ContactExtensionEU] = None
     extension_nl: Optional[ContactExtensionNL] = None
@@ -673,13 +674,13 @@ class NewContact:
     lang: StdLanguageCode
     resale: bool
     whois_opt_in: bool
+    questions: list[ContactQuestion]
     company_name: Optional[str] = None
     email_alt: Optional[str] = None
     fax_number: Optional[str] = None
     address_line_2: Optional[str] = None
     vat_identification_code: Optional[str] = None
     company_identification_code: Optional[str] = None
-    questions: Optional[list[ContactQuestion]] = field(default_factory=list)
     extension_fr: Optional[ContactExtensionFR] = None
     extension_eu: Optional[ContactExtensionEU] = None
     state: Optional[str] = None
@@ -1186,7 +1187,7 @@ class ImportRawDNSZoneRequest:
     DNS zone to import.
     """
 
-    content: Optional[str] = None
+    content: str
     project_id: Optional[str] = None
     format: Optional[RawFormat] = RawFormat.UNKNOWN_RAW_FORMAT
     bind_source: Optional[ImportRawDNSZoneRequestBindSource] = None
@@ -1339,6 +1340,11 @@ class ListDNSZonesRequest:
     Domain on which to filter the returned DNS zones.
     """
 
+    dns_zone: str
+    """
+    DNS zone on which to filter the returned DNS zones.
+    """
+
     organization_id: Optional[str] = None
     """
     Organization ID on which to filter the returned DNS zones.
@@ -1364,11 +1370,6 @@ class ListDNSZonesRequest:
     page_size: Optional[int] = 0
     """
     Maximum number of DNS zones to return per page.
-    """
-
-    dns_zone: Optional[str] = None
-    """
-    DNS zone on which to filter the returned DNS zones.
     """
 
     dns_zones: Optional[list[str]] = field(default_factory=list)
@@ -1732,6 +1733,11 @@ class RegistrarApiSearchAvailableDomainsRequest:
     Search exact match.
     """
 
+    include_exact_match: bool
+    """
+    If an exact match is found, include it in response as a separate element.
+    """
+
     tlds: Optional[list[str]] = field(default_factory=list)
     """
     Array of tlds to search on.
@@ -1783,17 +1789,17 @@ class RegistrarApiUpdateContactRequest:
     country: Optional[str] = None
     vat_identification_code: Optional[str] = None
     company_identification_code: Optional[str] = None
-    lang: Optional[StdLanguageCode] = None
-    resale: Optional[bool] = None
+    lang: Optional[StdLanguageCode] = StdLanguageCode.UNKNOWN_LANGUAGE_CODE
+    resale: Optional[bool] = False
+    extension_fr: Optional[ContactExtensionFR] = None
+    extension_eu: Optional[ContactExtensionEU] = None
+    extension_nl: Optional[ContactExtensionNL] = None
+    extension_it: Optional[ContactExtensionIT] = None
+    whois_opt_in: Optional[bool] = False
+    state: Optional[str] = None
     questions: Optional[list[UpdateContactRequestQuestion]] = field(
         default_factory=list
     )
-    extension_fr: Optional[ContactExtensionFR] = None
-    extension_eu: Optional[ContactExtensionEU] = None
-    whois_opt_in: Optional[bool] = None
-    state: Optional[str] = None
-    extension_nl: Optional[ContactExtensionNL] = None
-    extension_it: Optional[ContactExtensionIT] = None
 
 
 @dataclass
@@ -1845,6 +1851,11 @@ class SearchAvailableDomainsResponse:
     available_domains: list[AvailableDomain]
     """
     Array of available domains.
+    """
+
+    exact_match_domain: Optional[AvailableDomain] = None
+    """
+    If an exact match was asked and found, the result is in this field.
     """
 
 

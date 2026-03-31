@@ -48,6 +48,15 @@ class BackupStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class BillingMode(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BILLING_MODE = "unknown_billing_mode"
+    SAMPLE = "sample"
+    PURCHASE_ORDER = "purchase_order"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class CheckFreeDomainAvailabilityResponseUnavailableReason(
     str, Enum, metaclass=StrEnumMeta
 ):
@@ -63,6 +72,15 @@ class CheckFreeDomainAvailabilityResponseUnavailableReason(
     UNAVAILABLE_REASON_CONTAINS_RESERVED_KEYWORD = (
         "unavailable_reason_contains_reserved_keyword"
     )
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class CommitmentType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_COMMITMENT_TYPE = "unknown_commitment_type"
+    FIRST_COMMITMENT = "first_commitment"
+    NEXT_COMMITMENT = "next_commitment"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -368,6 +386,44 @@ class HostingDomainCustomDomain:
 
 
 @dataclass
+class OfferCommitment:
+    id: str
+    """
+    Offer commitment ID.
+    """
+
+    type_: CommitmentType
+    """
+    Offer commitment type.
+    """
+
+    billing_mode: BillingMode
+    """
+    Offer commitment name.
+    """
+
+    billing_operation_path: str
+    """
+    Unique identifier used for billing.
+    """
+
+    duration_in_month: int
+    """
+    Duration of the offer commitment in months.
+    """
+
+    price: Optional[Money] = None
+    """
+    Price of the offer commitment.
+    """
+
+    next: Optional[OfferCommitment] = None
+    """
+    Next offer commitment.
+    """
+
+
+@dataclass
 class ControlPanel:
     name: str
     """
@@ -595,6 +651,31 @@ class Nameserver:
 
 
 @dataclass
+class HostingCommitment:
+    delete_hosting_at_end: bool
+    """
+    The hosting may be deleted, automatically renewed, or switched to
+its configured post-commitment offer, which may have a different 
+price and billing period.
+    """
+
+    offer_commitment: Optional[OfferCommitment] = None
+    """
+    Offer commitment for the specified hosting.
+    """
+
+    start_at: Optional[datetime] = None
+    """
+    Date and time the commitment started.
+    """
+
+    end_at: Optional[datetime] = None
+    """
+    Date and time the commitment ends.
+    """
+
+
+@dataclass
 class HostingUser:
     username: str
     """
@@ -662,6 +743,11 @@ class Offer:
     control_panels: list[ControlPanel]
     """
     Lists available control panels for the specified offer.
+    """
+
+    commitments: list[OfferCommitment]
+    """
+    Lists available offer commitments for the specified offer.
     """
 
     region: ScwRegion
@@ -805,14 +891,29 @@ class HostingSummary:
     Status of the Web Hosting plan.
     """
 
+    domain: str
+    """
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
+    """
+
     protected: bool
     """
     Whether the hosting is protected or not.
     """
 
+    dns_status: DnsRecordsStatus
+    """
+    DNS status of the Web Hosting plan.
+    """
+
     offer_name: str
     """
     Name of the active offer for the Web Hosting plan.
+    """
+
+    domain_status: DomainStatus
+    """
+    Main domain status of the Web Hosting plan.
     """
 
     region: ScwRegion
@@ -828,21 +929,6 @@ class HostingSummary:
     updated_at: Optional[datetime] = None
     """
     Date on which the Web Hosting plan was last updated.
-    """
-
-    domain: Optional[str] = None
-    """
-    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
-    """
-
-    dns_status: Optional[DnsRecordsStatus] = DnsRecordsStatus.UNKNOWN_STATUS
-    """
-    DNS status of the Web Hosting plan.
-    """
-
-    domain_status: Optional[DomainStatus] = DomainStatus.UNKNOWN_STATUS
-    """
-    Main domain status of the Web Hosting plan.
     """
 
     domain_info: Optional[HostingDomain] = None
@@ -1437,29 +1523,29 @@ class DnsApiSyncDomainDnsRecordsRequest:
     Domain for which the DNS records will be synchronized.
     """
 
-    region: Optional[ScwRegion] = None
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    update_web_records: Optional[bool] = False
+    update_web_records: bool
     """
     Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).
     """
 
-    update_mail_records: Optional[bool] = False
+    update_mail_records: bool
     """
     Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).
     """
 
-    update_all_records: Optional[bool] = False
+    update_all_records: bool
     """
     Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns).
     """
 
-    update_nameservers: Optional[bool] = False
+    update_nameservers: bool
     """
     Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     custom_records: Optional[list[SyncDomainDnsRecordsRequestRecord]] = field(
@@ -1492,7 +1578,7 @@ class DnsRecords:
     Status of the records.
     """
 
-    dns_config: Optional[list[DomainDnsAction]] = field(default_factory=list)
+    dns_config: list[DomainDnsAction]
     """
     Records dns auto configuration settings (deprecated, use auto_config_domain_dns).
     """
@@ -1530,7 +1616,7 @@ class Domain:
     A list of actions that can be performed on the domain.
     """
 
-    available_dns_actions: Optional[list[DomainDnsAction]] = field(default_factory=list)
+    available_dns_actions: list[DomainDnsAction]
     """
     A list of DNS-related actions that can be auto configured for the domain (deprecated, use auto_config_domain_dns instead).
     """
@@ -1698,9 +1784,19 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
+    domain: str
+    """
+    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
+    """
+
     tags: list[str]
     """
     List of tags associated with the Web Hosting plan.
+    """
+
+    dns_status: DnsRecordsStatus
+    """
+    DNS status of the Web Hosting plan (deprecated, use domain_info).
     """
 
     ipv4: str
@@ -1711,6 +1807,11 @@ class Hosting:
     protected: bool
     """
     Whether the hosting is protected or not.
+    """
+
+    domain_status: DomainStatus
+    """
+    Main domain status of the Web Hosting plan (deprecated, use domain_info).
     """
 
     region: ScwRegion
@@ -1728,11 +1829,6 @@ class Hosting:
     Date on which the Web Hosting plan was created.
     """
 
-    domain: Optional[str] = None
-    """
-    Main domain associated with the Web Hosting plan (deprecated, use domain_info).
-    """
-
     offer: Optional[Offer] = None
     """
     Details of the Web Hosting plan offer and options.
@@ -1743,24 +1839,19 @@ class Hosting:
     Details of the hosting platform.
     """
 
-    dns_status: Optional[DnsRecordsStatus] = DnsRecordsStatus.UNKNOWN_STATUS
-    """
-    DNS status of the Web Hosting plan (deprecated, use domain_info).
-    """
-
     user: Optional[HostingUser] = None
     """
     Details of the hosting user.
     """
 
-    domain_status: Optional[DomainStatus] = DomainStatus.UNKNOWN_STATUS
-    """
-    Main domain status of the Web Hosting plan (deprecated, use domain_info).
-    """
-
     domain_info: Optional[HostingDomain] = None
     """
     Domain configuration block (subdomain, optional custom domain, and DNS settings).
+    """
+
+    commitment: Optional[HostingCommitment] = None
+    """
+    Commitment details to which the hosting is engaged.
     """
 
 
@@ -1842,6 +1933,11 @@ class HostingApiCreateHostingRequest:
     auto_config_domain_dns: Optional[AutoConfigDomainDns] = None
     """
     Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_update_* fields instead).
+    """
+
+    offer_commitment_id: Optional[str] = None
+    """
+    Offer commitment ID to which the hosting will be engaged.
     """
 
 
@@ -2421,14 +2517,14 @@ class Progress:
 
 @dataclass
 class ResetHostingPasswordResponse:
+    one_time_password: str
+    """
+    New temporary password (deprecated, use password_b64 instead).
+    """
+
     one_time_password_b64: str
     """
     New temporary password, encoded in base64.
-    """
-
-    one_time_password: Optional[str] = None
-    """
-    New temporary password (deprecated, use password_b64 instead).
     """
 
 
@@ -2550,4 +2646,22 @@ class WebsiteApiListWebsitesRequest:
     )
     """
     Sort order for Web Hosting websites in the response.
+    """
+
+
+@dataclass
+class WebsiteApiResetWebsiteRequest:
+    hosting_id: str
+    """
+    Hosting ID to which the website is attached to.
+    """
+
+    domain_name: str
+    """
+    The domain name with which the website is associated.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """

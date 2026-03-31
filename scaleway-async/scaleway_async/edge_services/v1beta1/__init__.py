@@ -20,6 +20,7 @@ from .content import PIPELINE_TRANSIENT_STATUSES
 from .types import PlanName
 from .types import PurgeRequestStatus
 from .content import PURGE_REQUEST_TRANSIENT_STATUSES
+from .types import RuleHttpMatchHostFilterHostFilterType
 from .types import RuleHttpMatchMethodFilter
 from .types import RuleHttpMatchPathFilterPathFilterType
 from .types import SearchBackendStagesRequestOrderBy
@@ -27,6 +28,7 @@ from .types import SearchRouteRulesRequestOrderBy
 from .types import SearchWafStagesRequestOrderBy
 from .types import WafStageMode
 from .types import ScalewayLb
+from .types import RuleHttpMatchHostFilter
 from .types import RuleHttpMatchPathFilter
 from .types import ScalewayLbBackendConfig
 from .types import ScalewayS3BackendConfig
@@ -152,6 +154,7 @@ __all__ = [
     "PlanName",
     "PurgeRequestStatus",
     "PURGE_REQUEST_TRANSIENT_STATUSES",
+    "RuleHttpMatchHostFilterHostFilterType",
     "RuleHttpMatchMethodFilter",
     "RuleHttpMatchPathFilterPathFilterType",
     "SearchBackendStagesRequestOrderBy",
@@ -159,6 +162,7 @@ __all__ = [
     "SearchWafStagesRequestOrderBy",
     "WafStageMode",
     "ScalewayLb",
+    "RuleHttpMatchHostFilter",
     "RuleHttpMatchPathFilter",
     "ScalewayLbBackendConfig",
     "ScalewayS3BackendConfig",

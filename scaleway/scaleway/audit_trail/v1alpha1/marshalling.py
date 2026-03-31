@@ -31,6 +31,7 @@ from .types import (
     AccountUserInfo,
     AppleSiliconRunnerInfo,
     AppleSiliconServerInfo,
+    AuditTrailAlertRuleInfo,
     AuditTrailExportJobInfo,
     BaremetalServerInfo,
     BaremetalSettingInfo,
@@ -43,6 +44,7 @@ from .types import (
     EdgeServicesRouteStageInfo,
     EdgeServicesTLSStageInfo,
     EdgeServicesWAFStageInfo,
+    InstancePrivateNetworkInterfaceInfo,
     InstanceServerInfo,
     IpamIpInfo,
     KeyManagerKeyInfo,
@@ -59,6 +61,7 @@ from .types import (
     LoadBalancerRouteInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
+    VpcConnectorInfo,
     VpcGwGatewayInfo,
     VpcGwGatewayNetworkInfo,
     VpcPrivateNetworkInfo,
@@ -489,6 +492,17 @@ def unmarshal_AppleSiliconServerInfo(data: Any) -> AppleSiliconServerInfo:
     return AppleSiliconServerInfo(**args)
 
 
+def unmarshal_AuditTrailAlertRuleInfo(data: Any) -> AuditTrailAlertRuleInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AuditTrailAlertRuleInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return AuditTrailAlertRuleInfo(**args)
+
+
 def unmarshal_AuditTrailExportJobInfo(data: Any) -> AuditTrailExportJobInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -685,6 +699,37 @@ def unmarshal_EdgeServicesWAFStageInfo(data: Any) -> EdgeServicesWAFStageInfo:
         args["pipeline_id"] = None
 
     return EdgeServicesWAFStageInfo(**args)
+
+
+def unmarshal_InstancePrivateNetworkInterfaceInfo(
+    data: Any,
+) -> InstancePrivateNetworkInterfaceInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InstancePrivateNetworkInterfaceInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
+    field = data.get("server_id", None)
+    if field is not None:
+        args["server_id"] = field
+    else:
+        args["server_id"] = None
+
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+    else:
+        args["security_group_id"] = None
+
+    return InstancePrivateNetworkInterfaceInfo(**args)
 
 
 def unmarshal_InstanceServerInfo(data: Any) -> InstanceServerInfo:
@@ -989,6 +1034,29 @@ def unmarshal_SecretManagerSecretVersionInfo(
         args["revision"] = None
 
     return SecretManagerSecretVersionInfo(**args)
+
+
+def unmarshal_VpcConnectorInfo(data: Any) -> VpcConnectorInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcConnectorInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("target_vpc_id", None)
+    if field is not None:
+        args["target_vpc_id"] = field
+    else:
+        args["target_vpc_id"] = None
+
+    return VpcConnectorInfo(**args)
 
 
 def unmarshal_VpcGwGatewayInfo(data: Any) -> VpcGwGatewayInfo:
@@ -1441,6 +1509,26 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["apple_silicon_runner_info"] = unmarshal_AppleSiliconRunnerInfo(field)
     else:
         args["apple_silicon_runner_info"] = None
+
+    field = data.get("audit_trail_alert_rule_info", None)
+    if field is not None:
+        args["audit_trail_alert_rule_info"] = unmarshal_AuditTrailAlertRuleInfo(field)
+    else:
+        args["audit_trail_alert_rule_info"] = None
+
+    field = data.get("vpc_connector_info", None)
+    if field is not None:
+        args["vpc_connector_info"] = unmarshal_VpcConnectorInfo(field)
+    else:
+        args["vpc_connector_info"] = None
+
+    field = data.get("instance_private_network_interface_info", None)
+    if field is not None:
+        args["instance_private_network_interface_info"] = (
+            unmarshal_InstancePrivateNetworkInterfaceInfo(field)
+        )
+    else:
+        args["instance_private_network_interface_info"] = None
 
     return Resource(**args)
 

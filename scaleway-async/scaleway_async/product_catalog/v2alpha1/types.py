@@ -33,6 +33,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     MANAGED_REDIS_DATABASE = "managed_redis_database"
     KUBERNETES = "kubernetes"
     MANAGED_RELATIONAL_DATABASE = "managed_relational_database"
+    MANAGED_MONGODB = "managed_mongodb"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -83,6 +84,19 @@ class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnum
     ARM64 = "arm64"
     RISCV = "riscv"
     APPLE_SILICON = "apple_silicon"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_STORAGE_CLASS = "unknown_storage_class"
+    SBS_5K = "sbs_5k"
+    SBS_5K_SNAPSHOT = "sbs_5k_snapshot"
+    SBS_15K = "sbs_15k"
+    SBS_15K_SNAPSHOT = "sbs_15k_snapshot"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -342,6 +356,47 @@ class PublicCatalogProductPropertiesKubernetesKosmosNodeType:
 
 
 @dataclass
+class PublicCatalogProductPropertiesLoadBalancerIPV4Type:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesLoadBalancerNodeType:
+    offer_id: str
+    """
+    The offer ID of the Load Balancer product.
+    """
+
+    multi_cloud_provider: bool
+    """
+    Whether the Load Balancer product is available for multi-cloud providers.
+    """
+
+    bandwidth: int
+    """
+    The bandwidth of the Load Balancer product in bits per second.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesManagedMongoDBManagementType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesManagedMongoDBNodeType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesManagedMongoDBStorageType:
+    storage_class: PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass
+    """
+    The type of Storage class.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesManagedRelationalDatabaseManagementType:
     pass
 
@@ -415,12 +470,12 @@ class PublicCatalogProductPropertiesAppleSilicon:
 
 @dataclass
 class PublicCatalogProductPropertiesBlockStorage:
-    min_volume_size: int
+    min_volume_size: Optional[int] = None
     """
     The minimum size of storage volume for this product in bytes. Deprecated.
     """
 
-    max_volume_size: int
+    max_volume_size: Optional[int] = None
     """
     The maximum size of storage volume for this product in bytes. Deprecated.
     """
@@ -525,7 +580,9 @@ class PublicCatalogProductPropertiesKubernetes:
 
 @dataclass
 class PublicCatalogProductPropertiesLoadBalancer:
-    pass
+    node: Optional[PublicCatalogProductPropertiesLoadBalancerNodeType] = None
+
+    ipv4: Optional[PublicCatalogProductPropertiesLoadBalancerIPV4Type] = None
 
 
 @dataclass
@@ -534,6 +591,17 @@ class PublicCatalogProductPropertiesManagedInference:
     """
     The name of the associated instance GPU to this node type.
     """
+
+
+@dataclass
+class PublicCatalogProductPropertiesManagedMongoDB:
+    management: Optional[PublicCatalogProductPropertiesManagedMongoDBManagementType] = (
+        None
+    )
+
+    node: Optional[PublicCatalogProductPropertiesManagedMongoDBNodeType] = None
+
+    storage: Optional[PublicCatalogProductPropertiesManagedMongoDBStorageType] = None
 
 
 @dataclass
@@ -643,6 +711,8 @@ class PublicCatalogProductProperties:
     managed_relational_database: Optional[
         PublicCatalogProductPropertiesManagedRelationalDatabase
     ] = None
+
+    managed_mongodb: Optional[PublicCatalogProductPropertiesManagedMongoDB] = None
 
 
 @dataclass

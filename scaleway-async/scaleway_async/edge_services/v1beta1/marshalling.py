@@ -36,6 +36,7 @@ from .types import (
     WafStage,
     PipelineStages,
     PurgeRequest,
+    RuleHttpMatchHostFilter,
     RuleHttpMatchPathFilter,
     RuleHttpMatch,
     RouteRule,
@@ -405,6 +406,12 @@ def unmarshal_DNSStage(data: Any) -> DNSStage:
     else:
         args["pipeline_id"] = None
 
+    field = data.get("wildcard_domain", None)
+    if field is not None:
+        args["wildcard_domain"] = field
+    else:
+        args["wildcard_domain"] = False
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -571,6 +578,12 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
         args["waf_stage_id"] = field
     else:
         args["waf_stage_id"] = None
+
+    field = data.get("backend_stage_id", None)
+    if field is not None:
+        args["backend_stage_id"] = field
+    else:
+        args["backend_stage_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -862,6 +875,29 @@ def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
     return PurgeRequest(**args)
 
 
+def unmarshal_RuleHttpMatchHostFilter(data: Any) -> RuleHttpMatchHostFilter:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RuleHttpMatchHostFilter' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("host_filter_type", None)
+    if field is not None:
+        args["host_filter_type"] = field
+    else:
+        args["host_filter_type"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    return RuleHttpMatchHostFilter(**args)
+
+
 def unmarshal_RuleHttpMatchPathFilter(data: Any) -> RuleHttpMatchPathFilter:
     if not isinstance(data, dict):
         raise TypeError(
@@ -909,6 +945,12 @@ def unmarshal_RuleHttpMatch(data: Any) -> RuleHttpMatch:
     else:
         args["path_filter"] = None
 
+    field = data.get("host_filter", None)
+    if field is not None:
+        args["host_filter"] = unmarshal_RuleHttpMatchHostFilter(field)
+    else:
+        args["host_filter"] = None
+
     return RuleHttpMatch(**args)
 
 
@@ -943,6 +985,12 @@ def unmarshal_RouteRule(data: Any) -> RouteRule:
         args["backend_stage_id"] = field
     else:
         args["backend_stage_id"] = None
+
+    field = data.get("waf_stage_id", None)
+    if field is not None:
+        args["waf_stage_id"] = field
+    else:
+        args["waf_stage_id"] = None
 
     return RouteRule(**args)
 
@@ -1060,6 +1108,12 @@ def unmarshal_PlanDetails(data: Any) -> PlanDetails:
         args["backend_limit"] = field
     else:
         args["backend_limit"] = 0
+
+    field = data.get("wildcard_domain", None)
+    if field is not None:
+        args["wildcard_domain"] = field
+    else:
+        args["wildcard_domain"] = False
 
     return PlanDetails(**args)
 
@@ -1567,6 +1621,21 @@ def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
     return SetRouteRulesResponse(**args)
 
 
+def marshal_RuleHttpMatchHostFilter(
+    request: RuleHttpMatchHostFilter,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.host_filter_type is not None:
+        output["host_filter_type"] = request.host_filter_type
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    return output
+
+
 def marshal_RuleHttpMatchPathFilter(
     request: RuleHttpMatchPathFilter,
     defaults: ProfileDefaults,
@@ -1596,6 +1665,11 @@ def marshal_RuleHttpMatch(
             request.path_filter, defaults
         )
 
+    if request.host_filter is not None:
+        output["host_filter"] = marshal_RuleHttpMatchHostFilter(
+            request.host_filter, defaults
+        )
+
     return output
 
 
@@ -1622,6 +1696,9 @@ def marshal_SetRouteRulesRequestRouteRule(
                     param="backend_stage_id",
                     value=request.backend_stage_id,
                     marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
                 ),
             ]
         ),
@@ -1927,6 +2004,9 @@ def marshal_CreateDNSStageRequest(
     if request.fqdns is not None:
         output["fqdns"] = request.fqdns
 
+    if request.wildcard_domain is not None:
+        output["wildcard_domain"] = request.wildcard_domain
+
     return output
 
 
@@ -1982,6 +2062,11 @@ def marshal_CreateRouteStageRequest(
             [
                 OneOfPossibility(
                     param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
                 ),
             ]
         ),
@@ -2275,6 +2360,9 @@ def marshal_UpdateDNSStageRequest(
     if request.fqdns is not None:
         output["fqdns"] = request.fqdns
 
+    if request.wildcard_domain is not None:
+        output["wildcard_domain"] = request.wildcard_domain
+
     return output
 
 
@@ -2303,6 +2391,11 @@ def marshal_UpdateRouteStageRequest(
             [
                 OneOfPossibility(
                     param="waf_stage_id", value=request.waf_stage_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="backend_stage_id",
+                    value=request.backend_stage_id,
+                    marshal_func=None,
                 ),
             ]
         ),

@@ -459,7 +459,7 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     if field is not None:
         args["vpc_integration_activated"] = field
     else:
-        args["vpc_integration_activated"] = False
+        args["vpc_integration_activated"] = None
 
     return Namespace(**args)
 

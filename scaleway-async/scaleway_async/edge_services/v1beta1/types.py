@@ -135,6 +135,8 @@ class PipelineErrorCode(str, Enum, metaclass=StrEnumMeta):
     TLS_KEY_TOO_MANY = "tls_key_too_many"
     TLS_MANAGED_DOMAIN_RATE_LIMIT = "tls_managed_domain_rate_limit"
     TLS_MANAGED_INTERNAL = "tls_managed_internal"
+    TLS_MANAGED_UNSUPPORTED = "tls_managed_unsupported"
+    TLS_NOT_WILDCARD = "tls_not_wildcard"
     TLS_PAIR_MISMATCH = "tls_pair_mismatch"
     TLS_ROOT_INCONSISTENT = "tls_root_inconsistent"
     TLS_ROOT_INCORRECT = "tls_root_incorrect"
@@ -206,6 +208,14 @@ class PurgeRequestStatus(str, Enum, metaclass=StrEnumMeta):
     DONE = "done"
     ERROR = "error"
     PENDING = "pending"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RuleHttpMatchHostFilterHostFilterType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_HOST_FILTER = "unknown_host_filter"
+    REGEX = "regex"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -301,6 +311,12 @@ class ScalewayLb:
 
 
 @dataclass
+class RuleHttpMatchHostFilter:
+    host_filter_type: RuleHttpMatchHostFilterHostFilterType
+    value: str
+
+
+@dataclass
 class RuleHttpMatchPathFilter:
     path_filter_type: RuleHttpMatchPathFilterPathFilterType
     """
@@ -391,6 +407,11 @@ class RuleHttpMatch:
     path_filter: Optional[RuleHttpMatchPathFilter] = None
     """
     HTTP URL path to filter for. A request whose path matches the given filter will be considered to match the rule. All paths will match if none is provided.
+    """
+
+    host_filter: Optional[RuleHttpMatchHostFilter] = None
+    """
+    Host to filter for. A request whose host matches the given filter will be considered to match the rule. All hosts will match if none is provided.
     """
 
 
@@ -495,6 +516,11 @@ class DNSStage:
     Pipeline ID the DNS stage belongs to.
     """
 
+    wildcard_domain: bool
+    """
+    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the DNS stage was created.
@@ -584,6 +610,8 @@ class RouteStage:
 
     waf_stage_id: Optional[str] = None
 
+    backend_stage_id: Optional[str] = None
+
 
 @dataclass
 class TLSStage:
@@ -672,6 +700,8 @@ class SetRouteRulesRequestRouteRule:
 
     backend_stage_id: Optional[str] = None
 
+    waf_stage_id: Optional[str] = None
+
 
 @dataclass
 class RouteRule:
@@ -688,6 +718,8 @@ class RouteRule:
     rule_http_match: Optional[RuleHttpMatch] = None
 
     backend_stage_id: Optional[str] = None
+
+    waf_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -721,6 +753,11 @@ class PlanDetails:
     backend_limit: int
     """
     Number of backends per pipeline included in subscription plan.
+    """
+
+    wildcard_domain: bool
+    """
+    Support of wildcard subdomains for the customized domain.
     """
 
 
@@ -929,6 +966,11 @@ class CreateDNSStageRequest:
     Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
     """
 
+    wildcard_domain: Optional[bool] = False
+    """
+    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
+    """
+
     tls_stage_id: Optional[str] = None
 
     cache_stage_id: Optional[str] = None
@@ -974,6 +1016,8 @@ class CreateRouteStageRequest:
     """
 
     waf_stage_id: Optional[str] = None
+
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass
@@ -1803,6 +1847,11 @@ class UpdateDNSStageRequest:
     Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage.
     """
 
+    wildcard_domain: Optional[bool] = False
+    """
+    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
+    """
+
     tls_stage_id: Optional[str] = None
 
     cache_stage_id: Optional[str] = None
@@ -1836,6 +1885,8 @@ class UpdateRouteStageRequest:
     """
 
     waf_stage_id: Optional[str] = None
+
+    backend_stage_id: Optional[str] = None
 
 
 @dataclass

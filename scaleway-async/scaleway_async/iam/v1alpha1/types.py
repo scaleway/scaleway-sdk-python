@@ -792,9 +792,9 @@ class Quotum:
     Limits per locality.
     """
 
-    limit: Optional[int] = 0
+    limit: Optional[int] = None
 
-    unlimited: Optional[bool] = False
+    unlimited: Optional[bool] = None
 
 
 @dataclass
@@ -1012,12 +1012,12 @@ class User:
     Date of the last login.
     """
 
-    two_factor_enabled: Optional[bool] = False
+    two_factor_enabled: Optional[bool] = None
     """
     Deprecated, use "mfa" instead.
     """
 
-    status: Optional[UserStatus] = UserStatus.UNKNOWN_STATUS
+    status: Optional[UserStatus] = None
     """
     Status of user invitation.
     """
@@ -1551,6 +1551,14 @@ class GetSSHKeyRequest:
     ssh_key_id: str
     """
     ID of the SSH key.
+    """
+
+
+@dataclass
+class GetSamlCertificateRequest:
+    certificate_id: str
+    """
+    ID of the certificate to get.
     """
 
 

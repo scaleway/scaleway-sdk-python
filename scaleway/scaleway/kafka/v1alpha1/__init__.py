@@ -14,6 +14,8 @@ from .types import VersionAvailableSettingIntegerProperty
 from .types import VersionAvailableSettingStringProperty
 from .types import EndpointSpecPrivateNetworkDetails
 from .types import EndpointSpecPublicDetails
+from .types import ClusterMonoAZDetails
+from .types import ClusterMultiAZDetails
 from .types import ClusterSetting
 from .types import Endpoint
 from .types import Volume
@@ -59,6 +61,8 @@ __all__ = [
     "VersionAvailableSettingStringProperty",
     "EndpointSpecPrivateNetworkDetails",
     "EndpointSpecPublicDetails",
+    "ClusterMonoAZDetails",
+    "ClusterMultiAZDetails",
     "ClusterSetting",
     "Endpoint",
     "Volume",

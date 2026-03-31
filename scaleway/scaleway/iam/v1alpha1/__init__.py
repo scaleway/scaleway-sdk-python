@@ -89,6 +89,7 @@ from .types import GetOrganizationSecuritySettingsRequest
 from .types import GetPolicyRequest
 from .types import GetQuotumRequest
 from .types import GetSSHKeyRequest
+from .types import GetSamlCertificateRequest
 from .types import GetUserConnectionsRequest
 from .types import GetUserConnectionsResponse
 from .types import GetUserRequest
@@ -248,6 +249,7 @@ __all__ = [
     "GetPolicyRequest",
     "GetQuotumRequest",
     "GetSSHKeyRequest",
+    "GetSamlCertificateRequest",
     "GetUserConnectionsRequest",
     "GetUserConnectionsResponse",
     "GetUserRequest",

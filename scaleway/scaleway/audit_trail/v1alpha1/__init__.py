@@ -22,6 +22,7 @@ from .types import AccountProjectInfo
 from .types import AccountUserInfo
 from .types import AppleSiliconRunnerInfo
 from .types import AppleSiliconServerInfo
+from .types import AuditTrailAlertRuleInfo
 from .types import AuditTrailExportJobInfo
 from .types import BaremetalServerInfo
 from .types import BaremetalSettingInfo
@@ -34,6 +35,7 @@ from .types import EdgeServicesRouteRulesInfo
 from .types import EdgeServicesRouteStageInfo
 from .types import EdgeServicesTLSStageInfo
 from .types import EdgeServicesWAFStageInfo
+from .types import InstancePrivateNetworkInterfaceInfo
 from .types import InstanceServerInfo
 from .types import IpamIpInfo
 from .types import KeyManagerKeyInfo
@@ -50,6 +52,7 @@ from .types import LoadBalancerLbInfo
 from .types import LoadBalancerRouteInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
+from .types import VpcConnectorInfo
 from .types import VpcGwGatewayInfo
 from .types import VpcGwGatewayNetworkInfo
 from .types import VpcPrivateNetworkInfo
@@ -114,6 +117,7 @@ __all__ = [
     "AccountUserInfo",
     "AppleSiliconRunnerInfo",
     "AppleSiliconServerInfo",
+    "AuditTrailAlertRuleInfo",
     "AuditTrailExportJobInfo",
     "BaremetalServerInfo",
     "BaremetalSettingInfo",
@@ -126,6 +130,7 @@ __all__ = [
     "EdgeServicesRouteStageInfo",
     "EdgeServicesTLSStageInfo",
     "EdgeServicesWAFStageInfo",
+    "InstancePrivateNetworkInterfaceInfo",
     "InstanceServerInfo",
     "IpamIpInfo",
     "KeyManagerKeyInfo",
@@ -142,6 +147,7 @@ __all__ = [
     "LoadBalancerRouteInfo",
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
+    "VpcConnectorInfo",
     "VpcGwGatewayInfo",
     "VpcGwGatewayNetworkInfo",
     "VpcPrivateNetworkInfo",

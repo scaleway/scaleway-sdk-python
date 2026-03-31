@@ -319,7 +319,7 @@ class DeleteTagRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    force: Optional[bool] = False
+    force: Optional[bool] = None
     """
     If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
     """

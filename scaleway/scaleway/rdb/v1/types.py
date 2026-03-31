@@ -193,6 +193,7 @@ class NodeTypeGeneration(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_GENERATION = "unknown_generation"
     GENERATION_V1 = "generation_v1"
     GENERATION_V2 = "generation_v2"
+    GENERATION_V3 = "generation_v3"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1031,7 +1032,7 @@ class NodeType:
     [deprecated] Node Type volume constraints.
     """
 
-    is_bssd_compatible: Optional[bool] = False
+    is_bssd_compatible: Optional[bool] = None
     """
     The Node Type is compliant with Block Storage.
     """

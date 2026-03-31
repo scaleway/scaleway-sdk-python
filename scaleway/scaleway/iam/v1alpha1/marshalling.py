@@ -21,7 +21,6 @@ from .types import (
     SamlCertificateOrigin,
     SamlCertificateType,
     SamlStatus,
-    UserStatus,
     UserType,
     JWT,
     APIKey,
@@ -685,13 +684,13 @@ def unmarshal_Quotum(data: Any) -> Quotum:
     if field is not None:
         args["limit"] = field
     else:
-        args["limit"] = 0
+        args["limit"] = None
 
     field = data.get("unlimited", None)
     if field is not None:
         args["unlimited"] = field
     else:
-        args["unlimited"] = False
+        args["unlimited"] = None
 
     return Quotum(**args)
 
@@ -955,13 +954,13 @@ def unmarshal_User(data: Any) -> User:
     if field is not None:
         args["two_factor_enabled"] = field
     else:
-        args["two_factor_enabled"] = False
+        args["two_factor_enabled"] = None
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = UserStatus.UNKNOWN_STATUS
+        args["status"] = None
 
     return User(**args)
 
