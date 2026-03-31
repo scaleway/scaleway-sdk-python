@@ -926,6 +926,9 @@ def marshal_UpdateClusterRequest(
     if request.tags is not None:
         output["tags"] = request.tags
 
+    if request.version is not None:
+        output["version"] = request.version
+
     return output
 
 
