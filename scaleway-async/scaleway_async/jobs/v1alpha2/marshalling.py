@@ -10,6 +10,8 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    JobRunReason,
+    JobRunState,
     SecretEnvVar,
     SecretFile,
     Secret,
@@ -194,19 +196,19 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     if field is not None:
         args["cpu_limit"] = field
     else:
-        args["cpu_limit"] = None
+        args["cpu_limit"] = 0
 
     field = data.get("memory_limit", None)
     if field is not None:
         args["memory_limit"] = field
     else:
-        args["memory_limit"] = None
+        args["memory_limit"] = 0
 
     field = data.get("local_storage_capacity", None)
     if field is not None:
         args["local_storage_capacity"] = field
     else:
-        args["local_storage_capacity"] = None
+        args["local_storage_capacity"] = 0
 
     field = data.get("image_uri", None)
     if field is not None:
@@ -218,7 +220,7 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     if field is not None:
         args["environment_variables"] = field
     else:
-        args["environment_variables"] = None
+        args["environment_variables"] = {}
 
     field = data.get("created_at", None)
     if field is not None:
@@ -254,13 +256,13 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     if field is not None:
         args["startup_command"] = field
     else:
-        args["startup_command"] = None
+        args["startup_command"] = []
 
     field = data.get("args", None)
     if field is not None:
         args["args"] = field
     else:
-        args["args"] = None
+        args["args"] = []
 
     field = data.get("region", None)
     if field is not None:
@@ -307,13 +309,13 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     if field is not None:
         args["state"] = field
     else:
-        args["state"] = None
+        args["state"] = JobRunState.UNKNOWN_STATE
 
     field = data.get("cpu_limit", None)
     if field is not None:
         args["cpu_limit"] = field
     else:
-        args["cpu_limit"] = None
+        args["cpu_limit"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -337,31 +339,31 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     if field is not None:
         args["memory_limit"] = field
     else:
-        args["memory_limit"] = None
+        args["memory_limit"] = 0
 
     field = data.get("local_storage_capacity", None)
     if field is not None:
         args["local_storage_capacity"] = field
     else:
-        args["local_storage_capacity"] = None
+        args["local_storage_capacity"] = 0
 
     field = data.get("environment_variables", None)
     if field is not None:
         args["environment_variables"] = field
     else:
-        args["environment_variables"] = None
+        args["environment_variables"] = {}
 
     field = data.get("startup_command", None)
     if field is not None:
         args["startup_command"] = field
     else:
-        args["startup_command"] = None
+        args["startup_command"] = []
 
     field = data.get("args", None)
     if field is not None:
         args["args"] = field
     else:
-        args["args"] = None
+        args["args"] = []
 
     field = data.get("region", None)
     if field is not None:
@@ -387,13 +389,13 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     if field is not None:
         args["reason"] = field
     else:
-        args["reason"] = None
+        args["reason"] = JobRunReason.UNKNOWN_REASON
 
     field = data.get("exit_code", None)
     if field is not None:
         args["exit_code"] = field
     else:
-        args["exit_code"] = None
+        args["exit_code"] = 0
 
     field = data.get("error_message", None)
     if field is not None:
@@ -411,7 +413,7 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     if field is not None:
         args["attempts"] = field
     else:
-        args["attempts"] = None
+        args["attempts"] = 0
 
     return JobRun(**args)
 
