@@ -732,6 +732,11 @@ class UpdateClusterRequest:
     Tags of a Kafka Cluster.
     """
 
+    version: Optional[str] = None
+    """
+    Version of Kafka.
+    """
+
 
 @dataclass
 class UpdateUserRequest:
