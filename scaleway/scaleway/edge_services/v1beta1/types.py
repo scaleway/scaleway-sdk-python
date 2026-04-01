@@ -857,7 +857,7 @@ class AddRouteRulesRequest:
         default_factory=list
     )
     """
-    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
+    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the stage defined by `waf_stage_id` or `backend_stage_id`.
     """
 
     after_position: Optional[int] = 0
@@ -869,7 +869,7 @@ class AddRouteRulesRequest:
 class AddRouteRulesResponse:
     route_rules: list[RouteRule]
     """
-    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
+    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the stage defined by `waf_stage_id` or `backend_stage_id`.
     """
 
 
@@ -1577,7 +1577,7 @@ class ListRouteRulesRequest:
 class ListRouteRulesResponse:
     route_rules: list[RouteRule]
     """
-    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
+    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the stage defined by `waf_stage_id` or `backend_stage_id`.
     """
 
     total_count: int
@@ -1774,7 +1774,7 @@ class SetRouteRulesRequest:
         default_factory=list
     )
     """
-    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
+    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the stage defined by `waf_stage_id` or `backend_stage_id`.
     """
 
 
@@ -1782,7 +1782,7 @@ class SetRouteRulesRequest:
 class SetRouteRulesResponse:
     route_rules: list[RouteRule]
     """
-    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
+    List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the stage defined by `waf_stage_id` or `backend_stage_id`.
     """
 
 
