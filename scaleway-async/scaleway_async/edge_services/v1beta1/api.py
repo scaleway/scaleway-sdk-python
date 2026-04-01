@@ -2015,11 +2015,11 @@ class EdgeServicesV1Beta1API(API):
     ) -> RouteStage:
         """
         Create route stage.
-        Create a new route stage. You must specify the `waf_stage_id` field to customize the route.
+        Create a new route stage. You must specify the `waf_stage_id` or `backend_stage_id` fields to customize the route.
         :param pipeline_id: Pipeline ID the route stage belongs to.
         :param waf_stage_id: ID of the WAF stage HTTP requests should be forwarded to when no rules are matched.
         One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
-        :param backend_stage_id:
+        :param backend_stage_id: ID of the backend stage HTTP requests should be forwarded to when no rules are matched.
         One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
         :return: :class:`RouteStage <RouteStage>`
 
@@ -2091,7 +2091,7 @@ class EdgeServicesV1Beta1API(API):
         :param route_stage_id: ID of the route stage to update.
         :param waf_stage_id: ID of the WAF stage HTTP requests should be forwarded to when no rules are matched.
         One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
-        :param backend_stage_id:
+        :param backend_stage_id: ID of the backend stage HTTP requests should be forwarded to when no rules are matched.
         One-Of ('next'): at most one of 'waf_stage_id', 'backend_stage_id' could be set.
         :return: :class:`RouteStage <RouteStage>`
 
@@ -2187,7 +2187,7 @@ class EdgeServicesV1Beta1API(API):
         Set route rules.
         Set the rules of an existing route stage, specified by its `route_stage_id`.
         :param route_stage_id: ID of the route stage to update.
-        :param route_rules: List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
+        :param route_rules: List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the stage defined by `waf_stage_id` or `backend_stage_id`.
         :return: :class:`SetRouteRulesResponse <SetRouteRulesResponse>`
 
         Usage:
@@ -2227,7 +2227,7 @@ class EdgeServicesV1Beta1API(API):
         Add route rules.
         Add route rules to an existing route stage, specified by its `route_stage_id`.
         :param route_stage_id: ID of the route stage to update.
-        :param route_rules: List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the WAF stage defined by `waf_stage_id`.
+        :param route_rules: List of rules to be checked against every HTTP request. The first matching rule will forward the request to its specified backend stage. If no rules are matched, the request is forwarded to the stage defined by `waf_stage_id` or `backend_stage_id`.
         :param after_position: Add rules after the given position.
         One-Of ('position'): at most one of 'after_position', 'before_position' could be set.
         :param before_position: Add rules before the given position.
