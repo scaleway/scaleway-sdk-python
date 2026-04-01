@@ -274,6 +274,18 @@ def unmarshal_ClusterAutoscalerConfig(data: Any) -> ClusterAutoscalerConfig:
     else:
         args["max_graceful_termination_sec"] = 0
 
+    field = data.get("skip_nodes_with_local_storage", None)
+    if field is not None:
+        args["skip_nodes_with_local_storage"] = field
+    else:
+        args["skip_nodes_with_local_storage"] = False
+
+    field = data.get("log_level", None)
+    if field is not None:
+        args["log_level"] = field
+    else:
+        args["log_level"] = 0
+
     return ClusterAutoscalerConfig(**args)
 
 
@@ -1623,6 +1635,12 @@ def marshal_CreateClusterRequestAutoscalerConfig(
     if request.max_graceful_termination_sec is not None:
         output["max_graceful_termination_sec"] = request.max_graceful_termination_sec
 
+    if request.skip_nodes_with_local_storage is not None:
+        output["skip_nodes_with_local_storage"] = request.skip_nodes_with_local_storage
+
+    if request.log_level is not None:
+        output["log_level"] = request.log_level
+
     return output
 
 
@@ -2040,6 +2058,12 @@ def marshal_UpdateClusterRequestAutoscalerConfig(
 
     if request.max_graceful_termination_sec is not None:
         output["max_graceful_termination_sec"] = request.max_graceful_termination_sec
+
+    if request.skip_nodes_with_local_storage is not None:
+        output["skip_nodes_with_local_storage"] = request.skip_nodes_with_local_storage
+
+    if request.log_level is not None:
+        output["log_level"] = request.log_level
 
     return output
 
