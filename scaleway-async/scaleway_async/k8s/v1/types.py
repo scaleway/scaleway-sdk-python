@@ -319,6 +319,16 @@ class ClusterAutoscalerConfig:
     Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
     """
 
+    skip_nodes_with_local_storage: bool
+    """
+    Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true.
+    """
+
+    log_level: int
+    """
+    Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details.
+    """
+
 
 @dataclass
 class ClusterOpenIDConnectConfig:
@@ -456,6 +466,16 @@ class CreateClusterRequestAutoscalerConfig:
     max_graceful_termination_sec: Optional[int] = 0
     """
     Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
+    """
+
+    skip_nodes_with_local_storage: Optional[bool] = False
+    """
+    Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true.
+    """
+
+    log_level: Optional[int] = 0
+    """
+    Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details.
     """
 
 
@@ -1154,6 +1174,16 @@ class UpdateClusterRequestAutoscalerConfig:
     max_graceful_termination_sec: Optional[int] = 0
     """
     Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes).
+    """
+
+    skip_nodes_with_local_storage: Optional[bool] = False
+    """
+    Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true.
+    """
+
+    log_level: Optional[int] = 0
+    """
+    Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details.
     """
 
 
