@@ -20,7 +20,9 @@ from .types import (
     Attachment,
     CreateFileSystemRequest,
     FileSystem,
+    FileSystemType,
     ListAttachmentsResponse,
+    ListFileSystemTypesResponse,
     ListFileSystemsResponse,
     UpdateFileSystemRequest,
 )
@@ -30,6 +32,7 @@ from .content import (
 from .marshalling import (
     unmarshal_FileSystem,
     unmarshal_ListAttachmentsResponse,
+    unmarshal_ListFileSystemTypesResponse,
     unmarshal_ListFileSystemsResponse,
     marshal_CreateFileSystemRequest,
     marshal_UpdateFileSystemRequest,
@@ -40,6 +43,73 @@ class FileV1Alpha1API(API):
     """
     This API allows you to manage your File Storage resources.
     """
+
+    async def list_file_system_types(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListFileSystemTypesResponse:
+        """
+        List filesystems types.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number (starts at 1).
+        :param page_size: Number of entries per page (default: 50, max: 100).
+        :return: :class:`ListFileSystemTypesResponse <ListFileSystemTypesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_file_system_types()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/file/v1alpha1/regions/{param_region}/filesystem-types",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListFileSystemTypesResponse(res.json())
+
+    async def list_file_system_types_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[FileSystemType]:
+        """
+        List filesystems types.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number (starts at 1).
+        :param page_size: Number of entries per page (default: 50, max: 100).
+        :return: :class:`list[FileSystemType] <list[FileSystemType]>`
+
+        Usage:
+        ::
+
+            result = await api.list_file_system_types_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListFileSystemTypesResponse,
+            key="filesystem_types",
+            fetcher=self.list_file_system_types,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
 
     async def get_file_system(
         self,
@@ -124,6 +194,7 @@ class FileV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
+        filesystem_type: Optional[str] = None,
         tags: Optional[list[str]] = None,
         filesystem_ids: Optional[list[str]] = None,
     ) -> ListFileSystemsResponse:
@@ -137,6 +208,7 @@ class FileV1Alpha1API(API):
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
         :param name: Filter the returned filesystems by their names.
+        :param filesystem_type: Type of the filesystem.
         :param tags: Filter by tags. Only filesystems with one or more matching tags will be returned.
         :param filesystem_ids: Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned.
         :return: :class:`ListFileSystemsResponse <ListFileSystemsResponse>`
@@ -156,6 +228,7 @@ class FileV1Alpha1API(API):
             f"/file/v1alpha1/regions/{param_region}/filesystems",
             params={
                 "filesystem_ids": filesystem_ids,
+                "filesystem_type": filesystem_type,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -180,6 +253,7 @@ class FileV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
+        filesystem_type: Optional[str] = None,
         tags: Optional[list[str]] = None,
         filesystem_ids: Optional[list[str]] = None,
     ) -> list[FileSystem]:
@@ -193,6 +267,7 @@ class FileV1Alpha1API(API):
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
         :param name: Filter the returned filesystems by their names.
+        :param filesystem_type: Type of the filesystem.
         :param tags: Filter by tags. Only filesystems with one or more matching tags will be returned.
         :param filesystem_ids: Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned.
         :return: :class:`list[FileSystem] <list[FileSystem]>`
@@ -215,6 +290,7 @@ class FileV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "name": name,
+                "filesystem_type": filesystem_type,
                 "tags": tags,
                 "filesystem_ids": filesystem_ids,
             },
@@ -322,6 +398,7 @@ class FileV1Alpha1API(API):
         size: int,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
+        type_: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> FileSystem:
         """
@@ -331,6 +408,7 @@ class FileV1Alpha1API(API):
         :param size: Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: UUID of the project the filesystem belongs to.
+        :param type_: Type of the filesystem.
         :param tags: List of tags assigned to the filesystem.
         :return: :class:`FileSystem <FileSystem>`
 
@@ -356,6 +434,7 @@ class FileV1Alpha1API(API):
                     size=size,
                     region=region,
                     project_id=project_id,
+                    type_=type_,
                     tags=tags,
                 ),
                 self.client,

@@ -5,12 +5,17 @@ from typing import Any
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.bridge import (
+    unmarshal_Money,
+)
 from .types import (
     AttachmentResourceType,
     FileSystemStatus,
     FileSystem,
     Attachment,
     ListAttachmentsResponse,
+    FileSystemType,
+    ListFileSystemTypesResponse,
     ListFileSystemsResponse,
     CreateFileSystemRequest,
     UpdateFileSystemRequest,
@@ -78,6 +83,12 @@ def unmarshal_FileSystem(data: Any) -> FileSystem:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("filesystem_type_id", None)
+    if field is not None:
+        args["filesystem_type_id"] = field
+    else:
+        args["filesystem_type_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -160,6 +171,60 @@ def unmarshal_ListAttachmentsResponse(data: Any) -> ListAttachmentsResponse:
     return ListAttachmentsResponse(**args)
 
 
+def unmarshal_FileSystemType(data: Any) -> FileSystemType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'FileSystemType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("filesystem_price_gb_per_hour", None)
+    if field is not None:
+        args["filesystem_price_gb_per_hour"] = unmarshal_Money(field)
+    else:
+        args["filesystem_price_gb_per_hour"] = None
+
+    field = data.get("snapshot_price_gb_per_hour", None)
+    if field is not None:
+        args["snapshot_price_gb_per_hour"] = unmarshal_Money(field)
+    else:
+        args["snapshot_price_gb_per_hour"] = None
+
+    return FileSystemType(**args)
+
+
+def unmarshal_ListFileSystemTypesResponse(data: Any) -> ListFileSystemTypesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListFileSystemTypesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("filesystem_types", None)
+    if field is not None:
+        args["filesystem_types"] = (
+            [unmarshal_FileSystemType(v) for v in field] if field is not None else None
+        )
+    else:
+        args["filesystem_types"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListFileSystemTypesResponse(**args)
+
+
 def unmarshal_ListFileSystemsResponse(data: Any) -> ListFileSystemsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -201,6 +266,9 @@ def marshal_CreateFileSystemRequest(
         output["project_id"] = request.project_id
     else:
         output["project_id"] = defaults.default_project_id
+
+    if request.type_ is not None:
+        output["type"] = request.type_
 
     if request.tags is not None:
         output["tags"] = request.tags

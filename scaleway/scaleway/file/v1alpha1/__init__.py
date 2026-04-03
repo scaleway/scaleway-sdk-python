@@ -5,12 +5,15 @@ from .types import FileSystemStatus
 from .content import FILE_SYSTEM_TRANSIENT_STATUSES
 from .types import ListFileSystemsRequestOrderBy
 from .types import Attachment
+from .types import FileSystemType
 from .types import FileSystem
 from .types import CreateFileSystemRequest
 from .types import DeleteFileSystemRequest
 from .types import GetFileSystemRequest
 from .types import ListAttachmentsRequest
 from .types import ListAttachmentsResponse
+from .types import ListFileSystemTypesRequest
+from .types import ListFileSystemTypesResponse
 from .types import ListFileSystemsRequest
 from .types import ListFileSystemsResponse
 from .types import UpdateFileSystemRequest
@@ -22,12 +25,15 @@ __all__ = [
     "FILE_SYSTEM_TRANSIENT_STATUSES",
     "ListFileSystemsRequestOrderBy",
     "Attachment",
+    "FileSystemType",
     "FileSystem",
     "CreateFileSystemRequest",
     "DeleteFileSystemRequest",
     "GetFileSystemRequest",
     "ListAttachmentsRequest",
     "ListAttachmentsResponse",
+    "ListFileSystemTypesRequest",
+    "ListFileSystemTypesResponse",
     "ListFileSystemsRequest",
     "ListFileSystemsResponse",
     "UpdateFileSystemRequest",
