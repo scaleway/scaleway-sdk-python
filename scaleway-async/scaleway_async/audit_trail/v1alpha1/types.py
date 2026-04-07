@@ -211,6 +211,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     MONGODB_INSTANCE = "mongodb_instance"
     MONGODB_INSTANCE_SNAPSHOT = "mongodb_instance_snapshot"
     MONGODB_INSTANCE_ENDPOINT = "mongodb_instance_endpoint"
+    MONGODB_INSTANCE_MAINTENANCE = "mongodb_instance_maintenance"
     APPLE_SILICON_RUNNER = "apple_silicon_runner"
     AUDIT_TRAIL_ALERT_RULE = "audit_trail_alert_rule"
 
