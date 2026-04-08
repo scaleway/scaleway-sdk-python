@@ -845,6 +845,11 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
     The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
     """
 
+    api_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter products by API IDs. Each ID is matched against product-specific identifiers: `dedibox.offer_id` (converted to string), `elastic_metal.offer_id`, `apple_silicon.server_type`, `instance.offer_id`, and `load_balancer.node.offer_id`. Products that do not support API ID filtering are excluded from the results. If empty, no filtering is applied.
+    """
+
     global_: Optional[bool] = False
 
     region: Optional[ScwRegion] = None
