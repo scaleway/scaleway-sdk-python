@@ -19,6 +19,7 @@ from .types import (
     PurgeRequestStatus,
     RuleHttpMatchMethodFilter,
     RuleHttpMatchPathFilterPathFilterType,
+    StageStatus,
     WafStageMode,
     ScalewayLb,
     ScalewayLbBackendConfig,
@@ -260,6 +261,12 @@ def unmarshal_BackendStage(data: Any) -> BackendStage:
     else:
         args["pipeline_id"] = None
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = StageStatus.UNKNOWN_STATUS
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -329,6 +336,12 @@ def unmarshal_CacheStage(data: Any) -> CacheStage:
     else:
         args["include_cookies"] = False
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = StageStatus.UNKNOWN_STATUS
+
     field = data.get("fallback_ttl", None)
     if field is not None:
         args["fallback_ttl"] = field
@@ -347,17 +360,17 @@ def unmarshal_CacheStage(data: Any) -> CacheStage:
     else:
         args["updated_at"] = None
 
-    field = data.get("backend_stage_id", None)
-    if field is not None:
-        args["backend_stage_id"] = field
-    else:
-        args["backend_stage_id"] = None
-
     field = data.get("waf_stage_id", None)
     if field is not None:
         args["waf_stage_id"] = field
     else:
         args["waf_stage_id"] = None
+
+    field = data.get("backend_stage_id", None)
+    if field is not None:
+        args["backend_stage_id"] = field
+    else:
+        args["backend_stage_id"] = None
 
     field = data.get("route_stage_id", None)
     if field is not None:
@@ -405,6 +418,12 @@ def unmarshal_DNSStage(data: Any) -> DNSStage:
         args["pipeline_id"] = field
     else:
         args["pipeline_id"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = StageStatus.UNKNOWN_STATUS
 
     field = data.get("wildcard_domain", None)
     if field is not None:
@@ -573,6 +592,12 @@ def unmarshal_RouteStage(data: Any) -> RouteStage:
     else:
         args["pipeline_id"] = None
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = StageStatus.UNKNOWN_STATUS
+
     field = data.get("waf_stage_id", None)
     if field is not None:
         args["waf_stage_id"] = field
@@ -657,6 +682,12 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
     else:
         args["pipeline_id"] = None
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = StageStatus.UNKNOWN_STATUS
+
     field = data.get("certificate_expires_at", None)
     if field is not None:
         args["certificate_expires_at"] = (
@@ -735,6 +766,12 @@ def unmarshal_WafStage(data: Any) -> WafStage:
         args["paranoia_level"] = field
     else:
         args["paranoia_level"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = StageStatus.UNKNOWN_STATUS
 
     field = data.get("created_at", None)
     if field is not None:
