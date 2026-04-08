@@ -267,6 +267,15 @@ class SearchWafStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class StageStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    INACTIVE = "inactive"
+    ACTIVE = "active"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class WafStageMode(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_MODE = "unknown_mode"
     DISABLE = "disable"
@@ -427,6 +436,11 @@ class BackendStage:
     Pipeline ID the backend stage belongs to.
     """
 
+    status: StageStatus
+    """
+    Current status of the stage.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the backend stage was created.
@@ -467,6 +481,11 @@ class CacheStage:
     Defines whether responses to requests with cookies must be stored in the cache.
     """
 
+    status: StageStatus
+    """
+    Current status of the stage.
+    """
+
     fallback_ttl: Optional[str] = None
     """
     Time To Live (TTL) in seconds. Defines how long content is cached.
@@ -482,9 +501,9 @@ class CacheStage:
     Date the cache stage was last updated.
     """
 
-    backend_stage_id: Optional[str] = None
-
     waf_stage_id: Optional[str] = None
+
+    backend_stage_id: Optional[str] = None
 
     route_stage_id: Optional[str] = None
 
@@ -514,6 +533,11 @@ class DNSStage:
     pipeline_id: str
     """
     Pipeline ID the DNS stage belongs to.
+    """
+
+    status: StageStatus
+    """
+    Current status of the stage.
     """
 
     wildcard_domain: bool
@@ -598,6 +622,11 @@ class RouteStage:
     Pipeline ID the route stage belongs to.
     """
 
+    status: StageStatus
+    """
+    Current status of the stage.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the route stage was created.
@@ -633,6 +662,11 @@ class TLSStage:
     pipeline_id: str
     """
     Pipeline ID the TLS stage belongs to.
+    """
+
+    status: StageStatus
+    """
+    Current status of the stage.
     """
 
     certificate_expires_at: Optional[datetime] = None
@@ -679,6 +713,11 @@ class WafStage:
     paranoia_level: int
     """
     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
+    """
+
+    status: StageStatus
+    """
+    Current status of the stage.
     """
 
     created_at: Optional[datetime] = None
