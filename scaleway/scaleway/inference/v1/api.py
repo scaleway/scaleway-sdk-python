@@ -258,7 +258,7 @@ class InferenceV1API(API):
         The terms of the EULA can be retrieved using the `GetModelEula` API call.
         :param tags: List of tags to apply to the deployment.
         :param min_size: Defines the minimum size of the pool.
-        :param max_size: Defines the maximum size of the pool.
+        :param max_size: Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size`.
         :param quantization: Quantization settings to apply to this deployment.
         :return: :class:`Deployment <Deployment>`
 
@@ -320,7 +320,7 @@ class InferenceV1API(API):
         :param name: Name of the deployment.
         :param tags: List of tags to apply to the deployment.
         :param min_size: Defines the new minimum size of the pool.
-        :param max_size: Defines the new maximum size of the pool.
+        :param max_size: Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size`.
         :param model_id: Id of the model to set to the deployment.
         :param quantization: Quantization to use to the deployment.
         :return: :class:`Deployment <Deployment>`
