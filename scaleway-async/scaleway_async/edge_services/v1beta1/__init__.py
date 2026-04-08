@@ -26,6 +26,7 @@ from .types import RuleHttpMatchPathFilterPathFilterType
 from .types import SearchBackendStagesRequestOrderBy
 from .types import SearchRouteRulesRequestOrderBy
 from .types import SearchWafStagesRequestOrderBy
+from .types import StageStatus
 from .types import WafStageMode
 from .types import ScalewayLb
 from .types import RuleHttpMatchHostFilter
@@ -160,6 +161,7 @@ __all__ = [
     "SearchBackendStagesRequestOrderBy",
     "SearchRouteRulesRequestOrderBy",
     "SearchWafStagesRequestOrderBy",
+    "StageStatus",
     "WafStageMode",
     "ScalewayLb",
     "RuleHttpMatchHostFilter",
