@@ -557,6 +557,7 @@ class InferenceV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> ListModelsResponse:
@@ -568,6 +569,7 @@ class InferenceV1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of models to return per page.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param name: Filter by model name.
         :param tags: Filter by tags.
         :return: :class:`ListModelsResponse <ListModelsResponse>`
@@ -588,6 +590,8 @@ class InferenceV1API(API):
             params={
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -606,6 +610,7 @@ class InferenceV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> list[Model]:
@@ -617,6 +622,7 @@ class InferenceV1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of models to return per page.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param name: Filter by model name.
         :param tags: Filter by tags.
         :return: :class:`list[Model] <list[Model]>`
@@ -637,6 +643,7 @@ class InferenceV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "name": name,
                 "tags": tags,
             },

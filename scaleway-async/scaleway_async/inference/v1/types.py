@@ -656,6 +656,11 @@ class ListModelsRequest:
     Filter by Project ID.
     """
 
+    organization_id: Optional[str] = None
+    """
+    Filter by Organization ID.
+    """
+
     name: Optional[str] = None
     """
     Filter by model name.
