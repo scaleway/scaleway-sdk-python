@@ -40,6 +40,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         zone: Optional[ScwZone] = None,
         datacenter: Optional[str] = None,
         status: Optional[list[ListPublicCatalogProductsRequestStatus]] = None,
+        api_ids: Optional[list[str]] = None,
     ) -> ListPublicCatalogProductsResponse:
         """
         List all available products.
@@ -56,6 +57,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         :param datacenter: Filter products by datacenter.
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
+        :param api_ids: Filter products by API IDs. Each ID is matched against product-specific identifiers: `dedibox.offer_id` (converted to string), `elastic_metal.offer_id`, `apple_silicon.server_type`, `instance.offer_id`, and `load_balancer.node.offer_id`. Products that do not support API ID filtering are excluded from the results. If empty, no filtering is applied.
         :return: :class:`ListPublicCatalogProductsResponse <ListPublicCatalogProductsResponse>`
 
         Usage:
@@ -68,6 +70,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
             "GET",
             "/product-catalog/v2alpha1/public-catalog/products",
             params={
+                "api_ids": api_ids,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "product_types": product_types,
@@ -99,6 +102,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         zone: Optional[ScwZone] = None,
         datacenter: Optional[str] = None,
         status: Optional[list[ListPublicCatalogProductsRequestStatus]] = None,
+        api_ids: Optional[list[str]] = None,
     ) -> list[PublicCatalogProduct]:
         """
         List all available products.
@@ -115,6 +119,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
         :param datacenter: Filter products by datacenter.
         One-Of ('locality'): at most one of 'global_', 'region', 'zone', 'datacenter' could be set.
         :param status: The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned.
+        :param api_ids: Filter products by API IDs. Each ID is matched against product-specific identifiers: `dedibox.offer_id` (converted to string), `elastic_metal.offer_id`, `apple_silicon.server_type`, `instance.offer_id`, and `load_balancer.node.offer_id`. Products that do not support API ID filtering are excluded from the results. If empty, no filtering is applied.
         :return: :class:`list[PublicCatalogProduct] <list[PublicCatalogProduct]>`
 
         Usage:
@@ -132,6 +137,7 @@ class ProductCatalogV2Alpha1PublicCatalogAPI(API):
                 "page_size": page_size,
                 "product_types": product_types,
                 "status": status,
+                "api_ids": api_ids,
                 "global_": global_,
                 "region": region,
                 "zone": zone,
