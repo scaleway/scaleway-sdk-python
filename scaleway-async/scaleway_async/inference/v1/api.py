@@ -260,7 +260,7 @@ class InferenceV1API(API):
         The terms of the EULA can be retrieved using the `GetModelEula` API call.
         :param tags: List of tags to apply to the deployment.
         :param min_size: Defines the minimum size of the pool.
-        :param max_size: Defines the maximum size of the pool.
+        :param max_size: Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size`.
         :param quantization: Quantization settings to apply to this deployment.
         :return: :class:`Deployment <Deployment>`
 
@@ -322,7 +322,7 @@ class InferenceV1API(API):
         :param name: Name of the deployment.
         :param tags: List of tags to apply to the deployment.
         :param min_size: Defines the new minimum size of the pool.
-        :param max_size: Defines the new maximum size of the pool.
+        :param max_size: Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size`.
         :param model_id: Id of the model to set to the deployment.
         :param quantization: Quantization to use to the deployment.
         :return: :class:`Deployment <Deployment>`
@@ -559,6 +559,7 @@ class InferenceV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> ListModelsResponse:
@@ -570,6 +571,7 @@ class InferenceV1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of models to return per page.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param name: Filter by model name.
         :param tags: Filter by tags.
         :return: :class:`ListModelsResponse <ListModelsResponse>`
@@ -590,6 +592,8 @@ class InferenceV1API(API):
             params={
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -608,6 +612,7 @@ class InferenceV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> list[Model]:
@@ -619,6 +624,7 @@ class InferenceV1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of models to return per page.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param name: Filter by model name.
         :param tags: Filter by tags.
         :return: :class:`list[Model] <list[Model]>`
@@ -639,6 +645,7 @@ class InferenceV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "name": name,
                 "tags": tags,
             },
