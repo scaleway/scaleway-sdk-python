@@ -166,6 +166,24 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     else:
         args["status"] = SnapshotStatus.UNKNOWN_STATUS
 
+    field = data.get("parent_volume", None)
+    if field is not None:
+        args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
+    else:
+        args["parent_volume"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -184,23 +202,11 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     else:
         args["class_"] = StorageClass.UNKNOWN_STORAGE_CLASS
 
-    field = data.get("parent_volume", None)
+    field = data.get("public", None)
     if field is not None:
-        args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
+        args["public"] = field
     else:
-        args["parent_volume"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+        args["public"] = False
 
     return Snapshot(**args)
 
@@ -446,6 +452,9 @@ def marshal_CreateSnapshotRequest(
     if request.volume_id is not None:
         output["volume_id"] = request.volume_id
 
+    if request.public is not None:
+        output["public"] = request.public
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -587,6 +596,9 @@ def marshal_UpdateSnapshotRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.public is not None:
+        output["public"] = request.public
 
     return output
 

@@ -239,6 +239,11 @@ class Snapshot:
     Storage class of the snapshot.
     """
 
+    public: bool
+    """
+    True if the snapshot can be used by anyone to create a volume from.
+    """
+
     parent_volume: Optional[SnapshotParentVolume] = None
     """
     If the parent volume was deleted, value is null.
@@ -356,6 +361,11 @@ class CreateSnapshotRequest:
     volume_id: str
     """
     UUID of the volume to snapshot.
+    """
+
+    public: bool
+    """
+    Snapshots are private by default, public snapshots are mainly used to publish OS images.
     """
 
     zone: Optional[ScwZone] = None
@@ -718,6 +728,11 @@ class UpdateSnapshotRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the snapshot.
+    """
+
+    public: Optional[bool] = False
+    """
+    Snapshots are private by default, public snapshots are mainly used to publish OS images.
     """
 
 
