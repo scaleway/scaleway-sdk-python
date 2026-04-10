@@ -320,7 +320,7 @@ class DomainV2Beta1API(API):
         """
         Create a DNS zone.
         Create a new DNS zone specified by the domain name, the subdomain and the Project ID.
-        :param domain: Domain in which to crreate the DNS zone.
+        :param domain: Domain in which to create the DNS zone.
         :param subdomain: Subdomain of the DNS zone to create.
         :param project_id: Project ID in which to create the DNS zone.
         :return: :class:`DNSZone <DNSZone>`
@@ -360,7 +360,7 @@ class DomainV2Beta1API(API):
         """
         Update a DNS zone.
         Update the name and/or the Organizations for a DNS zone.
-        :param dns_zone: DNS zone to update.
+        :param dns_zone: The full name of the DNS zone to modify. For a root zone (e.g., example.com), enter `example.com`. For a specific sub-zone (e.g., prod.example.com), enter `prod.example.com`.
         :param new_dns_zone: Name of the new DNS zone to create.
         :param project_id: Project ID in which to create the new DNS zone.
         :return: :class:`DNSZone <DNSZone>`
