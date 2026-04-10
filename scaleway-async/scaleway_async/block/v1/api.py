@@ -644,6 +644,7 @@ class BlockV1API(API):
         self,
         *,
         volume_id: str,
+        public: bool,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -654,6 +655,7 @@ class BlockV1API(API):
         To create a snapshot, the volume must be in the `in_use` or the `available` status.
         If your volume is in a transient state, you need to wait until the end of the current operation.
         :param volume_id: UUID of the volume to snapshot.
+        :param public: Snapshots are private by default, public snapshots are mainly used to publish OS images.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the snapshot.
         :param project_id: UUID of the project to which the volume and the snapshot belong.
@@ -665,6 +667,7 @@ class BlockV1API(API):
 
             result = await api.create_snapshot(
                 volume_id="example",
+                public=False,
             )
         """
 
@@ -676,6 +679,7 @@ class BlockV1API(API):
             body=marshal_CreateSnapshotRequest(
                 CreateSnapshotRequest(
                     volume_id=volume_id,
+                    public=public,
                     zone=zone,
                     name=name or random_name(prefix="snp"),
                     project_id=project_id,
@@ -829,6 +833,7 @@ class BlockV1API(API):
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
+        public: Optional[bool] = None,
     ) -> Snapshot:
         """
         Update a snapshot.
@@ -837,6 +842,7 @@ class BlockV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: When defined, is the name of the snapshot.
         :param tags: List of tags assigned to the snapshot.
+        :param public: Snapshots are private by default, public snapshots are mainly used to publish OS images.
         :return: :class:`Snapshot <Snapshot>`
 
         Usage:
@@ -859,6 +865,7 @@ class BlockV1API(API):
                     zone=zone,
                     name=name,
                     tags=tags,
+                    public=public,
                 ),
                 self.client,
             ),
