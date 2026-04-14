@@ -428,7 +428,7 @@ class Container:
 
     domain_name: str
     """
-    Domain name attributed to the contaioner.
+    Domain name attributed to the container.
     """
 
     protocol: ContainerProtocol
@@ -657,7 +657,7 @@ class Namespace:
 
     error_message: Optional[str] = None
     """
-    Last error message of the namesace.
+    Last error message of the namespace.
     """
 
     description: Optional[str] = None
