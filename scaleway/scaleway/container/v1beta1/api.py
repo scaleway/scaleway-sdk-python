@@ -612,6 +612,9 @@ class ContainerV1Beta1API(API):
         """
         Create a new container.
         Create a new container in the specified region.
+
+        When creating a container, the `created` status is no longer used. The deployment process is started
+        and the status is set to `pending` accordingly.
         :param namespace_id: UUID of the namespace the container belongs to.
         :param name: Name of the container.
         :param region: Region to target. If none is passed will use default region from the config.
