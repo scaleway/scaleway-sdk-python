@@ -147,7 +147,8 @@ class BillingV2Alpha1API(API):
             key="invoices",
             fetcher=self.list_invoices,
             args={
-                "organization_id": organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "started_after": started_after,
                 "started_before": started_before,
                 "invoice_type": invoice_type,
@@ -260,6 +261,7 @@ class BillingV2Alpha1API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
-                "organization_id": organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
             },
         )

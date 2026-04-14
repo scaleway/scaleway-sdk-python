@@ -296,7 +296,7 @@ class MnqV1Beta1NatsAPI(API):
             fetcher=self.list_nats_accounts,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
@@ -495,7 +495,7 @@ class MnqV1Beta1NatsAPI(API):
             fetcher=self.list_nats_credentials,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "nats_account_id": nats_account_id,
                 "page": page,
                 "page_size": page_size,
@@ -856,7 +856,7 @@ class MnqV1Beta1SnsAPI(API):
             fetcher=self.list_sns_credentials,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
@@ -1216,7 +1216,7 @@ class MnqV1Beta1SqsAPI(API):
             fetcher=self.list_sqs_credentials,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,

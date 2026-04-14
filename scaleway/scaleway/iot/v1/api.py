@@ -191,7 +191,7 @@ class IotV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "name": name,
             },

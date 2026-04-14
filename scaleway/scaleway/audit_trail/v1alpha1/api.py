@@ -490,7 +490,8 @@ class AuditTrailV1Alpha1API(API):
             fetcher=self.list_export_jobs,
             args={
                 "region": region,
-                "organization_id": organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "name": name,
                 "tags": tags,
                 "page": page,
@@ -572,7 +573,8 @@ class AuditTrailV1Alpha1API(API):
             fetcher=self.list_alert_rules,
             args={
                 "region": region,
-                "organization_id": organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "status": status,
                 "page": page,
                 "page_size": page_size,

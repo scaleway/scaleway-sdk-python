@@ -283,7 +283,7 @@ class FileV1Alpha1API(API):
             args={
                 "region": region,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "page": page,
                 "page_size": page_size,

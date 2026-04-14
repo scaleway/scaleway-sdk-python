@@ -234,7 +234,7 @@ class WebhostingV1Alpha1API(API):
                 "tags": tags,
                 "statuses": statuses,
                 "domain": domain,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "control_panels": control_panels,
             },

@@ -275,7 +275,7 @@ class FlexibleipV1Alpha1API(API):
                 "status": status,
                 "server_ids": server_ids,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 

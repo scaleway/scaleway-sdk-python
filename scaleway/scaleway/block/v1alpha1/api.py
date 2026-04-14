@@ -219,7 +219,7 @@ class BlockV1Alpha1API(API):
             args={
                 "zone": zone,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "page": page,
                 "page_size": page_size,
@@ -529,7 +529,7 @@ class BlockV1Alpha1API(API):
             args={
                 "zone": zone,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "page": page,
                 "page_size": page_size,

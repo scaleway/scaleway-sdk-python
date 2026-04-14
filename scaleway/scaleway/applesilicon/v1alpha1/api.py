@@ -354,8 +354,9 @@ class ApplesiliconV1Alpha1API(API):
             args={
                 "zone": zone,
                 "order_by": order_by,
-                "project_id": project_id,
-                "organization_id": organization_id,
+                "project_id": project_id or self.client.default_project_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size,
             },
@@ -957,8 +958,9 @@ class ApplesiliconV1Alpha1API(API):
             args={
                 "zone": zone,
                 "server_id": server_id,
-                "project_id": project_id,
-                "organization_id": organization_id,
+                "project_id": project_id or self.client.default_project_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size,
             },
@@ -1305,8 +1307,9 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
                 "page_size": page_size,
                 "server_id": server_id,
                 "private_network_id": private_network_id,
-                "organization_id": organization_id,
-                "project_id": project_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "project_id": project_id or self.client.default_project_id,
                 "ipam_ip_ids": ipam_ip_ids,
             },
         )

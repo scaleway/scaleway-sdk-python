@@ -192,7 +192,7 @@ class EdgeServicesV1Alpha1API(API):
                 "page_size": page_size,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "has_backend_stage_lb": has_backend_stage_lb,
             },
         )
@@ -381,7 +381,7 @@ class EdgeServicesV1Alpha1API(API):
                 "page_size": page_size,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -536,7 +536,7 @@ class EdgeServicesV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "pipeline_id": pipeline_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "fqdn": fqdn,
             },
         )
@@ -777,7 +777,7 @@ class EdgeServicesV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "pipeline_id": pipeline_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "secret_id": secret_id,
                 "secret_region": secret_region,
             },
@@ -1007,7 +1007,7 @@ class EdgeServicesV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "pipeline_id": pipeline_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -1236,7 +1236,7 @@ class EdgeServicesV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "pipeline_id": pipeline_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "bucket_name": bucket_name,
                 "bucket_region": bucket_region,
                 "lb_id": lb_id,
@@ -1547,7 +1547,7 @@ class EdgeServicesV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "pipeline_id": pipeline_id,
             },
         )

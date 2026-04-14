@@ -288,7 +288,7 @@ class ServerlessSqldbV1Alpha1API(API):
             args={
                 "region": region,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "name": name,
@@ -513,7 +513,7 @@ class ServerlessSqldbV1Alpha1API(API):
                 "database_id": database_id,
                 "region": region,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,

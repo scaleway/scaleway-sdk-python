@@ -276,7 +276,7 @@ class IamV1Alpha1API(API):
                 "page_size": page_size,
                 "organization_id": organization_id,
                 "name": name,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "disabled": disabled,
             },
         )

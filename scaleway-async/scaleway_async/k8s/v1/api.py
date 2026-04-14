@@ -214,7 +214,7 @@ class K8SV1API(API):
             args={
                 "region": region,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,

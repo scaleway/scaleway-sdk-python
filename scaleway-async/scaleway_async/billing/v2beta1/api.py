@@ -142,7 +142,7 @@ class BillingV2Beta1API(API):
                 "category_name": category_name,
                 "billing_period": billing_period,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 

@@ -249,7 +249,7 @@ class QaasV1Alpha1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "session_id": session_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -778,7 +778,7 @@ class QaasV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -1210,7 +1210,7 @@ class QaasV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -1629,7 +1629,7 @@ class QaasV1Alpha1API(API):
             key="bookings",
             fetcher=self.list_bookings,
             args={
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "platform_id": platform_id,
                 "page": page,
                 "page_size": page_size,
@@ -1803,7 +1803,7 @@ class QaasV1Alpha1API(API):
             key="models",
             fetcher=self.list_models,
             args={
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,

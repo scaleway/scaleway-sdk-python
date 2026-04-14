@@ -386,7 +386,7 @@ class CockpitV1Beta1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "types": types,
                 "is_managed_by_scaleway": is_managed_by_scaleway,
             },
@@ -494,7 +494,7 @@ class CockpitV1Beta1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -645,7 +645,7 @@ class CockpitV1Beta1API(API):
             args={
                 "page": page,
                 "page_size": page_size,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -868,7 +868,7 @@ class CockpitV1Beta1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -1108,7 +1108,7 @@ class CockpitV1Beta1API(API):
             key="dashboards",
             fetcher=self.list_grafana_product_dashboards,
             args={
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "tags": tags,

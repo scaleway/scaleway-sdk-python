@@ -237,7 +237,7 @@ class EdgeServicesV1Beta1API(API):
                 "page_size": page_size,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "has_backend_stage_lb": has_backend_stage_lb,
             },
         )
@@ -424,7 +424,7 @@ class EdgeServicesV1Beta1API(API):
                 "page_size": page_size,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -2462,7 +2462,7 @@ class EdgeServicesV1Beta1API(API):
                 "page": page,
                 "page_size": page_size,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "pipeline_id": pipeline_id,
             },
         )

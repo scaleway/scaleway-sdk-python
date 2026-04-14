@@ -302,7 +302,7 @@ class KafkaV1Alpha1API(API):
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
             },

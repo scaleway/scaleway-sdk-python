@@ -191,7 +191,7 @@ class FunctionV1Beta1API(API):
                 "order_by": order_by,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -507,7 +507,7 @@ class FunctionV1Beta1API(API):
                 "order_by": order_by,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -1936,7 +1936,7 @@ class FunctionV1Beta1API(API):
                 "order_by": order_by,
                 "function_id": function_id,
                 "namespace_id": namespace_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 

@@ -300,7 +300,7 @@ class LbV1ZonedAPI(API):
                 "page_size": page_size,
                 "page": page,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
             },
         )
@@ -669,7 +669,7 @@ class LbV1ZonedAPI(API):
                 "page_size": page_size,
                 "ip_address": ip_address,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "ip_type": ip_type,
                 "tags": tags,
             },
@@ -2889,7 +2889,7 @@ class LbV1ZonedAPI(API):
                 "page_size": page_size,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -3330,7 +3330,7 @@ class LbV1API(API):
                 "page_size": page_size,
                 "page": page,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
             },
         )
@@ -3703,7 +3703,7 @@ class LbV1API(API):
                 "page_size": page_size,
                 "ip_address": ip_address,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "ip_type": ip_type,
                 "tags": tags,
             },
@@ -5912,7 +5912,7 @@ class LbV1API(API):
                 "page_size": page_size,
                 "name": name,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 

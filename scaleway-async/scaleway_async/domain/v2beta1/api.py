@@ -297,7 +297,7 @@ class DomainV2Beta1API(API):
             args={
                 "domain": domain,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
@@ -565,7 +565,7 @@ class DomainV2Beta1API(API):
             key="records",
             fetcher=self.list_dns_zone_records,
             args={
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
@@ -1289,7 +1289,7 @@ class DomainV2Beta1API(API):
                 "dns_zone": dns_zone,
                 "page": page,
                 "page_size": page_size,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -1474,7 +1474,7 @@ class DomainV2Beta1RegistrarAPI(API):
             args={
                 "page": page,
                 "page_size": page_size,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "domain": domain,
                 "types": types,
@@ -1565,7 +1565,7 @@ class DomainV2Beta1RegistrarAPI(API):
                 "page": page,
                 "domain": domain,
                 "page_size": page_size,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
             },
         )
@@ -2033,7 +2033,7 @@ class DomainV2Beta1RegistrarAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "domain": domain,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "role": role,
                 "email_status": email_status,
@@ -2260,7 +2260,7 @@ class DomainV2Beta1RegistrarAPI(API):
                 "order_by": order_by,
                 "registrar": registrar,
                 "status": status,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "is_external": is_external,
                 "domain": domain,
@@ -2341,7 +2341,7 @@ class DomainV2Beta1RegistrarAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
             },
         )

@@ -220,8 +220,9 @@ class BaremetalV3PrivateNetworkAPI(API):
                 "page_size": page_size,
                 "server_id": server_id,
                 "private_network_id": private_network_id,
-                "organization_id": organization_id,
-                "project_id": project_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "project_id": project_id or self.client.default_project_id,
                 "ipam_ip_ids": ipam_ip_ids,
             },
         )

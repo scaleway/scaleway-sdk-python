@@ -146,7 +146,7 @@ class TestV1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 

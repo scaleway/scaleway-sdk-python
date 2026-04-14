@@ -163,7 +163,7 @@ class MailboxV1Alpha1API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "statuses": statuses,
                 "search": search,
             },

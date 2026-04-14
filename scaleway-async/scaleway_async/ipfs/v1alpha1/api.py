@@ -217,7 +217,7 @@ class IpfsV1Alpha1API(API):
             fetcher=self.list_volumes,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
@@ -644,7 +644,7 @@ class IpfsV1Alpha1API(API):
             args={
                 "volume_id": volume_id,
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "order_by": order_by,
                 "page": page,
@@ -926,7 +926,7 @@ class IpfsV1Alpha1IpnsAPI(API):
             fetcher=self.list_names,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "organization_id": organization_id,
                 "order_by": order_by,
                 "page": page,

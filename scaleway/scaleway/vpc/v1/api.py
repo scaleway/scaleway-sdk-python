@@ -136,7 +136,7 @@ class VpcV1API(API):
                 "name": name,
                 "tags": tags,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "private_network_ids": private_network_ids,
                 "include_regional": include_regional,
             },

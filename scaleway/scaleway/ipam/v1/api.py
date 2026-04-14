@@ -419,7 +419,7 @@ class IpamV1API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "vpc_id": vpc_id,
                 "attached": attached,
                 "resource_name": resource_name,

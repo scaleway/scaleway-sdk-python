@@ -266,7 +266,8 @@ class AccountV3ContractAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "organization_id": organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
             },
         )
 
@@ -391,7 +392,8 @@ class AccountV3ProjectAPI(API):
             key="projects",
             fetcher=self.list_projects,
             args={
-                "organization_id": organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "name": name,
                 "page": page,
                 "page_size": page_size,

@@ -148,7 +148,8 @@ class AccountV2API(API):
             key="projects",
             fetcher=self.list_projects,
             args={
-                "organization_id": organization_id,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "name": name,
                 "page": page,
                 "page_size": page_size,

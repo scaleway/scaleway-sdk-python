@@ -281,7 +281,7 @@ class DatalabV1Beta1API(API):
             args={
                 "region": region,
                 "organization_id": organization_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "name": name,
                 "tags": tags,
                 "page": page,

@@ -312,7 +312,7 @@ class DediboxV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "search": search,
             },
         )
@@ -1217,7 +1217,7 @@ class DediboxV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -1682,7 +1682,7 @@ class DediboxV1API(API):
                 "order_by": order_by,
                 "commercial_range": commercial_range,
                 "catalog": catalog,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "is_failover_ip": is_failover_ip,
                 "is_failover_block": is_failover_block,
                 "sold_in": sold_in,
@@ -1817,7 +1817,7 @@ class DediboxV1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "type_": type_,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -2219,7 +2219,7 @@ class DediboxV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "search": search,
                 "only_available": only_available,
             },
@@ -2536,7 +2536,7 @@ class DediboxV1BillingAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -2658,7 +2658,7 @@ class DediboxV1BillingAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -3076,7 +3076,7 @@ class DediboxV1RpnAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -3182,7 +3182,7 @@ class DediboxV1RpnSanAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -3508,7 +3508,7 @@ class DediboxV1RpnV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -3715,7 +3715,7 @@ class DediboxV1RpnV1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "group_id": group_id,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -3932,7 +3932,7 @@ class DediboxV1RpnV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -4000,7 +4000,7 @@ class DediboxV1RpnV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -4068,7 +4068,7 @@ class DediboxV1RpnV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -4192,7 +4192,7 @@ class DediboxV1RpnV2API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -4570,7 +4570,7 @@ class DediboxV1RpnV2API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 

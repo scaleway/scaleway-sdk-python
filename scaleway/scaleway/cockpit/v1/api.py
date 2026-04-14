@@ -300,7 +300,7 @@ class CockpitV1GlobalAPI(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -444,7 +444,7 @@ class CockpitV1GlobalAPI(API):
             key="dashboards",
             fetcher=self.list_grafana_product_dashboards,
             args={
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
                 "tags": tags,
@@ -798,7 +798,7 @@ class CockpitV1RegionalAPI(API):
             fetcher=self.list_exporters,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "datasource_id": datasource_id,
                 "page": page,
                 "page_size": page_size,
@@ -1171,7 +1171,7 @@ class CockpitV1RegionalAPI(API):
             fetcher=self.list_data_sources,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "origin": origin,
                 "types": types,
                 "page": page,
@@ -1392,7 +1392,7 @@ class CockpitV1RegionalAPI(API):
             fetcher=self.list_tokens,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "token_scopes": token_scopes,
                 "page": page,
                 "page_size": page_size,
@@ -1806,7 +1806,7 @@ class CockpitV1RegionalAPI(API):
             fetcher=self.list_contact_points,
             args={
                 "region": region,
-                "project_id": project_id,
+                "project_id": project_id or self.client.default_project_id,
                 "page": page,
                 "page_size": page_size,
             },
