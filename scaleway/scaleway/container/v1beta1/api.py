@@ -612,6 +612,9 @@ class ContainerV1Beta1API(API):
         """
         Create a new container.
         Create a new container in the specified region.
+
+        When creating a container, the `created` status is no longer used. The deployment process is started
+        and the status is set to `pending` accordingly.
         :param namespace_id: UUID of the namespace the container belongs to.
         :param name: Name of the container.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -729,7 +732,8 @@ class ContainerV1Beta1API(API):
         Update the container associated with the specified ID.
 
         When updating a container, the container is automatically redeployed to apply the changes.
-        This behavior can be changed by setting the `redeploy` field to `false` in the request.
+
+        Warning: The `redeploy` field has been deprecated. An update now always redeploys the container.
         :param container_id: UUID of the container to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param environment_variables: Environment variables of the container.
@@ -870,6 +874,10 @@ class ContainerV1Beta1API(API):
         """
         Deploy a container.
         Deploy a container associated with the specified ID.
+
+        Since updating a container now always deploys it (and passes its status to `pending`), this call becomes superfluous.
+
+        Moreover, calling `DeployContainer` immediately after `UpdateContainer` can cause `409 - resource is in a transient state` errors, so it is better to not use it when updating a container.
         :param container_id: UUID of the container to deploy.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
