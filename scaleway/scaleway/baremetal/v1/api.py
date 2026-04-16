@@ -24,6 +24,9 @@ from .types import (
     ServerBootType,
     AddOptionServerRequest,
     BMCAccess,
+    BatchCreateServersRequest,
+    BatchCreateServersRequestServerConfig,
+    BatchCreateServersResponse,
     CreateServerRequest,
     CreateServerRequestInstall,
     GetServerMetricsResponse,
@@ -68,6 +71,7 @@ from .marshalling import (
     unmarshal_ServerPrivateNetwork,
     unmarshal_Setting,
     unmarshal_BMCAccess,
+    unmarshal_BatchCreateServersResponse,
     unmarshal_GetServerMetricsResponse,
     unmarshal_ListOSResponse,
     unmarshal_ListOffersResponse,
@@ -79,6 +83,7 @@ from .marshalling import (
     unmarshal_SetServerPrivateNetworksResponse,
     marshal_CreateServerRequest,
     marshal_AddOptionServerRequest,
+    marshal_BatchCreateServersRequest,
     marshal_InstallServerRequest,
     marshal_PrivateNetworkApiAddServerPrivateNetworkRequest,
     marshal_PrivateNetworkApiSetServerPrivateNetworksRequest,
@@ -345,6 +350,45 @@ class BaremetalV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
+
+    def batch_create_servers(
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+        common_configuration: Optional[CreateServerRequest] = None,
+        servers: Optional[list[BatchCreateServersRequestServerConfig]] = None,
+    ) -> BatchCreateServersResponse:
+        """
+        Create multiple Elastic Metal servers.
+        Create multiple new Elastic Metal servers. Once the servers are created, proceed with the [installation of an OS](#post-3e949e).
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param common_configuration: Configuration wanted for the servers to create.
+        :param servers: List of servers to create.
+        :return: :class:`BatchCreateServersResponse <BatchCreateServersResponse>`
+
+        Usage:
+        ::
+
+            result = api.batch_create_servers()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/baremetal/v1/zones/{param_zone}/batch-create-servers",
+            body=marshal_BatchCreateServersRequest(
+                BatchCreateServersRequest(
+                    zone=zone,
+                    common_configuration=common_configuration,
+                    servers=servers,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_BatchCreateServersResponse(res.json())
 
     def update_server(
         self,

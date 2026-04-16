@@ -621,6 +621,13 @@ class RaidController:
 
 
 @dataclass
+class BatchCreateServersRequestServerConfig:
+    hostname: str
+    description: str
+    tags: list[str]
+
+
+@dataclass
 class CreateServerRequest:
     offer_id: str
     """
@@ -1157,6 +1164,31 @@ class BMCAccess:
     """
     The date after which the BMC (Baseboard Management Controller) access will be closed.
     """
+
+
+@dataclass
+class BatchCreateServersRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    common_configuration: Optional[CreateServerRequest] = None
+    """
+    Configuration wanted for the servers to create.
+    """
+
+    servers: Optional[list[BatchCreateServersRequestServerConfig]] = field(
+        default_factory=list
+    )
+    """
+    List of servers to create.
+    """
+
+
+@dataclass
+class BatchCreateServersResponse:
+    servers: list[Server]
 
 
 @dataclass

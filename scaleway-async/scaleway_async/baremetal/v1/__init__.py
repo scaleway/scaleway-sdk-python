@@ -47,6 +47,7 @@ from .types import Memory
 from .types import OfferOptionOffer
 from .types import PersistentMemory
 from .types import RaidController
+from .types import BatchCreateServersRequestServerConfig
 from .types import CreateServerRequest
 from .types import Server
 from .types import OS
@@ -57,6 +58,8 @@ from .types import ServerPrivateNetwork
 from .types import Setting
 from .types import AddOptionServerRequest
 from .types import BMCAccess
+from .types import BatchCreateServersRequest
+from .types import BatchCreateServersResponse
 from .types import DeleteOptionServerRequest
 from .types import DeleteServerRequest
 from .types import GetBMCAccessRequest
@@ -147,6 +150,7 @@ __all__ = [
     "OfferOptionOffer",
     "PersistentMemory",
     "RaidController",
+    "BatchCreateServersRequestServerConfig",
     "CreateServerRequest",
     "Server",
     "OS",
@@ -157,6 +161,8 @@ __all__ = [
     "Setting",
     "AddOptionServerRequest",
     "BMCAccess",
+    "BatchCreateServersRequest",
+    "BatchCreateServersResponse",
     "DeleteOptionServerRequest",
     "DeleteServerRequest",
     "GetBMCAccessRequest",
