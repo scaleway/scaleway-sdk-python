@@ -57,6 +57,7 @@ from .types import (
     ServerPrivateNetwork,
     Setting,
     BMCAccess,
+    BatchCreateServersResponse,
     GetServerMetricsResponse,
     ListOSResponse,
     ListOffersResponse,
@@ -70,6 +71,8 @@ from .types import (
     CreateServerRequestInstall,
     CreateServerRequest,
     AddOptionServerRequest,
+    BatchCreateServersRequestServerConfig,
+    BatchCreateServersRequest,
     InstallServerRequest,
     PrivateNetworkApiAddServerPrivateNetworkRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
@@ -1482,6 +1485,25 @@ def unmarshal_BMCAccess(data: Any) -> BMCAccess:
     return BMCAccess(**args)
 
 
+def unmarshal_BatchCreateServersResponse(data: Any) -> BatchCreateServersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BatchCreateServersResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("servers", None)
+    if field is not None:
+        args["servers"] = (
+            [unmarshal_Server(v) for v in field] if field is not None else None
+        )
+    else:
+        args["servers"] = None
+
+    return BatchCreateServersResponse(**args)
+
+
 def unmarshal_GetServerMetricsResponse(data: Any) -> GetServerMetricsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1963,6 +1985,44 @@ def marshal_AddOptionServerRequest(
 
     if request.expires_at is not None:
         output["expires_at"] = request.expires_at.isoformat()
+
+    return output
+
+
+def marshal_BatchCreateServersRequestServerConfig(
+    request: BatchCreateServersRequestServerConfig,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.hostname is not None:
+        output["hostname"] = request.hostname
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
+
+
+def marshal_BatchCreateServersRequest(
+    request: BatchCreateServersRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.common_configuration is not None:
+        output["common_configuration"] = marshal_CreateServerRequest(
+            request.common_configuration, defaults
+        )
+
+    if request.servers is not None:
+        output["servers"] = [
+            marshal_BatchCreateServersRequestServerConfig(item, defaults)
+            for item in request.servers
+        ]
 
     return output
 
