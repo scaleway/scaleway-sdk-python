@@ -265,11 +265,6 @@ class Domain:
     URL of the domain's IMAP service.
     """
 
-    jmap_url: str
-    """
-    URL of the domain's JMAP service.
-    """
-
     pop3_url: str
     """
     URL of the domain's POP3 service.
@@ -398,11 +393,6 @@ class GetDomainRecordsResponse:
     imap: Optional[DomainRecord] = None
     """
     Record that allows accessing the mailbox with the IMAP protocol.
-    """
-
-    jmap: Optional[DomainRecord] = None
-    """
-    Record that allows accessing the mailbox with the JMAP protocol.
     """
 
     mx: Optional[DomainRecord] = None

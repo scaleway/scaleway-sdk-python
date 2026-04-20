@@ -163,12 +163,6 @@ def unmarshal_Domain(data: Any) -> Domain:
     else:
         args["imap_url"] = None
 
-    field = data.get("jmap_url", None)
-    if field is not None:
-        args["jmap_url"] = field
-    else:
-        args["jmap_url"] = None
-
     field = data.get("pop3_url", None)
     if field is not None:
         args["pop3_url"] = field
@@ -341,12 +335,6 @@ def unmarshal_GetDomainRecordsResponse(data: Any) -> GetDomainRecordsResponse:
         args["imap"] = unmarshal_DomainRecord(field)
     else:
         args["imap"] = None
-
-    field = data.get("jmap", None)
-    if field is not None:
-        args["jmap"] = unmarshal_DomainRecord(field)
-    else:
-        args["jmap"] = None
 
     field = data.get("mx", None)
     if field is not None:
