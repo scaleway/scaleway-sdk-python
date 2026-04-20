@@ -50,7 +50,7 @@ from .marshalling import (
 
 class DatalabV1Beta1API(API):
     """
-    This API allows you to manage your Data Lab resources.
+    This API allows you to manage your Apache Spark™ resources.
     """
 
     async def create_datalab(
@@ -69,15 +69,15 @@ class DatalabV1Beta1API(API):
         total_storage: Optional[Volume] = None,
     ) -> Datalab:
         """
-        Create a new Data Lab. In this call, one can personalize the node counts, add a notebook, choose the private network, define the persistent volume storage capacity.
-        :param name: The name of the Data Lab.
-        :param description: The description of the Data Lab.
-        :param has_notebook: Select this option to include a notebook as part of the Data Lab.
-        :param spark_version: The version of Spark running inside the Data Lab, available options can be viewed at ListClusterVersions.
-        :param private_network_id: The unique identifier of the private network the Data Lab will be attached to.
+        Create a new cluster. In this call, one can personalize the node counts, add a notebook, choose the private network, define the persistent volume storage capacity.
+        :param name: The name of the cluster.
+        :param description: The description of the cluster.
+        :param has_notebook: Select this option to include a notebook as part of the cluster.
+        :param spark_version: The version of Apache Spark™ running inside the cluster, available options can be viewed at ListClusterVersions.
+        :param private_network_id: The unique identifier of the private network the cluster will be attached to.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: The unique identifier of the project where the Data Lab will be created.
-        :param tags: The tags of the Data Lab.
+        :param project_id: The unique identifier of the project where the cluster will be created.
+        :param tags: The tags of the cluster.
         :param main: The cluster main node specification. It holds the parameters `node_type` which specifies the node type of the main node. See ListNodeTypes for available options. See ListNodeTypes for available options.
         :param worker: The cluster worker node specification. It holds the parameters `node_type` which specifies the node type of the worker node and `node_count` for specifying the amount of nodes.
         :param total_storage: The maximum persistent volume storage that will be available during workload.
@@ -130,8 +130,8 @@ class DatalabV1Beta1API(API):
         region: Optional[ScwRegion] = None,
     ) -> Datalab:
         """
-        Retrieve information about a given Data Lab cluster, specified by the `region` and `datalab_id` parameters. Its full details, including name, status, node counts, are returned in the response object.
-        :param datalab_id: The unique identifier of the Data Lab.
+        Retrieve information about a given cluster, specified by the `region` and `datalab_id` parameters. Its full details, including name, status, node counts, are returned in the response object.
+        :param datalab_id: The unique identifier of the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Datalab <Datalab>`
 
@@ -164,8 +164,8 @@ class DatalabV1Beta1API(API):
         options: Optional[WaitForOptions[Datalab, Union[bool, Awaitable[bool]]]] = None,
     ) -> Datalab:
         """
-        Retrieve information about a given Data Lab cluster, specified by the `region` and `datalab_id` parameters. Its full details, including name, status, node counts, are returned in the response object.
-        :param datalab_id: The unique identifier of the Data Lab.
+        Retrieve information about a given cluster, specified by the `region` and `datalab_id` parameters. Its full details, including name, status, node counts, are returned in the response object.
+        :param datalab_id: The unique identifier of the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Datalab <Datalab>`
 
@@ -205,12 +205,12 @@ class DatalabV1Beta1API(API):
         order_by: Optional[ListDatalabsRequestOrderBy] = None,
     ) -> ListDatalabsResponse:
         """
-        List information about Data Lab cluster within a project or an organization.
+        List information about cluster within a project or an organization.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param organization_id: The unique identifier of the organization whose Data Labs you want to list.
-        :param project_id: The unique identifier of the project whose Data Labs you want to list.
-        :param name: The name of the Data Lab you want to list.
-        :param tags: The tags associated with the Data Lab you want to list.
+        :param organization_id: The unique identifier of the organization whose clusters you want to list.
+        :param project_id: The unique identifier of the project whose clusters you want to list.
+        :param name: The name of the cluster you want to list.
+        :param tags: The tags associated with the cluster you want to list.
         :param page: The page number for pagination.
         :param page_size: The page size for pagination.
         :param order_by: The order by field, available options are `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`.
@@ -257,12 +257,12 @@ class DatalabV1Beta1API(API):
         order_by: Optional[ListDatalabsRequestOrderBy] = None,
     ) -> list[Datalab]:
         """
-        List information about Data Lab cluster within a project or an organization.
+        List information about cluster within a project or an organization.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param organization_id: The unique identifier of the organization whose Data Labs you want to list.
-        :param project_id: The unique identifier of the project whose Data Labs you want to list.
-        :param name: The name of the Data Lab you want to list.
-        :param tags: The tags associated with the Data Lab you want to list.
+        :param organization_id: The unique identifier of the organization whose clusters you want to list.
+        :param project_id: The unique identifier of the project whose clusters you want to list.
+        :param name: The name of the cluster you want to list.
+        :param tags: The tags associated with the cluster you want to list.
         :param page: The page number for pagination.
         :param page_size: The page size for pagination.
         :param order_by: The order by field, available options are `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`.
@@ -301,13 +301,13 @@ class DatalabV1Beta1API(API):
         node_count: Optional[int] = None,
     ) -> Datalab:
         """
-        Update a Data Labs node counts. Allows for up- and downscaling on demand, depending on the expected workload.
-        :param datalab_id: The unique identifier of the Data Lab.
+        Update a cluster node counts. Allows for up- and downscaling on demand, depending on the expected workload.
+        :param datalab_id: The unique identifier of the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param name: The updated name of the Data Lab.
-        :param description: The updated description of the Data Lab.
-        :param tags: The updated tags of the Data Lab.
-        :param node_count: The updated node count of the Data Lab. Scale up or down the number of worker nodes.
+        :param name: The updated name of the cluster.
+        :param description: The updated description of the cluster.
+        :param tags: The updated tags of the cluster.
+        :param node_count: The updated node count of the cluster. Scale up or down the number of worker nodes.
         :return: :class:`Datalab <Datalab>`
 
         Usage:
@@ -349,8 +349,8 @@ class DatalabV1Beta1API(API):
         region: Optional[ScwRegion] = None,
     ) -> Datalab:
         """
-        Delete a Data Lab based on its region and id.
-        :param datalab_id: The unique identifier of the Data Lab.
+        Delete a cluster based on its region and id.
+        :param datalab_id: The unique identifier of the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Datalab <Datalab>`
 
@@ -386,7 +386,7 @@ class DatalabV1Beta1API(API):
         resource_type: Optional[ListNodeTypesRequestResourceType] = None,
     ) -> ListNodeTypesResponse:
         """
-        List the available compute node types for creating a Data Lab.
+        List the available compute node types for creating a new cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
@@ -431,7 +431,7 @@ class DatalabV1Beta1API(API):
         resource_type: Optional[ListNodeTypesRequestResourceType] = None,
     ) -> list[NodeType]:
         """
-        List the available compute node types for creating a Data Lab.
+        List the available compute node types for creating a new cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
@@ -542,7 +542,7 @@ class DatalabV1Beta1API(API):
         order_by: Optional[ListClusterVersionsRequestOrderBy] = None,
     ) -> ListClusterVersionsResponse:
         """
-        List the Spark versions the product is compatible with.
+        List the Apache Spark™ versions the product is compatible with.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
@@ -581,7 +581,7 @@ class DatalabV1Beta1API(API):
         order_by: Optional[ListClusterVersionsRequestOrderBy] = None,
     ) -> list[Cluster]:
         """
-        List the Spark versions the product is compatible with.
+        List the Apache Spark™ versions the product is compatible with.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number.
         :param page_size: The page size.
