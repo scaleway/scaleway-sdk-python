@@ -240,62 +240,62 @@ class Cluster:
 @dataclass
 class Datalab:
     """
-    A Data Lab resource.
+    A Clusters for Apache Spark™ resource.
     """
 
     id: str
     """
-    The unique identifier of the Data Lab.
+    The unique identifier of the cluster.
     """
 
     project_id: str
     """
-    The unique identifier of the project where the Data Lab has been created.
+    The unique identifier of the project where the cluster has been created.
     """
 
     name: str
     """
-    The name of the Data Lab.
+    The name of the cluster.
     """
 
     description: str
     """
-    The description of the Data Lab.
+    The description of the cluster.
     """
 
     tags: list[str]
     """
-    The tags of the Data Lab.
+    The tags of the cluster.
     """
 
     status: DatalabStatus
     """
-    The status of the Data Lab. For a working Data Lab the status is marked as `ready`.
+    The status of the cluster. For a working cluster the status is marked as `ready`.
     """
 
     region: ScwRegion
     """
-    The region of the Data Lab.
+    The region of the cluster.
     """
 
     has_notebook: bool
     """
-    Whether a JupyterLab notebook is associated with the Data Lab or not.
+    Whether a JupyterLab notebook is associated with the cluster or not.
     """
 
     spark_version: str
     """
-    The version of Spark running inside the Data Lab.
+    The version of Apache Spark™ running inside the cluster.
     """
 
     private_network_id: str
     """
-    The unique identifier of the private network to which the Data Lab is attached to.
+    The unique identifier of the private network to which the cluster is attached to.
     """
 
     main: Optional[DatalabSparkMain] = None
     """
-    The Spark Main node specification of Data lab. It holds the parameters `node_type`, `spark_ui_url` (available to reach Spark UI), `spark_master_url` (used to reach the cluster within a VPC), `root_volume` (size of the volume assigned to the cluster).
+    The Apache Spark™ Main node specification of cluster. It holds the parameters `node_type`, `spark_ui_url` (available to reach Apache Spark™ UI), `spark_master_url` (used to reach the cluster within a VPC), `root_volume` (size of the volume assigned to the cluster).
     """
 
     worker: Optional[DatalabSparkWorker] = None
@@ -305,12 +305,12 @@ class Datalab:
 
     created_at: Optional[datetime] = None
     """
-    The creation timestamp of the Data Lab.
+    The creation timestamp of the cluster.
     """
 
     updated_at: Optional[datetime] = None
     """
-    The last update date of the Data Lab.
+    The last update date of the cluster.
     """
 
     notebook_url: Optional[str] = None
@@ -320,7 +320,7 @@ class Datalab:
 
     total_storage: Optional[Volume] = None
     """
-    The total persistent volume storage selected to run Spark.
+    The total persistent volume storage selected to run Apache Spark™.
     """
 
     notebook_master_url: Optional[str] = None
@@ -421,32 +421,32 @@ class Notebook:
 @dataclass
 class CreateDatalabRequest:
     """
-    A request to create a Data Lab.
+    A request to create a cluster.
     """
 
     name: str
     """
-    The name of the Data Lab.
+    The name of the cluster.
     """
 
     description: str
     """
-    The description of the Data Lab.
+    The description of the cluster.
     """
 
     has_notebook: bool
     """
-    Select this option to include a notebook as part of the Data Lab.
+    Select this option to include a notebook as part of the cluster.
     """
 
     spark_version: str
     """
-    The version of Spark running inside the Data Lab, available options can be viewed at ListClusterVersions.
+    The version of Apache Spark™ running inside the cluster, available options can be viewed at ListClusterVersions.
     """
 
     private_network_id: str
     """
-    The unique identifier of the private network the Data Lab will be attached to.
+    The unique identifier of the private network the cluster will be attached to.
     """
 
     region: Optional[ScwRegion] = None
@@ -456,12 +456,12 @@ class CreateDatalabRequest:
 
     project_id: Optional[str] = None
     """
-    The unique identifier of the project where the Data Lab will be created.
+    The unique identifier of the project where the cluster will be created.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)
     """
-    The tags of the Data Lab.
+    The tags of the cluster.
     """
 
     main: Optional[CreateDatalabRequestSparkMain] = None
@@ -483,12 +483,12 @@ class CreateDatalabRequest:
 @dataclass
 class DeleteDatalabRequest:
     """
-    A request to delete a Data Lab.
+    A request to delete a cluster.
     """
 
     datalab_id: str
     """
-    The unique identifier of the Data Lab.
+    The unique identifier of the cluster.
     """
 
     region: Optional[ScwRegion] = None
@@ -500,12 +500,12 @@ class DeleteDatalabRequest:
 @dataclass
 class GetDatalabRequest:
     """
-    A request to get information about a Data Lab.
+    A request to get information about a cluster.
     """
 
     datalab_id: str
     """
-    The unique identifier of the Data Lab.
+    The unique identifier of the cluster.
     """
 
     region: Optional[ScwRegion] = None
@@ -563,7 +563,7 @@ class ListClusterVersionsResponse:
 @dataclass
 class ListDatalabsRequest:
     """
-    A request to list Data Labs.
+    A request to list clusters.
     """
 
     region: Optional[ScwRegion] = None
@@ -573,22 +573,22 @@ class ListDatalabsRequest:
 
     organization_id: Optional[str] = None
     """
-    The unique identifier of the organization whose Data Labs you want to list.
+    The unique identifier of the organization whose clusters you want to list.
     """
 
     project_id: Optional[str] = None
     """
-    The unique identifier of the project whose Data Labs you want to list.
+    The unique identifier of the project whose clusters you want to list.
     """
 
     name: Optional[str] = None
     """
-    The name of the Data Lab you want to list.
+    The name of the cluster you want to list.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)
     """
-    The tags associated with the Data Lab you want to list.
+    The tags associated with the cluster you want to list.
     """
 
     page: Optional[int] = 0
@@ -610,17 +610,17 @@ class ListDatalabsRequest:
 @dataclass
 class ListDatalabsResponse:
     """
-    A response to list Data Labs.
+    A response to list clusters.
     """
 
     datalabs: list[Datalab]
     """
-    The list of Data Labs. This is a list composed of messages of type `DataLab`.
+    The list of clusters. This is a list composed of messages of type `DataLab`.
     """
 
     total_count: int
     """
-    The total count of Data Labs.
+    The total count of clusters.
     """
 
 
@@ -731,12 +731,12 @@ class ListNotebookVersionsResponse:
 @dataclass
 class UpdateDatalabRequest:
     """
-    A request to update a Data Lab.
+    A request to update a cluster.
     """
 
     datalab_id: str
     """
-    The unique identifier of the Data Lab.
+    The unique identifier of the cluster.
     """
 
     region: Optional[ScwRegion] = None
@@ -746,20 +746,20 @@ class UpdateDatalabRequest:
 
     name: Optional[str] = None
     """
-    The updated name of the Data Lab.
+    The updated name of the cluster.
     """
 
     description: Optional[str] = None
     """
-    The updated description of the Data Lab.
+    The updated description of the cluster.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)
     """
-    The updated tags of the Data Lab.
+    The updated tags of the cluster.
     """
 
     node_count: Optional[int] = 0
     """
-    The updated node count of the Data Lab. Scale up or down the number of worker nodes.
+    The updated node count of the cluster. Scale up or down the number of worker nodes.
     """
