@@ -778,6 +778,11 @@ class Backend:
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
 
+    host: Optional[str] = None
+    """
+    When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
+    """
+
 
 @dataclass
 class Certificate:
@@ -1439,6 +1444,11 @@ class CreateBackendRequest:
     timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
+    """
+
+    host: Optional[str] = None
+    """
+    When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
     """
 
 
@@ -2675,6 +2685,11 @@ class UpdateBackendRequest:
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
 
+    host: Optional[str] = None
+    """
+    When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
+    """
+
 
 @dataclass
 class UpdateCertificateRequest:
@@ -3123,6 +3138,11 @@ class ZonedApiCreateBackendRequest:
     timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
+    """
+
+    host: Optional[str] = None
+    """
+    When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
     """
 
 
@@ -4211,6 +4231,11 @@ class ZonedApiUpdateBackendRequest:
     timeout_queue: Optional[str] = None
     """
     Maximum time for a request to be left pending in queue when `max_connections` is reached.
+    """
+
+    host: Optional[str] = None
+    """
+    When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
     """
 
 

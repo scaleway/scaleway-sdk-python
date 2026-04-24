@@ -952,6 +952,7 @@ class LbV1ZonedAPI(API):
         max_retries: Optional[int] = None,
         max_connections: Optional[int] = None,
         timeout_queue: Optional[str] = None,
+        host: Optional[str] = None,
     ) -> Backend:
         """
         Create a backend for a given Load Balancer.
@@ -979,6 +980,7 @@ class LbV1ZonedAPI(API):
         :param max_retries: Number of retries when a backend server connection failed.
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+        :param host: When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -1027,6 +1029,7 @@ class LbV1ZonedAPI(API):
                     max_retries=max_retries,
                     max_connections=max_connections,
                     timeout_queue=timeout_queue,
+                    host=host,
                 ),
                 self.client,
             ),
@@ -1091,6 +1094,7 @@ class LbV1ZonedAPI(API):
         max_retries: Optional[int] = None,
         max_connections: Optional[int] = None,
         timeout_queue: Optional[str] = None,
+        host: Optional[str] = None,
     ) -> Backend:
         """
         Update a backend of a given Load Balancer.
@@ -1116,6 +1120,7 @@ class LbV1ZonedAPI(API):
         :param max_retries: Number of retries when a backend server connection failed.
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+        :param host: When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -1161,6 +1166,7 @@ class LbV1ZonedAPI(API):
                     max_retries=max_retries,
                     max_connections=max_connections,
                     timeout_queue=timeout_queue,
+                    host=host,
                 ),
                 self.client,
             ),
@@ -3990,6 +3996,7 @@ class LbV1API(API):
         max_retries: Optional[int] = None,
         max_connections: Optional[int] = None,
         timeout_queue: Optional[str] = None,
+        host: Optional[str] = None,
     ) -> Backend:
         """
         Create a backend in a given load balancer.
@@ -4016,6 +4023,7 @@ class LbV1API(API):
         :param max_retries: Number of retries when a backend server connection failed.
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+        :param host: When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -4066,6 +4074,7 @@ class LbV1API(API):
                     max_retries=max_retries,
                     max_connections=max_connections,
                     timeout_queue=timeout_queue,
+                    host=host,
                 ),
                 self.client,
             ),
@@ -4131,6 +4140,7 @@ class LbV1API(API):
         max_retries: Optional[int] = None,
         max_connections: Optional[int] = None,
         timeout_queue: Optional[str] = None,
+        host: Optional[str] = None,
     ) -> Backend:
         """
         Update a backend in a given load balancer.
@@ -4155,6 +4165,7 @@ class LbV1API(API):
         :param max_retries: Number of retries when a backend server connection failed.
         :param max_connections: Maximum number of connections allowed per backend server.
         :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
+        :param host: When connecting to backend servers, use this value as the HTTP Host header or TLS SNI. This allows routing to specific services on the backend server that are configured to respond to particular hostnames.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -4202,6 +4213,7 @@ class LbV1API(API):
                     max_retries=max_retries,
                     max_connections=max_connections,
                     timeout_queue=timeout_queue,
+                    host=host,
                 ),
                 self.client,
             ),
