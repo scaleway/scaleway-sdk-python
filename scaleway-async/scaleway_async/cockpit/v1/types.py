@@ -61,6 +61,7 @@ class ExporterStatus(str, Enum, metaclass=StrEnumMeta):
     CREATING = "creating"
     READY = "ready"
     ERROR = "error"
+    IDLE = "idle"
 
     def __str__(self) -> str:
         return str(self.value)
