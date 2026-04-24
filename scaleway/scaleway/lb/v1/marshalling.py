@@ -835,6 +835,12 @@ def unmarshal_Backend(data: Any) -> Backend:
     else:
         args["timeout_queue"] = None
 
+    field = data.get("host", None)
+    if field is not None:
+        args["host"] = field
+    else:
+        args["host"] = None
+
     return Backend(**args)
 
 
@@ -2188,6 +2194,9 @@ def marshal_CreateBackendRequest(
     if request.timeout_queue is not None:
         output["timeout_queue"] = request.timeout_queue
 
+    if request.host is not None:
+        output["host"] = request.host
+
     return output
 
 
@@ -2620,6 +2629,9 @@ def marshal_UpdateBackendRequest(
     if request.timeout_queue is not None:
         output["timeout_queue"] = request.timeout_queue
 
+    if request.host is not None:
+        output["host"] = request.host
+
     return output
 
 
@@ -2961,6 +2973,9 @@ def marshal_ZonedApiCreateBackendRequest(
 
     if request.timeout_queue is not None:
         output["timeout_queue"] = request.timeout_queue
+
+    if request.host is not None:
+        output["host"] = request.host
 
     return output
 
@@ -3365,6 +3380,9 @@ def marshal_ZonedApiUpdateBackendRequest(
 
     if request.timeout_queue is not None:
         output["timeout_queue"] = request.timeout_queue
+
+    if request.host is not None:
+        output["host"] = request.host
 
     return output
 
