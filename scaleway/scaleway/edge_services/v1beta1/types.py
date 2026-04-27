@@ -105,6 +105,16 @@ class ListTLSStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListVPCEndpointsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListWafStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -318,6 +328,8 @@ class ScalewayLb:
     Defines whether to forward websocket requests to the load balancer.
     """
 
+    private_network_id: Optional[str] = None
+
 
 @dataclass
 class RuleHttpMatchHostFilter:
@@ -520,6 +532,7 @@ class DNSStage:
     Default Fully Qualified Domain Name attached to the stage.
     """
 
+    default_private_fqdn: str
     fqdns: list[str]
     """
     List of additional (custom) Fully Qualified Domain Names attached to the stage.
@@ -543,6 +556,11 @@ class DNSStage:
     wildcard_domain: bool
     """
     Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
+    """
+
+    full_private: bool
+    """
+    Fully Qualified Domain Names are accessible exclusively within the VPC.
     """
 
     created_at: Optional[datetime] = None
@@ -599,6 +617,7 @@ class Pipeline:
     Organization ID of the pipeline.
     """
 
+    vpc_endpoint_ids: list[str]
     created_at: Optional[datetime] = None
     """
     Date the pipeline was created.
@@ -862,6 +881,18 @@ class PurgeRequest:
 
 
 @dataclass
+class VPCEndpoint:
+    id: str
+    project_id: str
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    private_network_id: str
+
+
+@dataclass
 class SetHeadStageRequestAddNewHeadStage:
     new_stage_id: str
 
@@ -1010,6 +1041,11 @@ class CreateDNSStageRequest:
     Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
     """
 
+    full_private: Optional[bool] = False
+    """
+    When true, Fully Qualified Domain Names are accessible exclusively within the VPC.
+    """
+
     tls_stage_id: Optional[str] = None
 
     cache_stage_id: Optional[str] = None
@@ -1033,6 +1069,8 @@ class CreatePipelineRequest:
     """
     Project ID in which the pipeline will be created.
     """
+
+    vpc_endpoint_ids: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -1083,6 +1121,16 @@ class CreateTLSStageRequest:
     route_stage_id: Optional[str] = None
 
     waf_stage_id: Optional[str] = None
+
+
+@dataclass
+class CreateVPCEndpointRequest:
+    private_network_id: str
+    project_id: Optional[str] = None
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
@@ -1156,6 +1204,11 @@ class DeleteTLSStageRequest:
     """
     ID of the TLS stage to delete.
     """
+
+
+@dataclass
+class DeleteVPCEndpointRequest:
+    vpc_endpoint_id: str
 
 
 @dataclass
@@ -1298,6 +1351,11 @@ class GetTLSStageRequest:
     """
     ID of the requested TLS stage.
     """
+
+
+@dataclass
+class GetVPCEndpointRequest:
+    vpc_endpoint_id: str
 
 
 @dataclass
@@ -1712,6 +1770,21 @@ class ListTLSStagesResponse:
 
 
 @dataclass
+class ListVPCEndpointsRequest:
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListVPCEndpointsRequestOrderBy] = None
+    project_id: Optional[str] = None
+    organization_id: Optional[str] = None
+
+
+@dataclass
+class ListVPCEndpointsResponse:
+    total_count: int
+    vpc_endpoints: list[VPCEndpoint]
+
+
+@dataclass
 class ListWafStagesRequest:
     pipeline_id: str
     """
@@ -1891,6 +1964,11 @@ class UpdateDNSStageRequest:
     Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work).
     """
 
+    full_private: Optional[bool] = False
+    """
+    When true, Fully Qualified Domain Names are accessible exclusively within the VPC.
+    """
+
     tls_stage_id: Optional[str] = None
 
     cache_stage_id: Optional[str] = None
@@ -1914,6 +1992,8 @@ class UpdatePipelineRequest:
     """
     Description of the pipeline.
     """
+
+    vpc_endpoint_ids: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
