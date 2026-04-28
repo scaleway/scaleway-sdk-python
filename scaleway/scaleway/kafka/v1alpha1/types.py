@@ -25,6 +25,7 @@ class ClusterStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     LOCKED = "locked"
     STOPPED = "stopped"
+    UPGRADING = "upgrading"
 
     def __str__(self) -> str:
         return str(self.value)

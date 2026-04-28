@@ -9,6 +9,7 @@ CLUSTER_TRANSIENT_STATUSES: list[ClusterStatus] = [
     ClusterStatus.CREATING,
     ClusterStatus.CONFIGURING,
     ClusterStatus.DELETING,
+    ClusterStatus.UPGRADING,
 ]
 """
 Lists transient statutes of the enum :class:`ClusterStatus <ClusterStatus>`.
