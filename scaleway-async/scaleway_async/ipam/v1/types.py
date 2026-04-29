@@ -62,6 +62,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     DTWH_DEPLOYMENT = "dtwh_deployment"
     SEDB_CLUSTER = "sedb_cluster"
     MSGQ_CLUSTER = "msgq_cluster"
+    EDGE_VPC_ENDPOINT = "edge_vpc_endpoint"
 
     def __str__(self) -> str:
         return str(self.value)
