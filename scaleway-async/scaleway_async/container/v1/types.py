@@ -1246,6 +1246,7 @@ class ListTriggersRequest:
     project_id: Optional[str] = None
     namespace_id: Optional[str] = None
     container_id: Optional[str] = None
+    trigger_type: Optional[TriggerSourceType] = None
 
 
 @dataclass
