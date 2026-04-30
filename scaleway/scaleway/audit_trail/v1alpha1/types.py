@@ -218,6 +218,8 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     DTWH_DEPLOYMENT_ENDPOINT = "dtwh_deployment_endpoint"
     DTWH_DEPLOYMENT_DATABASE = "dtwh_deployment_database"
     DTWH_DEPLOYMENT_USER = "dtwh_deployment_user"
+    SSDB_DATABASE = "ssdb_database"
+    SSDB_DATABASE_BACKUP = "ssdb_database_backup"
 
     def __str__(self) -> str:
         return str(self.value)
