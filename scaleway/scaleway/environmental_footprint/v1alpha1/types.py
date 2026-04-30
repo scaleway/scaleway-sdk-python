@@ -101,7 +101,7 @@ class ZoneImpact:
 
     skus: list[SkuImpact]
     """
-    List of estimated impact values per SKU.
+    List of estimated impact values per SKU for this zone.
     """
 
     total_zone_impact: Optional[Impact] = None
@@ -120,6 +120,11 @@ class RegionImpact:
     zones: list[ZoneImpact]
     """
     List of estimated impact values per zone.
+    """
+
+    skus: list[SkuImpact]
+    """
+    List of estimated impact values per SKU for this region.
     """
 
     total_region_impact: Optional[Impact] = None
