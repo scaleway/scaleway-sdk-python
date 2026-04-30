@@ -23,6 +23,7 @@ from .types import (
     ListDomainsRequestOrderBy,
     ListNamespacesRequestOrderBy,
     ListTriggersRequestOrderBy,
+    TriggerSourceType,
     Container,
     ContainerProbe,
     ContainerScalingOption,
@@ -1344,12 +1345,13 @@ class ContainerV1API(API):
         project_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
         container_id: Optional[str] = None,
+        trigger_type: Optional[TriggerSourceType] = None,
     ) -> ListTriggersResponse:
         """
         List all triggers the caller can access (read permission).
         By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
 
-        Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.
+        Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, `container_id` or `trigger_type`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -1358,6 +1360,7 @@ class ContainerV1API(API):
         :param project_id:
         :param namespace_id:
         :param container_id:
+        :param trigger_type:
         :return: :class:`ListTriggersResponse <ListTriggersResponse>`
 
         Usage:
@@ -1382,6 +1385,7 @@ class ContainerV1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "trigger_type": trigger_type,
             },
         )
 
@@ -1399,12 +1403,13 @@ class ContainerV1API(API):
         project_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
         container_id: Optional[str] = None,
+        trigger_type: Optional[TriggerSourceType] = None,
     ) -> list[Trigger]:
         """
         List all triggers the caller can access (read permission).
         By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
 
-        Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.
+        Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, `container_id` or `trigger_type`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -1413,6 +1418,7 @@ class ContainerV1API(API):
         :param project_id:
         :param namespace_id:
         :param container_id:
+        :param trigger_type:
         :return: :class:`list[Trigger] <list[Trigger]>`
 
         Usage:
@@ -1434,6 +1440,7 @@ class ContainerV1API(API):
                 "project_id": project_id,
                 "namespace_id": namespace_id,
                 "container_id": container_id,
+                "trigger_type": trigger_type,
             },
         )
 
