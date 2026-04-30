@@ -130,6 +130,14 @@ def unmarshal_RegionImpact(data: Any) -> RegionImpact:
     else:
         args["zones"] = []
 
+    field = data.get("skus", None)
+    if field is not None:
+        args["skus"] = (
+            [unmarshal_SkuImpact(v) for v in field] if field is not None else None
+        )
+    else:
+        args["skus"] = []
+
     field = data.get("total_region_impact", None)
     if field is not None:
         args["total_region_impact"] = unmarshal_Impact(field)
