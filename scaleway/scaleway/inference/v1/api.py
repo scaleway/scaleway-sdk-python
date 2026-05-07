@@ -56,7 +56,7 @@ from .marshalling import (
 
 class InferenceV1API(API):
     """
-    This API allows you to handle your Managed Inference services.
+    This API allows you to handle your Generative APIs - Dedicated Deployment services.
     """
 
     def list_deployments(
