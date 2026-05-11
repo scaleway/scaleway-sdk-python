@@ -20,6 +20,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     INSTANCE_SERVER = "instance_server"
     INSTANCE_VOLUME = "instance_volume"
     INSTANCE_IMAGE = "instance_image"
+    INSTANCE_SECURITY_GROUP = "instance_security_group"
     K8S_CLUSTER = "k8s_cluster"
     K8S_POOL = "k8s_pool"
     K8S_NODE = "k8s_node"
