@@ -1126,6 +1126,10 @@ class DeleteTriggerRequest:
 @dataclass
 class GetContainerRequest:
     container_id: str
+    """
+    UUID of the container to get.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -1135,6 +1139,10 @@ class GetContainerRequest:
 @dataclass
 class GetDomainRequest:
     domain_id: str
+    """
+    UUID of the domain to get.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -1144,6 +1152,10 @@ class GetDomainRequest:
 @dataclass
 class GetNamespaceRequest:
     namespace_id: str
+    """
+    UUID of the namespace to get.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -1161,6 +1173,10 @@ class GetServiceInfoRequest:
 @dataclass
 class GetTriggerRequest:
     trigger_id: str
+    """
+    ID of the trigger to get.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
