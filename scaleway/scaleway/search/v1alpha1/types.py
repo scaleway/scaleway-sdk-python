@@ -59,6 +59,10 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     OBS_DATASOURCE = "obs_datasource"
     OBS_TOKEN = "obs_token"
     OBS_ALERT = "obs_alert"
+    SVPN_VPN_GATEWAY = "svpn_vpn_gateway"
+    SVPN_CUSTOMER_GATEWAY = "svpn_customer_gateway"
+    SVPN_CONNECTION = "svpn_connection"
+    SVPN_ROUTING_POLICY = "svpn_routing_policy"
 
     def __str__(self) -> str:
         return str(self.value)

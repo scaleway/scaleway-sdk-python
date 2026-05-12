@@ -38,6 +38,7 @@ from .types import (
     CreateTriggerRequest,
     StartJobDefinitionRequest,
     UpdateJobDefinitionRequestCronScheduleConfig,
+    UpdateJobDefinitionRequestUpdateRetryPolicy,
     UpdateJobDefinitionRequest,
     UpdateSecretRequest,
     UpdateTriggerRequestCronConfig,
@@ -910,6 +911,18 @@ def marshal_UpdateJobDefinitionRequestCronScheduleConfig(
     return output
 
 
+def marshal_UpdateJobDefinitionRequestUpdateRetryPolicy(
+    request: UpdateJobDefinitionRequestUpdateRetryPolicy,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.max_retries is not None:
+        output["max_retries"] = request.max_retries
+
+    return output
+
+
 def marshal_UpdateJobDefinitionRequest(
     request: UpdateJobDefinitionRequest,
     defaults: ProfileDefaults,
@@ -955,7 +968,9 @@ def marshal_UpdateJobDefinitionRequest(
         )
 
     if request.retry_policy is not None:
-        output["retry_policy"] = marshal_RetryPolicy(request.retry_policy, defaults)
+        output["retry_policy"] = marshal_UpdateJobDefinitionRequestUpdateRetryPolicy(
+            request.retry_policy, defaults
+        )
 
     return output
 
