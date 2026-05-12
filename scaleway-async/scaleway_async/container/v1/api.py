@@ -173,7 +173,7 @@ class ContainerV1API(API):
     ) -> Namespace:
         """
         Get the namespace associated with the specified ID.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
 
@@ -209,7 +209,7 @@ class ContainerV1API(API):
     ) -> Namespace:
         """
         Get the namespace associated with the specified ID.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
 
@@ -552,7 +552,7 @@ class ContainerV1API(API):
     ) -> Container:
         """
         Get the container associated with the specified ID.
-        :param container_id:
+        :param container_id: UUID of the container to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
 
@@ -588,7 +588,7 @@ class ContainerV1API(API):
     ) -> Container:
         """
         Get the container associated with the specified ID.
-        :param container_id:
+        :param container_id: UUID of the container to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
 
@@ -926,7 +926,7 @@ class ContainerV1API(API):
     ) -> Domain:
         """
         Get the custom domain associated with the specified ID.
-        :param domain_id:
+        :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
@@ -960,7 +960,7 @@ class ContainerV1API(API):
     ) -> Domain:
         """
         Get the custom domain associated with the specified ID.
-        :param domain_id:
+        :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
@@ -1277,7 +1277,7 @@ class ContainerV1API(API):
     ) -> Trigger:
         """
         Get the trigger associated with the specified ID.
-        :param trigger_id:
+        :param trigger_id: ID of the trigger to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
 
@@ -1311,7 +1311,7 @@ class ContainerV1API(API):
     ) -> Trigger:
         """
         Get the trigger associated with the specified ID.
-        :param trigger_id:
+        :param trigger_id: ID of the trigger to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
 
