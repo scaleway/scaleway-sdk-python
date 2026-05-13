@@ -432,11 +432,6 @@ class UpdateJobDefinitionRequestCronScheduleConfig:
 
 
 @dataclass
-class UpdateJobDefinitionRequestUpdateRetryPolicy:
-    max_retries: Optional[int] = None
-
-
-@dataclass
 class UpdateTriggerRequestCronConfig:
     schedule: Optional[str] = None
     """
@@ -953,7 +948,7 @@ Environment variables and secrets can be included, and will be expanded before t
     Configure a cron for the job.
     """
 
-    retry_policy: Optional[UpdateJobDefinitionRequestUpdateRetryPolicy] = None
+    retry_policy: Optional[RetryPolicy] = None
     """
     Retry behaviour in case of job failure.
     """

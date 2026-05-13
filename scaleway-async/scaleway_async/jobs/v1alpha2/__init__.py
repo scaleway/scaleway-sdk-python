@@ -20,7 +20,6 @@ from .types import Resource
 from .types import JobRun
 from .types import Trigger
 from .types import UpdateJobDefinitionRequestCronScheduleConfig
-from .types import UpdateJobDefinitionRequestUpdateRetryPolicy
 from .types import UpdateTriggerRequestCronConfig
 from .types import CreateJobDefinitionRequest
 from .types import CreateSecretsRequest
@@ -74,7 +73,6 @@ __all__ = [
     "JobRun",
     "Trigger",
     "UpdateJobDefinitionRequestCronScheduleConfig",
-    "UpdateJobDefinitionRequestUpdateRetryPolicy",
     "UpdateTriggerRequestCronConfig",
     "CreateJobDefinitionRequest",
     "CreateSecretsRequest",

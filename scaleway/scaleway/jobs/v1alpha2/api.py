@@ -40,7 +40,6 @@ from .types import (
     Trigger,
     UpdateJobDefinitionRequest,
     UpdateJobDefinitionRequestCronScheduleConfig,
-    UpdateJobDefinitionRequestUpdateRetryPolicy,
     UpdateSecretRequest,
     UpdateTriggerRequest,
     UpdateTriggerRequestCronConfig,
@@ -295,7 +294,7 @@ class JobsV1Alpha2API(API):
         description: Optional[str] = None,
         job_timeout: Optional[str] = None,
         cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig] = None,
-        retry_policy: Optional[UpdateJobDefinitionRequestUpdateRetryPolicy] = None,
+        retry_policy: Optional[RetryPolicy] = None,
     ) -> JobDefinition:
         """
         Update an existing job definition associated with the specified unique identifier.
