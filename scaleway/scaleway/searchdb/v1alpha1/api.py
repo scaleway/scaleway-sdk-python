@@ -339,7 +339,6 @@ class SearchdbV1Alpha1API(API):
         page_size: Optional[int] = None,
         tags: Optional[list[str]] = None,
         name: Optional[str] = None,
-        version: Optional[str] = None,
     ) -> ListDeploymentsResponse:
         """
         Retrieve a list of Cloud Essentials for OpenSearch deployments.
@@ -351,7 +350,6 @@ class SearchdbV1Alpha1API(API):
         :param page_size: Number of deployments to return.
         :param tags: Filter by tag, only deployments with one or more matching tags will be returned.
         :param name: Deployment name to filter for.
-        :param version: Engine version to filter for.
         :return: :class:`ListDeploymentsResponse <ListDeploymentsResponse>`
 
         Usage:
@@ -376,7 +374,6 @@ class SearchdbV1Alpha1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
-                "version": version,
             },
         )
 
@@ -394,7 +391,6 @@ class SearchdbV1Alpha1API(API):
         page_size: Optional[int] = None,
         tags: Optional[list[str]] = None,
         name: Optional[str] = None,
-        version: Optional[str] = None,
     ) -> list[Deployment]:
         """
         Retrieve a list of Cloud Essentials for OpenSearch deployments.
@@ -406,7 +402,6 @@ class SearchdbV1Alpha1API(API):
         :param page_size: Number of deployments to return.
         :param tags: Filter by tag, only deployments with one or more matching tags will be returned.
         :param name: Deployment name to filter for.
-        :param version: Engine version to filter for.
         :return: :class:`list[Deployment] <list[Deployment]>`
 
         Usage:
@@ -428,7 +423,6 @@ class SearchdbV1Alpha1API(API):
                 "page_size": page_size,
                 "tags": tags,
                 "name": name,
-                "version": version,
             },
         )
 
