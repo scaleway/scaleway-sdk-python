@@ -34,6 +34,18 @@ class Action(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListIngressRulesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    SOURCE_ASC = "source_asc"
+    SOURCE_DESC = "source_desc"
+    PREFIX_LEN_ASC = "prefix_len_asc"
+    PREFIX_LEN_DESC = "prefix_len_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -329,6 +341,20 @@ class AclRule:
 
 
 @dataclass
+class IngressRule:
+    id: str
+    vpc_id: str
+    is_ipv6: bool
+    source: str
+    nexthop_resource_ip: str
+    nexthop_private_network_id: str
+    tags: list[str]
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    description: Optional[str] = None
+
+
+@dataclass
 class ListSubnetOverlapsResponseSubnetOverlap:
     subnet_id: str
     subnet: str
@@ -486,6 +512,21 @@ class AddSubnetsResponse:
 
 
 @dataclass
+class CreateIngressRuleRequest:
+    vpc_id: str
+    source: str
+    nexthop_resource_ip: str
+    nexthop_private_network_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str] = None
+    tags: Optional[list[str]] = field(default_factory=list)
+
+
+@dataclass
 class CreatePrivateNetworkRequest:
     default_route_propagation_enabled: bool
     """
@@ -619,6 +660,15 @@ class CreateVPCRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags for the VPC.
+    """
+
+
+@dataclass
+class DeleteIngressRuleRequest:
+    rule_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -761,6 +811,15 @@ class GetAclResponse:
 
 
 @dataclass
+class GetIngressRuleRequest:
+    rule_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetPrivateNetworkRequest:
     private_network_id: str
     """
@@ -810,6 +869,29 @@ class GetVPCRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+
+@dataclass
+class ListIngressRulesRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListIngressRulesRequestOrderBy] = None
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    vpc_id: Optional[str] = None
+    nexthop_resource_ip: Optional[str] = None
+    nexthop_private_network_id: Optional[str] = None
+    is_ipv6: Optional[bool] = None
+    tags: Optional[list[str]] = field(default_factory=list)
+
+
+@dataclass
+class ListIngressRulesResponse:
+    rules: list[IngressRule]
+    total_count: int
 
 
 @dataclass
@@ -1124,6 +1206,21 @@ class SetAclRequest:
 class SetAclResponse:
     rules: list[AclRule]
     default_policy: Action
+
+
+@dataclass
+class UpdateIngressRuleRequest:
+    rule_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    source: Optional[str] = None
+    nexthop_resource_ip: Optional[str] = None
+    nexthop_private_network_id: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
