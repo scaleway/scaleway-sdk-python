@@ -207,6 +207,12 @@ class CreateConnectionRequestBgpConfig:
 
 
 @dataclass
+class CreateConnectionRequestSecret:
+    id: str
+    revision: Optional[int] = None
+
+
+@dataclass
 class Connection:
     id: str
     """
@@ -624,6 +630,11 @@ class CreateConnectionRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags to apply to the connection.
+    """
+
+    secret: Optional[CreateConnectionRequestSecret] = None
+    """
+    Specifies the pre-shared key used for the IPsec tunnel.
     """
 
     bgp_config_ipv4: Optional[CreateConnectionRequestBgpConfig] = None

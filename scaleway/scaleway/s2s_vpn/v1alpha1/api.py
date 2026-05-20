@@ -26,6 +26,7 @@ from .types import (
     ConnectionCipher,
     CreateConnectionRequest,
     CreateConnectionRequestBgpConfig,
+    CreateConnectionRequestSecret,
     CreateConnectionResponse,
     CreateCustomerGatewayRequest,
     CreateRoutingPolicyRequest,
@@ -669,14 +670,15 @@ class S2SVpnV1Alpha1API(API):
         name: str,
         is_ipv6: bool,
         initiation_policy: CreateConnectionRequestInitiationPolicy,
-        ikev2_ciphers: list[ConnectionCipher],
-        esp_ciphers: list[ConnectionCipher],
-        enable_route_propagation: bool,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
+        ikev2_ciphers: list[ConnectionCipher],
+        esp_ciphers: list[ConnectionCipher],
+        enable_route_propagation: bool,
         vpn_gateway_id: str,
         customer_gateway_id: str,
+        secret: Optional[CreateConnectionRequestSecret] = None,
         bgp_config_ipv4: Optional[CreateConnectionRequestBgpConfig] = None,
         bgp_config_ipv6: Optional[CreateConnectionRequestBgpConfig] = None,
     ) -> CreateConnectionResponse:
@@ -685,14 +687,15 @@ class S2SVpnV1Alpha1API(API):
         :param name: Name of the connection.
         :param is_ipv6: Defines IP version of the IPSec Tunnel.
         :param initiation_policy: Who initiates the IPsec tunnel.
-        :param ikev2_ciphers: List of IKE v2 ciphers proposed for the IPsec tunnel.
-        :param esp_ciphers: List of ESP ciphers proposed for the IPsec tunnel.
-        :param enable_route_propagation: Defines whether route propagation is enabled or not.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to create the connection in.
         :param tags: List of tags to apply to the connection.
+        :param ikev2_ciphers: List of IKE v2 ciphers proposed for the IPsec tunnel.
+        :param esp_ciphers: List of ESP ciphers proposed for the IPsec tunnel.
+        :param enable_route_propagation: Defines whether route propagation is enabled or not.
         :param vpn_gateway_id: ID of the VPN gateway to attach to the connection.
         :param customer_gateway_id: ID of the customer gateway to attach to the connection.
+        :param secret: Specifies the pre-shared key used for the IPsec tunnel.
         :param bgp_config_ipv4: BGP config of IPv4 session, including interco private IPv4 subnet (first IP assigned to the VPN Gateway, second IP to the Customer Gateway) and attached routing policy.
         :param bgp_config_ipv6: BGP config of IPv6 session, including interco private IPv6 subnet (first IP assigned to the VPN Gateway, second IP to the Customer Gateway) and attached routing policy.
         :return: :class:`CreateConnectionResponse <CreateConnectionResponse>`
@@ -724,14 +727,15 @@ class S2SVpnV1Alpha1API(API):
                     name=name,
                     is_ipv6=is_ipv6,
                     initiation_policy=initiation_policy,
-                    ikev2_ciphers=ikev2_ciphers,
-                    esp_ciphers=esp_ciphers,
-                    enable_route_propagation=enable_route_propagation,
                     region=region,
                     project_id=project_id,
                     tags=tags,
+                    ikev2_ciphers=ikev2_ciphers,
+                    esp_ciphers=esp_ciphers,
+                    enable_route_propagation=enable_route_propagation,
                     vpn_gateway_id=vpn_gateway_id,
                     customer_gateway_id=customer_gateway_id,
+                    secret=secret,
                     bgp_config_ipv4=bgp_config_ipv4,
                     bgp_config_ipv6=bgp_config_ipv6,
                 ),
