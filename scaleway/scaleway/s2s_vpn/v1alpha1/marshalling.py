@@ -32,6 +32,7 @@ from .types import (
     ListVpnGatewaysResponse,
     RenewConnectionPskResponse,
     CreateConnectionRequestBgpConfig,
+    CreateConnectionRequestSecret,
     CreateConnectionRequest,
     CreateCustomerGatewayRequest,
     CreateRoutingPolicyRequest,
@@ -837,6 +838,21 @@ def marshal_CreateConnectionRequestBgpConfig(
     return output
 
 
+def marshal_CreateConnectionRequestSecret(
+    request: CreateConnectionRequestSecret,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.revision is not None:
+        output["revision"] = request.revision
+
+    return output
+
+
 def marshal_CreateConnectionRequest(
     request: CreateConnectionRequest,
     defaults: ProfileDefaults,
@@ -852,6 +868,14 @@ def marshal_CreateConnectionRequest(
     if request.initiation_policy is not None:
         output["initiation_policy"] = request.initiation_policy
 
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     if request.ikev2_ciphers is not None:
         output["ikev2_ciphers"] = [
             marshal_ConnectionCipher(item, defaults) for item in request.ikev2_ciphers
@@ -865,19 +889,16 @@ def marshal_CreateConnectionRequest(
     if request.enable_route_propagation is not None:
         output["enable_route_propagation"] = request.enable_route_propagation
 
-    if request.project_id is not None:
-        output["project_id"] = request.project_id
-    else:
-        output["project_id"] = defaults.default_project_id
-
-    if request.tags is not None:
-        output["tags"] = request.tags
-
     if request.vpn_gateway_id is not None:
         output["vpn_gateway_id"] = request.vpn_gateway_id
 
     if request.customer_gateway_id is not None:
         output["customer_gateway_id"] = request.customer_gateway_id
+
+    if request.secret is not None:
+        output["secret"] = marshal_CreateConnectionRequestSecret(
+            request.secret, defaults
+        )
 
     if request.bgp_config_ipv4 is not None:
         output["bgp_config_ipv4"] = marshal_CreateConnectionRequestBgpConfig(
