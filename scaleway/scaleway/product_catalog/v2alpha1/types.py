@@ -34,6 +34,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     KUBERNETES = "kubernetes"
     MANAGED_RELATIONAL_DATABASE = "managed_relational_database"
     MANAGED_MONGODB = "managed_mongodb"
+    SERVERLESS_FUNCTIONS = "serverless_functions"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -649,6 +650,11 @@ class PublicCatalogProductPropertiesSecretManager:
 
 
 @dataclass
+class PublicCatalogProductPropertiesServerlessFunctions:
+    pass
+
+
+@dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
     kg_co2_equivalent: Optional[float] = None
     m3_water_usage: Optional[float] = None
@@ -710,6 +716,10 @@ class PublicCatalogProductProperties:
 
     managed_relational_database: Optional[
         PublicCatalogProductPropertiesManagedRelationalDatabase
+    ] = None
+
+    serverless_functions: Optional[
+        PublicCatalogProductPropertiesServerlessFunctions
     ] = None
 
     managed_mongodb: Optional[PublicCatalogProductPropertiesManagedMongoDB] = None
