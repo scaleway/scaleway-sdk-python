@@ -14,6 +14,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     Action,
+    ListIngressRulesRequestOrderBy,
     ListPrivateNetworksRequestOrderBy,
     ListSubnetOverlapsRequestOrderBy,
     ListSubnetsRequestOrderBy,
@@ -23,6 +24,7 @@ from .types import (
     AclRule,
     AddSubnetsRequest,
     AddSubnetsResponse,
+    CreateIngressRuleRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCConnectorRequest,
@@ -30,6 +32,8 @@ from .types import (
     DeleteSubnetsRequest,
     DeleteSubnetsResponse,
     GetAclResponse,
+    IngressRule,
+    ListIngressRulesResponse,
     ListPrivateNetworksResponse,
     ListSubnetOverlapsResponse,
     ListSubnetOverlapsResponseSubnetOverlap,
@@ -41,6 +45,7 @@ from .types import (
     SetAclRequest,
     SetAclResponse,
     Subnet,
+    UpdateIngressRuleRequest,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
     UpdateVPCConnectorRequest,
@@ -51,11 +56,13 @@ from .types import (
 from .marshalling import (
     unmarshal_PrivateNetwork,
     unmarshal_Route,
+    unmarshal_IngressRule,
     unmarshal_VPCConnector,
     unmarshal_VPC,
     unmarshal_AddSubnetsResponse,
     unmarshal_DeleteSubnetsResponse,
     unmarshal_GetAclResponse,
+    unmarshal_ListIngressRulesResponse,
     unmarshal_ListPrivateNetworksResponse,
     unmarshal_ListSubnetOverlapsResponse,
     unmarshal_ListSubnetsResponse,
@@ -63,12 +70,14 @@ from .marshalling import (
     unmarshal_ListVPCsResponse,
     unmarshal_SetAclResponse,
     marshal_AddSubnetsRequest,
+    marshal_CreateIngressRuleRequest,
     marshal_CreatePrivateNetworkRequest,
     marshal_CreateRouteRequest,
     marshal_CreateVPCConnectorRequest,
     marshal_CreateVPCRequest,
     marshal_DeleteSubnetsRequest,
     marshal_SetAclRequest,
+    marshal_UpdateIngressRuleRequest,
     marshal_UpdatePrivateNetworkRequest,
     marshal_UpdateRouteRequest,
     marshal_UpdateVPCConnectorRequest,
@@ -1600,3 +1609,276 @@ class VpcV2API(API):
                 "page_size": page_size,
             },
         )
+
+    def list_ingress_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListIngressRulesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        vpc_id: Optional[str] = None,
+        nexthop_resource_ip: Optional[str] = None,
+        nexthop_private_network_id: Optional[str] = None,
+        is_ipv6: Optional[bool] = None,
+        tags: Optional[list[str]] = None,
+    ) -> ListIngressRulesResponse:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param vpc_id:
+        :param nexthop_resource_ip:
+        :param nexthop_private_network_id:
+        :param is_ipv6:
+        :param tags:
+        :return: :class:`ListIngressRulesResponse <ListIngressRulesResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_ingress_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/vpc/v2/regions/{param_region}/ingress-rules",
+            params={
+                "is_ipv6": is_ipv6,
+                "nexthop_private_network_id": nexthop_private_network_id,
+                "nexthop_resource_ip": nexthop_resource_ip,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "tags": tags,
+                "vpc_id": vpc_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListIngressRulesResponse(res.json())
+
+    def list_ingress_rules_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListIngressRulesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        vpc_id: Optional[str] = None,
+        nexthop_resource_ip: Optional[str] = None,
+        nexthop_private_network_id: Optional[str] = None,
+        is_ipv6: Optional[bool] = None,
+        tags: Optional[list[str]] = None,
+    ) -> list[IngressRule]:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param vpc_id:
+        :param nexthop_resource_ip:
+        :param nexthop_private_network_id:
+        :param is_ipv6:
+        :param tags:
+        :return: :class:`list[IngressRule] <list[IngressRule]>`
+
+        Usage:
+        ::
+
+            result = api.list_ingress_rules_all()
+        """
+
+        return fetch_all_pages(
+            type=ListIngressRulesResponse,
+            key="rules",
+            fetcher=self.list_ingress_rules,
+            args={
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "vpc_id": vpc_id,
+                "nexthop_resource_ip": nexthop_resource_ip,
+                "nexthop_private_network_id": nexthop_private_network_id,
+                "is_ipv6": is_ipv6,
+                "tags": tags,
+            },
+        )
+
+    def create_ingress_rule(
+        self,
+        *,
+        vpc_id: str,
+        source: str,
+        nexthop_resource_ip: str,
+        nexthop_private_network_id: str,
+        region: Optional[ScwRegion] = None,
+        description: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+    ) -> IngressRule:
+        """
+        :param vpc_id:
+        :param source:
+        :param nexthop_resource_ip:
+        :param nexthop_private_network_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param description:
+        :param tags:
+        :return: :class:`IngressRule <IngressRule>`
+
+        Usage:
+        ::
+
+            result = api.create_ingress_rule(
+                vpc_id="example",
+                source="example",
+                nexthop_resource_ip="example",
+                nexthop_private_network_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/vpc/v2/regions/{param_region}/ingress-rules",
+            body=marshal_CreateIngressRuleRequest(
+                CreateIngressRuleRequest(
+                    vpc_id=vpc_id,
+                    source=source,
+                    nexthop_resource_ip=nexthop_resource_ip,
+                    nexthop_private_network_id=nexthop_private_network_id,
+                    region=region,
+                    description=description,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_IngressRule(res.json())
+
+    def get_ingress_rule(
+        self,
+        *,
+        rule_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> IngressRule:
+        """
+        :param rule_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`IngressRule <IngressRule>`
+
+        Usage:
+        ::
+
+            result = api.get_ingress_rule(
+                rule_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_rule_id = validate_path_param("rule_id", rule_id)
+
+        res = self._request(
+            "GET",
+            f"/vpc/v2/regions/{param_region}/ingress-rules/{param_rule_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_IngressRule(res.json())
+
+    def update_ingress_rule(
+        self,
+        *,
+        rule_id: str,
+        region: Optional[ScwRegion] = None,
+        source: Optional[str] = None,
+        nexthop_resource_ip: Optional[str] = None,
+        nexthop_private_network_id: Optional[str] = None,
+        description: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+    ) -> IngressRule:
+        """
+        :param rule_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param source:
+        :param nexthop_resource_ip:
+        :param nexthop_private_network_id:
+        :param description:
+        :param tags:
+        :return: :class:`IngressRule <IngressRule>`
+
+        Usage:
+        ::
+
+            result = api.update_ingress_rule(
+                rule_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_rule_id = validate_path_param("rule_id", rule_id)
+
+        res = self._request(
+            "PATCH",
+            f"/vpc/v2/regions/{param_region}/ingress-rules/{param_rule_id}",
+            body=marshal_UpdateIngressRuleRequest(
+                UpdateIngressRuleRequest(
+                    rule_id=rule_id,
+                    region=region,
+                    source=source,
+                    nexthop_resource_ip=nexthop_resource_ip,
+                    nexthop_private_network_id=nexthop_private_network_id,
+                    description=description,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_IngressRule(res.json())
+
+    def delete_ingress_rule(
+        self,
+        *,
+        rule_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        :param rule_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_ingress_rule(
+                rule_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_rule_id = validate_path_param("rule_id", rule_id)
+
+        res = self._request(
+            "DELETE",
+            f"/vpc/v2/regions/{param_region}/ingress-rules/{param_rule_id}",
+        )
+
+        self._throw_on_error(res)

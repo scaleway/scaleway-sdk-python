@@ -762,7 +762,7 @@ class IP:
 class Offer:
     id: int
     """
-    ID of the offer.
+    ID of the offer (aka product.id).
     """
 
     name: str
@@ -783,6 +783,11 @@ class Offer:
     pricing: Optional[Money] = None
     """
     Price of the offer.
+    """
+
+    offer_id: Optional[int] = 0
+    """
+    Original Dedibox ID of the offer.
     """
 
     server_info: Optional[OfferServerInfo] = None
