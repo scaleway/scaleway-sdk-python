@@ -485,6 +485,15 @@ class DeleteUserRequest:
 
 
 @dataclass
+class DownloadDeploymentCertificateAuthorityRequest:
+    deployment_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetDeploymentRequest:
     """
     Retrieve a deployment specified by the ID.
