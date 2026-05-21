@@ -21,6 +21,7 @@ from .types import CreateVpnGatewayRequestSingleIpTunnel
 from .types import VpnGatewayPrivateConfig
 from .types import VpnGatewayPublicConfig
 from .types import CreateConnectionRequestBgpConfig
+from .types import CreateConnectionRequestSecret
 from .types import Connection
 from .types import CreateVpnGatewayRequestPublicConfig
 from .types import CreateVpnGatewayRequestPublicTunnelConfig
@@ -85,6 +86,7 @@ __all__ = [
     "VpnGatewayPrivateConfig",
     "VpnGatewayPublicConfig",
     "CreateConnectionRequestBgpConfig",
+    "CreateConnectionRequestSecret",
     "Connection",
     "CreateVpnGatewayRequestPublicConfig",
     "CreateVpnGatewayRequestPublicTunnelConfig",
