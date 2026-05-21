@@ -337,7 +337,6 @@ class MessageqV1Alpha1API(API):
         page_size: Optional[int] = None,
         tags: Optional[list[str]] = None,
         name: Optional[str] = None,
-        version: Optional[str] = None,
     ) -> ListDeploymentsResponse:
         """
         Retrieve a list of MessageQ deployments.
@@ -349,7 +348,6 @@ class MessageqV1Alpha1API(API):
         :param page_size: Number of deployments to return per page.
         :param tags: Tags to filter for, only deployments with one or more matching tags will be returned.
         :param name: Deployment name to filter for, only deployments with this string within their name will be returned.
-        :param version: Engine version to filter for, only deployments with this version will be returned.
         :return: :class:`ListDeploymentsResponse <ListDeploymentsResponse>`
 
         Usage:
@@ -374,7 +372,6 @@ class MessageqV1Alpha1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
-                "version": version,
             },
         )
 
@@ -392,7 +389,6 @@ class MessageqV1Alpha1API(API):
         page_size: Optional[int] = None,
         tags: Optional[list[str]] = None,
         name: Optional[str] = None,
-        version: Optional[str] = None,
     ) -> list[Deployment]:
         """
         Retrieve a list of MessageQ deployments.
@@ -404,7 +400,6 @@ class MessageqV1Alpha1API(API):
         :param page_size: Number of deployments to return per page.
         :param tags: Tags to filter for, only deployments with one or more matching tags will be returned.
         :param name: Deployment name to filter for, only deployments with this string within their name will be returned.
-        :param version: Engine version to filter for, only deployments with this version will be returned.
         :return: :class:`list[Deployment] <list[Deployment]>`
 
         Usage:
@@ -426,7 +421,6 @@ class MessageqV1Alpha1API(API):
                 "page_size": page_size,
                 "tags": tags,
                 "name": name,
-                "version": version,
             },
         )
 
