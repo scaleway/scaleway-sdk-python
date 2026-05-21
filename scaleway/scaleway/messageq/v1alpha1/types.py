@@ -549,11 +549,6 @@ class ListDeploymentsRequest:
     Deployment name to filter for, only deployments with this string within their name will be returned.
     """
 
-    version: Optional[str] = None
-    """
-    Engine version to filter for, only deployments with this version will be returned.
-    """
-
 
 @dataclass
 class ListDeploymentsResponse:
