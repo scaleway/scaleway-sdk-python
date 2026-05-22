@@ -505,7 +505,7 @@ class DeleteUserRequest:
 
 
 @dataclass
-class GetDeploymentCertificateAuthorityRequest:
+class DownloadDeploymentCertificateAuthorityRequest:
     deployment_id: str
     region: Optional[ScwRegion] = None
     """

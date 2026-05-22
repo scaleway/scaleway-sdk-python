@@ -873,7 +873,7 @@ class SearchdbV1Alpha1API(API):
 
         self._throw_on_error(res)
 
-    async def get_deployment_certificate_authority(
+    async def download_deployment_certificate_authority(
         self,
         *,
         deployment_id: str,
@@ -887,7 +887,7 @@ class SearchdbV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_deployment_certificate_authority(
+            result = await api.download_deployment_certificate_authority(
                 deployment_id="example",
             )
         """
