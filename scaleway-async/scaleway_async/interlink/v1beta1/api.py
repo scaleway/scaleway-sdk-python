@@ -274,6 +274,7 @@ class InterlinkV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         pop_ids: Optional[list[str]] = None,
+        l3_connectivity: Optional[bool] = None,
     ) -> ListPartnersResponse:
         """
         List available partners.
@@ -283,6 +284,7 @@ class InterlinkV1Beta1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of partners to return per page.
         :param pop_ids: Filter for partners present (offering a connection) in one of these PoPs.
+        :param l3_connectivity: Filter for partners supporting L3 connectivity.
         :return: :class:`ListPartnersResponse <ListPartnersResponse>`
 
         Usage:
@@ -299,6 +301,7 @@ class InterlinkV1Beta1API(API):
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/partners",
             params={
+                "l3_connectivity": l3_connectivity,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -317,6 +320,7 @@ class InterlinkV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         pop_ids: Optional[list[str]] = None,
+        l3_connectivity: Optional[bool] = None,
     ) -> list[Partner]:
         """
         List available partners.
@@ -326,6 +330,7 @@ class InterlinkV1Beta1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of partners to return per page.
         :param pop_ids: Filter for partners present (offering a connection) in one of these PoPs.
+        :param l3_connectivity: Filter for partners supporting L3 connectivity.
         :return: :class:`list[Partner] <list[Partner]>`
 
         Usage:
@@ -344,6 +349,7 @@ class InterlinkV1Beta1API(API):
                 "page": page,
                 "page_size": page_size,
                 "pop_ids": pop_ids,
+                "l3_connectivity": l3_connectivity,
             },
         )
 
@@ -393,6 +399,7 @@ class InterlinkV1Beta1API(API):
         partner_id: Optional[str] = None,
         link_bandwidth_mbps: Optional[int] = None,
         dedicated_available: Optional[bool] = None,
+        l3_connectivity_partners: Optional[bool] = None,
     ) -> ListPopsResponse:
         """
         List PoPs.
@@ -404,8 +411,9 @@ class InterlinkV1Beta1API(API):
         :param name: PoP name to filter for.
         :param hosting_provider_name: Hosting provider name to filter for.
         :param partner_id: Filter for PoPs hosting an available shared connection from this partner.
-        :param link_bandwidth_mbps: Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+        :param link_bandwidth_mbps: Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
         :param dedicated_available: Filter for PoPs with a dedicated connection available for self-hosted links.
+        :param l3_connectivity_partners: Filter for PoPs with a shared connection available from a partner supporting L3 connectivity.
         :return: :class:`ListPopsResponse <ListPopsResponse>`
 
         Usage:
@@ -424,6 +432,7 @@ class InterlinkV1Beta1API(API):
             params={
                 "dedicated_available": dedicated_available,
                 "hosting_provider_name": hosting_provider_name,
+                "l3_connectivity_partners": l3_connectivity_partners,
                 "link_bandwidth_mbps": link_bandwidth_mbps,
                 "name": name,
                 "order_by": order_by,
@@ -448,6 +457,7 @@ class InterlinkV1Beta1API(API):
         partner_id: Optional[str] = None,
         link_bandwidth_mbps: Optional[int] = None,
         dedicated_available: Optional[bool] = None,
+        l3_connectivity_partners: Optional[bool] = None,
     ) -> list[Pop]:
         """
         List PoPs.
@@ -459,8 +469,9 @@ class InterlinkV1Beta1API(API):
         :param name: PoP name to filter for.
         :param hosting_provider_name: Hosting provider name to filter for.
         :param partner_id: Filter for PoPs hosting an available shared connection from this partner.
-        :param link_bandwidth_mbps: Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+        :param link_bandwidth_mbps: Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
         :param dedicated_available: Filter for PoPs with a dedicated connection available for self-hosted links.
+        :param l3_connectivity_partners: Filter for PoPs with a shared connection available from a partner supporting L3 connectivity.
         :return: :class:`list[Pop] <list[Pop]>`
 
         Usage:
@@ -483,6 +494,7 @@ class InterlinkV1Beta1API(API):
                 "partner_id": partner_id,
                 "link_bandwidth_mbps": link_bandwidth_mbps,
                 "dedicated_available": dedicated_available,
+                "l3_connectivity_partners": l3_connectivity_partners,
             },
         )
 
