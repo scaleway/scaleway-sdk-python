@@ -205,6 +205,12 @@ def unmarshal_PartnerHost(data: Any) -> PartnerHost:
     else:
         args["pairing_key"] = None
 
+    field = data.get("l3_connectivity", None)
+    if field is not None:
+        args["l3_connectivity"] = field
+    else:
+        args["l3_connectivity"] = False
+
     field = data.get("disapproved_reason", None)
     if field is not None:
         args["disapproved_reason"] = field
@@ -417,6 +423,12 @@ def unmarshal_Partner(data: Any) -> Partner:
         args["portal_url"] = field
     else:
         args["portal_url"] = None
+
+    field = data.get("l3_connectivity", None)
+    if field is not None:
+        args["l3_connectivity"] = field
+    else:
+        args["l3_connectivity"] = False
 
     field = data.get("created_at", None)
     if field is not None:

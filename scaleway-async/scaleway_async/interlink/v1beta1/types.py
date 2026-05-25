@@ -42,6 +42,8 @@ class DedicatedConnectionStatus(str, Enum, metaclass=StrEnumMeta):
 class LinkKind(str, Enum, metaclass=StrEnumMeta):
     HOSTED = "hosted"
     SELF_HOSTED = "self_hosted"
+    L2_HOSTED = "l2_hosted"
+    L3_HOSTED = "l3_hosted"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -153,6 +155,11 @@ class PartnerHost:
     pairing_key: str
     """
     Used to identify a link from a user or partner's point of view.
+    """
+
+    l3_connectivity: bool
+    """
+    Whether or not the partner supports L3 connectivity.
     """
 
     disapproved_reason: Optional[str] = None
@@ -379,6 +386,11 @@ class Partner:
     portal_url: str
     """
     URL of the partner's portal.
+    """
+
+    l3_connectivity: bool
+    """
+    Whether or not the partner supports L3 connectivity.
     """
 
     created_at: Optional[datetime] = None
@@ -990,6 +1002,11 @@ class ListPartnersRequest:
     Filter for partners present (offering a connection) in one of these PoPs.
     """
 
+    l3_connectivity: Optional[bool] = False
+    """
+    Filter for partners supporting L3 connectivity.
+    """
+
 
 @dataclass
 class ListPartnersResponse:
@@ -1043,12 +1060,17 @@ class ListPopsRequest:
 
     link_bandwidth_mbps: Optional[int] = 0
     """
-    Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+    Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
     """
 
     dedicated_available: Optional[bool] = False
     """
     Filter for PoPs with a dedicated connection available for self-hosted links.
+    """
+
+    l3_connectivity_partners: Optional[bool] = False
+    """
+    Filter for PoPs with a shared connection available from a partner supporting L3 connectivity.
     """
 
 
