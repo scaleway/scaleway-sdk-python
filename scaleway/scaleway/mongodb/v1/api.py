@@ -60,8 +60,8 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_Endpoint,
-    unmarshal_Instance,
     unmarshal_Maintenance,
+    unmarshal_Instance,
     unmarshal_Snapshot,
     unmarshal_User,
     unmarshal_ListDatabasesResponse,
@@ -244,6 +244,7 @@ class MongodbV1API(API):
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        has_maintenance: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListInstancesResponse:
@@ -256,6 +257,7 @@ class MongodbV1API(API):
         :param order_by: Criteria to use when ordering Database Instance listings.
         :param organization_id: Organization ID of the Database Instance.
         :param project_id: Project ID to list the instances of.
+        :param has_maintenance: Retrieve pending maintenances for the database instances if given.
         :param page:
         :param page_size:
         :return: :class:`ListInstancesResponse <ListInstancesResponse>`
@@ -274,6 +276,7 @@ class MongodbV1API(API):
             "GET",
             f"/mongodb/v1/regions/{param_region}/instances",
             params={
+                "has_maintenance": has_maintenance,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -297,6 +300,7 @@ class MongodbV1API(API):
         order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        has_maintenance: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> list[Instance]:
@@ -309,6 +313,7 @@ class MongodbV1API(API):
         :param order_by: Criteria to use when ordering Database Instance listings.
         :param organization_id: Organization ID of the Database Instance.
         :param project_id: Project ID to list the instances of.
+        :param has_maintenance: Retrieve pending maintenances for the database instances if given.
         :param page:
         :param page_size:
         :return: :class:`list[Instance] <list[Instance]>`
@@ -330,6 +335,7 @@ class MongodbV1API(API):
                 "order_by": order_by,
                 "organization_id": organization_id,
                 "project_id": project_id,
+                "has_maintenance": has_maintenance,
                 "page": page,
                 "page_size": page_size,
             },
