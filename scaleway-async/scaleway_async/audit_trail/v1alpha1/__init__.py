@@ -55,6 +55,7 @@ from .types import SecretManagerSecretVersionInfo
 from .types import VpcConnectorInfo
 from .types import VpcGwGatewayInfo
 from .types import VpcGwGatewayNetworkInfo
+from .types import VpcIngressRuleInfo
 from .types import VpcPrivateNetworkInfo
 from .types import VpcRouteInfo
 from .types import VpcSubnetInfo
@@ -150,6 +151,7 @@ __all__ = [
     "VpcConnectorInfo",
     "VpcGwGatewayInfo",
     "VpcGwGatewayNetworkInfo",
+    "VpcIngressRuleInfo",
     "VpcPrivateNetworkInfo",
     "VpcRouteInfo",
     "VpcSubnetInfo",
