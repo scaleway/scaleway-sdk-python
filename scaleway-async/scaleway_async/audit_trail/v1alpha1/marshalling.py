@@ -64,6 +64,7 @@ from .types import (
     VpcConnectorInfo,
     VpcGwGatewayInfo,
     VpcGwGatewayNetworkInfo,
+    VpcIngressRuleInfo,
     VpcPrivateNetworkInfo,
     VpcRouteInfo,
     VpcSubnetInfo,
@@ -1117,6 +1118,41 @@ def unmarshal_VpcGwGatewayNetworkInfo(data: Any) -> VpcGwGatewayNetworkInfo:
     return VpcGwGatewayNetworkInfo(**args)
 
 
+def unmarshal_VpcIngressRuleInfo(data: Any) -> VpcIngressRuleInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VpcIngressRuleInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("source", None)
+    if field is not None:
+        args["source"] = field
+    else:
+        args["source"] = None
+
+    field = data.get("nexthop_private_network_id", None)
+    if field is not None:
+        args["nexthop_private_network_id"] = field
+    else:
+        args["nexthop_private_network_id"] = None
+
+    field = data.get("nexthop_resource_ip", None)
+    if field is not None:
+        args["nexthop_resource_ip"] = field
+    else:
+        args["nexthop_resource_ip"] = None
+
+    return VpcIngressRuleInfo(**args)
+
+
 def unmarshal_VpcPrivateNetworkInfo(data: Any) -> VpcPrivateNetworkInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1529,6 +1565,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["instance_private_network_interface_info"] = None
+
+    field = data.get("vpc_ingress_rule_info", None)
+    if field is not None:
+        args["vpc_ingress_rule_info"] = unmarshal_VpcIngressRuleInfo(field)
+    else:
+        args["vpc_ingress_rule_info"] = None
 
     return Resource(**args)
 

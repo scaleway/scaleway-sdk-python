@@ -182,6 +182,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     VPC_ROUTE = "vpc_route"
     VPC_ACL = "vpc_acl"
     VPC_CONNECTOR = "vpc_connector"
+    VPC_INGRESS_RULE = "vpc_ingress_rule"
     EDGE_SERVICES_PLAN = "edge_services_plan"
     EDGE_SERVICES_PIPELINE = "edge_services_pipeline"
     EDGE_SERVICES_DNS_STAGE = "edge_services_dns_stage"
@@ -462,6 +463,14 @@ class VpcGwGatewayNetworkInfo:
 
 
 @dataclass
+class VpcIngressRuleInfo:
+    vpc_id: str
+    source: str
+    nexthop_private_network_id: str
+    nexthop_resource_ip: str
+
+
+@dataclass
 class VpcPrivateNetworkInfo:
     vpc_id: str
     push_default_route: bool
@@ -580,6 +589,8 @@ class Resource:
     instance_private_network_interface_info: Optional[
         InstancePrivateNetworkInterfaceInfo
     ] = None
+
+    vpc_ingress_rule_info: Optional[VpcIngressRuleInfo] = None
 
 
 @dataclass
