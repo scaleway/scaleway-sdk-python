@@ -20,14 +20,14 @@ from .types import (
     EndpointPrivateNetworkDetails,
     EndpointPublicNetworkDetails,
     Endpoint,
-    InstanceSetting,
-    InstanceSnapshotSchedule,
-    Volume,
-    Instance,
     EngineUpgrade,
     ServiceUpdate,
     Workflow,
     Maintenance,
+    InstanceSetting,
+    InstanceSnapshotSchedule,
+    Volume,
+    Instance,
     Snapshot,
     UserRole,
     User,
@@ -125,6 +125,140 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
         args["public_network"] = None
 
     return Endpoint(**args)
+
+
+def unmarshal_EngineUpgrade(data: Any) -> EngineUpgrade:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EngineUpgrade' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("new_version_id", None)
+    if field is not None:
+        args["new_version_id"] = field
+    else:
+        args["new_version_id"] = None
+
+    return EngineUpgrade(**args)
+
+
+def unmarshal_ServiceUpdate(data: Any) -> ServiceUpdate:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServiceUpdate' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("service_name", None)
+    if field is not None:
+        args["service_name"] = field
+    else:
+        args["service_name"] = None
+
+    return ServiceUpdate(**args)
+
+
+def unmarshal_Workflow(data: Any) -> Workflow:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Workflow' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("engine_upgrade", None)
+    if field is not None:
+        args["engine_upgrade"] = unmarshal_EngineUpgrade(field)
+    else:
+        args["engine_upgrade"] = None
+
+    field = data.get("service_update", None)
+    if field is not None:
+        args["service_update"] = unmarshal_ServiceUpdate(field)
+    else:
+        args["service_update"] = None
+
+    return Workflow(**args)
+
+
+def unmarshal_Maintenance(data: Any) -> Maintenance:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Maintenance' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("instance_id", None)
+    if field is not None:
+        args["instance_id"] = field
+    else:
+        args["instance_id"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = MaintenanceStatus.UNKNOWN_STATUS
+
+    field = data.get("applied_by", None)
+    if field is not None:
+        args["applied_by"] = field
+    else:
+        args["applied_by"] = MaintenanceAppliedBy.UNKNOWN_APPLIED_BY
+
+    field = data.get("reason", None)
+    if field is not None:
+        args["reason"] = field
+    else:
+        args["reason"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("starts_at", None)
+    if field is not None:
+        args["starts_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["starts_at"] = None
+
+    field = data.get("stops_at", None)
+    if field is not None:
+        args["stops_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stops_at"] = None
+
+    field = data.get("forced_at", None)
+    if field is not None:
+        args["forced_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["forced_at"] = None
+
+    field = data.get("applied_at", None)
+    if field is not None:
+        args["applied_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["applied_at"] = None
+
+    field = data.get("workflow", None)
+    if field is not None:
+        args["workflow"] = unmarshal_Workflow(field)
+    else:
+        args["workflow"] = None
+
+    return Maintenance(**args)
 
 
 def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
@@ -300,6 +434,14 @@ def unmarshal_Instance(data: Any) -> Instance:
     else:
         args["settings"] = []
 
+    field = data.get("maintenances", None)
+    if field is not None:
+        args["maintenances"] = (
+            [unmarshal_Maintenance(v) for v in field] if field is not None else None
+        )
+    else:
+        args["maintenances"] = []
+
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
@@ -319,140 +461,6 @@ def unmarshal_Instance(data: Any) -> Instance:
         args["snapshot_schedule"] = None
 
     return Instance(**args)
-
-
-def unmarshal_EngineUpgrade(data: Any) -> EngineUpgrade:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'EngineUpgrade' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("new_version_id", None)
-    if field is not None:
-        args["new_version_id"] = field
-    else:
-        args["new_version_id"] = None
-
-    return EngineUpgrade(**args)
-
-
-def unmarshal_ServiceUpdate(data: Any) -> ServiceUpdate:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ServiceUpdate' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("service_name", None)
-    if field is not None:
-        args["service_name"] = field
-    else:
-        args["service_name"] = None
-
-    return ServiceUpdate(**args)
-
-
-def unmarshal_Workflow(data: Any) -> Workflow:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Workflow' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("engine_upgrade", None)
-    if field is not None:
-        args["engine_upgrade"] = unmarshal_EngineUpgrade(field)
-    else:
-        args["engine_upgrade"] = None
-
-    field = data.get("service_update", None)
-    if field is not None:
-        args["service_update"] = unmarshal_ServiceUpdate(field)
-    else:
-        args["service_update"] = None
-
-    return Workflow(**args)
-
-
-def unmarshal_Maintenance(data: Any) -> Maintenance:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Maintenance' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("instance_id", None)
-    if field is not None:
-        args["instance_id"] = field
-    else:
-        args["instance_id"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = MaintenanceStatus.UNKNOWN_STATUS
-
-    field = data.get("applied_by", None)
-    if field is not None:
-        args["applied_by"] = field
-    else:
-        args["applied_by"] = MaintenanceAppliedBy.UNKNOWN_APPLIED_BY
-
-    field = data.get("reason", None)
-    if field is not None:
-        args["reason"] = field
-    else:
-        args["reason"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("starts_at", None)
-    if field is not None:
-        args["starts_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["starts_at"] = None
-
-    field = data.get("stops_at", None)
-    if field is not None:
-        args["stops_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["stops_at"] = None
-
-    field = data.get("forced_at", None)
-    if field is not None:
-        args["forced_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["forced_at"] = None
-
-    field = data.get("applied_at", None)
-    if field is not None:
-        args["applied_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["applied_at"] = None
-
-    field = data.get("workflow", None)
-    if field is not None:
-        args["workflow"] = unmarshal_Workflow(field)
-    else:
-        args["workflow"] = None
-
-    return Maintenance(**args)
 
 
 def unmarshal_Snapshot(data: Any) -> Snapshot:
