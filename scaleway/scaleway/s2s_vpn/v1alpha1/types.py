@@ -200,14 +200,7 @@ class VpnGatewayPublicConfig:
 
 
 @dataclass
-class CreateConnectionRequestBgpConfig:
-    routing_policy_id: str
-    private_ip: Optional[str] = None
-    peer_private_ip: Optional[str] = None
-
-
-@dataclass
-class CreateConnectionRequestSecret:
+class ChangeConnectionPskRequestSecret:
     id: str
     revision: Optional[int] = None
 
@@ -338,6 +331,19 @@ class Connection:
     """
     BGP IPv6 session, including status, interco private IPv6 subnet and attached routing policy.
     """
+
+
+@dataclass
+class CreateConnectionRequestBgpConfig:
+    routing_policy_id: str
+    private_ip: Optional[str] = None
+    peer_private_ip: Optional[str] = None
+
+
+@dataclass
+class CreateConnectionRequestSecret:
+    id: str
+    revision: Optional[int] = None
 
 
 @dataclass
@@ -573,6 +579,32 @@ class VpnGateway:
     public_config: Optional[VpnGatewayPublicConfig] = None
 
     private_config: Optional[VpnGatewayPrivateConfig] = None
+
+
+@dataclass
+class ChangeConnectionPskRequest:
+    connection_id: str
+    """
+    ID of the connection to renew the PSK.
+    """
+
+    secret: ChangeConnectionPskRequestSecret
+    """
+    New PSK Secret of the connection.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ChangeConnectionPskResponse:
+    connection: Optional[Connection] = None
+    """
+    This connection.
+    """
 
 
 @dataclass
@@ -1252,6 +1284,11 @@ class RenewConnectionPskRequest:
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+    generate_revision: Optional[bool] = False
+    """
+    Generate a new revision or update to the latest existing one.
     """
 
 
