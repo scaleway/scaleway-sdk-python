@@ -29,6 +29,7 @@ class ProductCategory(str, Enum, metaclass=StrEnumMeta):
     MANAGED_RELATIONAL_DATABASES = "managed_relational_databases"
     MANAGED_MONGODB = "managed_mongodb"
     MANAGED_REDIS = "managed_redis"
+    MANAGED_INFERENCE = "managed_inference"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -51,6 +52,7 @@ class ServiceCategory(str, Enum, metaclass=StrEnumMeta):
     NETWORK = "network"
     CONTAINERS = "containers"
     DATABASES = "databases"
+    AI = "ai"
 
     def __str__(self) -> str:
         return str(self.value)
