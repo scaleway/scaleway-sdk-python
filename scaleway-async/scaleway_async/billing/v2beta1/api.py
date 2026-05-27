@@ -20,12 +20,14 @@ from .types import (
     ExportInvoicesRequestFileType,
     ExportInvoicesRequestOrderBy,
     InvoiceType,
+    ListChargesRequestOrderBy,
     ListConsumptionsRequestOrderBy,
     ListDiscountsRequestOrderBy,
     ListInvoicesRequestOrderBy,
     ListTaxesRequestOrderBy,
     Discount,
     Invoice,
+    ListChargesResponse,
     ListConsumptionsResponse,
     ListConsumptionsResponseConsumption,
     ListDiscountsResponse,
@@ -36,6 +38,7 @@ from .types import (
 from .marshalling import (
     unmarshal_Discount,
     unmarshal_Invoice,
+    unmarshal_ListChargesResponse,
     unmarshal_ListConsumptionsResponse,
     unmarshal_ListDiscountsResponse,
     unmarshal_ListInvoicesResponse,
@@ -541,3 +544,69 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Discount(res.json())
+
+
+class BillingV2Beta1FinOpsAPI(API):
+    """ """
+
+    async def list_charges(
+        self,
+        *,
+        order_by: Optional[ListChargesRequestOrderBy] = None,
+        page_token: Optional[str] = None,
+        page_size: Optional[int] = None,
+        start_date_after: Optional[datetime] = None,
+        end_date_before: Optional[datetime] = None,
+        invoice_ids: Optional[list[str]] = None,
+        organization_id: Optional[str] = None,
+        project_ids: Optional[list[str]] = None,
+        resource_ids: Optional[list[str]] = None,
+        resource_names: Optional[list[str]] = None,
+        skus: Optional[list[str]] = None,
+        clamp_to_time_range: Optional[bool] = None,
+    ) -> ListChargesResponse:
+        """
+        List charges.
+        List charges for organizations or projects. You must specify at least `organization_ids` or `project_ids`.
+        :param order_by: Sort order of charges in the response.
+        :param page_token: Token returned by previous call to list next paginated charges, omitted for first page.
+        :param page_size: Number of charges to return per page.
+        :param start_date_after: Minimum start date of charges to filter for, defaults to the start of the billing period.
+        :param end_date_before: Maximum end date of charges to filter for, defaults to the end of the billing period.
+        :param invoice_ids: Invoice IDs to filter for, only charges from these invoices will be returned.
+        :param organization_id: Organization ID to filter for, only charges for this organization will be returned.
+        :param project_ids: Project IDs to filter for, only charges for these projects will be returned.
+        :param resource_ids: Resource IDs to filter for, only charges for these resources will be returned.
+        :param resource_names: Resource display names to filter for, only charges for these resources will be returned.
+        :param skus: SKU IDs to filter for, only charges for these SKUs will be returned.
+        :param clamp_to_time_range: Clamp charges to the requested time range.
+        :return: :class:`ListChargesResponse <ListChargesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_charges()
+        """
+
+        res = self._request(
+            "GET",
+            "/billing/v2beta1/charges",
+            params={
+                "clamp_to_time_range": clamp_to_time_range,
+                "end_date_before": end_date_before,
+                "invoice_ids": invoice_ids,
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page_size": page_size or self.client.default_page_size,
+                "page_token": page_token,
+                "project_ids": project_ids,
+                "resource_ids": resource_ids,
+                "resource_names": resource_names,
+                "skus": skus,
+                "start_date_after": start_date_after,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListChargesResponse(res.json())
