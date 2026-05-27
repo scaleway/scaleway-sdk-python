@@ -23,6 +23,7 @@ from .types import (
     VpnGatewayPrivateConfig,
     VpnGatewayPublicConfig,
     VpnGateway,
+    ChangeConnectionPskResponse,
     CreateConnectionResponse,
     ListConnectionsResponse,
     ListCustomerGatewaysResponse,
@@ -31,6 +32,8 @@ from .types import (
     ListVpnGatewayTypesResponse,
     ListVpnGatewaysResponse,
     RenewConnectionPskResponse,
+    ChangeConnectionPskRequestSecret,
+    ChangeConnectionPskRequest,
     CreateConnectionRequestBgpConfig,
     CreateConnectionRequestSecret,
     CreateConnectionRequest,
@@ -42,6 +45,7 @@ from .types import (
     CreateVpnGatewayRequestPublicTunnelConfig,
     CreateVpnGatewayRequest,
     DetachRoutingPolicyRequest,
+    RenewConnectionPskRequest,
     SetRoutingPolicyRequest,
     UpdateConnectionRequest,
     UpdateCustomerGatewayRequest,
@@ -590,6 +594,23 @@ def unmarshal_VpnGateway(data: Any) -> VpnGateway:
     return VpnGateway(**args)
 
 
+def unmarshal_ChangeConnectionPskResponse(data: Any) -> ChangeConnectionPskResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ChangeConnectionPskResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("connection", None)
+    if field is not None:
+        args["connection"] = unmarshal_Connection(field)
+    else:
+        args["connection"] = None
+
+    return ChangeConnectionPskResponse(**args)
+
+
 def unmarshal_CreateConnectionResponse(data: Any) -> CreateConnectionResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -800,6 +821,35 @@ def unmarshal_RenewConnectionPskResponse(data: Any) -> RenewConnectionPskRespons
         args["pre_shared_key"] = None
 
     return RenewConnectionPskResponse(**args)
+
+
+def marshal_ChangeConnectionPskRequestSecret(
+    request: ChangeConnectionPskRequestSecret,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.revision is not None:
+        output["revision"] = request.revision
+
+    return output
+
+
+def marshal_ChangeConnectionPskRequest(
+    request: ChangeConnectionPskRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.secret is not None:
+        output["secret"] = marshal_ChangeConnectionPskRequestSecret(
+            request.secret, defaults
+        )
+
+    return output
 
 
 def marshal_ConnectionCipher(
@@ -1115,6 +1165,18 @@ def marshal_DetachRoutingPolicyRequest(
             ]
         ),
     )
+
+    return output
+
+
+def marshal_RenewConnectionPskRequest(
+    request: RenewConnectionPskRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.generate_revision is not None:
+        output["generate_revision"] = request.generate_revision
 
     return output
 

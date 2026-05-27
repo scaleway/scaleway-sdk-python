@@ -22,6 +22,9 @@ from .types import (
     ListRoutingPoliciesRequestOrderBy,
     ListVpnGatewaysRequestOrderBy,
     VpnGatewayStatus,
+    ChangeConnectionPskRequest,
+    ChangeConnectionPskRequestSecret,
+    ChangeConnectionPskResponse,
     Connection,
     ConnectionCipher,
     CreateConnectionRequest,
@@ -41,6 +44,7 @@ from .types import (
     ListRoutingPoliciesResponse,
     ListVpnGatewayTypesResponse,
     ListVpnGatewaysResponse,
+    RenewConnectionPskRequest,
     RenewConnectionPskResponse,
     RoutingPolicy,
     SetRoutingPolicyRequest,
@@ -58,6 +62,7 @@ from .marshalling import (
     unmarshal_CustomerGateway,
     unmarshal_RoutingPolicy,
     unmarshal_VpnGateway,
+    unmarshal_ChangeConnectionPskResponse,
     unmarshal_CreateConnectionResponse,
     unmarshal_ListConnectionsResponse,
     unmarshal_ListCustomerGatewaysResponse,
@@ -65,11 +70,13 @@ from .marshalling import (
     unmarshal_ListVpnGatewayTypesResponse,
     unmarshal_ListVpnGatewaysResponse,
     unmarshal_RenewConnectionPskResponse,
+    marshal_ChangeConnectionPskRequest,
     marshal_CreateConnectionRequest,
     marshal_CreateCustomerGatewayRequest,
     marshal_CreateRoutingPolicyRequest,
     marshal_CreateVpnGatewayRequest,
     marshal_DetachRoutingPolicyRequest,
+    marshal_RenewConnectionPskRequest,
     marshal_SetRoutingPolicyRequest,
     marshal_UpdateConnectionRequest,
     marshal_UpdateCustomerGatewayRequest,
@@ -839,12 +846,14 @@ class S2SVpnV1Alpha1API(API):
         *,
         connection_id: str,
         region: Optional[ScwRegion] = None,
+        generate_revision: Optional[bool] = None,
     ) -> RenewConnectionPskResponse:
         """
         Renew pre-shared key.
         Renew pre-shared key for a given connection.
         :param connection_id: ID of the connection to renew the PSK.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param generate_revision: Generate a new revision or update to the latest existing one.
         :return: :class:`RenewConnectionPskResponse <RenewConnectionPskResponse>`
 
         Usage:
@@ -863,11 +872,63 @@ class S2SVpnV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/s2s-vpn/v1alpha1/regions/{param_region}/connections/{param_connection_id}/renew-psk",
-            body={},
+            body=marshal_RenewConnectionPskRequest(
+                RenewConnectionPskRequest(
+                    connection_id=connection_id,
+                    region=region,
+                    generate_revision=generate_revision,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)
         return unmarshal_RenewConnectionPskResponse(res.json())
+
+    def change_connection_psk(
+        self,
+        *,
+        connection_id: str,
+        secret: ChangeConnectionPskRequestSecret,
+        region: Optional[ScwRegion] = None,
+    ) -> ChangeConnectionPskResponse:
+        """
+        Change pre-shared key.
+        Change pre-shared key for a given connection.
+        :param connection_id: ID of the connection to renew the PSK.
+        :param secret: New PSK Secret of the connection.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ChangeConnectionPskResponse <ChangeConnectionPskResponse>`
+
+        Usage:
+        ::
+
+            result = api.change_connection_psk(
+                connection_id="example",
+                secret=ChangeConnectionPskRequestSecret(),
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_connection_id = validate_path_param("connection_id", connection_id)
+
+        res = self._request(
+            "POST",
+            f"/s2s-vpn/v1alpha1/regions/{param_region}/connections/{param_connection_id}/change-psk",
+            body=marshal_ChangeConnectionPskRequest(
+                ChangeConnectionPskRequest(
+                    connection_id=connection_id,
+                    secret=secret,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ChangeConnectionPskResponse(res.json())
 
     def set_routing_policy(
         self,

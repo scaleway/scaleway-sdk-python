@@ -20,15 +20,18 @@ from .types import CreateVpnGatewayRequestDualIpTunnel
 from .types import CreateVpnGatewayRequestSingleIpTunnel
 from .types import VpnGatewayPrivateConfig
 from .types import VpnGatewayPublicConfig
+from .types import ChangeConnectionPskRequestSecret
+from .types import Connection
 from .types import CreateConnectionRequestBgpConfig
 from .types import CreateConnectionRequestSecret
-from .types import Connection
 from .types import CreateVpnGatewayRequestPublicConfig
 from .types import CreateVpnGatewayRequestPublicTunnelConfig
 from .types import CustomerGateway
 from .types import RoutingPolicy
 from .types import GatewayType
 from .types import VpnGateway
+from .types import ChangeConnectionPskRequest
+from .types import ChangeConnectionPskResponse
 from .types import CreateConnectionRequest
 from .types import CreateConnectionResponse
 from .types import CreateCustomerGatewayRequest
@@ -85,15 +88,18 @@ __all__ = [
     "CreateVpnGatewayRequestSingleIpTunnel",
     "VpnGatewayPrivateConfig",
     "VpnGatewayPublicConfig",
+    "ChangeConnectionPskRequestSecret",
+    "Connection",
     "CreateConnectionRequestBgpConfig",
     "CreateConnectionRequestSecret",
-    "Connection",
     "CreateVpnGatewayRequestPublicConfig",
     "CreateVpnGatewayRequestPublicTunnelConfig",
     "CustomerGateway",
     "RoutingPolicy",
     "GatewayType",
     "VpnGateway",
+    "ChangeConnectionPskRequest",
+    "ChangeConnectionPskResponse",
     "CreateConnectionRequest",
     "CreateConnectionResponse",
     "CreateCustomerGatewayRequest",
