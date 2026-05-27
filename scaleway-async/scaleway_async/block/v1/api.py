@@ -259,6 +259,7 @@ class BlockV1API(API):
         from_empty: Optional[CreateVolumeRequestFromEmpty] = None,
         from_snapshot: Optional[CreateVolumeRequestFromSnapshot] = None,
         tags: Optional[list[str]] = None,
+        kms_key_id: Optional[str] = None,
     ) -> Volume:
         """
         Create a volume.
@@ -274,6 +275,7 @@ class BlockV1API(API):
         :param from_snapshot: Specify the snapshot ID of the original snapshot.
         One-Of ('from'): at most one of 'from_empty', 'from_snapshot' could be set.
         :param tags: List of tags assigned to the volume.
+        :param kms_key_id: UUID of the KMS key used to protect the volume's encryption.
         :return: :class:`Volume <Volume>`
 
         Usage:
@@ -293,6 +295,7 @@ class BlockV1API(API):
                     name=name or random_name(prefix="vol"),
                     project_id=project_id,
                     tags=tags,
+                    kms_key_id=kms_key_id,
                     from_empty=from_empty,
                     from_snapshot=from_snapshot,
                     perf_iops=perf_iops,

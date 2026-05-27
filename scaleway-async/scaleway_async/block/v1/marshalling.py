@@ -330,6 +330,12 @@ def unmarshal_Volume(data: Any) -> Volume:
     else:
         args["last_detached_at"] = None
 
+    field = data.get("kms_key_id", None)
+    if field is not None:
+        args["kms_key_id"] = field
+    else:
+        args["kms_key_id"] = None
+
     return Volume(**args)
 
 
@@ -537,6 +543,9 @@ def marshal_CreateVolumeRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.kms_key_id is not None:
+        output["kms_key_id"] = request.kms_key_id
 
     return output
 
