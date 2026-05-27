@@ -15,6 +15,8 @@ from .types import (
     DiscountFilter,
     Discount,
     Invoice,
+    Charge,
+    ListChargesResponse,
     ListConsumptionsResponseConsumption,
     ListConsumptionsResponse,
     ListDiscountsResponse,
@@ -272,6 +274,102 @@ def unmarshal_Invoice(data: Any) -> Invoice:
         args["total_undiscount"] = None
 
     return Invoice(**args)
+
+
+def unmarshal_Charge(data: Any) -> Charge:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Charge' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("sku", None)
+    if field is not None:
+        args["sku"] = field
+    else:
+        args["sku"] = None
+
+    field = data.get("invoice_id", None)
+    if field is not None:
+        args["invoice_id"] = field
+    else:
+        args["invoice_id"] = None
+
+    field = data.get("resource_id", None)
+    if field is not None:
+        args["resource_id"] = field
+    else:
+        args["resource_id"] = None
+
+    field = data.get("resource_name", None)
+    if field is not None:
+        args["resource_name"] = field
+    else:
+        args["resource_name"] = None
+
+    field = data.get("price", None)
+    if field is not None:
+        args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
+
+    field = data.get("start_date", None)
+    if field is not None:
+        args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
+
+    field = data.get("end_date", None)
+    if field is not None:
+        args["end_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["end_date"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Charge(**args)
+
+
+def unmarshal_ListChargesResponse(data: Any) -> ListChargesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListChargesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("charges", None)
+    if field is not None:
+        args["charges"] = (
+            [unmarshal_Charge(v) for v in field] if field is not None else None
+        )
+    else:
+        args["charges"] = []
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListChargesResponse(**args)
 
 
 def unmarshal_ListConsumptionsResponseConsumption(
