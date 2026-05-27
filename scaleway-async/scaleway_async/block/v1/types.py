@@ -355,6 +355,11 @@ class Volume:
     Last time the volume was detached.
     """
 
+    kms_key_id: Optional[str] = None
+    """
+    KMS Key used for securing the volume's encryption.
+    """
+
 
 @dataclass
 class CreateSnapshotRequest:
@@ -409,6 +414,11 @@ class CreateVolumeRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the volume.
+    """
+
+    kms_key_id: Optional[str] = None
+    """
+    UUID of the KMS key used to protect the volume's encryption.
     """
 
     from_empty: Optional[CreateVolumeRequestFromEmpty] = None
