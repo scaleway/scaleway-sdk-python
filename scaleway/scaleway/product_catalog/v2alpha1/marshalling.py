@@ -28,6 +28,8 @@ from .types import (
     PublicCatalogProductPropertiesKubernetesKosmosNodeType,
     PublicCatalogProductPropertiesLoadBalancerIPV4Type,
     PublicCatalogProductPropertiesLoadBalancerNodeType,
+    PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage,
+    PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment,
     PublicCatalogProductPropertiesManagedMongoDBManagementType,
     PublicCatalogProductPropertiesManagedMongoDBNodeType,
     PublicCatalogProductPropertiesManagedMongoDBStorageType,
@@ -386,6 +388,42 @@ def unmarshal_PublicCatalogProductPropertiesLoadBalancerNodeType(
         args["bandwidth"] = 0
 
     return PublicCatalogProductPropertiesLoadBalancerNodeType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage(
+        **args
+    )
+
+
+def unmarshal_PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment(
+    data: Any,
+) -> PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("instance_gpu_name", None)
+    if field is not None:
+        args["instance_gpu_name"] = field
+    else:
+        args["instance_gpu_name"] = None
+
+    return PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment(
+        **args
+    )
 
 
 def unmarshal_PublicCatalogProductPropertiesManagedMongoDBManagementType(
@@ -880,6 +918,26 @@ def unmarshal_PublicCatalogProductPropertiesManagedInference(
         args["instance_gpu_name"] = field
     else:
         args["instance_gpu_name"] = None
+
+    field = data.get("deployment", None)
+    if field is not None:
+        args["deployment"] = (
+            unmarshal_PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment(
+                field
+            )
+        )
+    else:
+        args["deployment"] = None
+
+    field = data.get("custom_model_storage", None)
+    if field is not None:
+        args["custom_model_storage"] = (
+            unmarshal_PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage(
+                field
+            )
+        )
+    else:
+        args["custom_model_storage"] = None
 
     return PublicCatalogProductPropertiesManagedInference(**args)
 
