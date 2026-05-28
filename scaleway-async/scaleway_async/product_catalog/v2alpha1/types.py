@@ -380,6 +380,19 @@ class PublicCatalogProductPropertiesLoadBalancerNodeType:
 
 
 @dataclass
+class PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment:
+    instance_gpu_name: str
+    """
+    The name of the associated instance GPU to this deployment.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesManagedMongoDBManagementType:
     pass
 
@@ -590,8 +603,16 @@ class PublicCatalogProductPropertiesLoadBalancer:
 class PublicCatalogProductPropertiesManagedInference:
     instance_gpu_name: str
     """
-    The name of the associated instance GPU to this node type.
+    The name of the associated instance GPU to this node type. Deprecated, use `deployment.instance_gpu_name` instead.
     """
+
+    deployment: Optional[
+        PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment
+    ] = None
+
+    custom_model_storage: Optional[
+        PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage
+    ] = None
 
 
 @dataclass

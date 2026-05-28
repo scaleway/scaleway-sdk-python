@@ -28,6 +28,12 @@ from .types import PublicCatalogProductPropertiesKubernetesKosmosControlPlaneTyp
 from .types import PublicCatalogProductPropertiesKubernetesKosmosNodeType
 from .types import PublicCatalogProductPropertiesLoadBalancerIPV4Type
 from .types import PublicCatalogProductPropertiesLoadBalancerNodeType
+from .types import (
+    PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage,
+)
+from .types import (
+    PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment,
+)
 from .types import PublicCatalogProductPropertiesManagedMongoDBManagementType
 from .types import PublicCatalogProductPropertiesManagedMongoDBNodeType
 from .types import PublicCatalogProductPropertiesManagedMongoDBStorageType
@@ -91,6 +97,8 @@ __all__ = [
     "PublicCatalogProductPropertiesKubernetesKosmosNodeType",
     "PublicCatalogProductPropertiesLoadBalancerIPV4Type",
     "PublicCatalogProductPropertiesLoadBalancerNodeType",
+    "PublicCatalogProductPropertiesManagedInferenceManagedInferenceCustomModelStorage",
+    "PublicCatalogProductPropertiesManagedInferenceManagedInferenceDeployment",
     "PublicCatalogProductPropertiesManagedMongoDBManagementType",
     "PublicCatalogProductPropertiesManagedMongoDBNodeType",
     "PublicCatalogProductPropertiesManagedMongoDBStorageType",
