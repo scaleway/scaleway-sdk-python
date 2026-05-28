@@ -26,6 +26,8 @@ class ContractType(str, Enum, metaclass=StrEnumMeta):
     NETWORK = "network"
     CORE = "core"
     VPS = "vps"
+    STORAGE = "storage"
+    TRANSACTIONAL_EMAIL = "transactional_email"
 
     def __str__(self) -> str:
         return str(self.value)
