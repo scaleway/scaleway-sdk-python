@@ -575,6 +575,11 @@ class Version:
     Date of End of Life.
     """
 
+    released_at: Optional[datetime] = None
+    """
+    Date of Release.
+    """
+
 
 @dataclass
 class ApplyMaintenanceRequest:
