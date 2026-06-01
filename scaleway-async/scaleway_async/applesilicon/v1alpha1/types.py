@@ -383,6 +383,11 @@ class Server:
     Runner configurations applied on the server, optional.
     """
 
+    kext_enabled: bool
+    """
+    Status of kernel extensions for the server.
+    """
+
     os: Optional[OS] = None
     """
     Initially installed OS, this does not necessarily reflect the current OS version.
