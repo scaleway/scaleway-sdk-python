@@ -130,6 +130,8 @@ from .types import SearchRouteRulesRequest
 from .types import SearchWafStagesRequest
 from .types import SelectPlanRequest
 from .types import SetHeadStageRequest
+from .types import SetPipelineVPCEndpointsRequest
+from .types import SetPipelineVPCEndpointsResponse
 from .types import SetRouteRulesRequest
 from .types import SetRouteRulesResponse
 from .types import UpdateBackendStageRequest
@@ -272,6 +274,8 @@ __all__ = [
     "SearchWafStagesRequest",
     "SelectPlanRequest",
     "SetHeadStageRequest",
+    "SetPipelineVPCEndpointsRequest",
+    "SetPipelineVPCEndpointsResponse",
     "SetRouteRulesRequest",
     "SetRouteRulesResponse",
     "UpdateBackendStageRequest",
