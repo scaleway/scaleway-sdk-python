@@ -546,6 +546,11 @@ class PrivateNIC:
     The zone in which the Private NIC is located.
     """
 
+    ipam_ip_ids: list[str]
+    """
+    The list of IPAM IPs associated with this private NIC.
+    """
+
     creation_date: Optional[datetime] = None
     """
     Private NIC creation date.
