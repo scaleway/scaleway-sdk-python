@@ -66,6 +66,7 @@ from .types import (
     ListVPCEndpointsResponse,
     ListWafStagesResponse,
     Plan,
+    SetPipelineVPCEndpointsResponse,
     SetRouteRulesResponse,
     SetRouteRulesRequestRouteRule,
     AddRouteRulesRequest,
@@ -971,6 +972,18 @@ def unmarshal_VPCEndpoint(data: Any) -> VPCEndpoint:
     else:
         args["private_network_id"] = None
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     return VPCEndpoint(**args)
 
 
@@ -1667,19 +1680,19 @@ def unmarshal_ListVPCEndpointsResponse(data: Any) -> ListVPCEndpointsResponse:
 
     args: dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-    else:
-        args["total_count"] = None
-
     field = data.get("vpc_endpoints", None)
     if field is not None:
         args["vpc_endpoints"] = (
             [unmarshal_VPCEndpoint(v) for v in field] if field is not None else None
         )
     else:
-        args["vpc_endpoints"] = None
+        args["vpc_endpoints"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
 
     return ListVPCEndpointsResponse(**args)
 
@@ -1724,6 +1737,39 @@ def unmarshal_Plan(data: Any) -> Plan:
         args["plan_name"] = None
 
     return Plan(**args)
+
+
+def unmarshal_SetPipelineVPCEndpointsResponse(
+    data: Any,
+) -> SetPipelineVPCEndpointsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SetPipelineVPCEndpointsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+    else:
+        args["pipeline_id"] = None
+
+    field = data.get("vpc_endpoints", None)
+    if field is not None:
+        args["vpc_endpoints"] = (
+            [unmarshal_VPCEndpoint(v) for v in field] if field is not None else None
+        )
+    else:
+        args["vpc_endpoints"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return SetPipelineVPCEndpointsResponse(**args)
 
 
 def unmarshal_SetRouteRulesResponse(data: Any) -> SetRouteRulesResponse:
@@ -2157,9 +2203,6 @@ def marshal_CreatePipelineRequest(
     else:
         output["project_id"] = defaults.default_project_id
 
-    if request.vpc_endpoint_ids is not None:
-        output["vpc_endpoint_ids"] = request.vpc_endpoint_ids
-
     return output
 
 
@@ -2535,9 +2578,6 @@ def marshal_UpdatePipelineRequest(
 
     if request.description is not None:
         output["description"] = request.description
-
-    if request.vpc_endpoint_ids is not None:
-        output["vpc_endpoint_ids"] = request.vpc_endpoint_ids
 
     return output
 

@@ -883,13 +883,34 @@ class PurgeRequest:
 @dataclass
 class VPCEndpoint:
     id: str
+    """
+    The VPC Endpoint ID.
+    """
+
     project_id: str
+    """
+    Project ID of the VPC Endpoint.
+    """
+
     region: ScwRegion
     """
-    Region to target. If none is passed will use default region from the config.
+    Zone of the VPC Endpoint.
     """
 
     private_network_id: str
+    """
+    Private Network ID of the VPC Endpoint.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date the VPC Endpoint was created.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date the VPC Endpoint was last updated.
+    """
 
 
 @dataclass
@@ -1070,8 +1091,6 @@ class CreatePipelineRequest:
     Project ID in which the pipeline will be created.
     """
 
-    vpc_endpoint_ids: Optional[list[str]] = field(default_factory=list)
-
 
 @dataclass
 class CreatePurgeRequestRequest:
@@ -1126,10 +1145,18 @@ class CreateTLSStageRequest:
 @dataclass
 class CreateVPCEndpointRequest:
     private_network_id: str
+    """
+    Private Network ID of the VPC Endpoint.
+    """
+
     project_id: Optional[str] = None
+    """
+    Project ID of the VPC Endpoint.
+    """
+
     region: Optional[ScwRegion] = None
     """
-    Region to target. If none is passed will use default region from the config.
+    Zone of the VPC Endpoint.
     """
 
 
@@ -1209,6 +1236,9 @@ class DeleteTLSStageRequest:
 @dataclass
 class DeleteVPCEndpointRequest:
     vpc_endpoint_id: str
+    """
+    The VPC Endpoint ID.
+    """
 
 
 @dataclass
@@ -1356,6 +1386,9 @@ class GetTLSStageRequest:
 @dataclass
 class GetVPCEndpointRequest:
     vpc_endpoint_id: str
+    """
+    The VPC Endpoint ID.
+    """
 
 
 @dataclass
@@ -1635,7 +1668,7 @@ class ListPurgeRequestsRequest:
 
     organization_id: Optional[str] = None
     """
-    Organization ID to filter for. Only purge requests from this Project will be returned.
+    Organization ID to filter for. Only purge requests from this Organization will be returned.
     """
 
     project_id: Optional[str] = None
@@ -1771,17 +1804,45 @@ class ListTLSStagesResponse:
 
 @dataclass
 class ListVPCEndpointsRequest:
-    page: Optional[int] = None
-    page_size: Optional[int] = None
-    order_by: Optional[ListVPCEndpointsRequestOrderBy] = None
+    order_by: Optional[ListVPCEndpointsRequestOrderBy] = (
+        ListVPCEndpointsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of VPC Endpoints in the response.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of VPC Endpoints to return per page.
+    """
+
     project_id: Optional[str] = None
+    """
+    Project ID to filter for. Only VPC Endpoints from this project will be returned.
+    """
+
     organization_id: Optional[str] = None
+    """
+    Organization ID to filter for. Only VPC Endpoints from this Organization will be returned.
+    """
 
 
 @dataclass
 class ListVPCEndpointsResponse:
-    total_count: int
     vpc_endpoints: list[VPCEndpoint]
+    """
+    Paginated list of VPC Endpoints.
+    """
+
+    total_count: int
+    """
+    Count of all VPC Endpoints matching the requested criteria.
+    """
 
 
 @dataclass
@@ -1873,6 +1934,37 @@ class SetHeadStageRequest:
     remove_head_stage: Optional[SetHeadStageRequestRemoveHeadStage] = None
 
     swap_head_stage: Optional[SetHeadStageRequestSwapHeadStage] = None
+
+
+@dataclass
+class SetPipelineVPCEndpointsRequest:
+    pipeline_id: str
+    """
+    Pipeline ID for which VPC Endpoints must be set.
+    """
+
+    vpc_endpoint_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    List of VPC Endpoints to attach.
+    """
+
+
+@dataclass
+class SetPipelineVPCEndpointsResponse:
+    pipeline_id: str
+    """
+    Pipeline ID.
+    """
+
+    vpc_endpoints: list[VPCEndpoint]
+    """
+    List of VPC Endpoints for the given Pipeline ID.
+    """
+
+    total_count: int
+    """
+    Count of all VPC Endpoints for the given Pipeline ID.
+    """
 
 
 @dataclass
@@ -1992,8 +2084,6 @@ class UpdatePipelineRequest:
     """
     Description of the pipeline.
     """
-
-    vpc_endpoint_ids: Optional[list[str]] = field(default_factory=list)
 
 
 @dataclass
