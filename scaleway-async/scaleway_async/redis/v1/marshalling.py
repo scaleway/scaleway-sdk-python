@@ -502,6 +502,14 @@ def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
     else:
         args["end_of_life_at"] = None
 
+    field = data.get("released_at", None)
+    if field is not None:
+        args["released_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["released_at"] = None
+
     return ClusterVersion(**args)
 
 
