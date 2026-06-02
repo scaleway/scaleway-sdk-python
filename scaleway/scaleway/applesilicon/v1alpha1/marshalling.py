@@ -373,6 +373,12 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["applied_runner_configuration_ids"] = []
 
+    field = data.get("kext_enabled", None)
+    if field is not None:
+        args["kext_enabled"] = field
+    else:
+        args["kext_enabled"] = False
+
     field = data.get("commitment", None)
     if field is not None:
         args["commitment"] = unmarshal_Commitment(field)
