@@ -216,6 +216,12 @@ def unmarshal_PrivateNIC(data: Any) -> PrivateNIC:
     else:
         args["zone"] = None
 
+    field = data.get("ipam_ip_ids", None)
+    if field is not None:
+        args["ipam_ip_ids"] = field
+    else:
+        args["ipam_ip_ids"] = []
+
     field = data.get("creation_date", None)
     if field is not None:
         args["creation_date"] = (
@@ -4754,6 +4760,9 @@ def marshal_PrivateNIC(
         output["zone"] = request.zone
     else:
         output["zone"] = defaults.default_zone
+
+    if request.ipam_ip_ids is not None:
+        output["ipam_ip_ids"] = request.ipam_ip_ids
 
     if request.creation_date is not None:
         output["creation_date"] = request.creation_date.isoformat()

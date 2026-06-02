@@ -221,6 +221,9 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     DTWH_DEPLOYMENT_USER = "dtwh_deployment_user"
     SSDB_DATABASE = "ssdb_database"
     SSDB_DATABASE_BACKUP = "ssdb_database_backup"
+    OBSERVABILITY_DATASOURCE = "observability_datasource"
+    OBSERVABILITY_TOKEN = "observability_token"
+    OBSERVABILITY_EXPORTER = "observability_exporter"
 
     def __str__(self) -> str:
         return str(self.value)
