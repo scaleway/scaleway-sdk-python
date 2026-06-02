@@ -269,6 +269,11 @@ class ClusterVersion:
     Date of End of Life.
     """
 
+    released_at: Optional[datetime] = None
+    """
+    Date of Release.
+    """
+
 
 @dataclass
 class Cluster:
