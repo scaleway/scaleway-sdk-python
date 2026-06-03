@@ -63,6 +63,7 @@ class PublicCatalogProductProductBadge(str, Enum, metaclass=StrEnumMeta):
     BEST_SELLER = "best_seller"
     BEST_VALUE = "best_value"
     POPULAR = "popular"
+    NO_KVM = "no_kvm"
 
     def __str__(self) -> str:
         return str(self.value)
