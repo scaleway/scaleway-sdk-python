@@ -214,6 +214,11 @@ class Deployment:
 
     node_amount: int
     """
+    DEPRECATED: Use node_count instead. Number of nodes allocated per deployment.
+    """
+
+    node_count: int
+    """
     Number of nodes allocated per deployment.
     """
 
@@ -349,6 +354,11 @@ class CreateDeploymentRequest:
     """
 
     node_amount: int
+    """
+    DEPRECATED: Use node_count instead. Number of nodes.
+    """
+
+    node_count: int
     """
     Number of nodes.
     """
@@ -776,5 +786,7 @@ class UpgradeDeploymentRequest:
     """
 
     node_amount: Optional[int] = 0
+
+    node_count: Optional[int] = 0
 
     volume_size_bytes: Optional[int] = 0

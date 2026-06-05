@@ -212,6 +212,12 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     else:
         args["node_amount"] = 0
 
+    field = data.get("node_count", None)
+    if field is not None:
+        args["node_count"] = field
+    else:
+        args["node_count"] = 0
+
     field = data.get("node_type", None)
     if field is not None:
         args["node_type"] = field
@@ -596,6 +602,9 @@ def marshal_CreateDeploymentRequest(
     if request.node_amount is not None:
         output["node_amount"] = request.node_amount
 
+    if request.node_count is not None:
+        output["node_count"] = request.node_count
+
     if request.node_type is not None:
         output["node_type"] = request.node_type
 
@@ -694,6 +703,9 @@ def marshal_UpgradeDeploymentRequest(
             [
                 OneOfPossibility(
                     param="node_amount", value=request.node_amount, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="node_count", value=request.node_count, marshal_func=None
                 ),
                 OneOfPossibility(
                     param="volume_size_bytes",
