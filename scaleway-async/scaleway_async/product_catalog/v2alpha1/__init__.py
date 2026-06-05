@@ -61,6 +61,7 @@ from .types import PublicCatalogProductPropertiesManagedRedisDatabase
 from .types import PublicCatalogProductPropertiesManagedRelationalDatabase
 from .types import PublicCatalogProductPropertiesObjectStorage
 from .types import PublicCatalogProductPropertiesSecretManager
+from .types import PublicCatalogProductPropertiesServerlessContainers
 from .types import PublicCatalogProductPropertiesServerlessFunctions
 from .types import PublicCatalogProductEnvironmentalImpactEstimation
 from .types import PublicCatalogProductLocality
@@ -126,6 +127,7 @@ __all__ = [
     "PublicCatalogProductPropertiesManagedRelationalDatabase",
     "PublicCatalogProductPropertiesObjectStorage",
     "PublicCatalogProductPropertiesSecretManager",
+    "PublicCatalogProductPropertiesServerlessContainers",
     "PublicCatalogProductPropertiesServerlessFunctions",
     "PublicCatalogProductEnvironmentalImpactEstimation",
     "PublicCatalogProductLocality",

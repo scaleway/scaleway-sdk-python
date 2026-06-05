@@ -57,6 +57,7 @@ from .types import (
     PublicCatalogProductPropertiesManagedRelationalDatabase,
     PublicCatalogProductPropertiesObjectStorage,
     PublicCatalogProductPropertiesSecretManager,
+    PublicCatalogProductPropertiesServerlessContainers,
     PublicCatalogProductPropertiesServerlessFunctions,
     PublicCatalogProductEnvironmentalImpactEstimation,
     PublicCatalogProductLocality,
@@ -1107,6 +1108,19 @@ def unmarshal_PublicCatalogProductPropertiesSecretManager(
     return PublicCatalogProductPropertiesSecretManager(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesServerlessContainers(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessContainers:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessContainers' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesServerlessContainers(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesServerlessFunctions(
     data: Any,
 ) -> PublicCatalogProductPropertiesServerlessFunctions:
@@ -1324,6 +1338,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["serverless_functions"] = None
+
+    field = data.get("serverless_containers", None)
+    if field is not None:
+        args["serverless_containers"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessContainers(field)
+        )
+    else:
+        args["serverless_containers"] = None
 
     field = data.get("managed_mongodb", None)
     if field is not None:
