@@ -35,6 +35,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     MANAGED_RELATIONAL_DATABASE = "managed_relational_database"
     MANAGED_MONGODB = "managed_mongodb"
     SERVERLESS_FUNCTIONS = "serverless_functions"
+    SERVERLESS_CONTAINERS = "serverless_containers"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -672,6 +673,11 @@ class PublicCatalogProductPropertiesSecretManager:
 
 
 @dataclass
+class PublicCatalogProductPropertiesServerlessContainers:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesServerlessFunctions:
     pass
 
@@ -742,6 +748,10 @@ class PublicCatalogProductProperties:
 
     serverless_functions: Optional[
         PublicCatalogProductPropertiesServerlessFunctions
+    ] = None
+
+    serverless_containers: Optional[
+        PublicCatalogProductPropertiesServerlessContainers
     ] = None
 
     managed_mongodb: Optional[PublicCatalogProductPropertiesManagedMongoDB] = None
