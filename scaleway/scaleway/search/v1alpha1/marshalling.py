@@ -6,6 +6,8 @@ from typing import Any
 from .types import (
     ResourceType,
     BrmServerInfo,
+    ObsDatasourceInfo,
+    ObsExporterInfo,
     ServerlessContainersContainerInfo,
     ServerlessFunctionsFunctionInfo,
     ServerlessSqldbBackupInfo,
@@ -30,6 +32,40 @@ def unmarshal_BrmServerInfo(data: Any) -> BrmServerInfo:
         args["ip"] = None
 
     return BrmServerInfo(**args)
+
+
+def unmarshal_ObsDatasourceInfo(data: Any) -> ObsDatasourceInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ObsDatasourceInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = None
+
+    return ObsDatasourceInfo(**args)
+
+
+def unmarshal_ObsExporterInfo(data: Any) -> ObsExporterInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ObsExporterInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("destination_type", None)
+    if field is not None:
+        args["destination_type"] = field
+    else:
+        args["destination_type"] = None
+
+    return ObsExporterInfo(**args)
 
 
 def unmarshal_ServerlessContainersContainerInfo(
@@ -195,6 +231,18 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["serverless_sqldb_backup_info"] = None
+
+    field = data.get("obs_datasource_info", None)
+    if field is not None:
+        args["obs_datasource_info"] = unmarshal_ObsDatasourceInfo(field)
+    else:
+        args["obs_datasource_info"] = None
+
+    field = data.get("obs_exporter_info", None)
+    if field is not None:
+        args["obs_exporter_info"] = unmarshal_ObsExporterInfo(field)
+    else:
+        args["obs_exporter_info"] = None
 
     return Resource(**args)
 

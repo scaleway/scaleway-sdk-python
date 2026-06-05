@@ -15,6 +15,25 @@ from scaleway_core.utils import (
 )
 
 
+class ObsDatasourceInfoDataType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_DATA_TYPE = "unknown_data_type"
+    METRICS = "metrics"
+    LOGS = "logs"
+    TRACES = "traces"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ObsExporterInfoDestinationType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_DESTINATION_TYPE = "unknown_destination_type"
+    DATADOG = "datadog"
+    OTLP = "otlp"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ResourceType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     INSTANCE_SERVER = "instance_server"
@@ -60,8 +79,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     GAPI_BATCH = "gapi_batch"
     DTWH_DEPLOYMENT = "dtwh_deployment"
     OBS_DATASOURCE = "obs_datasource"
-    OBS_TOKEN = "obs_token"
-    OBS_ALERT = "obs_alert"
+    OBS_EXPORTER = "obs_exporter"
     SVPN_VPN_GATEWAY = "svpn_vpn_gateway"
     SVPN_CUSTOMER_GATEWAY = "svpn_customer_gateway"
     SVPN_CONNECTION = "svpn_connection"
@@ -74,6 +92,16 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class BrmServerInfo:
     ip: str
+
+
+@dataclass
+class ObsDatasourceInfo:
+    type_: ObsDatasourceInfoDataType
+
+
+@dataclass
+class ObsExporterInfo:
+    destination_type: ObsExporterInfoDestinationType
 
 
 @dataclass
@@ -149,6 +177,10 @@ class Resource:
     baremetal_server_info: Optional[BrmServerInfo] = None
 
     serverless_sqldb_backup_info: Optional[ServerlessSqldbBackupInfo] = None
+
+    obs_datasource_info: Optional[ObsDatasourceInfo] = None
+
+    obs_exporter_info: Optional[ObsExporterInfo] = None
 
 
 @dataclass
