@@ -224,6 +224,10 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     OBSERVABILITY_DATASOURCE = "observability_datasource"
     OBSERVABILITY_TOKEN = "observability_token"
     OBSERVABILITY_EXPORTER = "observability_exporter"
+    ILI_PARTNER = "ili_partner"
+    ILI_CONNECTION = "ili_connection"
+    ILI_LINK = "ili_link"
+    ILI_ROUTING_POLICY = "ili_routing_policy"
 
     def __str__(self) -> str:
         return str(self.value)
