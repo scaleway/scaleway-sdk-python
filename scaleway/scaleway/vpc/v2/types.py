@@ -143,6 +143,11 @@ class Subnet:
     VPC the subnet belongs to.
     """
 
+    region: ScwRegion
+    """
+    Region of the subnet.
+    """
+
     created_at: Optional[datetime] = None
     """
     Subnet creation date.
@@ -349,6 +354,13 @@ class IngressRule:
     nexthop_resource_ip: str
     nexthop_private_network_id: str
     tags: list[str]
+    organization_id: str
+    project_id: str
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
     description: Optional[str] = None
@@ -886,6 +898,8 @@ class ListIngressRulesRequest:
     nexthop_private_network_id: Optional[str] = None
     is_ipv6: Optional[bool] = None
     tags: Optional[list[str]] = field(default_factory=list)
+    organization_id: Optional[str] = None
+    project_id: Optional[str] = None
 
 
 @dataclass
