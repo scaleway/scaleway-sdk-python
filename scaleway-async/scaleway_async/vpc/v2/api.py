@@ -1622,6 +1622,8 @@ class VpcV2API(API):
         nexthop_private_network_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
         tags: Optional[list[str]] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
     ) -> ListIngressRulesResponse:
         """
         :param region: Region to target. If none is passed will use default region from the config.
@@ -1633,6 +1635,8 @@ class VpcV2API(API):
         :param nexthop_private_network_id:
         :param is_ipv6:
         :param tags:
+        :param organization_id:
+        :param project_id:
         :return: :class:`ListIngressRulesResponse <ListIngressRulesResponse>`
 
         Usage:
@@ -1653,8 +1657,11 @@ class VpcV2API(API):
                 "nexthop_private_network_id": nexthop_private_network_id,
                 "nexthop_resource_ip": nexthop_resource_ip,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
                 "vpc_id": vpc_id,
             },
@@ -1675,6 +1682,8 @@ class VpcV2API(API):
         nexthop_private_network_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
         tags: Optional[list[str]] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
     ) -> list[IngressRule]:
         """
         :param region: Region to target. If none is passed will use default region from the config.
@@ -1686,6 +1695,8 @@ class VpcV2API(API):
         :param nexthop_private_network_id:
         :param is_ipv6:
         :param tags:
+        :param organization_id:
+        :param project_id:
         :return: :class:`list[IngressRule] <list[IngressRule]>`
 
         Usage:
@@ -1708,6 +1719,8 @@ class VpcV2API(API):
                 "nexthop_private_network_id": nexthop_private_network_id,
                 "is_ipv6": is_ipv6,
                 "tags": tags,
+                "organization_id": organization_id,
+                "project_id": project_id,
             },
         )
 
