@@ -81,6 +81,12 @@ def unmarshal_Subnet(data: Any) -> Subnet:
     else:
         args["vpc_id"] = None
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -314,12 +320,6 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
     else:
         args["nexthop_private_network_id"] = None
 
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-    else:
-        args["tags"] = None
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -337,6 +337,30 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
         args["description"] = field
     else:
         args["description"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return IngressRule(**args)
 
