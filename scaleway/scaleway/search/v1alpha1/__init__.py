@@ -1,5 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+from .types import Locality
 from .types import ObsDatasourceInfoDataType
 from .types import ObsExporterInfoDestinationType
 from .types import ResourceType
@@ -16,6 +17,7 @@ from .types import SearchResourcesResponse
 from .api import SearchV1Alpha1API
 
 __all__ = [
+    "Locality",
     "ObsDatasourceInfoDataType",
     "ObsExporterInfoDestinationType",
     "ResourceType",
