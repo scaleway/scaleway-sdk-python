@@ -43,6 +43,9 @@ class KeyAlgorithmAsymmetricSigning(str, Enum, metaclass=StrEnumMeta):
     RSA_PKCS1_2048_SHA256 = "rsa_pkcs1_2048_sha256"
     RSA_PKCS1_3072_SHA256 = "rsa_pkcs1_3072_sha256"
     RSA_PKCS1_4096_SHA256 = "rsa_pkcs1_4096_sha256"
+    ML_DSA_44 = "ml_dsa_44"
+    ML_DSA_65 = "ml_dsa_65"
+    ML_DSA_87 = "ml_dsa_87"
 
     def __str__(self) -> str:
         return str(self.value)
