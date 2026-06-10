@@ -65,6 +65,15 @@ class KeyOrigin(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class KeyProtectionLevel(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PROTECTION_LEVEL = "unknown_protection_level"
+    SOFTWARE = "software"
+    HSM = "hsm"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class KeyState(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATE = "unknown_state"
     ENABLED = "enabled"
@@ -190,6 +199,11 @@ class Key:
     Refer to the `Key.Origin` enum for a description of values.
     """
 
+    protection_level: KeyProtectionLevel
+    """
+    Refer to the `Key.ProtectionLevel` enum for a description of values.
+    """
+
     region: ScwRegion
     """
     Region where the key is stored.
@@ -276,6 +290,13 @@ class CreateKeyRequest:
     origin: Optional[KeyOrigin] = KeyOrigin.UNKNOWN_ORIGIN
     """
     Refer to the `Key.Origin` enum for a description of values.
+    """
+
+    protection_level: Optional[KeyProtectionLevel] = (
+        KeyProtectionLevel.UNKNOWN_PROTECTION_LEVEL
+    )
+    """
+    Refer to the `Key.Protection` enum for a description of values.
     """
 
 
@@ -570,6 +591,13 @@ class ListKeysRequest:
     usage: Optional[ListKeysRequestUsage] = ListKeysRequestUsage.UNKNOWN_USAGE
     """
     Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
+    """
+
+    protection_level: Optional[KeyProtectionLevel] = (
+        KeyProtectionLevel.UNKNOWN_PROTECTION_LEVEL
+    )
+    """
+    Select from software or hsm.
     """
 
 
