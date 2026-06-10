@@ -43,6 +43,9 @@ class KeyAlgorithmAsymmetricSigning(str, Enum, metaclass=StrEnumMeta):
     RSA_PKCS1_2048_SHA256 = "rsa_pkcs1_2048_sha256"
     RSA_PKCS1_3072_SHA256 = "rsa_pkcs1_3072_sha256"
     RSA_PKCS1_4096_SHA256 = "rsa_pkcs1_4096_sha256"
+    ML_DSA_44 = "ml_dsa_44"
+    ML_DSA_65 = "ml_dsa_65"
+    ML_DSA_87 = "ml_dsa_87"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -60,6 +63,15 @@ class KeyOrigin(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ORIGIN = "unknown_origin"
     SCALEWAY_KMS = "scaleway_kms"
     EXTERNAL = "external"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class KeyProtectionLevel(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PROTECTION_LEVEL = "unknown_protection_level"
+    SOFTWARE = "software"
+    HSM = "hsm"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -190,6 +202,11 @@ class Key:
     Refer to the `Key.Origin` enum for a description of values.
     """
 
+    protection_level: KeyProtectionLevel
+    """
+    Refer to the `Key.ProtectionLevel` enum for a description of values.
+    """
+
     region: ScwRegion
     """
     Region where the key is stored.
@@ -276,6 +293,13 @@ class CreateKeyRequest:
     origin: Optional[KeyOrigin] = KeyOrigin.UNKNOWN_ORIGIN
     """
     Refer to the `Key.Origin` enum for a description of values.
+    """
+
+    protection_level: Optional[KeyProtectionLevel] = (
+        KeyProtectionLevel.UNKNOWN_PROTECTION_LEVEL
+    )
+    """
+    Refer to the `Key.Protection` enum for a description of values.
     """
 
 
@@ -570,6 +594,13 @@ class ListKeysRequest:
     usage: Optional[ListKeysRequestUsage] = ListKeysRequestUsage.UNKNOWN_USAGE
     """
     Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
+    """
+
+    protection_level: Optional[KeyProtectionLevel] = (
+        KeyProtectionLevel.UNKNOWN_PROTECTION_LEVEL
+    )
+    """
+    Select from software or hsm.
     """
 
 
