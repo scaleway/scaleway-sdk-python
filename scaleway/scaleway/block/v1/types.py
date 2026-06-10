@@ -267,6 +267,11 @@ class VolumeType:
     Volume type.
     """
 
+    zone: ScwZone
+    """
+    Zone of the volume type.
+    """
+
     pricing: Optional[Money] = None
     """
     Price of the volume billed in GB/hour.
