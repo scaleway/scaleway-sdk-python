@@ -1,5 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+from .types import AliasStatus
+from .content import ALIAS_TRANSIENT_STATUSES
 from .types import DomainRecordDNSType
 from .types import DomainRecordLevel
 from .types import DomainRecordStatus
@@ -15,8 +17,10 @@ from .types import BatchCreateMailboxesRequestMailboxParameters
 from .types import Mailbox
 from .types import DomainRecord
 from .types import Domain
+from .types import Alias
 from .types import BatchCreateMailboxesRequest
 from .types import BatchCreateMailboxesResponse
+from .types import CreateAliasRequest
 from .types import CreateDomainRequest
 from .types import DeleteDomainRequest
 from .types import DeleteMailboxRequest
@@ -34,6 +38,8 @@ from .types import ValidateDomainRecordsRequest
 from .api import MailboxV1Alpha1API
 
 __all__ = [
+    "AliasStatus",
+    "ALIAS_TRANSIENT_STATUSES",
     "DomainRecordDNSType",
     "DomainRecordLevel",
     "DomainRecordStatus",
@@ -49,8 +55,10 @@ __all__ = [
     "Mailbox",
     "DomainRecord",
     "Domain",
+    "Alias",
     "BatchCreateMailboxesRequest",
     "BatchCreateMailboxesResponse",
+    "CreateAliasRequest",
     "CreateDomainRequest",
     "DeleteDomainRequest",
     "DeleteMailboxRequest",

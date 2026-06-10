@@ -2,11 +2,19 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from .types import (
+    AliasStatus,
     DomainRecordStatus,
     DomainStatus,
     MailboxStatus,
 )
 
+ALIAS_TRANSIENT_STATUSES: list[AliasStatus] = [
+    AliasStatus.PROVISIONING,
+    AliasStatus.DELETING,
+]
+"""
+Lists transient statutes of the enum :class:`AliasStatus <AliasStatus>`.
+"""
 DOMAIN_RECORD_TRANSIENT_STATUSES: list[DomainRecordStatus] = [
     DomainRecordStatus.VALIDATING,
 ]

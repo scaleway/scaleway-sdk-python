@@ -16,9 +16,11 @@ from .types import (
     ListMailboxesRequestOrderBy,
     MailboxStatus,
     MailboxSubscriptionPeriod,
+    Alias,
     BatchCreateMailboxesRequest,
     BatchCreateMailboxesRequestMailboxParameters,
     BatchCreateMailboxesResponse,
+    CreateAliasRequest,
     CreateDomainRequest,
     Domain,
     GetDomainRecordsResponse,
@@ -34,11 +36,13 @@ from .content import (
 from .marshalling import (
     unmarshal_Mailbox,
     unmarshal_Domain,
+    unmarshal_Alias,
     unmarshal_BatchCreateMailboxesResponse,
     unmarshal_GetDomainRecordsResponse,
     unmarshal_ListDomainsResponse,
     unmarshal_ListMailboxesResponse,
     marshal_BatchCreateMailboxesRequest,
+    marshal_CreateAliasRequest,
     marshal_CreateDomainRequest,
     marshal_UpdateMailboxRequest,
 )
@@ -292,7 +296,8 @@ class MailboxV1Alpha1API(API):
         domain_id: str,
     ) -> None:
         """
-        :param domain_id:
+        Validate domain records by its ID.
+        :param domain_id: ID of the domain with which to validate the records.
 
         Usage:
         ::
@@ -320,6 +325,7 @@ class MailboxV1Alpha1API(API):
         subscription_period: Optional[MailboxSubscriptionPeriod] = None,
     ) -> BatchCreateMailboxesResponse:
         """
+        Create one or more mailboxes.
         :param domain_id: ID of the domain in which to create the mailboxes.
         :param mailboxes: Parameters for the mailboxes to create.
         :param subscription_period: Subscription renewal period, it can be monthly or yearly.
@@ -590,3 +596,44 @@ class MailboxV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Mailbox(res.json())
+
+    async def create_alias(
+        self,
+        *,
+        local_part: str,
+        mailbox_id: str,
+        description: Optional[str] = None,
+    ) -> Alias:
+        """
+        Create an alias for a mailbox.
+        :param local_part: Local part of the email address (e.g. local_part@domain.com).
+        :param mailbox_id: ID of the mailbox to associate with the alias.
+        :param description: (Optional) Description of the alias.
+        :return: :class:`Alias <Alias>`
+
+        Usage:
+        ::
+
+            result = await api.create_alias(
+                local_part="example",
+                mailbox_id="example",
+            )
+        """
+
+        param_mailbox_id = validate_path_param("mailbox_id", mailbox_id)
+
+        res = self._request(
+            "POST",
+            f"/mailbox/v1alpha1/mailboxes/{param_mailbox_id}/aliases",
+            body=marshal_CreateAliasRequest(
+                CreateAliasRequest(
+                    local_part=local_part,
+                    mailbox_id=mailbox_id,
+                    description=description,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Alias(res.json())
