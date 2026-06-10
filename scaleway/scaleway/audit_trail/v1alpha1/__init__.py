@@ -50,6 +50,8 @@ from .types import LoadBalancerFrontendInfo
 from .types import LoadBalancerIpInfo
 from .types import LoadBalancerLbInfo
 from .types import LoadBalancerRouteInfo
+from .types import ObservabilityAlertRuleInfo
+from .types import ObservabilityContactPointInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
 from .types import VpcConnectorInfo
@@ -146,6 +148,8 @@ __all__ = [
     "LoadBalancerIpInfo",
     "LoadBalancerLbInfo",
     "LoadBalancerRouteInfo",
+    "ObservabilityAlertRuleInfo",
+    "ObservabilityContactPointInfo",
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
     "VpcConnectorInfo",

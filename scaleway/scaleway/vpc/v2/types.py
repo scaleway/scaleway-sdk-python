@@ -145,7 +145,7 @@ class Subnet:
 
     region: ScwRegion
     """
-    Region of the subnet.
+    Region in which the Subnet can be used.
     """
 
     created_at: Optional[datetime] = None
