@@ -137,6 +137,12 @@ def unmarshal_Attachment(data: Any) -> Attachment:
     else:
         args["resource_type"] = AttachmentResourceType.UNKNOWN_RESOURCE_TYPE
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
