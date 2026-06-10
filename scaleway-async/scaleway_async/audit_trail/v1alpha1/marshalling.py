@@ -59,6 +59,8 @@ from .types import (
     LoadBalancerIpInfo,
     LoadBalancerLbInfo,
     LoadBalancerRouteInfo,
+    ObservabilityAlertRuleInfo,
+    ObservabilityContactPointInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
     VpcConnectorInfo,
@@ -995,6 +997,40 @@ def unmarshal_LoadBalancerRouteInfo(data: Any) -> LoadBalancerRouteInfo:
     return LoadBalancerRouteInfo(**args)
 
 
+def unmarshal_ObservabilityAlertRuleInfo(data: Any) -> ObservabilityAlertRuleInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ObservabilityAlertRuleInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("rule_ids", None)
+    if field is not None:
+        args["rule_ids"] = field
+    else:
+        args["rule_ids"] = None
+
+    return ObservabilityAlertRuleInfo(**args)
+
+
+def unmarshal_ObservabilityContactPointInfo(data: Any) -> ObservabilityContactPointInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ObservabilityContactPointInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("email", None)
+    if field is not None:
+        args["email"] = field
+    else:
+        args["email"] = None
+
+    return ObservabilityContactPointInfo(**args)
+
+
 def unmarshal_SecretManagerSecretInfo(data: Any) -> SecretManagerSecretInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1571,6 +1607,22 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["vpc_ingress_rule_info"] = unmarshal_VpcIngressRuleInfo(field)
     else:
         args["vpc_ingress_rule_info"] = None
+
+    field = data.get("observability_contact_point_info", None)
+    if field is not None:
+        args["observability_contact_point_info"] = (
+            unmarshal_ObservabilityContactPointInfo(field)
+        )
+    else:
+        args["observability_contact_point_info"] = None
+
+    field = data.get("observability_alert_rule_info", None)
+    if field is not None:
+        args["observability_alert_rule_info"] = unmarshal_ObservabilityAlertRuleInfo(
+            field
+        )
+    else:
+        args["observability_alert_rule_info"] = None
 
     return Resource(**args)
 

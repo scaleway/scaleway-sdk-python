@@ -439,6 +439,16 @@ class LoadBalancerRouteInfo:
 
 
 @dataclass
+class ObservabilityAlertRuleInfo:
+    rule_ids: list[str]
+
+
+@dataclass
+class ObservabilityContactPointInfo:
+    email: str
+
+
+@dataclass
 class SecretManagerSecretInfo:
     path: str
     key_id: Optional[str] = None
@@ -598,6 +608,10 @@ class Resource:
     ] = None
 
     vpc_ingress_rule_info: Optional[VpcIngressRuleInfo] = None
+
+    observability_contact_point_info: Optional[ObservabilityContactPointInfo] = None
+
+    observability_alert_rule_info: Optional[ObservabilityAlertRuleInfo] = None
 
 
 @dataclass
