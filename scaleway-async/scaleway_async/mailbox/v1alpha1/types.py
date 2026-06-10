@@ -12,6 +12,16 @@ from scaleway_core.utils import (
 )
 
 
+class AliasStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    PROVISIONING = "provisioning"
+    DELETING = "deleting"
+    READY = "ready"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DomainRecordDNSType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_DNS_TYPE = "unknown_dns_type"
     CNAME_DNS_TYPE = "cname_dns_type"
@@ -287,6 +297,44 @@ class Domain:
 
 
 @dataclass
+class Alias:
+    id: str
+    """
+    Unique identifier of the alias.
+    """
+
+    email: str
+    """
+    Email address of the alias as local_part@domain.
+    """
+
+    mailbox_id: str
+    """
+    ID of the mailbox to which the alias belongs.
+    """
+
+    description: str
+    """
+    Description of the alias.
+    """
+
+    status: AliasStatus
+    """
+    Current status of the alias.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date and time of alias creation.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date and time when the alias was last updated.
+    """
+
+
+@dataclass
 class BatchCreateMailboxesRequest:
     domain_id: str
     """
@@ -313,6 +361,24 @@ class BatchCreateMailboxesResponse:
     mailboxes: list[Mailbox]
     """
     Mailboxes created.
+    """
+
+
+@dataclass
+class CreateAliasRequest:
+    local_part: str
+    """
+    Local part of the email address (e.g. local_part@domain.com).
+    """
+
+    mailbox_id: str
+    """
+    ID of the mailbox to associate with the alias.
+    """
+
+    description: Optional[str] = None
+    """
+    (Optional) Description of the alias.
     """
 
 
