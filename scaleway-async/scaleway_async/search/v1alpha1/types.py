@@ -2,7 +2,8 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
@@ -13,6 +14,36 @@ from scaleway_core.bridge import (
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
+
+class Locality(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_LOCALITY = "unknown_locality"
+    GLOBAL = "global"
+    FR_RZ = "fr_rz"
+    FR_SRR = "fr_srr"
+    FR_SRR_1 = "fr_srr_1"
+    FR_PAR = "fr_par"
+    FR_PAR_1 = "fr_par_1"
+    FR_PAR_2 = "fr_par_2"
+    FR_PAR_3 = "fr_par_3"
+    FR_PAR_4 = "fr_par_4"
+    NL_AMS = "nl_ams"
+    NL_AMS_1 = "nl_ams_1"
+    NL_AMS_2 = "nl_ams_2"
+    NL_AMS_3 = "nl_ams_3"
+    PL_WAW = "pl_waw"
+    PL_WAW_1 = "pl_waw_1"
+    PL_WAW_2 = "pl_waw_2"
+    PL_WAW_3 = "pl_waw_3"
+    FR_INT = "fr_int"
+    FR_INT_1 = "fr_int_1"
+    FR_LAB = "fr_lab"
+    FR_LAB_1 = "fr_lab_1"
+    IT_MIL = "it_mil"
+    IT_MIL_1 = "it_mil_1"
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 class ObsDatasourceInfoDataType(str, Enum, metaclass=StrEnumMeta):
@@ -193,6 +224,41 @@ class SearchResourcesRequest:
     organization_id: Optional[str] = None
     """
     ID of the Organization to search in.
+    """
+
+    project_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    List of Project IDs to filter the resources by.
+    """
+
+    types: Optional[list[ResourceType]] = field(default_factory=list)
+    """
+    List of resource types to filter the resources by.
+    """
+
+    localities: Optional[list[Locality]] = field(default_factory=list)
+    """
+    List of scopes (zones, regions, or global) to filter the resources by.
+    """
+
+    created_after: Optional[datetime] = None
+    """
+    Filter resources created after this timestamp.
+    """
+
+    created_before: Optional[datetime] = None
+    """
+    Filter resources created before this timestamp.
+    """
+
+    modified_after: Optional[datetime] = None
+    """
+    Filter resources modified after this timestamp.
+    """
+
+    modified_before: Optional[datetime] = None
+    """
+    Filter resources modified before this timestamp.
     """
 
 
