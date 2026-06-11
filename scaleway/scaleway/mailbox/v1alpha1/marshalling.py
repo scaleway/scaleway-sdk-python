@@ -6,6 +6,7 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    AliasStatus,
     DomainRecordDNSType,
     DomainRecordLevel,
     DomainRecordStatus,
@@ -14,6 +15,7 @@ from .types import (
     MailboxSubscriptionPeriod,
     Mailbox,
     Domain,
+    Alias,
     BatchCreateMailboxesResponse,
     DomainRecord,
     GetDomainRecordsResponse,
@@ -21,6 +23,7 @@ from .types import (
     ListMailboxesResponse,
     BatchCreateMailboxesRequestMailboxParameters,
     BatchCreateMailboxesRequest,
+    CreateAliasRequest,
     CreateDomainRequest,
     UpdateMailboxRequest,
 )
@@ -188,6 +191,59 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["updated_at"] = None
 
     return Domain(**args)
+
+
+def unmarshal_Alias(data: Any) -> Alias:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Alias' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("email", None)
+    if field is not None:
+        args["email"] = field
+    else:
+        args["email"] = None
+
+    field = data.get("mailbox_id", None)
+    if field is not None:
+        args["mailbox_id"] = field
+    else:
+        args["mailbox_id"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = AliasStatus.UNKNOWN_STATUS
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Alias(**args)
 
 
 def unmarshal_BatchCreateMailboxesResponse(data: Any) -> BatchCreateMailboxesResponse:
@@ -445,6 +501,21 @@ def marshal_BatchCreateMailboxesRequest(
 
     if request.subscription_period is not None:
         output["subscription_period"] = request.subscription_period
+
+    return output
+
+
+def marshal_CreateAliasRequest(
+    request: CreateAliasRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.local_part is not None:
+        output["local_part"] = request.local_part
+
+    if request.description is not None:
+        output["description"] = request.description
 
     return output
 
