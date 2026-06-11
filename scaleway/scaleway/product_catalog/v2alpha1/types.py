@@ -36,6 +36,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     MANAGED_MONGODB = "managed_mongodb"
     SERVERLESS_FUNCTIONS = "serverless_functions"
     SERVERLESS_CONTAINERS = "serverless_containers"
+    SERVERLESS_JOBS = "serverless_jobs"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -683,6 +684,11 @@ class PublicCatalogProductPropertiesServerlessFunctions:
 
 
 @dataclass
+class PublicCatalogProductPropertiesServerlessJobs:
+    pass
+
+
+@dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
     kg_co2_equivalent: Optional[float] = None
     m3_water_usage: Optional[float] = None
@@ -755,6 +761,8 @@ class PublicCatalogProductProperties:
     ] = None
 
     managed_mongodb: Optional[PublicCatalogProductPropertiesManagedMongoDB] = None
+
+    serverless_jobs: Optional[PublicCatalogProductPropertiesServerlessJobs] = None
 
 
 @dataclass
