@@ -9,6 +9,7 @@ from scaleway_core.bridge import (
 )
 from .types import (
     PublicCatalogProductProductBadge,
+    PublicCatalogProductPropertiesGenerativeApisTask,
     PublicCatalogProductPropertiesHardwareCPUArch,
     PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass,
     PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass,
@@ -744,6 +745,34 @@ def unmarshal_PublicCatalogProductPropertiesGenerativeApis(
         args["consumption_mode"] = field
     else:
         args["consumption_mode"] = None
+
+    field = data.get("provider_name", None)
+    if field is not None:
+        args["provider_name"] = field
+    else:
+        args["provider_name"] = None
+
+    field = data.get("tasks", None)
+    if field is not None:
+        args["tasks"] = (
+            [PublicCatalogProductPropertiesGenerativeApisTask(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["tasks"] = None
+
+    field = data.get("token_type", None)
+    if field is not None:
+        args["token_type"] = field
+    else:
+        args["token_type"] = None
+
+    field = data.get("supported_reasoning_values", None)
+    if field is not None:
+        args["supported_reasoning_values"] = field
+    else:
+        args["supported_reasoning_values"] = None
 
     return PublicCatalogProductPropertiesGenerativeApis(**args)
 
