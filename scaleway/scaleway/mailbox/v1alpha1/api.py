@@ -296,7 +296,8 @@ class MailboxV1Alpha1API(API):
         domain_id: str,
     ) -> None:
         """
-        :param domain_id:
+        Validate domain records by its ID.
+        :param domain_id: ID of the domain with which to validate the records.
 
         Usage:
         ::
@@ -324,6 +325,7 @@ class MailboxV1Alpha1API(API):
         subscription_period: Optional[MailboxSubscriptionPeriod] = None,
     ) -> BatchCreateMailboxesResponse:
         """
+        Create one or more mailboxes.
         :param domain_id: ID of the domain in which to create the mailboxes.
         :param mailboxes: Parameters for the mailboxes to create.
         :param subscription_period: Subscription renewal period, it can be monthly or yearly.

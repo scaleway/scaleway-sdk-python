@@ -600,3 +600,6 @@ class UpdateMailboxRequest:
 @dataclass
 class ValidateDomainRecordsRequest:
     domain_id: str
+    """
+    ID of the domain with which to validate the records.
+    """
