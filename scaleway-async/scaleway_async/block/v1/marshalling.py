@@ -378,6 +378,12 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
     else:
         args["type_"] = None
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     field = data.get("pricing", None)
     if field is not None:
         args["pricing"] = unmarshal_Money(field)

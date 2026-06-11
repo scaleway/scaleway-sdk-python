@@ -63,6 +63,7 @@ from .types import PublicCatalogProductPropertiesObjectStorage
 from .types import PublicCatalogProductPropertiesSecretManager
 from .types import PublicCatalogProductPropertiesServerlessContainers
 from .types import PublicCatalogProductPropertiesServerlessFunctions
+from .types import PublicCatalogProductPropertiesServerlessJobs
 from .types import PublicCatalogProductEnvironmentalImpactEstimation
 from .types import PublicCatalogProductLocality
 from .types import PublicCatalogProductPrice
@@ -129,6 +130,7 @@ __all__ = [
     "PublicCatalogProductPropertiesSecretManager",
     "PublicCatalogProductPropertiesServerlessContainers",
     "PublicCatalogProductPropertiesServerlessFunctions",
+    "PublicCatalogProductPropertiesServerlessJobs",
     "PublicCatalogProductEnvironmentalImpactEstimation",
     "PublicCatalogProductLocality",
     "PublicCatalogProductPrice",
