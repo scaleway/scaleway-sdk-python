@@ -72,6 +72,11 @@ class Attachment:
     The type of the attached resource.
     """
 
+    region: ScwRegion
+    """
+    The region where the attachment is located.
+    """
+
     zone: Optional[ScwZone] = None
     """
     The zone where the resource is located.
