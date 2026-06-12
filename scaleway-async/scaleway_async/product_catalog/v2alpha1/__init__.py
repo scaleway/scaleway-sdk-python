@@ -4,6 +4,8 @@ from .types import ListPublicCatalogProductsRequestProductType
 from .types import ListPublicCatalogProductsRequestStatus
 from .types import PublicCatalogProductProductBadge
 from .types import PublicCatalogProductPropertiesGenerativeApisConsumptionMode
+from .types import PublicCatalogProductPropertiesGenerativeApisTask
+from .types import PublicCatalogProductPropertiesGenerativeApisTokenType
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
 from .types import PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass
 from .types import (
@@ -79,6 +81,8 @@ __all__ = [
     "ListPublicCatalogProductsRequestStatus",
     "PublicCatalogProductProductBadge",
     "PublicCatalogProductPropertiesGenerativeApisConsumptionMode",
+    "PublicCatalogProductPropertiesGenerativeApisTask",
+    "PublicCatalogProductPropertiesGenerativeApisTokenType",
     "PublicCatalogProductPropertiesHardwareCPUArch",
     "PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass",
     "PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass",
