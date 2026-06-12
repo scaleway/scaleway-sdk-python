@@ -43,6 +43,7 @@ from .types import (
     EdgeServicesRouteRulesInfo,
     EdgeServicesRouteStageInfo,
     EdgeServicesTLSStageInfo,
+    EdgeServicesVPCEndpointInfo,
     EdgeServicesWAFStageInfo,
     InstancePrivateNetworkInterfaceInfo,
     InstanceServerInfo,
@@ -685,6 +686,23 @@ def unmarshal_EdgeServicesTLSStageInfo(data: Any) -> EdgeServicesTLSStageInfo:
         args["pipeline_id"] = None
 
     return EdgeServicesTLSStageInfo(**args)
+
+
+def unmarshal_EdgeServicesVPCEndpointInfo(data: Any) -> EdgeServicesVPCEndpointInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EdgeServicesVPCEndpointInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
+    return EdgeServicesVPCEndpointInfo(**args)
 
 
 def unmarshal_EdgeServicesWAFStageInfo(data: Any) -> EdgeServicesWAFStageInfo:
@@ -1623,6 +1641,14 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["observability_alert_rule_info"] = None
+
+    field = data.get("edge_services_vpc_endpoint_info", None)
+    if field is not None:
+        args["edge_services_vpc_endpoint_info"] = unmarshal_EdgeServicesVPCEndpointInfo(
+            field
+        )
+    else:
+        args["edge_services_vpc_endpoint_info"] = None
 
     return Resource(**args)
 

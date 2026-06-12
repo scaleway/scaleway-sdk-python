@@ -185,6 +185,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     VPC_INGRESS_RULE = "vpc_ingress_rule"
     EDGE_SERVICES_PLAN = "edge_services_plan"
     EDGE_SERVICES_PIPELINE = "edge_services_pipeline"
+    EDGE_SERVICES_VPC_ENDPOINT = "edge_services_vpc_endpoint"
     EDGE_SERVICES_DNS_STAGE = "edge_services_dns_stage"
     EDGE_SERVICES_TLS_STAGE = "edge_services_tls_stage"
     EDGE_SERVICES_CACHE_STAGE = "edge_services_cache_stage"
@@ -347,6 +348,11 @@ class EdgeServicesRouteStageInfo:
 @dataclass
 class EdgeServicesTLSStageInfo:
     pipeline_id: Optional[str] = None
+
+
+@dataclass
+class EdgeServicesVPCEndpointInfo:
+    private_network_id: str
 
 
 @dataclass
@@ -612,6 +618,8 @@ class Resource:
     observability_contact_point_info: Optional[ObservabilityContactPointInfo] = None
 
     observability_alert_rule_info: Optional[ObservabilityAlertRuleInfo] = None
+
+    edge_services_vpc_endpoint_info: Optional[EdgeServicesVPCEndpointInfo] = None
 
 
 @dataclass
