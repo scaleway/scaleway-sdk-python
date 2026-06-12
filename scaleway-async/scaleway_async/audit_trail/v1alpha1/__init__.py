@@ -34,6 +34,7 @@ from .types import EdgeServicesPlanInfo
 from .types import EdgeServicesRouteRulesInfo
 from .types import EdgeServicesRouteStageInfo
 from .types import EdgeServicesTLSStageInfo
+from .types import EdgeServicesVPCEndpointInfo
 from .types import EdgeServicesWAFStageInfo
 from .types import InstancePrivateNetworkInterfaceInfo
 from .types import InstanceServerInfo
@@ -132,6 +133,7 @@ __all__ = [
     "EdgeServicesRouteRulesInfo",
     "EdgeServicesRouteStageInfo",
     "EdgeServicesTLSStageInfo",
+    "EdgeServicesVPCEndpointInfo",
     "EdgeServicesWAFStageInfo",
     "InstancePrivateNetworkInterfaceInfo",
     "InstanceServerInfo",

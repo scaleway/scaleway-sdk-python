@@ -82,6 +82,32 @@ class PublicCatalogProductPropertiesGenerativeApisConsumptionMode(
         return str(self.value)
 
 
+class PublicCatalogProductPropertiesGenerativeApisTask(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_TASK = "unknown_task"
+    CHAT = "chat"
+    EMBEDDINGS = "embeddings"
+    VISION = "vision"
+    AUDIO_TRANSCRIPTION = "audio_transcription"
+    CODE = "code"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PublicCatalogProductPropertiesGenerativeApisTokenType(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_TOKEN_TYPE = "unknown_token_type"
+    INPUT_TOKEN = "input_token"
+    OUTPUT_TOKEN = "output_token"
+    INPUT_DURATION = "input_duration"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCH = "unknown_arch"
     X64 = "x64"
@@ -529,6 +555,10 @@ class PublicCatalogProductPropertiesGenerativeApis:
     reasoning: bool
     supported_apis: list[str]
     consumption_mode: PublicCatalogProductPropertiesGenerativeApisConsumptionMode
+    provider_name: str
+    tasks: list[PublicCatalogProductPropertiesGenerativeApisTask]
+    token_type: PublicCatalogProductPropertiesGenerativeApisTokenType
+    supported_reasoning_values: list[str]
 
 
 @dataclass

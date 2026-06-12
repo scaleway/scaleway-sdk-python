@@ -36,6 +36,7 @@ from .types import (
     DNSZone,
     Host,
     SSLCertificate,
+    Task,
     CheckContactsCompatibilityResponseContactCheckResult,
     CheckContactsCompatibilityResponse,
     ClearDNSZoneRecordsResponse,
@@ -88,7 +89,6 @@ from .types import (
     RenewableDomain,
     ListRenewableDomainsResponse,
     ListSSLCertificatesResponse,
-    Task,
     ListTasksResponse,
     ListTldsResponse,
     OrderResponse,
@@ -717,6 +717,77 @@ def unmarshal_SSLCertificate(data: Any) -> SSLCertificate:
         args["expired_at"] = None
 
     return SSLCertificate(**args)
+
+
+def unmarshal_Task(data: Any) -> Task:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Task' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = TaskType.UNKNOWN
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = TaskStatus.UNAVAILABLE
+
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+    else:
+        args["domain"] = None
+
+    field = data.get("started_at", None)
+    if field is not None:
+        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("message", None)
+    if field is not None:
+        args["message"] = field
+    else:
+        args["message"] = None
+
+    field = data.get("contact_identifier", None)
+    if field is not None:
+        args["contact_identifier"] = field
+    else:
+        args["contact_identifier"] = None
+
+    return Task(**args)
 
 
 def unmarshal_CheckContactsCompatibilityResponseContactCheckResult(
@@ -2355,77 +2426,6 @@ def unmarshal_ListSSLCertificatesResponse(data: Any) -> ListSSLCertificatesRespo
         args["certificates"] = None
 
     return ListSSLCertificatesResponse(**args)
-
-
-def unmarshal_Task(data: Any) -> Task:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Task' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-    else:
-        args["project_id"] = None
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-    else:
-        args["organization_id"] = None
-
-    field = data.get("type", None)
-    if field is not None:
-        args["type_"] = field
-    else:
-        args["type_"] = TaskType.UNKNOWN
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = TaskStatus.UNAVAILABLE
-
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-    else:
-        args["domain"] = None
-
-    field = data.get("started_at", None)
-    if field is not None:
-        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["started_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("message", None)
-    if field is not None:
-        args["message"] = field
-    else:
-        args["message"] = None
-
-    field = data.get("contact_identifier", None)
-    if field is not None:
-        args["contact_identifier"] = field
-    else:
-        args["contact_identifier"] = None
-
-    return Task(**args)
 
 
 def unmarshal_ListTasksResponse(data: Any) -> ListTasksResponse:
