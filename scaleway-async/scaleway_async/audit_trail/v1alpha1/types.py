@@ -229,6 +229,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     ILI_CONNECTION = "ili_connection"
     ILI_LINK = "ili_link"
     ILI_ROUTING_POLICY = "ili_routing_policy"
+    AUTOSCALING_GROUP = "autoscaling_group"
 
     def __str__(self) -> str:
         return str(self.value)
