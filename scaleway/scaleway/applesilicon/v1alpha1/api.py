@@ -448,7 +448,7 @@ class ApplesiliconV1Alpha1API(API):
     ) -> OS:
         """
         Get an Operating System (OS).
-        Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.
+        Get an Operating System (OS). The response will include the OS's unique ID as well as its name and label.
         :param os_id: UUID of the OS you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`OS <OS>`
