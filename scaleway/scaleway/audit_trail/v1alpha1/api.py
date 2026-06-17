@@ -26,6 +26,7 @@ from .types import (
     DisableAlertRulesResponse,
     EnableAlertRulesRequest,
     EnableAlertRulesResponse,
+    EventsOverview,
     ExportJob,
     ExportJobS3,
     ListAlertRulesResponse,
@@ -42,6 +43,7 @@ from .marshalling import (
     unmarshal_ExportJob,
     unmarshal_DisableAlertRulesResponse,
     unmarshal_EnableAlertRulesResponse,
+    unmarshal_EventsOverview,
     unmarshal_ListAlertRulesResponse,
     unmarshal_ListAuthenticationEventsResponse,
     unmarshal_ListCombinedEventsResponse,
@@ -326,6 +328,42 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListProductsResponse(res.json())
+
+    def get_last_events_overview(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+    ) -> EventsOverview:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id:
+        :param project_id:
+        :return: :class:`EventsOverview <EventsOverview>`
+
+        Usage:
+        ::
+
+            result = api.get_last_events_overview()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/last-events-overview",
+            params={
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_EventsOverview(res.json())
 
     def create_export_job(
         self,

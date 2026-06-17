@@ -283,7 +283,7 @@ class AutoscalingV1Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Delete  Instance group.
+        Delete Instance group.
         Delete an existing Instance group, specified by its `instance_group_id`. Deleting an Instance group is permanent, and cannot be undone.
         :param instance_group_id: ID of the Instance group to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
