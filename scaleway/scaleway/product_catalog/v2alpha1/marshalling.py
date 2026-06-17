@@ -42,6 +42,7 @@ from .types import (
     PublicCatalogProductPropertiesObjectStorageInternetTrafficType,
     PublicCatalogProductPropertiesObjectStorageRegionTrafficType,
     PublicCatalogProductPropertiesObjectStorageRestoreType,
+    PublicCatalogProductPropertiesApacheKafka,
     PublicCatalogProductPropertiesAppleSilicon,
     PublicCatalogProductPropertiesBlockStorage,
     PublicCatalogProductPropertiesDedibox,
@@ -616,6 +617,19 @@ def unmarshal_PublicCatalogProductPropertiesObjectStorageRestoreType(
         )
 
     return PublicCatalogProductPropertiesObjectStorageRestoreType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesApacheKafka(
+    data: Any,
+) -> PublicCatalogProductPropertiesApacheKafka:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesApacheKafka' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesApacheKafka(**args)
 
 
 def unmarshal_PublicCatalogProductPropertiesAppleSilicon(
@@ -1405,6 +1419,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["serverless_jobs"] = None
+
+    field = data.get("apache_kafka", None)
+    if field is not None:
+        args["apache_kafka"] = unmarshal_PublicCatalogProductPropertiesApacheKafka(
+            field
+        )
+    else:
+        args["apache_kafka"] = None
 
     return PublicCatalogProductProperties(**args)
 
