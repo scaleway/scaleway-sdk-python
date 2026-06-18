@@ -23,7 +23,6 @@ from .types import (
     AlertRule,
     DisableAlertRulesResponse,
     EnableAlertRulesResponse,
-    ListAlertRulesResponse,
     AccountContractSignatureInfoAccountContractInfo,
     AccountContractSignatureInfo,
     AccountOrganizationInfo,
@@ -71,11 +70,13 @@ from .types import (
     VpcPrivateNetworkInfo,
     VpcRouteInfo,
     VpcSubnetInfo,
+    EventPrincipal,
     Resource,
+    Event,
+    EventsOverview,
+    ListAlertRulesResponse,
     AuthenticationEvent,
     ListAuthenticationEventsResponse,
-    EventPrincipal,
-    Event,
     SystemEvent,
     ListCombinedEventsResponseCombinedEvent,
     ListCombinedEventsResponse,
@@ -286,31 +287,6 @@ def unmarshal_EnableAlertRulesResponse(data: Any) -> EnableAlertRulesResponse:
         args["alert_rules"] = []
 
     return EnableAlertRulesResponse(**args)
-
-
-def unmarshal_ListAlertRulesResponse(data: Any) -> ListAlertRulesResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListAlertRulesResponse' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("alert_rules", None)
-    if field is not None:
-        args["alert_rules"] = (
-            [unmarshal_AlertRule(v) for v in field] if field is not None else None
-        )
-    else:
-        args["alert_rules"] = []
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-    else:
-        args["total_count"] = 0
-
-    return ListAlertRulesResponse(**args)
 
 
 def unmarshal_AccountContractSignatureInfoAccountContractInfo(
@@ -1288,6 +1264,23 @@ def unmarshal_VpcSubnetInfo(data: Any) -> VpcSubnetInfo:
     return VpcSubnetInfo(**args)
 
 
+def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EventPrincipal' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    return EventPrincipal(**args)
+
+
 def unmarshal_Resource(data: Any) -> Resource:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1653,6 +1646,155 @@ def unmarshal_Resource(data: Any) -> Resource:
     return Resource(**args)
 
 
+def unmarshal_Event(data: Any) -> Event:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Event' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("locality", None)
+    if field is not None:
+        args["locality"] = field
+    else:
+        args["locality"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("source_ip", None)
+    if field is not None:
+        args["source_ip"] = field
+    else:
+        args["source_ip"] = None
+
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+    else:
+        args["product_name"] = None
+
+    field = data.get("recorded_at", None)
+    if field is not None:
+        args["recorded_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["recorded_at"] = None
+
+    field = data.get("principal", None)
+    if field is not None:
+        args["principal"] = unmarshal_EventPrincipal(field)
+    else:
+        args["principal"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("user_agent", None)
+    if field is not None:
+        args["user_agent"] = field
+    else:
+        args["user_agent"] = None
+
+    field = data.get("service_name", None)
+    if field is not None:
+        args["service_name"] = field
+    else:
+        args["service_name"] = None
+
+    field = data.get("method_name", None)
+    if field is not None:
+        args["method_name"] = field
+    else:
+        args["method_name"] = None
+
+    field = data.get("resources", None)
+    if field is not None:
+        args["resources"] = (
+            [unmarshal_Resource(v) for v in field] if field is not None else None
+        )
+    else:
+        args["resources"] = []
+
+    field = data.get("request_id", None)
+    if field is not None:
+        args["request_id"] = field
+    else:
+        args["request_id"] = None
+
+    field = data.get("status_code", None)
+    if field is not None:
+        args["status_code"] = field
+    else:
+        args["status_code"] = 0
+
+    field = data.get("request_body", None)
+    if field is not None:
+        args["request_body"] = field
+    else:
+        args["request_body"] = {}
+
+    return Event(**args)
+
+
+def unmarshal_EventsOverview(data: Any) -> EventsOverview:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EventsOverview' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("last_events", None)
+    if field is not None:
+        args["last_events"] = (
+            [unmarshal_Event(v) for v in field] if field is not None else None
+        )
+    else:
+        args["last_events"] = None
+
+    return EventsOverview(**args)
+
+
+def unmarshal_ListAlertRulesResponse(data: Any) -> ListAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("alert_rules", None)
+    if field is not None:
+        args["alert_rules"] = (
+            [unmarshal_AlertRule(v) for v in field] if field is not None else None
+        )
+    else:
+        args["alert_rules"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListAlertRulesResponse(**args)
+
+
 def unmarshal_AuthenticationEvent(data: Any) -> AuthenticationEvent:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1767,128 +1909,6 @@ def unmarshal_ListAuthenticationEventsResponse(
         args["next_page_token"] = None
 
     return ListAuthenticationEventsResponse(**args)
-
-
-def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'EventPrincipal' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    return EventPrincipal(**args)
-
-
-def unmarshal_Event(data: Any) -> Event:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Event' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("locality", None)
-    if field is not None:
-        args["locality"] = field
-    else:
-        args["locality"] = None
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-    else:
-        args["organization_id"] = None
-
-    field = data.get("source_ip", None)
-    if field is not None:
-        args["source_ip"] = field
-    else:
-        args["source_ip"] = None
-
-    field = data.get("product_name", None)
-    if field is not None:
-        args["product_name"] = field
-    else:
-        args["product_name"] = None
-
-    field = data.get("recorded_at", None)
-    if field is not None:
-        args["recorded_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["recorded_at"] = None
-
-    field = data.get("principal", None)
-    if field is not None:
-        args["principal"] = unmarshal_EventPrincipal(field)
-    else:
-        args["principal"] = None
-
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-    else:
-        args["project_id"] = None
-
-    field = data.get("user_agent", None)
-    if field is not None:
-        args["user_agent"] = field
-    else:
-        args["user_agent"] = None
-
-    field = data.get("service_name", None)
-    if field is not None:
-        args["service_name"] = field
-    else:
-        args["service_name"] = None
-
-    field = data.get("method_name", None)
-    if field is not None:
-        args["method_name"] = field
-    else:
-        args["method_name"] = None
-
-    field = data.get("resources", None)
-    if field is not None:
-        args["resources"] = (
-            [unmarshal_Resource(v) for v in field] if field is not None else None
-        )
-    else:
-        args["resources"] = []
-
-    field = data.get("request_id", None)
-    if field is not None:
-        args["request_id"] = field
-    else:
-        args["request_id"] = None
-
-    field = data.get("status_code", None)
-    if field is not None:
-        args["status_code"] = field
-    else:
-        args["status_code"] = 0
-
-    field = data.get("request_body", None)
-    if field is not None:
-        args["request_body"] = field
-    else:
-        args["request_body"] = {}
-
-    return Event(**args)
 
 
 def unmarshal_SystemEvent(data: Any) -> SystemEvent:
