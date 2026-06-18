@@ -17,6 +17,7 @@ from .types import DomainDnsAction
 from .types import DomainStatus
 from .content import DOMAIN_TRANSIENT_STATUSES
 from .types import DomainZoneOwner
+from .types import HostingProvider
 from .types import HostingStatus
 from .content import HOSTING_TRANSIENT_STATUSES
 from .types import ListBackupsRequestOrderBy
@@ -168,6 +169,7 @@ __all__ = [
     "DomainStatus",
     "DOMAIN_TRANSIENT_STATUSES",
     "DomainZoneOwner",
+    "HostingProvider",
     "HostingStatus",
     "HOSTING_TRANSIENT_STATUSES",
     "ListBackupsRequestOrderBy",
