@@ -37,6 +37,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     SERVERLESS_FUNCTIONS = "serverless_functions"
     SERVERLESS_CONTAINERS = "serverless_containers"
     SERVERLESS_JOBS = "serverless_jobs"
+    APACHE_KAFKA = "apache_kafka"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -499,6 +500,11 @@ class PublicCatalogProductPropertiesObjectStorageRestoreType:
 
 
 @dataclass
+class PublicCatalogProductPropertiesApacheKafka:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesAppleSilicon:
     range: str
     """
@@ -793,6 +799,8 @@ class PublicCatalogProductProperties:
     managed_mongodb: Optional[PublicCatalogProductPropertiesManagedMongoDB] = None
 
     serverless_jobs: Optional[PublicCatalogProductPropertiesServerlessJobs] = None
+
+    apache_kafka: Optional[PublicCatalogProductPropertiesApacheKafka] = None
 
 
 @dataclass

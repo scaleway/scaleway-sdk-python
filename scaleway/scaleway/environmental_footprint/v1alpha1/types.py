@@ -30,6 +30,7 @@ class ProductCategory(str, Enum, metaclass=StrEnumMeta):
     MANAGED_MONGODB = "managed_mongodb"
     MANAGED_REDIS = "managed_redis"
     MANAGED_INFERENCE = "managed_inference"
+    GENERATIVE_APIS = "generative_apis"
 
     def __str__(self) -> str:
         return str(self.value)
