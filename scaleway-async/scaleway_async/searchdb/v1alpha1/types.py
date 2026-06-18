@@ -212,6 +212,11 @@ class Deployment:
     Tags of the Deployment.
     """
 
+    node_amount: int
+    """
+    DEPRECATED: Use node_count instead. Number of nodes allocated per deployment.
+    """
+
     node_count: int
     """
     Number of nodes allocated per deployment.
@@ -348,11 +353,6 @@ class CreateDeploymentRequest:
     Name of the deployment.
     """
 
-    node_count: int
-    """
-    Number of nodes.
-    """
-
     node_type: str
     """
     Node type.
@@ -376,6 +376,16 @@ class CreateDeploymentRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags.
+    """
+
+    node_amount: Optional[int] = 0
+    """
+    DEPRECATED: Use node_count instead. Number of nodes.
+    """
+
+    node_count: Optional[int] = 0
+    """
+    Number of nodes.
     """
 
     user_name: Optional[str] = None
@@ -774,6 +784,8 @@ class UpgradeDeploymentRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+    node_amount: Optional[int] = 0
 
     node_count: Optional[int] = 0
 
