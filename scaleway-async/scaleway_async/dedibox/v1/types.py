@@ -984,7 +984,7 @@ class ServiceLevel:
 class RpnSan:
     id: int
     """
-    RPN SAN  ID.
+    RPN SAN ID.
     """
 
     datacenter_name: str
@@ -1711,7 +1711,7 @@ class RpnGroupMember:
 class RpnSanSummary:
     id: int
     """
-    RPN SAN  ID.
+    RPN SAN ID.
     """
 
     datacenter_name: str
