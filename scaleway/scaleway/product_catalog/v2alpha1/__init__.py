@@ -47,6 +47,7 @@ from .types import PublicCatalogProductPropertiesObjectStorageClassType
 from .types import PublicCatalogProductPropertiesObjectStorageInternetTrafficType
 from .types import PublicCatalogProductPropertiesObjectStorageRegionTrafficType
 from .types import PublicCatalogProductPropertiesObjectStorageRestoreType
+from .types import PublicCatalogProductPropertiesApacheKafka
 from .types import PublicCatalogProductPropertiesAppleSilicon
 from .types import PublicCatalogProductPropertiesBlockStorage
 from .types import PublicCatalogProductPropertiesDedibox
@@ -116,6 +117,7 @@ __all__ = [
     "PublicCatalogProductPropertiesObjectStorageInternetTrafficType",
     "PublicCatalogProductPropertiesObjectStorageRegionTrafficType",
     "PublicCatalogProductPropertiesObjectStorageRestoreType",
+    "PublicCatalogProductPropertiesApacheKafka",
     "PublicCatalogProductPropertiesAppleSilicon",
     "PublicCatalogProductPropertiesBlockStorage",
     "PublicCatalogProductPropertiesDedibox",
