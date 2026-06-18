@@ -115,6 +115,12 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SVPN_CUSTOMER_GATEWAY = "svpn_customer_gateway"
     SVPN_CONNECTION = "svpn_connection"
     SVPN_ROUTING_POLICY = "svpn_routing_policy"
+    KAFK_CLUSTER = "kafk_cluster"
+    IAM_API_KEY = "iam_api_key"
+    IAM_APPLICATION = "iam_application"
+    IAM_USER = "iam_user"
+    IAM_GROUP = "iam_group"
+    IAM_POLICY = "iam_policy"
 
     def __str__(self) -> str:
         return str(self.value)

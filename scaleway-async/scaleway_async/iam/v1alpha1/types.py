@@ -647,7 +647,7 @@ class Log:
 
     resource_id: str
     """
-    ID of the resource linked  to the log.
+    ID of the resource linked to the log.
     """
 
     created_at: Optional[datetime] = None
