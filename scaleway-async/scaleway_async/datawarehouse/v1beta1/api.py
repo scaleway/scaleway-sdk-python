@@ -381,34 +381,36 @@ class DatawarehouseV1Beta1API(API):
     async def create_deployment(
         self,
         *,
+        region: Optional[ScwRegion] = None,
         name: str,
         version: str,
         replica_count: int,
         password: str,
         cpu_min: int,
+        project_id: Optional[str] = None,
         cpu_max: int,
         ram_per_cpu: int,
-        region: Optional[ScwRegion] = None,
-        project_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
         shard_count: Optional[int] = None,
         endpoints: Optional[list[EndpointSpec]] = None,
+        move_factor: Optional[float] = None,
     ) -> Deployment:
         """
         Create a deployment.
         Create a new deployment.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the deployment.
         :param version: ClickHouse® version to use for the deployment.
         :param replica_count: Number of replicas for the deployment.
         :param password: Password for the initial user.
         :param cpu_min: Minimum CPU count for the deployment.
+        :param project_id: The Project ID on which the deployment will be created.
         :param cpu_max: Maximum CPU count for the deployment.
         :param ram_per_cpu: RAM per CPU count for the deployment (in GB).
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: The Project ID on which the deployment will be created.
         :param tags: Tags to apply to the deployment.
         :param shard_count: Number of shard for the deployment.
         :param endpoints: Endpoints to associate with the deployment.
+        :param move_factor: For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full).
         :return: :class:`Deployment <Deployment>`
 
         Usage:
@@ -434,18 +436,19 @@ class DatawarehouseV1Beta1API(API):
             f"/datawarehouse/v1beta1/regions/{param_region}/deployments",
             body=marshal_CreateDeploymentRequest(
                 CreateDeploymentRequest(
+                    region=region,
                     name=name,
                     version=version,
                     replica_count=replica_count,
                     password=password,
                     cpu_min=cpu_min,
+                    project_id=project_id,
                     cpu_max=cpu_max,
                     ram_per_cpu=ram_per_cpu,
-                    region=region,
-                    project_id=project_id,
                     tags=tags,
                     shard_count=shard_count,
                     endpoints=endpoints,
+                    move_factor=move_factor,
                 ),
                 self.client,
             ),
@@ -464,6 +467,7 @@ class DatawarehouseV1Beta1API(API):
         cpu_min: Optional[int] = None,
         cpu_max: Optional[int] = None,
         replica_count: Optional[int] = None,
+        move_factor: Optional[float] = None,
     ) -> Deployment:
         """
         Update a deployment.
@@ -475,6 +479,7 @@ class DatawarehouseV1Beta1API(API):
         :param cpu_min: Minimum CPU count for the deployment.
         :param cpu_max: Maximum CPU count for the deployment.
         :param replica_count: Number of replicas for the deployment.
+        :param move_factor: For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full).
         :return: :class:`Deployment <Deployment>`
 
         Usage:
@@ -502,6 +507,7 @@ class DatawarehouseV1Beta1API(API):
                     cpu_min=cpu_min,
                     cpu_max=cpu_max,
                     replica_count=replica_count,
+                    move_factor=move_factor,
                 ),
                 self.client,
             ),
