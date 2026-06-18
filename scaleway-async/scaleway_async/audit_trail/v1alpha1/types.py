@@ -230,6 +230,8 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     ILI_LINK = "ili_link"
     ILI_ROUTING_POLICY = "ili_routing_policy"
     AUTOSCALING_GROUP = "autoscaling_group"
+    GAPI_DEDICATED_DEPLOYMENT = "gapi_dedicated_deployment"
+    GAPI_DEDICATED_MODEL = "gapi_dedicated_model"
 
     def __str__(self) -> str:
         return str(self.value)
