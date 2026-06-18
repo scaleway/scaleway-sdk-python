@@ -538,7 +538,7 @@ class RegistryV1API(API):
         Update the parameters of a given image, specified by its `image_id` and `region`. You can update the `visibility` parameter.
         :param image_id: ID of the image to update.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+        :param visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
         :return: :class:`Image <Image>`
 
         Usage:

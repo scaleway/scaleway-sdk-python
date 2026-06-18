@@ -183,6 +183,15 @@ class DomainZoneOwner(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class HostingProvider(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PROVIDER = "unknown_provider"
+    ELEMENTS = "elements"
+    DEDIBOX = "dedibox"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     DELIVERING = "delivering"
@@ -1852,6 +1861,11 @@ class Hosting:
     commitment: Optional[HostingCommitment] = None
     """
     Commitment details to which the hosting is engaged.
+    """
+
+    provider: Optional[HostingProvider] = HostingProvider.UNKNOWN_PROVIDER
+    """
+    Provider where the Web Hosting plan is managed (elements, dedibox).
     """
 
 

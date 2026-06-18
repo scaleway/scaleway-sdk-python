@@ -1724,7 +1724,7 @@ class LbV1ZonedAPI(API):
     ) -> ListRoutesResponse:
         """
         List all routes.
-        List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
+        List all routes for a given frontend. The response is an array of routes, each one with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
@@ -1765,7 +1765,7 @@ class LbV1ZonedAPI(API):
     ) -> list[Route]:
         """
         List all routes.
-        List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
+        List all routes for a given frontend. The response is an array of routes, each one with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
