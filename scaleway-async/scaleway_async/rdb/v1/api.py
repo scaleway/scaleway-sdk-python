@@ -1416,7 +1416,7 @@ class RdbV1API(API):
     ) -> ReadReplica:
         """
         Get a Read Replica.
-        Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
+        Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status` and `region` are returned in the response.
         :param read_replica_id: UUID of the Read Replica.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
@@ -1453,7 +1453,7 @@ class RdbV1API(API):
     ) -> ReadReplica:
         """
         Get a Read Replica.
-        Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
+        Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status` and `region` are returned in the response.
         :param read_replica_id: UUID of the Read Replica.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
@@ -2420,7 +2420,7 @@ class RdbV1API(API):
     ) -> None:
         """
         Delete a user on a Database Instance.
-        Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete.
+        Delete a given user on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the user you want to delete.
         :param instance_id: UUID of the Database Instance to delete the user from.
         :param name: Name of the user.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -3061,7 +3061,7 @@ class RdbV1API(API):
     ) -> Snapshot:
         """
         Delete a Database Instance snapshot.
-        Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the `region` and `snapshot_id` parameters of the snapshot you want to delete.
+        Delete a given snapshot of a Database Instance. You must specify, in the endpoint, the `region` and `snapshot_id` parameters of the snapshot you want to delete.
         :param snapshot_id: UUID of the snapshot to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`

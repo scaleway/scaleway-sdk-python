@@ -1498,7 +1498,7 @@ class IotV1API(API):
     ) -> CreateNetworkResponse:
         """
         Create a new network.
-        Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
+        Create a new network for an existing hub. Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
         :param type_: Type of network to connect with.
         :param hub_id: Hub ID to connect the Network to.
         :param topic_prefix: Topic prefix for the Network.
@@ -1546,7 +1546,7 @@ class IotV1API(API):
     ) -> Network:
         """
         Retrieve a specific network.
-        Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.
+        Retrieve an existing network, specified by its network ID. The response returns full details of the network, including its type, the topic prefix and its endpoint.
         :param network_id: Network ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Network <Network>`
