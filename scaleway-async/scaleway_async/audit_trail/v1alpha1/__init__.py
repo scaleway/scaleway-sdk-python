@@ -80,6 +80,8 @@ from .types import DisableAlertRulesRequest
 from .types import DisableAlertRulesResponse
 from .types import EnableAlertRulesRequest
 from .types import EnableAlertRulesResponse
+from .types import EventsOverview
+from .types import GetLastEventsOverviewRequest
 from .types import ListAlertRulesRequest
 from .types import ListAlertRulesResponse
 from .types import ListAuthenticationEventsRequest
@@ -179,6 +181,8 @@ __all__ = [
     "DisableAlertRulesResponse",
     "EnableAlertRulesRequest",
     "EnableAlertRulesResponse",
+    "EventsOverview",
+    "GetLastEventsOverviewRequest",
     "ListAlertRulesRequest",
     "ListAlertRulesResponse",
     "ListAuthenticationEventsRequest",

@@ -206,6 +206,7 @@ class VpcV2API(API):
         self,
         *,
         enable_routing: bool,
+        enable_transitivity: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -215,6 +216,7 @@ class VpcV2API(API):
         Create a VPC.
         Create a new VPC in the specified region.
         :param enable_routing: Enable routing between Private Networks in the VPC.
+        :param enable_transitivity: Enable packets from peered VPCs to transit through this VPC.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the VPC.
         :param project_id: Scaleway Project in which to create the VPC.
@@ -226,6 +228,7 @@ class VpcV2API(API):
 
             result = await api.create_vpc(
                 enable_routing=False,
+                enable_transitivity=False,
             )
         """
 
@@ -239,6 +242,7 @@ class VpcV2API(API):
             body=marshal_CreateVPCRequest(
                 CreateVPCRequest(
                     enable_routing=enable_routing,
+                    enable_transitivity=enable_transitivity,
                     region=region,
                     name=name or random_name(prefix="vpc"),
                     project_id=project_id,

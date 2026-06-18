@@ -1030,6 +1030,22 @@ class EnableAlertRulesResponse:
 
 
 @dataclass
+class EventsOverview:
+    last_events: list[Event]
+
+
+@dataclass
+class GetLastEventsOverviewRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    project_id: Optional[str] = None
+
+
+@dataclass
 class ListAlertRulesRequest:
     region: Optional[ScwRegion] = None
     """

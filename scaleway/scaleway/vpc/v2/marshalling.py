@@ -545,6 +545,12 @@ def unmarshal_VPC(data: Any) -> VPC:
     else:
         args["custom_routes_propagation_enabled"] = False
 
+    field = data.get("transitivity_enabled", None)
+    if field is not None:
+        args["transitivity_enabled"] = field
+    else:
+        args["transitivity_enabled"] = False
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -1025,6 +1031,9 @@ def marshal_CreateVPCRequest(
 
     if request.enable_routing is not None:
         output["enable_routing"] = request.enable_routing
+
+    if request.enable_transitivity is not None:
+        output["enable_transitivity"] = request.enable_transitivity
 
     if request.name is not None:
         output["name"] = request.name
