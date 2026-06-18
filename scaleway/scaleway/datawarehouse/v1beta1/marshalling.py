@@ -254,6 +254,12 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     else:
         args["ram_per_cpu"] = 0
 
+    field = data.get("move_factor", None)
+    if field is not None:
+        args["move_factor"] = field
+    else:
+        args["move_factor"] = 0.0
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -568,16 +574,16 @@ def marshal_CreateDeploymentRequest(
     if request.cpu_min is not None:
         output["cpu_min"] = request.cpu_min
 
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
     if request.cpu_max is not None:
         output["cpu_max"] = request.cpu_max
 
     if request.ram_per_cpu is not None:
         output["ram_per_cpu"] = request.ram_per_cpu
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id
-    else:
-        output["project_id"] = defaults.default_project_id
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -589,6 +595,9 @@ def marshal_CreateDeploymentRequest(
         output["endpoints"] = [
             marshal_EndpointSpec(item, defaults) for item in request.endpoints
         ]
+
+    if request.move_factor is not None:
+        output["move_factor"] = request.move_factor
 
     return output
 
@@ -646,6 +655,9 @@ def marshal_UpdateDeploymentRequest(
 
     if request.replica_count is not None:
         output["replica_count"] = request.replica_count
+
+    if request.move_factor is not None:
+        output["move_factor"] = request.move_factor
 
     return output
 
