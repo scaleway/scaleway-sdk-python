@@ -212,6 +212,11 @@ class Deployment:
     Tags of the Deployment.
     """
 
+    node_amount: int
+    """
+    DEPRECATED: Use node_count instead. Number of nodes allocated per deployment.
+    """
+
     node_count: int
     """
     Number of nodes allocated per deployment.
@@ -346,6 +351,11 @@ class CreateDeploymentRequest:
     name: str
     """
     Name of the deployment.
+    """
+
+    node_amount: int
+    """
+    DEPRECATED: Use node_count instead. Number of nodes.
     """
 
     node_count: int
@@ -774,6 +784,8 @@ class UpgradeDeploymentRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+    node_amount: Optional[int] = 0
 
     node_count: Optional[int] = 0
 
