@@ -391,7 +391,7 @@ class JobRun:
 
     attempts: Optional[int] = 0
     """
-    Number of retry attempts.
+    Number of run attempts.
     """
 
 
@@ -535,7 +535,7 @@ Environment variables and secrets can be included, and will be expanded before t
 
     retry_policy: Optional[RetryPolicy] = None
     """
-    Retry behaviour in case of job failure.
+    Retry policy upon a job failure.
     """
 
 
@@ -955,7 +955,7 @@ Environment variables and secrets can be included, and will be expanded before t
 
     retry_policy: Optional[UpdateJobDefinitionRequestUpdateRetryPolicy] = None
     """
-    Retry behaviour in case of job failure.
+    Retry policy upon a job failure.
     """
 
 
