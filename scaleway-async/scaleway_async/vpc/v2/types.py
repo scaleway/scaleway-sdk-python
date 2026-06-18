@@ -489,6 +489,11 @@ class VPC:
     Defines whether the VPC advertises custom routes between its Private Networks.
     """
 
+    transitivity_enabled: bool
+    """
+    Defines whether the VPC allows packets from peered VPCs to transit through.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the VPC was created.
@@ -652,6 +657,11 @@ class CreateVPCRequest:
     enable_routing: bool
     """
     Enable routing between Private Networks in the VPC.
+    """
+
+    enable_transitivity: bool
+    """
+    Enable packets from peered VPCs to transit through this VPC.
     """
 
     region: Optional[ScwRegion] = None
