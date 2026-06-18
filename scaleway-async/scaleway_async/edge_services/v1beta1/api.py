@@ -81,6 +81,7 @@ from .types import (
     SetHeadStageRequestAddNewHeadStage,
     SetHeadStageRequestRemoveHeadStage,
     SetHeadStageRequestSwapHeadStage,
+    SetPipelineVPCEndpointsRequest,
     SetPipelineVPCEndpointsResponse,
     SetRouteRulesRequest,
     SetRouteRulesRequestRouteRule,
@@ -149,6 +150,7 @@ from .marshalling import (
     marshal_CreateWafStageRequest,
     marshal_SelectPlanRequest,
     marshal_SetHeadStageRequest,
+    marshal_SetPipelineVPCEndpointsRequest,
     marshal_SetRouteRulesRequest,
     marshal_UpdateBackendStageRequest,
     marshal_UpdateCacheStageRequest,
@@ -708,9 +710,13 @@ class EdgeServicesV1Beta1API(API):
         res = self._request(
             "PUT",
             f"/edge-services/v1beta1/pipelines/{param_pipeline_id}/vpc-endpoints",
-            params={
-                "vpc_endpoint_ids": vpc_endpoint_ids,
-            },
+            body=marshal_SetPipelineVPCEndpointsRequest(
+                SetPipelineVPCEndpointsRequest(
+                    pipeline_id=pipeline_id,
+                    vpc_endpoint_ids=vpc_endpoint_ids,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

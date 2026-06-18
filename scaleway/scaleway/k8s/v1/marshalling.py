@@ -720,6 +720,18 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["autoscaling"] = False
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
@@ -737,18 +749,6 @@ def unmarshal_Pool(data: Any) -> Pool:
         args["max_size"] = field
     else:
         args["max_size"] = 0
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
 
     field = data.get("container_runtime", None)
     if field is not None:
@@ -780,6 +780,12 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["zone"] = None
 
+    field = data.get("root_volume_type", None)
+    if field is not None:
+        args["root_volume_type"] = field
+    else:
+        args["root_volume_type"] = PoolVolumeType.DEFAULT_VOLUME_TYPE
+
     field = data.get("placement_group_id", None)
     if field is not None:
         args["placement_group_id"] = field
@@ -792,11 +798,11 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["upgrade_policy"] = None
 
-    field = data.get("root_volume_type", None)
+    field = data.get("root_volume_size", None)
     if field is not None:
-        args["root_volume_type"] = field
+        args["root_volume_size"] = field
     else:
-        args["root_volume_type"] = PoolVolumeType.DEFAULT_VOLUME_TYPE
+        args["root_volume_size"] = 0
 
     field = data.get("public_ip_disabled", None)
     if field is not None:
@@ -832,17 +838,17 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["startup_taints"] = []
 
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
     else:
         args["region"] = None
-
-    field = data.get("root_volume_size", None)
-    if field is not None:
-        args["root_volume_size"] = field
-    else:
-        args["root_volume_size"] = 0
 
     return Pool(**args)
 
@@ -1750,6 +1756,9 @@ def marshal_CreateClusterRequestPoolConfig(
     if request.security_group_id is not None:
         output["security_group_id"] = request.security_group_id
 
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
     return output
 
 
@@ -1932,6 +1941,9 @@ def marshal_CreatePoolRequest(
         output["startup_taints"] = [
             marshal_CoreV1Taint(item, defaults) for item in request.startup_taints
         ]
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
 
     return output
 

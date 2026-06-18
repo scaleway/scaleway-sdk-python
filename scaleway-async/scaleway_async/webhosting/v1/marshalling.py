@@ -27,6 +27,7 @@ from .types import (
     DomainDnsAction,
     DomainStatus,
     DomainZoneOwner,
+    HostingProvider,
     HostingStatus,
     NameserverStatus,
     OfferOptionName,
@@ -1228,6 +1229,12 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["commitment"] = unmarshal_HostingCommitment(field)
     else:
         args["commitment"] = None
+
+    field = data.get("provider", None)
+    if field is not None:
+        args["provider"] = field
+    else:
+        args["provider"] = HostingProvider.UNKNOWN_PROVIDER
 
     return Hosting(**args)
 

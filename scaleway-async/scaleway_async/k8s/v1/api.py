@@ -1062,6 +1062,7 @@ class K8SV1API(API):
         labels: Optional[dict[str, str]] = None,
         taints: Optional[list[CoreV1Taint]] = None,
         startup_taints: Optional[list[CoreV1Taint]] = None,
+        private_network_id: Optional[str] = None,
     ) -> Pool:
         """
         Create a new Pool in a Cluster.
@@ -1091,6 +1092,7 @@ class K8SV1API(API):
         :param labels: Kubernetes labels applied and reconciled on the nodes.
         :param taints: Kubernetes taints applied and reconciled on the nodes.
         :param startup_taints: Kubernetes taints applied at node creation but not reconciled afterwards.
+        :param private_network_id: Private network where the nodes are attached. Should be member of the same VPC as the API Server.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1138,6 +1140,7 @@ class K8SV1API(API):
                     labels=labels,
                     taints=taints,
                     startup_taints=startup_taints,
+                    private_network_id=private_network_id,
                 ),
                 self.client,
             ),

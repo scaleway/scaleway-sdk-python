@@ -622,6 +622,11 @@ class CreateClusterRequestPoolConfig:
     Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone.
     """
 
+    private_network_id: Optional[str] = None
+    """
+    Private network where the nodes are attached. Should be member of the same VPC as the API Server.
+    """
+
 
 @dataclass
 class CreatePoolRequestUpgradePolicy:
@@ -1073,6 +1078,11 @@ class Pool:
     Kubernetes taints applied at node creation but not reconciled afterwards.
     """
 
+    private_network_id: str
+    """
+    Private network where the nodes are attached. Should be member of the same VPC as the API Server.
+    """
+
     region: ScwRegion
     """
     Cluster region of the pool.
@@ -1489,6 +1499,11 @@ class CreatePoolRequest:
     startup_taints: Optional[list[CoreV1Taint]] = field(default_factory=list)
     """
     Kubernetes taints applied at node creation but not reconciled afterwards.
+    """
+
+    private_network_id: Optional[str] = None
+    """
+    Private network where the nodes are attached. Should be member of the same VPC as the API Server.
     """
 
 

@@ -114,7 +114,7 @@ class Image:
 
     visibility: ImageVisibility
     """
-    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+    Set to `public` to allow the image to be pulled without authentication. Else, set to `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
     """
 
     size: int
@@ -535,7 +535,7 @@ class UpdateImageRequest:
 
     visibility: Optional[ImageVisibility] = ImageVisibility.VISIBILITY_UNKNOWN
     """
-    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+    Set to `public` to allow the image to be pulled without authentication. Else, set to `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
     """
 
 

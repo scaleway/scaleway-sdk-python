@@ -88,6 +88,7 @@ from .types import (
     SetHeadStageRequestRemoveHeadStage,
     SetHeadStageRequestSwapHeadStage,
     SetHeadStageRequest,
+    SetPipelineVPCEndpointsRequest,
     SetRouteRulesRequest,
     UpdateBackendStageRequest,
     UpdateCacheStageRequest,
@@ -2439,6 +2440,18 @@ def marshal_SetHeadStageRequest(
             ]
         ),
     )
+
+    return output
+
+
+def marshal_SetPipelineVPCEndpointsRequest(
+    request: SetPipelineVPCEndpointsRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.vpc_endpoint_ids is not None:
+        output["vpc_endpoint_ids"] = request.vpc_endpoint_ids
 
     return output
 
