@@ -14,11 +14,12 @@ from .types import (
     MailboxStatus,
     MailboxSubscriptionPeriod,
     Mailbox,
-    Domain,
     Alias,
+    Domain,
     BatchCreateMailboxesResponse,
     DomainRecord,
     GetDomainRecordsResponse,
+    ListAliasesResponse,
     ListDomainsResponse,
     ListMailboxesResponse,
     BatchCreateMailboxesRequestMailboxParameters,
@@ -116,6 +117,59 @@ def unmarshal_Mailbox(data: Any) -> Mailbox:
     return Mailbox(**args)
 
 
+def unmarshal_Alias(data: Any) -> Alias:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Alias' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("email", None)
+    if field is not None:
+        args["email"] = field
+    else:
+        args["email"] = None
+
+    field = data.get("mailbox_id", None)
+    if field is not None:
+        args["mailbox_id"] = field
+    else:
+        args["mailbox_id"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = AliasStatus.UNKNOWN_STATUS
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Alias(**args)
+
+
 def unmarshal_Domain(data: Any) -> Domain:
     if not isinstance(data, dict):
         raise TypeError(
@@ -191,59 +245,6 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["updated_at"] = None
 
     return Domain(**args)
-
-
-def unmarshal_Alias(data: Any) -> Alias:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Alias' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("email", None)
-    if field is not None:
-        args["email"] = field
-    else:
-        args["email"] = None
-
-    field = data.get("mailbox_id", None)
-    if field is not None:
-        args["mailbox_id"] = field
-    else:
-        args["mailbox_id"] = None
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-    else:
-        args["description"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = AliasStatus.UNKNOWN_STATUS
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    return Alias(**args)
 
 
 def unmarshal_BatchCreateMailboxesResponse(data: Any) -> BatchCreateMailboxesResponse:
@@ -419,6 +420,31 @@ def unmarshal_GetDomainRecordsResponse(data: Any) -> GetDomainRecordsResponse:
     return GetDomainRecordsResponse(**args)
 
 
+def unmarshal_ListAliasesResponse(data: Any) -> ListAliasesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListAliasesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("aliases", None)
+    if field is not None:
+        args["aliases"] = (
+            [unmarshal_Alias(v) for v in field] if field is not None else None
+        )
+    else:
+        args["aliases"] = []
+
+    return ListAliasesResponse(**args)
+
+
 def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -513,6 +539,9 @@ def marshal_CreateAliasRequest(
 
     if request.local_part is not None:
         output["local_part"] = request.local_part
+
+    if request.mailbox_id is not None:
+        output["mailbox_id"] = request.mailbox_id
 
     if request.description is not None:
         output["description"] = request.description

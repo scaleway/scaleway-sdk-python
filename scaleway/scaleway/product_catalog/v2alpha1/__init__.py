@@ -63,6 +63,7 @@ from .types import PublicCatalogProductPropertiesManagedMongoDB
 from .types import PublicCatalogProductPropertiesManagedRedisDatabase
 from .types import PublicCatalogProductPropertiesManagedRelationalDatabase
 from .types import PublicCatalogProductPropertiesObjectStorage
+from .types import PublicCatalogProductPropertiesOpenSearch
 from .types import PublicCatalogProductPropertiesSecretManager
 from .types import PublicCatalogProductPropertiesServerlessContainers
 from .types import PublicCatalogProductPropertiesServerlessFunctions
@@ -133,6 +134,7 @@ __all__ = [
     "PublicCatalogProductPropertiesManagedRedisDatabase",
     "PublicCatalogProductPropertiesManagedRelationalDatabase",
     "PublicCatalogProductPropertiesObjectStorage",
+    "PublicCatalogProductPropertiesOpenSearch",
     "PublicCatalogProductPropertiesSecretManager",
     "PublicCatalogProductPropertiesServerlessContainers",
     "PublicCatalogProductPropertiesServerlessFunctions",
