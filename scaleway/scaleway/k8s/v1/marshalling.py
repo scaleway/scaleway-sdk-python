@@ -838,17 +838,17 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["startup_taints"] = []
 
-    field = data.get("private_network_id", None)
-    if field is not None:
-        args["private_network_id"] = field
-    else:
-        args["private_network_id"] = None
-
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     return Pool(**args)
 
