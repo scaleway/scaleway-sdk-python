@@ -1238,6 +1238,10 @@ class Task:
 
     href_from: str
     href_result: str
+    """
+    Location of the resulting resource.
+    """
+
     zone: ScwZone
     """
     Zone in which the task is executed.
