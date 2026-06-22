@@ -122,6 +122,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     IAM_GROUP = "iam_group"
     IAM_POLICY = "iam_policy"
     SEDB_CLUSTER = "sedb_cluster"
+    AUTOSCALING_GROUP = "autoscaling_group"
 
     def __str__(self) -> str:
         return str(self.value)
