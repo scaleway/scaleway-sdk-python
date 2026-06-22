@@ -38,6 +38,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     SERVERLESS_CONTAINERS = "serverless_containers"
     SERVERLESS_JOBS = "serverless_jobs"
     APACHE_KAFKA = "apache_kafka"
+    OPEN_SEARCH = "open_search"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -705,6 +706,11 @@ class PublicCatalogProductPropertiesObjectStorage:
 
 
 @dataclass
+class PublicCatalogProductPropertiesOpenSearch:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesSecretManager:
     pass
 
@@ -801,6 +807,8 @@ class PublicCatalogProductProperties:
     serverless_jobs: Optional[PublicCatalogProductPropertiesServerlessJobs] = None
 
     apache_kafka: Optional[PublicCatalogProductPropertiesApacheKafka] = None
+
+    open_search: Optional[PublicCatalogProductPropertiesOpenSearch] = None
 
 
 @dataclass
