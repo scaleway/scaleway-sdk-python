@@ -19,8 +19,6 @@ from .types import IngressRule
 from .types import ListSubnetOverlapsResponseSubnetOverlap
 from .types import VPCConnector
 from .types import VPC
-from .types import AddSubnetsRequest
-from .types import AddSubnetsResponse
 from .types import CreateIngressRuleRequest
 from .types import CreatePrivateNetworkRequest
 from .types import CreateRouteRequest
@@ -29,8 +27,6 @@ from .types import CreateVPCRequest
 from .types import DeleteIngressRuleRequest
 from .types import DeletePrivateNetworkRequest
 from .types import DeleteRouteRequest
-from .types import DeleteSubnetsRequest
-from .types import DeleteSubnetsResponse
 from .types import DeleteVPCConnectorRequest
 from .types import DeleteVPCRequest
 from .types import EnableCustomRoutesPropagationRequest
@@ -84,8 +80,6 @@ __all__ = [
     "ListSubnetOverlapsResponseSubnetOverlap",
     "VPCConnector",
     "VPC",
-    "AddSubnetsRequest",
-    "AddSubnetsResponse",
     "CreateIngressRuleRequest",
     "CreatePrivateNetworkRequest",
     "CreateRouteRequest",
@@ -94,8 +88,6 @@ __all__ = [
     "DeleteIngressRuleRequest",
     "DeletePrivateNetworkRequest",
     "DeleteRouteRequest",
-    "DeleteSubnetsRequest",
-    "DeleteSubnetsResponse",
     "DeleteVPCConnectorRequest",
     "DeleteVPCRequest",
     "EnableCustomRoutesPropagationRequest",
