@@ -23,7 +23,7 @@ def k8s_api() -> K8SV1API:
 def private_network() -> Generator[PrivateNetwork, Any, None]:
     client = initialize_client_test()
     vpc_api = VpcV2API(client, bypass_validation=True)
-    vpc = vpc_api.create_vpc(enable_routing=False)
+    vpc = vpc_api.create_vpc(enable_routing=False, enable_transitivity=False)
     pn = vpc_api.create_private_network(
         vpc_id=vpc.id, default_route_propagation_enabled=True
     )
