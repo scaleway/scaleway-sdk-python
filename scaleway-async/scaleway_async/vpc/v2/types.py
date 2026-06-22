@@ -506,29 +506,6 @@ class VPC:
 
 
 @dataclass
-class AddSubnetsRequest:
-    private_network_id: str
-    """
-    Private Network ID.
-    """
-
-    region: Optional[ScwRegion] = None
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    subnets: Optional[list[str]] = field(default_factory=list)
-    """
-    Private Network subnets CIDR.
-    """
-
-
-@dataclass
-class AddSubnetsResponse:
-    subnets: list[str]
-
-
-@dataclass
 class CreateIngressRuleRequest:
     vpc_id: str
     source: str
@@ -718,29 +695,6 @@ class DeleteRouteRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-
-
-@dataclass
-class DeleteSubnetsRequest:
-    private_network_id: str
-    """
-    Private Network ID.
-    """
-
-    region: Optional[ScwRegion] = None
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    subnets: Optional[list[str]] = field(default_factory=list)
-    """
-    Private Network subnets CIDR.
-    """
-
-
-@dataclass
-class DeleteSubnetsResponse:
-    subnets: list[str]
 
 
 @dataclass

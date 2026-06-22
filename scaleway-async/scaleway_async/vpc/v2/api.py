@@ -22,15 +22,11 @@ from .types import (
     ListVPCsRequestOrderBy,
     VPCConnectorStatus,
     AclRule,
-    AddSubnetsRequest,
-    AddSubnetsResponse,
     CreateIngressRuleRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCConnectorRequest,
     CreateVPCRequest,
-    DeleteSubnetsRequest,
-    DeleteSubnetsResponse,
     GetAclResponse,
     IngressRule,
     ListIngressRulesResponse,
@@ -59,8 +55,6 @@ from .marshalling import (
     unmarshal_IngressRule,
     unmarshal_VPCConnector,
     unmarshal_VPC,
-    unmarshal_AddSubnetsResponse,
-    unmarshal_DeleteSubnetsResponse,
     unmarshal_GetAclResponse,
     unmarshal_ListIngressRulesResponse,
     unmarshal_ListPrivateNetworksResponse,
@@ -69,13 +63,11 @@ from .marshalling import (
     unmarshal_ListVPCConnectorsResponse,
     unmarshal_ListVPCsResponse,
     unmarshal_SetAclResponse,
-    marshal_AddSubnetsRequest,
     marshal_CreateIngressRuleRequest,
     marshal_CreatePrivateNetworkRequest,
     marshal_CreateRouteRequest,
     marshal_CreateVPCConnectorRequest,
     marshal_CreateVPCRequest,
-    marshal_DeleteSubnetsRequest,
     marshal_SetAclRequest,
     marshal_UpdateIngressRuleRequest,
     marshal_UpdatePrivateNetworkRequest,
@@ -869,98 +861,6 @@ class VpcV2API(API):
                 "vpc_id": vpc_id,
             },
         )
-
-    async def add_subnets(
-        self,
-        *,
-        private_network_id: str,
-        region: Optional[ScwRegion] = None,
-        subnets: Optional[list[str]] = None,
-    ) -> AddSubnetsResponse:
-        """
-        Add subnets to a Private Network.
-        Add new subnets to an existing Private Network.
-        :param private_network_id: Private Network ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param subnets: Private Network subnets CIDR.
-        :return: :class:`AddSubnetsResponse <AddSubnetsResponse>`
-
-        Usage:
-        ::
-
-            result = await api.add_subnets(
-                private_network_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_private_network_id = validate_path_param(
-            "private_network_id", private_network_id
-        )
-
-        res = self._request(
-            "POST",
-            f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/subnets",
-            body=marshal_AddSubnetsRequest(
-                AddSubnetsRequest(
-                    private_network_id=private_network_id,
-                    region=region,
-                    subnets=subnets,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_AddSubnetsResponse(res.json())
-
-    async def delete_subnets(
-        self,
-        *,
-        private_network_id: str,
-        region: Optional[ScwRegion] = None,
-        subnets: Optional[list[str]] = None,
-    ) -> DeleteSubnetsResponse:
-        """
-        Delete subnets from a Private Network.
-        Delete the specified subnets from a Private Network.
-        :param private_network_id: Private Network ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param subnets: Private Network subnets CIDR.
-        :return: :class:`DeleteSubnetsResponse <DeleteSubnetsResponse>`
-
-        Usage:
-        ::
-
-            result = await api.delete_subnets(
-                private_network_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_private_network_id = validate_path_param(
-            "private_network_id", private_network_id
-        )
-
-        res = self._request(
-            "DELETE",
-            f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/subnets",
-            body=marshal_DeleteSubnetsRequest(
-                DeleteSubnetsRequest(
-                    private_network_id=private_network_id,
-                    region=region,
-                    subnets=subnets,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_DeleteSubnetsResponse(res.json())
 
     async def create_route(
         self,
