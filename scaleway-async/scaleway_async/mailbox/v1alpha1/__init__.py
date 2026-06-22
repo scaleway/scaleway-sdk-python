@@ -8,6 +8,7 @@ from .types import DomainRecordStatus
 from .content import DOMAIN_RECORD_TRANSIENT_STATUSES
 from .types import DomainStatus
 from .content import DOMAIN_TRANSIENT_STATUSES
+from .types import ListAliasesRequestOrderBy
 from .types import ListDomainsRequestOrderBy
 from .types import ListMailboxesRequestOrderBy
 from .types import MailboxStatus
@@ -16,18 +17,22 @@ from .types import MailboxSubscriptionPeriod
 from .types import BatchCreateMailboxesRequestMailboxParameters
 from .types import Mailbox
 from .types import DomainRecord
-from .types import Domain
 from .types import Alias
+from .types import Domain
 from .types import BatchCreateMailboxesRequest
 from .types import BatchCreateMailboxesResponse
 from .types import CreateAliasRequest
 from .types import CreateDomainRequest
+from .types import DeleteAliasRequest
 from .types import DeleteDomainRequest
 from .types import DeleteMailboxRequest
+from .types import GetAliasRequest
 from .types import GetDomainRecordsRequest
 from .types import GetDomainRecordsResponse
 from .types import GetDomainRequest
 from .types import GetMailboxRequest
+from .types import ListAliasesRequest
+from .types import ListAliasesResponse
 from .types import ListDomainsRequest
 from .types import ListDomainsResponse
 from .types import ListMailboxesRequest
@@ -46,6 +51,7 @@ __all__ = [
     "DOMAIN_RECORD_TRANSIENT_STATUSES",
     "DomainStatus",
     "DOMAIN_TRANSIENT_STATUSES",
+    "ListAliasesRequestOrderBy",
     "ListDomainsRequestOrderBy",
     "ListMailboxesRequestOrderBy",
     "MailboxStatus",
@@ -54,18 +60,22 @@ __all__ = [
     "BatchCreateMailboxesRequestMailboxParameters",
     "Mailbox",
     "DomainRecord",
-    "Domain",
     "Alias",
+    "Domain",
     "BatchCreateMailboxesRequest",
     "BatchCreateMailboxesResponse",
     "CreateAliasRequest",
     "CreateDomainRequest",
+    "DeleteAliasRequest",
     "DeleteDomainRequest",
     "DeleteMailboxRequest",
+    "GetAliasRequest",
     "GetDomainRecordsRequest",
     "GetDomainRecordsResponse",
     "GetDomainRequest",
     "GetMailboxRequest",
+    "ListAliasesRequest",
+    "ListAliasesResponse",
     "ListDomainsRequest",
     "ListDomainsResponse",
     "ListMailboxesRequest",

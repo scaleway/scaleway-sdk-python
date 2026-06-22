@@ -68,6 +68,18 @@ class DomainStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListAliasesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    NAME_DESC = "name_desc"
+    NAME_ASC = "name_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListDomainsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -239,6 +251,44 @@ class DomainRecord:
 
 
 @dataclass
+class Alias:
+    id: str
+    """
+    Unique identifier of the alias.
+    """
+
+    email: str
+    """
+    Email address of the alias as local_part@domain.
+    """
+
+    mailbox_id: str
+    """
+    ID of the mailbox to which the alias belongs.
+    """
+
+    description: str
+    """
+    Description of the alias.
+    """
+
+    status: AliasStatus
+    """
+    Current status of the alias.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date and time of alias creation.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date and time when the alias was last updated.
+    """
+
+
+@dataclass
 class Domain:
     id: str
     """
@@ -293,44 +343,6 @@ class Domain:
     updated_at: Optional[datetime] = None
     """
     Date and time of the domain's last update.
-    """
-
-
-@dataclass
-class Alias:
-    id: str
-    """
-    Unique identifier of the alias.
-    """
-
-    email: str
-    """
-    Email address of the alias as local_part@domain.
-    """
-
-    mailbox_id: str
-    """
-    ID of the mailbox to which the alias belongs.
-    """
-
-    description: str
-    """
-    Description of the alias.
-    """
-
-    status: AliasStatus
-    """
-    Current status of the alias.
-    """
-
-    created_at: Optional[datetime] = None
-    """
-    Date and time of alias creation.
-    """
-
-    updated_at: Optional[datetime] = None
-    """
-    Date and time when the alias was last updated.
     """
 
 
@@ -396,6 +408,14 @@ class CreateDomainRequest:
 
 
 @dataclass
+class DeleteAliasRequest:
+    alias_id: str
+    """
+    ID of the alias to delete.
+    """
+
+
+@dataclass
 class DeleteDomainRequest:
     domain_id: str
     """
@@ -408,6 +428,14 @@ class DeleteMailboxRequest:
     mailbox_id: str
     """
     ID of the mailbox to delete.
+    """
+
+
+@dataclass
+class GetAliasRequest:
+    alias_id: str
+    """
+    ID of the alias to get.
     """
 
 
@@ -499,6 +527,54 @@ class GetMailboxRequest:
 
 
 @dataclass
+class ListAliasesRequest:
+    order_by: Optional[ListAliasesRequestOrderBy] = (
+        ListAliasesRequestOrderBy.CREATED_AT_DESC
+    )
+    """
+    Order aliases by specific criteria.
+    """
+
+    page: Optional[int] = 0
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Requested page size. Value must be between 1 and 100.
+    """
+
+    mailbox_id: Optional[str] = None
+    """
+    ID of the mailbox for which to list aliases.
+    """
+
+    status: Optional[AliasStatus] = AliasStatus.UNKNOWN_STATUS
+    """
+    (Optional) Filter aliases by their status.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID to filter on.
+    """
+
+
+@dataclass
+class ListAliasesResponse:
+    total_count: int
+    """
+    Number of aliases that match the request (without pagination).
+    """
+
+    aliases: list[Alias]
+    """
+    Single page of aliases matching the requested criteria.
+    """
+
+
+@dataclass
 class ListDomainsRequest:
     order_by: Optional[ListDomainsRequestOrderBy] = None
     page: Optional[int] = None
@@ -553,6 +629,11 @@ class ListMailboxesRequest:
     search: Optional[str] = None
     """
     (Optional) Search term to filter mailboxes on name and local_part.
+    """
+
+    project_id: Optional[str] = None
+    """
+    (Optional) Project ID to filter mailboxes on.
     """
 
 

@@ -58,6 +58,7 @@ from .types import (
     PublicCatalogProductPropertiesManagedRedisDatabase,
     PublicCatalogProductPropertiesManagedRelationalDatabase,
     PublicCatalogProductPropertiesObjectStorage,
+    PublicCatalogProductPropertiesOpenSearch,
     PublicCatalogProductPropertiesSecretManager,
     PublicCatalogProductPropertiesServerlessContainers,
     PublicCatalogProductPropertiesServerlessFunctions,
@@ -1139,6 +1140,19 @@ def unmarshal_PublicCatalogProductPropertiesObjectStorage(
     return PublicCatalogProductPropertiesObjectStorage(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesOpenSearch(
+    data: Any,
+) -> PublicCatalogProductPropertiesOpenSearch:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesOpenSearch' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesOpenSearch(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesSecretManager(
     data: Any,
 ) -> PublicCatalogProductPropertiesSecretManager:
@@ -1427,6 +1441,12 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["apache_kafka"] = None
+
+    field = data.get("open_search", None)
+    if field is not None:
+        args["open_search"] = unmarshal_PublicCatalogProductPropertiesOpenSearch(field)
+    else:
+        args["open_search"] = None
 
     return PublicCatalogProductProperties(**args)
 

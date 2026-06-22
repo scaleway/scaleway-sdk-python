@@ -15,8 +15,6 @@ from .types import (
     VPCConnectorPeerInfo,
     VPCConnector,
     VPC,
-    AddSubnetsResponse,
-    DeleteSubnetsResponse,
     AclRule,
     GetAclResponse,
     ListIngressRulesResponse,
@@ -27,13 +25,11 @@ from .types import (
     ListVPCConnectorsResponse,
     ListVPCsResponse,
     SetAclResponse,
-    AddSubnetsRequest,
     CreateIngressRuleRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCConnectorRequest,
     CreateVPCRequest,
-    DeleteSubnetsRequest,
     SetAclRequest,
     UpdateIngressRuleRequest,
     UpdatePrivateNetworkRequest,
@@ -566,40 +562,6 @@ def unmarshal_VPC(data: Any) -> VPC:
     return VPC(**args)
 
 
-def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'AddSubnetsResponse' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("subnets", None)
-    if field is not None:
-        args["subnets"] = field
-    else:
-        args["subnets"] = None
-
-    return AddSubnetsResponse(**args)
-
-
-def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'DeleteSubnetsResponse' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("subnets", None)
-    if field is not None:
-        args["subnets"] = field
-    else:
-        args["subnets"] = None
-
-    return DeleteSubnetsResponse(**args)
-
-
 def unmarshal_AclRule(data: Any) -> AclRule:
     if not isinstance(data, dict):
         raise TypeError(
@@ -902,18 +864,6 @@ def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
     return SetAclResponse(**args)
 
 
-def marshal_AddSubnetsRequest(
-    request: AddSubnetsRequest,
-    defaults: ProfileDefaults,
-) -> dict[str, Any]:
-    output: dict[str, Any] = {}
-
-    if request.subnets is not None:
-        output["subnets"] = request.subnets
-
-    return output
-
-
 def marshal_CreateIngressRuleRequest(
     request: CreateIngressRuleRequest,
     defaults: ProfileDefaults,
@@ -1045,18 +995,6 @@ def marshal_CreateVPCRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
-
-    return output
-
-
-def marshal_DeleteSubnetsRequest(
-    request: DeleteSubnetsRequest,
-    defaults: ProfileDefaults,
-) -> dict[str, Any]:
-    output: dict[str, Any] = {}
-
-    if request.subnets is not None:
-        output["subnets"] = request.subnets
 
     return output
 

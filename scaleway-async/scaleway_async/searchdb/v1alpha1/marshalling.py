@@ -599,12 +599,6 @@ def marshal_CreateDeploymentRequest(
     if request.name is not None:
         output["name"] = request.name
 
-    if request.node_amount is not None:
-        output["node_amount"] = request.node_amount
-
-    if request.node_count is not None:
-        output["node_count"] = request.node_count
-
     if request.node_type is not None:
         output["node_type"] = request.node_type
 
@@ -618,6 +612,12 @@ def marshal_CreateDeploymentRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.node_amount is not None:
+        output["node_amount"] = request.node_amount
+
+    if request.node_count is not None:
+        output["node_count"] = request.node_count
 
     if request.user_name is not None:
         output["user_name"] = request.user_name
