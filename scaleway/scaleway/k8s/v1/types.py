@@ -1078,11 +1078,6 @@ class Pool:
     Kubernetes taints applied at node creation but not reconciled afterwards.
     """
 
-    private_network_id: str
-    """
-    Private network where the nodes are attached. Should be member of the same VPC as the API Server.
-    """
-
     region: ScwRegion
     """
     Cluster region of the pool.
@@ -1111,6 +1106,11 @@ class Pool:
     root_volume_size: Optional[int] = 0
     """
     System volume disk size.
+    """
+
+    private_network_id: Optional[str] = None
+    """
+    Private network where the nodes are attached. Should be member of the same VPC as the API Server.
     """
 
 
