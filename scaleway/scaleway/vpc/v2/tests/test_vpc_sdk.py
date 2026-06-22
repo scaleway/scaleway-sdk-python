@@ -35,6 +35,7 @@ def vpc(vpc_api: VpcV2API) -> Generator[VPC, None, None]:
     api = vpc_api
     vpc = api.create_vpc(
         enable_routing=True,
+        enable_transitivity=False,
         region=region,
         name=random_name("vpc-test-sdk-python"),
     )
@@ -59,6 +60,7 @@ def test_vpc_delete(vpc_api: VpcV2API) -> None:
     api = vpc_api
     vpc: VPC = api.create_vpc(
         enable_routing=True,
+        enable_transitivity=False,
         region=region,
         name=random_name("vpc-test-sdk-python"),
     )
