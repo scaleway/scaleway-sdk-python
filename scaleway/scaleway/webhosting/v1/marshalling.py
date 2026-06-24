@@ -762,6 +762,12 @@ def unmarshal_OfferCommitment(data: Any) -> OfferCommitment:
     else:
         args["type_"] = CommitmentType.UNKNOWN_COMMITMENT_TYPE
 
+    field = data.get("is_default", None)
+    if field is not None:
+        args["is_default"] = field
+    else:
+        args["is_default"] = False
+
     field = data.get("billing_mode", None)
     if field is not None:
         args["billing_mode"] = field

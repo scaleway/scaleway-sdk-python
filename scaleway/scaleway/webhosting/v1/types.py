@@ -406,6 +406,11 @@ class OfferCommitment:
     Offer commitment type.
     """
 
+    is_default: bool
+    """
+    True when its is the default commitment for that offer.
+    """
+
     billing_mode: BillingMode
     """
     Offer commitment name.
