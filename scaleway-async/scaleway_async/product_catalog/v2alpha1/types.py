@@ -121,6 +121,17 @@ class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnum
         return str(self.value)
 
 
+class PublicCatalogProductPropertiesHardwareRAMECCType(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_ECC_TYPE = "unknown_ecc_type"
+    STANDARD = "standard"
+    ON_DIE = "on_die"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass(
     str, Enum, metaclass=StrEnumMeta
 ):
@@ -356,6 +367,13 @@ class PublicCatalogProductPropertiesHardwareRAM:
     type_: str
     """
     The type of the RAM.
+    """
+
+    ecc_type: Optional[PublicCatalogProductPropertiesHardwareRAMECCType] = (
+        PublicCatalogProductPropertiesHardwareRAMECCType.UNKNOWN_ECC_TYPE
+    )
+    """
+    ECC type.
     """
 
 

@@ -11,6 +11,7 @@ from .types import (
     PublicCatalogProductProductBadge,
     PublicCatalogProductPropertiesGenerativeApisTask,
     PublicCatalogProductPropertiesHardwareCPUArch,
+    PublicCatalogProductPropertiesHardwareRAMECCType,
     PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass,
     PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass,
     PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass,
@@ -283,6 +284,14 @@ def unmarshal_PublicCatalogProductPropertiesHardwareRAM(
         args["type_"] = field
     else:
         args["type_"] = None
+
+    field = data.get("ecc_type", None)
+    if field is not None:
+        args["ecc_type"] = field
+    else:
+        args["ecc_type"] = (
+            PublicCatalogProductPropertiesHardwareRAMECCType.UNKNOWN_ECC_TYPE
+        )
 
     return PublicCatalogProductPropertiesHardwareRAM(**args)
 

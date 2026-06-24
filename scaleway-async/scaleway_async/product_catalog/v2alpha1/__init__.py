@@ -7,6 +7,7 @@ from .types import PublicCatalogProductPropertiesGenerativeApisConsumptionMode
 from .types import PublicCatalogProductPropertiesGenerativeApisTask
 from .types import PublicCatalogProductPropertiesGenerativeApisTokenType
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
+from .types import PublicCatalogProductPropertiesHardwareRAMECCType
 from .types import PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass
 from .types import (
     PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass,
@@ -86,6 +87,7 @@ __all__ = [
     "PublicCatalogProductPropertiesGenerativeApisTask",
     "PublicCatalogProductPropertiesGenerativeApisTokenType",
     "PublicCatalogProductPropertiesHardwareCPUArch",
+    "PublicCatalogProductPropertiesHardwareRAMECCType",
     "PublicCatalogProductPropertiesManagedMongoDBStorageTypeStorageClass",
     "PublicCatalogProductPropertiesManagedRelationalDatabaseStorageTypeStorageClass",
     "PublicCatalogProductPropertiesObjectStorageClassTypeStorageClass",
