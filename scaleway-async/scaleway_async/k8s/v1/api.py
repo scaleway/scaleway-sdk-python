@@ -126,6 +126,7 @@ class K8SV1API(API):
         status: Optional[ClusterStatus] = None,
         type_: Optional[str] = None,
         private_network_id: Optional[str] = None,
+        version: Optional[str] = None,
     ) -> ListClustersResponse:
         """
         List Clusters.
@@ -140,6 +141,7 @@ class K8SV1API(API):
         :param status: Status to filter on, only clusters with this status will be returned.
         :param type_: Type to filter on, only clusters with this type will be returned.
         :param private_network_id: Private Network ID to filter on, only clusters within this Private Network will be returned.
+        :param version: Version to filter on, only cluster matching this prefix version will be returned.
         :return: :class:`ListClustersResponse <ListClustersResponse>`
 
         Usage:
@@ -166,6 +168,7 @@ class K8SV1API(API):
                 "project_id": project_id or self.client.default_project_id,
                 "status": status,
                 "type": type_,
+                "version": version,
             },
         )
 
@@ -185,6 +188,7 @@ class K8SV1API(API):
         status: Optional[ClusterStatus] = None,
         type_: Optional[str] = None,
         private_network_id: Optional[str] = None,
+        version: Optional[str] = None,
     ) -> list[Cluster]:
         """
         List Clusters.
@@ -199,6 +203,7 @@ class K8SV1API(API):
         :param status: Status to filter on, only clusters with this status will be returned.
         :param type_: Type to filter on, only clusters with this type will be returned.
         :param private_network_id: Private Network ID to filter on, only clusters within this Private Network will be returned.
+        :param version: Version to filter on, only cluster matching this prefix version will be returned.
         :return: :class:`list[Cluster] <list[Cluster]>`
 
         Usage:
@@ -222,6 +227,7 @@ class K8SV1API(API):
                 "status": status,
                 "type_": type_,
                 "private_network_id": private_network_id,
+                "version": version,
             },
         )
 

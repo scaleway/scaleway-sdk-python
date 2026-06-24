@@ -1844,6 +1844,11 @@ class ListClustersRequest:
     Private Network ID to filter on, only clusters within this Private Network will be returned.
     """
 
+    version: Optional[str] = None
+    """
+    Version to filter on, only cluster matching this prefix version will be returned.
+    """
+
 
 @dataclass
 class ListClustersResponse:
