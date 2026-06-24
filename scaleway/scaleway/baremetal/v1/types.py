@@ -70,6 +70,16 @@ class ListSettingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class MemoryEccType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ECC_TYPE = "unknown_ecc_type"
+    NONE = "none"
+    STANDARD = "standard"
+    ON_DIE = "on_die"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class OfferStock(str, Enum, metaclass=StrEnumMeta):
     EMPTY = "empty"
     LOW = "low"
@@ -544,6 +554,11 @@ class Memory:
     is_ecc: bool
     """
     True if the memory is an error-correcting code memory.
+    """
+
+    ecc_type: MemoryEccType
+    """
+    Type of ECC memory.
     """
 
 

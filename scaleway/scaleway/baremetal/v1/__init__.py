@@ -6,6 +6,7 @@ from .types import ListServerEventsRequestOrderBy
 from .types import ListServerPrivateNetworksRequestOrderBy
 from .types import ListServersRequestOrderBy
 from .types import ListSettingsRequestOrderBy
+from .types import MemoryEccType
 from .types import OfferStock
 from .types import OfferSubscriptionPeriod
 from .types import SchemaFilesystemFormat
@@ -109,6 +110,7 @@ __all__ = [
     "ListServerPrivateNetworksRequestOrderBy",
     "ListServersRequestOrderBy",
     "ListSettingsRequestOrderBy",
+    "MemoryEccType",
     "OfferStock",
     "OfferSubscriptionPeriod",
     "SchemaFilesystemFormat",

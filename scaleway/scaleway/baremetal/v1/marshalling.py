@@ -17,6 +17,7 @@ from scaleway_core.utils import (
 from .types import (
     IPReverseStatus,
     IPVersion,
+    MemoryEccType,
     OfferStock,
     OfferSubscriptionPeriod,
     ServerBootType,
@@ -973,6 +974,12 @@ def unmarshal_Memory(data: Any) -> Memory:
         args["is_ecc"] = field
     else:
         args["is_ecc"] = False
+
+    field = data.get("ecc_type", None)
+    if field is not None:
+        args["ecc_type"] = field
+    else:
+        args["ecc_type"] = MemoryEccType.UNKNOWN_ECC_TYPE
 
     return Memory(**args)
 
