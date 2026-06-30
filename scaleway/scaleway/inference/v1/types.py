@@ -24,6 +24,7 @@ class DeploymentStatus(str, Enum, metaclass=StrEnumMeta):
     DELETING = "deleting"
     LOCKED = "locked"
     SCALING = "scaling"
+    DELETED = "deleted"
 
     def __str__(self) -> str:
         return str(self.value)
