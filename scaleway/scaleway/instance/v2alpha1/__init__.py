@@ -36,6 +36,7 @@ from .types import CreateServerRequestCreateVolume
 from .types import ServerTypeGpuInfo
 from .types import ServerTypeLimits
 from .types import ServerIP
+from .types import CreateTemplateRequestPrivateNetworkTemplate
 from .types import CreateTemplateRequestVolumeTemplate
 from .types import SecurityGroupRuleConfig
 from .types import SecurityGroup
@@ -53,6 +54,7 @@ from .types import ServerPublicNetworkInterface
 from .types import ServerRDPPassword
 from .types import ServerVolume
 from .types import UpdateServerRequestPublicNetworkInterface
+from .types import UpdateTemplateRequestUpdatePrivateNetworks
 from .types import UpdateTemplateRequestUpdateVolumes
 from .types import AddSecurityGroupRulesRequest
 from .types import AddSecurityGroupRulesResponse
@@ -165,6 +167,7 @@ __all__ = [
     "ServerTypeGpuInfo",
     "ServerTypeLimits",
     "ServerIP",
+    "CreateTemplateRequestPrivateNetworkTemplate",
     "CreateTemplateRequestVolumeTemplate",
     "SecurityGroupRuleConfig",
     "SecurityGroup",
@@ -182,6 +185,7 @@ __all__ = [
     "ServerRDPPassword",
     "ServerVolume",
     "UpdateServerRequestPublicNetworkInterface",
+    "UpdateTemplateRequestUpdatePrivateNetworks",
     "UpdateTemplateRequestUpdateVolumes",
     "AddSecurityGroupRulesRequest",
     "AddSecurityGroupRulesResponse",
