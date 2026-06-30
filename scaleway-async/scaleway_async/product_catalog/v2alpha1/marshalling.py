@@ -170,6 +170,12 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPU(
     else:
         args["threads"] = 0
 
+    field = data.get("shared", None)
+    if field is not None:
+        args["shared"] = field
+    else:
+        args["shared"] = False
+
     field = data.get("virtual", None)
     if field is not None:
         args["virtual"] = unmarshal_PublicCatalogProductPropertiesHardwareCPUVirtual(

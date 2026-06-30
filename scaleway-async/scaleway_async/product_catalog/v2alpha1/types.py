@@ -306,6 +306,11 @@ class PublicCatalogProductPropertiesHardwareCPU:
     The total number of threads.
     """
 
+    shared: bool
+    """
+    Indicates whether the CPU is shared or not.
+    """
+
     virtual: Optional[PublicCatalogProductPropertiesHardwareCPUVirtual] = None
 
     physical: Optional[PublicCatalogProductPropertiesHardwareCPUPhysical] = None
