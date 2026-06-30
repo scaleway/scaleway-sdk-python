@@ -348,22 +348,69 @@ class AclRule:
 @dataclass
 class IngressRule:
     id: str
+    """
+    ID of the ingress rule.
+    """
+
     vpc_id: str
+    """
+    ID of the VPC this rule belongs to.
+    """
+
     is_ipv6: bool
+    """
+    Whether this rule applies to IPv4 or IPv6 traffic.
+    """
+
     source: str
+    """
+    Source network to apply this rule on.
+    """
+
     nexthop_resource_ip: str
+    """
+    IP of the local resource to redirect ingress traffic to.
+    """
+
     nexthop_private_network_id: str
+    """
+    ID of the Private Network the destination resource is in.
+    """
+
     tags: list[str]
+    """
+    Tags of this ingress rule.
+    """
+
     organization_id: str
+    """
+    Scaleway Organization the ingress rule belongs to.
+    """
+
     project_id: str
+    """
+    Scaleway Project the ingress rule belongs to.
+    """
+
     region: ScwRegion
     """
-    Region to target. If none is passed will use default region from the config.
+    Region of the ingress rule.
     """
 
     created_at: Optional[datetime] = None
+    """
+    Date the ingress rule was created.
+    """
+
     updated_at: Optional[datetime] = None
+    """
+    Date the ingress rule was last modified.
+    """
+
     description: Optional[str] = None
+    """
+    Description of this ingress rule.
+    """
 
 
 @dataclass
@@ -508,16 +555,39 @@ class VPC:
 @dataclass
 class CreateIngressRuleRequest:
     vpc_id: str
+    """
+    ID of the VPC this rule will belong to.
+    """
+
     source: str
+    """
+    Source network to match ingress traffic on. Can be IPv6 or IPv4.
+    """
+
     nexthop_resource_ip: str
+    """
+    IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network.
+    """
+
     nexthop_private_network_id: str
+    """
+    ID of the Private Network the destination resource is in.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
     description: Optional[str] = None
+    """
+    Description for this ingress rule.
+    """
+
     tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Tags for this ingress rule.
+    """
 
 
 @dataclass
@@ -665,6 +735,10 @@ class CreateVPCRequest:
 @dataclass
 class DeleteIngressRuleRequest:
     rule_id: str
+    """
+    ID of the ingress rule to delete.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -789,6 +863,10 @@ class GetAclResponse:
 @dataclass
 class GetIngressRuleRequest:
     rule_id: str
+    """
+    ID of the ingress rule to return.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -854,16 +932,57 @@ class ListIngressRulesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListIngressRulesRequestOrderBy] = None
-    page: Optional[int] = None
-    page_size: Optional[int] = None
+    order_by: Optional[ListIngressRulesRequestOrderBy] = (
+        ListIngressRulesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of the returned ingress rules.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of ingress rules to return per page.
+    """
+
     vpc_id: Optional[str] = None
+    """
+    ID of the VPC to filter for.
+    """
+
     nexthop_resource_ip: Optional[str] = None
+    """
+    Next hop IP to filter for.
+    """
+
     nexthop_private_network_id: Optional[str] = None
-    is_ipv6: Optional[bool] = None
+    """
+    Next hop Private Network ID to filter for. Only ingress rules with this Private Network as next hop will be returned.
+    """
+
+    is_ipv6: Optional[bool] = False
+    """
+    Whether to return only IPv4 or IPv6 ingress rules.
+    """
+
     tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Tags to filter for. Only ingress rules with one or more matching tags will be returned.
+    """
+
     organization_id: Optional[str] = None
+    """
+    Organization ID to filter for. Only ingress rules belonging to this Organization will be returned.
+    """
+
     project_id: Optional[str] = None
+    """
+    Project ID to filter for. Only ingress rules belonging to this Project will be returned.
+    """
 
 
 @dataclass
@@ -942,7 +1061,7 @@ class ListPrivateNetworksResponse:
 class ListSubnetOverlapsRequest:
     vpc_connector_id: str
     """
-    VPCConnector ID.
+    VPC Peering connector ID.
     """
 
     region: Optional[ScwRegion] = None
@@ -1189,16 +1308,39 @@ class SetAclResponse:
 @dataclass
 class UpdateIngressRuleRequest:
     rule_id: str
+    """
+    ID of the ingress rule to update.
+    """
+
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
 
     source: Optional[str] = None
+    """
+    Source network to match ingress traffic on. Can be IPv4 or IPv6.
+    """
+
     nexthop_resource_ip: Optional[str] = None
+    """
+    IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network.
+    """
+
     nexthop_private_network_id: Optional[str] = None
+    """
+    ID of the Private Network the destination resource is in.
+    """
+
     description: Optional[str] = None
+    """
+    Description to set for this ingress rule.
+    """
+
     tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Tags to set for this ingress rule.
+    """
 
 
 @dataclass

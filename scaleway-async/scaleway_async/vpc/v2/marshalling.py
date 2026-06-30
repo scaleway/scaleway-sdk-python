@@ -296,7 +296,7 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
     if field is not None:
         args["is_ipv6"] = field
     else:
-        args["is_ipv6"] = None
+        args["is_ipv6"] = False
 
     field = data.get("source", None)
     if field is not None:
@@ -338,7 +338,7 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("organization_id", None)
     if field is not None:

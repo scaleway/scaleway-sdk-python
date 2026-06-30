@@ -1438,8 +1438,8 @@ class VpcV2API(API):
     ) -> ListSubnetOverlapsResponse:
         """
         List subnet overlaps.
-        List subnet overlaps between the VPCConnector VPC and the target VPC or for a specific subnet if specified.
-        :param vpc_connector_id: VPCConnector ID.
+        List subnet overlaps between the VPCs on both sides of a connector, or for a specific subnet if specified.
+        :param vpc_connector_id: VPC Peering connector ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Sort order of the returned Subnet overlaps.
         :param page: Page number to return, from the paginated results.
@@ -1485,8 +1485,8 @@ class VpcV2API(API):
     ) -> list[ListSubnetOverlapsResponseSubnetOverlap]:
         """
         List subnet overlaps.
-        List subnet overlaps between the VPCConnector VPC and the target VPC or for a specific subnet if specified.
-        :param vpc_connector_id: VPCConnector ID.
+        List subnet overlaps between the VPCs on both sides of a connector, or for a specific subnet if specified.
+        :param vpc_connector_id: VPC Peering connector ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Sort order of the returned Subnet overlaps.
         :param page: Page number to return, from the paginated results.
@@ -1530,17 +1530,19 @@ class VpcV2API(API):
         project_id: Optional[str] = None,
     ) -> ListIngressRulesResponse:
         """
+        List ingress rules.
+        List existing ingress rules in the specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param vpc_id:
-        :param nexthop_resource_ip:
-        :param nexthop_private_network_id:
-        :param is_ipv6:
-        :param tags:
-        :param organization_id:
-        :param project_id:
+        :param order_by: Sort order of the returned ingress rules.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of ingress rules to return per page.
+        :param vpc_id: ID of the VPC to filter for.
+        :param nexthop_resource_ip: Next hop IP to filter for.
+        :param nexthop_private_network_id: Next hop Private Network ID to filter for. Only ingress rules with this Private Network as next hop will be returned.
+        :param is_ipv6: Whether to return only IPv4 or IPv6 ingress rules.
+        :param tags: Tags to filter for. Only ingress rules with one or more matching tags will be returned.
+        :param organization_id: Organization ID to filter for. Only ingress rules belonging to this Organization will be returned.
+        :param project_id: Project ID to filter for. Only ingress rules belonging to this Project will be returned.
         :return: :class:`ListIngressRulesResponse <ListIngressRulesResponse>`
 
         Usage:
@@ -1590,17 +1592,19 @@ class VpcV2API(API):
         project_id: Optional[str] = None,
     ) -> list[IngressRule]:
         """
+        List ingress rules.
+        List existing ingress rules in the specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param vpc_id:
-        :param nexthop_resource_ip:
-        :param nexthop_private_network_id:
-        :param is_ipv6:
-        :param tags:
-        :param organization_id:
-        :param project_id:
+        :param order_by: Sort order of the returned ingress rules.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of ingress rules to return per page.
+        :param vpc_id: ID of the VPC to filter for.
+        :param nexthop_resource_ip: Next hop IP to filter for.
+        :param nexthop_private_network_id: Next hop Private Network ID to filter for. Only ingress rules with this Private Network as next hop will be returned.
+        :param is_ipv6: Whether to return only IPv4 or IPv6 ingress rules.
+        :param tags: Tags to filter for. Only ingress rules with one or more matching tags will be returned.
+        :param organization_id: Organization ID to filter for. Only ingress rules belonging to this Organization will be returned.
+        :param project_id: Project ID to filter for. Only ingress rules belonging to this Project will be returned.
         :return: :class:`list[IngressRule] <list[IngressRule]>`
 
         Usage:
@@ -1640,13 +1644,15 @@ class VpcV2API(API):
         tags: Optional[list[str]] = None,
     ) -> IngressRule:
         """
-        :param vpc_id:
-        :param source:
-        :param nexthop_resource_ip:
-        :param nexthop_private_network_id:
+        Create an ingress rule.
+        Create an ingress rule in the specified region.
+        :param vpc_id: ID of the VPC this rule will belong to.
+        :param source: Source network to match ingress traffic on. Can be IPv6 or IPv4.
+        :param nexthop_resource_ip: IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network.
+        :param nexthop_private_network_id: ID of the Private Network the destination resource is in.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param description:
-        :param tags:
+        :param description: Description for this ingress rule.
+        :param tags: Tags for this ingress rule.
         :return: :class:`IngressRule <IngressRule>`
 
         Usage:
@@ -1691,7 +1697,9 @@ class VpcV2API(API):
         region: Optional[ScwRegion] = None,
     ) -> IngressRule:
         """
-        :param rule_id:
+        Get an ingress rule.
+        Retrieve details of an existing ingress rule, specified by its ingress rule ID.
+        :param rule_id: ID of the ingress rule to return.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`IngressRule <IngressRule>`
 
@@ -1728,13 +1736,15 @@ class VpcV2API(API):
         tags: Optional[list[str]] = None,
     ) -> IngressRule:
         """
-        :param rule_id:
+        Update an ingress rule.
+        Update an ingress rule specified by its ingress rule ID.
+        :param rule_id: ID of the ingress rule to update.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param source:
-        :param nexthop_resource_ip:
-        :param nexthop_private_network_id:
-        :param description:
-        :param tags:
+        :param source: Source network to match ingress traffic on. Can be IPv4 or IPv6.
+        :param nexthop_resource_ip: IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network.
+        :param nexthop_private_network_id: ID of the Private Network the destination resource is in.
+        :param description: Description to set for this ingress rule.
+        :param tags: Tags to set for this ingress rule.
         :return: :class:`IngressRule <IngressRule>`
 
         Usage:
@@ -1777,7 +1787,9 @@ class VpcV2API(API):
         region: Optional[ScwRegion] = None,
     ) -> None:
         """
-        :param rule_id:
+        Delete an ingress rule.
+        Delete an ingress rule specified by its ingress rule ID.
+        :param rule_id: ID of the ingress rule to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
