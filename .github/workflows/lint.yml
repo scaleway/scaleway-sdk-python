@@ -23,11 +23,11 @@ jobs:
       run:
         working-directory: ${{ matrix.lib }}
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Install poetry
         run: pipx install poetry
       - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: "poetry"
@@ -42,6 +42,6 @@ jobs:
     name: Github Actions lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Check workflow files
-        uses: reviewdog/action-actionlint@2cf7e03973cb2a8bc96dc3796df09af9a4d8f76e # v1.70.0
+        uses: reviewdog/action-actionlint@1f3610e92fa221aa2b7c1756bccf5437efd416a4 # v1.70.0
