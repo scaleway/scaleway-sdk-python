@@ -310,6 +310,11 @@ class ServerIP:
 
 
 @dataclass
+class CreateTemplateRequestPrivateNetworkTemplate:
+    private_network_id: str
+
+
+@dataclass
 class CreateTemplateRequestVolumeTemplate:
     volume_type: CreateServerRequestServerVolumeVolumeType
     name: str
@@ -455,7 +460,6 @@ class TemplateSummary:
     server_type: str
     public_ip_v4_count: int
     public_ip_v6_count: int
-    private_network_ids: list[str]
     filesystem_ids: list[str]
     zone: ScwZone
     """
@@ -508,6 +512,11 @@ class ServerVolume:
 @dataclass
 class UpdateServerRequestPublicNetworkInterface:
     security_group_id: Optional[str] = None
+
+
+@dataclass
+class UpdateTemplateRequestUpdatePrivateNetworks:
+    private_networks: list[CreateTemplateRequestPrivateNetworkTemplate]
 
 
 @dataclass
@@ -682,7 +691,9 @@ class CreateTemplateRequest:
     volumes: Optional[list[CreateTemplateRequestVolumeTemplate]] = field(
         default_factory=list
     )
-    private_network_ids: Optional[list[str]] = field(default_factory=list)
+    private_networks: Optional[list[CreateTemplateRequestPrivateNetworkTemplate]] = (
+        field(default_factory=list)
+    )
     windows_rdp_ssh_key_id: Optional[str] = None
     filesystem_ids: Optional[list[str]] = field(default_factory=list)
 
@@ -1264,7 +1275,7 @@ class Template:
     public_ip_v4_count: int
     public_ip_v6_count: int
     volumes: list[CreateTemplateRequestVolumeTemplate]
-    private_network_ids: list[str]
+    private_networks: list[CreateTemplateRequestPrivateNetworkTemplate]
     filesystem_ids: list[str]
     zone: ScwZone
     """
@@ -1373,7 +1384,7 @@ class UpdateTemplateRequest:
     security_group_id: Optional[str] = None
     placement_group_id: Optional[str] = None
     update_volumes: Optional[UpdateTemplateRequestUpdateVolumes] = None
-    private_network_ids: Optional[list[str]] = field(default_factory=list)
+    update_private_networks: Optional[UpdateTemplateRequestUpdatePrivateNetworks] = None
     public_ip_v4_count: Optional[int] = None
     public_ip_v6_count: Optional[int] = None
     windows_rdp_ssh_key_id: Optional[str] = None

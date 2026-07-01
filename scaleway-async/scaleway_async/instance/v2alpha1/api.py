@@ -40,6 +40,7 @@ from .types import (
     CreateServerRequestPublicNetworkInterface,
     CreateServerRequestServerVolume,
     CreateTemplateRequest,
+    CreateTemplateRequestPrivateNetworkTemplate,
     CreateTemplateRequestVolumeTemplate,
     DeleteSecurityGroupRulesRequest,
     DetachServerFileSystemRequest,
@@ -76,6 +77,7 @@ from .types import (
     UpdateServerRequest,
     UpdateServerRequestPublicNetworkInterface,
     UpdateTemplateRequest,
+    UpdateTemplateRequestUpdatePrivateNetworks,
     UpdateTemplateRequestUpdateVolumes,
     UserData,
 )
@@ -2341,7 +2343,9 @@ class InstanceV2Alpha1API(API):
         security_group_id: Optional[str] = None,
         placement_group_id: Optional[str] = None,
         volumes: Optional[list[CreateTemplateRequestVolumeTemplate]] = None,
-        private_network_ids: Optional[list[str]] = None,
+        private_networks: Optional[
+            list[CreateTemplateRequestPrivateNetworkTemplate]
+        ] = None,
         windows_rdp_ssh_key_id: Optional[str] = None,
         filesystem_ids: Optional[list[str]] = None,
     ) -> Template:
@@ -2359,7 +2363,7 @@ class InstanceV2Alpha1API(API):
         :param security_group_id:
         :param placement_group_id:
         :param volumes:
-        :param private_network_ids:
+        :param private_networks:
         :param windows_rdp_ssh_key_id:
         :param filesystem_ids:
         :return: :class:`Template <Template>`
@@ -2393,7 +2397,7 @@ class InstanceV2Alpha1API(API):
                     security_group_id=security_group_id,
                     placement_group_id=placement_group_id,
                     volumes=volumes,
-                    private_network_ids=private_network_ids,
+                    private_networks=private_networks,
                     windows_rdp_ssh_key_id=windows_rdp_ssh_key_id,
                     filesystem_ids=filesystem_ids,
                 ),
@@ -2448,7 +2452,9 @@ class InstanceV2Alpha1API(API):
         security_group_id: Optional[str] = None,
         placement_group_id: Optional[str] = None,
         update_volumes: Optional[UpdateTemplateRequestUpdateVolumes] = None,
-        private_network_ids: Optional[list[str]] = None,
+        update_private_networks: Optional[
+            UpdateTemplateRequestUpdatePrivateNetworks
+        ] = None,
         public_ip_v4_count: Optional[int] = None,
         public_ip_v6_count: Optional[int] = None,
         windows_rdp_ssh_key_id: Optional[str] = None,
@@ -2466,7 +2472,7 @@ class InstanceV2Alpha1API(API):
         :param security_group_id:
         :param placement_group_id:
         :param update_volumes:
-        :param private_network_ids:
+        :param update_private_networks:
         :param public_ip_v4_count:
         :param public_ip_v6_count:
         :param windows_rdp_ssh_key_id:
@@ -2498,7 +2504,7 @@ class InstanceV2Alpha1API(API):
                     security_group_id=security_group_id,
                     placement_group_id=placement_group_id,
                     update_volumes=update_volumes,
-                    private_network_ids=private_network_ids,
+                    update_private_networks=update_private_networks,
                     public_ip_v4_count=public_ip_v4_count,
                     public_ip_v6_count=public_ip_v6_count,
                     windows_rdp_ssh_key_id=windows_rdp_ssh_key_id,
