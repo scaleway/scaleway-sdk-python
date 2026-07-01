@@ -26,6 +26,7 @@ from .types import Endpoint
 from .types import InstanceSetting
 from .types import InstanceSnapshotSchedule
 from .types import Maintenance
+from .types import Version
 from .types import Volume
 from .types import NodeTypeVolumeType
 from .types import UserRole
@@ -35,7 +36,6 @@ from .types import Instance
 from .types import NodeType
 from .types import Snapshot
 from .types import User
-from .types import Version
 from .types import ApplyMaintenanceRequest
 from .types import CreateEndpointRequest
 from .types import CreateInstanceRequest
@@ -98,6 +98,7 @@ __all__ = [
     "InstanceSetting",
     "InstanceSnapshotSchedule",
     "Maintenance",
+    "Version",
     "Volume",
     "NodeTypeVolumeType",
     "UserRole",
@@ -107,7 +108,6 @@ __all__ = [
     "NodeType",
     "Snapshot",
     "User",
-    "Version",
     "ApplyMaintenanceRequest",
     "CreateEndpointRequest",
     "CreateInstanceRequest",
