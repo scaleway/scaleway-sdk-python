@@ -581,7 +581,7 @@ class MongodbV1API(API):
         instance_id: str,
         region: Optional[ScwRegion] = None,
         volume_size_bytes: Optional[int] = None,
-        version_id: Optional[str] = None,
+        version: Optional[str] = None,
     ) -> Instance:
         """
         Upgrade a Database Instance.
@@ -589,9 +589,9 @@ class MongodbV1API(API):
         :param instance_id: UUID of the Database Instance you want to upgrade.
         :param region: Region to target. If none is passed will use default region from the config.
         :param volume_size_bytes: Increase your Block Storage volume size.
-        One-Of ('upgrade_target'): at most one of 'volume_size_bytes', 'version_id' could be set.
-        :param version_id:
-        One-Of ('upgrade_target'): at most one of 'volume_size_bytes', 'version_id' could be set.
+        One-Of ('upgrade_target'): at most one of 'volume_size_bytes', 'version' could be set.
+        :param version: MongoDB version to upgrade to (e.g., `8.0`, `7.0`, `8.2`).
+        One-Of ('upgrade_target'): at most one of 'volume_size_bytes', 'version' could be set.
         :return: :class:`Instance <Instance>`
 
         Usage:
@@ -615,7 +615,7 @@ class MongodbV1API(API):
                     instance_id=instance_id,
                     region=region,
                     volume_size_bytes=volume_size_bytes,
-                    version_id=version_id,
+                    version=version,
                 ),
                 self.client,
             ),
