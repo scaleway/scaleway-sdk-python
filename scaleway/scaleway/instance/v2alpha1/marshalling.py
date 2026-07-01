@@ -38,6 +38,7 @@ from .types import (
     ServerRDPPassword,
     ServerVolume,
     Server,
+    CreateTemplateRequestPrivateNetworkTemplate,
     CreateTemplateRequestVolumeTemplate,
     Template,
     UserData,
@@ -76,6 +77,7 @@ from .types import (
     UpdateSecurityGroupRuleRequest,
     UpdateServerRequestPublicNetworkInterface,
     UpdateServerRequest,
+    UpdateTemplateRequestUpdatePrivateNetworks,
     UpdateTemplateRequestUpdateVolumes,
     UpdateTemplateRequest,
 )
@@ -1026,12 +1028,6 @@ def unmarshal_TemplateSummary(data: Any) -> TemplateSummary:
     else:
         args["public_ip_v6_count"] = None
 
-    field = data.get("private_network_ids", None)
-    if field is not None:
-        args["private_network_ids"] = field
-    else:
-        args["private_network_ids"] = None
-
     field = data.get("filesystem_ids", None)
     if field is not None:
         args["filesystem_ids"] = field
@@ -1525,6 +1521,25 @@ def unmarshal_Server(data: Any) -> Server:
     return Server(**args)
 
 
+def unmarshal_CreateTemplateRequestPrivateNetworkTemplate(
+    data: Any,
+) -> CreateTemplateRequestPrivateNetworkTemplate:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CreateTemplateRequestPrivateNetworkTemplate' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
+    return CreateTemplateRequestPrivateNetworkTemplate(**args)
+
+
 def unmarshal_CreateTemplateRequestVolumeTemplate(
     data: Any,
 ) -> CreateTemplateRequestVolumeTemplate:
@@ -1658,11 +1673,15 @@ def unmarshal_Template(data: Any) -> Template:
     else:
         args["volumes"] = None
 
-    field = data.get("private_network_ids", None)
+    field = data.get("private_networks", None)
     if field is not None:
-        args["private_network_ids"] = field
+        args["private_networks"] = (
+            [unmarshal_CreateTemplateRequestPrivateNetworkTemplate(v) for v in field]
+            if field is not None
+            else None
+        )
     else:
-        args["private_network_ids"] = None
+        args["private_networks"] = None
 
     field = data.get("filesystem_ids", None)
     if field is not None:
@@ -2110,6 +2129,18 @@ def marshal_CreateServerRequest(
     return output
 
 
+def marshal_CreateTemplateRequestPrivateNetworkTemplate(
+    request: CreateTemplateRequestPrivateNetworkTemplate,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    return output
+
+
 def marshal_CreateTemplateRequestVolumeTemplate(
     request: CreateTemplateRequestVolumeTemplate,
     defaults: ProfileDefaults,
@@ -2189,8 +2220,11 @@ def marshal_CreateTemplateRequest(
             for item in request.volumes
         ]
 
-    if request.private_network_ids is not None:
-        output["private_network_ids"] = request.private_network_ids
+    if request.private_networks is not None:
+        output["private_networks"] = [
+            marshal_CreateTemplateRequestPrivateNetworkTemplate(item, defaults)
+            for item in request.private_networks
+        ]
 
     if request.windows_rdp_ssh_key_id is not None:
         output["windows_rdp_ssh_key_id"] = request.windows_rdp_ssh_key_id
@@ -2551,6 +2585,21 @@ def marshal_UpdateServerRequest(
     return output
 
 
+def marshal_UpdateTemplateRequestUpdatePrivateNetworks(
+    request: UpdateTemplateRequestUpdatePrivateNetworks,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.private_networks is not None:
+        output["private_networks"] = [
+            marshal_CreateTemplateRequestPrivateNetworkTemplate(item, defaults)
+            for item in request.private_networks
+        ]
+
+    return output
+
+
 def marshal_UpdateTemplateRequestUpdateVolumes(
     request: UpdateTemplateRequestUpdateVolumes,
     defaults: ProfileDefaults,
@@ -2595,8 +2644,12 @@ def marshal_UpdateTemplateRequest(
             request.update_volumes, defaults
         )
 
-    if request.private_network_ids is not None:
-        output["private_network_ids"] = request.private_network_ids
+    if request.update_private_networks is not None:
+        output["update_private_networks"] = (
+            marshal_UpdateTemplateRequestUpdatePrivateNetworks(
+                request.update_private_networks, defaults
+            )
+        )
 
     if request.public_ip_v4_count is not None:
         output["public_ip_v4_count"] = request.public_ip_v4_count
