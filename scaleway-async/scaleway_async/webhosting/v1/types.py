@@ -201,6 +201,8 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     MIGRATING = "migrating"
     UPDATING = "updating"
+    PAYMENT_PENDING = "payment_pending"
+    PAYMENT_FAILED = "payment_failed"
 
     def __str__(self) -> str:
         return str(self.value)
