@@ -26,7 +26,6 @@ from .types import (
     Maintenance,
     InstanceSetting,
     InstanceSnapshotSchedule,
-    Version,
     Volume,
     Instance,
     Snapshot,
@@ -41,6 +40,7 @@ from .types import (
     ListNodeTypesResponse,
     ListSnapshotsResponse,
     ListUsersResponse,
+    Version,
     ListVersionsResponse,
     EndpointSpecPrivateNetworkDetails,
     EndpointSpecPublicNetworkDetails,
@@ -327,39 +327,6 @@ def unmarshal_InstanceSnapshotSchedule(data: Any) -> InstanceSnapshotSchedule:
     return InstanceSnapshotSchedule(**args)
 
 
-def unmarshal_Version(data: Any) -> Version:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Version' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("version", None)
-    if field is not None:
-        args["version"] = field
-    else:
-        args["version"] = None
-
-    field = data.get("end_of_life_at", None)
-    if field is not None:
-        args["end_of_life_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["end_of_life_at"] = None
-
-    field = data.get("released_at", None)
-    if field is not None:
-        args["released_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["released_at"] = None
-
-    return Version(**args)
-
-
 def unmarshal_Volume(data: Any) -> Volume:
     if not isinstance(data, dict):
         raise TypeError(
@@ -477,9 +444,7 @@ def unmarshal_Instance(data: Any) -> Instance:
 
     field = data.get("upgradable_versions", None)
     if field is not None:
-        args["upgradable_versions"] = (
-            [unmarshal_Version(v) for v in field] if field is not None else None
-        )
+        args["upgradable_versions"] = field
     else:
         args["upgradable_versions"] = []
 
@@ -916,6 +881,39 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
         args["total_count"] = 0
 
     return ListUsersResponse(**args)
+
+
+def unmarshal_Version(data: Any) -> Version:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Version' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = field
+    else:
+        args["version"] = None
+
+    field = data.get("end_of_life_at", None)
+    if field is not None:
+        args["end_of_life_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["end_of_life_at"] = None
+
+    field = data.get("released_at", None)
+    if field is not None:
+        args["released_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["released_at"] = None
+
+    return Version(**args)
 
 
 def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
