@@ -1307,6 +1307,14 @@ def unmarshal_EngineVersion(data: Any) -> EngineVersion:
     else:
         args["end_of_life"] = None
 
+    field = data.get("release_date", None)
+    if field is not None:
+        args["release_date"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["release_date"] = None
+
     return EngineVersion(**args)
 
 

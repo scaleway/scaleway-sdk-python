@@ -468,6 +468,11 @@ class EngineVersion:
     End of life date.
     """
 
+    release_date: Optional[datetime] = None
+    """
+    Version release date.
+    """
+
 
 @dataclass
 class BackupSchedule:
