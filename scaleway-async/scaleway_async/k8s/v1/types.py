@@ -398,6 +398,11 @@ class ACLRule:
     Description of the ACL.
     """
 
+    region: ScwRegion
+    """
+    Region of the ACL rule.
+    """
+
     ip: Optional[str] = None
 
     scaleway_ranges: Optional[bool] = False
@@ -686,6 +691,11 @@ class ClusterType:
     max_etcd_size: int
     """
     Maximum amount of data that can be stored in etcd for the offer.
+    """
+
+    region: ScwRegion
+    """
+    The region of the cluster type.
     """
 
     commitment_delay: Optional[str] = None

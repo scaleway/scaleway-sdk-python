@@ -292,6 +292,24 @@ class Maintenance:
 
 
 @dataclass
+class Version:
+    version: str
+    """
+    MongoDB® major engine version.
+    """
+
+    end_of_life_at: Optional[datetime] = None
+    """
+    Date of End of Life.
+    """
+
+    released_at: Optional[datetime] = None
+    """
+    Date of Release.
+    """
+
+
+@dataclass
 class Volume:
     type_: VolumeType
     """
@@ -421,6 +439,11 @@ class Instance:
     maintenances: list[Maintenance]
     """
     List of pending maintenances applicable to the Database Instance.
+    """
+
+    upgradable_versions: list[Version]
+    """
+    List of MongoDB® versions the Database Instance can be upgraded to.
     """
 
     volume: Optional[Volume] = None
@@ -560,24 +583,6 @@ class User:
     roles: list[UserRole]
     """
     List of roles assigned to the user, along with the corresponding database where each role is granted.
-    """
-
-
-@dataclass
-class Version:
-    version: str
-    """
-    MongoDB® major engine version.
-    """
-
-    end_of_life_at: Optional[datetime] = None
-    """
-    Date of End of Life.
-    """
-
-    released_at: Optional[datetime] = None
-    """
-    Date of Release.
     """
 
 
@@ -1247,4 +1252,4 @@ class UpgradeInstanceRequest:
 
     volume_size_bytes: Optional[int] = 0
 
-    version_id: Optional[str] = None
+    version: Optional[str] = None

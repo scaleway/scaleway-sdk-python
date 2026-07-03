@@ -873,6 +873,12 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
     else:
         args["description"] = None
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = field
@@ -1144,6 +1150,12 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
         args["max_etcd_size"] = field
     else:
         args["max_etcd_size"] = 0
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("commitment_delay", None)
     if field is not None:

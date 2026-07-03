@@ -31,6 +31,7 @@ HOSTING_TRANSIENT_STATUSES: list[HostingStatus] = [
     HostingStatus.DELETING,
     HostingStatus.MIGRATING,
     HostingStatus.UPDATING,
+    HostingStatus.PAYMENT_PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`HostingStatus <HostingStatus>`.
