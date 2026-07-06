@@ -1695,7 +1695,7 @@ class EdgeServicesV1Beta1API(API):
     ) -> BackendStage:
         """
         Create backend stage.
-        Create a new backend stage. You must specify either a `scaleway_s3` (for a Scaleway Object Storage bucket) or `scaleway_lb` (for a Scaleway Load Balancer) field to configure the origin.
+        Create a new backend stage. You must specify a type of backend (`scaleway_s3`, `scaleway_lb`, etc.) to configure the origin.
         :param scaleway_s3: Scaleway Object Storage origin bucket (S3) linked to the backend stage.
         One-Of ('backend_config'): at most one of 'scaleway_s3', 'scaleway_lb', 'scaleway_serverless_container', 'scaleway_serverless_function' could be set.
         :param scaleway_lb: Scaleway Load Balancer origin linked to the backend stage.
@@ -1742,7 +1742,7 @@ class EdgeServicesV1Beta1API(API):
     ) -> BackendStage:
         """
         Get backend stage.
-        Retrieve information about an existing backend stage, specified by its `backend_stage_id`. Its full details, including `scaleway_s3` or `scaleway_lb`, are returned in the response object.
+        Retrieve information about an existing backend stage, specified by its `backend_stage_id`. Its full details are returned in the response object.
         :param backend_stage_id: ID of the requested backend stage.
         :return: :class:`BackendStage <BackendStage>`
 
