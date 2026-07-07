@@ -659,6 +659,19 @@ class RestoreMailboxRequest:
 
 
 @dataclass
+class UpdateAliasRequest:
+    alias_id: str
+    """
+    ID of the alias to update.
+    """
+
+    description: Optional[str] = None
+    """
+    (Optional) Description of the alias.
+    """
+
+
+@dataclass
 class UpdateMailboxRequest:
     mailbox_id: str
     """
