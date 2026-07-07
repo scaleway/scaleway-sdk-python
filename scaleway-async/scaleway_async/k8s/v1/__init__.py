@@ -32,7 +32,6 @@ from .types import CreateClusterRequestAutoscalerConfig
 from .types import CreateClusterRequestOpenIDConnectConfig
 from .types import CreateClusterRequestPoolConfig
 from .types import CreatePoolRequestUpgradePolicy
-from .types import ExternalNodeCoreV1Taint
 from .types import ClusterType
 from .types import Version
 from .types import Cluster
@@ -47,13 +46,11 @@ from .types import AddClusterACLRulesRequest
 from .types import AddClusterACLRulesResponse
 from .types import AuthExternalNodeRequest
 from .types import CreateClusterRequest
-from .types import CreateExternalNodeRequest
 from .types import CreatePoolRequest
 from .types import DeleteACLRuleRequest
 from .types import DeleteClusterRequest
 from .types import DeleteNodeRequest
 from .types import DeletePoolRequest
-from .types import ExternalNode
 from .types import ExternalNodeAuth
 from .types import GetClusterKubeConfigRequest
 from .types import GetClusterRequest
@@ -126,7 +123,6 @@ __all__ = [
     "CreateClusterRequestOpenIDConnectConfig",
     "CreateClusterRequestPoolConfig",
     "CreatePoolRequestUpgradePolicy",
-    "ExternalNodeCoreV1Taint",
     "ClusterType",
     "Version",
     "Cluster",
@@ -141,13 +137,11 @@ __all__ = [
     "AddClusterACLRulesResponse",
     "AuthExternalNodeRequest",
     "CreateClusterRequest",
-    "CreateExternalNodeRequest",
     "CreatePoolRequest",
     "DeleteACLRuleRequest",
     "DeleteClusterRequest",
     "DeleteNodeRequest",
     "DeletePoolRequest",
-    "ExternalNode",
     "ExternalNodeAuth",
     "GetClusterKubeConfigRequest",
     "GetClusterRequest",

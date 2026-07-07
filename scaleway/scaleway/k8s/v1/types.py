@@ -245,12 +245,12 @@ class CoreV1Taint:
 class CreateClusterRequestPoolConfigUpgradePolicy:
     max_unavailable: Optional[int] = 0
     """
-    The maximum number of nodes that can be not ready at the same time.
+    The maximum number of nodes that can be `upgrading` at the same time.
     """
 
     max_surge: Optional[int] = 0
     """
-    The maximum number of nodes to be created during the upgrade.
+    The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades.
     """
 
 
@@ -371,7 +371,14 @@ class ClusterOpenIDConnectConfig:
 @dataclass
 class PoolUpgradePolicy:
     max_unavailable: int
+    """
+    The maximum number of nodes that can be `upgrading` at the same time.
+    """
+
     max_surge: int
+    """
+    The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades.
+    """
 
 
 @dataclass
@@ -614,7 +621,7 @@ class CreateClusterRequestPoolConfig:
 
     upgrade_policy: Optional[CreateClusterRequestPoolConfigUpgradePolicy] = None
     """
-    Pool upgrade policy.
+    Defines how node provisioning should behave during pool version upgrade.
     """
 
     root_volume_size: Optional[int] = 0
@@ -635,15 +642,15 @@ class CreateClusterRequestPoolConfig:
 
 @dataclass
 class CreatePoolRequestUpgradePolicy:
-    max_unavailable: Optional[int] = None
-    max_surge: Optional[int] = None
+    max_unavailable: Optional[int] = 0
+    """
+    The maximum number of nodes that can be `upgrading` at the same time.
+    """
 
-
-@dataclass
-class ExternalNodeCoreV1Taint:
-    key: str
-    value: str
-    effect: str
+    max_surge: Optional[int] = 0
+    """
+    The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades.
+    """
 
 
 @dataclass
@@ -1110,7 +1117,7 @@ class Pool:
 
     upgrade_policy: Optional[PoolUpgradePolicy] = None
     """
-    Pool upgrade policy.
+    Defines how node provisioning should behave during pool version upgrade.
     """
 
     root_volume_size: Optional[int] = 0
@@ -1247,8 +1254,15 @@ class UpdateClusterRequestOpenIDConnectConfig:
 
 @dataclass
 class UpdatePoolRequestUpgradePolicy:
-    max_unavailable: Optional[int] = None
-    max_surge: Optional[int] = None
+    max_unavailable: Optional[int] = 0
+    """
+    New maximum number of nodes that can be `upgrading` at the same time.
+    """
+
+    max_surge: Optional[int] = 0
+    """
+    New maximum number of nodes to be created during the upgrade.
+    """
 
 
 @dataclass
@@ -1388,15 +1402,6 @@ class CreateClusterRequest:
 
 
 @dataclass
-class CreateExternalNodeRequest:
-    pool_id: str
-    region: Optional[ScwRegion] = None
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
 class CreatePoolRequest:
     cluster_id: str
     """
@@ -1470,7 +1475,7 @@ class CreatePoolRequest:
 
     upgrade_policy: Optional[CreatePoolRequestUpgradePolicy] = None
     """
-    Pool upgrade policy.
+    Defines how node provisioning should behave during pool version upgrade.
     """
 
     zone: Optional[ScwZone] = None
@@ -1582,24 +1587,6 @@ class DeletePoolRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
-
-
-@dataclass
-class ExternalNode:
-    id: str
-    name: str
-    cluster_url: str
-    pool_version: str
-    cluster_ca: str
-    kube_token: str
-    kubelet_config: str
-    external_ip: str
-    containerd_version: str
-    runc_version: str
-    cni_plugins_version: str
-    node_labels: dict[str, str]
-    node_taints: list[ExternalNodeCoreV1Taint]
-    iam_token: str
 
 
 @dataclass

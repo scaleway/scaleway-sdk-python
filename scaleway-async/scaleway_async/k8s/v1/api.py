@@ -41,7 +41,6 @@ from .types import (
     CreateClusterRequestPoolConfig,
     CreatePoolRequest,
     CreatePoolRequestUpgradePolicy,
-    ExternalNode,
     ExternalNodeAuth,
     ListClusterACLRulesResponse,
     ListClusterAvailableTypesResponse,
@@ -81,7 +80,6 @@ from .marshalling import (
     unmarshal_Node,
     unmarshal_Pool,
     unmarshal_AddClusterACLRulesResponse,
-    unmarshal_ExternalNode,
     unmarshal_ExternalNodeAuth,
     unmarshal_ListClusterACLRulesResponse,
     unmarshal_ListClusterAvailableTypesResponse,
@@ -1087,7 +1085,7 @@ class K8SV1API(API):
         :param public_ip_disabled: Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
         :param tags: Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags).
         :param kubelet_args: Kubelet arguments to be used by this pool. Note that this feature is experimental.
-        :param upgrade_policy: Pool upgrade policy.
+        :param upgrade_policy: Defines how node provisioning should behave during pool version upgrade.
         :param zone: Zone in which the pool's nodes will be spawned.
         :param root_volume_type: * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
         * `sbs_5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
@@ -1569,41 +1567,6 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ExternalNodeAuth(res.json())
-
-    async def create_external_node(
-        self,
-        *,
-        pool_id: str,
-        region: Optional[ScwRegion] = None,
-    ) -> ExternalNode:
-        """
-        Create a Kosmos node.
-        Retrieve metadata for a Kosmos node. This method is not intended to be called by end users but rather programmatically by the kapsule-node-agent.
-        :param pool_id:
-        :param region: Region to target. If none is passed will use default region from the config.
-        :return: :class:`ExternalNode <ExternalNode>`
-
-        Usage:
-        ::
-
-            result = await api.create_external_node(
-                pool_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_pool_id = validate_path_param("pool_id", pool_id)
-
-        res = self._request(
-            "POST",
-            f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/external-nodes",
-            body={},
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ExternalNode(res.json())
 
     async def list_nodes(
         self,
