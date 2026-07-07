@@ -26,6 +26,7 @@ from .types import (
     BatchCreateMailboxesRequest,
     CreateAliasRequest,
     CreateDomainRequest,
+    UpdateAliasRequest,
     UpdateMailboxRequest,
 )
 
@@ -562,6 +563,18 @@ def marshal_CreateDomainRequest(
         output["project_id"] = request.project_id
     else:
         output["project_id"] = defaults.default_project_id
+
+    return output
+
+
+def marshal_UpdateAliasRequest(
+    request: UpdateAliasRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
 
     return output
 

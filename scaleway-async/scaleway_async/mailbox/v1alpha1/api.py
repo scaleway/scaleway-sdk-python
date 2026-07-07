@@ -30,6 +30,7 @@ from .types import (
     ListDomainsResponse,
     ListMailboxesResponse,
     Mailbox,
+    UpdateAliasRequest,
     UpdateMailboxRequest,
 )
 from .content import (
@@ -49,6 +50,7 @@ from .marshalling import (
     marshal_BatchCreateMailboxesRequest,
     marshal_CreateAliasRequest,
     marshal_CreateDomainRequest,
+    marshal_UpdateAliasRequest,
     marshal_UpdateMailboxRequest,
 )
 
@@ -789,6 +791,43 @@ class MailboxV1Alpha1API(API):
                 "alias_id": alias_id,
             },
         )
+
+    async def update_alias(
+        self,
+        *,
+        alias_id: str,
+        description: Optional[str] = None,
+    ) -> Alias:
+        """
+        Update an alias by its ID.
+        :param alias_id: ID of the alias to update.
+        :param description: (Optional) Description of the alias.
+        :return: :class:`Alias <Alias>`
+
+        Usage:
+        ::
+
+            result = await api.update_alias(
+                alias_id="example",
+            )
+        """
+
+        param_alias_id = validate_path_param("alias_id", alias_id)
+
+        res = self._request(
+            "PATCH",
+            f"/mailbox/v1alpha1/aliases/{param_alias_id}",
+            body=marshal_UpdateAliasRequest(
+                UpdateAliasRequest(
+                    alias_id=alias_id,
+                    description=description,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Alias(res.json())
 
     async def delete_alias(
         self,

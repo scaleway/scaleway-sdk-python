@@ -38,6 +38,7 @@ from .types import ListDomainsResponse
 from .types import ListMailboxesRequest
 from .types import ListMailboxesResponse
 from .types import RestoreMailboxRequest
+from .types import UpdateAliasRequest
 from .types import UpdateMailboxRequest
 from .types import ValidateDomainRecordsRequest
 from .api import MailboxV1Alpha1API
@@ -81,6 +82,7 @@ __all__ = [
     "ListMailboxesRequest",
     "ListMailboxesResponse",
     "RestoreMailboxRequest",
+    "UpdateAliasRequest",
     "UpdateMailboxRequest",
     "ValidateDomainRecordsRequest",
     "MailboxV1Alpha1API",
