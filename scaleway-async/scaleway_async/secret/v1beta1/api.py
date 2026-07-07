@@ -260,7 +260,10 @@ class SecretV1Beta1API(API):
     ) -> ListSecretsResponse:
         """
         List secrets.
-        Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
+        Retrieve the list of secrets created within an Organization and/or Project.
+        If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+        If the user has permissions for all current projects or only specific projects: The `project_id` is required.
+        The `region` parameter in path is needed in both case.
         :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
@@ -327,7 +330,10 @@ class SecretV1Beta1API(API):
     ) -> list[Secret]:
         """
         List secrets.
-        Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
+        Retrieve the list of secrets created within an Organization and/or Project.
+        If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+        If the user has permissions for all current projects or only specific projects: The `project_id` is required.
+        The `region` parameter in path is needed in both case.
         :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
