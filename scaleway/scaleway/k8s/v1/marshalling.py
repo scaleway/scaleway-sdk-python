@@ -34,8 +34,6 @@ from .types import (
     Pool,
     ACLRule,
     AddClusterACLRulesResponse,
-    ExternalNodeCoreV1Taint,
-    ExternalNode,
     ExternalNodeAuth,
     ListClusterACLRulesResponse,
     ClusterType,
@@ -659,13 +657,13 @@ def unmarshal_PoolUpgradePolicy(data: Any) -> PoolUpgradePolicy:
     if field is not None:
         args["max_unavailable"] = field
     else:
-        args["max_unavailable"] = None
+        args["max_unavailable"] = 0
 
     field = data.get("max_surge", None)
     if field is not None:
         args["max_surge"] = field
     else:
-        args["max_surge"] = None
+        args["max_surge"] = 0
 
     return PoolUpgradePolicy(**args)
 
@@ -911,134 +909,6 @@ def unmarshal_AddClusterACLRulesResponse(data: Any) -> AddClusterACLRulesRespons
         args["rules"] = []
 
     return AddClusterACLRulesResponse(**args)
-
-
-def unmarshal_ExternalNodeCoreV1Taint(data: Any) -> ExternalNodeCoreV1Taint:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ExternalNodeCoreV1Taint' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("key", None)
-    if field is not None:
-        args["key"] = field
-    else:
-        args["key"] = None
-
-    field = data.get("value", None)
-    if field is not None:
-        args["value"] = field
-    else:
-        args["value"] = None
-
-    field = data.get("effect", None)
-    if field is not None:
-        args["effect"] = field
-    else:
-        args["effect"] = None
-
-    return ExternalNodeCoreV1Taint(**args)
-
-
-def unmarshal_ExternalNode(data: Any) -> ExternalNode:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ExternalNode' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-    else:
-        args["name"] = None
-
-    field = data.get("cluster_url", None)
-    if field is not None:
-        args["cluster_url"] = field
-    else:
-        args["cluster_url"] = None
-
-    field = data.get("pool_version", None)
-    if field is not None:
-        args["pool_version"] = field
-    else:
-        args["pool_version"] = None
-
-    field = data.get("cluster_ca", None)
-    if field is not None:
-        args["cluster_ca"] = field
-    else:
-        args["cluster_ca"] = None
-
-    field = data.get("kube_token", None)
-    if field is not None:
-        args["kube_token"] = field
-    else:
-        args["kube_token"] = None
-
-    field = data.get("kubelet_config", None)
-    if field is not None:
-        args["kubelet_config"] = field
-    else:
-        args["kubelet_config"] = None
-
-    field = data.get("external_ip", None)
-    if field is not None:
-        args["external_ip"] = field
-    else:
-        args["external_ip"] = None
-
-    field = data.get("containerd_version", None)
-    if field is not None:
-        args["containerd_version"] = field
-    else:
-        args["containerd_version"] = None
-
-    field = data.get("runc_version", None)
-    if field is not None:
-        args["runc_version"] = field
-    else:
-        args["runc_version"] = None
-
-    field = data.get("cni_plugins_version", None)
-    if field is not None:
-        args["cni_plugins_version"] = field
-    else:
-        args["cni_plugins_version"] = None
-
-    field = data.get("node_labels", None)
-    if field is not None:
-        args["node_labels"] = field
-    else:
-        args["node_labels"] = None
-
-    field = data.get("node_taints", None)
-    if field is not None:
-        args["node_taints"] = (
-            [unmarshal_ExternalNodeCoreV1Taint(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["node_taints"] = None
-
-    field = data.get("iam_token", None)
-    if field is not None:
-        args["iam_token"] = field
-    else:
-        args["iam_token"] = None
-
-    return ExternalNode(**args)
 
 
 def unmarshal_ExternalNodeAuth(data: Any) -> ExternalNodeAuth:
