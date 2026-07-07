@@ -468,7 +468,10 @@ class KeyManagerV1Alpha1API(API):
     ) -> ListKeysResponse:
         """
         List keys.
-        Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+        Retrieve a list of keys across all Projects in an Organization or within a specific Project.
+        If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+        If the user has permissions for all current projects or only specific projects: The project_id is required.
+        The `region` parameter in path is needed in both case.
         :param scheduled_for_deletion: Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
@@ -529,7 +532,10 @@ class KeyManagerV1Alpha1API(API):
     ) -> list[Key]:
         """
         List keys.
-        Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+        Retrieve a list of keys across all Projects in an Organization or within a specific Project.
+        If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+        If the user has permissions for all current projects or only specific projects: The project_id is required.
+        The `region` parameter in path is needed in both case.
         :param scheduled_for_deletion: Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
@@ -821,7 +827,7 @@ class KeyManagerV1Alpha1API(API):
         Import key material.
         Import externally generated key material into Key Manager to derive a new cryptographic key. The key's origin must be `external`.
         :param key_id: The key's origin must be `external`.
-        :param key_material: The key material The key material is a random sequence of bytes used to derive a cryptographic key.
+        :param key_material: The key material is a random sequence of bytes used to derive a cryptographic key.
         :param region: Region to target. If none is passed will use default region from the config.
         :param salt: A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
         :return: :class:`Key <Key>`
