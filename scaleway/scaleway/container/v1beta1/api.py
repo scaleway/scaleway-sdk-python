@@ -94,7 +94,11 @@ from .marshalling import (
 
 class ContainerV1Beta1API(API):
     """
-    This API allows you to manage your Serverless Containers.
+    **[DEPRECATED]** This API is deprecated. Please use the [Serverless Containers API v1](https://www.scaleway.com/en/developers/api/serverless-containers/),
+    which provides the same capabilities and more, with improved performance and support for the latest features.
+
+    Follow the [migration guide](https://www.scaleway.com/en/developers/api/serverless-containers/migration-guide/) to migrate your custom API integrations to the new v1 API.
+    Note that no redeployment or action is necessary to continue managing your existing containers; both APIs have access to the same resources.
     """
 
     def list_namespaces(
@@ -119,6 +123,7 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the namespace belongs to.
         :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`ListNamespacesResponse <ListNamespacesResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -169,6 +174,7 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the namespace belongs to.
         :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`list[Namespace] <list[Namespace]>`
+        :deprecated
 
         Usage:
         ::
@@ -203,6 +209,7 @@ class ContainerV1Beta1API(API):
         :param namespace_id: UUID of the namespace to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
+        :deprecated
 
         Usage:
         ::
@@ -238,6 +245,7 @@ class ContainerV1Beta1API(API):
         :param namespace_id: UUID of the namespace to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
+        :deprecated
 
         Usage:
         ::
@@ -286,6 +294,7 @@ class ContainerV1Beta1API(API):
         :param tags: Tags of the Serverless Container Namespace.
         :param activate_vpc_integration: Setting this field to true doesn't matter anymore. It will be removed in a near future.
         :return: :class:`Namespace <Namespace>`
+        :deprecated
 
         Usage:
         ::
@@ -338,6 +347,7 @@ class ContainerV1Beta1API(API):
         :param secret_environment_variables: Secret environment variables of the namespace to update.
         :param tags: Tags of the Serverless Container Namespace.
         :return: :class:`Namespace <Namespace>`
+        :deprecated
 
         Usage:
         ::
@@ -383,6 +393,7 @@ class ContainerV1Beta1API(API):
         :param namespace_id: UUID of the namespace to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
+        :deprecated
 
         Usage:
         ::
@@ -429,6 +440,7 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the container belongs to.
         :param project_id: UUID of the Project the container belongs to.
         :return: :class:`ListContainersResponse <ListContainersResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -484,6 +496,7 @@ class ContainerV1Beta1API(API):
         :param organization_id: UUID of the Organization the container belongs to.
         :param project_id: UUID of the Project the container belongs to.
         :return: :class:`list[Container] <list[Container]>`
+        :deprecated
 
         Usage:
         ::
@@ -521,6 +534,7 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
+        :deprecated
 
         Usage:
         ::
@@ -556,6 +570,7 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
+        :deprecated
 
         Usage:
         ::
@@ -646,6 +661,7 @@ class ContainerV1Beta1API(API):
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
+        :deprecated
 
         Usage:
         ::
@@ -779,6 +795,7 @@ class ContainerV1Beta1API(API):
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
+        :deprecated
 
         Usage:
         ::
@@ -843,6 +860,7 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
+        :deprecated
 
         Usage:
         ::
@@ -881,6 +899,7 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to deploy.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Container <Container>`
+        :deprecated
 
         Usage:
         ::
@@ -921,6 +940,7 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
         :return: :class:`ListCronsResponse <ListCronsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -965,6 +985,7 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
         :return: :class:`list[Cron] <list[Cron]>`
+        :deprecated
 
         Usage:
         ::
@@ -999,6 +1020,7 @@ class ContainerV1Beta1API(API):
         :param cron_id: UUID of the cron to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
+        :deprecated
 
         Usage:
         ::
@@ -1034,6 +1056,7 @@ class ContainerV1Beta1API(API):
         :param cron_id: UUID of the cron to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
+        :deprecated
 
         Usage:
         ::
@@ -1075,6 +1098,7 @@ class ContainerV1Beta1API(API):
         :param args: Arguments to pass with the cron.
         :param name: Name of the cron to create.
         :return: :class:`Cron <Cron>`
+        :deprecated
 
         Usage:
         ::
@@ -1127,6 +1151,7 @@ class ContainerV1Beta1API(API):
         :param args: Arguments to pass with the cron.
         :param name: Name of the cron.
         :return: :class:`Cron <Cron>`
+        :deprecated
 
         Usage:
         ::
@@ -1172,6 +1197,7 @@ class ContainerV1Beta1API(API):
         :param cron_id: UUID of the cron to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
+        :deprecated
 
         Usage:
         ::
@@ -1212,6 +1238,7 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1257,6 +1284,7 @@ class ContainerV1Beta1API(API):
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
         :return: :class:`list[Domain] <list[Domain]>`
+        :deprecated
 
         Usage:
         ::
@@ -1291,6 +1319,7 @@ class ContainerV1Beta1API(API):
         :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
+        :deprecated
 
         Usage:
         ::
@@ -1326,6 +1355,7 @@ class ContainerV1Beta1API(API):
         :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
+        :deprecated
 
         Usage:
         ::
@@ -1364,6 +1394,7 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container to assign the domain to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
+        :deprecated
 
         Usage:
         ::
@@ -1406,6 +1437,7 @@ class ContainerV1Beta1API(API):
         :param domain_id: UUID of the domain to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
+        :deprecated
 
         Usage:
         ::
@@ -1490,6 +1522,7 @@ class ContainerV1Beta1API(API):
         :param token_id: UUID of the token to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
+        :deprecated
 
         Usage:
         ::
@@ -1525,6 +1558,7 @@ class ContainerV1Beta1API(API):
         :param token_id: UUID of the token to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
+        :deprecated
 
         Usage:
         ::
@@ -1569,6 +1603,7 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container the token belongs to.
         :param namespace_id: UUID of the namespace the token belongs to.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1615,6 +1650,7 @@ class ContainerV1Beta1API(API):
         :param container_id: UUID of the container the token belongs to.
         :param namespace_id: UUID of the namespace the token belongs to.
         :return: :class:`list[Token] <list[Token]>`
+        :deprecated
 
         Usage:
         ::
@@ -1648,6 +1684,7 @@ class ContainerV1Beta1API(API):
         :param token_id: UUID of the token to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
+        :deprecated
 
         Usage:
         ::
@@ -1695,6 +1732,7 @@ class ContainerV1Beta1API(API):
         :param sqs_config: Configuration for an AWS SQS queue.
         One-Of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
         :return: :class:`Trigger <Trigger>`
+        :deprecated
 
         Usage:
         ::
@@ -1741,6 +1779,7 @@ class ContainerV1Beta1API(API):
         :param trigger_id: ID of the trigger to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
+        :deprecated
 
         Usage:
         ::
@@ -1776,6 +1815,7 @@ class ContainerV1Beta1API(API):
         :param trigger_id: ID of the trigger to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
+        :deprecated
 
         Usage:
         ::
@@ -1825,6 +1865,7 @@ class ContainerV1Beta1API(API):
         :param project_id: ID of the project the triggers belongs to.
         One-Of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
         :return: :class:`ListTriggersResponse <ListTriggersResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1881,6 +1922,7 @@ class ContainerV1Beta1API(API):
         :param project_id: ID of the project the triggers belongs to.
         One-Of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
         :return: :class:`list[Trigger] <list[Trigger]>`
+        :deprecated
 
         Usage:
         ::
@@ -1922,6 +1964,7 @@ class ContainerV1Beta1API(API):
         :param sqs_config: Configuration for an AWS SQS queue.
         One-Of ('config'): at most one of 'sqs_config' could be set.
         :return: :class:`Trigger <Trigger>`
+        :deprecated
 
         Usage:
         ::
@@ -1966,6 +2009,7 @@ class ContainerV1Beta1API(API):
         :param trigger_id: ID of the trigger to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
+        :deprecated
 
         Usage:
         ::

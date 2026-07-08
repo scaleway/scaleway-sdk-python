@@ -48,6 +48,15 @@ from .types import PublicCatalogProductPropertiesObjectStorageClassType
 from .types import PublicCatalogProductPropertiesObjectStorageInternetTrafficType
 from .types import PublicCatalogProductPropertiesObjectStorageRegionTrafficType
 from .types import PublicCatalogProductPropertiesObjectStorageRestoreType
+from .types import PublicCatalogProductPropertiesServerlessContainersCPUType
+from .types import PublicCatalogProductPropertiesServerlessContainersMemoryType
+from .types import PublicCatalogProductPropertiesServerlessFunctionsConsumptionType
+from .types import PublicCatalogProductPropertiesServerlessFunctionsFreeTierType
+from .types import PublicCatalogProductPropertiesServerlessFunctionsProvisionType
+from .types import PublicCatalogProductPropertiesServerlessFunctionsRequestType
+from .types import PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource
+from .types import PublicCatalogProductPropertiesServerlessJobsCPUType
+from .types import PublicCatalogProductPropertiesServerlessJobsMemoryType
 from .types import PublicCatalogProductPropertiesApacheKafka
 from .types import PublicCatalogProductPropertiesAppleSilicon
 from .types import PublicCatalogProductPropertiesBlockStorage
@@ -120,6 +129,15 @@ __all__ = [
     "PublicCatalogProductPropertiesObjectStorageInternetTrafficType",
     "PublicCatalogProductPropertiesObjectStorageRegionTrafficType",
     "PublicCatalogProductPropertiesObjectStorageRestoreType",
+    "PublicCatalogProductPropertiesServerlessContainersCPUType",
+    "PublicCatalogProductPropertiesServerlessContainersMemoryType",
+    "PublicCatalogProductPropertiesServerlessFunctionsConsumptionType",
+    "PublicCatalogProductPropertiesServerlessFunctionsFreeTierType",
+    "PublicCatalogProductPropertiesServerlessFunctionsProvisionType",
+    "PublicCatalogProductPropertiesServerlessFunctionsRequestType",
+    "PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource",
+    "PublicCatalogProductPropertiesServerlessJobsCPUType",
+    "PublicCatalogProductPropertiesServerlessJobsMemoryType",
     "PublicCatalogProductPropertiesApacheKafka",
     "PublicCatalogProductPropertiesAppleSilicon",
     "PublicCatalogProductPropertiesBlockStorage",

@@ -1163,14 +1163,6 @@ class GetNamespaceRequest:
 
 
 @dataclass
-class GetServiceInfoRequest:
-    region: Optional[ScwRegion] = None
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
 class GetTriggerRequest:
     trigger_id: str
     """
