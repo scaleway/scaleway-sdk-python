@@ -105,6 +105,7 @@ class PublicCatalogProductPropertiesGenerativeApisTokenType(
     INPUT_TOKEN = "input_token"
     OUTPUT_TOKEN = "output_token"
     INPUT_DURATION = "input_duration"
+    INPUT_CACHED_TOKEN = "input_cached_token"
 
     def __str__(self) -> str:
         return str(self.value)
