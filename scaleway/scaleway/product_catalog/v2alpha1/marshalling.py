@@ -43,6 +43,15 @@ from .types import (
     PublicCatalogProductPropertiesObjectStorageInternetTrafficType,
     PublicCatalogProductPropertiesObjectStorageRegionTrafficType,
     PublicCatalogProductPropertiesObjectStorageRestoreType,
+    PublicCatalogProductPropertiesServerlessContainersCPUType,
+    PublicCatalogProductPropertiesServerlessContainersMemoryType,
+    PublicCatalogProductPropertiesServerlessFunctionsConsumptionType,
+    PublicCatalogProductPropertiesServerlessFunctionsFreeTierType,
+    PublicCatalogProductPropertiesServerlessFunctionsProvisionType,
+    PublicCatalogProductPropertiesServerlessFunctionsRequestType,
+    PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource,
+    PublicCatalogProductPropertiesServerlessJobsCPUType,
+    PublicCatalogProductPropertiesServerlessJobsMemoryType,
     PublicCatalogProductPropertiesApacheKafka,
     PublicCatalogProductPropertiesAppleSilicon,
     PublicCatalogProductPropertiesBlockStorage,
@@ -635,6 +644,159 @@ def unmarshal_PublicCatalogProductPropertiesObjectStorageRestoreType(
     return PublicCatalogProductPropertiesObjectStorageRestoreType(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesServerlessContainersCPUType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessContainersCPUType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessContainersCPUType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("mvcpu_counts", None)
+    if field is not None:
+        args["mvcpu_counts"] = field
+    else:
+        args["mvcpu_counts"] = []
+
+    return PublicCatalogProductPropertiesServerlessContainersCPUType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessContainersMemoryType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessContainersMemoryType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessContainersMemoryType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("sizes", None)
+    if field is not None:
+        args["sizes"] = field
+    else:
+        args["sizes"] = []
+
+    return PublicCatalogProductPropertiesServerlessContainersMemoryType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessFunctionsConsumptionType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessFunctionsConsumptionType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessFunctionsConsumptionType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesServerlessFunctionsConsumptionType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessFunctionsFreeTierType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessFunctionsFreeTierType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessFunctionsFreeTierType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesServerlessFunctionsFreeTierType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessFunctionsProvisionType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessFunctionsProvisionType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessFunctionsProvisionType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesServerlessFunctionsProvisionType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessFunctionsRequestType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessFunctionsRequestType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessFunctionsRequestType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesServerlessFunctionsRequestType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("memory_size", None)
+    if field is not None:
+        args["memory_size"] = field
+    else:
+        args["memory_size"] = 0
+
+    field = data.get("mvcpu_count", None)
+    if field is not None:
+        args["mvcpu_count"] = field
+    else:
+        args["mvcpu_count"] = 0
+
+    return PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessJobsCPUType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessJobsCPUType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessJobsCPUType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("mvcpu_counts", None)
+    if field is not None:
+        args["mvcpu_counts"] = field
+    else:
+        args["mvcpu_counts"] = []
+
+    return PublicCatalogProductPropertiesServerlessJobsCPUType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesServerlessJobsMemoryType(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessJobsMemoryType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessJobsMemoryType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("sizes", None)
+    if field is not None:
+        args["sizes"] = field
+    else:
+        args["sizes"] = []
+
+    return PublicCatalogProductPropertiesServerlessJobsMemoryType(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesApacheKafka(
     data: Any,
 ) -> PublicCatalogProductPropertiesApacheKafka:
@@ -1191,6 +1353,24 @@ def unmarshal_PublicCatalogProductPropertiesServerlessContainers(
 
     args: dict[str, Any] = {}
 
+    field = data.get("memory", None)
+    if field is not None:
+        args["memory"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessContainersMemoryType(
+                field
+            )
+        )
+    else:
+        args["memory"] = None
+
+    field = data.get("cpu", None)
+    if field is not None:
+        args["cpu"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessContainersCPUType(field)
+        )
+    else:
+        args["cpu"] = None
+
     return PublicCatalogProductPropertiesServerlessContainers(**args)
 
 
@@ -1204,6 +1384,61 @@ def unmarshal_PublicCatalogProductPropertiesServerlessFunctions(
 
     args: dict[str, Any] = {}
 
+    field = data.get("resources", None)
+    if field is not None:
+        args["resources"] = (
+            [
+                unmarshal_PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource(
+                    v
+                )
+                for v in field
+            ]
+            if field is not None
+            else None
+        )
+    else:
+        args["resources"] = []
+
+    field = data.get("consumption", None)
+    if field is not None:
+        args["consumption"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessFunctionsConsumptionType(
+                field
+            )
+        )
+    else:
+        args["consumption"] = None
+
+    field = data.get("request", None)
+    if field is not None:
+        args["request"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessFunctionsRequestType(
+                field
+            )
+        )
+    else:
+        args["request"] = None
+
+    field = data.get("provision", None)
+    if field is not None:
+        args["provision"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessFunctionsProvisionType(
+                field
+            )
+        )
+    else:
+        args["provision"] = None
+
+    field = data.get("free_tier", None)
+    if field is not None:
+        args["free_tier"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessFunctionsFreeTierType(
+                field
+            )
+        )
+    else:
+        args["free_tier"] = None
+
     return PublicCatalogProductPropertiesServerlessFunctions(**args)
 
 
@@ -1216,6 +1451,22 @@ def unmarshal_PublicCatalogProductPropertiesServerlessJobs(
         )
 
     args: dict[str, Any] = {}
+
+    field = data.get("memory", None)
+    if field is not None:
+        args["memory"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessJobsMemoryType(field)
+        )
+    else:
+        args["memory"] = None
+
+    field = data.get("cpu", None)
+    if field is not None:
+        args["cpu"] = unmarshal_PublicCatalogProductPropertiesServerlessJobsCPUType(
+            field
+        )
+    else:
+        args["cpu"] = None
 
     return PublicCatalogProductPropertiesServerlessJobs(**args)
 
