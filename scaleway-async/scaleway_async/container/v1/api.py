@@ -6,8 +6,6 @@ from typing import Awaitable, Optional, Union
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region as ScwRegion,
-    ServiceInfo,
-    unmarshal_ServiceInfo,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -82,33 +80,6 @@ class ContainerV1API(API):
     """
     Easily run containers on the cloud with a single command.
     """
-
-    async def get_service_info(
-        self,
-        *,
-        region: Optional[ScwRegion] = None,
-    ) -> ServiceInfo:
-        """
-        :param region: Region to target. If none is passed will use default region from the config.
-        :return: :class:`ServiceInfo <ServiceInfo>`
-
-        Usage:
-        ::
-
-            result = await api.get_service_info()
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "GET",
-            f"/containers/v1/regions/{param_region}",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ServiceInfo(res.json())
 
     async def create_namespace(
         self,
