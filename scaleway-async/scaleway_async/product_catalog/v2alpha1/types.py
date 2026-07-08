@@ -525,6 +525,71 @@ class PublicCatalogProductPropertiesObjectStorageRestoreType:
 
 
 @dataclass
+class PublicCatalogProductPropertiesServerlessContainersCPUType:
+    mvcpu_counts: list[int]
+    """
+    The list of available number of milli-vCPUs.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessContainersMemoryType:
+    sizes: list[int]
+    """
+    The list of available memory size in bytes.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessFunctionsConsumptionType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessFunctionsFreeTierType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessFunctionsProvisionType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessFunctionsRequestType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource:
+    memory_size: int
+    """
+    The memory size in bytes.
+    """
+
+    mvcpu_count: int
+    """
+    The number of milli-vCPUs.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessJobsCPUType:
+    mvcpu_counts: list[int]
+    """
+    The list of available number of milli-vCPUs.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesServerlessJobsMemoryType:
+    sizes: list[int]
+    """
+    The list of available memory size in bytes.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesApacheKafka:
     pass
 
@@ -741,17 +806,42 @@ class PublicCatalogProductPropertiesSecretManager:
 
 @dataclass
 class PublicCatalogProductPropertiesServerlessContainers:
-    pass
+    memory: Optional[PublicCatalogProductPropertiesServerlessContainersMemoryType] = (
+        None
+    )
+
+    cpu: Optional[PublicCatalogProductPropertiesServerlessContainersCPUType] = None
 
 
 @dataclass
 class PublicCatalogProductPropertiesServerlessFunctions:
-    pass
+    resources: list[PublicCatalogProductPropertiesServerlessFunctionsRuntimeResource]
+    """
+    The serverless functions runtime resources sorted by memory size and then by milli-vCPU count.
+    """
+
+    consumption: Optional[
+        PublicCatalogProductPropertiesServerlessFunctionsConsumptionType
+    ] = None
+
+    request: Optional[PublicCatalogProductPropertiesServerlessFunctionsRequestType] = (
+        None
+    )
+
+    provision: Optional[
+        PublicCatalogProductPropertiesServerlessFunctionsProvisionType
+    ] = None
+
+    free_tier: Optional[
+        PublicCatalogProductPropertiesServerlessFunctionsFreeTierType
+    ] = None
 
 
 @dataclass
 class PublicCatalogProductPropertiesServerlessJobs:
-    pass
+    memory: Optional[PublicCatalogProductPropertiesServerlessJobsMemoryType] = None
+
+    cpu: Optional[PublicCatalogProductPropertiesServerlessJobsCPUType] = None
 
 
 @dataclass
