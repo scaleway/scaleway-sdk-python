@@ -848,6 +848,12 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["private_network_id"] = None
 
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+    else:
+        args["error_message"] = None
+
     return Pool(**args)
 
 
