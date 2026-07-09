@@ -1130,6 +1130,11 @@ class Pool:
     Private network where the nodes are attached. Should be member of the same VPC as the API Server.
     """
 
+    error_message: Optional[str] = None
+    """
+    Details of the error, if any occurred when managing the pool.
+    """
+
 
 @dataclass
 class NodeMetadataCoreV1Taint:
