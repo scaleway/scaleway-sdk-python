@@ -63,6 +63,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SEDB_CLUSTER = "sedb_cluster"
     MSGQ_CLUSTER = "msgq_cluster"
     EDGE_VPC_ENDPOINT = "edge_vpc_endpoint"
+    DVIZ_CLUSTER = "dviz_cluster"
 
     def __str__(self) -> str:
         return str(self.value)
