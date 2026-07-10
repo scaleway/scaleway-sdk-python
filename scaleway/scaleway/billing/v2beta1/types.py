@@ -76,6 +76,7 @@ class InvoiceType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     PERIODIC = "periodic"
     PURCHASE = "purchase"
+    CREDIT_NOTE = "credit_note"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -464,7 +465,7 @@ class ExportInvoicesRequest:
 
     invoice_type: Optional[InvoiceType] = InvoiceType.UNKNOWN_TYPE
     """
-    Invoice type. It can either be `periodic` or `purchase`.
+    Invoice type. It can either be `periodic`, `purchase` or `credit_note`.
     """
 
     page: Optional[int] = 0
@@ -692,7 +693,7 @@ class ListInvoicesRequest:
 
     invoice_type: Optional[InvoiceType] = InvoiceType.UNKNOWN_TYPE
     """
-    Invoice type. It can either be `periodic` or `purchase`.
+    Invoice type. It can either be `periodic`, `purchase` or `credit_note`.
     """
 
     page: Optional[int] = 0

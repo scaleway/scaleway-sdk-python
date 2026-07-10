@@ -245,7 +245,7 @@ class BillingV2Beta1API(API):
         :param organization_id: Organization ID. If specified, only invoices from this Organization will be returned.
         :param billing_period_start_after: Return only invoice with start date greater than billing_period_start.
         :param billing_period_start_before: Return only invoice with start date less than billing_period_start.
-        :param invoice_type: Invoice type. It can either be `periodic` or `purchase`.
+        :param invoice_type: Invoice type. It can either be `periodic`, `purchase` or `credit_note`.
         :param page: Page number.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
@@ -292,7 +292,7 @@ class BillingV2Beta1API(API):
         :param organization_id: Organization ID. If specified, only invoices from this Organization will be returned.
         :param billing_period_start_after: Return only invoice with start date greater than billing_period_start.
         :param billing_period_start_before: Return only invoice with start date less than billing_period_start.
-        :param invoice_type: Invoice type. It can either be `periodic` or `purchase`.
+        :param invoice_type: Invoice type. It can either be `periodic`, `purchase` or `credit_note`.
         :param page: Page number.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
@@ -337,7 +337,7 @@ class BillingV2Beta1API(API):
         :param organization_id: Organization ID. If specified, only invoices from this Organization will be returned.
         :param billing_period_start_after: Return only invoice with start date greater than billing_period_start.
         :param billing_period_start_before: Return only invoice with start date less than billing_period_start.
-        :param invoice_type: Invoice type. It can either be `periodic` or `purchase`.
+        :param invoice_type: Invoice type. It can either be `periodic`, `purchase` or `credit_note`.
         :param page: Page number.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
