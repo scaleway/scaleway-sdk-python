@@ -175,9 +175,19 @@ class Charge:
     ID of the charged organization.
     """
 
+    organization_name: str
+    """
+    Name of the charged organization.
+    """
+
     project_id: str
     """
     ID of the charged project.
+    """
+
+    project_name: str
+    """
+    Name of the charged project.
     """
 
     sku: str

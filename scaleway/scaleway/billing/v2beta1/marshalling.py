@@ -290,11 +290,23 @@ def unmarshal_Charge(data: Any) -> Charge:
     else:
         args["organization_id"] = None
 
+    field = data.get("organization_name", None)
+    if field is not None:
+        args["organization_name"] = field
+    else:
+        args["organization_name"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
     else:
         args["project_id"] = None
+
+    field = data.get("project_name", None)
+    if field is not None:
+        args["project_name"] = field
+    else:
+        args["project_name"] = None
 
     field = data.get("sku", None)
     if field is not None:
