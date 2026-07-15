@@ -73,8 +73,26 @@ class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class EndpointPrivateNetworkDetails:
-    private_network_id: str
+class NodePrivateNetworkDetails:
+    node_name: str
+    """
+    Name  of the node.
+    """
+
+    shard: int
+    """
+    The ClickHouse shard to which the node belongs to.
+    """
+
+    replica: int
+    """
+    The ClickHouse replica to which the node belongs to.
+    """
+
+    ip_address: str
+    """
+    Private static IP address of that node.
+    """
 
 
 @dataclass
@@ -89,10 +107,15 @@ class EndpointService:
 
 
 @dataclass
-class EndpointSpecPrivateNetworkDetails:
+class PrivateNetworkDetails:
     private_network_id: str
     """
     UUID of the Private Network.
+    """
+
+    nodes: list[NodePrivateNetworkDetails]
+    """
+    List of nodes belonging to this private network and their details.
     """
 
 
@@ -118,7 +141,7 @@ class Endpoint:
     List of services associated with the endpoint.
     """
 
-    private_network: Optional[EndpointPrivateNetworkDetails] = None
+    private_network: Optional[PrivateNetworkDetails] = None
 
     public: Optional[EndpointPublicDetails] = None
 
@@ -127,7 +150,7 @@ class Endpoint:
 class EndpointSpec:
     public: Optional[EndpointSpecPublicDetails] = None
 
-    private_network: Optional[EndpointSpecPrivateNetworkDetails] = None
+    private_network: Optional[PrivateNetworkDetails] = None
 
 
 @dataclass
