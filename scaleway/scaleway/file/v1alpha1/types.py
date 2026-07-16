@@ -181,7 +181,7 @@ class CreateFileSystemRequest:
 
     size: int
     """
-    Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
+    Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
     """
 
     region: Optional[ScwRegion] = None
@@ -434,8 +434,8 @@ class UpdateFileSystemRequest:
 
     size: Optional[int] = 0
     """
-    Size in bytes, with a granularity of 100 GB (10^11 bytes).
-Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
+    Size in bytes, with a granularity in GB (10^9 bytes).
+Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)
