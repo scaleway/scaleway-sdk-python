@@ -11,9 +11,10 @@ from scaleway_core.utils import (
 )
 from .types import (
     DeploymentStatus,
-    EndpointPrivateNetworkDetails,
+    NodePrivateNetworkDetails,
     EndpointPublicDetails,
     EndpointService,
+    PrivateNetworkDetails,
     Endpoint,
     Database,
     Deployment,
@@ -26,7 +27,6 @@ from .types import (
     Version,
     ListVersionsResponse,
     CreateDatabaseRequest,
-    EndpointSpecPrivateNetworkDetails,
     EndpointSpecPublicDetails,
     EndpointSpec,
     CreateDeploymentRequest,
@@ -37,21 +37,39 @@ from .types import (
 )
 
 
-def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetworkDetails:
+def unmarshal_NodePrivateNetworkDetails(data: Any) -> NodePrivateNetworkDetails:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'EndpointPrivateNetworkDetails' failed as data isn't a dictionary."
+            "Unmarshalling the type 'NodePrivateNetworkDetails' failed as data isn't a dictionary."
         )
 
     args: dict[str, Any] = {}
 
-    field = data.get("private_network_id", None)
+    field = data.get("node_name", None)
     if field is not None:
-        args["private_network_id"] = field
+        args["node_name"] = field
     else:
-        args["private_network_id"] = None
+        args["node_name"] = None
 
-    return EndpointPrivateNetworkDetails(**args)
+    field = data.get("shard", None)
+    if field is not None:
+        args["shard"] = field
+    else:
+        args["shard"] = 0
+
+    field = data.get("replica", None)
+    if field is not None:
+        args["replica"] = field
+    else:
+        args["replica"] = 0
+
+    field = data.get("ip_address", None)
+    if field is not None:
+        args["ip_address"] = field
+    else:
+        args["ip_address"] = None
+
+    return NodePrivateNetworkDetails(**args)
 
 
 def unmarshal_EndpointPublicDetails(data: Any) -> EndpointPublicDetails:
@@ -88,6 +106,33 @@ def unmarshal_EndpointService(data: Any) -> EndpointService:
     return EndpointService(**args)
 
 
+def unmarshal_PrivateNetworkDetails(data: Any) -> PrivateNetworkDetails:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PrivateNetworkDetails' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
+    field = data.get("nodes", None)
+    if field is not None:
+        args["nodes"] = (
+            [unmarshal_NodePrivateNetworkDetails(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["nodes"] = []
+
+    return PrivateNetworkDetails(**args)
+
+
 def unmarshal_Endpoint(data: Any) -> Endpoint:
     if not isinstance(data, dict):
         raise TypeError(
@@ -118,7 +163,7 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
 
     field = data.get("private_network", None)
     if field is not None:
-        args["private_network"] = unmarshal_EndpointPrivateNetworkDetails(field)
+        args["private_network"] = unmarshal_PrivateNetworkDetails(field)
     else:
         args["private_network"] = None
 
@@ -507,14 +552,23 @@ def marshal_CreateDatabaseRequest(
     return output
 
 
-def marshal_EndpointSpecPrivateNetworkDetails(
-    request: EndpointSpecPrivateNetworkDetails,
+def marshal_NodePrivateNetworkDetails(
+    request: NodePrivateNetworkDetails,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
-    if request.private_network_id is not None:
-        output["private_network_id"] = request.private_network_id
+    if request.node_name is not None:
+        output["node_name"] = request.node_name
+
+    if request.shard is not None:
+        output["shard"] = request.shard
+
+    if request.replica is not None:
+        output["replica"] = request.replica
+
+    if request.ip_address is not None:
+        output["ip_address"] = request.ip_address
 
     return output
 
@@ -524,6 +578,23 @@ def marshal_EndpointSpecPublicDetails(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
+
+    return output
+
+
+def marshal_PrivateNetworkDetails(
+    request: PrivateNetworkDetails,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    if request.nodes is not None:
+        output["nodes"] = [
+            marshal_NodePrivateNetworkDetails(item, defaults) for item in request.nodes
+        ]
 
     return output
 
@@ -544,7 +615,7 @@ def marshal_EndpointSpec(
                 OneOfPossibility(
                     param="private_network",
                     value=request.private_network,
-                    marshal_func=marshal_EndpointSpecPrivateNetworkDetails,
+                    marshal_func=marshal_PrivateNetworkDetails,
                 ),
             ]
         ),
