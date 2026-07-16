@@ -405,7 +405,7 @@ class FileV1Alpha1API(API):
         Create a new filesystem.
         To create a new filesystem, you must specify a name, a size, and a project ID.
         :param name: Name of the filesystem.
-        :param size: Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
+        :param size: Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: UUID of the project the filesystem belongs to.
         :param type_: Type of the filesystem.
@@ -491,8 +491,8 @@ class FileV1Alpha1API(API):
         :param filesystem_id: UUID of the filesystem.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: When defined, is the new name of the filesystem.
-        :param size: Size in bytes, with a granularity of 100 GB (10^11 bytes).
-        Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
+        :param size: Size in bytes, with a granularity in GB (10^9 bytes).
+        Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
         :param tags: List of tags assigned to the filesystem.
         :return: :class:`FileSystem <FileSystem>`
 
