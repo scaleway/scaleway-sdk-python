@@ -31,6 +31,9 @@ class ProductCategory(str, Enum, metaclass=StrEnumMeta):
     MANAGED_REDIS = "managed_redis"
     MANAGED_INFERENCE = "managed_inference"
     GENERATIVE_APIS = "generative_apis"
+    SERVERLESS_FUNCTIONS = "serverless_functions"
+    SERVERLESS_CONTAINERS = "serverless_containers"
+    SERVERLESS_JOBS = "serverless_jobs"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -54,6 +57,7 @@ class ServiceCategory(str, Enum, metaclass=StrEnumMeta):
     CONTAINERS = "containers"
     DATABASES = "databases"
     AI = "ai"
+    SERVERLESS = "serverless"
 
     def __str__(self) -> str:
         return str(self.value)
