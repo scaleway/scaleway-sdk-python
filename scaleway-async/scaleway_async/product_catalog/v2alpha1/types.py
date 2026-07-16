@@ -655,6 +655,7 @@ class PublicCatalogProductPropertiesGenerativeApis:
     tasks: list[PublicCatalogProductPropertiesGenerativeApisTask]
     token_type: PublicCatalogProductPropertiesGenerativeApisTokenType
     supported_reasoning_values: list[str]
+    default_reasoning_value: Optional[str] = None
 
 
 @dataclass
