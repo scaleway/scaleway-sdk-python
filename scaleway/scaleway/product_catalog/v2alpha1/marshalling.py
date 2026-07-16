@@ -966,6 +966,12 @@ def unmarshal_PublicCatalogProductPropertiesGenerativeApis(
     else:
         args["supported_reasoning_values"] = None
 
+    field = data.get("default_reasoning_value", None)
+    if field is not None:
+        args["default_reasoning_value"] = field
+    else:
+        args["default_reasoning_value"] = None
+
     return PublicCatalogProductPropertiesGenerativeApis(**args)
 
 
