@@ -2317,6 +2317,11 @@ class ListLbsRequest:
     Filter by tag, only Load Balancers with one or more matching tags will be returned.
     """
 
+    lb_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter by lb_ids, only Load Balancers with these IDs will be returned.
+    """
+
 
 @dataclass
 class ListLbsResponse:
@@ -3897,6 +3902,11 @@ class ZonedApiListLbsRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     Filter by tag, only Load Balancers with one or more matching tags will be returned.
+    """
+
+    lb_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter by lb_ids, only Load Balancers with these IDs will be returned.
     """
 
 
