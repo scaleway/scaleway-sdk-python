@@ -141,6 +141,11 @@ class Endpoint:
     List of services associated with the endpoint.
     """
 
+    region: ScwRegion
+    """
+    Region of the deployment.
+    """
+
     private_network: Optional[PrivateNetworkDetails] = None
 
     public: Optional[EndpointPublicDetails] = None
@@ -163,6 +168,16 @@ class Database:
     size: int
     """
     Size of the database.
+    """
+
+    deployment_id: str
+    """
+    Identifier of the deployment.
+    """
+
+    region: ScwRegion
+    """
+    Region of the deployment.
     """
 
 
@@ -302,6 +317,16 @@ class User:
     is_admin: bool
     """
     Indicates if the user is an administrator.
+    """
+
+    deployment_id: str
+    """
+    Identifier of the deployment.
+    """
+
+    region: ScwRegion
+    """
+    Region of the deployment.
     """
 
 

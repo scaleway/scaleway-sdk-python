@@ -65,6 +65,8 @@ from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesGenerativeApis
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
+from .types import PublicCatalogProductPropertiesInstanceLocalSSDSnapshot
+from .types import PublicCatalogProductPropertiesInstanceLocalSSDStorage
 from .types import PublicCatalogProductPropertiesKeyManager
 from .types import PublicCatalogProductPropertiesKubernetes
 from .types import PublicCatalogProductPropertiesLoadBalancer
@@ -146,6 +148,8 @@ __all__ = [
     "PublicCatalogProductPropertiesGenerativeApis",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
+    "PublicCatalogProductPropertiesInstanceLocalSSDSnapshot",
+    "PublicCatalogProductPropertiesInstanceLocalSSDStorage",
     "PublicCatalogProductPropertiesKeyManager",
     "PublicCatalogProductPropertiesKubernetes",
     "PublicCatalogProductPropertiesLoadBalancer",

@@ -39,6 +39,8 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     SERVERLESS_JOBS = "serverless_jobs"
     APACHE_KAFKA = "apache_kafka"
     OPEN_SEARCH = "open_search"
+    INSTANCE_LOCAL_SSD_SNAPSHOT = "instance_local_ssd_snapshot"
+    INSTANCE_LOCAL_SSD_STORAGE = "instance_local_ssd_storage"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -705,6 +707,16 @@ class PublicCatalogProductPropertiesInstance:
 
 
 @dataclass
+class PublicCatalogProductPropertiesInstanceLocalSSDSnapshot:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesInstanceLocalSSDStorage:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesKeyManager:
     pass
 
@@ -924,6 +936,14 @@ class PublicCatalogProductProperties:
     apache_kafka: Optional[PublicCatalogProductPropertiesApacheKafka] = None
 
     open_search: Optional[PublicCatalogProductPropertiesOpenSearch] = None
+
+    instance_local_ssd_snapshot: Optional[
+        PublicCatalogProductPropertiesInstanceLocalSSDSnapshot
+    ] = None
+
+    instance_local_ssd_storage: Optional[
+        PublicCatalogProductPropertiesInstanceLocalSSDStorage
+    ] = None
 
 
 @dataclass
