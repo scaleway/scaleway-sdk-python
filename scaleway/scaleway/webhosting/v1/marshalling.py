@@ -2273,6 +2273,11 @@ def marshal_HostingApiUpdateHostingRequest(
     if request.protected is not None:
         output["protected"] = request.protected
 
+    if request.delete_hosting_after_commitment is not None:
+        output["delete_hosting_after_commitment"] = (
+            request.delete_hosting_after_commitment
+        )
+
     return output
 
 
