@@ -263,4 +263,10 @@ def unmarshal_SearchResourcesResponse(data: Any) -> SearchResourcesResponse:
     else:
         args["resources"] = []
 
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
     return SearchResourcesResponse(**args)

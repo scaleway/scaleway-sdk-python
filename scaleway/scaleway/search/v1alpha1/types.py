@@ -128,6 +128,20 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class SearchResourcesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    MODIFIED_AT_ASC = "modified_at_asc"
+    MODIFIED_AT_DESC = "modified_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+    TYPE_ASC = "type_asc"
+    TYPE_DESC = "type_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class BrmServerInfo:
     ip: str
@@ -269,10 +283,32 @@ class SearchResourcesRequest:
     Filter resources modified before this timestamp.
     """
 
+    page_token: Optional[str] = None
+    """
+    Leave empty or omit to fetch the first page.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of resources to retrieve per page.
+    """
+
+    order_by: Optional[SearchResourcesRequestOrderBy] = (
+        SearchResourcesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order in the response.
+    """
+
 
 @dataclass
 class SearchResourcesResponse:
     resources: list[Resource]
     """
     Top resources found.
+    """
+
+    next_page_token: str
+    """
+    If this string is empty, it means there are no more pages available.
     """
