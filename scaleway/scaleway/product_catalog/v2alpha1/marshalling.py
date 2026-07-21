@@ -60,6 +60,8 @@ from .types import (
     PublicCatalogProductPropertiesGenerativeApis,
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
+    PublicCatalogProductPropertiesInstanceLocalSSDSnapshot,
+    PublicCatalogProductPropertiesInstanceLocalSSDStorage,
     PublicCatalogProductPropertiesKeyManager,
     PublicCatalogProductPropertiesKubernetes,
     PublicCatalogProductPropertiesLoadBalancer,
@@ -1049,6 +1051,32 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
     return PublicCatalogProductPropertiesInstance(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesInstanceLocalSSDSnapshot(
+    data: Any,
+) -> PublicCatalogProductPropertiesInstanceLocalSSDSnapshot:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesInstanceLocalSSDSnapshot' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesInstanceLocalSSDSnapshot(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesInstanceLocalSSDStorage(
+    data: Any,
+) -> PublicCatalogProductPropertiesInstanceLocalSSDStorage:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesInstanceLocalSSDStorage' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesInstanceLocalSSDStorage(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesKeyManager(
     data: Any,
 ) -> PublicCatalogProductPropertiesKeyManager:
@@ -1719,6 +1747,22 @@ def unmarshal_PublicCatalogProductProperties(
         args["open_search"] = unmarshal_PublicCatalogProductPropertiesOpenSearch(field)
     else:
         args["open_search"] = None
+
+    field = data.get("instance_local_ssd_snapshot", None)
+    if field is not None:
+        args["instance_local_ssd_snapshot"] = (
+            unmarshal_PublicCatalogProductPropertiesInstanceLocalSSDSnapshot(field)
+        )
+    else:
+        args["instance_local_ssd_snapshot"] = None
+
+    field = data.get("instance_local_ssd_storage", None)
+    if field is not None:
+        args["instance_local_ssd_storage"] = (
+            unmarshal_PublicCatalogProductPropertiesInstanceLocalSSDStorage(field)
+        )
+    else:
+        args["instance_local_ssd_storage"] = None
 
     return PublicCatalogProductProperties(**args)
 
