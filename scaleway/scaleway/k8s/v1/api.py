@@ -1754,7 +1754,6 @@ class K8SV1API(API):
         :param node_id: ID of the node to replace.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
-        :deprecated
 
         Usage:
         ::
@@ -1818,15 +1817,13 @@ class K8SV1API(API):
         *,
         node_id: str,
         skip_drain: bool,
-        replace: bool,
         region: Optional[ScwRegion] = None,
     ) -> Node:
         """
         Delete a Node in a Cluster.
-        Delete a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
+        Delete a specific Node. Pool size is reduced by 1. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
         :param node_id: ID of the node to replace.
         :param skip_drain: Skip draining node from its workload (Note: this parameter is currently inactive).
-        :param replace: Add a new node after the deletion of this node.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
 
@@ -1836,7 +1833,6 @@ class K8SV1API(API):
             result = api.delete_node(
                 node_id="example",
                 skip_drain=False,
-                replace=False,
             )
         """
 
@@ -1849,7 +1845,6 @@ class K8SV1API(API):
             "DELETE",
             f"/k8s/v1/regions/{param_region}/nodes/{param_node_id}",
             params={
-                "replace": replace,
                 "skip_drain": skip_drain,
             },
         )
