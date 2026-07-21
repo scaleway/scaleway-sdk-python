@@ -1772,6 +1772,7 @@ class WebhostingV1HostingAPI(API):
         offer_options: Optional[list[OfferOptionRequest]] = None,
         offer_id: Optional[str] = None,
         protected: Optional[bool] = None,
+        delete_hosting_after_commitment: Optional[bool] = None,
     ) -> Hosting:
         """
         Update a Web Hosting plan.
@@ -1783,6 +1784,7 @@ class WebhostingV1HostingAPI(API):
         :param offer_options: List of the Web Hosting plan options IDs with their quantities.
         :param offer_id: ID of the new offer for the Web Hosting plan.
         :param protected: Whether the hosting is protected or not.
+        :param delete_hosting_after_commitment: Whether the hosting is deleted at the end of the commitment period.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -1810,6 +1812,7 @@ class WebhostingV1HostingAPI(API):
                     offer_options=offer_options,
                     offer_id=offer_id,
                     protected=protected,
+                    delete_hosting_after_commitment=delete_hosting_after_commitment,
                 ),
                 self.client,
             ),
