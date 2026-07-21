@@ -2214,6 +2214,11 @@ class HostingApiUpdateHostingRequest:
     Whether the hosting is protected or not.
     """
 
+    delete_hosting_after_commitment: Optional[bool] = False
+    """
+    Whether the hosting is deleted at the end of the commitment period.
+    """
+
 
 @dataclass
 class ListBackupItemsResponse:
