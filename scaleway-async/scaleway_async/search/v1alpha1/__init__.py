@@ -4,6 +4,7 @@ from .types import Locality
 from .types import ObsDatasourceInfoDataType
 from .types import ObsExporterInfoDestinationType
 from .types import ResourceType
+from .types import SearchResourcesRequestOrderBy
 from .types import BrmServerInfo
 from .types import ObsDatasourceInfo
 from .types import ObsExporterInfo
@@ -21,6 +22,7 @@ __all__ = [
     "ObsDatasourceInfoDataType",
     "ObsExporterInfoDestinationType",
     "ResourceType",
+    "SearchResourcesRequestOrderBy",
     "BrmServerInfo",
     "ObsDatasourceInfo",
     "ObsExporterInfo",
