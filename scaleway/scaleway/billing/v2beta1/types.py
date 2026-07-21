@@ -273,6 +273,16 @@ class ListConsumptionsResponseConsumption:
     Organization ID of the consumer for this consumption.
     """
 
+    project_name: str
+    """
+    Project name of the consumpiton.
+    """
+
+    organization_name: str
+    """
+    Organization name of the consumer for this consumption.
+    """
+
     value: Optional[Money] = None
     """
     Monetary value of the consumption.
