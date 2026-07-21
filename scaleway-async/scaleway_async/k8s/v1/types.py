@@ -1570,11 +1570,6 @@ class DeleteNodeRequest:
     Skip draining node from its workload (Note: this parameter is currently inactive).
     """
 
-    replace: bool
-    """
-    Add a new node after the deletion of this node.
-    """
-
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
