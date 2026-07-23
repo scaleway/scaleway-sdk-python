@@ -14,6 +14,8 @@ from scaleway_core.utils import (
 )
 from .types import (
     AlertRuleStatus,
+    CustomAlertRuleSeverity,
+    CustomAlertRuleStatus,
     ListAuthenticationEventsRequestOrderBy,
     ListCombinedEventsRequestOrderBy,
     ListEventsRequestOrderBy,
@@ -21,41 +23,61 @@ from .types import (
     ListSystemEventsRequestOrderBy,
     ResourceType,
     AlertRule,
+    CreateCustomAlertRuleRequest,
     CreateExportJobRequest,
+    CustomAlertRule,
     DisableAlertRulesRequest,
     DisableAlertRulesResponse,
+    DisableCustomAlertRulesRequest,
+    DisableCustomAlertRulesResponse,
     EnableAlertRulesRequest,
     EnableAlertRulesResponse,
+    EnableCustomAlertRulesRequest,
+    EnableCustomAlertRulesResponse,
     EventsOverview,
     ExportJob,
     ExportJobS3,
     ListAlertRulesResponse,
     ListAuthenticationEventsResponse,
     ListCombinedEventsResponse,
+    ListCustomAlertRulesResponse,
     ListEventsResponse,
     ListExportJobsResponse,
     ListProductsResponse,
     ListSystemEventsResponse,
     SetEnabledAlertRulesRequest,
     SetEnabledAlertRulesResponse,
+    SetEnabledCustomAlertRulesRequest,
+    SetEnabledCustomAlertRulesResponse,
+    UpdateCustomAlertRuleRequest,
 )
 from .marshalling import (
+    unmarshal_CustomAlertRule,
     unmarshal_ExportJob,
     unmarshal_DisableAlertRulesResponse,
+    unmarshal_DisableCustomAlertRulesResponse,
     unmarshal_EnableAlertRulesResponse,
+    unmarshal_EnableCustomAlertRulesResponse,
     unmarshal_EventsOverview,
     unmarshal_ListAlertRulesResponse,
     unmarshal_ListAuthenticationEventsResponse,
     unmarshal_ListCombinedEventsResponse,
+    unmarshal_ListCustomAlertRulesResponse,
     unmarshal_ListEventsResponse,
     unmarshal_ListExportJobsResponse,
     unmarshal_ListProductsResponse,
     unmarshal_ListSystemEventsResponse,
     unmarshal_SetEnabledAlertRulesResponse,
+    unmarshal_SetEnabledCustomAlertRulesResponse,
+    marshal_CreateCustomAlertRuleRequest,
     marshal_CreateExportJobRequest,
     marshal_DisableAlertRulesRequest,
+    marshal_DisableCustomAlertRulesRequest,
     marshal_EnableAlertRulesRequest,
+    marshal_EnableCustomAlertRulesRequest,
     marshal_SetEnabledAlertRulesRequest,
+    marshal_SetEnabledCustomAlertRulesRequest,
+    marshal_UpdateCustomAlertRuleRequest,
 )
 
 
@@ -617,6 +639,86 @@ class AuditTrailV1Alpha1API(API):
             },
         )
 
+    async def list_custom_alert_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        status: Optional[CustomAlertRuleStatus] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListCustomAlertRulesResponse:
+        """
+        List custom alert rules for a specified organization and their current status (enabled or disabled).
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param status: (Optional) Status of the custom alert rule.
+        :param page:
+        :param page_size:
+        :return: :class:`ListCustomAlertRulesResponse <ListCustomAlertRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_custom_alert_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/custom-alert-rules",
+            params={
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "status": status,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListCustomAlertRulesResponse(res.json())
+
+    async def list_custom_alert_rules_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        status: Optional[CustomAlertRuleStatus] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[CustomAlertRule]:
+        """
+        List custom alert rules for a specified organization and their current status (enabled or disabled).
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param status: (Optional) Status of the custom alert rule.
+        :param page:
+        :param page_size:
+        :return: :class:`list[CustomAlertRule] <list[CustomAlertRule]>`
+
+        Usage:
+        ::
+
+            result = await api.list_custom_alert_rules_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListCustomAlertRulesResponse,
+            key="custom_alert_rules",
+            fetcher=self.list_custom_alert_rules,
+            args={
+                "region": region,
+                "organization_id": organization_id,
+                "status": status,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
     async def enable_alert_rules(
         self,
         *,
@@ -657,6 +759,47 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_EnableAlertRulesResponse(res.json())
+
+    async def enable_custom_alert_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        custom_alert_rule_ids: Optional[list[str]] = None,
+    ) -> EnableCustomAlertRulesResponse:
+        """
+        Enable custom alert rules.
+        Enable custom alert rules for a specified organization. Enabled custom rules will trigger alerts when matching events occur.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param custom_alert_rule_ids: List of IDs of the custom rules to enable.
+        :return: :class:`EnableCustomAlertRulesResponse <EnableCustomAlertRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.enable_custom_alert_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/audit-trail/v1alpha1/regions/{param_region}/enable-custom-alert-rules",
+            body=marshal_EnableCustomAlertRulesRequest(
+                EnableCustomAlertRulesRequest(
+                    region=region,
+                    organization_id=organization_id,
+                    custom_alert_rule_ids=custom_alert_rule_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_EnableCustomAlertRulesResponse(res.json())
 
     async def disable_alert_rules(
         self,
@@ -699,6 +842,47 @@ class AuditTrailV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_DisableAlertRulesResponse(res.json())
 
+    async def disable_custom_alert_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        custom_alert_rule_ids: Optional[list[str]] = None,
+    ) -> DisableCustomAlertRulesResponse:
+        """
+        Disable custom alert rules.
+        Disable custom alert rules for a specified organization. Disabled rules will no longer trigger alerts when matching events occur.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param custom_alert_rule_ids: List of IDs of the custom rules to disable.
+        :return: :class:`DisableCustomAlertRulesResponse <DisableCustomAlertRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.disable_custom_alert_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/audit-trail/v1alpha1/regions/{param_region}/disable-custom-alert-rules",
+            body=marshal_DisableCustomAlertRulesRequest(
+                DisableCustomAlertRulesRequest(
+                    region=region,
+                    organization_id=organization_id,
+                    custom_alert_rule_ids=custom_alert_rule_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DisableCustomAlertRulesResponse(res.json())
+
     async def set_enabled_alert_rules(
         self,
         *,
@@ -739,3 +923,187 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SetEnabledAlertRulesResponse(res.json())
+
+    async def set_enabled_custom_alert_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        enabled_custom_alert_rule_ids: Optional[list[str]] = None,
+    ) -> SetEnabledCustomAlertRulesResponse:
+        """
+        Set the custom alert rules to enabled.
+        Set the custom alert rules to enabled by replacing the set of enabled custom alert rules for a specified organization. The provided list defines the complete set of custom rules that should be enabled. Any previously enabled custom rule not included in the request will be disabled.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param enabled_custom_alert_rule_ids: List of IDs of the custom rules that must be enabled after the update.
+        :return: :class:`SetEnabledCustomAlertRulesResponse <SetEnabledCustomAlertRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.set_enabled_custom_alert_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "PUT",
+            f"/audit-trail/v1alpha1/regions/{param_region}/custom-alert-rules",
+            body=marshal_SetEnabledCustomAlertRulesRequest(
+                SetEnabledCustomAlertRulesRequest(
+                    region=region,
+                    organization_id=organization_id,
+                    enabled_custom_alert_rule_ids=enabled_custom_alert_rule_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SetEnabledCustomAlertRulesResponse(res.json())
+
+    async def create_custom_alert_rule(
+        self,
+        *,
+        name: str,
+        query: str,
+        occurrences: int,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        description: Optional[str] = None,
+        evaluation_window: Optional[str] = None,
+        severity: Optional[CustomAlertRuleSeverity] = None,
+    ) -> CustomAlertRule:
+        """
+        Create a custom alert rule.
+        Create a custom alert rule in a given region specified by the `region` parameter.
+        :param name: Name of the custom alert rule.
+        :param query: The Common Expression Language (CEL) string defining the logic for the alert rule.
+        :param occurrences: The minimum number of matched occurrences required within the evaluation window to trigger the alert.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param description: (Optional) Description of the custom alert rule.
+        :param evaluation_window: The duration of time over which to evaluate the rule (how far back to look for matching events).
+        :param severity: (Optional) The severity level assigned to the custom alert rule. By default, the severity will be set to info.
+        :return: :class:`CustomAlertRule <CustomAlertRule>`
+
+        Usage:
+        ::
+
+            result = await api.create_custom_alert_rule(
+                name="example",
+                query="example",
+                occurrences=1,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/audit-trail/v1alpha1/regions/{param_region}/custom-alert-rules",
+            body=marshal_CreateCustomAlertRuleRequest(
+                CreateCustomAlertRuleRequest(
+                    name=name,
+                    query=query,
+                    occurrences=occurrences,
+                    region=region,
+                    organization_id=organization_id,
+                    description=description,
+                    evaluation_window=evaluation_window,
+                    severity=severity,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CustomAlertRule(res.json())
+
+    async def update_custom_alert_rule(
+        self,
+        *,
+        custom_alert_rule_id: str,
+        region: Optional[ScwRegion] = None,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -> CustomAlertRule:
+        """
+        Update a custom alert rule.
+        Modify a custom alert rule's metadata including name and description, specified by the `alert_rule_id` and `region` parameters.
+        :param custom_alert_rule_id: ID of the custom alert rule to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: (Optional) New name for the custom alert rule.
+        :param description: (Optional) New description for the custom alert rule.
+        :return: :class:`CustomAlertRule <CustomAlertRule>`
+
+        Usage:
+        ::
+
+            result = await api.update_custom_alert_rule(
+                custom_alert_rule_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_custom_alert_rule_id = validate_path_param(
+            "custom_alert_rule_id", custom_alert_rule_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/audit-trail/v1alpha1/regions/{param_region}/custom-alert-rules/{param_custom_alert_rule_id}",
+            body=marshal_UpdateCustomAlertRuleRequest(
+                UpdateCustomAlertRuleRequest(
+                    custom_alert_rule_id=custom_alert_rule_id,
+                    region=region,
+                    name=name,
+                    description=description,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CustomAlertRule(res.json())
+
+    async def delete_custom_alert_rule(
+        self,
+        *,
+        custom_alert_rule_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        Delete a custom alert rule.
+        Permanently delete a custom alert rule specified by the `region` and `alert_rule_id` parameters. This action is irreversible.
+        :param custom_alert_rule_id: ID of the custom alert rule to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_custom_alert_rule(
+                custom_alert_rule_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_custom_alert_rule_id = validate_path_param(
+            "custom_alert_rule_id", custom_alert_rule_id
+        )
+
+        res = self._request(
+            "DELETE",
+            f"/audit-trail/v1alpha1/regions/{param_region}/custom-alert-rules/{param_custom_alert_rule_id}",
+        )
+
+        self._throw_on_error(res)
