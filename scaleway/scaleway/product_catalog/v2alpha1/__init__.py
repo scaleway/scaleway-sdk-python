@@ -21,6 +21,8 @@ from .types import PublicCatalogProductStatus
 from .types import PublicCatalogProductUnitOfMeasureCountableUnit
 from .types import PublicCatalogProductPropertiesHardwareCPUPhysical
 from .types import PublicCatalogProductPropertiesHardwareCPUVirtual
+from .types import PublicCatalogProductPropertiesBlockStorageSnapshotType
+from .types import PublicCatalogProductPropertiesBlockStorageVolumeType
 from .types import PublicCatalogProductPropertiesHardwareCPU
 from .types import PublicCatalogProductPropertiesHardwareGPU
 from .types import PublicCatalogProductPropertiesHardwareNetwork
@@ -108,6 +110,8 @@ __all__ = [
     "PublicCatalogProductUnitOfMeasureCountableUnit",
     "PublicCatalogProductPropertiesHardwareCPUPhysical",
     "PublicCatalogProductPropertiesHardwareCPUVirtual",
+    "PublicCatalogProductPropertiesBlockStorageSnapshotType",
+    "PublicCatalogProductPropertiesBlockStorageVolumeType",
     "PublicCatalogProductPropertiesHardwareCPU",
     "PublicCatalogProductPropertiesHardwareGPU",
     "PublicCatalogProductPropertiesHardwareNetwork",
