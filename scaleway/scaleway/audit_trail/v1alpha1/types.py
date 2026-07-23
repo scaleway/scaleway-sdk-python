@@ -76,6 +76,28 @@ class AuthenticationEventResult(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class CustomAlertRuleSeverity(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SEVERITY = "unknown_severity"
+    INFO = "info"
+    ERROR = "error"
+    WARNING = "warning"
+    CRITICAL = "critical"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class CustomAlertRuleStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    ENABLED = "enabled"
+    DISABLED = "disabled"
+    ENABLING = "enabling"
+    DISABLING = "disabling"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ExportJobStatusCode(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_CODE = "unknown_code"
     SUCCESS = "success"
@@ -873,6 +895,59 @@ class AlertRule:
 
 
 @dataclass
+class CustomAlertRule:
+    id: str
+    """
+    ID of the alert rule.
+    """
+
+    name: str
+    """
+    Name of the alert rule.
+    """
+
+    status: CustomAlertRuleStatus
+    """
+    Current status of the alert rule.
+    """
+
+    query: str
+    """
+    The Common Expression Language (CEL) string defining the logic for the alert rule.
+    """
+
+    occurrences: int
+    """
+    The minimum number of matched occurrences required within the evaluation window to trigger the alert.
+    """
+
+    severity: CustomAlertRuleSeverity
+    """
+    The severity level assigned to the custom alert rule.
+    """
+
+    description: Optional[str] = None
+    """
+    (Optional) Description of the alert rule.
+    """
+
+    evaluation_window: Optional[str] = None
+    """
+    The duration of time over which to evaluate the rule (how far back to look for matching events).
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Custom alert rule creation date.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Custom alert rule last modification date.
+    """
+
+
+@dataclass
 class ListCombinedEventsResponseCombinedEvent:
     api: Optional[Event] = None
 
@@ -940,6 +1015,51 @@ class Product:
 
 
 @dataclass
+class CreateCustomAlertRuleRequest:
+    name: str
+    """
+    Name of the custom alert rule.
+    """
+
+    query: str
+    """
+    The Common Expression Language (CEL) string defining the logic for the alert rule.
+    """
+
+    occurrences: int
+    """
+    The minimum number of matched occurrences required within the evaluation window to trigger the alert.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization to target.
+    """
+
+    description: Optional[str] = None
+    """
+    (Optional) Description of the custom alert rule.
+    """
+
+    evaluation_window: Optional[str] = None
+    """
+    The duration of time over which to evaluate the rule (how far back to look for matching events).
+    """
+
+    severity: Optional[CustomAlertRuleSeverity] = (
+        CustomAlertRuleSeverity.UNKNOWN_SEVERITY
+    )
+    """
+    (Optional) The severity level assigned to the custom alert rule. By default, the severity will be set to info.
+    """
+
+
+@dataclass
 class CreateExportJobRequest:
     name: str
     """
@@ -962,6 +1082,19 @@ class CreateExportJobRequest:
     """
 
     s3: Optional[ExportJobS3] = None
+
+
+@dataclass
+class DeleteCustomAlertRuleRequest:
+    custom_alert_rule_id: str
+    """
+    ID of the custom alert rule to delete.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
@@ -999,7 +1132,33 @@ class DisableAlertRulesRequest:
 class DisableAlertRulesResponse:
     alert_rules: list[AlertRule]
     """
-    List of the rules that were disabled.
+    List of the preconfigured rules that were disabled.
+    """
+
+
+@dataclass
+class DisableCustomAlertRulesRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization to target.
+    """
+
+    custom_alert_rule_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    List of IDs of the custom rules to disable.
+    """
+
+
+@dataclass
+class DisableCustomAlertRulesResponse:
+    custom_alert_rules: list[CustomAlertRule]
+    """
+    List of the custom rules that were disabled.
     """
 
 
@@ -1025,7 +1184,33 @@ class EnableAlertRulesRequest:
 class EnableAlertRulesResponse:
     alert_rules: list[AlertRule]
     """
-    List of the rules that were enabled.
+    List of the preconfigured rules that were enabled.
+    """
+
+
+@dataclass
+class EnableCustomAlertRulesRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization to target.
+    """
+
+    custom_alert_rule_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    List of IDs of the custom rules to enable.
+    """
+
+
+@dataclass
+class EnableCustomAlertRulesResponse:
+    custom_alert_rules: list[CustomAlertRule]
+    """
+    List of the custom rules that were enabled.
     """
 
 
@@ -1070,7 +1255,7 @@ class ListAlertRulesRequest:
 class ListAlertRulesResponse:
     alert_rules: list[AlertRule]
     """
-    Single page of alert rules matching the requested criteria.
+    Single page of preconfigured alert rules matching the requested criteria.
     """
 
     total_count: int
@@ -1121,6 +1306,40 @@ class ListCombinedEventsRequest:
 class ListCombinedEventsResponse:
     events: list[ListCombinedEventsResponseCombinedEvent]
     next_page_token: Optional[str] = None
+
+
+@dataclass
+class ListCustomAlertRulesRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization to target.
+    """
+
+    status: Optional[CustomAlertRuleStatus] = CustomAlertRuleStatus.UNKNOWN_STATUS
+    """
+    (Optional) Status of the custom alert rule.
+    """
+
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+
+
+@dataclass
+class ListCustomAlertRulesResponse:
+    custom_alert_rules: list[CustomAlertRule]
+    """
+    Single page of custom alert rules matching the requested criteria.
+    """
+
+    total_count: int
+    """
+    Total count of custom alert rules matching the requested criteria.
+    """
 
 
 @dataclass
@@ -1341,5 +1560,54 @@ class SetEnabledAlertRulesRequest:
 class SetEnabledAlertRulesResponse:
     alert_rules: list[AlertRule]
     """
-    List of the rules that were enabled.
+    List of the preconfigured rules that were enabled.
+    """
+
+
+@dataclass
+class SetEnabledCustomAlertRulesRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization to target.
+    """
+
+    enabled_custom_alert_rule_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    List of IDs of the custom rules that must be enabled after the update.
+    """
+
+
+@dataclass
+class SetEnabledCustomAlertRulesResponse:
+    custom_alert_rules: list[CustomAlertRule]
+    """
+    List of the custom rules that were enabled.
+    """
+
+
+@dataclass
+class UpdateCustomAlertRuleRequest:
+    custom_alert_rule_id: str
+    """
+    ID of the custom alert rule to update.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    (Optional) New name for the custom alert rule.
+    """
+
+    description: Optional[str] = None
+    """
+    (Optional) New description for the custom alert rule.
     """

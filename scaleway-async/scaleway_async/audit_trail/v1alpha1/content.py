@@ -3,6 +3,7 @@
 
 from .types import (
     AlertRuleStatus,
+    CustomAlertRuleStatus,
 )
 
 ALERT_RULE_TRANSIENT_STATUSES: list[AlertRuleStatus] = [
@@ -11,4 +12,11 @@ ALERT_RULE_TRANSIENT_STATUSES: list[AlertRuleStatus] = [
 ]
 """
 Lists transient statutes of the enum :class:`AlertRuleStatus <AlertRuleStatus>`.
+"""
+CUSTOM_ALERT_RULE_TRANSIENT_STATUSES: list[CustomAlertRuleStatus] = [
+    CustomAlertRuleStatus.ENABLING,
+    CustomAlertRuleStatus.DISABLING,
+]
+"""
+Lists transient statutes of the enum :class:`CustomAlertRuleStatus <CustomAlertRuleStatus>`.
 """
