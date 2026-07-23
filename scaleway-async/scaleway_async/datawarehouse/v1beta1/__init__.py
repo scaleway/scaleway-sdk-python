@@ -10,6 +10,7 @@ from .types import NodePrivateNetworkDetails
 from .types import EndpointPublicDetails
 from .types import EndpointService
 from .types import PrivateNetworkDetails
+from .types import EndpointSpecPrivateNetworkSummary
 from .types import EndpointSpecPublicDetails
 from .types import Endpoint
 from .types import EndpointSpec
@@ -55,6 +56,7 @@ __all__ = [
     "EndpointPublicDetails",
     "EndpointService",
     "PrivateNetworkDetails",
+    "EndpointSpecPrivateNetworkSummary",
     "EndpointSpecPublicDetails",
     "Endpoint",
     "EndpointSpec",
