@@ -27,6 +27,7 @@ from .types import (
     Version,
     ListVersionsResponse,
     CreateDatabaseRequest,
+    EndpointSpecPrivateNetworkSummary,
     EndpointSpecPublicDetails,
     EndpointSpec,
     CreateDeploymentRequest,
@@ -582,23 +583,14 @@ def marshal_CreateDatabaseRequest(
     return output
 
 
-def marshal_NodePrivateNetworkDetails(
-    request: NodePrivateNetworkDetails,
+def marshal_EndpointSpecPrivateNetworkSummary(
+    request: EndpointSpecPrivateNetworkSummary,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
-    if request.node_name is not None:
-        output["node_name"] = request.node_name
-
-    if request.shard is not None:
-        output["shard"] = request.shard
-
-    if request.replica is not None:
-        output["replica"] = request.replica
-
-    if request.ip_address is not None:
-        output["ip_address"] = request.ip_address
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
 
     return output
 
@@ -608,23 +600,6 @@ def marshal_EndpointSpecPublicDetails(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
-
-    return output
-
-
-def marshal_PrivateNetworkDetails(
-    request: PrivateNetworkDetails,
-    defaults: ProfileDefaults,
-) -> dict[str, Any]:
-    output: dict[str, Any] = {}
-
-    if request.private_network_id is not None:
-        output["private_network_id"] = request.private_network_id
-
-    if request.nodes is not None:
-        output["nodes"] = [
-            marshal_NodePrivateNetworkDetails(item, defaults) for item in request.nodes
-        ]
 
     return output
 
@@ -645,7 +620,7 @@ def marshal_EndpointSpec(
                 OneOfPossibility(
                     param="private_network",
                     value=request.private_network,
-                    marshal_func=marshal_PrivateNetworkDetails,
+                    marshal_func=marshal_EndpointSpecPrivateNetworkSummary,
                 ),
             ]
         ),

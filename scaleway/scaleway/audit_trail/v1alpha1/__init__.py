@@ -26,6 +26,7 @@ from .types import AccountUserInfo
 from .types import AppleSiliconRunnerInfo
 from .types import AppleSiliconServerInfo
 from .types import AuditTrailAlertRuleInfo
+from .types import AuditTrailCustomAlertRuleInfo
 from .types import AuditTrailExportJobInfo
 from .types import BaremetalServerInfo
 from .types import BaremetalSettingInfo
@@ -142,6 +143,7 @@ __all__ = [
     "AppleSiliconRunnerInfo",
     "AppleSiliconServerInfo",
     "AuditTrailAlertRuleInfo",
+    "AuditTrailCustomAlertRuleInfo",
     "AuditTrailExportJobInfo",
     "BaremetalServerInfo",
     "BaremetalSettingInfo",

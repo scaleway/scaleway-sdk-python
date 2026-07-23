@@ -120,6 +120,14 @@ class PrivateNetworkDetails:
 
 
 @dataclass
+class EndpointSpecPrivateNetworkSummary:
+    private_network_id: str
+    """
+    UUID of the Private Network.
+    """
+
+
+@dataclass
 class EndpointSpecPublicDetails:
     pass
 
@@ -155,7 +163,7 @@ class Endpoint:
 class EndpointSpec:
     public: Optional[EndpointSpecPublicDetails] = None
 
-    private_network: Optional[PrivateNetworkDetails] = None
+    private_network: Optional[EndpointSpecPrivateNetworkSummary] = None
 
 
 @dataclass
