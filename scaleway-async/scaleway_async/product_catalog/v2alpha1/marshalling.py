@@ -20,6 +20,8 @@ from .types import (
     PublicCatalogProductStatus,
     PublicCatalogProductPropertiesHardwareCPUPhysical,
     PublicCatalogProductPropertiesHardwareCPUVirtual,
+    PublicCatalogProductPropertiesBlockStorageSnapshotType,
+    PublicCatalogProductPropertiesBlockStorageVolumeType,
     PublicCatalogProductPropertiesHardwareCPU,
     PublicCatalogProductPropertiesHardwareGPU,
     PublicCatalogProductPropertiesHardwareNetwork,
@@ -145,6 +147,44 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPUVirtual(
         args["count"] = 0
 
     return PublicCatalogProductPropertiesHardwareCPUVirtual(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesBlockStorageSnapshotType(
+    data: Any,
+) -> PublicCatalogProductPropertiesBlockStorageSnapshotType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesBlockStorageSnapshotType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesBlockStorageSnapshotType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesBlockStorageVolumeType(
+    data: Any,
+) -> PublicCatalogProductPropertiesBlockStorageVolumeType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesBlockStorageVolumeType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("min_size", None)
+    if field is not None:
+        args["min_size"] = field
+    else:
+        args["min_size"] = 0
+
+    field = data.get("max_size", None)
+    if field is not None:
+        args["max_size"] = field
+    else:
+        args["max_size"] = 0
+
+    return PublicCatalogProductPropertiesBlockStorageVolumeType(**args)
 
 
 def unmarshal_PublicCatalogProductPropertiesHardwareCPU(
@@ -858,6 +898,22 @@ def unmarshal_PublicCatalogProductPropertiesBlockStorage(
         args["max_volume_size"] = field
     else:
         args["max_volume_size"] = None
+
+    field = data.get("snapshot", None)
+    if field is not None:
+        args["snapshot"] = (
+            unmarshal_PublicCatalogProductPropertiesBlockStorageSnapshotType(field)
+        )
+    else:
+        args["snapshot"] = None
+
+    field = data.get("volume", None)
+    if field is not None:
+        args["volume"] = unmarshal_PublicCatalogProductPropertiesBlockStorageVolumeType(
+            field
+        )
+    else:
+        args["volume"] = None
 
     return PublicCatalogProductPropertiesBlockStorage(**args)
 
