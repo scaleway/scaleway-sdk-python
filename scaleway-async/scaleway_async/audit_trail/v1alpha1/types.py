@@ -238,6 +238,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     MONGODB_INSTANCE_MAINTENANCE = "mongodb_instance_maintenance"
     APPLE_SILICON_RUNNER = "apple_silicon_runner"
     AUDIT_TRAIL_ALERT_RULE = "audit_trail_alert_rule"
+    AUDIT_TRAIL_CUSTOM_ALERT_RULE = "audit_trail_custom_alert_rule"
     DTWH_DEPLOYMENT = "dtwh_deployment"
     DTWH_DEPLOYMENT_ENDPOINT = "dtwh_deployment_endpoint"
     DTWH_DEPLOYMENT_DATABASE = "dtwh_deployment_database"
@@ -316,6 +317,11 @@ class AppleSiliconServerInfo:
 
 @dataclass
 class AuditTrailAlertRuleInfo:
+    pass
+
+
+@dataclass
+class AuditTrailCustomAlertRuleInfo:
     pass
 
 
@@ -645,6 +651,8 @@ class Resource:
     observability_alert_rule_info: Optional[ObservabilityAlertRuleInfo] = None
 
     edge_services_vpc_endpoint_info: Optional[EdgeServicesVPCEndpointInfo] = None
+
+    audit_trail_custom_alert_rule_info: Optional[AuditTrailCustomAlertRuleInfo] = None
 
 
 @dataclass

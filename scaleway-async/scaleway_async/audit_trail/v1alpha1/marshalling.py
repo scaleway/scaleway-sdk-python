@@ -36,6 +36,7 @@ from .types import (
     AppleSiliconRunnerInfo,
     AppleSiliconServerInfo,
     AuditTrailAlertRuleInfo,
+    AuditTrailCustomAlertRuleInfo,
     AuditTrailExportJobInfo,
     BaremetalServerInfo,
     BaremetalSettingInfo,
@@ -606,6 +607,17 @@ def unmarshal_AuditTrailAlertRuleInfo(data: Any) -> AuditTrailAlertRuleInfo:
     args: dict[str, Any] = {}
 
     return AuditTrailAlertRuleInfo(**args)
+
+
+def unmarshal_AuditTrailCustomAlertRuleInfo(data: Any) -> AuditTrailCustomAlertRuleInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AuditTrailCustomAlertRuleInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return AuditTrailCustomAlertRuleInfo(**args)
 
 
 def unmarshal_AuditTrailExportJobInfo(data: Any) -> AuditTrailExportJobInfo:
@@ -1767,6 +1779,14 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["edge_services_vpc_endpoint_info"] = None
+
+    field = data.get("audit_trail_custom_alert_rule_info", None)
+    if field is not None:
+        args["audit_trail_custom_alert_rule_info"] = (
+            unmarshal_AuditTrailCustomAlertRuleInfo(field)
+        )
+    else:
+        args["audit_trail_custom_alert_rule_info"] = None
 
     return Resource(**args)
 
