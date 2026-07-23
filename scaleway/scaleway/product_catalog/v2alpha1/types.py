@@ -288,6 +288,24 @@ class PublicCatalogProductPropertiesHardwareCPUVirtual:
 
 
 @dataclass
+class PublicCatalogProductPropertiesBlockStorageSnapshotType:
+    pass
+
+
+@dataclass
+class PublicCatalogProductPropertiesBlockStorageVolumeType:
+    min_size: int
+    """
+    The minimum size of storage volume for this product in bytes.
+    """
+
+    max_size: int
+    """
+    The maximum size of storage volume for this product in bytes.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesHardwareCPU:
     description: str
     """
@@ -620,6 +638,10 @@ class PublicCatalogProductPropertiesBlockStorage:
     """
     The maximum size of storage volume for this product in bytes. Deprecated.
     """
+
+    snapshot: Optional[PublicCatalogProductPropertiesBlockStorageSnapshotType] = None
+
+    volume: Optional[PublicCatalogProductPropertiesBlockStorageVolumeType] = None
 
 
 @dataclass

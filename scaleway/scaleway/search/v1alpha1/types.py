@@ -129,6 +129,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
 
 
 class SearchResourcesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    RELEVANCE = "relevance"
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     MODIFIED_AT_ASC = "modified_at_asc"
@@ -294,7 +295,7 @@ class SearchResourcesRequest:
     """
 
     order_by: Optional[SearchResourcesRequestOrderBy] = (
-        SearchResourcesRequestOrderBy.CREATED_AT_ASC
+        SearchResourcesRequestOrderBy.RELEVANCE
     )
     """
     Sort order in the response.
