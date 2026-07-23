@@ -16,13 +16,18 @@ from .types import (
     AuthenticationEventMethod,
     AuthenticationEventOrigin,
     AuthenticationEventResult,
+    CustomAlertRuleSeverity,
+    CustomAlertRuleStatus,
     SystemEventKind,
+    CustomAlertRule,
     ExportJobS3,
     ExportJobStatus,
     ExportJob,
     AlertRule,
     DisableAlertRulesResponse,
+    DisableCustomAlertRulesResponse,
     EnableAlertRulesResponse,
+    EnableCustomAlertRulesResponse,
     AccountContractSignatureInfoAccountContractInfo,
     AccountContractSignatureInfo,
     AccountOrganizationInfo,
@@ -80,6 +85,7 @@ from .types import (
     SystemEvent,
     ListCombinedEventsResponseCombinedEvent,
     ListCombinedEventsResponse,
+    ListCustomAlertRulesResponse,
     ListEventsResponse,
     ListExportJobsResponse,
     ProductService,
@@ -87,14 +93,91 @@ from .types import (
     ListProductsResponse,
     ListSystemEventsResponse,
     SetEnabledAlertRulesResponse,
+    SetEnabledCustomAlertRulesResponse,
+    CreateCustomAlertRuleRequest,
     CreateExportJobRequest,
     DisableAlertRulesRequest,
+    DisableCustomAlertRulesRequest,
     EnableAlertRulesRequest,
+    EnableCustomAlertRulesRequest,
     SetEnabledAlertRulesRequest,
+    SetEnabledCustomAlertRulesRequest,
+    UpdateCustomAlertRuleRequest,
 )
 from ...std.types import (
     CountryCode as StdCountryCode,
 )
+
+
+def unmarshal_CustomAlertRule(data: Any) -> CustomAlertRule:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CustomAlertRule' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = CustomAlertRuleStatus.UNKNOWN_STATUS
+
+    field = data.get("query", None)
+    if field is not None:
+        args["query"] = field
+    else:
+        args["query"] = None
+
+    field = data.get("occurrences", None)
+    if field is not None:
+        args["occurrences"] = field
+    else:
+        args["occurrences"] = 0
+
+    field = data.get("severity", None)
+    if field is not None:
+        args["severity"] = field
+    else:
+        args["severity"] = CustomAlertRuleSeverity.UNKNOWN_SEVERITY
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    field = data.get("evaluation_window", None)
+    if field is not None:
+        args["evaluation_window"] = field
+    else:
+        args["evaluation_window"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return CustomAlertRule(**args)
 
 
 def unmarshal_ExportJobS3(data: Any) -> ExportJobS3:
@@ -270,6 +353,27 @@ def unmarshal_DisableAlertRulesResponse(data: Any) -> DisableAlertRulesResponse:
     return DisableAlertRulesResponse(**args)
 
 
+def unmarshal_DisableCustomAlertRulesResponse(
+    data: Any,
+) -> DisableCustomAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DisableCustomAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("custom_alert_rules", None)
+    if field is not None:
+        args["custom_alert_rules"] = (
+            [unmarshal_CustomAlertRule(v) for v in field] if field is not None else None
+        )
+    else:
+        args["custom_alert_rules"] = []
+
+    return DisableCustomAlertRulesResponse(**args)
+
+
 def unmarshal_EnableAlertRulesResponse(data: Any) -> EnableAlertRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -287,6 +391,27 @@ def unmarshal_EnableAlertRulesResponse(data: Any) -> EnableAlertRulesResponse:
         args["alert_rules"] = []
 
     return EnableAlertRulesResponse(**args)
+
+
+def unmarshal_EnableCustomAlertRulesResponse(
+    data: Any,
+) -> EnableCustomAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EnableCustomAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("custom_alert_rules", None)
+    if field is not None:
+        args["custom_alert_rules"] = (
+            [unmarshal_CustomAlertRule(v) for v in field] if field is not None else None
+        )
+    else:
+        args["custom_alert_rules"] = []
+
+    return EnableCustomAlertRulesResponse(**args)
 
 
 def unmarshal_AccountContractSignatureInfoAccountContractInfo(
@@ -2044,6 +2169,31 @@ def unmarshal_ListCombinedEventsResponse(data: Any) -> ListCombinedEventsRespons
     return ListCombinedEventsResponse(**args)
 
 
+def unmarshal_ListCustomAlertRulesResponse(data: Any) -> ListCustomAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListCustomAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("custom_alert_rules", None)
+    if field is not None:
+        args["custom_alert_rules"] = (
+            [unmarshal_CustomAlertRule(v) for v in field] if field is not None else None
+        )
+    else:
+        args["custom_alert_rules"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListCustomAlertRulesResponse(**args)
+
+
 def unmarshal_ListEventsResponse(data: Any) -> ListEventsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2217,6 +2367,59 @@ def unmarshal_SetEnabledAlertRulesResponse(data: Any) -> SetEnabledAlertRulesRes
     return SetEnabledAlertRulesResponse(**args)
 
 
+def unmarshal_SetEnabledCustomAlertRulesResponse(
+    data: Any,
+) -> SetEnabledCustomAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SetEnabledCustomAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("custom_alert_rules", None)
+    if field is not None:
+        args["custom_alert_rules"] = (
+            [unmarshal_CustomAlertRule(v) for v in field] if field is not None else None
+        )
+    else:
+        args["custom_alert_rules"] = []
+
+    return SetEnabledCustomAlertRulesResponse(**args)
+
+
+def marshal_CreateCustomAlertRuleRequest(
+    request: CreateCustomAlertRuleRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.query is not None:
+        output["query"] = request.query
+
+    if request.occurrences is not None:
+        output["occurrences"] = request.occurrences
+
+    if request.organization_id is not None:
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.evaluation_window is not None:
+        output["evaluation_window"] = request.evaluation_window
+
+    if request.severity is not None:
+        output["severity"] = request.severity
+
+    return output
+
+
 def marshal_ExportJobS3(
     request: ExportJobS3,
     defaults: ProfileDefaults,
@@ -2286,6 +2489,23 @@ def marshal_DisableAlertRulesRequest(
     return output
 
 
+def marshal_DisableCustomAlertRulesRequest(
+    request: DisableCustomAlertRulesRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.organization_id is not None:
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
+
+    if request.custom_alert_rule_ids is not None:
+        output["custom_alert_rule_ids"] = request.custom_alert_rule_ids
+
+    return output
+
+
 def marshal_EnableAlertRulesRequest(
     request: EnableAlertRulesRequest,
     defaults: ProfileDefaults,
@@ -2303,6 +2523,23 @@ def marshal_EnableAlertRulesRequest(
     return output
 
 
+def marshal_EnableCustomAlertRulesRequest(
+    request: EnableCustomAlertRulesRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.organization_id is not None:
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
+
+    if request.custom_alert_rule_ids is not None:
+        output["custom_alert_rule_ids"] = request.custom_alert_rule_ids
+
+    return output
+
+
 def marshal_SetEnabledAlertRulesRequest(
     request: SetEnabledAlertRulesRequest,
     defaults: ProfileDefaults,
@@ -2316,5 +2553,37 @@ def marshal_SetEnabledAlertRulesRequest(
 
     if request.enabled_alert_rule_ids is not None:
         output["enabled_alert_rule_ids"] = request.enabled_alert_rule_ids
+
+    return output
+
+
+def marshal_SetEnabledCustomAlertRulesRequest(
+    request: SetEnabledCustomAlertRulesRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.organization_id is not None:
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
+
+    if request.enabled_custom_alert_rule_ids is not None:
+        output["enabled_custom_alert_rule_ids"] = request.enabled_custom_alert_rule_ids
+
+    return output
+
+
+def marshal_UpdateCustomAlertRuleRequest(
+    request: UpdateCustomAlertRuleRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.description is not None:
+        output["description"] = request.description
 
     return output
