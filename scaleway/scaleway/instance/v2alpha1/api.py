@@ -5,7 +5,9 @@ from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
+    ServiceInfo,
     Zone as ScwZone,
+    unmarshal_ServiceInfo,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
@@ -88,7 +90,6 @@ from .content import (
 from .marshalling import (
     unmarshal_SecurityGroup,
     unmarshal_PlacementGroup,
-    unmarshal_PrivateNetworkInterface,
     unmarshal_AddSecurityGroupRulesResponse,
     unmarshal_ListPlacementGroupsResponse,
     unmarshal_ListPrivateNetworkInterfacesResponse,
@@ -98,6 +99,7 @@ from .marshalling import (
     unmarshal_ListTemplateUserDataKeysResponse,
     unmarshal_ListTemplatesResponse,
     unmarshal_ListUserDataKeysResponse,
+    unmarshal_PrivateNetworkInterface,
     unmarshal_ResourceCounts,
     unmarshal_Server,
     unmarshal_Template,
@@ -136,8 +138,33 @@ from .marshalling import (
 
 class InstanceV2Alpha1API(API):
     """
-    This API allows you to manage your CPU and GPU Instances.
+    This API allows you to manage Instance local and scratch volumes.
     """
+
+    def get_service_info(
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+    ) -> ServiceInfo:
+        """
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`ServiceInfo <ServiceInfo>`
+
+        Usage:
+        ::
+
+            result = api.get_service_info()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "GET",
+            f"/instance/v2alpha1/zones/{param_zone}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ServiceInfo(res.json())
 
     def get_resource_counts(
         self,
@@ -147,12 +174,10 @@ class InstanceV2Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> ResourceCounts:
         """
-        Get resource counts.
-        Get counts of various resources (e.g. servers, volumes).
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization_id:
+        :param organization_id: Organization ID to filter resource counts.
         One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param project_id:
+        :param project_id: Project ID to filter resource counts.
         One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :return: :class:`ResourceCounts <ResourceCounts>`
 
@@ -198,20 +223,19 @@ class InstanceV2Alpha1API(API):
         mac_addresses: Optional[list[str]] = None,
     ) -> ListServersResponse:
         """
-        List all Instances.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
-        :param order_by:
-        :param project_id:
-        :param server_ids:
-        :param name:
-        :param server_type:
-        :param tags:
-        :param security_group_ids:
-        :param placement_group_ids:
-        :param private_network_ids:
-        :param mac_addresses:
+        :param page_token: Token for pagination.
+        :param page_size: Number of servers to return per page.
+        :param order_by: Order of the returned servers.
+        :param project_id: Project ID to filter servers.
+        :param server_ids: List of server IDs to filter.
+        :param name: Name to filter servers.
+        :param server_type: Server type to filter.
+        :param tags: Tags to filter servers.
+        :param security_group_ids: Security group IDs to filter servers.
+        :param placement_group_ids: Placement group IDs to filter servers.
+        :param private_network_ids: Private Network IDs to filter servers.
+        :param mac_addresses: MAC addresses to filter servers.
         :return: :class:`ListServersResponse <ListServersResponse>`
 
         Usage:
@@ -260,17 +284,15 @@ class InstanceV2Alpha1API(API):
         ] = None,
     ) -> Server:
         """
-        Create an Instance.
-        Create a new Instance of a specified server_type.
-        :param name:
-        :param server_type:
+        :param name: Name of the server.
+        :param server_type: Type of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project_id:
-        :param tags:
-        :param placement_group_id:
-        :param volumes:
-        :param windows_rdp_ssh_key_id:
-        :param public_network_interface:
+        :param project_id: Project ID for the server.
+        :param tags: Tags to associate with the server.
+        :param placement_group_id: ID of the placement group the server belongs to.
+        :param volumes: Volumes to attach to the server.
+        :param windows_rdp_ssh_key_id: IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use.
+        :param public_network_interface: Public network interface configuration.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -313,9 +335,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Get an Instance.
-        Get the details of a specified Instance.
-        :param server_id:
+        :param server_id: ID of the server to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -346,9 +366,7 @@ class InstanceV2Alpha1API(API):
         options: Optional[WaitForOptions[Server, bool]] = None,
     ) -> Server:
         """
-        Get an Instance.
-        Get the details of a specified Instance.
-        :param server_id:
+        :param server_id: ID of the server to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -393,19 +411,17 @@ class InstanceV2Alpha1API(API):
         ] = None,
     ) -> Server:
         """
-        Update an Instance.
-        Update the properties of a specified Instance information, such as name, rescue_mode, or tags.
-        :param server_id:
+        :param server_id: ID of the server to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name:
-        :param tags:
-        :param server_type:
-        :param placement_group_id:
-        :param rescue_mode:
-        :param boot_volume_id:
-        :param windows_rdp_ssh_key_id:
-        :param protected:
-        :param public_network_interface:
+        :param name: New name for the server.
+        :param tags: New tags for the server.
+        :param server_type: New server type.
+        :param placement_group_id: New placement group ID.
+        :param rescue_mode: New rescue mode setting.
+        :param boot_volume_id: New boot volume ID.
+        :param windows_rdp_ssh_key_id: New IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use.
+        :param protected: Protection status of the server.
+        :param public_network_interface: New public network interface configuration.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -456,21 +472,19 @@ class InstanceV2Alpha1API(API):
         delete_private_nic_ids: Optional[list[str]] = None,
     ) -> None:
         """
-        Delete an Instance.
-        Delete a specified Instance.
-        :param server_id:
+        :param server_id: ID of the server to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param delete_all_ips:
+        :param delete_all_ips: Whether to delete all IPs attached to the server.
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
-        :param delete_ip_ids:
+        :param delete_ip_ids: List of IP IDs to delete.
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
-        :param delete_all_volumes:
+        :param delete_all_volumes: Whether to delete all volumes attached to the server.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
-        :param delete_volume_ids:
+        :param delete_volume_ids: List of volume IDs to delete.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
-        :param keep_all_private_nics:
+        :param keep_all_private_nics: Whether to keep all private network interfaces.
         One-Of ('private_nics'): at most one of 'keep_all_private_nics', 'delete_private_nic_ids' could be set.
-        :param delete_private_nic_ids:
+        :param delete_private_nic_ids: List of private network interface IDs to delete.
         One-Of ('private_nics'): at most one of 'keep_all_private_nics', 'delete_private_nic_ids' could be set.
 
         Usage:
@@ -523,11 +537,9 @@ class InstanceV2Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListServerTypesResponse:
         """
-        List Instance types.
-        List available Instance types and their technical details.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
+        :param page_token: Token for pagination.
+        :param page_size: Number of server types to return per page.
         :return: :class:`ListServerTypesResponse <ListServerTypesResponse>`
 
         Usage:
@@ -557,9 +569,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Start an Instance.
-        Start a stopped or paused Instance.
-        :param server_id:
+        :param server_id: ID of the server to start.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -590,9 +600,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Reboot an Instance.
-        Reboot a running or paused Instance.
-        :param server_id:
+        :param server_id: ID of the server to reboot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -623,9 +631,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Pause an Instance.
-        Pause a running Instance.
-        :param server_id:
+        :param server_id: ID of the server to pause.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -656,9 +662,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Stop an Instance.
-        Stop a running or paused Instance.
-        :param server_id:
+        :param server_id: ID of the server to stop.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -695,21 +699,19 @@ class InstanceV2Alpha1API(API):
         delete_private_nic_ids: Optional[list[str]] = None,
     ) -> Server:
         """
-        Stop and delete an Instance.
-        Stop and delete a running or paused Instance.
-        :param server_id:
+        :param server_id: ID of the server to stop and delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param delete_all_ips:
+        :param delete_all_ips: Whether to delete all IPs attached to the server.
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
-        :param delete_ip_ids:
+        :param delete_ip_ids: List of IP IDs to delete.
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
-        :param delete_all_volumes:
+        :param delete_all_volumes: Whether to delete all volumes attached to the server.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
-        :param delete_volume_ids:
+        :param delete_volume_ids: List of volume IDs to delete.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
-        :param keep_all_private_nics:
+        :param keep_all_private_nics: Whether to keep all private network interfaces.
         One-Of ('private_nics'): at most one of 'keep_all_private_nics', 'delete_private_nic_ids' could be set.
-        :param delete_private_nic_ids:
+        :param delete_private_nic_ids: List of private network interface IDs to delete.
         One-Of ('private_nics'): at most one of 'keep_all_private_nics', 'delete_private_nic_ids' could be set.
         :return: :class:`Server <Server>`
 
@@ -755,13 +757,11 @@ class InstanceV2Alpha1API(API):
         volume_type: Optional[ServerVolumeVolumeType] = None,
     ) -> Server:
         """
-        Attach a volume to an Instance.
-        Attach a l_ssd or SBS volume to an Instance.
-        :param server_id:
-        :param volume_id:
-        :param boot_volume:
+        :param server_id: ID of the server to attach the volume to.
+        :param volume_id: ID of the volume to attach.
+        :param boot_volume: Whether the volume should be used as the boot volume.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_type:
+        :param volume_type: Type of the volume.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -803,9 +803,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Detach a volume from an Instance.
-        :param server_id:
-        :param volume_id:
+        :param server_id: ID of the server to detach the volume from.
+        :param volume_id: ID of the volume to detach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -845,9 +844,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Attach a filesystem volume to an Instance.
-        :param server_id:
-        :param filesystem_id:
+        :param server_id: ID of the server to attach the filesystem to.
+        :param filesystem_id: ID of the filesystem to attach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -887,9 +885,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Detach a filesystem volume from an Instance.
-        :param server_id:
-        :param filesystem_id:
+        :param server_id: ID of the server to detach the filesystem from.
+        :param filesystem_id: ID of the filesystem to detach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -931,11 +928,10 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Attach an IP to an Instance.
-        :param server_id:
-        :param ip_id:
-        :param default:
-        :param move_allowed:
+        :param server_id: ID of the server to attach the IP to.
+        :param ip_id: ID of the IP to attach.
+        :param default: Whether the IP should be the default IP.
+        :param move_allowed: Whether moving the IP is allowed.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -979,9 +975,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Detach an IP from an Instance.
-        :param server_id:
-        :param ip_id:
+        :param server_id: ID of the server to detach the IP from.
+        :param ip_id: ID of the IP to detach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -1021,10 +1016,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Set default IP for an Instance.
-        Set the default IP for an Instance.
-        :param server_id:
-        :param ip_id:
+        :param server_id: ID of the server to set the default IP for.
+        :param ip_id: ID of the IP to set as default.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -1064,9 +1057,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Attach a private network interface to an Instance.
-        :param server_id:
-        :param private_network_interface_id:
+        :param server_id: ID of the server to attach the private network interface to.
+        :param private_network_interface_id: ID of the private network interface to attach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -1106,9 +1098,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Detach a private network interface from an Instance.
-        :param server_id:
-        :param private_network_interface_id:
+        :param server_id: ID of the server to detach the private network interface from.
+        :param private_network_interface_id: ID of the private network interface to detach.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -1149,22 +1140,18 @@ class InstanceV2Alpha1API(API):
         order_by: Optional[ListPrivateNetworkInterfacesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         server_ids: Optional[list[str]] = None,
-        security_group_ids: Optional[list[str]] = None,
         private_network_ids: Optional[list[str]] = None,
         tags: Optional[list[str]] = None,
     ) -> ListPrivateNetworkInterfacesResponse:
         """
-        List private network interfaces.
-        List all private network interfaces.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
-        :param order_by:
-        :param project_id:
-        :param server_ids:
-        :param security_group_ids:
-        :param private_network_ids:
-        :param tags:
+        :param page_token: Token for pagination.
+        :param page_size: Number of items to return per page.
+        :param order_by: Field to order results by.
+        :param project_id: Filter by Project ID.
+        :param server_ids: Filter by server IDs.
+        :param private_network_ids: Filter by Private Network IDs.
+        :param tags: Filter by tags.
         :return: :class:`ListPrivateNetworkInterfacesResponse <ListPrivateNetworkInterfacesResponse>`
 
         Usage:
@@ -1184,7 +1171,6 @@ class InstanceV2Alpha1API(API):
                 "page_token": page_token,
                 "private_network_ids": private_network_ids,
                 "project_id": project_id or self.client.default_project_id,
-                "security_group_ids": security_group_ids,
                 "server_ids": server_ids,
                 "tags": tags,
             },
@@ -1200,20 +1186,16 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         server_id: Optional[str] = None,
-        security_group_id: Optional[str] = None,
         ip_ids: Optional[list[str]] = None,
         tags: Optional[list[str]] = None,
     ) -> PrivateNetworkInterface:
         """
-        Create a private network interface.
-        Create a private network interface linked to a Private Network. It can be attached to an Instance.
-        :param private_network_id:
+        :param private_network_id: ID of the Private Network to attach to.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project_id:
-        :param server_id:
-        :param security_group_id:
-        :param ip_ids:
-        :param tags:
+        :param project_id: Project ID for the private network interface.
+        :param server_id: ID of the Instance to attach the interface to.
+        :param ip_ids: List of IP IDs to attach to the interface.
+        :param tags: Tags to assign to the private network interface.
         :return: :class:`PrivateNetworkInterface <PrivateNetworkInterface>`
 
         Usage:
@@ -1235,7 +1217,6 @@ class InstanceV2Alpha1API(API):
                     zone=zone,
                     project_id=project_id,
                     server_id=server_id,
-                    security_group_id=security_group_id,
                     ip_ids=ip_ids,
                     tags=tags,
                 ),
@@ -1253,9 +1234,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> PrivateNetworkInterface:
         """
-        Get a private network interface.
-        Get details of a specified private network interface.
-        :param private_network_interface_id:
+        :param private_network_interface_id: ID of the private network interface to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`PrivateNetworkInterface <PrivateNetworkInterface>`
 
@@ -1288,9 +1267,7 @@ class InstanceV2Alpha1API(API):
         options: Optional[WaitForOptions[PrivateNetworkInterface, bool]] = None,
     ) -> PrivateNetworkInterface:
         """
-        Get a private network interface.
-        Get details of a specified private network interface.
-        :param private_network_interface_id:
+        :param private_network_interface_id: ID of the private network interface to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`PrivateNetworkInterface <PrivateNetworkInterface>`
 
@@ -1324,16 +1301,12 @@ class InstanceV2Alpha1API(API):
         *,
         private_network_interface_id: str,
         zone: Optional[ScwZone] = None,
-        security_group_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> PrivateNetworkInterface:
         """
-        Update a private network interface.
-        Update the properties of a specified private network interface.
-        :param private_network_interface_id:
+        :param private_network_interface_id: ID of the private network interface to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param security_group_id:
-        :param tags:
+        :param tags: New tags to assign to the private network interface.
         :return: :class:`PrivateNetworkInterface <PrivateNetworkInterface>`
 
         Usage:
@@ -1356,7 +1329,6 @@ class InstanceV2Alpha1API(API):
                 UpdatePrivateNetworkInterfaceRequest(
                     private_network_interface_id=private_network_interface_id,
                     zone=zone,
-                    security_group_id=security_group_id,
                     tags=tags,
                 ),
                 self.client,
@@ -1373,9 +1345,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Delete a private network interface.
-        Delete a specified private network interface.
-        :param private_network_interface_id:
+        :param private_network_interface_id: ID of the private network interface to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -1411,16 +1381,14 @@ class InstanceV2Alpha1API(API):
         tags: Optional[list[str]] = None,
     ) -> ListPlacementGroupsResponse:
         """
-        List placement groups.
-        List all placement groups.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
-        :param order_by:
-        :param project_id:
-        :param placement_group_ids:
-        :param name:
-        :param tags:
+        :param page_token: The initial pagination token to start from.
+        :param page_size: The maximum number of placement groups to return.
+        :param order_by: The field by which to order the result list.
+        :param project_id: List only placement groups of this Project ID.
+        :param placement_group_ids: List only placement groups with these IDs.
+        :param name: Filter placement groups by name.
+        :param tags: List placement groups with these exact tags.
         :return: :class:`ListPlacementGroupsResponse <ListPlacementGroupsResponse>`
 
         Usage:
@@ -1458,13 +1426,11 @@ class InstanceV2Alpha1API(API):
         tags: Optional[list[str]] = None,
     ) -> PlacementGroup:
         """
-        Create a placement group.
-        Create a new placement group.
-        :param name:
+        :param name: Name of the placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project_id:
-        :param policy_type:
-        :param tags:
+        :param project_id: Project ID of the placement group.
+        :param policy_type: Policy type of the placement group.
+        :param tags: Tags of the placement group.
         :return: :class:`PlacementGroup <PlacementGroup>`
 
         Usage:
@@ -1502,9 +1468,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> PlacementGroup:
         """
-        Get a placement group.
-        Get a specified placement group.
-        :param placement_group_id:
+        :param placement_group_id: UUID of the placement group you want to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`PlacementGroup <PlacementGroup>`
 
@@ -1539,13 +1503,11 @@ class InstanceV2Alpha1API(API):
         tags: Optional[list[str]] = None,
     ) -> PlacementGroup:
         """
-        Update a placement group.
-        Update the properties of a specified placement group.
-        :param placement_group_id:
+        :param placement_group_id: UUID of the placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name:
-        :param policy_type:
-        :param tags:
+        :param name: Name of the placement group.
+        :param policy_type: Policy type of the placement group.
+        :param tags: Tags of the placement group.
         :return: :class:`PlacementGroup <PlacementGroup>`
 
         Usage:
@@ -1586,9 +1548,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Delete a placement group.
-        Delete a specified placement group.
-        :param placement_group_id:
+        :param placement_group_id: UUID of the placement group you want to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -1624,16 +1584,14 @@ class InstanceV2Alpha1API(API):
         security_group_ids: Optional[list[str]] = None,
     ) -> ListSecurityGroupsResponse:
         """
-        List security groups.
-        List all security groups.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
-        :param order_by:
-        :param project_id:
-        :param name:
-        :param tags:
-        :param security_group_ids:
+        :param page_token: Token for pagination.
+        :param page_size: Number of items to return per page.
+        :param order_by: Field and direction to sort by.
+        :param project_id: Filter by Project ID.
+        :param name: Filter by name.
+        :param tags: Filter by tags.
+        :param security_group_ids: Filter by specific security group IDs.
         :return: :class:`ListSecurityGroupsResponse <ListSecurityGroupsResponse>`
 
         Usage:
@@ -1676,18 +1634,16 @@ class InstanceV2Alpha1API(API):
         outbound_default_action: Optional[SecurityGroupAction] = None,
     ) -> SecurityGroup:
         """
-        Create a security group.
-        Create a security group with a specified name and description.
-        :param name:
-        :param description:
-        :param disable_default_rules:
-        :param project_default:
-        :param stateless:
+        :param name: Name of the security group.
+        :param description: Description of the security group.
+        :param disable_default_rules: Whether to disable default rules.
+        :param project_default: Whether this should be the default security group for the project.
+        :param stateless: Whether the security group should be stateless.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project_id:
-        :param tags:
-        :param inbound_default_action:
-        :param outbound_default_action:
+        :param project_id: Project ID the security group belongs to.
+        :param tags: Tags for the security group.
+        :param inbound_default_action: Default action for inbound rules.
+        :param outbound_default_action: Default action for outbound rules.
         :return: :class:`SecurityGroup <SecurityGroup>`
 
         Usage:
@@ -1734,9 +1690,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> SecurityGroup:
         """
-        Get a security group.
-        Get the details of a specified security group.
-        :param security_group_id:
+        :param security_group_id: ID of the security group to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SecurityGroup <SecurityGroup>`
 
@@ -1776,18 +1730,16 @@ class InstanceV2Alpha1API(API):
         stateless: Optional[bool] = None,
     ) -> SecurityGroup:
         """
-        Update a security group.
-        Update the properties of a security group.
-        :param security_group_id:
+        :param security_group_id: ID of the security group to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name:
-        :param description:
-        :param disable_default_rules:
-        :param tags:
-        :param project_default:
-        :param inbound_default_action:
-        :param outbound_default_action:
-        :param stateless:
+        :param name: New name for the security group.
+        :param description: New description for the security group.
+        :param disable_default_rules: Whether to disable default rules.
+        :param tags: New tags for the security group.
+        :param project_default: Whether this should be the default security group for the project.
+        :param inbound_default_action: New default action for inbound rules.
+        :param outbound_default_action: New default action for outbound rules.
+        :param stateless: Whether the security group should be stateless.
         :return: :class:`SecurityGroup <SecurityGroup>`
 
         Usage:
@@ -1833,9 +1785,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Delete a security group.
-        Delete a specified security group.
-        :param security_group_id:
+        :param security_group_id: ID of the security group to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -1866,11 +1816,9 @@ class InstanceV2Alpha1API(API):
         security_group_rules: Optional[list[SecurityGroupRuleConfig]] = None,
     ) -> AddSecurityGroupRulesResponse:
         """
-        Add rules to a security group.
-        Add one or more rules to a security group.
-        :param security_group_id:
+        :param security_group_id: ID of the security group to add rules to.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param security_group_rules:
+        :param security_group_rules: List of rules to add.
         :return: :class:`AddSecurityGroupRulesResponse <AddSecurityGroupRulesResponse>`
 
         Usage:
@@ -1907,11 +1855,9 @@ class InstanceV2Alpha1API(API):
         security_group_rules: Optional[list[SecurityGroupRuleConfig]] = None,
     ) -> SecurityGroup:
         """
-        Set all rules of a security group.
-        Replace all rules of a specified security group with the provided rules.
-        :param security_group_id:
+        :param security_group_id: ID of the security group to set rules for.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param security_group_rules:
+        :param security_group_rules: List of rules to set.
         :return: :class:`SecurityGroup <SecurityGroup>`
 
         Usage:
@@ -1955,18 +1901,16 @@ class InstanceV2Alpha1API(API):
         position: Optional[int] = None,
     ) -> SecurityGroup:
         """
-        Update a security group rule.
-        Update the properties of a rule from a specified security group.
-        :param security_group_rule_id:
+        :param security_group_rule_id: ID of the rule to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param protocol:
-        :param direction:
-        :param action:
-        :param source_ip_range:
-        :param destination_ip_range:
-        :param source_ports:
-        :param destination_ports:
-        :param position:
+        :param protocol: New protocol for the rule.
+        :param direction: New direction for the rule.
+        :param action: New action for the rule.
+        :param source_ip_range: New source IP range for the rule.
+        :param destination_ip_range: New destination IP range for the rule.
+        :param source_ports: New source port range for the rule.
+        :param destination_ports: New destination port range for the rule.
+        :param position: New position for the rule.
         :return: :class:`SecurityGroup <SecurityGroup>`
 
         Usage:
@@ -2012,10 +1956,8 @@ class InstanceV2Alpha1API(API):
         security_group_rule_ids: Optional[list[str]] = None,
     ) -> None:
         """
-        Delete rules from a security group.
-        Delete specified security groups.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param security_group_rule_ids:
+        :param security_group_rule_ids: List of rule IDs to delete.
 
         Usage:
         ::
@@ -2048,12 +1990,10 @@ class InstanceV2Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListUserDataKeysResponse:
         """
-        List user data keys.
-        List all user data keys registered on a specified Instance.
-        :param server_id:
+        :param server_id: The ID of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
+        :param page_token: Page token for pagination.
+        :param page_size: Number of items to return per page.
         :return: :class:`ListUserDataKeysResponse <ListUserDataKeysResponse>`
 
         Usage:
@@ -2087,10 +2027,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> UserData:
         """
-        Get user data.
-        Get the content of a user data with a specified key on an Instance.
-        :param server_id:
-        :param key:
+        :param server_id: The ID of the server.
+        :param key: The key of the user data to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`UserData <UserData>`
 
@@ -2124,11 +2062,9 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Add/set user data.
-        Add or update a user data with a specified key on an Instance.
-        :param server_id:
-        :param key:
-        :param content:
+        :param server_id: The ID of the server.
+        :param key: The key of the user data to set.
+        :param content: The content to set for the user data.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2169,10 +2105,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Delete user data.
-        Delete a specified key from an Instance's user data.
-        :param server_id:
-        :param key:
+        :param server_id: The ID of the server.
+        :param key: The key of the user data to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2202,9 +2136,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> UserData:
         """
-        Get cloud-init user data.
-        Get the cloud-init configuration of a specified Instance.
-        :param server_id:
+        :param server_id: The ID of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`UserData <UserData>`
 
@@ -2235,10 +2167,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Set cloud-init user data.
-        Set the cloud-init configuration for a specified Instance.
-        :param server_id:
-        :param content:
+        :param server_id: The ID of the server.
+        :param content: The cloud-init configuration content.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2284,19 +2214,17 @@ class InstanceV2Alpha1API(API):
         placement_group_ids: Optional[list[str]] = None,
     ) -> ListTemplatesResponse:
         """
-        List templates.
-        List all available templates.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
-        :param order_by:
-        :param project_id:
-        :param template_ids:
-        :param name:
-        :param tags:
-        :param server_tags:
-        :param security_group_ids:
-        :param placement_group_ids:
+        :param page_token: Token for pagination.
+        :param page_size: Number of items to return per page.
+        :param order_by: Field to sort results by.
+        :param project_id: Filter by Project ID.
+        :param template_ids: Filter by specific template IDs.
+        :param name: Filter by template name.
+        :param tags: Filter by tags.
+        :param server_tags: Filter by server tags.
+        :param security_group_ids: Filter by security group IDs.
+        :param placement_group_ids: Filter by placement group IDs.
         :return: :class:`ListTemplatesResponse <ListTemplatesResponse>`
 
         Usage:
@@ -2344,26 +2272,24 @@ class InstanceV2Alpha1API(API):
         private_networks: Optional[
             list[CreateTemplateRequestPrivateNetworkTemplate]
         ] = None,
-        windows_rdp_ssh_key_id: Optional[str] = None,
         filesystem_ids: Optional[list[str]] = None,
+        windows_rdp_ssh_key_id: Optional[str] = None,
     ) -> Template:
         """
-        Create a template.
-        Create a new template from an Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name:
-        :param server_type:
-        :param project_id:
-        :param tags:
-        :param server_tags:
-        :param public_ip_v4_count:
-        :param public_ip_v6_count:
-        :param security_group_id:
-        :param placement_group_id:
-        :param volumes:
-        :param private_networks:
-        :param windows_rdp_ssh_key_id:
-        :param filesystem_ids:
+        :param name: Name of the template.
+        :param server_type: Commercial type of the server defined by the template.
+        :param project_id: Project ID for the template.
+        :param tags: Tags to associate with the template.
+        :param server_tags: Tags to associate with servers created from the template.
+        :param public_ip_v4_count: Number of IPv4 public IPs to attach to servers created from this template.
+        :param public_ip_v6_count: Number of IPv6 public IPs to attach to servers created from this template.
+        :param security_group_id: Security group ID for the template.
+        :param placement_group_id: Placement group ID for the template.
+        :param volumes: List of volume templates to define volumes for servers.
+        :param private_networks: List of private networks to associate with the template.
+        :param filesystem_ids: List of filesystem IDs to associate with the template.
+        :param windows_rdp_ssh_key_id: IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use.
         :return: :class:`Template <Template>`
 
         Usage:
@@ -2396,8 +2322,8 @@ class InstanceV2Alpha1API(API):
                     placement_group_id=placement_group_id,
                     volumes=volumes,
                     private_networks=private_networks,
-                    windows_rdp_ssh_key_id=windows_rdp_ssh_key_id,
                     filesystem_ids=filesystem_ids,
+                    windows_rdp_ssh_key_id=windows_rdp_ssh_key_id,
                 ),
                 self.client,
             ),
@@ -2413,9 +2339,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Template:
         """
-        Get a template.
-        Get details of a specified template.
-        :param template_id:
+        :param template_id: Unique ID of the template to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Template <Template>`
 
@@ -2453,28 +2377,26 @@ class InstanceV2Alpha1API(API):
         update_private_networks: Optional[
             UpdateTemplateRequestUpdatePrivateNetworks
         ] = None,
+        filesystem_ids: Optional[list[str]] = None,
         public_ip_v4_count: Optional[int] = None,
         public_ip_v6_count: Optional[int] = None,
         windows_rdp_ssh_key_id: Optional[str] = None,
-        filesystem_ids: Optional[list[str]] = None,
     ) -> Template:
         """
-        Update a template.
-        Update the properties of a template.
-        :param template_id:
+        :param template_id: Unique ID of the template to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name:
-        :param tags:
-        :param server_tags:
-        :param server_type:
-        :param security_group_id:
-        :param placement_group_id:
-        :param update_volumes:
-        :param update_private_networks:
-        :param public_ip_v4_count:
-        :param public_ip_v6_count:
-        :param windows_rdp_ssh_key_id:
-        :param filesystem_ids:
+        :param name: New name for the template.
+        :param tags: New tags for the template.
+        :param server_tags: New server tags for the template.
+        :param server_type: New server type for the template.
+        :param security_group_id: New security group ID for the template.
+        :param placement_group_id: New placement group ID for the template.
+        :param update_volumes: Updated volume templates for the template.
+        :param update_private_networks: Updated private networks list for the template.
+        :param filesystem_ids: New list of filesystem IDs for the template.
+        :param public_ip_v4_count: New number of IPv4 public IPs to attach to servers.
+        :param public_ip_v6_count: New number of IPv6 public IPs to attach to servers.
+        :param windows_rdp_ssh_key_id: New IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use.
         :return: :class:`Template <Template>`
 
         Usage:
@@ -2503,10 +2425,10 @@ class InstanceV2Alpha1API(API):
                     placement_group_id=placement_group_id,
                     update_volumes=update_volumes,
                     update_private_networks=update_private_networks,
+                    filesystem_ids=filesystem_ids,
                     public_ip_v4_count=public_ip_v4_count,
                     public_ip_v6_count=public_ip_v6_count,
                     windows_rdp_ssh_key_id=windows_rdp_ssh_key_id,
-                    filesystem_ids=filesystem_ids,
                 ),
                 self.client,
             ),
@@ -2522,9 +2444,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Delete a template.
-        Delete a specified template.
-        :param template_id:
+        :param template_id: Unique ID of the template to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2555,12 +2475,10 @@ class InstanceV2Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListTemplateUserDataKeysResponse:
         """
-        List template user data keys.
-        List all user data keys of a template.
-        :param template_id:
+        :param template_id: Unique ID of the template.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
+        :param page_token: Token for pagination.
+        :param page_size: Number of items to return per page.
         :return: :class:`ListTemplateUserDataKeysResponse <ListTemplateUserDataKeysResponse>`
 
         Usage:
@@ -2594,10 +2512,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> UserData:
         """
-        Get template user data.
-        Get a specific user data key of a template.
-        :param template_id:
-        :param key:
+        :param template_id: Unique ID of the template.
+        :param key: Key of the user data to retrieve.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`UserData <UserData>`
 
@@ -2631,11 +2547,9 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Set template user data.
-        Set a user data key of a template.
-        :param template_id:
-        :param key:
-        :param content:
+        :param template_id: Unique ID of the template.
+        :param key: Key of the user data to set.
+        :param content: Content of the user data.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2676,10 +2590,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Delete template user data.
-        Delete a specific user data key of a template.
-        :param template_id:
-        :param key:
+        :param template_id: Unique ID of the template.
+        :param key: Key of the user data to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2709,9 +2621,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> UserData:
         """
-        Get template cloud-init.
-        Get the cloud-init configuration of a template.
-        :param template_id:
+        :param template_id: Unique ID of the template.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`UserData <UserData>`
 
@@ -2742,10 +2652,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Set template cloud-init.
-        Set the cloud-init configuration of a template.
-        :param template_id:
-        :param content:
+        :param template_id: Unique ID of the template.
+        :param content: Cloud-init configuration content.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2782,9 +2690,7 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        Check a template.
-        Validate that a template is usable.
-        :param template_id:
+        :param template_id: Unique ID of the template to check.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
@@ -2813,10 +2719,8 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
     ) -> Server:
         """
-        Create a server from a template.
-        Create a new Instance using a specified template.
-        :param template_id:
-        :param name:
+        :param template_id: Unique ID of the template to use.
+        :param name: Name of the new server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 

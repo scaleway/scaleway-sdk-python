@@ -43,7 +43,7 @@ from .types import SecurityGroup
 from .types import CreateServerRequestPublicNetworkInterface
 from .types import CreateServerRequestServerVolume
 from .types import PlacementGroup
-from .types import PrivateNetworkInterface
+from .types import PrivateNetworkInterfaceSummary
 from .types import SecurityGroupSummary
 from .types import ServerType
 from .types import ServerSummary
@@ -87,6 +87,7 @@ from .types import GetResourceCountsRequest
 from .types import GetSecurityGroupRequest
 from .types import GetServerCloudInitRequest
 from .types import GetServerRequest
+from .types import GetServiceInfoRequest
 from .types import GetTemplateCloudInitRequest
 from .types import GetTemplateRequest
 from .types import GetTemplateUserDataRequest
@@ -108,6 +109,7 @@ from .types import ListTemplatesResponse
 from .types import ListUserDataKeysRequest
 from .types import ListUserDataKeysResponse
 from .types import PauseServerRequest
+from .types import PrivateNetworkInterface
 from .types import RebootServerRequest
 from .types import ResourceCounts
 from .types import Server
@@ -174,7 +176,7 @@ __all__ = [
     "CreateServerRequestPublicNetworkInterface",
     "CreateServerRequestServerVolume",
     "PlacementGroup",
-    "PrivateNetworkInterface",
+    "PrivateNetworkInterfaceSummary",
     "SecurityGroupSummary",
     "ServerType",
     "ServerSummary",
@@ -218,6 +220,7 @@ __all__ = [
     "GetSecurityGroupRequest",
     "GetServerCloudInitRequest",
     "GetServerRequest",
+    "GetServiceInfoRequest",
     "GetTemplateCloudInitRequest",
     "GetTemplateRequest",
     "GetTemplateUserDataRequest",
@@ -239,6 +242,7 @@ __all__ = [
     "ListUserDataKeysRequest",
     "ListUserDataKeysResponse",
     "PauseServerRequest",
+    "PrivateNetworkInterface",
     "RebootServerRequest",
     "ResourceCounts",
     "Server",
