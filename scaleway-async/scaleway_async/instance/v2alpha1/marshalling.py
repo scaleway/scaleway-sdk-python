@@ -14,9 +14,9 @@ from .types import (
     SecurityGroupRule,
     SecurityGroup,
     PlacementGroup,
-    PrivateNetworkInterface,
     AddSecurityGroupRulesResponse,
     ListPlacementGroupsResponse,
+    PrivateNetworkInterfaceSummary,
     ListPrivateNetworkInterfacesResponse,
     SecurityGroupSummary,
     ListSecurityGroupsResponse,
@@ -30,6 +30,7 @@ from .types import (
     TemplateSummary,
     ListTemplatesResponse,
     ListUserDataKeysResponse,
+    PrivateNetworkInterface,
     ResourceCounts,
     ServerIP,
     ServerFilesystem,
@@ -339,10 +340,70 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
     return PlacementGroup(**args)
 
 
-def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
+def unmarshal_AddSecurityGroupRulesResponse(data: Any) -> AddSecurityGroupRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'PrivateNetworkInterface' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AddSecurityGroupRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("added_rules", None)
+    if field is not None:
+        args["added_rules"] = (
+            [unmarshal_SecurityGroupRule(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["added_rules"] = None
+
+    field = data.get("security_group", None)
+    if field is not None:
+        args["security_group"] = unmarshal_SecurityGroup(field)
+    else:
+        args["security_group"] = None
+
+    return AddSecurityGroupRulesResponse(**args)
+
+
+def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListPlacementGroupsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("placement_groups", None)
+    if field is not None:
+        args["placement_groups"] = (
+            [unmarshal_PlacementGroup(v) for v in field] if field is not None else None
+        )
+    else:
+        args["placement_groups"] = None
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = None
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListPlacementGroupsResponse(**args)
+
+
+def unmarshal_PrivateNetworkInterfaceSummary(
+    data: Any,
+) -> PrivateNetworkInterfaceSummary:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PrivateNetworkInterfaceSummary' failed as data isn't a dictionary."
         )
 
     args: dict[str, Any] = {}
@@ -413,65 +474,7 @@ def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
     else:
         args["updated_at"] = None
 
-    return PrivateNetworkInterface(**args)
-
-
-def unmarshal_AddSecurityGroupRulesResponse(data: Any) -> AddSecurityGroupRulesResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'AddSecurityGroupRulesResponse' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("added_rules", None)
-    if field is not None:
-        args["added_rules"] = (
-            [unmarshal_SecurityGroupRule(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["added_rules"] = None
-
-    field = data.get("security_group", None)
-    if field is not None:
-        args["security_group"] = unmarshal_SecurityGroup(field)
-    else:
-        args["security_group"] = None
-
-    return AddSecurityGroupRulesResponse(**args)
-
-
-def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListPlacementGroupsResponse' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("placement_groups", None)
-    if field is not None:
-        args["placement_groups"] = (
-            [unmarshal_PlacementGroup(v) for v in field] if field is not None else None
-        )
-    else:
-        args["placement_groups"] = None
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-    else:
-        args["total_count"] = None
-
-    field = data.get("next_page_token", None)
-    if field is not None:
-        args["next_page_token"] = field
-    else:
-        args["next_page_token"] = None
-
-    return ListPlacementGroupsResponse(**args)
+    return PrivateNetworkInterfaceSummary(**args)
 
 
 def unmarshal_ListPrivateNetworkInterfacesResponse(
@@ -487,7 +490,7 @@ def unmarshal_ListPrivateNetworkInterfacesResponse(
     field = data.get("private_network_interfaces", None)
     if field is not None:
         args["private_network_interfaces"] = (
-            [unmarshal_PrivateNetworkInterface(v) for v in field]
+            [unmarshal_PrivateNetworkInterfaceSummary(v) for v in field]
             if field is not None
             else None
         )
@@ -1113,6 +1116,83 @@ def unmarshal_ListUserDataKeysResponse(data: Any) -> ListUserDataKeysResponse:
         args["next_page_token"] = None
 
     return ListUserDataKeysResponse(**args)
+
+
+def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PrivateNetworkInterface' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("server_id", None)
+    if field is not None:
+        args["server_id"] = field
+    else:
+        args["server_id"] = None
+
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+    else:
+        args["security_group_id"] = None
+
+    field = data.get("mac_address", None)
+    if field is not None:
+        args["mac_address"] = field
+    else:
+        args["mac_address"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = None
+
+    field = data.get("ip_ids", None)
+    if field is not None:
+        args["ip_ids"] = field
+    else:
+        args["ip_ids"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return PrivateNetworkInterface(**args)
 
 
 def unmarshal_ResourceCounts(data: Any) -> ResourceCounts:

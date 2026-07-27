@@ -392,7 +392,7 @@ class PlacementGroup:
 
 
 @dataclass
-class PrivateNetworkInterface:
+class PrivateNetworkInterfaceSummary:
     id: str
     private_network_id: str
     project_id: str
@@ -962,7 +962,7 @@ class ListPrivateNetworkInterfacesRequest:
 
 @dataclass
 class ListPrivateNetworkInterfacesResponse:
-    private_network_interfaces: list[PrivateNetworkInterface]
+    private_network_interfaces: list[PrivateNetworkInterfaceSummary]
     total_count: int
     next_page_token: Optional[str] = None
 
@@ -1107,6 +1107,21 @@ class PauseServerRequest:
     """
     Zone to target. If none is passed will use default zone from the config.
     """
+
+
+@dataclass
+class PrivateNetworkInterface:
+    id: str
+    private_network_id: str
+    project_id: str
+    server_id: str
+    security_group_id: str
+    mac_address: str
+    status: PrivateNetworkInterfaceStatus
+    ip_ids: list[str]
+    tags: list[str]
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
 
 @dataclass
