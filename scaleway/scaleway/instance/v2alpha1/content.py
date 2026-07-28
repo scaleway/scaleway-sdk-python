@@ -8,6 +8,8 @@ from .types import (
     ServerPrivateNetworkInterfaceStatus,
     ServerPublicNetworkInterfaceStatus,
     ServerStatus,
+    SnapshotStatus,
+    VolumeStatus,
 )
 
 PRIVATE_NETWORK_INTERFACE_TRANSIENT_STATUSES: list[PrivateNetworkInterfaceStatus] = [
@@ -57,4 +59,21 @@ SERVER_TRANSIENT_STATUSES: list[ServerStatus] = [
 ]
 """
 Lists transient statutes of the enum :class:`ServerStatus <ServerStatus>`.
+"""
+SNAPSHOT_TRANSIENT_STATUSES: list[SnapshotStatus] = [
+    SnapshotStatus.CREATING,
+    SnapshotStatus.EXPORTING,
+]
+"""
+Lists transient statutes of the enum :class:`SnapshotStatus <SnapshotStatus>`.
+"""
+VOLUME_TRANSIENT_STATUSES: list[VolumeStatus] = [
+    VolumeStatus.SNAPSHOTTING,
+    VolumeStatus.ATTACHING,
+    VolumeStatus.DETACHING,
+    VolumeStatus.CREATING,
+    VolumeStatus.MIGRATING,
+]
+"""
+Lists transient statutes of the enum :class:`VolumeStatus <VolumeStatus>`.
 """

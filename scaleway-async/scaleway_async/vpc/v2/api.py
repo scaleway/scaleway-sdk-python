@@ -22,6 +22,8 @@ from .types import (
     ListVPCsRequestOrderBy,
     VPCConnectorStatus,
     AclRule,
+    AddPrivateNetworkS3EndpointRequest,
+    AddPrivateNetworkS3EndpointResponse,
     CreateIngressRuleRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
@@ -40,6 +42,8 @@ from .types import (
     Route,
     SetAclRequest,
     SetAclResponse,
+    SetPrivateNetworksS3EndpointRequest,
+    SetPrivateNetworksS3EndpointResponse,
     Subnet,
     UpdateIngressRuleRequest,
     UpdatePrivateNetworkRequest,
@@ -55,6 +59,7 @@ from .marshalling import (
     unmarshal_IngressRule,
     unmarshal_VPCConnector,
     unmarshal_VPC,
+    unmarshal_AddPrivateNetworkS3EndpointResponse,
     unmarshal_GetAclResponse,
     unmarshal_ListIngressRulesResponse,
     unmarshal_ListPrivateNetworksResponse,
@@ -63,12 +68,15 @@ from .marshalling import (
     unmarshal_ListVPCConnectorsResponse,
     unmarshal_ListVPCsResponse,
     unmarshal_SetAclResponse,
+    unmarshal_SetPrivateNetworksS3EndpointResponse,
+    marshal_AddPrivateNetworkS3EndpointRequest,
     marshal_CreateIngressRuleRequest,
     marshal_CreatePrivateNetworkRequest,
     marshal_CreateRouteRequest,
     marshal_CreateVPCConnectorRequest,
     marshal_CreateVPCRequest,
     marshal_SetAclRequest,
+    marshal_SetPrivateNetworksS3EndpointRequest,
     marshal_UpdateIngressRuleRequest,
     marshal_UpdatePrivateNetworkRequest,
     marshal_UpdateRouteRequest,
@@ -95,6 +103,7 @@ class VpcV2API(API):
         project_id: Optional[str] = None,
         is_default: Optional[bool] = None,
         routing_enabled: Optional[bool] = None,
+        s3_integration_enabled: Optional[bool] = None,
     ) -> ListVPCsResponse:
         """
         List VPCs.
@@ -109,6 +118,7 @@ class VpcV2API(API):
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
         :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
+        :param s3_integration_enabled: Defines whether to filter only for VPCs with S3 integration enabled.
         :return: :class:`ListVPCsResponse <ListVPCsResponse>`
 
         Usage:
@@ -134,6 +144,7 @@ class VpcV2API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "routing_enabled": routing_enabled,
+                "s3_integration_enabled": s3_integration_enabled,
                 "tags": tags,
             },
         )
@@ -154,6 +165,7 @@ class VpcV2API(API):
         project_id: Optional[str] = None,
         is_default: Optional[bool] = None,
         routing_enabled: Optional[bool] = None,
+        s3_integration_enabled: Optional[bool] = None,
     ) -> list[VPC]:
         """
         List VPCs.
@@ -168,6 +180,7 @@ class VpcV2API(API):
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
         :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
+        :param s3_integration_enabled: Defines whether to filter only for VPCs with S3 integration enabled.
         :return: :class:`list[VPC] <list[VPC]>`
 
         Usage:
@@ -191,6 +204,7 @@ class VpcV2API(API):
                 "project_id": project_id,
                 "is_default": is_default,
                 "routing_enabled": routing_enabled,
+                "s3_integration_enabled": s3_integration_enabled,
             },
         )
 
@@ -374,6 +388,7 @@ class VpcV2API(API):
         private_network_ids: Optional[list[str]] = None,
         vpc_id: Optional[str] = None,
         dhcp_enabled: Optional[bool] = None,
+        s3_integration_enabled: Optional[bool] = None,
     ) -> ListPrivateNetworksResponse:
         """
         List Private Networks.
@@ -389,6 +404,7 @@ class VpcV2API(API):
         :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
         :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
+        :param s3_integration_enabled: Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned.
         :return: :class:`ListPrivateNetworksResponse <ListPrivateNetworksResponse>`
 
         Usage:
@@ -414,6 +430,7 @@ class VpcV2API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "private_network_ids": private_network_ids,
                 "project_id": project_id or self.client.default_project_id,
+                "s3_integration_enabled": s3_integration_enabled,
                 "tags": tags,
                 "vpc_id": vpc_id,
             },
@@ -436,6 +453,7 @@ class VpcV2API(API):
         private_network_ids: Optional[list[str]] = None,
         vpc_id: Optional[str] = None,
         dhcp_enabled: Optional[bool] = None,
+        s3_integration_enabled: Optional[bool] = None,
     ) -> list[PrivateNetwork]:
         """
         List Private Networks.
@@ -451,6 +469,7 @@ class VpcV2API(API):
         :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
         :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
+        :param s3_integration_enabled: Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned.
         :return: :class:`list[PrivateNetwork] <list[PrivateNetwork]>`
 
         Usage:
@@ -475,6 +494,7 @@ class VpcV2API(API):
                 "private_network_ids": private_network_ids,
                 "vpc_id": vpc_id,
                 "dhcp_enabled": dhcp_enabled,
+                "s3_integration_enabled": s3_integration_enabled,
             },
         )
 
@@ -1808,6 +1828,207 @@ class VpcV2API(API):
         res = self._request(
             "DELETE",
             f"/vpc/v2/regions/{param_region}/ingress-rules/{param_rule_id}",
+        )
+
+        self._throw_on_error(res)
+
+    async def enable_s3_endpoint(
+        self,
+        *,
+        vpc_id: str,
+        region: Optional[ScwRegion] = None,
+        private_network_ids: Optional[list[str]] = None,
+    ) -> VPC:
+        """
+        Enable S3 integration.
+        Enable S3 integration for a VPC.
+        :param vpc_id: ID of the VPC for which to enable S3 integration.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param private_network_ids: IDs of the Private Networks for which to enable S3 integration.
+        :return: :class:`VPC <VPC>`
+
+        Usage:
+        ::
+
+            result = await api.enable_s3_endpoint(
+                vpc_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+
+        res = self._request(
+            "POST",
+            f"/vpc/v2/regions/{param_region}/s3-integration/{param_vpc_id}/enable",
+            params={
+                "private_network_ids": private_network_ids,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_VPC(res.json())
+
+    async def disable_s3_endpoint(
+        self,
+        *,
+        vpc_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> VPC:
+        """
+        Disable S3 integration.
+        Disable S3 integration for a VPC.
+        :param vpc_id: ID of the VPC for which to disable S3 integration.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`VPC <VPC>`
+
+        Usage:
+        ::
+
+            result = await api.disable_s3_endpoint(
+                vpc_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+
+        res = self._request(
+            "POST",
+            f"/vpc/v2/regions/{param_region}/s3-integration/{param_vpc_id}/disable",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_VPC(res.json())
+
+    async def add_private_network_s3_endpoint(
+        self,
+        *,
+        vpc_id: str,
+        private_network_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> AddPrivateNetworkS3EndpointResponse:
+        """
+        Add a Private Network to an S3 Endpoint.
+        Add a Private Network to the S3 Endpoint to enable S3 integration for its resources.
+        :param vpc_id: ID of the VPC containing the S3 Endpoint.
+        :param private_network_id: ID of the Private Network to add to the S3 Endpoint.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`AddPrivateNetworkS3EndpointResponse <AddPrivateNetworkS3EndpointResponse>`
+
+        Usage:
+        ::
+
+            result = await api.add_private_network_s3_endpoint(
+                vpc_id="example",
+                private_network_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+
+        res = self._request(
+            "POST",
+            f"/vpc/v2/regions/{param_region}/s3-integration/{param_vpc_id}/private-networks",
+            body=marshal_AddPrivateNetworkS3EndpointRequest(
+                AddPrivateNetworkS3EndpointRequest(
+                    vpc_id=vpc_id,
+                    private_network_id=private_network_id,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AddPrivateNetworkS3EndpointResponse(res.json())
+
+    async def set_private_networks_s3_endpoint(
+        self,
+        *,
+        vpc_id: str,
+        private_network_ids: list[str],
+        region: Optional[ScwRegion] = None,
+    ) -> SetPrivateNetworksS3EndpointResponse:
+        """
+        Set S3 Endpoint Private Networks.
+        Set the Private Networks associated with the S3 Endpoint to enable S3 integration for their resources.
+        :param vpc_id: ID of the VPC containing the S3 Endpoint.
+        :param private_network_ids: IDs of the Private Networks to associate with the S3 Endpoint.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`SetPrivateNetworksS3EndpointResponse <SetPrivateNetworksS3EndpointResponse>`
+
+        Usage:
+        ::
+
+            result = await api.set_private_networks_s3_endpoint(
+                vpc_id="example",
+                private_network_ids=[],
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+
+        res = self._request(
+            "PUT",
+            f"/vpc/v2/regions/{param_region}/s3-integration/{param_vpc_id}/private-networks",
+            body=marshal_SetPrivateNetworksS3EndpointRequest(
+                SetPrivateNetworksS3EndpointRequest(
+                    vpc_id=vpc_id,
+                    private_network_ids=private_network_ids,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SetPrivateNetworksS3EndpointResponse(res.json())
+
+    async def delete_private_network_s3_endpoint(
+        self,
+        *,
+        vpc_id: str,
+        private_network_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        Remove a Private Network from an S3 Endpoint.
+        Remove a Private Network from the S3 Endpoint to disable S3 integration for its resources.
+        :param vpc_id: ID of the VPC containing the S3 Endpoint.
+        :param private_network_id: ID of the Private Network to remove from the S3 Endpoint.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_private_network_s3_endpoint(
+                vpc_id="example",
+                private_network_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
+        res = self._request(
+            "DELETE",
+            f"/vpc/v2/regions/{param_region}/s3-integration/{param_vpc_id}/private-networks/{param_private_network_id}",
         )
 
         self._throw_on_error(res)
