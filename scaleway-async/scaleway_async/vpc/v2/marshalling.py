@@ -15,6 +15,7 @@ from .types import (
     VPCConnectorPeerInfo,
     VPCConnector,
     VPC,
+    AddPrivateNetworkS3EndpointResponse,
     AclRule,
     GetAclResponse,
     ListIngressRulesResponse,
@@ -25,12 +26,15 @@ from .types import (
     ListVPCConnectorsResponse,
     ListVPCsResponse,
     SetAclResponse,
+    SetPrivateNetworksS3EndpointResponse,
+    AddPrivateNetworkS3EndpointRequest,
     CreateIngressRuleRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCConnectorRequest,
     CreateVPCRequest,
     SetAclRequest,
+    SetPrivateNetworksS3EndpointRequest,
     UpdateIngressRuleRequest,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
@@ -150,6 +154,18 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     else:
         args["subnets"] = []
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     field = data.get("vpc_id", None)
     if field is not None:
         args["vpc_id"] = field
@@ -168,17 +184,11 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     else:
         args["default_route_propagation_enabled"] = False
 
-    field = data.get("created_at", None)
+    field = data.get("has_s3_integration", None)
     if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+        args["has_s3_integration"] = field
     else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+        args["has_s3_integration"] = False
 
     return PrivateNetwork(**args)
 
@@ -547,6 +557,12 @@ def unmarshal_VPC(data: Any) -> VPC:
     else:
         args["transitivity_enabled"] = False
 
+    field = data.get("s3_integration_enabled", None)
+    if field is not None:
+        args["s3_integration_enabled"] = field
+    else:
+        args["s3_integration_enabled"] = False
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -560,6 +576,31 @@ def unmarshal_VPC(data: Any) -> VPC:
         args["updated_at"] = None
 
     return VPC(**args)
+
+
+def unmarshal_AddPrivateNetworkS3EndpointResponse(
+    data: Any,
+) -> AddPrivateNetworkS3EndpointResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AddPrivateNetworkS3EndpointResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("private_network_ids", None)
+    if field is not None:
+        args["private_network_ids"] = field
+    else:
+        args["private_network_ids"] = []
+
+    return AddPrivateNetworkS3EndpointResponse(**args)
 
 
 def unmarshal_AclRule(data: Any) -> AclRule:
@@ -864,6 +905,43 @@ def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
     return SetAclResponse(**args)
 
 
+def unmarshal_SetPrivateNetworksS3EndpointResponse(
+    data: Any,
+) -> SetPrivateNetworksS3EndpointResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SetPrivateNetworksS3EndpointResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+    else:
+        args["vpc_id"] = None
+
+    field = data.get("private_network_ids", None)
+    if field is not None:
+        args["private_network_ids"] = field
+    else:
+        args["private_network_ids"] = []
+
+    return SetPrivateNetworksS3EndpointResponse(**args)
+
+
+def marshal_AddPrivateNetworkS3EndpointRequest(
+    request: AddPrivateNetworkS3EndpointRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    return output
+
+
 def marshal_CreateIngressRuleRequest(
     request: CreateIngressRuleRequest,
     defaults: ProfileDefaults,
@@ -1049,6 +1127,18 @@ def marshal_SetAclRequest(
 
     if request.default_policy is not None:
         output["default_policy"] = request.default_policy
+
+    return output
+
+
+def marshal_SetPrivateNetworksS3EndpointRequest(
+    request: SetPrivateNetworksS3EndpointRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.private_network_ids is not None:
+        output["private_network_ids"] = request.private_network_ids
 
     return output
 
