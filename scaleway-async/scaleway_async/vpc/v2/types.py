@@ -211,6 +211,11 @@ class PrivateNetwork:
     Defines whether default v4 and v6 routes are propagated for this Private Network.
     """
 
+    has_s3_integration: bool
+    """
+    Defines whether this Private Network is enabled for S3 integration.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the Private Network was created.
@@ -541,6 +546,11 @@ class VPC:
     Defines whether the VPC allows packets from peered VPCs to transit through.
     """
 
+    s3_integration_enabled: bool
+    """
+    Defines whether the S3 integration is enabled for the VPC.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the VPC was created.
@@ -549,6 +559,37 @@ class VPC:
     updated_at: Optional[datetime] = None
     """
     Date the VPC was last modified.
+    """
+
+
+@dataclass
+class AddPrivateNetworkS3EndpointRequest:
+    vpc_id: str
+    """
+    ID of the VPC containing the S3 Endpoint.
+    """
+
+    private_network_id: str
+    """
+    ID of the Private Network to add to the S3 Endpoint.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class AddPrivateNetworkS3EndpointResponse:
+    vpc_id: str
+    """
+    ID of the VPC containing the S3 Endpoint.
+    """
+
+    private_network_ids: list[str]
+    """
+    IDs of the Private Networks associated with the S3 Endpoint.
     """
 
 
@@ -759,6 +800,24 @@ class DeletePrivateNetworkRequest:
 
 
 @dataclass
+class DeletePrivateNetworkS3EndpointRequest:
+    vpc_id: str
+    """
+    ID of the VPC containing the S3 Endpoint.
+    """
+
+    private_network_id: str
+    """
+    ID of the Private Network to remove from the S3 Endpoint.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class DeleteRouteRequest:
     route_id: str
     """
@@ -789,6 +848,19 @@ class DeleteVPCRequest:
     vpc_id: str
     """
     VPC ID.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DisableS3EndpointRequest:
+    vpc_id: str
+    """
+    ID of the VPC for which to disable S3 integration.
     """
 
     region: Optional[ScwRegion] = None
@@ -833,6 +905,24 @@ class EnableRoutingRequest:
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class EnableS3EndpointRequest:
+    vpc_id: str
+    """
+    ID of the VPC for which to enable S3 integration.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    private_network_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    IDs of the Private Networks for which to enable S3 integration.
     """
 
 
@@ -1050,6 +1140,11 @@ class ListPrivateNetworksRequest:
     DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
     """
 
+    s3_integration_enabled: Optional[bool] = False
+    """
+    Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned.
+    """
+
 
 @dataclass
 class ListPrivateNetworksResponse:
@@ -1264,6 +1359,11 @@ class ListVPCsRequest:
     Defines whether to filter only for VPCs which route traffic between their Private Networks.
     """
 
+    s3_integration_enabled: Optional[bool] = False
+    """
+    Defines whether to filter only for VPCs with S3 integration enabled.
+    """
+
 
 @dataclass
 class ListVPCsResponse:
@@ -1303,6 +1403,37 @@ class SetAclRequest:
 class SetAclResponse:
     rules: list[AclRule]
     default_policy: Action
+
+
+@dataclass
+class SetPrivateNetworksS3EndpointRequest:
+    vpc_id: str
+    """
+    ID of the VPC containing the S3 Endpoint.
+    """
+
+    private_network_ids: list[str]
+    """
+    IDs of the Private Networks to associate with the S3 Endpoint.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SetPrivateNetworksS3EndpointResponse:
+    vpc_id: str
+    """
+    ID of the VPC containing the S3 Endpoint.
+    """
+
+    private_network_ids: list[str]
+    """
+    IDs of the Private Networks associated with the S3 Endpoint.
+    """
 
 
 @dataclass

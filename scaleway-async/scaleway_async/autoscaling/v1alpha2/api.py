@@ -42,9 +42,7 @@ from .marshalling import (
 
 
 class AutoscalingV1Alpha2API(API):
-    """
-    Instances Autoscaling Groups management API.
-    """
+    """ """
 
     async def list_groups(
         self,
@@ -101,7 +99,8 @@ class AutoscalingV1Alpha2API(API):
     ) -> Group:
         """
         Get an autoscaling group.
-        Get details of a specified autoscaling group including its configuration, current size, and status.
+        Get details of a specified autoscaling group including its
+        configuration, current size, and status.
         :param group_id: ID of the group to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Group <Group>`
@@ -134,7 +133,8 @@ class AutoscalingV1Alpha2API(API):
     ) -> Group:
         """
         Get an autoscaling group.
-        Get details of a specified autoscaling group including its configuration, current size, and status.
+        Get details of a specified autoscaling group including its
+        configuration, current size, and status.
         :param group_id: ID of the group to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Group <Group>`
@@ -177,7 +177,9 @@ class AutoscalingV1Alpha2API(API):
     ) -> Group:
         """
         Create an autoscaling group.
-        Create a new autoscaling group with the specified configuration including template, scaling policy, and optional load balancer settings.
+        Create a new autoscaling group with the specified configuration
+        including template, scaling policy, and optional load balancer
+        settings.
         :param name: Name of the autoscaling group.
         :param template_id: Template ID for instances in this group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -233,7 +235,8 @@ class AutoscalingV1Alpha2API(API):
     ) -> Group:
         """
         Update an autoscaling group.
-        Update the configuration of a specified autoscaling group including name, tags, template, scaling policy, and load balancer settings.
+        Update the configuration of a specified autoscaling group including
+        name, tags, template, scaling policy, and load balancer settings.
         :param group_id: ID of the group to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: New name for the group.
@@ -282,7 +285,8 @@ class AutoscalingV1Alpha2API(API):
     ) -> Group:
         """
         Delete an autoscaling group.
-        Delete a specified autoscaling group and all its associated resources.
+        Delete a specified autoscaling group and all its associated
+        resources.
         :param group_id: ID of the group to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Group <Group>`
@@ -317,8 +321,9 @@ class AutoscalingV1Alpha2API(API):
         end_time: Optional[datetime] = None,
     ) -> ListLogsResponse:
         """
-        List group logs.
-        List logs for a specified autoscaling group to view scaling events and activities.
+        List autoscaling group logs.
+        List logs for a specified autoscaling group to view scaling events
+        and activities.
         :param group_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page_token:
@@ -361,7 +366,7 @@ class AutoscalingV1Alpha2API(API):
         page_size: Optional[int] = None,
     ) -> ListServersResponse:
         """
-        List group servers.
+        List autoscaling group servers.
         List all Instances belonging to a specified autoscaling group.
         :param group_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -402,7 +407,7 @@ class AutoscalingV1Alpha2API(API):
         project_id: Optional[str] = None,
     ) -> ListAlertsResponse:
         """
-        List group alerts.
+        List autoscaling group alerts.
         List active and historical alerts for a specified autoscaling group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param group_id:
