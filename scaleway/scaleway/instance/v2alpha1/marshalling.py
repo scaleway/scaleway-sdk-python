@@ -10,10 +10,27 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    CreateServerRequestServerVolumeVolumeType,
+    PlacementGroupPolicyType,
+    PrivateNetworkInterfaceStatus,
+    SecurityGroupAction,
+    SecurityGroupRuleAction,
+    SecurityGroupRuleDirection,
+    SecurityGroupRuleProtocol,
+    ServerArchitecture,
+    ServerStatus,
+    ServerTypeArchitecture,
+    ServerTypeAvailability,
+    SnapshotStatus,
+    SnapshotVolumeType,
+    VolumeStatus,
+    VolumeVolumeType,
     SecurityGroupRulePortRange,
     SecurityGroupRule,
     SecurityGroup,
     PlacementGroup,
+    Snapshot,
+    Volume,
     AddSecurityGroupRulesResponse,
     ListPlacementGroupsResponse,
     PrivateNetworkInterfaceSummary,
@@ -26,10 +43,14 @@ from .types import (
     ListServerTypesResponse,
     ServerSummary,
     ListServersResponse,
+    ListSnapshotsResponse,
     ListTemplateUserDataKeysResponse,
     TemplateSummary,
     ListTemplatesResponse,
     ListUserDataKeysResponse,
+    VolumeType,
+    ListVolumeTypesResponse,
+    ListVolumesResponse,
     PrivateNetworkInterface,
     ResourceCounts,
     ServerIP,
@@ -81,6 +102,12 @@ from .types import (
     UpdateTemplateRequestUpdatePrivateNetworks,
     UpdateTemplateRequestUpdateVolumes,
     UpdateTemplateRequest,
+    VolumeApiCreateSnapshotRequest,
+    VolumeApiCreateVolumeRequest,
+    VolumeApiExportSnapshotToObjectStorageRequest,
+    VolumeApiImportSnapshotFromObjectStorageRequest,
+    VolumeApiUpdateSnapshotRequest,
+    VolumeApiUpdateVolumeRequest,
 )
 
 
@@ -96,13 +123,13 @@ def unmarshal_SecurityGroupRulePortRange(data: Any) -> SecurityGroupRulePortRang
     if field is not None:
         args["start"] = field
     else:
-        args["start"] = None
+        args["start"] = 0
 
     field = data.get("end", None)
     if field is not None:
         args["end"] = field
     else:
-        args["end"] = None
+        args["end"] = 0
 
     return SecurityGroupRulePortRange(**args)
 
@@ -125,19 +152,19 @@ def unmarshal_SecurityGroupRule(data: Any) -> SecurityGroupRule:
     if field is not None:
         args["protocol"] = field
     else:
-        args["protocol"] = None
+        args["protocol"] = SecurityGroupRuleProtocol.UNKNOWN_PROTOCOL
 
     field = data.get("direction", None)
     if field is not None:
         args["direction"] = field
     else:
-        args["direction"] = None
+        args["direction"] = SecurityGroupRuleDirection.UNKNOWN_DIRECTION
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = field
     else:
-        args["action"] = None
+        args["action"] = SecurityGroupRuleAction.UNKNOWN_ACTION
 
     field = data.get("source_ip_range", None)
     if field is not None:
@@ -155,7 +182,7 @@ def unmarshal_SecurityGroupRule(data: Any) -> SecurityGroupRule:
     if field is not None:
         args["position"] = field
     else:
-        args["position"] = None
+        args["position"] = 0
 
     field = data.get("source_ports", None)
     if field is not None:
@@ -208,37 +235,37 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("disable_default_rules", None)
     if field is not None:
         args["disable_default_rules"] = field
     else:
-        args["disable_default_rules"] = None
+        args["disable_default_rules"] = False
 
     field = data.get("project_default", None)
     if field is not None:
         args["project_default"] = field
     else:
-        args["project_default"] = None
+        args["project_default"] = False
 
     field = data.get("inbound_default_action", None)
     if field is not None:
         args["inbound_default_action"] = field
     else:
-        args["inbound_default_action"] = None
+        args["inbound_default_action"] = SecurityGroupAction.UNKNOWN_ACTION
 
     field = data.get("outbound_default_action", None)
     if field is not None:
         args["outbound_default_action"] = field
     else:
-        args["outbound_default_action"] = None
+        args["outbound_default_action"] = SecurityGroupAction.UNKNOWN_ACTION
 
     field = data.get("stateless", None)
     if field is not None:
         args["stateless"] = field
     else:
-        args["stateless"] = None
+        args["stateless"] = False
 
     field = data.get("default_rules", None)
     if field is not None:
@@ -248,7 +275,7 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
             else None
         )
     else:
-        args["default_rules"] = None
+        args["default_rules"] = []
 
     field = data.get("rules", None)
     if field is not None:
@@ -258,7 +285,7 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
             else None
         )
     else:
-        args["rules"] = None
+        args["rules"] = []
 
     field = data.get("zone", None)
     if field is not None:
@@ -289,6 +316,12 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
 
     args: dict[str, Any] = {}
 
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -301,23 +334,17 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
     else:
         args["name"] = None
 
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
     field = data.get("policy_type", None)
     if field is not None:
         args["policy_type"] = field
     else:
-        args["policy_type"] = None
+        args["policy_type"] = PlacementGroupPolicyType.UNKNOWN_POLICY_TYPE
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("zone", None)
     if field is not None:
@@ -340,6 +367,172 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
     return PlacementGroup(**args)
 
 
+def unmarshal_Snapshot(data: Any) -> Snapshot:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+    else:
+        args["size"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = SnapshotStatus.UNKNOWN_STATUS
+
+    field = data.get("volume_type", None)
+    if field is not None:
+        args["volume_type"] = field
+    else:
+        args["volume_type"] = SnapshotVolumeType.UNKNOWN_VOLUME_TYPE
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("public", None)
+    if field is not None:
+        args["public"] = field
+    else:
+        args["public"] = False
+
+    field = data.get("base_volume_id", None)
+    if field is not None:
+        args["base_volume_id"] = field
+    else:
+        args["base_volume_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Snapshot(**args)
+
+
+def unmarshal_Volume(data: Any) -> Volume:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Volume' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+    else:
+        args["size"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = VolumeStatus.UNKNOWN_STATUS
+
+    field = data.get("volume_type", None)
+    if field is not None:
+        args["volume_type"] = field
+    else:
+        args["volume_type"] = VolumeVolumeType.UNKNOWN_VOLUME_TYPE
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("base_snapshot_id", None)
+    if field is not None:
+        args["base_snapshot_id"] = field
+    else:
+        args["base_snapshot_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("server_id", None)
+    if field is not None:
+        args["server_id"] = field
+    else:
+        args["server_id"] = None
+
+    return Volume(**args)
+
+
 def unmarshal_AddSecurityGroupRulesResponse(data: Any) -> AddSecurityGroupRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -356,7 +549,7 @@ def unmarshal_AddSecurityGroupRulesResponse(data: Any) -> AddSecurityGroupRulesR
             else None
         )
     else:
-        args["added_rules"] = None
+        args["added_rules"] = []
 
     field = data.get("security_group", None)
     if field is not None:
@@ -381,13 +574,13 @@ def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsRespo
             [unmarshal_PlacementGroup(v) for v in field] if field is not None else None
         )
     else:
-        args["placement_groups"] = None
+        args["placement_groups"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -432,12 +625,6 @@ def unmarshal_PrivateNetworkInterfaceSummary(
     else:
         args["server_id"] = None
 
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
@@ -448,19 +635,19 @@ def unmarshal_PrivateNetworkInterfaceSummary(
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = PrivateNetworkInterfaceStatus.UNKNOWN_STATUS
 
     field = data.get("ip_ids", None)
     if field is not None:
         args["ip_ids"] = field
     else:
-        args["ip_ids"] = None
+        args["ip_ids"] = []
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("created_at", None)
     if field is not None:
@@ -495,13 +682,13 @@ def unmarshal_ListPrivateNetworkInterfacesResponse(
             else None
         )
     else:
-        args["private_network_interfaces"] = None
+        args["private_network_interfaces"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -548,37 +735,37 @@ def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("disable_default_rules", None)
     if field is not None:
         args["disable_default_rules"] = field
     else:
-        args["disable_default_rules"] = None
+        args["disable_default_rules"] = False
 
     field = data.get("project_default", None)
     if field is not None:
         args["project_default"] = field
     else:
-        args["project_default"] = None
+        args["project_default"] = False
 
     field = data.get("inbound_default_action", None)
     if field is not None:
         args["inbound_default_action"] = field
     else:
-        args["inbound_default_action"] = None
+        args["inbound_default_action"] = SecurityGroupAction.UNKNOWN_ACTION
 
     field = data.get("outbound_default_action", None)
     if field is not None:
         args["outbound_default_action"] = field
     else:
-        args["outbound_default_action"] = None
+        args["outbound_default_action"] = SecurityGroupAction.UNKNOWN_ACTION
 
     field = data.get("stateless", None)
     if field is not None:
         args["stateless"] = field
     else:
-        args["stateless"] = None
+        args["stateless"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -611,13 +798,13 @@ def unmarshal_ListSecurityGroupsResponse(data: Any) -> ListSecurityGroupsRespons
             else None
         )
     else:
-        args["security_groups"] = None
+        args["security_groups"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -652,7 +839,7 @@ def unmarshal_ServerTypeGpuInfo(data: Any) -> ServerTypeGpuInfo:
     if field is not None:
         args["memory"] = field
     else:
-        args["memory"] = None
+        args["memory"] = 0
 
     return ServerTypeGpuInfo(**args)
 
@@ -669,61 +856,61 @@ def unmarshal_ServerTypeLimits(data: Any) -> ServerTypeLimits:
     if field is not None:
         args["private_network_count"] = field
     else:
-        args["private_network_count"] = None
+        args["private_network_count"] = 0
 
     field = data.get("file_system_count", None)
     if field is not None:
         args["file_system_count"] = field
     else:
-        args["file_system_count"] = None
+        args["file_system_count"] = 0
 
     field = data.get("private_network_bandwidth", None)
     if field is not None:
         args["private_network_bandwidth"] = field
     else:
-        args["private_network_bandwidth"] = None
+        args["private_network_bandwidth"] = 0
 
     field = data.get("block_bandwidth", None)
     if field is not None:
         args["block_bandwidth"] = field
     else:
-        args["block_bandwidth"] = None
+        args["block_bandwidth"] = 0
 
     field = data.get("internet_bandwidth", None)
     if field is not None:
         args["internet_bandwidth"] = field
     else:
-        args["internet_bandwidth"] = None
+        args["internet_bandwidth"] = 0
 
     field = data.get("l_ssd_size", None)
     if field is not None:
         args["l_ssd_size"] = field
     else:
-        args["l_ssd_size"] = None
+        args["l_ssd_size"] = 0
 
     field = data.get("scratch_size", None)
     if field is not None:
         args["scratch_size"] = field
     else:
-        args["scratch_size"] = None
-
-    field = data.get("ip_count", None)
-    if field is not None:
-        args["ip_count"] = field
-    else:
-        args["ip_count"] = None
-
-    field = data.get("volume_count", None)
-    if field is not None:
-        args["volume_count"] = field
-    else:
-        args["volume_count"] = None
+        args["scratch_size"] = 0
 
     field = data.get("scratch_volumes_count", None)
     if field is not None:
         args["scratch_volumes_count"] = field
     else:
-        args["scratch_volumes_count"] = None
+        args["scratch_volumes_count"] = 0
+
+    field = data.get("ip_count", None)
+    if field is not None:
+        args["ip_count"] = field
+    else:
+        args["ip_count"] = 0
+
+    field = data.get("volume_count", None)
+    if field is not None:
+        args["volume_count"] = field
+    else:
+        args["volume_count"] = 0
 
     return ServerTypeLimits(**args)
 
@@ -746,37 +933,37 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     if field is not None:
         args["vcpu_count"] = field
     else:
-        args["vcpu_count"] = None
+        args["vcpu_count"] = 0
 
     field = data.get("gpu_count", None)
     if field is not None:
         args["gpu_count"] = field
     else:
-        args["gpu_count"] = None
+        args["gpu_count"] = 0
 
     field = data.get("memory", None)
     if field is not None:
         args["memory"] = field
     else:
-        args["memory"] = None
+        args["memory"] = 0
 
     field = data.get("architecture", None)
     if field is not None:
         args["architecture"] = field
     else:
-        args["architecture"] = None
+        args["architecture"] = ServerTypeArchitecture.UNKNOWN_ARCHITECTURE
 
     field = data.get("availability", None)
     if field is not None:
         args["availability"] = field
     else:
-        args["availability"] = None
+        args["availability"] = ServerTypeAvailability.UNKNOWN_AVAILABILITY
 
     field = data.get("end_of_service", None)
     if field is not None:
         args["end_of_service"] = field
     else:
-        args["end_of_service"] = None
+        args["end_of_service"] = False
 
     field = data.get("limits", None)
     if field is not None:
@@ -807,13 +994,13 @@ def unmarshal_ListServerTypesResponse(data: Any) -> ListServerTypesResponse:
             [unmarshal_ServerType(v) for v in field] if field is not None else None
         )
     else:
-        args["server_types"] = None
+        args["server_types"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -832,12 +1019,6 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
 
     args: dict[str, Any] = {}
 
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-    else:
-        args["project_id"] = None
-
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
@@ -850,11 +1031,17 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
     else:
         args["name"] = None
 
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("server_type", None)
     if field is not None:
@@ -866,19 +1053,19 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = ServerStatus.UNKNOWN_STATUS
 
     field = data.get("architecture", None)
     if field is not None:
         args["architecture"] = field
     else:
-        args["architecture"] = None
+        args["architecture"] = ServerArchitecture.UNKNOWN_ARCHITECTURE
 
     field = data.get("rescue_mode", None)
     if field is not None:
         args["rescue_mode"] = field
     else:
-        args["rescue_mode"] = None
+        args["rescue_mode"] = False
 
     field = data.get("placement_group_id", None)
     if field is not None:
@@ -915,13 +1102,13 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
             [unmarshal_ServerSummary(v) for v in field] if field is not None else None
         )
     else:
-        args["servers"] = None
+        args["servers"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -930,6 +1117,37 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
         args["next_page_token"] = None
 
     return ListServersResponse(**args)
+
+
+def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListSnapshotsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("snapshots", None)
+    if field is not None:
+        args["snapshots"] = (
+            [unmarshal_Snapshot(v) for v in field] if field is not None else None
+        )
+    else:
+        args["snapshots"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListSnapshotsResponse(**args)
 
 
 def unmarshal_ListTemplateUserDataKeysResponse(
@@ -946,13 +1164,13 @@ def unmarshal_ListTemplateUserDataKeysResponse(
     if field is not None:
         args["keys"] = field
     else:
-        args["keys"] = None
+        args["keys"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -993,13 +1211,13 @@ def unmarshal_TemplateSummary(data: Any) -> TemplateSummary:
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("server_tags", None)
     if field is not None:
         args["server_tags"] = field
     else:
-        args["server_tags"] = None
+        args["server_tags"] = []
 
     field = data.get("server_type", None)
     if field is not None:
@@ -1011,7 +1229,7 @@ def unmarshal_TemplateSummary(data: Any) -> TemplateSummary:
     if field is not None:
         args["public_ip_v4_count"] = field
     else:
-        args["public_ip_v4_count"] = None
+        args["public_ip_v4_count"] = 0
 
     field = data.get("security_group_id", None)
     if field is not None:
@@ -1029,13 +1247,13 @@ def unmarshal_TemplateSummary(data: Any) -> TemplateSummary:
     if field is not None:
         args["public_ip_v6_count"] = field
     else:
-        args["public_ip_v6_count"] = None
+        args["public_ip_v6_count"] = 0
 
     field = data.get("filesystem_ids", None)
     if field is not None:
         args["filesystem_ids"] = field
     else:
-        args["filesystem_ids"] = None
+        args["filesystem_ids"] = []
 
     field = data.get("zone", None)
     if field is not None:
@@ -1072,13 +1290,13 @@ def unmarshal_ListTemplatesResponse(data: Any) -> ListTemplatesResponse:
             [unmarshal_TemplateSummary(v) for v in field] if field is not None else None
         )
     else:
-        args["templates"] = None
+        args["templates"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -1101,13 +1319,13 @@ def unmarshal_ListUserDataKeysResponse(data: Any) -> ListUserDataKeysResponse:
     if field is not None:
         args["keys"] = field
     else:
-        args["keys"] = None
+        args["keys"] = []
 
     field = data.get("total_count", None)
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("next_page_token", None)
     if field is not None:
@@ -1116,6 +1334,97 @@ def unmarshal_ListUserDataKeysResponse(data: Any) -> ListUserDataKeysResponse:
         args["next_page_token"] = None
 
     return ListUserDataKeysResponse(**args)
+
+
+def unmarshal_VolumeType(data: Any) -> VolumeType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VolumeType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = VolumeVolumeType.UNKNOWN_VOLUME_TYPE
+
+    field = data.get("min_size", None)
+    if field is not None:
+        args["min_size"] = field
+    else:
+        args["min_size"] = 0
+
+    field = data.get("max_size", None)
+    if field is not None:
+        args["max_size"] = field
+    else:
+        args["max_size"] = 0
+
+    return VolumeType(**args)
+
+
+def unmarshal_ListVolumeTypesResponse(data: Any) -> ListVolumeTypesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListVolumeTypesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("volume_types", None)
+    if field is not None:
+        args["volume_types"] = (
+            [unmarshal_VolumeType(v) for v in field] if field is not None else None
+        )
+    else:
+        args["volume_types"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListVolumeTypesResponse(**args)
+
+
+def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListVolumesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("volumes", None)
+    if field is not None:
+        args["volumes"] = (
+            [unmarshal_Volume(v) for v in field] if field is not None else None
+        )
+    else:
+        args["volumes"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListVolumesResponse(**args)
 
 
 def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
@@ -1150,12 +1459,6 @@ def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
     else:
         args["server_id"] = None
 
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
@@ -1166,19 +1469,19 @@ def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = PrivateNetworkInterfaceStatus.UNKNOWN_STATUS
 
     field = data.get("ip_ids", None)
     if field is not None:
         args["ip_ids"] = field
     else:
-        args["ip_ids"] = None
+        args["ip_ids"] = []
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("created_at", None)
     if field is not None:
@@ -1207,67 +1510,67 @@ def unmarshal_ResourceCounts(data: Any) -> ResourceCounts:
     if field is not None:
         args["servers"] = field
     else:
-        args["servers"] = None
+        args["servers"] = 0
 
     field = data.get("gpu_servers", None)
     if field is not None:
         args["gpu_servers"] = field
     else:
-        args["gpu_servers"] = None
+        args["gpu_servers"] = 0
 
     field = data.get("servers_by_type", None)
     if field is not None:
         args["servers_by_type"] = field
     else:
-        args["servers_by_type"] = None
+        args["servers_by_type"] = {}
 
     field = data.get("security_groups", None)
     if field is not None:
         args["security_groups"] = field
     else:
-        args["security_groups"] = None
+        args["security_groups"] = 0
 
     field = data.get("placement_groups", None)
     if field is not None:
         args["placement_groups"] = field
     else:
-        args["placement_groups"] = None
+        args["placement_groups"] = 0
 
     field = data.get("snapshots", None)
     if field is not None:
         args["snapshots"] = field
     else:
-        args["snapshots"] = None
+        args["snapshots"] = 0
 
     field = data.get("volumes", None)
     if field is not None:
         args["volumes"] = field
     else:
-        args["volumes"] = None
-
-    field = data.get("volumes_l_ssd_total_size", None)
-    if field is not None:
-        args["volumes_l_ssd_total_size"] = field
-    else:
-        args["volumes_l_ssd_total_size"] = None
-
-    field = data.get("private_network_interfaces", None)
-    if field is not None:
-        args["private_network_interfaces"] = field
-    else:
-        args["private_network_interfaces"] = None
-
-    field = data.get("volumes_scratch", None)
-    if field is not None:
-        args["volumes_scratch"] = field
-    else:
-        args["volumes_scratch"] = None
+        args["volumes"] = 0
 
     field = data.get("volumes_l_ssd", None)
     if field is not None:
         args["volumes_l_ssd"] = field
     else:
-        args["volumes_l_ssd"] = None
+        args["volumes_l_ssd"] = 0
+
+    field = data.get("volumes_l_ssd_total_size", None)
+    if field is not None:
+        args["volumes_l_ssd_total_size"] = field
+    else:
+        args["volumes_l_ssd_total_size"] = 0
+
+    field = data.get("volumes_scratch", None)
+    if field is not None:
+        args["volumes_scratch"] = field
+    else:
+        args["volumes_scratch"] = 0
+
+    field = data.get("private_network_interfaces", None)
+    if field is not None:
+        args["private_network_interfaces"] = field
+    else:
+        args["private_network_interfaces"] = 0
 
     return ResourceCounts(**args)
 
@@ -1474,12 +1777,6 @@ def unmarshal_Server(data: Any) -> Server:
 
     args: dict[str, Any] = {}
 
-    field = data.get("project_id", None)
-    if field is not None:
-        args["project_id"] = field
-    else:
-        args["project_id"] = None
-
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
@@ -1492,11 +1789,17 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["name"] = None
 
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("server_type", None)
     if field is not None:
@@ -1508,7 +1811,7 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = ServerStatus.UNKNOWN_STATUS
 
     field = data.get("volumes", None)
     if field is not None:
@@ -1516,41 +1819,13 @@ def unmarshal_Server(data: Any) -> Server:
             [unmarshal_ServerVolume(v) for v in field] if field is not None else None
         )
     else:
-        args["volumes"] = None
+        args["volumes"] = []
 
     field = data.get("placement_group_id", None)
     if field is not None:
         args["placement_group_id"] = field
     else:
         args["placement_group_id"] = None
-
-    field = data.get("architecture", None)
-    if field is not None:
-        args["architecture"] = field
-    else:
-        args["architecture"] = None
-
-    field = data.get("private_network_interfaces", None)
-    if field is not None:
-        args["private_network_interfaces"] = (
-            [unmarshal_ServerPrivateNetworkInterface(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["private_network_interfaces"] = None
-
-    field = data.get("rescue_mode", None)
-    if field is not None:
-        args["rescue_mode"] = field
-    else:
-        args["rescue_mode"] = None
-
-    field = data.get("status_detail", None)
-    if field is not None:
-        args["status_detail"] = field
-    else:
-        args["status_detail"] = None
 
     field = data.get("filesystems", None)
     if field is not None:
@@ -1560,7 +1835,35 @@ def unmarshal_Server(data: Any) -> Server:
             else None
         )
     else:
-        args["filesystems"] = None
+        args["filesystems"] = []
+
+    field = data.get("architecture", None)
+    if field is not None:
+        args["architecture"] = field
+    else:
+        args["architecture"] = ServerArchitecture.UNKNOWN_ARCHITECTURE
+
+    field = data.get("private_network_interfaces", None)
+    if field is not None:
+        args["private_network_interfaces"] = (
+            [unmarshal_ServerPrivateNetworkInterface(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["private_network_interfaces"] = []
+
+    field = data.get("rescue_mode", None)
+    if field is not None:
+        args["rescue_mode"] = field
+    else:
+        args["rescue_mode"] = False
+
+    field = data.get("status_detail", None)
+    if field is not None:
+        args["status_detail"] = field
+    else:
+        args["status_detail"] = None
 
     field = data.get("zone", None)
     if field is not None:
@@ -1634,7 +1937,9 @@ def unmarshal_CreateTemplateRequestVolumeTemplate(
     if field is not None:
         args["volume_type"] = field
     else:
-        args["volume_type"] = None
+        args["volume_type"] = (
+            CreateServerRequestServerVolumeVolumeType.UNKNOWN_VOLUME_TYPE
+        )
 
     field = data.get("name", None)
     if field is not None:
@@ -1646,13 +1951,13 @@ def unmarshal_CreateTemplateRequestVolumeTemplate(
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
     else:
-        args["size"] = None
+        args["size"] = 0
 
     field = data.get("base_snapshot_id", None)
     if field is not None:
@@ -1670,7 +1975,7 @@ def unmarshal_CreateTemplateRequestVolumeTemplate(
     if field is not None:
         args["perf_iops"] = field
     else:
-        args["perf_iops"] = None
+        args["perf_iops"] = 0
 
     return CreateTemplateRequestVolumeTemplate(**args)
 
@@ -1705,13 +2010,13 @@ def unmarshal_Template(data: Any) -> Template:
     if field is not None:
         args["tags"] = field
     else:
-        args["tags"] = None
+        args["tags"] = []
 
     field = data.get("server_tags", None)
     if field is not None:
         args["server_tags"] = field
     else:
-        args["server_tags"] = None
+        args["server_tags"] = []
 
     field = data.get("server_type", None)
     if field is not None:
@@ -1735,13 +2040,13 @@ def unmarshal_Template(data: Any) -> Template:
     if field is not None:
         args["public_ip_v4_count"] = field
     else:
-        args["public_ip_v4_count"] = None
+        args["public_ip_v4_count"] = 0
 
     field = data.get("public_ip_v6_count", None)
     if field is not None:
         args["public_ip_v6_count"] = field
     else:
-        args["public_ip_v6_count"] = None
+        args["public_ip_v6_count"] = 0
 
     field = data.get("volumes", None)
     if field is not None:
@@ -1751,7 +2056,7 @@ def unmarshal_Template(data: Any) -> Template:
             else None
         )
     else:
-        args["volumes"] = None
+        args["volumes"] = []
 
     field = data.get("private_networks", None)
     if field is not None:
@@ -1761,13 +2066,13 @@ def unmarshal_Template(data: Any) -> Template:
             else None
         )
     else:
-        args["private_networks"] = None
+        args["private_networks"] = []
 
     field = data.get("filesystem_ids", None)
     if field is not None:
         args["filesystem_ids"] = field
     else:
-        args["filesystem_ids"] = None
+        args["filesystem_ids"] = []
 
     field = data.get("zone", None)
     if field is not None:
@@ -1988,9 +2293,6 @@ def marshal_CreatePrivateNetworkInterfaceRequest(
 
     if request.server_id is not None:
         output["server_id"] = request.server_id
-
-    if request.security_group_id is not None:
-        output["security_group_id"] = request.security_group_id
 
     if request.ip_ids is not None:
         output["ip_ids"] = request.ip_ids
@@ -2306,11 +2608,11 @@ def marshal_CreateTemplateRequest(
             for item in request.private_networks
         ]
 
-    if request.windows_rdp_ssh_key_id is not None:
-        output["windows_rdp_ssh_key_id"] = request.windows_rdp_ssh_key_id
-
     if request.filesystem_ids is not None:
         output["filesystem_ids"] = request.filesystem_ids
+
+    if request.windows_rdp_ssh_key_id is not None:
+        output["windows_rdp_ssh_key_id"] = request.windows_rdp_ssh_key_id
 
     return output
 
@@ -2534,9 +2836,6 @@ def marshal_UpdatePrivateNetworkInterfaceRequest(
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
-    if request.security_group_id is not None:
-        output["security_group_id"] = request.security_group_id
-
     if request.tags is not None:
         output["tags"] = request.tags
 
@@ -2731,6 +3030,9 @@ def marshal_UpdateTemplateRequest(
             )
         )
 
+    if request.filesystem_ids is not None:
+        output["filesystem_ids"] = request.filesystem_ids
+
     if request.public_ip_v4_count is not None:
         output["public_ip_v4_count"] = request.public_ip_v4_count
 
@@ -2740,7 +3042,142 @@ def marshal_UpdateTemplateRequest(
     if request.windows_rdp_ssh_key_id is not None:
         output["windows_rdp_ssh_key_id"] = request.windows_rdp_ssh_key_id
 
-    if request.filesystem_ids is not None:
-        output["filesystem_ids"] = request.filesystem_ids
+    return output
+
+
+def marshal_VolumeApiCreateSnapshotRequest(
+    request: VolumeApiCreateSnapshotRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.base_volume_id is not None:
+        output["base_volume_id"] = request.base_volume_id
+
+    if request.public is not None:
+        output["public"] = request.public
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
+
+
+def marshal_VolumeApiCreateVolumeRequest(
+    request: VolumeApiCreateVolumeRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.base_snapshot_id is not None:
+        output["base_snapshot_id"] = request.base_snapshot_id
+
+    if request.volume_type is not None:
+        output["volume_type"] = request.volume_type
+
+    return output
+
+
+def marshal_VolumeApiExportSnapshotToObjectStorageRequest(
+    request: VolumeApiExportSnapshotToObjectStorageRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.bucket is not None:
+        output["bucket"] = request.bucket
+
+    if request.object_key is not None:
+        output["object_key"] = request.object_key
+
+    return output
+
+
+def marshal_VolumeApiImportSnapshotFromObjectStorageRequest(
+    request: VolumeApiImportSnapshotFromObjectStorageRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.bucket is not None:
+        output["bucket"] = request.bucket
+
+    if request.object_key is not None:
+        output["object_key"] = request.object_key
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.volume_type is not None:
+        output["volume_type"] = request.volume_type
+
+    return output
+
+
+def marshal_VolumeApiUpdateSnapshotRequest(
+    request: VolumeApiUpdateSnapshotRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.public is not None:
+        output["public"] = request.public
+
+    return output
+
+
+def marshal_VolumeApiUpdateVolumeRequest(
+    request: VolumeApiUpdateVolumeRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.size is not None:
+        output["size"] = request.size
 
     return output
