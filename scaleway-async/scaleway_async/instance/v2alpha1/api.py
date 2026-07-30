@@ -88,7 +88,6 @@ from .content import (
 from .marshalling import (
     unmarshal_SecurityGroup,
     unmarshal_PlacementGroup,
-    unmarshal_PrivateNetworkInterface,
     unmarshal_AddSecurityGroupRulesResponse,
     unmarshal_ListPlacementGroupsResponse,
     unmarshal_ListPrivateNetworkInterfacesResponse,
@@ -98,6 +97,7 @@ from .marshalling import (
     unmarshal_ListTemplateUserDataKeysResponse,
     unmarshal_ListTemplatesResponse,
     unmarshal_ListUserDataKeysResponse,
+    unmarshal_PrivateNetworkInterface,
     unmarshal_ResourceCounts,
     unmarshal_Server,
     unmarshal_Template,
