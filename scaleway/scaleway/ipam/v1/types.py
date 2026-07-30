@@ -115,6 +115,8 @@ class Source:
 
     vpc_id: Optional[str] = None
 
+    regional: Optional[bool] = False
+
 
 @dataclass
 class CustomResource:
@@ -367,6 +369,8 @@ class ListIPsRequest:
     """
 
     zonal: Optional[str] = None
+
+    regional: Optional[bool] = False
 
     private_network_id: Optional[str] = None
 

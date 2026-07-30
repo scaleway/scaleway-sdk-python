@@ -258,6 +258,7 @@ class IpamV1API(API):
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         zonal: Optional[str] = None,
+        regional: Optional[bool] = None,
         private_network_id: Optional[str] = None,
         subnet_id: Optional[str] = None,
         vpc_id: Optional[str] = None,
@@ -283,11 +284,13 @@ class IpamV1API(API):
         :param page_size: Maximum number of IPs to return per page.
         :param project_id: Project ID to filter for. Only IPs belonging to this Project will be returned.
         :param zonal: Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        :param regional: Filter on regional IPs only.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :param private_network_id: Only IPs that are private, and in this Private Network, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :param subnet_id: Only IPs inside this exact subnet will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
@@ -301,7 +304,7 @@ class IpamV1API(API):
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
         :param ip_ids: IP IDs to filter for. Only IPs with these UUIDs will be returned.
         :param source_vpc_id:
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :return: :class:`ListIPsResponse <ListIPsResponse>`
 
         Usage:
@@ -338,6 +341,7 @@ class IpamV1API(API):
                 **resolve_one_of(
                     [
                         OneOfPossibility("private_network_id", private_network_id),
+                        OneOfPossibility("regional", regional),
                         OneOfPossibility("source_vpc_id", source_vpc_id),
                         OneOfPossibility("subnet_id", subnet_id),
                         OneOfPossibility("zonal", zonal),
@@ -358,6 +362,7 @@ class IpamV1API(API):
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         zonal: Optional[str] = None,
+        regional: Optional[bool] = None,
         private_network_id: Optional[str] = None,
         subnet_id: Optional[str] = None,
         vpc_id: Optional[str] = None,
@@ -383,11 +388,13 @@ class IpamV1API(API):
         :param page_size: Maximum number of IPs to return per page.
         :param project_id: Project ID to filter for. Only IPs belonging to this Project will be returned.
         :param zonal: Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        :param regional: Filter on regional IPs only.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :param private_network_id: Only IPs that are private, and in this Private Network, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :param subnet_id: Only IPs inside this exact subnet will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
@@ -401,7 +408,7 @@ class IpamV1API(API):
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
         :param ip_ids: IP IDs to filter for. Only IPs with these UUIDs will be returned.
         :param source_vpc_id:
-        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'regional', 'private_network_id', 'subnet_id', 'source_vpc_id' could be set.
         :return: :class:`list[IP] <list[IP]>`
 
         Usage:
@@ -433,6 +440,7 @@ class IpamV1API(API):
                 "is_ipv6": is_ipv6,
                 "ip_ids": ip_ids,
                 "zonal": zonal,
+                "regional": regional,
                 "private_network_id": private_network_id,
                 "subnet_id": subnet_id,
                 "source_vpc_id": source_vpc_id,

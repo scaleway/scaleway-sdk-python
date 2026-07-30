@@ -2,11 +2,14 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import CreateServerRequestBookIPIPType
 from .types import CreateServerRequestServerVolumeVolumeType
+from .types import CreateVolumeRequestVolumeType
 from .types import ListPlacementGroupsRequestOrderBy
 from .types import ListPrivateNetworkInterfacesRequestOrderBy
 from .types import ListSecurityGroupsRequestOrderBy
 from .types import ListServersRequestOrderBy
+from .types import ListSnapshotsRequestOrderBy
 from .types import ListTemplatesRequestOrderBy
+from .types import ListVolumesRequestOrderBy
 from .types import PlacementGroupPolicyType
 from .types import PrivateNetworkInterfaceStatus
 from .content import PRIVATE_NETWORK_INTERFACE_TRANSIENT_STATUSES
@@ -28,6 +31,12 @@ from .content import SERVER_TRANSIENT_STATUSES
 from .types import ServerTypeArchitecture
 from .types import ServerTypeAvailability
 from .types import ServerVolumeVolumeType
+from .types import SnapshotStatus
+from .content import SNAPSHOT_TRANSIENT_STATUSES
+from .types import SnapshotVolumeType
+from .types import VolumeStatus
+from .content import VOLUME_TRANSIENT_STATUSES
+from .types import VolumeVolumeType
 from .types import SecurityGroupRulePortRange
 from .types import CreateServerRequestBookIP
 from .types import SecurityGroupRule
@@ -47,7 +56,10 @@ from .types import PrivateNetworkInterfaceSummary
 from .types import SecurityGroupSummary
 from .types import ServerType
 from .types import ServerSummary
+from .types import Snapshot
 from .types import TemplateSummary
+from .types import VolumeType
+from .types import Volume
 from .types import ServerFilesystem
 from .types import ServerPrivateNetworkInterface
 from .types import ServerPublicNetworkInterface
@@ -101,12 +113,15 @@ from .types import ListServerTypesRequest
 from .types import ListServerTypesResponse
 from .types import ListServersRequest
 from .types import ListServersResponse
+from .types import ListSnapshotsResponse
 from .types import ListTemplateUserDataKeysRequest
 from .types import ListTemplateUserDataKeysResponse
 from .types import ListTemplatesRequest
 from .types import ListTemplatesResponse
 from .types import ListUserDataKeysRequest
 from .types import ListUserDataKeysResponse
+from .types import ListVolumeTypesResponse
+from .types import ListVolumesResponse
 from .types import PauseServerRequest
 from .types import PrivateNetworkInterface
 from .types import RebootServerRequest
@@ -129,16 +144,33 @@ from .types import UpdateSecurityGroupRuleRequest
 from .types import UpdateServerRequest
 from .types import UpdateTemplateRequest
 from .types import UserData
+from .types import VolumeApiCreateSnapshotRequest
+from .types import VolumeApiCreateVolumeRequest
+from .types import VolumeApiDeleteSnapshotRequest
+from .types import VolumeApiDeleteVolumeRequest
+from .types import VolumeApiExportSnapshotToObjectStorageRequest
+from .types import VolumeApiGetSnapshotRequest
+from .types import VolumeApiGetVolumeRequest
+from .types import VolumeApiImportSnapshotFromObjectStorageRequest
+from .types import VolumeApiListSnapshotsRequest
+from .types import VolumeApiListVolumeTypesRequest
+from .types import VolumeApiListVolumesRequest
+from .types import VolumeApiUpdateSnapshotRequest
+from .types import VolumeApiUpdateVolumeRequest
 from .api import InstanceV2Alpha1API
+from .api import InstanceV2Alpha1VolumeAPI
 
 __all__ = [
     "CreateServerRequestBookIPIPType",
     "CreateServerRequestServerVolumeVolumeType",
+    "CreateVolumeRequestVolumeType",
     "ListPlacementGroupsRequestOrderBy",
     "ListPrivateNetworkInterfacesRequestOrderBy",
     "ListSecurityGroupsRequestOrderBy",
     "ListServersRequestOrderBy",
+    "ListSnapshotsRequestOrderBy",
     "ListTemplatesRequestOrderBy",
+    "ListVolumesRequestOrderBy",
     "PlacementGroupPolicyType",
     "PrivateNetworkInterfaceStatus",
     "PRIVATE_NETWORK_INTERFACE_TRANSIENT_STATUSES",
@@ -160,6 +192,12 @@ __all__ = [
     "ServerTypeArchitecture",
     "ServerTypeAvailability",
     "ServerVolumeVolumeType",
+    "SnapshotStatus",
+    "SNAPSHOT_TRANSIENT_STATUSES",
+    "SnapshotVolumeType",
+    "VolumeStatus",
+    "VOLUME_TRANSIENT_STATUSES",
+    "VolumeVolumeType",
     "SecurityGroupRulePortRange",
     "CreateServerRequestBookIP",
     "SecurityGroupRule",
@@ -179,7 +217,10 @@ __all__ = [
     "SecurityGroupSummary",
     "ServerType",
     "ServerSummary",
+    "Snapshot",
     "TemplateSummary",
+    "VolumeType",
+    "Volume",
     "ServerFilesystem",
     "ServerPrivateNetworkInterface",
     "ServerPublicNetworkInterface",
@@ -233,12 +274,15 @@ __all__ = [
     "ListServerTypesResponse",
     "ListServersRequest",
     "ListServersResponse",
+    "ListSnapshotsResponse",
     "ListTemplateUserDataKeysRequest",
     "ListTemplateUserDataKeysResponse",
     "ListTemplatesRequest",
     "ListTemplatesResponse",
     "ListUserDataKeysRequest",
     "ListUserDataKeysResponse",
+    "ListVolumeTypesResponse",
+    "ListVolumesResponse",
     "PauseServerRequest",
     "PrivateNetworkInterface",
     "RebootServerRequest",
@@ -261,5 +305,19 @@ __all__ = [
     "UpdateServerRequest",
     "UpdateTemplateRequest",
     "UserData",
+    "VolumeApiCreateSnapshotRequest",
+    "VolumeApiCreateVolumeRequest",
+    "VolumeApiDeleteSnapshotRequest",
+    "VolumeApiDeleteVolumeRequest",
+    "VolumeApiExportSnapshotToObjectStorageRequest",
+    "VolumeApiGetSnapshotRequest",
+    "VolumeApiGetVolumeRequest",
+    "VolumeApiImportSnapshotFromObjectStorageRequest",
+    "VolumeApiListSnapshotsRequest",
+    "VolumeApiListVolumeTypesRequest",
+    "VolumeApiListVolumesRequest",
+    "VolumeApiUpdateSnapshotRequest",
+    "VolumeApiUpdateVolumeRequest",
     "InstanceV2Alpha1API",
+    "InstanceV2Alpha1VolumeAPI",
 ]

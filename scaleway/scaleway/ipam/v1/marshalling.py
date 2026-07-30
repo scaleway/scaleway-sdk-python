@@ -116,6 +116,12 @@ def unmarshal_Source(data: Any) -> Source:
     else:
         args["vpc_id"] = None
 
+    field = data.get("regional", None)
+    if field is not None:
+        args["regional"] = field
+    else:
+        args["regional"] = False
+
     return Source(**args)
 
 
@@ -273,6 +279,9 @@ def marshal_Source(
                 ),
                 OneOfPossibility(
                     param="vpc_id", value=request.vpc_id, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="regional", value=request.regional, marshal_func=None
                 ),
             ]
         ),
