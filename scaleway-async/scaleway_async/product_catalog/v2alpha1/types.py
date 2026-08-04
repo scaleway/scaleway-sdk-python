@@ -75,6 +75,17 @@ class PublicCatalogProductProductBadge(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class PublicCatalogProductPropertiesApacheKafkaAvailableVolumeType(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_TYPE = "unknown_type"
+    SBS_5K = "sbs_5k"
+    SBS_15K = "sbs_15k"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PublicCatalogProductPropertiesGenerativeApisConsumptionMode(
     str, Enum, metaclass=StrEnumMeta
 ):
@@ -285,6 +296,52 @@ class PublicCatalogProductPropertiesHardwareCPUVirtual:
     count: int
     """
     The number of vCPUs.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesApacheKafkaNodeType:
+    versions: list[str]
+    """
+    The list of available versions for the Kafka node.
+    """
+
+    vcpu_count: int
+    """
+    Number of virtual CPUs.
+    """
+
+    is_multi_az: bool
+    """
+    Whether or not this Kafka product is multi AZ.
+    """
+
+    memory_size: int
+    """
+    Memory size in bytes.
+    """
+
+
+@dataclass
+class PublicCatalogProductPropertiesApacheKafkaStorageType:
+    type_: PublicCatalogProductPropertiesApacheKafkaAvailableVolumeType
+    """
+    The type of volume.
+    """
+
+    min_size: int
+    """
+    The minimum size of the volume in bytes.
+    """
+
+    max_size: int
+    """
+    The maximum size of the volume in bytes.
+    """
+
+    is_multi_az: bool
+    """
+    Whether or not this Kafka product is multi AZ.
     """
 
 
@@ -612,7 +669,9 @@ class PublicCatalogProductPropertiesServerlessJobsMemoryType:
 
 @dataclass
 class PublicCatalogProductPropertiesApacheKafka:
-    pass
+    node: Optional[PublicCatalogProductPropertiesApacheKafkaNodeType] = None
+
+    storage: Optional[PublicCatalogProductPropertiesApacheKafkaStorageType] = None
 
 
 @dataclass
