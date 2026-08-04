@@ -6,7 +6,6 @@ from typing import Optional
 
 from scaleway_core.api import API
 from .types import (
-    Locality,
     ResourceType,
     SearchResourcesRequestOrderBy,
     SearchResourcesResponse,
@@ -26,7 +25,7 @@ class SearchV1Alpha1API(API):
         organization_id: Optional[str] = None,
         project_ids: Optional[list[str]] = None,
         types: Optional[list[ResourceType]] = None,
-        localities: Optional[list[Locality]] = None,
+        localities: Optional[list[str]] = None,
         created_after: Optional[datetime] = None,
         created_before: Optional[datetime] = None,
         modified_after: Optional[datetime] = None,
