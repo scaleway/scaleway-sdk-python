@@ -3,6 +3,7 @@
 from .types import ListPublicCatalogProductsRequestProductType
 from .types import ListPublicCatalogProductsRequestStatus
 from .types import PublicCatalogProductProductBadge
+from .types import PublicCatalogProductPropertiesApacheKafkaAvailableVolumeType
 from .types import PublicCatalogProductPropertiesGenerativeApisConsumptionMode
 from .types import PublicCatalogProductPropertiesGenerativeApisTask
 from .types import PublicCatalogProductPropertiesGenerativeApisTokenType
@@ -21,6 +22,8 @@ from .types import PublicCatalogProductStatus
 from .types import PublicCatalogProductUnitOfMeasureCountableUnit
 from .types import PublicCatalogProductPropertiesHardwareCPUPhysical
 from .types import PublicCatalogProductPropertiesHardwareCPUVirtual
+from .types import PublicCatalogProductPropertiesApacheKafkaNodeType
+from .types import PublicCatalogProductPropertiesApacheKafkaStorageType
 from .types import PublicCatalogProductPropertiesBlockStorageSnapshotType
 from .types import PublicCatalogProductPropertiesBlockStorageVolumeType
 from .types import PublicCatalogProductPropertiesHardwareCPU
@@ -96,6 +99,7 @@ __all__ = [
     "ListPublicCatalogProductsRequestProductType",
     "ListPublicCatalogProductsRequestStatus",
     "PublicCatalogProductProductBadge",
+    "PublicCatalogProductPropertiesApacheKafkaAvailableVolumeType",
     "PublicCatalogProductPropertiesGenerativeApisConsumptionMode",
     "PublicCatalogProductPropertiesGenerativeApisTask",
     "PublicCatalogProductPropertiesGenerativeApisTokenType",
@@ -110,6 +114,8 @@ __all__ = [
     "PublicCatalogProductUnitOfMeasureCountableUnit",
     "PublicCatalogProductPropertiesHardwareCPUPhysical",
     "PublicCatalogProductPropertiesHardwareCPUVirtual",
+    "PublicCatalogProductPropertiesApacheKafkaNodeType",
+    "PublicCatalogProductPropertiesApacheKafkaStorageType",
     "PublicCatalogProductPropertiesBlockStorageSnapshotType",
     "PublicCatalogProductPropertiesBlockStorageVolumeType",
     "PublicCatalogProductPropertiesHardwareCPU",

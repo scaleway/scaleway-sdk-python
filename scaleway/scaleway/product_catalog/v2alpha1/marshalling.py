@@ -9,6 +9,7 @@ from scaleway_core.bridge import (
 )
 from .types import (
     PublicCatalogProductProductBadge,
+    PublicCatalogProductPropertiesApacheKafkaAvailableVolumeType,
     PublicCatalogProductPropertiesGenerativeApisTask,
     PublicCatalogProductPropertiesHardwareCPUArch,
     PublicCatalogProductPropertiesHardwareRAMECCType,
@@ -20,6 +21,8 @@ from .types import (
     PublicCatalogProductStatus,
     PublicCatalogProductPropertiesHardwareCPUPhysical,
     PublicCatalogProductPropertiesHardwareCPUVirtual,
+    PublicCatalogProductPropertiesApacheKafkaNodeType,
+    PublicCatalogProductPropertiesApacheKafkaStorageType,
     PublicCatalogProductPropertiesBlockStorageSnapshotType,
     PublicCatalogProductPropertiesBlockStorageVolumeType,
     PublicCatalogProductPropertiesHardwareCPU,
@@ -147,6 +150,82 @@ def unmarshal_PublicCatalogProductPropertiesHardwareCPUVirtual(
         args["count"] = 0
 
     return PublicCatalogProductPropertiesHardwareCPUVirtual(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesApacheKafkaNodeType(
+    data: Any,
+) -> PublicCatalogProductPropertiesApacheKafkaNodeType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesApacheKafkaNodeType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("versions", None)
+    if field is not None:
+        args["versions"] = field
+    else:
+        args["versions"] = []
+
+    field = data.get("vcpu_count", None)
+    if field is not None:
+        args["vcpu_count"] = field
+    else:
+        args["vcpu_count"] = 0
+
+    field = data.get("is_multi_az", None)
+    if field is not None:
+        args["is_multi_az"] = field
+    else:
+        args["is_multi_az"] = False
+
+    field = data.get("memory_size", None)
+    if field is not None:
+        args["memory_size"] = field
+    else:
+        args["memory_size"] = 0
+
+    return PublicCatalogProductPropertiesApacheKafkaNodeType(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesApacheKafkaStorageType(
+    data: Any,
+) -> PublicCatalogProductPropertiesApacheKafkaStorageType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesApacheKafkaStorageType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = (
+            PublicCatalogProductPropertiesApacheKafkaAvailableVolumeType.UNKNOWN_TYPE
+        )
+
+    field = data.get("min_size", None)
+    if field is not None:
+        args["min_size"] = field
+    else:
+        args["min_size"] = 0
+
+    field = data.get("max_size", None)
+    if field is not None:
+        args["max_size"] = field
+    else:
+        args["max_size"] = 0
+
+    field = data.get("is_multi_az", None)
+    if field is not None:
+        args["is_multi_az"] = field
+    else:
+        args["is_multi_az"] = False
+
+    return PublicCatalogProductPropertiesApacheKafkaStorageType(**args)
 
 
 def unmarshal_PublicCatalogProductPropertiesBlockStorageSnapshotType(
@@ -848,6 +927,22 @@ def unmarshal_PublicCatalogProductPropertiesApacheKafka(
         )
 
     args: dict[str, Any] = {}
+
+    field = data.get("node", None)
+    if field is not None:
+        args["node"] = unmarshal_PublicCatalogProductPropertiesApacheKafkaNodeType(
+            field
+        )
+    else:
+        args["node"] = None
+
+    field = data.get("storage", None)
+    if field is not None:
+        args["storage"] = (
+            unmarshal_PublicCatalogProductPropertiesApacheKafkaStorageType(field)
+        )
+    else:
+        args["storage"] = None
 
     return PublicCatalogProductPropertiesApacheKafka(**args)
 
