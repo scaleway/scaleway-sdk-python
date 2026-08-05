@@ -6,3 +6,8 @@ dist/
 
 # macOS
 .DS_Store
+
+# Coverage reports
+coverage.xml
+.coverage
+htmlcov/
