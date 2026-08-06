@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from typing import Any
+from dateutil import parser
 
 from .types import (
     ResourceType,
@@ -217,6 +218,18 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["serverless_containers_container_info"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("baremetal_server_info", None)
     if field is not None:
