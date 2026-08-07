@@ -25,6 +25,14 @@ class BudgetAlertNotificationType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListElectronicAddressesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    STARTS_AT_ASC = "starts_at_asc"
+    STARTS_AT_DESC = "starts_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class BudgetAlertNotification:
     id: str
@@ -120,6 +128,44 @@ class Budget:
 
 
 @dataclass
+class ElectronicAddress:
+    id: str
+    """
+    The id of the electronic address.
+    """
+
+    organization_id: str
+    """
+    The organization ID of the electronic address.
+    """
+
+    value: str
+    """
+    Current value of electronic address.
+    """
+
+    starts_at: Optional[datetime] = None
+    """
+    The start date of the electronic address.
+    """
+
+    stops_at: Optional[datetime] = None
+    """
+    The stop date of the electronic address.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    The creation date of the electronic address.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    The last modification date of the electronic address.
+    """
+
+
+@dataclass
 class CreateBudgetAlertNotificationRequest:
     budget_alert_id: str
     """
@@ -189,6 +235,98 @@ class DeleteBudgetRequest:
 
 
 @dataclass
+class ElectronicBillingApiCreateElectronicAddressRequest:
+    value: str
+    """
+    Electronic address to set.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    The Organization ID to set electronic address.
+    """
+
+    starts_at: Optional[datetime] = None
+    """
+    When electronic address should be active.
+    """
+
+    stops_at: Optional[datetime] = None
+    """
+    When electronic address should stop being active.
+    """
+
+
+@dataclass
+class ElectronicBillingApiDeleteElectronicAddressRequest:
+    electronic_address_id: str
+    """
+    The ID of the electronic address to delete.
+    """
+
+
+@dataclass
+class ElectronicBillingApiGetElectronicAddressRequest:
+    electronic_address_id: str
+    """
+    The ID of the electronic address we want to retrieve.
+    """
+
+
+@dataclass
+class ElectronicBillingApiListElectronicAddressesRequest:
+    page: Optional[int] = 0
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of Electronic Address to return per page.
+    """
+
+    order_by: Optional[ListElectronicAddressesRequestOrderBy] = (
+        ListElectronicAddressesRequestOrderBy.STARTS_AT_ASC
+    )
+    """
+    Sort order of Electronic address in the response.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    The Organization ID to set electronic address.
+    """
+
+    starts_after: Optional[datetime] = None
+    """
+    Filter services where electronic address start_date is greater or equal to starts_after.
+    """
+
+    stops_before: Optional[datetime] = None
+    """
+    Filter services where electronic address stop_date is before stops_before.
+    """
+
+
+@dataclass
+class ElectronicBillingApiUpdateElectronicAddressRequest:
+    electronic_address_id: str
+    """
+    The ID of the electronic address we want to update.
+    """
+
+    value: Optional[str] = None
+    """
+    Electronic address to set.
+    """
+
+    stops_at: Optional[datetime] = None
+    """
+    When electronic address should stop being active.
+    """
+
+
+@dataclass
 class GetBudgetRequest:
     budget_id: str
     """
@@ -224,6 +362,19 @@ class ListBudgetsResponse:
     total_count: int
     """
     Total number of items.
+    """
+
+
+@dataclass
+class ListElectronicAddressesResponse:
+    electronic_addresses: list[ElectronicAddress]
+    """
+    List of electronic addresses.
+    """
+
+    total_count: int
+    """
+    Total Number of returned electronic addresses.
     """
 
 

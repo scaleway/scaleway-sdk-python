@@ -17,10 +17,14 @@ from .types import (
     BudgetAlertNotification,
     BudgetAlert,
     Budget,
+    ElectronicAddress,
     ListBudgetsResponse,
+    ListElectronicAddressesResponse,
     CreateBudgetAlertNotificationRequest,
     CreateBudgetAlertRequest,
     CreateBudgetRequest,
+    ElectronicBillingApiCreateElectronicAddressRequest,
+    ElectronicBillingApiUpdateElectronicAddressRequest,
     UpdateBudgetAlertNotificationRequest,
     UpdateBudgetAlertRequest,
     UpdateBudgetRequest,
@@ -168,6 +172,59 @@ def unmarshal_Budget(data: Any) -> Budget:
     return Budget(**args)
 
 
+def unmarshal_ElectronicAddress(data: Any) -> ElectronicAddress:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ElectronicAddress' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    field = data.get("starts_at", None)
+    if field is not None:
+        args["starts_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["starts_at"] = None
+
+    field = data.get("stops_at", None)
+    if field is not None:
+        args["stops_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stops_at"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return ElectronicAddress(**args)
+
+
 def unmarshal_ListBudgetsResponse(data: Any) -> ListBudgetsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -191,6 +248,35 @@ def unmarshal_ListBudgetsResponse(data: Any) -> ListBudgetsResponse:
         args["total_count"] = 0
 
     return ListBudgetsResponse(**args)
+
+
+def unmarshal_ListElectronicAddressesResponse(
+    data: Any,
+) -> ListElectronicAddressesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListElectronicAddressesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("electronic_addresses", None)
+    if field is not None:
+        args["electronic_addresses"] = (
+            [unmarshal_ElectronicAddress(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["electronic_addresses"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListElectronicAddressesResponse(**args)
 
 
 def marshal_CreateBudgetAlertNotificationRequest(
@@ -255,6 +341,44 @@ def marshal_CreateBudgetRequest(
         output["organization_id"] = request.organization_id
     else:
         output["organization_id"] = defaults.default_organization_id
+
+    return output
+
+
+def marshal_ElectronicBillingApiCreateElectronicAddressRequest(
+    request: ElectronicBillingApiCreateElectronicAddressRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    if request.organization_id is not None:
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
+
+    if request.starts_at is not None:
+        output["starts_at"] = request.starts_at.isoformat()
+
+    if request.stops_at is not None:
+        output["stops_at"] = request.stops_at.isoformat()
+
+    return output
+
+
+def marshal_ElectronicBillingApiUpdateElectronicAddressRequest(
+    request: ElectronicBillingApiUpdateElectronicAddressRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    if request.stops_at is not None:
+        output["stops_at"] = request.stops_at.isoformat()
 
     return output
 
