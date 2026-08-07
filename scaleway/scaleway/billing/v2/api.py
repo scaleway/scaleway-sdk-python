@@ -1,6 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
+from datetime import datetime
 from typing import Optional
 
 from scaleway_core.api import API
@@ -9,13 +10,18 @@ from scaleway_core.utils import (
     fetch_all_pages,
 )
 from .types import (
+    ListElectronicAddressesRequestOrderBy,
     Budget,
     BudgetAlert,
     BudgetAlertNotification,
     CreateBudgetAlertNotificationRequest,
     CreateBudgetAlertRequest,
     CreateBudgetRequest,
+    ElectronicAddress,
+    ElectronicBillingApiCreateElectronicAddressRequest,
+    ElectronicBillingApiUpdateElectronicAddressRequest,
     ListBudgetsResponse,
+    ListElectronicAddressesResponse,
     UpdateBudgetAlertNotificationRequest,
     UpdateBudgetAlertRequest,
     UpdateBudgetRequest,
@@ -24,10 +30,14 @@ from .marshalling import (
     unmarshal_BudgetAlertNotification,
     unmarshal_BudgetAlert,
     unmarshal_Budget,
+    unmarshal_ElectronicAddress,
     unmarshal_ListBudgetsResponse,
+    unmarshal_ListElectronicAddressesResponse,
     marshal_CreateBudgetAlertNotificationRequest,
     marshal_CreateBudgetAlertRequest,
     marshal_CreateBudgetRequest,
+    marshal_ElectronicBillingApiCreateElectronicAddressRequest,
+    marshal_ElectronicBillingApiUpdateElectronicAddressRequest,
     marshal_UpdateBudgetAlertNotificationRequest,
     marshal_UpdateBudgetAlertRequest,
     marshal_UpdateBudgetRequest,
@@ -453,6 +463,236 @@ class BillingV2API(API):
         res = self._request(
             "DELETE",
             f"/billing/v2/budget-alert-notifications/{param_budget_alert_notification_id}",
+        )
+
+        self._throw_on_error(res)
+
+
+class BillingV2ElectronicBillingAPI(API):
+    """
+    This API allows you to query electronic billing related objects.
+    """
+
+    def list_electronic_addresses(
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListElectronicAddressesRequestOrderBy] = None,
+        organization_id: Optional[str] = None,
+        starts_after: Optional[datetime] = None,
+        stops_before: Optional[datetime] = None,
+    ) -> ListElectronicAddressesResponse:
+        """
+        List electronic addresses.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of Electronic Address to return per page.
+        :param order_by: Sort order of Electronic address in the response.
+        :param organization_id: The Organization ID to set electronic address.
+        :param starts_after: Filter services where electronic address start_date is greater or equal to starts_after.
+        :param stops_before: Filter services where electronic address stop_date is before stops_before.
+        :return: :class:`ListElectronicAddressesResponse <ListElectronicAddressesResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_electronic_addresses()
+        """
+
+        res = self._request(
+            "GET",
+            "/billing/v2/electronic-address",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "starts_after": starts_after,
+                "stops_before": stops_before,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListElectronicAddressesResponse(res.json())
+
+    def list_electronic_addresses_all(
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListElectronicAddressesRequestOrderBy] = None,
+        organization_id: Optional[str] = None,
+        starts_after: Optional[datetime] = None,
+        stops_before: Optional[datetime] = None,
+    ) -> list[ElectronicAddress]:
+        """
+        List electronic addresses.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of Electronic Address to return per page.
+        :param order_by: Sort order of Electronic address in the response.
+        :param organization_id: The Organization ID to set electronic address.
+        :param starts_after: Filter services where electronic address start_date is greater or equal to starts_after.
+        :param stops_before: Filter services where electronic address stop_date is before stops_before.
+        :return: :class:`list[ElectronicAddress] <list[ElectronicAddress]>`
+
+        Usage:
+        ::
+
+            result = api.list_electronic_addresses_all()
+        """
+
+        return fetch_all_pages(
+            type=ListElectronicAddressesResponse,
+            key="electronic_addresses",
+            fetcher=self.list_electronic_addresses,
+            args={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "organization_id": organization_id,
+                "starts_after": starts_after,
+                "stops_before": stops_before,
+            },
+        )
+
+    def get_electronic_address(
+        self,
+        *,
+        electronic_address_id: str,
+    ) -> ElectronicAddress:
+        """
+        Fetch an electronic address.
+        :param electronic_address_id: The ID of the electronic address we want to retrieve.
+        :return: :class:`ElectronicAddress <ElectronicAddress>`
+
+        Usage:
+        ::
+
+            result = api.get_electronic_address(
+                electronic_address_id="example",
+            )
+        """
+
+        param_electronic_address_id = validate_path_param(
+            "electronic_address_id", electronic_address_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/billing/v2/electronic-address/{param_electronic_address_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ElectronicAddress(res.json())
+
+    def create_electronic_address(
+        self,
+        *,
+        value: str,
+        organization_id: Optional[str] = None,
+        starts_at: Optional[datetime] = None,
+        stops_at: Optional[datetime] = None,
+    ) -> ElectronicAddress:
+        """
+        Create a new electronic address.
+        :param value: Electronic address to set.
+        :param organization_id: The Organization ID to set electronic address.
+        :param starts_at: When electronic address should be active.
+        :param stops_at: When electronic address should stop being active.
+        :return: :class:`ElectronicAddress <ElectronicAddress>`
+
+        Usage:
+        ::
+
+            result = api.create_electronic_address(
+                value="example",
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/billing/v2/electronic-address",
+            body=marshal_ElectronicBillingApiCreateElectronicAddressRequest(
+                ElectronicBillingApiCreateElectronicAddressRequest(
+                    value=value,
+                    organization_id=organization_id,
+                    starts_at=starts_at,
+                    stops_at=stops_at,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ElectronicAddress(res.json())
+
+    def update_electronic_address(
+        self,
+        *,
+        electronic_address_id: str,
+        value: Optional[str] = None,
+        stops_at: Optional[datetime] = None,
+    ) -> ElectronicAddress:
+        """
+        Update an electronic address.
+        :param electronic_address_id: The ID of the electronic address we want to update.
+        :param value: Electronic address to set.
+        :param stops_at: When electronic address should stop being active.
+        :return: :class:`ElectronicAddress <ElectronicAddress>`
+
+        Usage:
+        ::
+
+            result = api.update_electronic_address(
+                electronic_address_id="example",
+            )
+        """
+
+        param_electronic_address_id = validate_path_param(
+            "electronic_address_id", electronic_address_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/billing/v2/electronic-address/{param_electronic_address_id}",
+            body=marshal_ElectronicBillingApiUpdateElectronicAddressRequest(
+                ElectronicBillingApiUpdateElectronicAddressRequest(
+                    electronic_address_id=electronic_address_id,
+                    value=value,
+                    stops_at=stops_at,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ElectronicAddress(res.json())
+
+    def delete_electronic_address(
+        self,
+        *,
+        electronic_address_id: str,
+    ) -> None:
+        """
+        Delete an electronic address.
+        :param electronic_address_id: The ID of the electronic address to delete.
+
+        Usage:
+        ::
+
+            result = api.delete_electronic_address(
+                electronic_address_id="example",
+            )
+        """
+
+        param_electronic_address_id = validate_path_param(
+            "electronic_address_id", electronic_address_id
+        )
+
+        res = self._request(
+            "DELETE",
+            f"/billing/v2/electronic-address/{param_electronic_address_id}",
         )
 
         self._throw_on_error(res)
