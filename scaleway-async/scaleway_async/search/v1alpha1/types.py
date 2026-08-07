@@ -184,6 +184,16 @@ class Resource:
     ID of the Project the resource belongs to.
     """
 
+    created_at: Optional[datetime] = None
+    """
+    Creation date.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Last udpate date.
+    """
+
     global_: Optional[bool] = False
 
     zone: Optional[ScwZone] = None
