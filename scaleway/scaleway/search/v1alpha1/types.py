@@ -191,7 +191,7 @@ class Resource:
 
     updated_at: Optional[datetime] = None
     """
-    Last udpate date.
+    Last update date.
     """
 
     global_: Optional[bool] = False
