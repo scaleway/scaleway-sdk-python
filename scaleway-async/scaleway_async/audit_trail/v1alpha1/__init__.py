@@ -17,6 +17,7 @@ from .types import ListEventsRequestOrderBy
 from .types import ListExportJobsRequestOrderBy
 from .types import ListSystemEventsRequestOrderBy
 from .types import ResourceType
+from .types import ServerlessContainersTriggerInfoSourceType
 from .types import SystemEventKind
 from .types import AccountContractSignatureInfoAccountContractInfo
 from .types import AccountContractSignatureInfo
@@ -59,6 +60,10 @@ from .types import ObservabilityAlertRuleInfo
 from .types import ObservabilityContactPointInfo
 from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
+from .types import ServerlessContainersContainerInfo
+from .types import ServerlessContainersDomainInfo
+from .types import ServerlessContainersNamespaceInfo
+from .types import ServerlessContainersTriggerInfo
 from .types import VpcConnectorInfo
 from .types import VpcGwGatewayInfo
 from .types import VpcGwGatewayNetworkInfo
@@ -134,6 +139,7 @@ __all__ = [
     "ListExportJobsRequestOrderBy",
     "ListSystemEventsRequestOrderBy",
     "ResourceType",
+    "ServerlessContainersTriggerInfoSourceType",
     "SystemEventKind",
     "AccountContractSignatureInfoAccountContractInfo",
     "AccountContractSignatureInfo",
@@ -176,6 +182,10 @@ __all__ = [
     "ObservabilityContactPointInfo",
     "SecretManagerSecretInfo",
     "SecretManagerSecretVersionInfo",
+    "ServerlessContainersContainerInfo",
+    "ServerlessContainersDomainInfo",
+    "ServerlessContainersNamespaceInfo",
+    "ServerlessContainersTriggerInfo",
     "VpcConnectorInfo",
     "VpcGwGatewayInfo",
     "VpcGwGatewayNetworkInfo",

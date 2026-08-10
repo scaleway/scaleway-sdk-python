@@ -1572,6 +1572,30 @@ def unmarshal_ResourceCounts(data: Any) -> ResourceCounts:
     else:
         args["private_network_interfaces"] = 0
 
+    field = data.get("templates", None)
+    if field is not None:
+        args["templates"] = field
+    else:
+        args["templates"] = 0
+
+    field = data.get("flexible_ips", None)
+    if field is not None:
+        args["flexible_ips"] = field
+    else:
+        args["flexible_ips"] = 0
+
+    field = data.get("unused_flexible_ips", None)
+    if field is not None:
+        args["unused_flexible_ips"] = field
+    else:
+        args["unused_flexible_ips"] = 0
+
+    field = data.get("images", None)
+    if field is not None:
+        args["images"] = field
+    else:
+        args["images"] = 0
+
     return ResourceCounts(**args)
 
 

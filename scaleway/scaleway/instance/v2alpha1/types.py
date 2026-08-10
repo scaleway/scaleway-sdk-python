@@ -2630,6 +2630,26 @@ class ResourceCounts:
     Number of private network interfaces.
     """
 
+    templates: int
+    """
+    Number of templates.
+    """
+
+    flexible_ips: int
+    """
+    Number of flexible IPs.
+    """
+
+    unused_flexible_ips: int
+    """
+    Number of flexible IPs not attached to any server.
+    """
+
+    images: int
+    """
+    Number of images.
+    """
+
 
 @dataclass
 class Server:

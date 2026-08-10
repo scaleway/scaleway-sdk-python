@@ -593,7 +593,7 @@ class DediboxV1API(API):
     ) -> Service:
         """
         Create a baremetal server.
-        Create a new baremetal server. The order return you a service ID to follow the provisionning status you could call GetService.
+        Create a new baremetal server. The order return you a service ID to follow the provisioning status you could call GetService.
         :param offer_id: Offer ID of the new server.
         :param server_option_ids: Server option IDs of the new server.
         :param zone: Zone to target. If none is passed will use default zone from the config.

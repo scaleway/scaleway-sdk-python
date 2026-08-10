@@ -69,6 +69,10 @@ from .types import (
     ObservabilityContactPointInfo,
     SecretManagerSecretInfo,
     SecretManagerSecretVersionInfo,
+    ServerlessContainersContainerInfo,
+    ServerlessContainersDomainInfo,
+    ServerlessContainersNamespaceInfo,
+    ServerlessContainersTriggerInfo,
     VpcConnectorInfo,
     VpcGwGatewayInfo,
     VpcGwGatewayNetworkInfo,
@@ -1204,6 +1208,82 @@ def unmarshal_SecretManagerSecretVersionInfo(
     return SecretManagerSecretVersionInfo(**args)
 
 
+def unmarshal_ServerlessContainersContainerInfo(
+    data: Any,
+) -> ServerlessContainersContainerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessContainersContainerInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("namespace_id", None)
+    if field is not None:
+        args["namespace_id"] = field
+    else:
+        args["namespace_id"] = None
+
+    return ServerlessContainersContainerInfo(**args)
+
+
+def unmarshal_ServerlessContainersDomainInfo(
+    data: Any,
+) -> ServerlessContainersDomainInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessContainersDomainInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("container_id", None)
+    if field is not None:
+        args["container_id"] = field
+    else:
+        args["container_id"] = None
+
+    return ServerlessContainersDomainInfo(**args)
+
+
+def unmarshal_ServerlessContainersNamespaceInfo(
+    data: Any,
+) -> ServerlessContainersNamespaceInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessContainersNamespaceInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return ServerlessContainersNamespaceInfo(**args)
+
+
+def unmarshal_ServerlessContainersTriggerInfo(
+    data: Any,
+) -> ServerlessContainersTriggerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessContainersTriggerInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("container_id", None)
+    if field is not None:
+        args["container_id"] = field
+    else:
+        args["container_id"] = None
+
+    field = data.get("source_type", None)
+    if field is not None:
+        args["source_type"] = field
+    else:
+        args["source_type"] = None
+
+    return ServerlessContainersTriggerInfo(**args)
+
+
 def unmarshal_VpcConnectorInfo(data: Any) -> VpcConnectorInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1787,6 +1867,38 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["audit_trail_custom_alert_rule_info"] = None
+
+    field = data.get("serverless_containers_namespace_info", None)
+    if field is not None:
+        args["serverless_containers_namespace_info"] = (
+            unmarshal_ServerlessContainersNamespaceInfo(field)
+        )
+    else:
+        args["serverless_containers_namespace_info"] = None
+
+    field = data.get("serverless_containers_container_info", None)
+    if field is not None:
+        args["serverless_containers_container_info"] = (
+            unmarshal_ServerlessContainersContainerInfo(field)
+        )
+    else:
+        args["serverless_containers_container_info"] = None
+
+    field = data.get("serverless_containers_domain_info", None)
+    if field is not None:
+        args["serverless_containers_domain_info"] = (
+            unmarshal_ServerlessContainersDomainInfo(field)
+        )
+    else:
+        args["serverless_containers_domain_info"] = None
+
+    field = data.get("serverless_containers_trigger_info", None)
+    if field is not None:
+        args["serverless_containers_trigger_info"] = (
+            unmarshal_ServerlessContainersTriggerInfo(field)
+        )
+    else:
+        args["serverless_containers_trigger_info"] = None
 
     return Resource(**args)
 
