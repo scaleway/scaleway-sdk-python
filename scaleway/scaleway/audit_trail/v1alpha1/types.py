@@ -255,6 +255,20 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     AUTOSCALING_GROUP = "autoscaling_group"
     GAPI_DEDICATED_DEPLOYMENT = "gapi_dedicated_deployment"
     GAPI_DEDICATED_MODEL = "gapi_dedicated_model"
+    SERVERLESS_CONTAINERS_NAMESPACE = "serverless_containers_namespace"
+    SERVERLESS_CONTAINERS_CONTAINER = "serverless_containers_container"
+    SERVERLESS_CONTAINERS_DOMAIN = "serverless_containers_domain"
+    SERVERLESS_CONTAINERS_TRIGGER = "serverless_containers_trigger"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerlessContainersTriggerInfoSourceType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SOURCE_TYPE = "unknown_source_type"
+    CRON = "cron"
+    SQS = "sqs"
+    NATS = "nats"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -497,6 +511,27 @@ class SecretManagerSecretVersionInfo:
 
 
 @dataclass
+class ServerlessContainersContainerInfo:
+    namespace_id: str
+
+
+@dataclass
+class ServerlessContainersDomainInfo:
+    container_id: str
+
+
+@dataclass
+class ServerlessContainersNamespaceInfo:
+    pass
+
+
+@dataclass
+class ServerlessContainersTriggerInfo:
+    container_id: str
+    source_type: ServerlessContainersTriggerInfoSourceType
+
+
+@dataclass
 class VpcConnectorInfo:
     vpc_id: str
     target_vpc_id: str
@@ -653,6 +688,18 @@ class Resource:
     edge_services_vpc_endpoint_info: Optional[EdgeServicesVPCEndpointInfo] = None
 
     audit_trail_custom_alert_rule_info: Optional[AuditTrailCustomAlertRuleInfo] = None
+
+    serverless_containers_namespace_info: Optional[
+        ServerlessContainersNamespaceInfo
+    ] = None
+
+    serverless_containers_container_info: Optional[
+        ServerlessContainersContainerInfo
+    ] = None
+
+    serverless_containers_domain_info: Optional[ServerlessContainersDomainInfo] = None
+
+    serverless_containers_trigger_info: Optional[ServerlessContainersTriggerInfo] = None
 
 
 @dataclass
