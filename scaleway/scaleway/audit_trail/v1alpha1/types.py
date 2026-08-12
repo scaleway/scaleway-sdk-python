@@ -587,6 +587,7 @@ class Resource:
     updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
     name: Optional[str] = None
+    action: Optional[str] = None
     secm_secret_info: Optional[SecretManagerSecretInfo] = None
 
     secm_secret_version_info: Optional[SecretManagerSecretVersionInfo] = None
