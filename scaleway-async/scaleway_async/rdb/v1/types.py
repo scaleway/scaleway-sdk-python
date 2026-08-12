@@ -74,6 +74,16 @@ class EngineSettingPropertyType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class HighAvailabilityMode(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_HIGH_AVAILABILITY_MODE = "unknown_high_availability_mode"
+    DISABLED = "disabled"
+    SINGLE_ZONE = "single_zone"
+    MULTIPLE_ZONE = "multiple_zone"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class InstanceLogStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
@@ -909,6 +919,11 @@ class Instance:
     Defines whether or not High-Availability is enabled.
     """
 
+    high_availability_mode: HighAvailabilityMode
+    """
+    Defines the High-Availability mode of the instance.
+    """
+
     read_replicas: list[ReadReplica]
     """
     Read Replicas of the Database Instance.
@@ -1324,6 +1339,13 @@ class CreateInstanceFromSnapshotRequest:
     Defines whether or not High-Availability is enabled on the new Database Instance.
     """
 
+    high_availability_mode: Optional[HighAvailabilityMode] = (
+        HighAvailabilityMode.UNKNOWN_HIGH_AVAILABILITY_MODE
+    )
+    """
+    Defines the High-Availability mode of the instance.
+    """
+
     node_type: Optional[str] = None
     """
     The node type used to restore the snapshot.
@@ -1380,6 +1402,13 @@ class CreateInstanceRequest:
     name: Optional[str] = None
     """
     Name of the Database Instance.
+    """
+
+    high_availability_mode: Optional[HighAvailabilityMode] = (
+        HighAvailabilityMode.UNKNOWN_HIGH_AVAILABILITY_MODE
+    )
+    """
+    Defines the High-Availability mode of the instance.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)
@@ -2600,6 +2629,10 @@ class UpgradeInstanceRequest:
     node_type: Optional[str] = None
 
     enable_ha: Optional[bool] = False
+
+    high_availability_mode: Optional[HighAvailabilityMode] = (
+        HighAvailabilityMode.UNKNOWN_HIGH_AVAILABILITY_MODE
+    )
 
     volume_size: Optional[int] = 0
 

@@ -19,6 +19,7 @@ from .types import (
     DatabaseBackupStatus,
     EndpointPrivateNetworkDetailsProvisioningMode,
     EngineSettingPropertyType,
+    HighAvailabilityMode,
     InstanceLogStatus,
     InstanceStatus,
     MaintenanceStatus,
@@ -714,18 +715,6 @@ def unmarshal_Instance(data: Any) -> Instance:
     else:
         args["organization_id"] = None
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("volume", None)
-    if field is not None:
-        args["volume"] = unmarshal_Volume(field)
-    else:
-        args["volume"] = None
-
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -760,6 +749,24 @@ def unmarshal_Instance(data: Any) -> Instance:
     else:
         args["tags"] = []
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("volume", None)
+    if field is not None:
+        args["volume"] = unmarshal_Volume(field)
+    else:
+        args["volume"] = None
+
+    field = data.get("endpoint", None)
+    if field is not None:
+        args["endpoint"] = unmarshal_Endpoint(field)
+    else:
+        args["endpoint"] = None
+
     field = data.get("settings", None)
     if field is not None:
         args["settings"] = (
@@ -774,17 +781,13 @@ def unmarshal_Instance(data: Any) -> Instance:
     else:
         args["is_ha_cluster"] = False
 
-    field = data.get("endpoint", None)
+    field = data.get("high_availability_mode", None)
     if field is not None:
-        args["endpoint"] = unmarshal_Endpoint(field)
+        args["high_availability_mode"] = field
     else:
-        args["endpoint"] = None
-
-    field = data.get("backup_schedule", None)
-    if field is not None:
-        args["backup_schedule"] = unmarshal_BackupSchedule(field)
-    else:
-        args["backup_schedule"] = None
+        args["high_availability_mode"] = (
+            HighAvailabilityMode.UNKNOWN_HIGH_AVAILABILITY_MODE
+        )
 
     field = data.get("read_replicas", None)
     if field is not None:
@@ -829,6 +832,12 @@ def unmarshal_Instance(data: Any) -> Instance:
         )
     else:
         args["maintenances"] = []
+
+    field = data.get("backup_schedule", None)
+    if field is not None:
+        args["backup_schedule"] = unmarshal_BackupSchedule(field)
+    else:
+        args["backup_schedule"] = None
 
     field = data.get("logs_policy", None)
     if field is not None:
@@ -2050,6 +2059,9 @@ def marshal_CreateInstanceFromSnapshotRequest(
     if request.is_ha_cluster is not None:
         output["is_ha_cluster"] = request.is_ha_cluster
 
+    if request.high_availability_mode is not None:
+        output["high_availability_mode"] = request.high_availability_mode
+
     if request.node_type is not None:
         output["node_type"] = request.node_type
 
@@ -2104,11 +2116,14 @@ def marshal_CreateInstanceRequest(
     if request.node_type is not None:
         output["node_type"] = request.node_type
 
+    if request.is_ha_cluster is not None:
+        output["is_ha_cluster"] = request.is_ha_cluster
+
     if request.name is not None:
         output["name"] = request.name
 
-    if request.is_ha_cluster is not None:
-        output["is_ha_cluster"] = request.is_ha_cluster
+    if request.high_availability_mode is not None:
+        output["high_availability_mode"] = request.high_availability_mode
 
     if request.disable_backup is not None:
         output["disable_backup"] = request.disable_backup
@@ -2524,6 +2539,11 @@ def marshal_UpgradeInstanceRequest(
                 ),
                 OneOfPossibility(
                     param="enable_ha", value=request.enable_ha, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="high_availability_mode",
+                    value=request.high_availability_mode,
+                    marshal_func=None,
                 ),
                 OneOfPossibility(
                     param="volume_size", value=request.volume_size, marshal_func=None
