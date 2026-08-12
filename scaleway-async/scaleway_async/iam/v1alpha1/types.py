@@ -597,6 +597,16 @@ class Group:
     Defines whether or not the group is managed.
     """
 
+    all_users: bool
+    """
+    Indicates if the group is the special "All Users" group that contains all users of the organization.
+    """
+
+    all_applications: bool
+    """
+    Indicates if the group is the special "All Applications" group that contains all non-managed applications of the organization.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date and time of group creation.
