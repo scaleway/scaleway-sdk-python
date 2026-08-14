@@ -67,6 +67,7 @@ from .types import PublicCatalogProductPropertiesAppleSilicon
 from .types import PublicCatalogProductPropertiesBlockStorage
 from .types import PublicCatalogProductPropertiesDedibox
 from .types import PublicCatalogProductPropertiesElasticMetal
+from .types import PublicCatalogProductPropertiesFileStorage
 from .types import PublicCatalogProductPropertiesGenerativeApis
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
@@ -155,6 +156,7 @@ __all__ = [
     "PublicCatalogProductPropertiesBlockStorage",
     "PublicCatalogProductPropertiesDedibox",
     "PublicCatalogProductPropertiesElasticMetal",
+    "PublicCatalogProductPropertiesFileStorage",
     "PublicCatalogProductPropertiesGenerativeApis",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
