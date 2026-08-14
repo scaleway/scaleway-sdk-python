@@ -44,6 +44,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     INSTANCE_PRIVATE_NIC = "instance_private_nic"
     INSTANCE_SNAPSHOT = "instance_snapshot"
     INSTANCE_PLACEMENT_GROUP = "instance_placement_group"
+    INSTANCE_TEMPLATE = "instance_template"
     K8S_CLUSTER = "k8s_cluster"
     K8S_POOL = "k8s_pool"
     K8S_NODE = "k8s_node"
