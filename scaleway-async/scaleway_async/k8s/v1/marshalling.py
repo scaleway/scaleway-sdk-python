@@ -1766,14 +1766,20 @@ def marshal_CreatePoolRequest(
     if request.autoscaling is not None:
         output["autoscaling"] = request.autoscaling
 
-    if request.size is not None:
-        output["size"] = request.size
-
     if request.name is not None:
         output["name"] = request.name
 
     if request.placement_group_id is not None:
         output["placement_group_id"] = request.placement_group_id
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.autohealing is not None:
+        output["autohealing"] = request.autohealing
+
+    if request.public_ip_disabled is not None:
+        output["public_ip_disabled"] = request.public_ip_disabled
 
     if request.min_size is not None:
         output["min_size"] = request.min_size
@@ -1783,12 +1789,6 @@ def marshal_CreatePoolRequest(
 
     if request.container_runtime is not None:
         output["container_runtime"] = request.container_runtime
-
-    if request.autohealing is not None:
-        output["autohealing"] = request.autohealing
-
-    if request.public_ip_disabled is not None:
-        output["public_ip_disabled"] = request.public_ip_disabled
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -1832,6 +1832,9 @@ def marshal_CreatePoolRequest(
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
+
+    if request.user_data is not None:
+        output["user_data"] = {key: value for key, value in request.user_data.items()}
 
     return output
 
