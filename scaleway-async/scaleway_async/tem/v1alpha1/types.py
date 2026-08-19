@@ -1561,10 +1561,24 @@ class ListOfferSubscriptionsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    page: Optional[int] = 0
+    """
+    (Optional) Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    (Optional) Requested page size. Value must be between 1 and 100.
+    """
+
+    offer_name: Optional[OfferName] = OfferName.UNKNOWN_NAME
+    """
+    (Optional) Name of the offer associated with the Project.
+    """
+
+    organization_id: Optional[str] = None
+
     project_id: Optional[str] = None
-    """
-    ID of the Project.
-    """
 
 
 @dataclass
