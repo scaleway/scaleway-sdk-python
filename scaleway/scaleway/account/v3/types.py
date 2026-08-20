@@ -55,6 +55,15 @@ class ListProjectsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ProjectStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    ACTIVE = "active"
+    DELETING = "deleting"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class QualificationAiMachineSubUseCase(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
@@ -298,6 +307,11 @@ class Project:
     Description of the Project.
     """
 
+    status: ProjectStatus
+    """
+    Status of the Project.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date of the Project.
@@ -460,6 +474,19 @@ class ProjectApiCreateProjectRequest:
 
 @dataclass
 class ProjectApiDeleteProjectRequest:
+    project_id: Optional[str] = None
+    """
+    Project ID of the Project.
+    """
+
+
+@dataclass
+class ProjectApiDeleteProjectWithResourcesRequest:
+    project_name: str
+    """
+    Name of the Project to delete. This is used as a safeguard confirmation.
+    """
+
     project_id: Optional[str] = None
     """
     Project ID of the Project.
