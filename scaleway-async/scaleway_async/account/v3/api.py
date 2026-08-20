@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Optional
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -9,9 +9,11 @@ from scaleway_core.bridge import (
     unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
+    WaitForOptions,
     random_name,
     validate_path_param,
     fetch_all_pages_async,
+    wait_for_resource_async,
 )
 from .types import (
     ContractType,
@@ -29,6 +31,9 @@ from .types import (
     ProjectApiUpdateProjectRequest,
     ProjectQualification,
     Qualification,
+)
+from .content import (
+    PROJECT_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_ContractSignature,
@@ -429,6 +434,38 @@ class AccountV3ProjectAPI(API):
         self._throw_on_error(res)
         return unmarshal_Project(res.json())
 
+    async def wait_for_project(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        options: Optional[WaitForOptions[Project, Union[bool, Awaitable[bool]]]] = None,
+    ) -> Project:
+        """
+        Get an existing Project.
+        Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
+        :param project_id: Project ID of the Project.
+        :return: :class:`Project <Project>`
+
+        Usage:
+        ::
+
+            result = await api.get_project()
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in PROJECT_TRANSIENT_STATUSES
+
+        return await wait_for_resource_async(
+            fetcher=self.get_project,
+            options=options,
+            args={
+                "project_id": project_id,
+            },
+        )
+
     async def delete_project(
         self,
         *,
@@ -455,6 +492,42 @@ class AccountV3ProjectAPI(API):
         )
 
         self._throw_on_error(res)
+
+    async def delete_project_with_resources(
+        self,
+        *,
+        project_name: str,
+        project_id: Optional[str] = None,
+    ) -> Project:
+        """
+        Delete an existing Project with all its resources.
+        Delete an existing Project, specified by its Project ID and Name, along with all the resources it contains. Note that deleting a Project is permanent, and cannot be undone.
+        :param project_name: Name of the Project to delete. This is used as a safeguard confirmation.
+        :param project_id: Project ID of the Project.
+        :return: :class:`Project <Project>`
+
+        Usage:
+        ::
+
+            result = await api.delete_project_with_resources(
+                project_name="example",
+            )
+        """
+
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
+        res = self._request(
+            "POST",
+            f"/account/v3/projects/{param_project_id}/delete-with-resources",
+            params={
+                "project_name": project_name,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Project(res.json())
 
     async def update_project(
         self,

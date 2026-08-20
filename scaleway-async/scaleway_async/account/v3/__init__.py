@@ -3,6 +3,8 @@
 from .types import ContractType
 from .types import ListContractSignaturesRequestOrderBy
 from .types import ListProjectsRequestOrderBy
+from .types import ProjectStatus
+from .content import PROJECT_TRANSIENT_STATUSES
 from .types import QualificationAiMachineSubUseCase
 from .types import QualificationArchitectureType
 from .types import QualificationArchiveDataSubUseCase
@@ -36,6 +38,7 @@ from .types import ListContractSignaturesResponse
 from .types import ListProjectsResponse
 from .types import ProjectApiCreateProjectRequest
 from .types import ProjectApiDeleteProjectRequest
+from .types import ProjectApiDeleteProjectWithResourcesRequest
 from .types import ProjectApiGetProjectRequest
 from .types import ProjectApiListProjectsRequest
 from .types import ProjectApiSetProjectQualificationRequest
@@ -48,6 +51,8 @@ __all__ = [
     "ContractType",
     "ListContractSignaturesRequestOrderBy",
     "ListProjectsRequestOrderBy",
+    "ProjectStatus",
+    "PROJECT_TRANSIENT_STATUSES",
     "QualificationAiMachineSubUseCase",
     "QualificationArchitectureType",
     "QualificationArchiveDataSubUseCase",
@@ -81,6 +86,7 @@ __all__ = [
     "ListProjectsResponse",
     "ProjectApiCreateProjectRequest",
     "ProjectApiDeleteProjectRequest",
+    "ProjectApiDeleteProjectWithResourcesRequest",
     "ProjectApiGetProjectRequest",
     "ProjectApiListProjectsRequest",
     "ProjectApiSetProjectQualificationRequest",
