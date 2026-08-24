@@ -259,6 +259,11 @@ class Snapshot:
     Last modification date of the properties of a snapshot.
     """
 
+    kms_key_id: Optional[str] = None
+    """
+    KMS Key used for securing the parent volume's encryption.
+    """
+
 
 @dataclass
 class VolumeType:

@@ -19,24 +19,24 @@ from .types import IngressRule
 from .types import ListSubnetOverlapsResponseSubnetOverlap
 from .types import VPCConnector
 from .types import VPC
-from .types import AddPrivateNetworkS3EndpointRequest
-from .types import AddPrivateNetworkS3EndpointResponse
+from .types import AddPrivateNetworkObjectStoragePrivateAccessRequest
+from .types import AddPrivateNetworkObjectStoragePrivateAccessResponse
 from .types import CreateIngressRuleRequest
 from .types import CreatePrivateNetworkRequest
 from .types import CreateRouteRequest
 from .types import CreateVPCConnectorRequest
 from .types import CreateVPCRequest
 from .types import DeleteIngressRuleRequest
+from .types import DeletePrivateNetworkObjectStoragePrivateAccessRequest
 from .types import DeletePrivateNetworkRequest
-from .types import DeletePrivateNetworkS3EndpointRequest
 from .types import DeleteRouteRequest
 from .types import DeleteVPCConnectorRequest
 from .types import DeleteVPCRequest
-from .types import DisableS3EndpointRequest
+from .types import DisableObjectStoragePrivateAccessRequest
 from .types import EnableCustomRoutesPropagationRequest
 from .types import EnableDHCPRequest
+from .types import EnableObjectStoragePrivateAccessRequest
 from .types import EnableRoutingRequest
-from .types import EnableS3EndpointRequest
 from .types import GetAclRequest
 from .types import GetAclResponse
 from .types import GetIngressRuleRequest
@@ -58,8 +58,8 @@ from .types import ListVPCsRequest
 from .types import ListVPCsResponse
 from .types import SetAclRequest
 from .types import SetAclResponse
-from .types import SetPrivateNetworksS3EndpointRequest
-from .types import SetPrivateNetworksS3EndpointResponse
+from .types import SetPrivateNetworksObjectStoragePrivateAccessRequest
+from .types import SetPrivateNetworksObjectStoragePrivateAccessResponse
 from .types import UpdateIngressRuleRequest
 from .types import UpdatePrivateNetworkRequest
 from .types import UpdateRouteRequest
@@ -87,24 +87,24 @@ __all__ = [
     "ListSubnetOverlapsResponseSubnetOverlap",
     "VPCConnector",
     "VPC",
-    "AddPrivateNetworkS3EndpointRequest",
-    "AddPrivateNetworkS3EndpointResponse",
+    "AddPrivateNetworkObjectStoragePrivateAccessRequest",
+    "AddPrivateNetworkObjectStoragePrivateAccessResponse",
     "CreateIngressRuleRequest",
     "CreatePrivateNetworkRequest",
     "CreateRouteRequest",
     "CreateVPCConnectorRequest",
     "CreateVPCRequest",
     "DeleteIngressRuleRequest",
+    "DeletePrivateNetworkObjectStoragePrivateAccessRequest",
     "DeletePrivateNetworkRequest",
-    "DeletePrivateNetworkS3EndpointRequest",
     "DeleteRouteRequest",
     "DeleteVPCConnectorRequest",
     "DeleteVPCRequest",
-    "DisableS3EndpointRequest",
+    "DisableObjectStoragePrivateAccessRequest",
     "EnableCustomRoutesPropagationRequest",
     "EnableDHCPRequest",
+    "EnableObjectStoragePrivateAccessRequest",
     "EnableRoutingRequest",
-    "EnableS3EndpointRequest",
     "GetAclRequest",
     "GetAclResponse",
     "GetIngressRuleRequest",
@@ -126,8 +126,8 @@ __all__ = [
     "ListVPCsResponse",
     "SetAclRequest",
     "SetAclResponse",
-    "SetPrivateNetworksS3EndpointRequest",
-    "SetPrivateNetworksS3EndpointResponse",
+    "SetPrivateNetworksObjectStoragePrivateAccessRequest",
+    "SetPrivateNetworksObjectStoragePrivateAccessResponse",
     "UpdateIngressRuleRequest",
     "UpdatePrivateNetworkRequest",
     "UpdateRouteRequest",

@@ -15,7 +15,7 @@ from .types import (
     VPCConnectorPeerInfo,
     VPCConnector,
     VPC,
-    AddPrivateNetworkS3EndpointResponse,
+    AddPrivateNetworkObjectStoragePrivateAccessResponse,
     AclRule,
     GetAclResponse,
     ListIngressRulesResponse,
@@ -26,15 +26,15 @@ from .types import (
     ListVPCConnectorsResponse,
     ListVPCsResponse,
     SetAclResponse,
-    SetPrivateNetworksS3EndpointResponse,
-    AddPrivateNetworkS3EndpointRequest,
+    SetPrivateNetworksObjectStoragePrivateAccessResponse,
+    AddPrivateNetworkObjectStoragePrivateAccessRequest,
     CreateIngressRuleRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCConnectorRequest,
     CreateVPCRequest,
     SetAclRequest,
-    SetPrivateNetworksS3EndpointRequest,
+    SetPrivateNetworksObjectStoragePrivateAccessRequest,
     UpdateIngressRuleRequest,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
@@ -184,11 +184,11 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     else:
         args["default_route_propagation_enabled"] = False
 
-    field = data.get("has_s3_integration", None)
+    field = data.get("has_object_storage_private_access", None)
     if field is not None:
-        args["has_s3_integration"] = field
+        args["has_object_storage_private_access"] = field
     else:
-        args["has_s3_integration"] = False
+        args["has_object_storage_private_access"] = False
 
     return PrivateNetwork(**args)
 
@@ -557,11 +557,11 @@ def unmarshal_VPC(data: Any) -> VPC:
     else:
         args["transitivity_enabled"] = False
 
-    field = data.get("s3_integration_enabled", None)
+    field = data.get("object_storage_private_access_enabled", None)
     if field is not None:
-        args["s3_integration_enabled"] = field
+        args["object_storage_private_access_enabled"] = field
     else:
-        args["s3_integration_enabled"] = False
+        args["object_storage_private_access_enabled"] = False
 
     field = data.get("created_at", None)
     if field is not None:
@@ -578,12 +578,12 @@ def unmarshal_VPC(data: Any) -> VPC:
     return VPC(**args)
 
 
-def unmarshal_AddPrivateNetworkS3EndpointResponse(
+def unmarshal_AddPrivateNetworkObjectStoragePrivateAccessResponse(
     data: Any,
-) -> AddPrivateNetworkS3EndpointResponse:
+) -> AddPrivateNetworkObjectStoragePrivateAccessResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'AddPrivateNetworkS3EndpointResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AddPrivateNetworkObjectStoragePrivateAccessResponse' failed as data isn't a dictionary."
         )
 
     args: dict[str, Any] = {}
@@ -600,7 +600,7 @@ def unmarshal_AddPrivateNetworkS3EndpointResponse(
     else:
         args["private_network_ids"] = []
 
-    return AddPrivateNetworkS3EndpointResponse(**args)
+    return AddPrivateNetworkObjectStoragePrivateAccessResponse(**args)
 
 
 def unmarshal_AclRule(data: Any) -> AclRule:
@@ -905,12 +905,12 @@ def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
     return SetAclResponse(**args)
 
 
-def unmarshal_SetPrivateNetworksS3EndpointResponse(
+def unmarshal_SetPrivateNetworksObjectStoragePrivateAccessResponse(
     data: Any,
-) -> SetPrivateNetworksS3EndpointResponse:
+) -> SetPrivateNetworksObjectStoragePrivateAccessResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'SetPrivateNetworksS3EndpointResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetPrivateNetworksObjectStoragePrivateAccessResponse' failed as data isn't a dictionary."
         )
 
     args: dict[str, Any] = {}
@@ -927,11 +927,11 @@ def unmarshal_SetPrivateNetworksS3EndpointResponse(
     else:
         args["private_network_ids"] = []
 
-    return SetPrivateNetworksS3EndpointResponse(**args)
+    return SetPrivateNetworksObjectStoragePrivateAccessResponse(**args)
 
 
-def marshal_AddPrivateNetworkS3EndpointRequest(
-    request: AddPrivateNetworkS3EndpointRequest,
+def marshal_AddPrivateNetworkObjectStoragePrivateAccessRequest(
+    request: AddPrivateNetworkObjectStoragePrivateAccessRequest,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
@@ -1131,8 +1131,8 @@ def marshal_SetAclRequest(
     return output
 
 
-def marshal_SetPrivateNetworksS3EndpointRequest(
-    request: SetPrivateNetworksS3EndpointRequest,
+def marshal_SetPrivateNetworksObjectStoragePrivateAccessRequest(
+    request: SetPrivateNetworksObjectStoragePrivateAccessRequest,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}

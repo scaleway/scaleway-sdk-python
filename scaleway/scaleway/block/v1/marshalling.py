@@ -208,6 +208,12 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     else:
         args["public"] = False
 
+    field = data.get("kms_key_id", None)
+    if field is not None:
+        args["kms_key_id"] = field
+    else:
+        args["kms_key_id"] = None
+
     return Snapshot(**args)
 
 
