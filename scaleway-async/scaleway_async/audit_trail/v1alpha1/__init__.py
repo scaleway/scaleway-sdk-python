@@ -18,6 +18,7 @@ from .types import ListExportJobsRequestOrderBy
 from .types import ListSystemEventsRequestOrderBy
 from .types import ResourceType
 from .types import ServerlessContainersTriggerInfoSourceType
+from .types import ServerlessFunctionsTriggerInfoInputType
 from .types import SystemEventKind
 from .types import AccountContractSignatureInfoAccountContractInfo
 from .types import AccountContractSignatureInfo
@@ -64,6 +65,11 @@ from .types import ServerlessContainersContainerInfo
 from .types import ServerlessContainersDomainInfo
 from .types import ServerlessContainersNamespaceInfo
 from .types import ServerlessContainersTriggerInfo
+from .types import ServerlessFunctionsCronInfo
+from .types import ServerlessFunctionsDomainInfo
+from .types import ServerlessFunctionsFunctionInfo
+from .types import ServerlessFunctionsNamespaceInfo
+from .types import ServerlessFunctionsTriggerInfo
 from .types import VpcConnectorInfo
 from .types import VpcGwGatewayInfo
 from .types import VpcGwGatewayNetworkInfo
@@ -140,6 +146,7 @@ __all__ = [
     "ListSystemEventsRequestOrderBy",
     "ResourceType",
     "ServerlessContainersTriggerInfoSourceType",
+    "ServerlessFunctionsTriggerInfoInputType",
     "SystemEventKind",
     "AccountContractSignatureInfoAccountContractInfo",
     "AccountContractSignatureInfo",
@@ -186,6 +193,11 @@ __all__ = [
     "ServerlessContainersDomainInfo",
     "ServerlessContainersNamespaceInfo",
     "ServerlessContainersTriggerInfo",
+    "ServerlessFunctionsCronInfo",
+    "ServerlessFunctionsDomainInfo",
+    "ServerlessFunctionsFunctionInfo",
+    "ServerlessFunctionsNamespaceInfo",
+    "ServerlessFunctionsTriggerInfo",
     "VpcConnectorInfo",
     "VpcGwGatewayInfo",
     "VpcGwGatewayNetworkInfo",
