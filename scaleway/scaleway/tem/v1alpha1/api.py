@@ -9,7 +9,9 @@ from scaleway_core.bridge import (
     Region as ScwRegion,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -1488,13 +1490,23 @@ class TemV1Alpha1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        offer_name: Optional[OfferName] = None,
     ) -> ListOfferSubscriptionsResponse:
         """
         Get information about subscribed offers.
         Retrieve information about the offers you are subscribed to using the `project_id` and `region` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: ID of the Project.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param organization_id: (Optional) ID of the Organization.
+        One-Of ('scope'): at most one of 'organization_id', 'project_id' could be set.
+        :param project_id: (Optional) ID of the Project.
+        One-Of ('scope'): at most one of 'organization_id', 'project_id' could be set.
+        :param offer_name: (Optional) Name of the offer associated with the Project.
         :return: :class:`ListOfferSubscriptionsResponse <ListOfferSubscriptionsResponse>`
 
         Usage:
@@ -1511,12 +1523,63 @@ class TemV1Alpha1API(API):
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/offer-subscriptions",
             params={
-                "project_id": project_id or self.client.default_project_id,
+                "offer_name": offer_name,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("organization_id", organization_id),
+                        OneOfPossibility("project_id", project_id),
+                    ]
+                ),
             },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListOfferSubscriptionsResponse(res.json())
+
+    def list_offer_subscriptions_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        offer_name: Optional[OfferName] = None,
+    ) -> list[OfferSubscription]:
+        """
+        Get information about subscribed offers.
+        Retrieve information about the offers you are subscribed to using the `project_id` and `region` parameters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param organization_id: (Optional) ID of the Organization.
+        One-Of ('scope'): at most one of 'organization_id', 'project_id' could be set.
+        :param project_id: (Optional) ID of the Project.
+        One-Of ('scope'): at most one of 'organization_id', 'project_id' could be set.
+        :param offer_name: (Optional) Name of the offer associated with the Project.
+        :return: :class:`list[OfferSubscription] <list[OfferSubscription]>`
+
+        Usage:
+        ::
+
+            result = api.list_offer_subscriptions_all()
+        """
+
+        return fetch_all_pages(
+            type=ListOfferSubscriptionsResponse,
+            key="offer_subscriptions",
+            fetcher=self.list_offer_subscriptions,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "offer_name": offer_name,
+                "organization_id": organization_id,
+                "project_id": project_id,
+            },
+        )
 
     def update_offer_subscription(
         self,

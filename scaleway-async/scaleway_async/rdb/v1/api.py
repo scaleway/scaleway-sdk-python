@@ -18,6 +18,7 @@ from scaleway_core.utils import (
     wait_for_resource_async,
 )
 from .types import (
+    HighAvailabilityMode,
     ListDatabaseBackupsRequestOrderBy,
     ListDatabasesRequestOrderBy,
     ListInstanceLogsRequestOrderBy,
@@ -730,6 +731,7 @@ class RdbV1API(API):
         region: Optional[ScwRegion] = None,
         node_type: Optional[str] = None,
         enable_ha: Optional[bool] = None,
+        high_availability_mode: Optional[HighAvailabilityMode] = None,
         volume_size: Optional[int] = None,
         volume_type: Optional[VolumeType] = None,
         upgradable_version_id: Optional[str] = None,
@@ -744,19 +746,21 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance you want to upgrade.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_type: Node type of the Database Instance you want to upgrade to.
-        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :param enable_ha: Defines whether or not high availability should be enabled on the Database Instance.
-        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        :param high_availability_mode: Defines the High-Availability mode of the instance.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :param volume_size: Increase your block storage volume size.
-        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :param volume_type: Change your Database Instance storage type.
-        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :param upgradable_version_id: This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :param major_upgrade_workflow: Upgrade your database engine to a new major version including instance endpoints.
-        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :param enable_encryption: Defines whether or not encryption should be enabled on the Database Instance.
-        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'high_availability_mode', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow', 'enable_encryption' could be set.
         :return: :class:`Instance <Instance>`
 
         Usage:
@@ -781,6 +785,7 @@ class RdbV1API(API):
                     region=region,
                     node_type=node_type,
                     enable_ha=enable_ha,
+                    high_availability_mode=high_availability_mode,
                     volume_size=volume_size,
                     volume_type=volume_type,
                     upgradable_version_id=upgradable_version_id,
@@ -988,6 +993,7 @@ class RdbV1API(API):
         disable_backup: bool,
         volume_size: int,
         backup_same_region: bool,
+        high_availability_mode: Optional[HighAvailabilityMode] = None,
         tags: Optional[list[str]] = None,
         init_settings: Optional[list[InstanceSetting]] = None,
         volume_type: Optional[VolumeType] = None,
@@ -1011,6 +1017,7 @@ class RdbV1API(API):
         :param disable_backup: Defines whether or not backups are disabled.
         :param volume_size: Volume size when volume_type is not lssd.
         :param backup_same_region: Defines whether to or not to store logical backups in the same region as the Database Instance.
+        :param high_availability_mode: Defines the High-Availability mode of the instance.
         :param tags: Tags to apply to the Database Instance.
         :param init_settings: List of engine settings to be set upon Database Instance initialization.
         :param volume_type: Type of volume where data is stored (lssd, bssd, ...).
@@ -1046,9 +1053,10 @@ class RdbV1API(API):
                     user_name=user_name,
                     password=password,
                     node_type=node_type,
+                    is_ha_cluster=is_ha_cluster,
                     region=region,
                     name=name or random_name(prefix="ins"),
-                    is_ha_cluster=is_ha_cluster,
+                    high_availability_mode=high_availability_mode,
                     disable_backup=disable_backup,
                     volume_size=volume_size,
                     backup_same_region=backup_same_region,
@@ -3094,6 +3102,7 @@ class RdbV1API(API):
         instance_name: str,
         region: Optional[ScwRegion] = None,
         is_ha_cluster: Optional[bool] = None,
+        high_availability_mode: Optional[HighAvailabilityMode] = None,
         node_type: Optional[str] = None,
     ) -> Instance:
         """
@@ -3103,6 +3112,7 @@ class RdbV1API(API):
         :param instance_name: Name of the Database Instance created with the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :param is_ha_cluster: Defines whether or not High-Availability is enabled on the new Database Instance.
+        :param high_availability_mode: Defines the High-Availability mode of the instance.
         :param node_type: The node type used to restore the snapshot.
         :return: :class:`Instance <Instance>`
 
@@ -3129,6 +3139,7 @@ class RdbV1API(API):
                     instance_name=instance_name,
                     region=region,
                     is_ha_cluster=is_ha_cluster,
+                    high_availability_mode=high_availability_mode,
                     node_type=node_type,
                 ),
                 self.client,

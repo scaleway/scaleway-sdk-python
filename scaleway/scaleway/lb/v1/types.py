@@ -874,7 +874,7 @@ class AclMatch:
 
     ips_edge_services: bool
     """
-    Defines whether Edge Services IPs should be matched.
+    Defines whether Edge Services IPs should be matched. If set to `true`, restricts all connections except for Edge Services.
     """
 
     http_filter: AclHttpFilter

@@ -62,6 +62,7 @@ from .types import (
     PublicCatalogProductPropertiesBlockStorage,
     PublicCatalogProductPropertiesDedibox,
     PublicCatalogProductPropertiesElasticMetal,
+    PublicCatalogProductPropertiesFileStorage,
     PublicCatalogProductPropertiesGenerativeApis,
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
@@ -1063,6 +1064,31 @@ def unmarshal_PublicCatalogProductPropertiesElasticMetal(
     return PublicCatalogProductPropertiesElasticMetal(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesFileStorage(
+    data: Any,
+) -> PublicCatalogProductPropertiesFileStorage:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesFileStorage' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("min_size", None)
+    if field is not None:
+        args["min_size"] = field
+    else:
+        args["min_size"] = 0
+
+    field = data.get("max_size", None)
+    if field is not None:
+        args["max_size"] = field
+    else:
+        args["max_size"] = 0
+
+    return PublicCatalogProductPropertiesFileStorage(**args)
+
+
 def unmarshal_PublicCatalogProductPropertiesGenerativeApis(
     data: Any,
 ) -> PublicCatalogProductPropertiesGenerativeApis:
@@ -1914,6 +1940,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["instance_local_ssd_storage"] = None
+
+    field = data.get("file_storage", None)
+    if field is not None:
+        args["file_storage"] = unmarshal_PublicCatalogProductPropertiesFileStorage(
+            field
+        )
+    else:
+        args["file_storage"] = None
 
     return PublicCatalogProductProperties(**args)
 

@@ -7,6 +7,7 @@ from .types import DatabaseBackupStatus
 from .content import DATABASE_BACKUP_TRANSIENT_STATUSES
 from .types import EndpointPrivateNetworkDetailsProvisioningMode
 from .types import EngineSettingPropertyType
+from .types import HighAvailabilityMode
 from .types import InstanceLogStatus
 from .content import INSTANCE_LOG_TRANSIENT_STATUSES
 from .types import InstanceStatus
@@ -154,6 +155,7 @@ __all__ = [
     "DATABASE_BACKUP_TRANSIENT_STATUSES",
     "EndpointPrivateNetworkDetailsProvisioningMode",
     "EngineSettingPropertyType",
+    "HighAvailabilityMode",
     "InstanceLogStatus",
     "INSTANCE_LOG_TRANSIENT_STATUSES",
     "InstanceStatus",

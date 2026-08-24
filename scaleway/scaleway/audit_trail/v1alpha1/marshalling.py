@@ -1542,6 +1542,12 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["name"] = None
 
+    field = data.get("action", None)
+    if field is not None:
+        args["action"] = field
+    else:
+        args["action"] = None
+
     field = data.get("secm_secret_info", None)
     if field is not None:
         args["secm_secret_info"] = unmarshal_SecretManagerSecretInfo(field)

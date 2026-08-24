@@ -393,6 +393,11 @@ class Partner:
     Whether or not the partner supports L3 connectivity.
     """
 
+    region: ScwRegion
+    """
+    Region of the partner.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date of the partner.

@@ -57,6 +57,7 @@ from .types import GetClusterRequest
 from .types import GetNodeMetadataRequest
 from .types import GetNodeRequest
 from .types import GetPoolRequest
+from .types import GetUserDataRequest
 from .types import GetVersionRequest
 from .types import ListClusterACLRulesRequest
 from .types import ListClusterACLRulesResponse
@@ -148,6 +149,7 @@ __all__ = [
     "GetNodeMetadataRequest",
     "GetNodeRequest",
     "GetPoolRequest",
+    "GetUserDataRequest",
     "GetVersionRequest",
     "ListClusterACLRulesRequest",
     "ListClusterACLRulesResponse",

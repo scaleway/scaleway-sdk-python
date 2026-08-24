@@ -1526,6 +1526,11 @@ class CreatePoolRequest:
     Private network where the nodes are attached. Should be member of the same VPC as the API Server.
     """
 
+    user_data: Optional[dict[str, str]] = field(default_factory=dict)
+    """
+    User data applied and reconciled with the pool.
+    """
+
 
 @dataclass
 class DeleteACLRuleRequest:
@@ -1652,6 +1657,24 @@ class GetPoolRequest:
     pool_id: str
     """
     ID of the requested pool.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetUserDataRequest:
+    pool_id: str
+    """
+    Pool the user data will be attached to.
+    """
+
+    key: str
+    """
+    User data key to retrieved.
     """
 
     region: Optional[ScwRegion] = None

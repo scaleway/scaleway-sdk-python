@@ -41,6 +41,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     OPEN_SEARCH = "open_search"
     INSTANCE_LOCAL_SSD_SNAPSHOT = "instance_local_ssd_snapshot"
     INSTANCE_LOCAL_SSD_STORAGE = "instance_local_ssd_storage"
+    FILE_STORAGE = "file_storage"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -731,6 +732,19 @@ class PublicCatalogProductPropertiesElasticMetal:
 
 
 @dataclass
+class PublicCatalogProductPropertiesFileStorage:
+    min_size: int
+    """
+    The minimum size of storage volume for this product in bytes.
+    """
+
+    max_size: int
+    """
+    The maximum size of storage volume for this product in bytes.
+    """
+
+
+@dataclass
 class PublicCatalogProductPropertiesGenerativeApis:
     reasoning: bool
     supported_apis: list[str]
@@ -1026,6 +1040,8 @@ class PublicCatalogProductProperties:
     instance_local_ssd_storage: Optional[
         PublicCatalogProductPropertiesInstanceLocalSSDStorage
     ] = None
+
+    file_storage: Optional[PublicCatalogProductPropertiesFileStorage] = None
 
 
 @dataclass

@@ -11,6 +11,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     ContractType,
+    ProjectStatus,
     QualificationArchitectureType,
     Contract,
     ContractSignature,
@@ -392,6 +393,12 @@ def unmarshal_Project(data: Any) -> Project:
         args["description"] = field
     else:
         args["description"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = ProjectStatus.UNKNOWN_STATUS
 
     field = data.get("created_at", None)
     if field is not None:

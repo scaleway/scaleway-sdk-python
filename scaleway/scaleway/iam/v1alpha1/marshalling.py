@@ -364,6 +364,18 @@ def unmarshal_Group(data: Any) -> Group:
     else:
         args["description"] = None
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     field = data.get("user_ids", None)
     if field is not None:
         args["user_ids"] = field
@@ -400,17 +412,17 @@ def unmarshal_Group(data: Any) -> Group:
     else:
         args["managed"] = False
 
-    field = data.get("created_at", None)
+    field = data.get("all_users", None)
     if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+        args["all_users"] = field
     else:
-        args["created_at"] = None
+        args["all_users"] = False
 
-    field = data.get("updated_at", None)
+    field = data.get("all_applications", None)
     if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+        args["all_applications"] = field
     else:
-        args["updated_at"] = None
+        args["all_applications"] = False
 
     return Group(**args)
 
