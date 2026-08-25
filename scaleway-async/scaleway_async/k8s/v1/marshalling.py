@@ -882,6 +882,12 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["error_message"] = None
 
+    field = data.get("max_termination_grace_period", None)
+    if field is not None:
+        args["max_termination_grace_period"] = field
+    else:
+        args["max_termination_grace_period"] = None
+
     return Pool(**args)
 
 
@@ -1675,6 +1681,9 @@ def marshal_CreateClusterRequestPoolConfig(
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
 
+    if request.max_termination_grace_period is not None:
+        output["max_termination_grace_period"] = request.max_termination_grace_period
+
     return output
 
 
@@ -1863,6 +1872,9 @@ def marshal_CreatePoolRequest(
 
     if request.user_data is not None:
         output["user_data"] = {key: value for key, value in request.user_data.items()}
+
+    if request.max_termination_grace_period is not None:
+        output["max_termination_grace_period"] = request.max_termination_grace_period
 
     return output
 
@@ -2122,6 +2134,9 @@ def marshal_UpdatePoolRequest(
 
     if request.security_group_id is not None:
         output["security_group_id"] = request.security_group_id
+
+    if request.max_termination_grace_period is not None:
+        output["max_termination_grace_period"] = request.max_termination_grace_period
 
     return output
 

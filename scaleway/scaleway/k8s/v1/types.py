@@ -640,6 +640,11 @@ class CreateClusterRequestPoolConfig:
     Private network where the nodes are attached. Should be member of the same VPC as the API Server.
     """
 
+    max_termination_grace_period: Optional[str] = None
+    """
+    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    """
+
 
 @dataclass
 class CreatePoolRequestUpgradePolicy:
@@ -1141,6 +1146,11 @@ class Pool:
     Details of the error, if any occurred when managing the pool.
     """
 
+    max_termination_grace_period: Optional[str] = None
+    """
+    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    """
+
 
 @dataclass
 class NodeMetadataCoreV1Taint:
@@ -1535,6 +1545,11 @@ class CreatePoolRequest:
     user_data: Optional[dict[str, str]] = field(default_factory=dict)
     """
     User data applied and reconciled with the pool.
+    """
+
+    max_termination_grace_period: Optional[str] = None
+    """
+    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
     """
 
 
@@ -2278,6 +2293,11 @@ class UpdatePoolRequest:
     security_group_id: Optional[str] = None
     """
     Security group ID in which all the nodes of the pool will be moved.
+    """
+
+    max_termination_grace_period: Optional[str] = None
+    """
+    New maximum amount of time before the API forces the drain and deletion of a `deleting` node.
     """
 
 

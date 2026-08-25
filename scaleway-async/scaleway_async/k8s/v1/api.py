@@ -1068,6 +1068,7 @@ class K8SV1API(API):
         startup_taints: Optional[list[CoreV1Taint]] = None,
         private_network_id: Optional[str] = None,
         user_data: Optional[dict[str, str]] = None,
+        max_termination_grace_period: Optional[str] = None,
     ) -> Pool:
         """
         Create a new Pool in a Cluster.
@@ -1099,6 +1100,7 @@ class K8SV1API(API):
         :param startup_taints: Kubernetes taints applied at node creation but not reconciled afterwards.
         :param private_network_id: Private network where the nodes are attached. Should be member of the same VPC as the API Server.
         :param user_data: User data applied and reconciled with the pool.
+        :param max_termination_grace_period: Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1148,6 +1150,7 @@ class K8SV1API(API):
                     startup_taints=startup_taints,
                     private_network_id=private_network_id,
                     user_data=user_data,
+                    max_termination_grace_period=max_termination_grace_period,
                 ),
                 self.client,
             ),
@@ -1287,6 +1290,7 @@ class K8SV1API(API):
         kubelet_args: Optional[dict[str, str]] = None,
         upgrade_policy: Optional[UpdatePoolRequestUpgradePolicy] = None,
         security_group_id: Optional[str] = None,
+        max_termination_grace_period: Optional[str] = None,
     ) -> Pool:
         """
         Update a Pool in a Cluster.
@@ -1302,6 +1306,7 @@ class K8SV1API(API):
         :param kubelet_args: New Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: New upgrade policy for the pool.
         :param security_group_id: Security group ID in which all the nodes of the pool will be moved.
+        :param max_termination_grace_period: New maximum amount of time before the API forces the drain and deletion of a `deleting` node.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1333,6 +1338,7 @@ class K8SV1API(API):
                     kubelet_args=kubelet_args,
                     upgrade_policy=upgrade_policy,
                     security_group_id=security_group_id,
+                    max_termination_grace_period=max_termination_grace_period,
                 ),
                 self.client,
             ),
