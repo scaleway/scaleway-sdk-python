@@ -73,6 +73,11 @@ from .types import (
     ServerlessContainersDomainInfo,
     ServerlessContainersNamespaceInfo,
     ServerlessContainersTriggerInfo,
+    ServerlessFunctionsCronInfo,
+    ServerlessFunctionsDomainInfo,
+    ServerlessFunctionsFunctionInfo,
+    ServerlessFunctionsNamespaceInfo,
+    ServerlessFunctionsTriggerInfo,
     VpcConnectorInfo,
     VpcGwGatewayInfo,
     VpcGwGatewayNetworkInfo,
@@ -1284,6 +1289,97 @@ def unmarshal_ServerlessContainersTriggerInfo(
     return ServerlessContainersTriggerInfo(**args)
 
 
+def unmarshal_ServerlessFunctionsCronInfo(data: Any) -> ServerlessFunctionsCronInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessFunctionsCronInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("function_id", None)
+    if field is not None:
+        args["function_id"] = field
+    else:
+        args["function_id"] = None
+
+    return ServerlessFunctionsCronInfo(**args)
+
+
+def unmarshal_ServerlessFunctionsDomainInfo(data: Any) -> ServerlessFunctionsDomainInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessFunctionsDomainInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("function_id", None)
+    if field is not None:
+        args["function_id"] = field
+    else:
+        args["function_id"] = None
+
+    return ServerlessFunctionsDomainInfo(**args)
+
+
+def unmarshal_ServerlessFunctionsFunctionInfo(
+    data: Any,
+) -> ServerlessFunctionsFunctionInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessFunctionsFunctionInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("namespace_id", None)
+    if field is not None:
+        args["namespace_id"] = field
+    else:
+        args["namespace_id"] = None
+
+    return ServerlessFunctionsFunctionInfo(**args)
+
+
+def unmarshal_ServerlessFunctionsNamespaceInfo(
+    data: Any,
+) -> ServerlessFunctionsNamespaceInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessFunctionsNamespaceInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return ServerlessFunctionsNamespaceInfo(**args)
+
+
+def unmarshal_ServerlessFunctionsTriggerInfo(
+    data: Any,
+) -> ServerlessFunctionsTriggerInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerlessFunctionsTriggerInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("function_id", None)
+    if field is not None:
+        args["function_id"] = field
+    else:
+        args["function_id"] = None
+
+    field = data.get("input_type", None)
+    if field is not None:
+        args["input_type"] = field
+    else:
+        args["input_type"] = None
+
+    return ServerlessFunctionsTriggerInfo(**args)
+
+
 def unmarshal_VpcConnectorInfo(data: Any) -> VpcConnectorInfo:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1905,6 +2001,46 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["serverless_containers_trigger_info"] = None
+
+    field = data.get("serverless_functions_namespace_info", None)
+    if field is not None:
+        args["serverless_functions_namespace_info"] = (
+            unmarshal_ServerlessFunctionsNamespaceInfo(field)
+        )
+    else:
+        args["serverless_functions_namespace_info"] = None
+
+    field = data.get("serverless_functions_function_info", None)
+    if field is not None:
+        args["serverless_functions_function_info"] = (
+            unmarshal_ServerlessFunctionsFunctionInfo(field)
+        )
+    else:
+        args["serverless_functions_function_info"] = None
+
+    field = data.get("serverless_functions_domain_info", None)
+    if field is not None:
+        args["serverless_functions_domain_info"] = (
+            unmarshal_ServerlessFunctionsDomainInfo(field)
+        )
+    else:
+        args["serverless_functions_domain_info"] = None
+
+    field = data.get("serverless_functions_cron_info", None)
+    if field is not None:
+        args["serverless_functions_cron_info"] = unmarshal_ServerlessFunctionsCronInfo(
+            field
+        )
+    else:
+        args["serverless_functions_cron_info"] = None
+
+    field = data.get("serverless_functions_trigger_info", None)
+    if field is not None:
+        args["serverless_functions_trigger_info"] = (
+            unmarshal_ServerlessFunctionsTriggerInfo(field)
+        )
+    else:
+        args["serverless_functions_trigger_info"] = None
 
     return Resource(**args)
 

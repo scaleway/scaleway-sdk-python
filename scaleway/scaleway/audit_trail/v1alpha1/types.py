@@ -259,6 +259,11 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SERVERLESS_CONTAINERS_CONTAINER = "serverless_containers_container"
     SERVERLESS_CONTAINERS_DOMAIN = "serverless_containers_domain"
     SERVERLESS_CONTAINERS_TRIGGER = "serverless_containers_trigger"
+    SERVERLESS_FUNCTIONS_NAMESPACE = "serverless_functions_namespace"
+    SERVERLESS_FUNCTIONS_FUNCTION = "serverless_functions_function"
+    SERVERLESS_FUNCTIONS_DOMAIN = "serverless_functions_domain"
+    SERVERLESS_FUNCTIONS_CRON = "serverless_functions_cron"
+    SERVERLESS_FUNCTIONS_TRIGGER = "serverless_functions_trigger"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -269,6 +274,15 @@ class ServerlessContainersTriggerInfoSourceType(str, Enum, metaclass=StrEnumMeta
     CRON = "cron"
     SQS = "sqs"
     NATS = "nats"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerlessFunctionsTriggerInfoInputType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_INPUT_TYPE = "unknown_input_type"
+    SCW_SQS = "scw_sqs"
+    SCW_NATS = "scw_nats"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -532,6 +546,32 @@ class ServerlessContainersTriggerInfo:
 
 
 @dataclass
+class ServerlessFunctionsCronInfo:
+    function_id: str
+
+
+@dataclass
+class ServerlessFunctionsDomainInfo:
+    function_id: str
+
+
+@dataclass
+class ServerlessFunctionsFunctionInfo:
+    namespace_id: str
+
+
+@dataclass
+class ServerlessFunctionsNamespaceInfo:
+    pass
+
+
+@dataclass
+class ServerlessFunctionsTriggerInfo:
+    function_id: str
+    input_type: ServerlessFunctionsTriggerInfoInputType
+
+
+@dataclass
 class VpcConnectorInfo:
     vpc_id: str
     target_vpc_id: str
@@ -701,6 +741,18 @@ class Resource:
     serverless_containers_domain_info: Optional[ServerlessContainersDomainInfo] = None
 
     serverless_containers_trigger_info: Optional[ServerlessContainersTriggerInfo] = None
+
+    serverless_functions_namespace_info: Optional[ServerlessFunctionsNamespaceInfo] = (
+        None
+    )
+
+    serverless_functions_function_info: Optional[ServerlessFunctionsFunctionInfo] = None
+
+    serverless_functions_domain_info: Optional[ServerlessFunctionsDomainInfo] = None
+
+    serverless_functions_cron_info: Optional[ServerlessFunctionsCronInfo] = None
+
+    serverless_functions_trigger_info: Optional[ServerlessFunctionsTriggerInfo] = None
 
 
 @dataclass
