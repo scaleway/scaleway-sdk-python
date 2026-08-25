@@ -21,6 +21,7 @@ from .types import Runtime
 from .types import MaintenanceWindow
 from .types import CoreV1Taint
 from .types import CreateClusterRequestPoolConfigUpgradePolicy
+from .types import ComponentInfo
 from .types import ClusterAutoUpgrade
 from .types import ClusterAutoscalerConfig
 from .types import ClusterOpenIDConnectConfig
@@ -113,6 +114,7 @@ __all__ = [
     "MaintenanceWindow",
     "CoreV1Taint",
     "CreateClusterRequestPoolConfigUpgradePolicy",
+    "ComponentInfo",
     "ClusterAutoUpgrade",
     "ClusterAutoscalerConfig",
     "ClusterOpenIDConnectConfig",

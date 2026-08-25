@@ -40,8 +40,6 @@ class CNI(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_CNI = "unknown_cni"
     CILIUM = "cilium"
     CALICO = "calico"
-    WEAVE = "weave"
-    FLANNEL = "flannel"
     KILO = "kilo"
     NONE = "none"
     CILIUM_NATIVE = "cilium_native"
@@ -198,9 +196,7 @@ class PoolVolumeType(str, Enum, metaclass=StrEnumMeta):
 
 class Runtime(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RUNTIME = "unknown_runtime"
-    DOCKER = "docker"
     CONTAINERD = "containerd"
-    CRIO = "crio"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -252,6 +248,11 @@ class CreateClusterRequestPoolConfigUpgradePolicy:
     """
     The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades.
     """
+
+
+@dataclass
+class ComponentInfo:
+    version: str
 
 
 @dataclass
@@ -751,6 +752,11 @@ class Version:
     available_kubelet_args: dict[str, str]
     """
     Supported kubelet arguments for this version.
+    """
+
+    additional_components: dict[str, ComponentInfo]
+    """
+    Map containing every sub-component version shipped with this Kapsule version.
     """
 
     deprecated_at: Optional[datetime] = None

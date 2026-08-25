@@ -22,6 +22,7 @@ from .types import (
     PoolStatus,
     PoolVolumeType,
     Runtime,
+    ComponentInfo,
     Version,
     MaintenanceWindow,
     ClusterAutoUpgrade,
@@ -71,6 +72,23 @@ from .types import (
     UpgradeClusterRequest,
     UpgradePoolRequest,
 )
+
+
+def unmarshal_ComponentInfo(data: Any) -> ComponentInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ComponentInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = field
+    else:
+        args["version"] = None
+
+    return ComponentInfo(**args)
 
 
 def unmarshal_Version(data: Any) -> Version:
@@ -130,6 +148,16 @@ def unmarshal_Version(data: Any) -> Version:
         args["available_kubelet_args"] = field
     else:
         args["available_kubelet_args"] = {}
+
+    field = data.get("additional_components", None)
+    if field is not None:
+        args["additional_components"] = (
+            {key: unmarshal_ComponentInfo(value) for key, value in field.items()}
+            if field is not None
+            else None
+        )
+    else:
+        args["additional_components"] = {}
 
     field = data.get("deprecated_at", None)
     if field is not None:
