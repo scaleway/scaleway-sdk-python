@@ -211,9 +211,9 @@ class PrivateNetwork:
     Defines whether default v4 and v6 routes are propagated for this Private Network.
     """
 
-    has_s3_integration: bool
+    has_object_storage_private_access: bool
     """
-    Defines whether this Private Network is enabled for S3 integration.
+    Defines whether this Private Network is enabled for Object Storage private access.
     """
 
     created_at: Optional[datetime] = None
@@ -546,9 +546,9 @@ class VPC:
     Defines whether the VPC allows packets from peered VPCs to transit through.
     """
 
-    s3_integration_enabled: bool
+    object_storage_private_access_enabled: bool
     """
-    Defines whether the S3 integration is enabled for the VPC.
+    Defines whether the Object Storage private access is enabled for the VPC.
     """
 
     created_at: Optional[datetime] = None
@@ -563,15 +563,15 @@ class VPC:
 
 
 @dataclass
-class AddPrivateNetworkS3EndpointRequest:
+class AddPrivateNetworkObjectStoragePrivateAccessRequest:
     vpc_id: str
     """
-    ID of the VPC containing the S3 Endpoint.
+    ID of the VPC containing the Object Storage private access.
     """
 
     private_network_id: str
     """
-    ID of the Private Network to add to the S3 Endpoint.
+    ID of the Private Network to add to the Object Storage private access.
     """
 
     region: Optional[ScwRegion] = None
@@ -581,15 +581,15 @@ class AddPrivateNetworkS3EndpointRequest:
 
 
 @dataclass
-class AddPrivateNetworkS3EndpointResponse:
+class AddPrivateNetworkObjectStoragePrivateAccessResponse:
     vpc_id: str
     """
-    ID of the VPC containing the S3 Endpoint.
+    ID of the VPC containing the Object Storage private access.
     """
 
     private_network_ids: list[str]
     """
-    IDs of the Private Networks associated with the S3 Endpoint.
+    IDs of the Private Networks associated with the Object Storage private access.
     """
 
 
@@ -787,10 +787,15 @@ class DeleteIngressRuleRequest:
 
 
 @dataclass
-class DeletePrivateNetworkRequest:
+class DeletePrivateNetworkObjectStoragePrivateAccessRequest:
+    vpc_id: str
+    """
+    ID of the VPC containing the Object Storage private access.
+    """
+
     private_network_id: str
     """
-    Private Network ID.
+    ID of the Private Network to remove from the Object Storage private access.
     """
 
     region: Optional[ScwRegion] = None
@@ -800,15 +805,10 @@ class DeletePrivateNetworkRequest:
 
 
 @dataclass
-class DeletePrivateNetworkS3EndpointRequest:
-    vpc_id: str
-    """
-    ID of the VPC containing the S3 Endpoint.
-    """
-
+class DeletePrivateNetworkRequest:
     private_network_id: str
     """
-    ID of the Private Network to remove from the S3 Endpoint.
+    Private Network ID.
     """
 
     region: Optional[ScwRegion] = None
@@ -857,10 +857,10 @@ class DeleteVPCRequest:
 
 
 @dataclass
-class DisableS3EndpointRequest:
+class DisableObjectStoragePrivateAccessRequest:
     vpc_id: str
     """
-    ID of the VPC for which to disable S3 integration.
+    ID of the VPC for which to disable Object Storage private access.
     """
 
     region: Optional[ScwRegion] = None
@@ -896,23 +896,10 @@ class EnableDHCPRequest:
 
 
 @dataclass
-class EnableRoutingRequest:
+class EnableObjectStoragePrivateAccessRequest:
     vpc_id: str
     """
-    VPC ID.
-    """
-
-    region: Optional[ScwRegion] = None
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
-class EnableS3EndpointRequest:
-    vpc_id: str
-    """
-    ID of the VPC for which to enable S3 integration.
+    ID of the VPC for which to enable Object Storage private access.
     """
 
     region: Optional[ScwRegion] = None
@@ -922,7 +909,20 @@ class EnableS3EndpointRequest:
 
     private_network_ids: Optional[list[str]] = field(default_factory=list)
     """
-    IDs of the Private Networks for which to enable S3 integration.
+    IDs of the Private Networks for which to enable Object Storage private access.
+    """
+
+
+@dataclass
+class EnableRoutingRequest:
+    vpc_id: str
+    """
+    VPC ID.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -1140,9 +1140,9 @@ class ListPrivateNetworksRequest:
     DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
     """
 
-    s3_integration_enabled: Optional[bool] = False
+    object_storage_private_access_enabled: Optional[bool] = False
     """
-    Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned.
+    Filter by whether Object Storage private access is enabled. When set, only matching Private Networks will be returned.
     """
 
 
@@ -1359,9 +1359,9 @@ class ListVPCsRequest:
     Defines whether to filter only for VPCs which route traffic between their Private Networks.
     """
 
-    s3_integration_enabled: Optional[bool] = False
+    object_storage_private_access_enabled: Optional[bool] = False
     """
-    Defines whether to filter only for VPCs with S3 integration enabled.
+    Defines whether to filter only for VPCs with Object Storage private access enabled.
     """
 
 
@@ -1406,15 +1406,15 @@ class SetAclResponse:
 
 
 @dataclass
-class SetPrivateNetworksS3EndpointRequest:
+class SetPrivateNetworksObjectStoragePrivateAccessRequest:
     vpc_id: str
     """
-    ID of the VPC containing the S3 Endpoint.
+    ID of the VPC containing the Object Storage private access.
     """
 
     private_network_ids: list[str]
     """
-    IDs of the Private Networks to associate with the S3 Endpoint.
+    IDs of the Private Networks to associate with the Object Storage private access.
     """
 
     region: Optional[ScwRegion] = None
@@ -1424,15 +1424,15 @@ class SetPrivateNetworksS3EndpointRequest:
 
 
 @dataclass
-class SetPrivateNetworksS3EndpointResponse:
+class SetPrivateNetworksObjectStoragePrivateAccessResponse:
     vpc_id: str
     """
-    ID of the VPC containing the S3 Endpoint.
+    ID of the VPC containing the Object Storage private access.
     """
 
     private_network_ids: list[str]
     """
-    IDs of the Private Networks associated with the S3 Endpoint.
+    IDs of the Private Networks associated with the Object Storage private access.
     """
 
 
