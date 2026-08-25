@@ -589,10 +589,6 @@ class Version:
 @dataclass
 class ApplyMaintenanceRequest:
     maintenance_id: str
-    """
-    ID of the maintenance.
-    """
-
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
