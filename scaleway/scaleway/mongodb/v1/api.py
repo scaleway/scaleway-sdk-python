@@ -1606,7 +1606,7 @@ class MongodbV1API(API):
     ) -> Maintenance:
         """
         Apply a maintenance of a MongoDB® Database Instance.
-        :param maintenance_id:
+        :param maintenance_id: ID of the maintenance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Maintenance <Maintenance>`
 
