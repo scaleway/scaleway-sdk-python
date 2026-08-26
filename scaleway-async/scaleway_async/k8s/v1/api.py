@@ -49,6 +49,7 @@ from .types import (
     ListClustersResponse,
     ListNodesResponse,
     ListPoolsResponse,
+    ListUserDataResponse,
     ListVersionsResponse,
     Node,
     NodeMetadata,
@@ -88,6 +89,7 @@ from .marshalling import (
     unmarshal_ListClustersResponse,
     unmarshal_ListNodesResponse,
     unmarshal_ListPoolsResponse,
+    unmarshal_ListUserDataResponse,
     unmarshal_ListVersionsResponse,
     unmarshal_NodeMetadata,
     unmarshal_SetClusterACLRulesResponse,
@@ -1524,7 +1526,7 @@ class K8SV1API(API):
         Get a pool related user data.
         Retrieve specific user data content for a given pool.
         Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
-        :param pool_id: Pool the user data will be attached to.
+        :param pool_id: Pool the user data are associated to.
         :param key: User data key to retrieved.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ScwFile <ScwFile>`
@@ -1551,6 +1553,40 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
+
+    async def list_user_data(
+        self,
+        *,
+        pool_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> ListUserDataResponse:
+        """
+        List all user data related to a given pool.
+        This list only the user data key and not the content.
+        :param pool_id: Pool the user data are associated to.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ListUserDataResponse <ListUserDataResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_user_data(
+                pool_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_pool_id = validate_path_param("pool_id", pool_id)
+
+        res = self._request(
+            "GET",
+            f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/user-data",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListUserDataResponse(res.json())
 
     async def get_node_metadata(
         self,
