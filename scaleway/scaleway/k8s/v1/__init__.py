@@ -38,6 +38,7 @@ from .types import Version
 from .types import Cluster
 from .types import Node
 from .types import Pool
+from .types import UserDataSummary
 from .types import NodeMetadataCoreV1Taint
 from .types import UpdateClusterRequestAutoUpgrade
 from .types import UpdateClusterRequestAutoscalerConfig
@@ -74,6 +75,8 @@ from .types import ListNodesRequest
 from .types import ListNodesResponse
 from .types import ListPoolsRequest
 from .types import ListPoolsResponse
+from .types import ListUserDataRequest
+from .types import ListUserDataResponse
 from .types import ListVersionsRequest
 from .types import ListVersionsResponse
 from .types import NodeMetadata
@@ -131,6 +134,7 @@ __all__ = [
     "Cluster",
     "Node",
     "Pool",
+    "UserDataSummary",
     "NodeMetadataCoreV1Taint",
     "UpdateClusterRequestAutoUpgrade",
     "UpdateClusterRequestAutoscalerConfig",
@@ -167,6 +171,8 @@ __all__ = [
     "ListNodesResponse",
     "ListPoolsRequest",
     "ListPoolsResponse",
+    "ListUserDataRequest",
+    "ListUserDataResponse",
     "ListVersionsRequest",
     "ListVersionsResponse",
     "NodeMetadata",

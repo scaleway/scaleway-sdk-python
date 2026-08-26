@@ -1153,6 +1153,14 @@ class Pool:
 
 
 @dataclass
+class UserDataSummary:
+    key: str
+    """
+    Key name of a given user data.
+    """
+
+
+@dataclass
 class NodeMetadataCoreV1Taint:
     key: str
     value: str
@@ -1690,7 +1698,7 @@ class GetPoolRequest:
 class GetUserDataRequest:
     pool_id: str
     """
-    Pool the user data will be attached to.
+    Pool the user data are associated to.
     """
 
     key: str
@@ -2008,6 +2016,27 @@ class ListPoolsResponse:
     pools: list[Pool]
     """
     Paginated returned pools.
+    """
+
+
+@dataclass
+class ListUserDataRequest:
+    pool_id: str
+    """
+    Pool the user data are associated to.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListUserDataResponse:
+    user_data: list[UserDataSummary]
+    """
+    User data information.
     """
 
 
