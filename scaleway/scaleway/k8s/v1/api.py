@@ -49,6 +49,7 @@ from .types import (
     ListClustersResponse,
     ListNodesResponse,
     ListPoolsResponse,
+    ListUserDataResponse,
     ListVersionsResponse,
     Node,
     NodeMetadata,
@@ -88,6 +89,7 @@ from .marshalling import (
     unmarshal_ListClustersResponse,
     unmarshal_ListNodesResponse,
     unmarshal_ListPoolsResponse,
+    unmarshal_ListUserDataResponse,
     unmarshal_ListVersionsResponse,
     unmarshal_NodeMetadata,
     unmarshal_SetClusterACLRulesResponse,
@@ -1068,6 +1070,7 @@ class K8SV1API(API):
         startup_taints: Optional[list[CoreV1Taint]] = None,
         private_network_id: Optional[str] = None,
         user_data: Optional[dict[str, str]] = None,
+        max_termination_grace_period: Optional[str] = None,
     ) -> Pool:
         """
         Create a new Pool in a Cluster.
@@ -1099,6 +1102,7 @@ class K8SV1API(API):
         :param startup_taints: Kubernetes taints applied at node creation but not reconciled afterwards.
         :param private_network_id: Private network where the nodes are attached. Should be member of the same VPC as the API Server.
         :param user_data: User data applied and reconciled with the pool.
+        :param max_termination_grace_period: Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1148,6 +1152,7 @@ class K8SV1API(API):
                     startup_taints=startup_taints,
                     private_network_id=private_network_id,
                     user_data=user_data,
+                    max_termination_grace_period=max_termination_grace_period,
                 ),
                 self.client,
             ),
@@ -1287,6 +1292,7 @@ class K8SV1API(API):
         kubelet_args: Optional[dict[str, str]] = None,
         upgrade_policy: Optional[UpdatePoolRequestUpgradePolicy] = None,
         security_group_id: Optional[str] = None,
+        max_termination_grace_period: Optional[str] = None,
     ) -> Pool:
         """
         Update a Pool in a Cluster.
@@ -1302,6 +1308,7 @@ class K8SV1API(API):
         :param kubelet_args: New Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: New upgrade policy for the pool.
         :param security_group_id: Security group ID in which all the nodes of the pool will be moved.
+        :param max_termination_grace_period: New maximum amount of time before the API forces the drain and deletion of a `deleting` node.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1333,6 +1340,7 @@ class K8SV1API(API):
                     kubelet_args=kubelet_args,
                     upgrade_policy=upgrade_policy,
                     security_group_id=security_group_id,
+                    max_termination_grace_period=max_termination_grace_period,
                 ),
                 self.client,
             ),
@@ -1518,7 +1526,7 @@ class K8SV1API(API):
         Get a pool related user data.
         Retrieve specific user data content for a given pool.
         Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
-        :param pool_id: Pool the user data will be attached to.
+        :param pool_id: Pool the user data are associated to.
         :param key: User data key to retrieved.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ScwFile <ScwFile>`
@@ -1545,6 +1553,40 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
+
+    def list_user_data(
+        self,
+        *,
+        pool_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> ListUserDataResponse:
+        """
+        List all user data related to a given pool.
+        This list only the user data key and not the content.
+        :param pool_id: Pool the user data are associated to.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ListUserDataResponse <ListUserDataResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_user_data(
+                pool_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_pool_id = validate_path_param("pool_id", pool_id)
+
+        res = self._request(
+            "GET",
+            f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/user-data",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListUserDataResponse(res.json())
 
     def get_node_metadata(
         self,
