@@ -44,6 +44,8 @@ from .types import (
     ListClustersResponse,
     ListNodesResponse,
     ListPoolsResponse,
+    UserDataSummary,
+    ListUserDataResponse,
     ListVersionsResponse,
     NodeMetadataCoreV1Taint,
     NodeMetadata,
@@ -1222,6 +1224,42 @@ def unmarshal_ListPoolsResponse(data: Any) -> ListPoolsResponse:
         args["pools"] = []
 
     return ListPoolsResponse(**args)
+
+
+def unmarshal_UserDataSummary(data: Any) -> UserDataSummary:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'UserDataSummary' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("key", None)
+    if field is not None:
+        args["key"] = field
+    else:
+        args["key"] = None
+
+    return UserDataSummary(**args)
+
+
+def unmarshal_ListUserDataResponse(data: Any) -> ListUserDataResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListUserDataResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("user_data", None)
+    if field is not None:
+        args["user_data"] = (
+            [unmarshal_UserDataSummary(v) for v in field] if field is not None else None
+        )
+    else:
+        args["user_data"] = []
+
+    return ListUserDataResponse(**args)
 
 
 def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
