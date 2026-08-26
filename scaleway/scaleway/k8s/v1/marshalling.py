@@ -44,6 +44,8 @@ from .types import (
     ListClustersResponse,
     ListNodesResponse,
     ListPoolsResponse,
+    UserDataSummary,
+    ListUserDataResponse,
     ListVersionsResponse,
     NodeMetadataCoreV1Taint,
     NodeMetadata,
@@ -882,6 +884,12 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["error_message"] = None
 
+    field = data.get("max_termination_grace_period", None)
+    if field is not None:
+        args["max_termination_grace_period"] = field
+    else:
+        args["max_termination_grace_period"] = None
+
     return Pool(**args)
 
 
@@ -1216,6 +1224,42 @@ def unmarshal_ListPoolsResponse(data: Any) -> ListPoolsResponse:
         args["pools"] = []
 
     return ListPoolsResponse(**args)
+
+
+def unmarshal_UserDataSummary(data: Any) -> UserDataSummary:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'UserDataSummary' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("key", None)
+    if field is not None:
+        args["key"] = field
+    else:
+        args["key"] = None
+
+    return UserDataSummary(**args)
+
+
+def unmarshal_ListUserDataResponse(data: Any) -> ListUserDataResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListUserDataResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("user_data", None)
+    if field is not None:
+        args["user_data"] = (
+            [unmarshal_UserDataSummary(v) for v in field] if field is not None else None
+        )
+    else:
+        args["user_data"] = []
+
+    return ListUserDataResponse(**args)
 
 
 def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
@@ -1675,6 +1719,9 @@ def marshal_CreateClusterRequestPoolConfig(
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
 
+    if request.max_termination_grace_period is not None:
+        output["max_termination_grace_period"] = request.max_termination_grace_period
+
     return output
 
 
@@ -1863,6 +1910,9 @@ def marshal_CreatePoolRequest(
 
     if request.user_data is not None:
         output["user_data"] = {key: value for key, value in request.user_data.items()}
+
+    if request.max_termination_grace_period is not None:
+        output["max_termination_grace_period"] = request.max_termination_grace_period
 
     return output
 
@@ -2122,6 +2172,9 @@ def marshal_UpdatePoolRequest(
 
     if request.security_group_id is not None:
         output["security_group_id"] = request.security_group_id
+
+    if request.max_termination_grace_period is not None:
+        output["max_termination_grace_period"] = request.max_termination_grace_period
 
     return output
 
