@@ -640,6 +640,11 @@ class CreateClusterRequestPoolConfig:
     Private network where the nodes are attached. Should be member of the same VPC as the API Server.
     """
 
+    max_termination_grace_period: Optional[str] = None
+    """
+    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    """
+
 
 @dataclass
 class CreatePoolRequestUpgradePolicy:
@@ -1141,6 +1146,19 @@ class Pool:
     Details of the error, if any occurred when managing the pool.
     """
 
+    max_termination_grace_period: Optional[str] = None
+    """
+    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    """
+
+
+@dataclass
+class UserDataSummary:
+    key: str
+    """
+    Key name of a given user data.
+    """
+
 
 @dataclass
 class NodeMetadataCoreV1Taint:
@@ -1537,6 +1555,11 @@ class CreatePoolRequest:
     User data applied and reconciled with the pool.
     """
 
+    max_termination_grace_period: Optional[str] = None
+    """
+    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    """
+
 
 @dataclass
 class DeleteACLRuleRequest:
@@ -1675,7 +1698,7 @@ class GetPoolRequest:
 class GetUserDataRequest:
     pool_id: str
     """
-    Pool the user data will be attached to.
+    Pool the user data are associated to.
     """
 
     key: str
@@ -1997,6 +2020,27 @@ class ListPoolsResponse:
 
 
 @dataclass
+class ListUserDataRequest:
+    pool_id: str
+    """
+    Pool the user data are associated to.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListUserDataResponse:
+    user_data: list[UserDataSummary]
+    """
+    User data information.
+    """
+
+
+@dataclass
 class ListVersionsRequest:
     region: Optional[ScwRegion] = None
     """
@@ -2278,6 +2322,11 @@ class UpdatePoolRequest:
     security_group_id: Optional[str] = None
     """
     Security group ID in which all the nodes of the pool will be moved.
+    """
+
+    max_termination_grace_period: Optional[str] = None
+    """
+    New maximum amount of time before the API forces the drain and deletion of a `deleting` node.
     """
 
 
