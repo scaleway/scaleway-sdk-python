@@ -38,9 +38,13 @@ from .types import RotateKeyRequest
 from .types import SignRequest
 from .types import SignResponse
 from .types import UnprotectKeyRequest
+from .types import UnwrapKeyRequest
+from .types import UnwrapKeyResponse
 from .types import UpdateKeyRequest
 from .types import VerifyRequest
 from .types import VerifyResponse
+from .types import WrapKeyRequest
+from .types import WrapKeyResponse
 from .api import KeyManagerV1Alpha1API
 
 __all__ = [
@@ -82,8 +86,12 @@ __all__ = [
     "SignRequest",
     "SignResponse",
     "UnprotectKeyRequest",
+    "UnwrapKeyRequest",
+    "UnwrapKeyResponse",
     "UpdateKeyRequest",
     "VerifyRequest",
     "VerifyResponse",
+    "WrapKeyRequest",
+    "WrapKeyResponse",
     "KeyManagerV1Alpha1API",
 ]
