@@ -605,6 +605,11 @@ class CreateClusterRequestPoolConfig:
     Kubernetes taints applied at node creation but not reconciled afterwards.
     """
 
+    user_data: dict[str, str]
+    """
+    User data applied and reconciled with the pool.
+    """
+
     placement_group_id: Optional[str] = None
     """
     Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
