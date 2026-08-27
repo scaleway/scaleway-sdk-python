@@ -33,9 +33,13 @@ from .types import (
     PublicKey,
     SignRequest,
     SignResponse,
+    UnwrapKeyRequest,
+    UnwrapKeyResponse,
     UpdateKeyRequest,
     VerifyRequest,
     VerifyResponse,
+    WrapKeyRequest,
+    WrapKeyResponse,
 )
 from .marshalling import (
     unmarshal_Key,
@@ -46,15 +50,19 @@ from .marshalling import (
     unmarshal_ListKeysResponse,
     unmarshal_PublicKey,
     unmarshal_SignResponse,
+    unmarshal_UnwrapKeyResponse,
     unmarshal_VerifyResponse,
+    unmarshal_WrapKeyResponse,
     marshal_CreateKeyRequest,
     marshal_DecryptRequest,
     marshal_EncryptRequest,
     marshal_GenerateDataKeyRequest,
     marshal_ImportKeyMaterialRequest,
     marshal_SignRequest,
+    marshal_UnwrapKeyRequest,
     marshal_UpdateKeyRequest,
     marshal_VerifyRequest,
+    marshal_WrapKeyRequest,
 )
 
 
@@ -964,3 +972,99 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListAlgorithmsResponse(res.json())
+
+    async def wrap_key(
+        self,
+        *,
+        key_id: str,
+        plaintext: str,
+        region: Optional[ScwRegion] = None,
+        associated_data: Optional[str] = None,
+    ) -> WrapKeyResponse:
+        """
+        Wrap a key.
+        Wrap (encrypt) a key using an existing key, specified by the `key_id` parameter. The key must use ML-KEM algorithm. The maximum key size that can be wrapped is 2 KB of plaintext.
+        :param key_id:
+        :param plaintext:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param associated_data:
+        :return: :class:`WrapKeyResponse <WrapKeyResponse>`
+
+        Usage:
+        ::
+
+            result = await api.wrap_key(
+                key_id="example",
+                plaintext="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/wrap",
+            body=marshal_WrapKeyRequest(
+                WrapKeyRequest(
+                    key_id=key_id,
+                    plaintext=plaintext,
+                    region=region,
+                    associated_data=associated_data,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_WrapKeyResponse(res.json())
+
+    async def unwrap_key(
+        self,
+        *,
+        key_id: str,
+        ciphertext: str,
+        region: Optional[ScwRegion] = None,
+        associated_data: Optional[str] = None,
+    ) -> UnwrapKeyResponse:
+        """
+        Unwrap a key.
+        Unwrap (decrypt) a wrapped key using an existing key, specified by the `key_id` parameter. The key must use ML-KEM algorithm. The maximum key size that can be unwrapped is 4 KB of ciphertext.
+        :param key_id:
+        :param ciphertext:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param associated_data:
+        :return: :class:`UnwrapKeyResponse <UnwrapKeyResponse>`
+
+        Usage:
+        ::
+
+            result = await api.unwrap_key(
+                key_id="example",
+                ciphertext="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/unwrap",
+            body=marshal_UnwrapKeyRequest(
+                UnwrapKeyRequest(
+                    key_id=key_id,
+                    ciphertext=ciphertext,
+                    region=region,
+                    associated_data=associated_data,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_UnwrapKeyResponse(res.json())
