@@ -81,6 +81,7 @@ from .types import (
     PublicCatalogProductPropertiesServerlessContainers,
     PublicCatalogProductPropertiesServerlessFunctions,
     PublicCatalogProductPropertiesServerlessJobs,
+    PublicCatalogProductPropertiesServerlessSqlDatabase,
     PublicCatalogProductEnvironmentalImpactEstimation,
     PublicCatalogProductLocality,
     PublicCatalogProductPrice,
@@ -1682,6 +1683,19 @@ def unmarshal_PublicCatalogProductPropertiesServerlessJobs(
     return PublicCatalogProductPropertiesServerlessJobs(**args)
 
 
+def unmarshal_PublicCatalogProductPropertiesServerlessSqlDatabase(
+    data: Any,
+) -> PublicCatalogProductPropertiesServerlessSqlDatabase:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesServerlessSqlDatabase' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesServerlessSqlDatabase(**args)
+
+
 def unmarshal_PublicCatalogProductEnvironmentalImpactEstimation(
     data: Any,
 ) -> PublicCatalogProductEnvironmentalImpactEstimation:
@@ -1910,6 +1924,14 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["serverless_jobs"] = None
+
+    field = data.get("serverless_sql_database", None)
+    if field is not None:
+        args["serverless_sql_database"] = (
+            unmarshal_PublicCatalogProductPropertiesServerlessSqlDatabase(field)
+        )
+    else:
+        args["serverless_sql_database"] = None
 
     field = data.get("apache_kafka", None)
     if field is not None:

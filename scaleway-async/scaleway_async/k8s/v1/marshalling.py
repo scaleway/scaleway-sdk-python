@@ -1713,6 +1713,9 @@ def marshal_CreateClusterRequestPoolConfig(
             marshal_CoreV1Taint(item, defaults) for item in request.startup_taints
         ]
 
+    if request.user_data is not None:
+        output["user_data"] = {key: value for key, value in request.user_data.items()}
+
     if request.security_group_id is not None:
         output["security_group_id"] = request.security_group_id
 
