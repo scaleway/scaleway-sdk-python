@@ -42,6 +42,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     INSTANCE_LOCAL_SSD_SNAPSHOT = "instance_local_ssd_snapshot"
     INSTANCE_LOCAL_SSD_STORAGE = "instance_local_ssd_storage"
     FILE_STORAGE = "file_storage"
+    SERVERLESS_SQL_DATABASE = "serverless_sql_database"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -954,6 +955,11 @@ class PublicCatalogProductPropertiesServerlessJobs:
 
 
 @dataclass
+class PublicCatalogProductPropertiesServerlessSqlDatabase:
+    pass
+
+
+@dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
     kg_co2_equivalent: Optional[float] = None
     m3_water_usage: Optional[float] = None
@@ -1028,6 +1034,10 @@ class PublicCatalogProductProperties:
     managed_mongodb: Optional[PublicCatalogProductPropertiesManagedMongoDB] = None
 
     serverless_jobs: Optional[PublicCatalogProductPropertiesServerlessJobs] = None
+
+    serverless_sql_database: Optional[
+        PublicCatalogProductPropertiesServerlessSqlDatabase
+    ] = None
 
     apache_kafka: Optional[PublicCatalogProductPropertiesApacheKafka] = None
 
