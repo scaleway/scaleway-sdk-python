@@ -27,15 +27,19 @@ from .types import (
     ListKeysResponse,
     PublicKey,
     SignResponse,
+    UnwrapKeyResponse,
     VerifyResponse,
+    WrapKeyResponse,
     CreateKeyRequest,
     DecryptRequest,
     EncryptRequest,
     GenerateDataKeyRequest,
     ImportKeyMaterialRequest,
     SignRequest,
+    UnwrapKeyRequest,
     UpdateKeyRequest,
     VerifyRequest,
+    WrapKeyRequest,
 )
 
 
@@ -424,6 +428,29 @@ def unmarshal_SignResponse(data: Any) -> SignResponse:
     return SignResponse(**args)
 
 
+def unmarshal_UnwrapKeyResponse(data: Any) -> UnwrapKeyResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'UnwrapKeyResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
+    field = data.get("plaintext", None)
+    if field is not None:
+        args["plaintext"] = field
+    else:
+        args["plaintext"] = None
+
+    return UnwrapKeyResponse(**args)
+
+
 def unmarshal_VerifyResponse(data: Any) -> VerifyResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -445,6 +472,29 @@ def unmarshal_VerifyResponse(data: Any) -> VerifyResponse:
         args["valid"] = False
 
     return VerifyResponse(**args)
+
+
+def unmarshal_WrapKeyResponse(data: Any) -> WrapKeyResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WrapKeyResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
+    field = data.get("ciphertext", None)
+    if field is not None:
+        args["ciphertext"] = field
+    else:
+        args["ciphertext"] = None
+
+    return WrapKeyResponse(**args)
 
 
 def marshal_KeyRotationPolicy(
@@ -601,6 +651,21 @@ def marshal_SignRequest(
     return output
 
 
+def marshal_UnwrapKeyRequest(
+    request: UnwrapKeyRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ciphertext is not None:
+        output["ciphertext"] = request.ciphertext
+
+    if request.associated_data is not None:
+        output["associated_data"] = request.associated_data
+
+    return output
+
+
 def marshal_UpdateKeyRequest(
     request: UpdateKeyRequest,
     defaults: ProfileDefaults,
@@ -635,5 +700,20 @@ def marshal_VerifyRequest(
 
     if request.signature is not None:
         output["signature"] = request.signature
+
+    return output
+
+
+def marshal_WrapKeyRequest(
+    request: WrapKeyRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.plaintext is not None:
+        output["plaintext"] = request.plaintext
+
+    if request.associated_data is not None:
+        output["associated_data"] = request.associated_data
 
     return output
