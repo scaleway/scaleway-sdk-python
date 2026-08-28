@@ -35,13 +35,33 @@ jobs:
       - name: Install dependencies and library
         run: poetry install
       - name: Run tests with coverage
-        run: poetry run pytest --cov --junitxml=junit.xml -o junit_family=legacy
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+        run: poetry run pytest --cov --cov-report=xml:coverage.xml --junitxml=junit.xml -o junit_family=legacy
+      - name: Upload coverage artifact
+        if: ${{ matrix.python-version == '3.12' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        uses: actions/upload-artifact@v7
         with:
-            token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@0fa95f0e1eeaafde2c782583b36b28ad0d8c77d3 # v1.2.1
+          name: coverage-report-python-${{ matrix.lib }}
+          path: ${{ matrix.lib }}/coverage.xml
+
+  upload-coverage-python:
+    needs: pytest-cov
+    if: !cancelled() && needs.pytest-cov.result == 'success' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        lib:
+          - scaleway-core
+          - scaleway
+          - scaleway-async
+    steps:
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v8
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: coverage-report-python-${{ matrix.lib }}
+      - uses: actions/upload-code-coverage@v1
+        with:
+          file: coverage.xml
+          language: Python
+          label: code-coverage-agent
