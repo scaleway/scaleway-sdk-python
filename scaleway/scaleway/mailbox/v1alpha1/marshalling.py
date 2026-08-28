@@ -45,6 +45,18 @@ def unmarshal_Mailbox(data: Any) -> Mailbox:
     else:
         args["id"] = None
 
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
     field = data.get("domain_id", None)
     if field is not None:
         args["domain_id"] = field
@@ -190,6 +202,12 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["project_id"] = field
     else:
         args["project_id"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("name", None)
     if field is not None:
