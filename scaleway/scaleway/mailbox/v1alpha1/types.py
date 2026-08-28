@@ -146,6 +146,16 @@ class Mailbox:
     Unique identifier of the mailbox.
     """
 
+    project_id: str
+    """
+    ID of the Project to which the mailbox belongs.
+    """
+
+    organization_id: str
+    """
+    ID of the Organization to which the mailbox belongs.
+    """
+
     domain_id: str
     """
     ID of the domain to which the mailbox belongs.
@@ -298,6 +308,11 @@ class Domain:
     project_id: str
     """
     ID of the Project to which the domain belongs.
+    """
+
+    organization_id: str
+    """
+    ID of the Organization to which the domain belongs.
     """
 
     name: str
