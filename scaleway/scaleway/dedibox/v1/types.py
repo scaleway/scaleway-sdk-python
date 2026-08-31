@@ -2943,11 +2943,6 @@ class ListIpsResponse:
 
 @dataclass
 class ListOSRequest:
-    server_id: int
-    """
-    Filter OS by compatible server ID.
-    """
-
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
@@ -2977,6 +2972,10 @@ class ListOSRequest:
     """
     Project ID.
     """
+
+    server_id: Optional[int] = 0
+
+    offer_id: Optional[int] = 0
 
 
 @dataclass
