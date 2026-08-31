@@ -10,7 +10,9 @@ from scaleway_core.bridge import (
     unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -1731,31 +1733,33 @@ class DediboxV1API(API):
     def list_os(
         self,
         *,
-        server_id: int,
         zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOSRequestOrderBy] = None,
         type_: Optional[OSType] = None,
+        server_id: Optional[int] = None,
         project_id: Optional[str] = None,
+        offer_id: Optional[int] = None,
     ) -> ListOSResponse:
         """
         List all available OS that can be install on a baremetal server.
-        :param server_id: Filter OS by compatible server ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Number of OS per page.
         :param order_by: Order of the OS.
         :param type_: Type of the OS.
+        :param server_id: Filter OS by compatible server ID.
+        One-Of ('offer'): at most one of 'server_id', 'offer_id' could be set.
         :param project_id: Project ID.
+        :param offer_id: Filter OS by compatible offer ID.
+        One-Of ('offer'): at most one of 'server_id', 'offer_id' could be set.
         :return: :class:`ListOSResponse <ListOSResponse>`
 
         Usage:
         ::
 
-            result = api.list_os(
-                server_id=1,
-            )
+            result = api.list_os()
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1768,8 +1772,13 @@ class DediboxV1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
-                "server_id": server_id,
                 "type": type_,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("offer_id", offer_id),
+                        OneOfPossibility("server_id", server_id),
+                    ]
+                ),
             },
         )
 
@@ -1779,31 +1788,33 @@ class DediboxV1API(API):
     def list_os_all(
         self,
         *,
-        server_id: int,
         zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOSRequestOrderBy] = None,
         type_: Optional[OSType] = None,
+        server_id: Optional[int] = None,
         project_id: Optional[str] = None,
+        offer_id: Optional[int] = None,
     ) -> list[OS]:
         """
         List all available OS that can be install on a baremetal server.
-        :param server_id: Filter OS by compatible server ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Number of OS per page.
         :param order_by: Order of the OS.
         :param type_: Type of the OS.
+        :param server_id: Filter OS by compatible server ID.
+        One-Of ('offer'): at most one of 'server_id', 'offer_id' could be set.
         :param project_id: Project ID.
+        :param offer_id: Filter OS by compatible offer ID.
+        One-Of ('offer'): at most one of 'server_id', 'offer_id' could be set.
         :return: :class:`list[OS] <list[OS]>`
 
         Usage:
         ::
 
-            result = api.list_os_all(
-                server_id=1,
-            )
+            result = api.list_os_all()
         """
 
         return fetch_all_pages(
@@ -1811,13 +1822,14 @@ class DediboxV1API(API):
             key="os",
             fetcher=self.list_os,
             args={
-                "server_id": server_id,
                 "zone": zone,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
                 "type_": type_,
                 "project_id": project_id,
+                "server_id": server_id,
+                "offer_id": offer_id,
             },
         )
 
