@@ -82,7 +82,7 @@ class Binding:
 
     srn: str
     """
-    Scaleway Resource Number associated to the binding.
+    Scaleway Resource Name associated to the binding.
     """
 
     key: Optional[BindingKey] = None
@@ -141,7 +141,7 @@ class Value:
 class CreateBindingRequest:
     srn: str
     """
-    Scaleway Resource Number to associate.
+    Scaleway Resource Name to associate.
     """
 
     value_id: str
@@ -190,7 +190,7 @@ class CreateValueRequest:
 class DeleteAllBindingsMatchingSRNRequest:
     srn: str
     """
-    Scaleway Resource Number for which all bindings should be deleted.
+    Scaleway Resource Name for which all bindings should be deleted.
     """
 
     organization_id: Optional[str] = None
@@ -235,7 +235,7 @@ class DeleteAllValuesMatchingKeyRequest:
 class DeleteAllValuesMatchingKeyResponse:
     total_deleted: int
     """
-    Total number of bindings deleted.
+    Total number of values deleted.
     """
 
 
@@ -314,7 +314,7 @@ class ListBindingsRequest:
 
     srn: Optional[str] = None
     """
-    Scaleway Resource Number for which to list all bindings.
+    Scaleway Resource Name for which to list all bindings.
     """
 
     value_id: Optional[str] = None
