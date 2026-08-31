@@ -94,7 +94,7 @@ class AnnotationsV1API(API):
         organization_id: Optional[str] = None,
     ) -> ListKeysResponse:
         """
-        List of keys.
+        List all keys, sorted alphabetically by name.
         :param page: Page number.
         :param page_size: Maximum number of keys on the page.
         :param organization_id: ID of the organization.
@@ -128,7 +128,7 @@ class AnnotationsV1API(API):
         organization_id: Optional[str] = None,
     ) -> list[Key]:
         """
-        List of keys.
+        List all keys, sorted alphabetically by name.
         :param page: Page number.
         :param page_size: Maximum number of keys on the page.
         :param organization_id: ID of the organization.
@@ -294,7 +294,7 @@ class AnnotationsV1API(API):
         key_id: Optional[str] = None,
     ) -> ListValuesResponse:
         """
-        List all values for a key, sorted alphabetically by name.
+        List all values, sorted alphabetically by name.
         :param page: Page number.
         :param page_size: Maximum number of values on the page.
         :param organization_id: ID of the organization.
@@ -331,7 +331,7 @@ class AnnotationsV1API(API):
         key_id: Optional[str] = None,
     ) -> list[Value]:
         """
-        List all values for a key, sorted alphabetically by name.
+        List all values, sorted alphabetically by name.
         :param page: Page number.
         :param page_size: Maximum number of values on the page.
         :param organization_id: ID of the organization.
@@ -392,7 +392,7 @@ class AnnotationsV1API(API):
         description: Optional[str] = None,
     ) -> Value:
         """
-        Update name or description. Global update.
+        Update name or description.
         :param value_id: ID of the value to update.
         :param name: New name of the value.
         :param description: New description of the value.
@@ -515,7 +515,7 @@ class AnnotationsV1API(API):
     ) -> Binding:
         """
         Attach a value to a resource. Fails if the resource already has a value for this key.
-        :param srn: Scaleway Resource Number to associate.
+        :param srn: Scaleway Resource Name to associate.
         :param value_id: ID of the value to associate.
         :return: :class:`Binding <Binding>`
 
@@ -553,11 +553,11 @@ class AnnotationsV1API(API):
         value_id: Optional[str] = None,
     ) -> ListBindingsResponse:
         """
-        List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.
+        List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
         :param page: Page number.
         :param page_size: Maximum number of bindings on the page.
         :param organization_id: ID of the organization.
-        :param srn: Scaleway Resource Number for which to list all bindings.
+        :param srn: Scaleway Resource Name for which to list all bindings.
         :param value_id: Value ID for which to list all bindings.
         :return: :class:`ListBindingsResponse <ListBindingsResponse>`
 
@@ -593,11 +593,11 @@ class AnnotationsV1API(API):
         value_id: Optional[str] = None,
     ) -> list[Binding]:
         """
-        List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.
+        List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
         :param page: Page number.
         :param page_size: Maximum number of bindings on the page.
         :param organization_id: ID of the organization.
-        :param srn: Scaleway Resource Number for which to list all bindings.
+        :param srn: Scaleway Resource Name for which to list all bindings.
         :param value_id: Value ID for which to list all bindings.
         :return: :class:`list[Binding] <list[Binding]>`
 
@@ -682,8 +682,8 @@ class AnnotationsV1API(API):
         organization_id: Optional[str] = None,
     ) -> DeleteAllBindingsMatchingSRNResponse:
         """
-        Delete ALL bindings associated with a Scaleway Resource Number.
-        :param srn: Scaleway Resource Number for which all bindings should be deleted.
+        Delete ALL bindings associated with a Scaleway Resource Name.
+        :param srn: Scaleway Resource Name for which all bindings should be deleted.
         :param organization_id: ID of the organization.
         :return: :class:`DeleteAllBindingsMatchingSRNResponse <DeleteAllBindingsMatchingSRNResponse>`
 
