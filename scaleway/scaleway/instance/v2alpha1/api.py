@@ -493,9 +493,9 @@ class InstanceV2Alpha1API(API):
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
         :param delete_ip_ids: List of IP IDs to delete.
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
-        :param delete_all_volumes: Whether to delete all volumes attached to the server.
+        :param delete_all_volumes: Whether to delete all volumes attached to the server. Deletion of SBS volumes is not supported yet.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
-        :param delete_volume_ids: List of volume IDs to delete.
+        :param delete_volume_ids: List of volume IDs to delete. Deletion of SBS volumes is not supported yet.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
         :param keep_all_private_nics: Whether to keep all private network interfaces.
         One-Of ('private_nics'): at most one of 'keep_all_private_nics', 'delete_private_nic_ids' could be set.
@@ -1417,6 +1417,39 @@ class InstanceV2Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    def detach_and_delete_private_network_interface(
+        self,
+        *,
+        private_network_interface_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> PrivateNetworkInterface:
+        """
+        :param private_network_interface_id: ID of the private network interface to detach and delete.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`PrivateNetworkInterface <PrivateNetworkInterface>`
+
+        Usage:
+        ::
+
+            result = api.detach_and_delete_private_network_interface(
+                private_network_interface_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_private_network_interface_id = validate_path_param(
+            "private_network_interface_id", private_network_interface_id
+        )
+
+        res = self._request(
+            "POST",
+            f"/instance/v2alpha1/zones/{param_zone}/private-network-interfaces/{param_private_network_interface_id}/detach-and-delete",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_PrivateNetworkInterface(res.json())
 
     def list_placement_groups(
         self,
