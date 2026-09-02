@@ -28,8 +28,6 @@ class KeyAlgorithmAsymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
     RSA_OAEP_2048_SHA256 = "rsa_oaep_2048_sha256"
     RSA_OAEP_3072_SHA256 = "rsa_oaep_3072_sha256"
     RSA_OAEP_4096_SHA256 = "rsa_oaep_4096_sha256"
-    ML_KEM_768 = "ml_kem_768"
-    ML_KEM_1024 = "ml_kem_1024"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -48,6 +46,16 @@ class KeyAlgorithmAsymmetricSigning(str, Enum, metaclass=StrEnumMeta):
     ML_DSA_44 = "ml_dsa_44"
     ML_DSA_65 = "ml_dsa_65"
     ML_DSA_87 = "ml_dsa_87"
+    EC_SECP256K1_SHA256 = "ec_secp256k1_sha256"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class KeyAlgorithmKeyEncapsulation(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_KEY_ENCAPSULATION = "unknown_key_encapsulation"
+    ML_KEM_768 = "ml_kem_768"
+    ML_KEM_1024 = "ml_kem_1024"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -86,6 +94,7 @@ class ListAlgorithmsRequestUsage(str, Enum, metaclass=StrEnumMeta):
     SYMMETRIC_ENCRYPTION = "symmetric_encryption"
     ASYMMETRIC_ENCRYPTION = "asymmetric_encryption"
     ASYMMETRIC_SIGNING = "asymmetric_signing"
+    KEY_ENCAPSULATION = "key_encapsulation"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -139,6 +148,8 @@ class KeyUsage:
     asymmetric_signing: Optional[KeyAlgorithmAsymmetricSigning] = (
         KeyAlgorithmAsymmetricSigning.UNKNOWN_ASYMMETRIC_SIGNING
     )
+
+    key_encapsulation: Optional[KeyAlgorithmKeyEncapsulation] = None
 
 
 @dataclass
