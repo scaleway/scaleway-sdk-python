@@ -48,6 +48,7 @@ class KeyAlgorithmAsymmetricSigning(str, Enum, metaclass=StrEnumMeta):
     ML_DSA_44 = "ml_dsa_44"
     ML_DSA_65 = "ml_dsa_65"
     ML_DSA_87 = "ml_dsa_87"
+    EC_SECP256K1_SHA256 = "ec_secp256k1_sha256"
 
     def __str__(self) -> str:
         return str(self.value)
