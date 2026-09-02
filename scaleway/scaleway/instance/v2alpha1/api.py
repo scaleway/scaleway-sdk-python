@@ -493,9 +493,9 @@ class InstanceV2Alpha1API(API):
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
         :param delete_ip_ids: List of IP IDs to delete.
         One-Of ('ips'): at most one of 'delete_all_ips', 'delete_ip_ids' could be set.
-        :param delete_all_volumes: Whether to delete all volumes attached to the server.
+        :param delete_all_volumes: Whether to delete all volumes attached to the server. Deletion of SBS volumes is not supported yet.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
-        :param delete_volume_ids: List of volume IDs to delete.
+        :param delete_volume_ids: List of volume IDs to delete. Deletion of SBS volumes is not supported yet.
         One-Of ('volumes'): at most one of 'delete_all_volumes', 'delete_volume_ids' could be set.
         :param keep_all_private_nics: Whether to keep all private network interfaces.
         One-Of ('private_nics'): at most one of 'keep_all_private_nics', 'delete_private_nic_ids' could be set.
