@@ -89,6 +89,7 @@ from .types import DeleteServerRequest
 from .types import DeleteTemplateRequest
 from .types import DeleteTemplateUserDataRequest
 from .types import DeleteUserDataRequest
+from .types import DetachAndDeletePrivateNetworkInterfaceRequest
 from .types import DetachServerFileSystemRequest
 from .types import DetachServerIPRequest
 from .types import DetachServerPrivateNetworkInterfaceRequest
@@ -250,6 +251,7 @@ __all__ = [
     "DeleteTemplateRequest",
     "DeleteTemplateUserDataRequest",
     "DeleteUserDataRequest",
+    "DetachAndDeletePrivateNetworkInterfaceRequest",
     "DetachServerFileSystemRequest",
     "DetachServerIPRequest",
     "DetachServerPrivateNetworkInterfaceRequest",
