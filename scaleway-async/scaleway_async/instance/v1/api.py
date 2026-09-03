@@ -3832,6 +3832,8 @@ class InstanceV1API(API):
         """
         List all private NICs.
         List all private NICs of a specified Instance.
+        Some private NICs, such as those in deleting, detaching, or in error state are
+        not listed. We strongly recommend migrating to v2alpha1 to retrieve all private NICs.
         :param server_id: Instance to which the private NIC is attached.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Private NIC tags.
@@ -3875,6 +3877,8 @@ class InstanceV1API(API):
         """
         List all private NICs.
         List all private NICs of a specified Instance.
+        Some private NICs, such as those in deleting, detaching, or in error state are
+        not listed. We strongly recommend migrating to v2alpha1 to retrieve all private NICs.
         :param server_id: Instance to which the private NIC is attached.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Private NIC tags.
@@ -3915,6 +3919,12 @@ class InstanceV1API(API):
     ) -> CreatePrivateNICResponse:
         """
         Create a private NIC connecting an Instance to a Private Network.
+        Create a private NIC connecting an Instance to a Private Network.
+        Some private NICs, such as those in deleting, detaching, or in error state are
+        not listed in v1.
+        Therefore, you may encounter quota limits errors when creating a new private NIC, even if your visible
+        count is below the threshold.
+        We strongly recommend migrating to v2alpha1 to see all private NICs.
         :param server_id: UUID of the Instance the private NIC will be attached to.
         :param private_network_id: UUID of the private network where the private NIC will be attached.
         :param zone: Zone to target. If none is passed will use default zone from the config.
