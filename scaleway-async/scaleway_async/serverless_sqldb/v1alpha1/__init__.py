@@ -5,6 +5,7 @@ from .types import DatabaseStatus
 from .content import DATABASE_TRANSIENT_STATUSES
 from .types import ListDatabaseBackupsRequestOrderBy
 from .types import ListDatabasesRequestOrderBy
+from .types import Version
 from .types import DatabaseBackup
 from .types import Database
 from .types import CreateDatabaseRequest
@@ -16,6 +17,8 @@ from .types import ListDatabaseBackupsRequest
 from .types import ListDatabaseBackupsResponse
 from .types import ListDatabasesRequest
 from .types import ListDatabasesResponse
+from .types import ListVersionsRequest
+from .types import ListVersionsResponse
 from .types import RestoreDatabaseFromBackupRequest
 from .types import UpdateDatabaseRequest
 from .api import ServerlessSqldbV1Alpha1API
@@ -26,6 +29,7 @@ __all__ = [
     "DATABASE_TRANSIENT_STATUSES",
     "ListDatabaseBackupsRequestOrderBy",
     "ListDatabasesRequestOrderBy",
+    "Version",
     "DatabaseBackup",
     "Database",
     "CreateDatabaseRequest",
@@ -37,6 +41,8 @@ __all__ = [
     "ListDatabaseBackupsResponse",
     "ListDatabasesRequest",
     "ListDatabasesResponse",
+    "ListVersionsRequest",
+    "ListVersionsResponse",
     "RestoreDatabaseFromBackupRequest",
     "UpdateDatabaseRequest",
     "ServerlessSqldbV1Alpha1API",
