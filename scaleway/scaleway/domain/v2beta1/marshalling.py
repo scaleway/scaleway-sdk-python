@@ -3229,6 +3229,9 @@ def marshal_RegistrarApiBuyDomainsRequest(
     if request.duration_in_years is not None:
         output["duration_in_years"] = request.duration_in_years
 
+    if request.auto_renew is not None:
+        output["auto_renew"] = request.auto_renew
+
     if request.project_id is not None:
         output["project_id"] = request.project_id
     else:
