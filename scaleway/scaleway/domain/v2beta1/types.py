@@ -1516,6 +1516,11 @@ class RegisterExternalDomainResponse:
 class RegistrarApiBuyDomainsRequest:
     domains: list[str]
     duration_in_years: int
+    auto_renew: bool
+    """
+    Enable the `auto renew` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.
+    """
+
     project_id: Optional[str] = None
     owner_contact_id: Optional[str] = None
 

@@ -1612,6 +1612,7 @@ class DomainV2Beta1RegistrarAPI(API):
         *,
         domains: list[str],
         duration_in_years: int,
+        auto_renew: bool,
         project_id: Optional[str] = None,
         owner_contact_id: Optional[str] = None,
         owner_contact: Optional[NewContact] = None,
@@ -1626,6 +1627,7 @@ class DomainV2Beta1RegistrarAPI(API):
         You can provide a domain's already existing contact or a new contact.
         :param domains:
         :param duration_in_years:
+        :param auto_renew: Enable the `auto renew` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.
         :param project_id:
         :param owner_contact_id:
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
@@ -1647,6 +1649,7 @@ class DomainV2Beta1RegistrarAPI(API):
             result = api.buy_domains(
                 domains=[],
                 duration_in_years=1,
+                auto_renew=False,
             )
         """
 
@@ -1657,6 +1660,7 @@ class DomainV2Beta1RegistrarAPI(API):
                 RegistrarApiBuyDomainsRequest(
                     domains=domains,
                     duration_in_years=duration_in_years,
+                    auto_renew=auto_renew,
                     project_id=project_id,
                     owner_contact_id=owner_contact_id,
                     owner_contact=owner_contact,
