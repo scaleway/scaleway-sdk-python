@@ -21,8 +21,10 @@ from .types import (
     DatabaseBackup,
     ListDatabaseBackupsResponse,
     ListDatabasesResponse,
+    ListVersionsResponse,
     RestoreDatabaseFromBackupRequest,
     UpdateDatabaseRequest,
+    Version,
 )
 from .content import (
     DATABASE_TRANSIENT_STATUSES,
@@ -32,6 +34,7 @@ from .marshalling import (
     unmarshal_Database,
     unmarshal_ListDatabaseBackupsResponse,
     unmarshal_ListDatabasesResponse,
+    unmarshal_ListVersionsResponse,
     marshal_CreateDatabaseRequest,
     marshal_RestoreDatabaseFromBackupRequest,
     marshal_UpdateDatabaseRequest,
@@ -49,6 +52,7 @@ class ServerlessSqldbV1Alpha1API(API):
         name: str,
         cpu_min: int,
         cpu_max: int,
+        version: str,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         from_backup_id: Optional[str] = None,
@@ -59,6 +63,7 @@ class ServerlessSqldbV1Alpha1API(API):
         :param name: The name of the Serverless SQL Database to be created.
         :param cpu_min: The minimum number of CPU units for your Serverless SQL Database.
         :param cpu_max: The maximum number of CPU units for your Serverless SQL Database.
+        :param version: The major version of the postgreSQL requested.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: The ID of your Scaleway project.
         :param from_backup_id: The ID of the backup to create the database from.
@@ -71,6 +76,7 @@ class ServerlessSqldbV1Alpha1API(API):
                 name="example",
                 cpu_min=1,
                 cpu_max=1,
+                version="example",
             )
         """
 
@@ -86,6 +92,7 @@ class ServerlessSqldbV1Alpha1API(API):
                     name=name,
                     cpu_min=cpu_min,
                     cpu_max=cpu_max,
+                    version=version,
                     region=region,
                     project_id=project_id,
                     from_backup_id=from_backup_id,
@@ -556,3 +563,76 @@ class ServerlessSqldbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseBackup(res.json())
+
+    async def list_versions(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        version: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListVersionsResponse:
+        """
+        List available PostgreSQL major versions.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param version:
+        :param page:
+        :param page_size:
+        :return: :class:`ListVersionsResponse <ListVersionsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_versions()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/serverless-sqldb/v1alpha1/regions/{param_region}/versions",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "version": version,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListVersionsResponse(res.json())
+
+    async def list_versions_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        version: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[Version]:
+        """
+        List available PostgreSQL major versions.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param version:
+        :param page:
+        :param page_size:
+        :return: :class:`list[Version] <list[Version]>`
+
+        Usage:
+        ::
+
+            result = await api.list_versions_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListVersionsResponse,
+            key="versions",
+            fetcher=self.list_versions,
+            args={
+                "region": region,
+                "version": version,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
