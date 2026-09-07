@@ -100,6 +100,12 @@ def unmarshal_KeyUsage(data: Any) -> KeyUsage:
             KeyAlgorithmAsymmetricSigning.UNKNOWN_ASYMMETRIC_SIGNING
         )
 
+    field = data.get("key_encapsulation", None)
+    if field is not None:
+        args["key_encapsulation"] = field
+    else:
+        args["key_encapsulation"] = None
+
     return KeyUsage(**args)
 
 
@@ -533,6 +539,11 @@ def marshal_KeyUsage(
                 OneOfPossibility(
                     param="asymmetric_signing",
                     value=request.asymmetric_signing,
+                    marshal_func=None,
+                ),
+                OneOfPossibility(
+                    param="key_encapsulation",
+                    value=request.key_encapsulation,
                     marshal_func=None,
                 ),
             ]
