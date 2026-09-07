@@ -649,6 +649,12 @@ def unmarshal_PrivateNetworkInterfaceSummary(
     else:
         args["tags"] = []
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -766,6 +772,12 @@ def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
         args["stateless"] = field
     else:
         args["stateless"] = False
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -1066,6 +1078,12 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
         args["rescue_mode"] = field
     else:
         args["rescue_mode"] = False
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("placement_group_id", None)
     if field is not None:
@@ -1482,6 +1500,12 @@ def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("created_at", None)
     if field is not None:
