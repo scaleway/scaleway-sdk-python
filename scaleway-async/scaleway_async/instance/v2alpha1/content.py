@@ -16,6 +16,7 @@ PRIVATE_NETWORK_INTERFACE_TRANSIENT_STATUSES: list[PrivateNetworkInterfaceStatus
     PrivateNetworkInterfaceStatus.ATTACHING,
     PrivateNetworkInterfaceStatus.DETACHING,
     PrivateNetworkInterfaceStatus.SYNCING,
+    PrivateNetworkInterfaceStatus.DELETING,
 ]
 """
 Lists transient statutes of the enum :class:`PrivateNetworkInterfaceStatus <PrivateNetworkInterfaceStatus>`.
@@ -39,6 +40,7 @@ SERVER_PRIVATE_NETWORK_INTERFACE_TRANSIENT_STATUSES: list[
     ServerPrivateNetworkInterfaceStatus.ATTACHING,
     ServerPrivateNetworkInterfaceStatus.DETACHING,
     ServerPrivateNetworkInterfaceStatus.SYNCING,
+    ServerPrivateNetworkInterfaceStatus.DELETING,
 ]
 """
 Lists transient statutes of the enum :class:`ServerPrivateNetworkInterfaceStatus <ServerPrivateNetworkInterfaceStatus>`.
