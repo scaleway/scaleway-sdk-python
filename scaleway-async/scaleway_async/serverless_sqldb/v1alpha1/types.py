@@ -57,6 +57,24 @@ class ListDatabasesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class Version:
+    name: str
+    """
+    Major number of the PostgreSQL engine.
+    """
+
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    end_of_life_at: Optional[datetime] = None
+    """
+    Date of End Of Life.
+    """
+
+
+@dataclass
 class DatabaseBackup:
     id: str
     """
@@ -176,14 +194,19 @@ class Database:
     Whether your Serverless SQL Database is running or not.
     """
 
-    engine_major_version: int
-    """
-    The major version of the underlying database engine.
-    """
-
     created_at: Optional[datetime] = None
     """
     Creation date.
+    """
+
+    engine_major_version: Optional[int] = None
+    """
+    The major version of the underlying database engine. (deprecated in favor of `version`).
+    """
+
+    version: Optional[Version] = None
+    """
+    The major version of the underlying database engine.
     """
 
 
@@ -202,6 +225,11 @@ class CreateDatabaseRequest:
     cpu_max: int
     """
     The maximum number of CPU units for your Serverless SQL Database.
+    """
+
+    version: str
+    """
+    The major version of the postgreSQL requested.
     """
 
     region: Optional[ScwRegion] = None
@@ -375,6 +403,31 @@ class ListDatabasesResponse:
     total_count: int
     """
     Total count of Serverless SQL Databases.
+    """
+
+
+@dataclass
+class ListVersionsRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    version: Optional[str] = None
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+
+
+@dataclass
+class ListVersionsResponse:
+    versions: list[Version]
+    """
+    Available PostgreSQL versions.
+    """
+
+    total_count: int
+    """
+    Total count of versions available.
     """
 
 

@@ -530,13 +530,13 @@ class DNSStage:
 
     default_fqdn: str
     """
-    Default Fully Qualified Domain Name attached to the stage.
+    Default Fully Qualified Domain Name provided for the Pipeline.
     """
 
     default_private_fqdn: str
     fqdns: list[str]
     """
-    List of additional (custom) Fully Qualified Domain Names attached to the stage.
+    Custom Fully Qualified Domain Names configured (only the first one is valid).
     """
 
     type_: DNSStageType
@@ -839,6 +839,11 @@ class ListHeadStagesResponseHeadStage:
 
 
 @dataclass
+class Node:
+    ip: str
+
+
+@dataclass
 class PipelineStages:
     dns_stages: list[DNSStage]
     tls_stages: list[TLSStage]
@@ -1055,7 +1060,7 @@ class CreateDNSStageRequest:
 
     fqdns: Optional[list[str]] = field(default_factory=list)
     """
-    Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
+    Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now).
     """
 
     wildcard_domain: Optional[bool] = False
@@ -1574,6 +1579,12 @@ class ListHeadStagesResponse:
 
 
 @dataclass
+class ListNodesResponse:
+    nodes: list[Node]
+    total_count: int
+
+
+@dataclass
 class ListPipelinesRequest:
     order_by: Optional[ListPipelinesRequestOrderBy] = (
         ListPipelinesRequestOrderBy.CREATED_AT_ASC
@@ -2049,7 +2060,7 @@ class UpdateDNSStageRequest:
 
     fqdns: Optional[list[str]] = field(default_factory=list)
     """
-    Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage.
+    Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now).
     """
 
     wildcard_domain: Optional[bool] = False
