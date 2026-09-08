@@ -420,6 +420,11 @@ class TLSSecret:
 
 
 @dataclass
+class WafExclusionRule:
+    rule_id: int
+
+
+@dataclass
 class RuleHttpMatch:
     method_filters: list[RuleHttpMatchMethodFilter]
     """
@@ -530,13 +535,13 @@ class DNSStage:
 
     default_fqdn: str
     """
-    Default Fully Qualified Domain Name attached to the stage.
+    Default Fully Qualified Domain Name provided for the Pipeline.
     """
 
     default_private_fqdn: str
     fqdns: list[str]
     """
-    List of additional (custom) Fully Qualified Domain Names attached to the stage.
+    Custom Fully Qualified Domain Names configured (only the first one is valid).
     """
 
     type_: DNSStageType
@@ -740,6 +745,11 @@ class WafStage:
     Current status of the stage.
     """
 
+    exclusion_rules: list[WafExclusionRule]
+    """
+    List of OWASP® CRS rule IDs excluded from WAF.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the WAF stage was created.
@@ -836,6 +846,11 @@ class HeadStageResponseHeadStage:
 @dataclass
 class ListHeadStagesResponseHeadStage:
     dns_stage_id: Optional[str] = None
+
+
+@dataclass
+class Node:
+    ip: str
 
 
 @dataclass
@@ -1055,7 +1070,7 @@ class CreateDNSStageRequest:
 
     fqdns: Optional[list[str]] = field(default_factory=list)
     """
-    Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
+    Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now).
     """
 
     wildcard_domain: Optional[bool] = False
@@ -1176,6 +1191,11 @@ class CreateWafStageRequest:
     mode: Optional[WafStageMode] = WafStageMode.UNKNOWN_MODE
     """
     Mode defining WAF behavior (`disable`/`log_only`/`enable`).
+    """
+
+    exclusion_rules: Optional[list[WafExclusionRule]] = field(default_factory=list)
+    """
+    List of OWASP® CRS rule IDs excluded from WAF.
     """
 
     backend_stage_id: Optional[str] = None
@@ -1571,6 +1591,12 @@ class ListHeadStagesResponse:
     """
     Count of all head stages matching the requested pipeline_id.
     """
+
+
+@dataclass
+class ListNodesResponse:
+    nodes: list[Node]
+    total_count: int
 
 
 @dataclass
@@ -2049,7 +2075,7 @@ class UpdateDNSStageRequest:
 
     fqdns: Optional[list[str]] = field(default_factory=list)
     """
-    Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage.
+    Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now).
     """
 
     wildcard_domain: Optional[bool] = False
@@ -2140,6 +2166,11 @@ class UpdateWafStageRequest:
     paranoia_level: Optional[int] = 0
     """
     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
+    """
+
+    exclusion_rules: Optional[list[WafExclusionRule]] = field(default_factory=list)
+    """
+    List of OWASP® CRS rule IDs excluded from WAF.
     """
 
     backend_stage_id: Optional[str] = None
