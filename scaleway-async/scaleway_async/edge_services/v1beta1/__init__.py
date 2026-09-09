@@ -38,6 +38,7 @@ from .types import ScalewayServerlessContainerBackendConfig
 from .types import ScalewayServerlessFunctionBackendConfig
 from .types import PipelineError
 from .types import TLSSecret
+from .types import WafExclusionRule
 from .types import RuleHttpMatch
 from .types import BackendStage
 from .types import CacheStage
@@ -53,6 +54,7 @@ from .types import PlanDetails
 from .types import PlanUsageDetails
 from .types import HeadStageResponseHeadStage
 from .types import ListHeadStagesResponseHeadStage
+from .types import Node
 from .types import PipelineStages
 from .types import PurgeRequest
 from .types import VPCEndpoint
@@ -107,6 +109,7 @@ from .types import ListDNSStagesRequest
 from .types import ListDNSStagesResponse
 from .types import ListHeadStagesRequest
 from .types import ListHeadStagesResponse
+from .types import ListNodesResponse
 from .types import ListPipelinesRequest
 from .types import ListPipelinesResponse
 from .types import ListPipelinesWithStagesRequest
@@ -182,6 +185,7 @@ __all__ = [
     "ScalewayServerlessFunctionBackendConfig",
     "PipelineError",
     "TLSSecret",
+    "WafExclusionRule",
     "RuleHttpMatch",
     "BackendStage",
     "CacheStage",
@@ -197,6 +201,7 @@ __all__ = [
     "PlanUsageDetails",
     "HeadStageResponseHeadStage",
     "ListHeadStagesResponseHeadStage",
+    "Node",
     "PipelineStages",
     "PurgeRequest",
     "VPCEndpoint",
@@ -251,6 +256,7 @@ __all__ = [
     "ListDNSStagesResponse",
     "ListHeadStagesRequest",
     "ListHeadStagesResponse",
+    "ListNodesResponse",
     "ListPipelinesRequest",
     "ListPipelinesResponse",
     "ListPipelinesWithStagesRequest",
