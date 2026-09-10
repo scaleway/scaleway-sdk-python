@@ -193,18 +193,6 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["status"] = ContainerStatus.UNKNOWN_STATUS
 
-    field = data.get("environment_variables", None)
-    if field is not None:
-        args["environment_variables"] = field
-    else:
-        args["environment_variables"] = {}
-
-    field = data.get("secret_environment_variables", None)
-    if field is not None:
-        args["secret_environment_variables"] = field
-    else:
-        args["secret_environment_variables"] = {}
-
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
@@ -222,6 +210,18 @@ def unmarshal_Container(data: Any) -> Container:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("environment_variables", None)
+    if field is not None:
+        args["environment_variables"] = field
+    else:
+        args["environment_variables"] = {}
+
+    field = data.get("secret_environment_variables", None)
+    if field is not None:
+        args["secret_environment_variables"] = field
+    else:
+        args["secret_environment_variables"] = {}
 
     field = data.get("min_scale", None)
     if field is not None:
@@ -253,6 +253,12 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["local_storage_limit_bytes"] = 0
 
+    field = data.get("timeout", None)
+    if field is not None:
+        args["timeout"] = field
+    else:
+        args["timeout"] = None
+
     field = data.get("privacy", None)
     if field is not None:
         args["privacy"] = field
@@ -283,12 +289,6 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["https_connections_only"] = False
 
-    field = data.get("timeout", None)
-    if field is not None:
-        args["timeout"] = field
-    else:
-        args["timeout"] = None
-
     field = data.get("sandbox", None)
     if field is not None:
         args["sandbox"] = field
@@ -306,6 +306,12 @@ def unmarshal_Container(data: Any) -> Container:
         args["command"] = field
     else:
         args["command"] = []
+
+    field = data.get("scaling_option", None)
+    if field is not None:
+        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
+    else:
+        args["scaling_option"] = None
 
     field = data.get("args", None)
     if field is not None:
@@ -325,12 +331,6 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["region"] = None
 
-    field = data.get("scaling_option", None)
-    if field is not None:
-        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
-    else:
-        args["scaling_option"] = None
-
     field = data.get("liveness_probe", None)
     if field is not None:
         args["liveness_probe"] = unmarshal_ContainerProbe(field)
@@ -348,6 +348,12 @@ def unmarshal_Container(data: Any) -> Container:
         args["private_network_id"] = field
     else:
         args["private_network_id"] = None
+
+    field = data.get("private_endpoint", None)
+    if field is not None:
+        args["private_endpoint"] = field
+    else:
+        args["private_endpoint"] = None
 
     return Container(**args)
 
@@ -984,6 +990,9 @@ def marshal_CreateContainerRequest(
     if request.args is not None:
         output["args"] = request.args
 
+    if request.enable_private_endpoint is not None:
+        output["enable_private_endpoint"] = request.enable_private_endpoint
+
     return output
 
 
@@ -1297,6 +1306,9 @@ def marshal_UpdateContainerRequest(
 
     if request.args is not None:
         output["args"] = request.args
+
+    if request.enable_private_endpoint is not None:
+        output["enable_private_endpoint"] = request.enable_private_endpoint
 
     return output
 
