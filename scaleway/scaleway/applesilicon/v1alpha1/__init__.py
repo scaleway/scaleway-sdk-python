@@ -5,6 +5,7 @@ from .types import ConnectivityDiagnosticActionType
 from .types import ConnectivityDiagnosticDiagnosticStatus
 from .types import ListServerPrivateNetworksRequestOrderBy
 from .types import ListServersRequestOrderBy
+from .types import RunnerConfigurationAction
 from .types import RunnerConfigurationProvider
 from .types import RunnerConfigurationV2Provider
 from .types import RunnerStatus
@@ -49,6 +50,7 @@ from .types import GetOSRequest
 from .types import GetRunnerRequest
 from .types import GetServerRequest
 from .types import GetServerTypeRequest
+from .types import GetUserConfigurationRequest
 from .types import ListOSRequest
 from .types import ListOSResponse
 from .types import ListRunnersRequest
@@ -68,8 +70,11 @@ from .types import ReinstallServerRequest
 from .types import SetServerPrivateNetworksResponse
 from .types import StartConnectivityDiagnosticRequest
 from .types import StartConnectivityDiagnosticResponse
+from .types import UpdateRunnerConfigurationStatusRequest
+from .types import UpdateRunnerConfigurationStatusResponse
 from .types import UpdateRunnerRequest
 from .types import UpdateServerRequest
+from .types import UserConfiguration
 from .api import ApplesiliconV1Alpha1API
 from .api import ApplesiliconV1Alpha1PrivateNetworkAPI
 
@@ -79,6 +84,7 @@ __all__ = [
     "ConnectivityDiagnosticDiagnosticStatus",
     "ListServerPrivateNetworksRequestOrderBy",
     "ListServersRequestOrderBy",
+    "RunnerConfigurationAction",
     "RunnerConfigurationProvider",
     "RunnerConfigurationV2Provider",
     "RunnerStatus",
@@ -123,6 +129,7 @@ __all__ = [
     "GetRunnerRequest",
     "GetServerRequest",
     "GetServerTypeRequest",
+    "GetUserConfigurationRequest",
     "ListOSRequest",
     "ListOSResponse",
     "ListRunnersRequest",
@@ -142,8 +149,11 @@ __all__ = [
     "SetServerPrivateNetworksResponse",
     "StartConnectivityDiagnosticRequest",
     "StartConnectivityDiagnosticResponse",
+    "UpdateRunnerConfigurationStatusRequest",
+    "UpdateRunnerConfigurationStatusResponse",
     "UpdateRunnerRequest",
     "UpdateServerRequest",
+    "UserConfiguration",
     "ApplesiliconV1Alpha1API",
     "ApplesiliconV1Alpha1PrivateNetworkAPI",
 ]
