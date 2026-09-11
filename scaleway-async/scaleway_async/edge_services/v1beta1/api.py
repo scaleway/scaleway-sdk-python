@@ -57,6 +57,7 @@ from .types import (
     ListDNSStagesResponse,
     ListHeadStagesResponse,
     ListHeadStagesResponseHeadStage,
+    ListNodesResponse,
     ListPipelinesResponse,
     ListPipelinesWithStagesResponse,
     ListPlansResponse,
@@ -97,6 +98,7 @@ from .types import (
     UpdateTLSStageRequest,
     UpdateWafStageRequest,
     VPCEndpoint,
+    WafExclusionRule,
     WafStage,
 )
 from .content import (
@@ -123,6 +125,7 @@ from .marshalling import (
     unmarshal_ListCacheStagesResponse,
     unmarshal_ListDNSStagesResponse,
     unmarshal_ListHeadStagesResponse,
+    unmarshal_ListNodesResponse,
     unmarshal_ListPipelinesResponse,
     unmarshal_ListPipelinesWithStagesResponse,
     unmarshal_ListPlansResponse,
@@ -164,6 +167,27 @@ from .marshalling import (
 
 class EdgeServicesV1Beta1API(API):
     """ """
+
+    async def list_nodes(
+        self,
+    ) -> ListNodesResponse:
+        """
+
+        :return: :class:`ListNodesResponse <ListNodesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_nodes()
+        """
+
+        res = self._request(
+            "GET",
+            "/edge-services/v1beta1/nodes",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListNodesResponse(res.json())
 
     async def list_pipelines(
         self,
@@ -935,7 +959,7 @@ class EdgeServicesV1Beta1API(API):
         """
         Create DNS stage.
         Create a new DNS stage. You must specify the `fqdns` field to customize the domain endpoint, using a domain you already own.
-        :param fqdns: Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage.
+        :param fqdns: Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now).
         :param tls_stage_id: TLS stage ID the DNS stage will be linked to.
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :param cache_stage_id: Cache stage ID the DNS stage will be linked to.
@@ -1021,7 +1045,7 @@ class EdgeServicesV1Beta1API(API):
         Update DNS stage.
         Update the parameters of an existing DNS stage, specified by its `dns_stage_id`.
         :param dns_stage_id: ID of the DNS stage to update.
-        :param fqdns: Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage.
+        :param fqdns: Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now).
         :param tls_stage_id: TLS stage ID the DNS stage will be linked to.
         One-Of ('next'): at most one of 'tls_stage_id', 'cache_stage_id', 'backend_stage_id' could be set.
         :param cache_stage_id: Cache stage ID the DNS stage will be linked to.
@@ -1985,6 +2009,7 @@ class EdgeServicesV1Beta1API(API):
         pipeline_id: str,
         paranoia_level: int,
         mode: Optional[WafStageMode] = None,
+        exclusion_rules: Optional[list[WafExclusionRule]] = None,
         backend_stage_id: Optional[str] = None,
     ) -> WafStage:
         """
@@ -1993,6 +2018,7 @@ class EdgeServicesV1Beta1API(API):
         :param pipeline_id: Pipeline ID the WAF stage belongs to.
         :param paranoia_level: Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
         :param mode: Mode defining WAF behavior (`disable`/`log_only`/`enable`).
+        :param exclusion_rules: List of OWASP® CRS rule IDs excluded from WAF.
         :param backend_stage_id: ID of the backend stage to forward requests to after the WAF stage.
         One-Of ('next'): at most one of 'backend_stage_id' could be set.
         :return: :class:`WafStage <WafStage>`
@@ -2016,6 +2042,7 @@ class EdgeServicesV1Beta1API(API):
                     pipeline_id=pipeline_id,
                     paranoia_level=paranoia_level,
                     mode=mode,
+                    exclusion_rules=exclusion_rules,
                     backend_stage_id=backend_stage_id,
                 ),
                 self.client,
@@ -2060,6 +2087,7 @@ class EdgeServicesV1Beta1API(API):
         waf_stage_id: str,
         mode: Optional[WafStageMode] = None,
         paranoia_level: Optional[int] = None,
+        exclusion_rules: Optional[list[WafExclusionRule]] = None,
         backend_stage_id: Optional[str] = None,
     ) -> WafStage:
         """
@@ -2068,6 +2096,7 @@ class EdgeServicesV1Beta1API(API):
         :param waf_stage_id: ID of the WAF stage to update.
         :param mode: Mode defining WAF behavior (`disable`/`log_only`/`enable`).
         :param paranoia_level: Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
+        :param exclusion_rules: List of OWASP® CRS rule IDs excluded from WAF.
         :param backend_stage_id: ID of the backend stage to forward requests to after the WAF stage.
         One-Of ('next'): at most one of 'backend_stage_id' could be set.
         :return: :class:`WafStage <WafStage>`
@@ -2090,6 +2119,7 @@ class EdgeServicesV1Beta1API(API):
                     waf_stage_id=waf_stage_id,
                     mode=mode,
                     paranoia_level=paranoia_level,
+                    exclusion_rules=exclusion_rules,
                     backend_stage_id=backend_stage_id,
                 ),
                 self.client,
@@ -2957,6 +2987,7 @@ class EdgeServicesV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> GetBillingResponse:
         """
+        Billing information.
         Gives information on the currently selected Edge Services subscription plan, resource usage and associated billing information for this calendar month (including whether consumption falls within or exceeds the currently selected subscription plan.).
         :param project_id:
         :return: :class:`GetBillingResponse <GetBillingResponse>`
