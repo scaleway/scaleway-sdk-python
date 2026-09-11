@@ -128,6 +128,9 @@ class PrivateNetworkInterfaceStatus(str, Enum, metaclass=StrEnumMeta):
     ATTACHING = "attaching"
     DETACHING = "detaching"
     SYNCING = "syncing"
+    DELETING = "deleting"
+    DETACH_ERROR = "detach_error"
+    DELETE_ERROR = "delete_error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -208,6 +211,9 @@ class ServerPrivateNetworkInterfaceStatus(str, Enum, metaclass=StrEnumMeta):
     ATTACHING = "attaching"
     DETACHING = "detaching"
     SYNCING = "syncing"
+    DELETING = "deleting"
+    DETACH_ERROR = "detach_error"
+    DELETE_ERROR = "delete_error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -767,6 +773,11 @@ class PrivateNetworkInterfaceSummary:
     Tags associated with the private network interface.
     """
 
+    zone: ScwZone
+    """
+    Zone in which the network interface is located.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation timestamp of the private network interface.
@@ -828,6 +839,11 @@ class SecurityGroupSummary:
     stateless: bool
     """
     True if the security group is stateless.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which the security group is located.
     """
 
     created_at: Optional[datetime] = None
@@ -929,6 +945,11 @@ class ServerSummary:
     rescue_mode: bool
     """
     Whether the server is in rescue mode.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which the server is located.
     """
 
     placement_group_id: Optional[str] = None
@@ -1757,6 +1778,19 @@ class DeleteUserDataRequest:
 
 
 @dataclass
+class DetachAndDeletePrivateNetworkInterfaceRequest:
+    private_network_interface_id: str
+    """
+    ID of the private network interface to detach and delete.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class DetachServerFileSystemRequest:
     server_id: str
     """
@@ -2547,6 +2581,11 @@ class PrivateNetworkInterface:
     tags: list[str]
     """
     Tags associated with the private network interface.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which the network interface is located.
     """
 
     created_at: Optional[datetime] = None

@@ -563,6 +563,11 @@ Possible check types:
     When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
     """
 
+    private_endpoint: Optional[str] = None
+    """
+    This endpoint is accessible from the Private Network the container is connected to, and can be used to access the container from other resources in the same Private Network.
+    """
+
 
 @dataclass
 class Domain:
@@ -970,6 +975,11 @@ Possible check types:
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
 
+    enable_private_endpoint: Optional[bool] = False
+    """
+    When enabled, the container can receive traffic from other resources in the same Private Network.
+    """
+
 
 @dataclass
 class CreateDomainRequest:
@@ -1156,6 +1166,14 @@ class GetNamespaceRequest:
     UUID of the namespace to get.
     """
 
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetPrivateEndpointCertificateAuthorityRequest:
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -1406,6 +1424,11 @@ Possible check types:
     args: Optional[list[str]] = field(default_factory=list)
     """
     Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
+    """
+
+    enable_private_endpoint: Optional[bool] = False
+    """
+    When enabled, the container can receive traffic from other resources in the same Private Network.
     """
 
 
