@@ -128,6 +128,9 @@ class PrivateNetworkInterfaceStatus(str, Enum, metaclass=StrEnumMeta):
     ATTACHING = "attaching"
     DETACHING = "detaching"
     SYNCING = "syncing"
+    DELETING = "deleting"
+    DETACH_ERROR = "detach_error"
+    DELETE_ERROR = "delete_error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -208,6 +211,9 @@ class ServerPrivateNetworkInterfaceStatus(str, Enum, metaclass=StrEnumMeta):
     ATTACHING = "attaching"
     DETACHING = "detaching"
     SYNCING = "syncing"
+    DELETING = "deleting"
+    DETACH_ERROR = "detach_error"
+    DELETE_ERROR = "delete_error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1748,6 +1754,19 @@ class DeleteUserDataRequest:
     key: str
     """
     The key of the user data to delete.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DetachAndDeletePrivateNetworkInterfaceRequest:
+    private_network_interface_id: str
+    """
+    ID of the private network interface to detach and delete.
     """
 
     zone: Optional[ScwZone] = None
