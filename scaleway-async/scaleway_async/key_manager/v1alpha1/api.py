@@ -14,21 +14,26 @@ from scaleway_core.utils import (
 from .types import (
     DataKeyAlgorithmSymmetricEncryption,
     KeyOrigin,
+    KeyRotationStatus,
     ListAlgorithmsRequestUsage,
+    ListKeyRotationsRequestOrderBy,
     ListKeysRequestOrderBy,
     ListKeysRequestUsage,
     CreateKeyRequest,
     DataKey,
     DecryptRequest,
     DecryptResponse,
+    DeleteKeyMaterialRequest,
     EncryptRequest,
     EncryptResponse,
     GenerateDataKeyRequest,
     ImportKeyMaterialRequest,
     Key,
+    KeyRotation,
     KeyRotationPolicy,
     KeyUsage,
     ListAlgorithmsResponse,
+    ListKeyRotationsResponse,
     ListKeysResponse,
     PublicKey,
     SignRequest,
@@ -47,6 +52,7 @@ from .marshalling import (
     unmarshal_DecryptResponse,
     unmarshal_EncryptResponse,
     unmarshal_ListAlgorithmsResponse,
+    unmarshal_ListKeyRotationsResponse,
     unmarshal_ListKeysResponse,
     unmarshal_PublicKey,
     unmarshal_SignResponse,
@@ -55,6 +61,7 @@ from .marshalling import (
     unmarshal_WrapKeyResponse,
     marshal_CreateKeyRequest,
     marshal_DecryptRequest,
+    marshal_DeleteKeyMaterialRequest,
     marshal_EncryptRequest,
     marshal_GenerateDataKeyRequest,
     marshal_ImportKeyMaterialRequest,
@@ -582,6 +589,99 @@ class KeyManagerV1Alpha1API(API):
             },
         )
 
+    async def list_key_rotations(
+        self,
+        *,
+        key_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListKeyRotationsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        status: Optional[list[KeyRotationStatus]] = None,
+    ) -> ListKeyRotationsResponse:
+        """
+        List key rotations.
+        Retrieve a list of all rotations associated with a specific key.
+        The `key_id` and `region` parameters in the path are required.
+        :param key_id: ID of the key to list rotations for.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param status: See the `KeyRotation.Status` enum for a description of possible values.
+        :return: :class:`ListKeyRotationsResponse <ListKeyRotationsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_key_rotations(
+                key_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "GET",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/rotations",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "status": status,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListKeyRotationsResponse(res.json())
+
+    async def list_key_rotations_all(
+        self,
+        *,
+        key_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListKeyRotationsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        status: Optional[list[KeyRotationStatus]] = None,
+    ) -> list[KeyRotation]:
+        """
+        List key rotations.
+        Retrieve a list of all rotations associated with a specific key.
+        The `key_id` and `region` parameters in the path are required.
+        :param key_id: ID of the key to list rotations for.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param status: See the `KeyRotation.Status` enum for a description of possible values.
+        :return: :class:`list[KeyRotation] <list[KeyRotation]>`
+
+        Usage:
+        ::
+
+            result = await api.list_key_rotations_all(
+                key_id="example",
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListKeyRotationsResponse,
+            key="rotations",
+            fetcher=self.list_key_rotations,
+            args={
+                "key_id": key_id,
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "status": status,
+            },
+        )
+
     async def generate_data_key(
         self,
         *,
@@ -876,12 +976,14 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         region: Optional[ScwRegion] = None,
+        key_rotation_index: Optional[int] = None,
     ) -> None:
         """
         Delete key material.
         Delete previously imported key material. This renders the associated cryptographic key unusable for any operation. The key's origin must be `external`.
         :param key_id: ID of the key of which to delete the key material.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param key_rotation_index: Default to latest rotation if not set.
 
         Usage:
         ::
@@ -899,7 +1001,14 @@ class KeyManagerV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/delete-key-material",
-            body={},
+            body=marshal_DeleteKeyMaterialRequest(
+                DeleteKeyMaterialRequest(
+                    key_id=key_id,
+                    region=region,
+                    key_rotation_index=key_rotation_index,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

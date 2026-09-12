@@ -28,8 +28,6 @@ class KeyAlgorithmAsymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
     RSA_OAEP_2048_SHA256 = "rsa_oaep_2048_sha256"
     RSA_OAEP_3072_SHA256 = "rsa_oaep_3072_sha256"
     RSA_OAEP_4096_SHA256 = "rsa_oaep_4096_sha256"
-    ML_KEM_768 = "ml_kem_768"
-    ML_KEM_1024 = "ml_kem_1024"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -54,6 +52,15 @@ class KeyAlgorithmAsymmetricSigning(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class KeyAlgorithmKeyEncapsulation(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_KEY_ENCAPSULATION = "unknown_key_encapsulation"
+    ML_KEM_768 = "ml_kem_768"
+    ML_KEM_1024 = "ml_kem_1024"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class KeyAlgorithmSymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SYMMETRIC_ENCRYPTION = "unknown_symmetric_encryption"
     AES_256_GCM = "aes_256_gcm"
@@ -66,6 +73,15 @@ class KeyOrigin(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ORIGIN = "unknown_origin"
     SCALEWAY_KMS = "scaleway_kms"
     EXTERNAL = "external"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class KeyRotationStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    ENABLED = "enabled"
+    DELETED = "deleted"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -87,6 +103,15 @@ class ListAlgorithmsRequestUsage(str, Enum, metaclass=StrEnumMeta):
     SYMMETRIC_ENCRYPTION = "symmetric_encryption"
     ASYMMETRIC_ENCRYPTION = "asymmetric_encryption"
     ASYMMETRIC_SIGNING = "asymmetric_signing"
+    KEY_ENCAPSULATION = "key_encapsulation"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListKeyRotationsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -141,12 +166,54 @@ class KeyUsage:
         KeyAlgorithmAsymmetricSigning.UNKNOWN_ASYMMETRIC_SIGNING
     )
 
+    key_encapsulation: Optional[KeyAlgorithmKeyEncapsulation] = (
+        KeyAlgorithmKeyEncapsulation.UNKNOWN_KEY_ENCAPSULATION
+    )
+
 
 @dataclass
 class ListAlgorithmsResponseAlgorithm:
     usage: str
     name: str
     recommended: bool
+
+
+@dataclass
+class KeyRotation:
+    key_id: str
+    """
+    ID of the associated key.
+    """
+
+    index: int
+    """
+    The rotation index tracks the specific version of the key material.
+    """
+
+    status: KeyRotationStatus
+    """
+    See the `KeyRotation.Status` enum for a description of possible values.
+    """
+
+    manually_rotated: bool
+    """
+    Returns `true` if the key was rotated manually, or `false` if it was rotated automatically by a rotation policy.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Key rotation creation date.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Key rotation last modification date.
+    """
+
+    deleted_at: Optional[datetime] = None
+    """
+    Key rotation deletion date.
+    """
 
 
 @dataclass
@@ -366,6 +433,11 @@ class DeleteKeyMaterialRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    key_rotation_index: Optional[int] = 0
+    """
+    Default to latest rotation if not set.
+    """
+
 
 @dataclass
 class DeleteKeyRequest:
@@ -535,6 +607,42 @@ class ListAlgorithmsResponse:
     algorithms: list[ListAlgorithmsResponseAlgorithm]
     """
     Returns a list of algorithms matching the requested criteria.
+    """
+
+
+@dataclass
+class ListKeyRotationsRequest:
+    key_id: str
+    """
+    ID of the key to list rotations for.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListKeyRotationsRequestOrderBy] = (
+        ListKeyRotationsRequestOrderBy.CREATED_AT_ASC
+    )
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+    status: Optional[list[KeyRotationStatus]] = field(default_factory=list)
+    """
+    See the `KeyRotation.Status` enum for a description of possible values.
+    """
+
+
+@dataclass
+class ListKeyRotationsResponse:
+    rotations: list[KeyRotation]
+    """
+    Single page of key rotations matching the requested criteria.
+    """
+
+    total_count: int
+    """
+    Total count of key rotations matching the requested criteria.
     """
 
 
