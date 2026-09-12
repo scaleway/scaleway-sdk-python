@@ -44,8 +44,11 @@ from .types import (
     SetServerPrivateNetworksResponse,
     StartConnectivityDiagnosticRequest,
     StartConnectivityDiagnosticResponse,
+    UpdateRunnerConfigurationStatusRequest,
+    UpdateRunnerConfigurationStatusResponse,
     UpdateRunnerRequest,
     UpdateServerRequest,
+    UserConfiguration,
 )
 from .content import (
     RUNNER_TRANSIENT_STATUSES,
@@ -67,6 +70,8 @@ from .marshalling import (
     unmarshal_ListServersResponse,
     unmarshal_SetServerPrivateNetworksResponse,
     unmarshal_StartConnectivityDiagnosticResponse,
+    unmarshal_UpdateRunnerConfigurationStatusResponse,
+    unmarshal_UserConfiguration,
     marshal_BatchCreateServersRequest,
     marshal_CreateRunnerRequest,
     marshal_CreateServerRequest,
@@ -74,6 +79,7 @@ from .marshalling import (
     marshal_PrivateNetworkApiSetServerPrivateNetworksRequest,
     marshal_ReinstallServerRequest,
     marshal_StartConnectivityDiagnosticRequest,
+    marshal_UpdateRunnerConfigurationStatusRequest,
     marshal_UpdateRunnerRequest,
     marshal_UpdateServerRequest,
 )
@@ -1034,6 +1040,65 @@ class ApplesiliconV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def get_user_configuration(
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+    ) -> UserConfiguration:
+        """
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`UserConfiguration <UserConfiguration>`
+
+        Usage:
+        ::
+
+            result = await api.get_user_configuration()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "GET",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/user-configuration",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_UserConfiguration(res.json())
+
+    async def update_runner_configuration_status(
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+        runner_errors: Optional[dict[str, str]] = None,
+    ) -> UpdateRunnerConfigurationStatusResponse:
+        """
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param runner_errors:
+        :return: :class:`UpdateRunnerConfigurationStatusResponse <UpdateRunnerConfigurationStatusResponse>`
+
+        Usage:
+        ::
+
+            result = await api.update_runner_configuration_status()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "PATCH",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/runner-configuration-status",
+            body=marshal_UpdateRunnerConfigurationStatusRequest(
+                UpdateRunnerConfigurationStatusRequest(
+                    zone=zone,
+                    runner_errors=runner_errors,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_UpdateRunnerConfigurationStatusResponse(res.json())
 
 
 class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
