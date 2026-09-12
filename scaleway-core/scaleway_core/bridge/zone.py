@@ -7,6 +7,7 @@ ZONE_NL_AMS_2 = Zone("nl-ams-2")
 ZONE_NL_AMS_3 = Zone("nl-ams-3")
 ZONE_PL_WAW_1 = Zone("pl-waw-1")
 ZONE_PL_WAW_2 = Zone("pl-waw-2")
+ZONE_IT_MIL_1 = Zone("it-mil-1")
 
 ALL_ZONES = [
     ZONE_FR_PAR_1,
@@ -17,4 +18,5 @@ ALL_ZONES = [
     ZONE_NL_AMS_3,
     ZONE_PL_WAW_1,
     ZONE_PL_WAW_2,
+    ZONE_IT_MIL_1,
 ]
