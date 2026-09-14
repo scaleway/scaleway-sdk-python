@@ -420,6 +420,11 @@ class TLSSecret:
 
 
 @dataclass
+class WafExclusionRule:
+    rule_id: int
+
+
+@dataclass
 class RuleHttpMatch:
     method_filters: list[RuleHttpMatchMethodFilter]
     """
@@ -738,6 +743,11 @@ class WafStage:
     status: StageStatus
     """
     Current status of the stage.
+    """
+
+    exclusion_rules: list[WafExclusionRule]
+    """
+    List of OWASP® CRS rule IDs excluded from WAF.
     """
 
     created_at: Optional[datetime] = None
@@ -1181,6 +1191,11 @@ class CreateWafStageRequest:
     mode: Optional[WafStageMode] = WafStageMode.UNKNOWN_MODE
     """
     Mode defining WAF behavior (`disable`/`log_only`/`enable`).
+    """
+
+    exclusion_rules: Optional[list[WafExclusionRule]] = field(default_factory=list)
+    """
+    List of OWASP® CRS rule IDs excluded from WAF.
     """
 
     backend_stage_id: Optional[str] = None
@@ -2151,6 +2166,11 @@ class UpdateWafStageRequest:
     paranoia_level: Optional[int] = 0
     """
     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
+    """
+
+    exclusion_rules: Optional[list[WafExclusionRule]] = field(default_factory=list)
+    """
+    List of OWASP® CRS rule IDs excluded from WAF.
     """
 
     backend_stage_id: Optional[str] = None
