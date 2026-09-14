@@ -9,9 +9,11 @@ from .types import (
     DatabaseBackupStatus,
     DatabaseStatus,
     DatabaseBackup,
+    Version,
     Database,
     ListDatabaseBackupsResponse,
     ListDatabasesResponse,
+    ListVersionsResponse,
     CreateDatabaseRequest,
     RestoreDatabaseFromBackupRequest,
     UpdateDatabaseRequest,
@@ -103,6 +105,37 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     return DatabaseBackup(**args)
 
 
+def unmarshal_Version(data: Any) -> Version:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Version' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("end_of_life_at", None)
+    if field is not None:
+        args["end_of_life_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["end_of_life_at"] = None
+
+    return Version(**args)
+
+
 def unmarshal_Database(data: Any) -> Database:
     if not isinstance(data, dict):
         raise TypeError(
@@ -177,17 +210,23 @@ def unmarshal_Database(data: Any) -> Database:
     else:
         args["started"] = False
 
-    field = data.get("engine_major_version", None)
-    if field is not None:
-        args["engine_major_version"] = field
-    else:
-        args["engine_major_version"] = 0
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["created_at"] = None
+
+    field = data.get("engine_major_version", None)
+    if field is not None:
+        args["engine_major_version"] = field
+    else:
+        args["engine_major_version"] = None
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = unmarshal_Version(field)
+    else:
+        args["version"] = None
 
     return Database(**args)
 
@@ -242,6 +281,31 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
     return ListDatabasesResponse(**args)
 
 
+def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListVersionsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("versions", None)
+    if field is not None:
+        args["versions"] = (
+            [unmarshal_Version(v) for v in field] if field is not None else None
+        )
+    else:
+        args["versions"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListVersionsResponse(**args)
+
+
 def marshal_CreateDatabaseRequest(
     request: CreateDatabaseRequest,
     defaults: ProfileDefaults,
@@ -256,6 +320,9 @@ def marshal_CreateDatabaseRequest(
 
     if request.cpu_max is not None:
         output["cpu_max"] = request.cpu_max
+
+    if request.version is not None:
+        output["version"] = request.version
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
