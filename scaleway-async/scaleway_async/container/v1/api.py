@@ -6,6 +6,8 @@ from typing import Awaitable, Optional, Union
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    ScwFile,
+    unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -422,6 +424,7 @@ class ContainerV1API(API):
         private_network_id: Optional[str] = None,
         command: Optional[list[str]] = None,
         args: Optional[list[str]] = None,
+        enable_private_endpoint: Optional[bool] = None,
     ) -> Container:
         """
         Create a new container in a namespace.
@@ -461,6 +464,7 @@ class ContainerV1API(API):
         :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or ENTRYPOINT script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
+        :param enable_private_endpoint: When enabled, the container can receive traffic from other resources in the same Private Network.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -507,6 +511,7 @@ class ContainerV1API(API):
                     private_network_id=private_network_id,
                     command=command,
                     args=args,
+                    enable_private_endpoint=enable_private_endpoint,
                 ),
                 self.client,
             ),
@@ -717,6 +722,7 @@ class ContainerV1API(API):
         private_network_id: Optional[str] = None,
         command: Optional[list[str]] = None,
         args: Optional[list[str]] = None,
+        enable_private_endpoint: Optional[bool] = None,
     ) -> Container:
         """
         Update the container associated with the specified ID.
@@ -755,6 +761,7 @@ class ContainerV1API(API):
         :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or ENTRYPOINT script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
+        :param enable_private_endpoint: When enabled, the container can receive traffic from other resources in the same Private Network.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -799,6 +806,7 @@ class ContainerV1API(API):
                     private_network_id=private_network_id,
                     command=command,
                     args=args,
+                    enable_private_endpoint=enable_private_endpoint,
                 ),
                 self.client,
             ),
@@ -842,6 +850,35 @@ class ContainerV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Container(res.json())
+
+    async def get_private_endpoint_certificate_authority(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+    ) -> ScwFile:
+        """
+        Get the private endpoint certificate authority.
+        When enabling private endpoints for your containers, you need to trust this CA to establish HTTPS connections to them.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ScwFile <ScwFile>`
+
+        Usage:
+        ::
+
+            result = await api.get_private_endpoint_certificate_authority()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/containers/v1/regions/{param_region}/private-endpoint-ca",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ScwFile(res.json())
 
     async def create_domain(
         self,
