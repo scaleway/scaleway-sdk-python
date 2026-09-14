@@ -149,7 +149,9 @@ class KeyUsage:
         KeyAlgorithmAsymmetricSigning.UNKNOWN_ASYMMETRIC_SIGNING
     )
 
-    key_encapsulation: Optional[KeyAlgorithmKeyEncapsulation] = None
+    key_encapsulation: Optional[KeyAlgorithmKeyEncapsulation] = (
+        KeyAlgorithmKeyEncapsulation.UNKNOWN_KEY_ENCAPSULATION
+    )
 
 
 @dataclass

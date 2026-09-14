@@ -13,6 +13,7 @@ from .types import (
     DataKeyAlgorithmSymmetricEncryption,
     KeyAlgorithmAsymmetricEncryption,
     KeyAlgorithmAsymmetricSigning,
+    KeyAlgorithmKeyEncapsulation,
     KeyAlgorithmSymmetricEncryption,
     KeyOrigin,
     KeyState,
@@ -104,7 +105,9 @@ def unmarshal_KeyUsage(data: Any) -> KeyUsage:
     if field is not None:
         args["key_encapsulation"] = field
     else:
-        args["key_encapsulation"] = None
+        args["key_encapsulation"] = (
+            KeyAlgorithmKeyEncapsulation.UNKNOWN_KEY_ENCAPSULATION
+        )
 
     return KeyUsage(**args)
 
