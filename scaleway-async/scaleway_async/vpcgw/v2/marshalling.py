@@ -52,6 +52,12 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("gateway_id", None)
     if field is not None:
         args["gateway_id"] = field
@@ -129,6 +135,12 @@ def unmarshal_IP(data: Any) -> IP:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
@@ -200,6 +212,12 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
@@ -211,6 +229,18 @@ def unmarshal_Gateway(data: Any) -> Gateway:
         args["project_id"] = field
     else:
         args["project_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("type", None)
     if field is not None:
@@ -236,18 +266,6 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     else:
         args["name"] = None
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -261,12 +279,6 @@ def unmarshal_Gateway(data: Any) -> Gateway:
         )
     else:
         args["gateway_networks"] = []
-
-    field = data.get("bastion_enabled", None)
-    if field is not None:
-        args["bastion_enabled"] = field
-    else:
-        args["bastion_enabled"] = False
 
     field = data.get("ipv4", None)
     if field is not None:
@@ -285,6 +297,12 @@ def unmarshal_Gateway(data: Any) -> Gateway:
         args["can_upgrade_to"] = field
     else:
         args["can_upgrade_to"] = None
+
+    field = data.get("bastion_enabled", None)
+    if field is not None:
+        args["bastion_enabled"] = field
+    else:
+        args["bastion_enabled"] = False
 
     field = data.get("bastion_port", None)
     if field is not None:
@@ -332,6 +350,12 @@ def unmarshal_PatRule(data: Any) -> PatRule:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("gateway_id", None)
     if field is not None:
