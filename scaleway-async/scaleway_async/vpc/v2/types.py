@@ -123,6 +123,11 @@ class Subnet:
     ID of the subnet.
     """
 
+    srn: str
+    """
+    The SRN of the subnet.
+    """
+
     subnet: str
     """
     Subnet CIDR.
@@ -164,6 +169,11 @@ class PrivateNetwork:
     id: str
     """
     Private Network ID.
+    """
+
+    srn: str
+    """
+    The SRN of the private network.
     """
 
     name: str
@@ -232,6 +242,11 @@ class Route:
     id: str
     """
     Route ID.
+    """
+
+    srn: str
+    """
+    The SRN of the route.
     """
 
     description: str
@@ -357,6 +372,11 @@ class IngressRule:
     ID of the ingress rule.
     """
 
+    srn: str
+    """
+    The SRN of the ingress rule.
+    """
+
     vpc_id: str
     """
     ID of the VPC this rule belongs to.
@@ -433,6 +453,11 @@ class VPCConnector:
     VPC connector ID.
     """
 
+    srn: str
+    """
+    The SRN of the VPC connector.
+    """
+
     name: str
     """
     VPC connector name.
@@ -494,6 +519,11 @@ class VPC:
     id: str
     """
     VPC ID.
+    """
+
+    srn: str
+    """
+    The SRN of the VPC.
     """
 
     name: str
