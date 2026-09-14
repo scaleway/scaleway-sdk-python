@@ -305,6 +305,11 @@ class JWT:
     User-agent used during the creation of the JWT.
     """
 
+    srn: str
+    """
+    The SRN of the JWT.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date of the JWT.
@@ -444,6 +449,11 @@ class APIKey:
     IP address of the device that created the API key.
     """
 
+    srn: str
+    """
+    The SRN of the API key.
+    """
+
     secret_key: Optional[str] = None
     """
     Secret key of the API Key.
@@ -514,6 +524,11 @@ class Application:
     tags: list[str]
     """
     Tags associated with the user.
+    """
+
+    srn: str
+    """
+    SRN of the application.
     """
 
     created_at: Optional[datetime] = None
@@ -607,6 +622,11 @@ class Group:
     Indicates if the group is the special "All Applications" group that contains all non-managed applications of the organization.
     """
 
+    srn: str
+    """
+    The SRN of the group.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date and time of group creation.
@@ -658,6 +678,11 @@ class Log:
     resource_id: str
     """
     ID of the resource linked to the log.
+    """
+
+    srn: str
+    """
+    The SRN of the log.
     """
 
     created_at: Optional[datetime] = None
@@ -751,6 +776,11 @@ class Policy:
     Tags associated with the policy.
     """
 
+    srn: str
+    """
+    The SRN of the policy.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date and time of policy creation.
@@ -802,6 +832,11 @@ class Quotum:
     Limits per locality.
     """
 
+    srn: str
+    """
+    The SRN of the quotum.
+    """
+
     limit: Optional[int] = None
 
     unlimited: Optional[bool] = None
@@ -822,6 +857,11 @@ class Rule:
     condition: str
     """
     Condition expression to evaluate.
+    """
+
+    srn: str
+    """
+    The SRN of the rule.
     """
 
     permission_set_names: Optional[list[str]] = field(default_factory=list)
@@ -873,6 +913,11 @@ class SSHKey:
     SSH key status.
     """
 
+    srn: str
+    """
+    The SRN of the SSH key.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date of SSH key.
@@ -904,6 +949,11 @@ class SamlCertificate:
     content: str
     """
     Content of the SAML certificate.
+    """
+
+    srn: str
+    """
+    The SRN of the SAML certificate.
     """
 
     expires_at: Optional[datetime] = None
@@ -1005,6 +1055,11 @@ class User:
     locked: bool
     """
     Defines whether the user is locked.
+    """
+
+    srn: str
+    """
+    The SRN of the user.
     """
 
     created_at: Optional[datetime] = None
@@ -2459,6 +2514,11 @@ class Saml:
     single_sign_on_url: str
     """
     Single Sign-On URL of the SAML Identity Provider.
+    """
+
+    srn: str
+    """
+    The SRN of the SAML.
     """
 
     service_provider: Optional[SamlServiceProvider] = None
