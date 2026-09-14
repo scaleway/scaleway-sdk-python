@@ -98,6 +98,7 @@ from .types import (
     UpdateTLSStageRequest,
     UpdateWafStageRequest,
     VPCEndpoint,
+    WafExclusionRule,
     WafStage,
 )
 from .content import (
@@ -2008,6 +2009,7 @@ class EdgeServicesV1Beta1API(API):
         pipeline_id: str,
         paranoia_level: int,
         mode: Optional[WafStageMode] = None,
+        exclusion_rules: Optional[list[WafExclusionRule]] = None,
         backend_stage_id: Optional[str] = None,
     ) -> WafStage:
         """
@@ -2016,6 +2018,7 @@ class EdgeServicesV1Beta1API(API):
         :param pipeline_id: Pipeline ID the WAF stage belongs to.
         :param paranoia_level: Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
         :param mode: Mode defining WAF behavior (`disable`/`log_only`/`enable`).
+        :param exclusion_rules: List of OWASP® CRS rule IDs excluded from WAF.
         :param backend_stage_id: ID of the backend stage to forward requests to after the WAF stage.
         One-Of ('next'): at most one of 'backend_stage_id' could be set.
         :return: :class:`WafStage <WafStage>`
@@ -2039,6 +2042,7 @@ class EdgeServicesV1Beta1API(API):
                     pipeline_id=pipeline_id,
                     paranoia_level=paranoia_level,
                     mode=mode,
+                    exclusion_rules=exclusion_rules,
                     backend_stage_id=backend_stage_id,
                 ),
                 self.client,
@@ -2083,6 +2087,7 @@ class EdgeServicesV1Beta1API(API):
         waf_stage_id: str,
         mode: Optional[WafStageMode] = None,
         paranoia_level: Optional[int] = None,
+        exclusion_rules: Optional[list[WafExclusionRule]] = None,
         backend_stage_id: Optional[str] = None,
     ) -> WafStage:
         """
@@ -2091,6 +2096,7 @@ class EdgeServicesV1Beta1API(API):
         :param waf_stage_id: ID of the WAF stage to update.
         :param mode: Mode defining WAF behavior (`disable`/`log_only`/`enable`).
         :param paranoia_level: Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
+        :param exclusion_rules: List of OWASP® CRS rule IDs excluded from WAF.
         :param backend_stage_id: ID of the backend stage to forward requests to after the WAF stage.
         One-Of ('next'): at most one of 'backend_stage_id' could be set.
         :return: :class:`WafStage <WafStage>`
@@ -2113,6 +2119,7 @@ class EdgeServicesV1Beta1API(API):
                     waf_stage_id=waf_stage_id,
                     mode=mode,
                     paranoia_level=paranoia_level,
+                    exclusion_rules=exclusion_rules,
                     backend_stage_id=backend_stage_id,
                 ),
                 self.client,
