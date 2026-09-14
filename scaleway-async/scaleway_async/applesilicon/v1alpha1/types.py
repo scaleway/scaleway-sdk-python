@@ -60,6 +60,16 @@ class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class RunnerConfigurationAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
+    REMOVE = "remove"
+    UPDATE = "update"
+    ADD = "add"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class RunnerConfigurationProvider(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_PROVIDER = "unknown_provider"
     GITHUB = "github"
@@ -237,6 +247,10 @@ class RunnerConfiguration:
     url: str
     token: str
     provider: RunnerConfigurationProvider
+    download_runner: bool
+    action: RunnerConfigurationAction
+    id: str
+    labels: list[str]
 
 
 @dataclass
@@ -780,6 +794,14 @@ class GetServerTypeRequest:
 
 
 @dataclass
+class GetUserConfigurationRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class ListOSRequest:
     zone: Optional[ScwZone] = None
     """
@@ -1104,6 +1126,21 @@ class StartConnectivityDiagnosticResponse:
 
 
 @dataclass
+class UpdateRunnerConfigurationStatusRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    runner_errors: Optional[dict[str, str]] = field(default_factory=dict)
+
+
+@dataclass
+class UpdateRunnerConfigurationStatusResponse:
+    pass
+
+
+@dataclass
 class UpdateRunnerRequest:
     runner_id: str
     """
@@ -1162,3 +1199,10 @@ class UpdateServerRequest:
     """
     Runner configurations to apply on the server, existing ones missing from the specified configuration will be removed from the server.
     """
+
+
+@dataclass
+class UserConfiguration:
+    vnc_password: str
+    ssh_keys: list[str]
+    runner_configurations: list[RunnerConfiguration]

@@ -34,6 +34,12 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -119,6 +125,12 @@ def unmarshal_Version(data: Any) -> Version:
     else:
         args["name"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -149,6 +161,12 @@ def unmarshal_Database(data: Any) -> Database:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:

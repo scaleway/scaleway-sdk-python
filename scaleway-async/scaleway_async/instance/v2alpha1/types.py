@@ -592,6 +592,11 @@ class SecurityGroup:
     Unique ID of the security group.
     """
 
+    srn: str
+    """
+    The SRN of the security group.
+    """
+
     name: str
     """
     Name of the security group.
@@ -695,6 +700,11 @@ class PlacementGroup:
     Placement group unique ID.
     """
 
+    srn: str
+    """
+    The SRN of the placement group.
+    """
+
     project_id: str
     """
     Placement group Project ID.
@@ -736,6 +746,11 @@ class PrivateNetworkInterfaceSummary:
     id: str
     """
     Unique ID of the private network interface.
+    """
+
+    srn: str
+    """
+    The SRN of the private network interface.
     """
 
     private_network_id: str
@@ -794,6 +809,11 @@ class SecurityGroupSummary:
     id: str
     """
     Unique ID of the security group.
+    """
+
+    srn: str
+    """
+    The SRN of the security group.
     """
 
     name: str
@@ -912,6 +932,11 @@ class ServerSummary:
     Unique ID of the server.
     """
 
+    srn: str
+    """
+    The SRN of the server.
+    """
+
     name: str
     """
     Name of the server.
@@ -973,6 +998,11 @@ class Snapshot:
     id: str
     """
     Unique ID of the snapshot.
+    """
+
+    srn: str
+    """
+    The SRN of the snapshot.
     """
 
     project_id: str
@@ -1041,6 +1071,11 @@ class TemplateSummary:
     id: str
     """
     Unique ID of the template.
+    """
+
+    srn: str
+    """
+    The SRN of the template.
     """
 
     name: str
@@ -1127,6 +1162,11 @@ class Volume:
     id: str
     """
     Unique ID of the volume.
+    """
+
+    srn: str
+    """
+    The SRN of the volume.
     """
 
     project_id: str
@@ -2548,6 +2588,11 @@ class PrivateNetworkInterface:
     Unique ID of the private network interface.
     """
 
+    srn: str
+    """
+    The SRN of the private network interface.
+    """
+
     private_network_id: str
     """
     ID of the Private Network this interface is attached to.
@@ -2695,6 +2740,11 @@ class Server:
     id: str
     """
     Unique ID of the server.
+    """
+
+    srn: str
+    """
+    The SRN of the server.
     """
 
     name: str
@@ -2969,6 +3019,11 @@ class Template:
     id: str
     """
     Unique ID of the template.
+    """
+
+    srn: str
+    """
+    The SRN of the template.
     """
 
     name: str
