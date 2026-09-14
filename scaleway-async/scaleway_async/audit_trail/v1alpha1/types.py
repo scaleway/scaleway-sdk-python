@@ -44,6 +44,14 @@ class AuthenticationEventFailureReason(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_FAILURE_REASON = "unknown_failure_reason"
     INVALID_MFA = "invalid_mfa"
     INVALID_PASSWORD = "invalid_password"
+    INVALID_CAPTCHA = "invalid_captcha"
+    INVALID_AUTHENTICATION_CODE = "invalid_authentication_code"
+    INVALID_PASSKEY = "invalid_passkey"
+    PASSKEY_UV_NOT_MET = "passkey_uv_not_met"
+    PASSKEY_UV_NOT_VERIFIED = "passkey_uv_not_verified"
+    EXPIRED_SESSION = "expired_session"
+    AUTHENTICATION_CODE_REQUIRED = "authentication_code_required"
+    MFA_REQUIRED = "mfa_required"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -52,6 +60,7 @@ class AuthenticationEventFailureReason(str, Enum, metaclass=StrEnumMeta):
 class AuthenticationEventMFAType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_MFA_TYPE = "unknown_mfa_type"
     TOTP = "totp"
+    WEBAUTHN = "webauthn"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -63,6 +72,7 @@ class AuthenticationEventMethod(str, Enum, metaclass=StrEnumMeta):
     AUTHENTICATION_CODE = "authentication_code"
     OAUTH2 = "oauth2"
     SAML = "saml"
+    PASSKEY = "passkey"
 
     def __str__(self) -> str:
         return str(self.value)
