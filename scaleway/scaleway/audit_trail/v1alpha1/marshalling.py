@@ -85,6 +85,8 @@ from .types import (
     VpcPrivateNetworkInfo,
     VpcRouteInfo,
     VpcSubnetInfo,
+    WoflWorkflowDefinitionInfo,
+    WoflWorkflowRunInfo,
     EventPrincipal,
     Resource,
     Event,
@@ -1577,6 +1579,58 @@ def unmarshal_VpcSubnetInfo(data: Any) -> VpcSubnetInfo:
     return VpcSubnetInfo(**args)
 
 
+def unmarshal_WoflWorkflowDefinitionInfo(data: Any) -> WoflWorkflowDefinitionInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WoflWorkflowDefinitionInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    return WoflWorkflowDefinitionInfo(**args)
+
+
+def unmarshal_WoflWorkflowRunInfo(data: Any) -> WoflWorkflowRunInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WoflWorkflowRunInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("workflow_definition_id", None)
+    if field is not None:
+        args["workflow_definition_id"] = field
+    else:
+        args["workflow_definition_id"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = None
+
+    field = data.get("workflow_definition_name", None)
+    if field is not None:
+        args["workflow_definition_name"] = field
+    else:
+        args["workflow_definition_name"] = None
+
+    return WoflWorkflowRunInfo(**args)
+
+
 def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2041,6 +2095,20 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["serverless_functions_trigger_info"] = None
+
+    field = data.get("wofl_workflow_definition_info", None)
+    if field is not None:
+        args["wofl_workflow_definition_info"] = unmarshal_WoflWorkflowDefinitionInfo(
+            field
+        )
+    else:
+        args["wofl_workflow_definition_info"] = None
+
+    field = data.get("wofl_workflow_run_info", None)
+    if field is not None:
+        args["wofl_workflow_run_info"] = unmarshal_WoflWorkflowRunInfo(field)
+    else:
+        args["wofl_workflow_run_info"] = None
 
     return Resource(**args)
 
