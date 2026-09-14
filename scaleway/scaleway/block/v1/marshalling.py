@@ -208,6 +208,12 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     else:
         args["public"] = False
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("kms_key_id", None)
     if field is not None:
         args["kms_key_id"] = field
@@ -286,24 +292,6 @@ def unmarshal_Volume(data: Any) -> Volume:
     else:
         args["references"] = []
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("parent_snapshot_id", None)
-    if field is not None:
-        args["parent_snapshot_id"] = field
-    else:
-        args["parent_snapshot_id"] = None
-
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -321,6 +309,30 @@ def unmarshal_Volume(data: Any) -> Volume:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("parent_snapshot_id", None)
+    if field is not None:
+        args["parent_snapshot_id"] = field
+    else:
+        args["parent_snapshot_id"] = None
 
     field = data.get("specs", None)
     if field is not None:
@@ -389,6 +401,12 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("pricing", None)
     if field is not None:

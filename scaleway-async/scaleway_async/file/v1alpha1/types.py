@@ -77,6 +77,11 @@ class Attachment:
     The region where the attachment is located.
     """
 
+    srn: str
+    """
+    The SRN of the attachment.
+    """
+
     zone: Optional[ScwZone] = None
     """
     The zone where the resource is located.
@@ -155,6 +160,11 @@ class FileSystem:
     filesystem_type_id: str
     """
     UUID of the filesystem type.
+    """
+
+    srn: str
+    """
+    The SRN of the filesystem.
     """
 
     created_at: Optional[datetime] = None
