@@ -3,6 +3,7 @@
 from .types import DataKeyAlgorithmSymmetricEncryption
 from .types import KeyAlgorithmAsymmetricEncryption
 from .types import KeyAlgorithmAsymmetricSigning
+from .types import KeyAlgorithmKeyEncapsulation
 from .types import KeyAlgorithmSymmetricEncryption
 from .types import KeyOrigin
 from .types import KeyState
@@ -51,6 +52,7 @@ __all__ = [
     "DataKeyAlgorithmSymmetricEncryption",
     "KeyAlgorithmAsymmetricEncryption",
     "KeyAlgorithmAsymmetricSigning",
+    "KeyAlgorithmKeyEncapsulation",
     "KeyAlgorithmSymmetricEncryption",
     "KeyOrigin",
     "KeyState",
