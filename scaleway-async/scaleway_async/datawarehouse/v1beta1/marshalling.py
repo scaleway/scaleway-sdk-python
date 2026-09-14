@@ -168,6 +168,12 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     else:
         args["region"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("private_network", None)
     if field is not None:
         args["private_network"] = unmarshal_PrivateNetworkDetails(field)
@@ -214,6 +220,12 @@ def unmarshal_Database(data: Any) -> Database:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     return Database(**args)
 
@@ -330,6 +342,12 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     else:
         args["region"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     return Deployment(**args)
 
 
@@ -364,6 +382,12 @@ def unmarshal_User(data: Any) -> User:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     return User(**args)
 

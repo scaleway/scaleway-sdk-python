@@ -139,6 +139,11 @@ class IP:
     IP ID.
     """
 
+    srn: str
+    """
+    The SRN of the IP.
+    """
+
     address: str
     """
     IPv4 or IPv6 address in CIDR notation.
