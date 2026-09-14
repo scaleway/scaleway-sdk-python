@@ -154,6 +154,11 @@ class Endpoint:
     Region of the deployment.
     """
 
+    srn: str
+    """
+    The SRN of the endpoint.
+    """
+
     private_network: Optional[PrivateNetworkDetails] = None
 
     public: Optional[EndpointPublicDetails] = None
@@ -186,6 +191,11 @@ class Database:
     region: ScwRegion
     """
     Region of the deployment.
+    """
+
+    srn: str
+    """
+    The SRN of the database.
     """
 
 
@@ -266,6 +276,11 @@ class Deployment:
     Region of the deployment.
     """
 
+    srn: str
+    """
+    The SRN of the deployment.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date of the deployment.
@@ -335,6 +350,11 @@ class User:
     region: ScwRegion
     """
     Region of the deployment.
+    """
+
+    srn: str
+    """
+    The SRN of the user.
     """
 
 

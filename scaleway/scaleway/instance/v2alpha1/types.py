@@ -592,6 +592,11 @@ class SecurityGroup:
     Unique ID of the security group.
     """
 
+    srn: str
+    """
+    The SRN of the security group.
+    """
+
     name: str
     """
     Name of the security group.
@@ -695,6 +700,11 @@ class PlacementGroup:
     Placement group unique ID.
     """
 
+    srn: str
+    """
+    The SRN of the placement group.
+    """
+
     project_id: str
     """
     Placement group Project ID.
@@ -738,6 +748,11 @@ class PrivateNetworkInterfaceSummary:
     Unique ID of the private network interface.
     """
 
+    srn: str
+    """
+    The SRN of the private network interface.
+    """
+
     private_network_id: str
     """
     ID of the Private Network this interface is attached to.
@@ -773,6 +788,11 @@ class PrivateNetworkInterfaceSummary:
     Tags associated with the private network interface.
     """
 
+    zone: ScwZone
+    """
+    Zone in which the network interface is located.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation timestamp of the private network interface.
@@ -789,6 +809,11 @@ class SecurityGroupSummary:
     id: str
     """
     Unique ID of the security group.
+    """
+
+    srn: str
+    """
+    The SRN of the security group.
     """
 
     name: str
@@ -834,6 +859,11 @@ class SecurityGroupSummary:
     stateless: bool
     """
     True if the security group is stateless.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which the security group is located.
     """
 
     created_at: Optional[datetime] = None
@@ -902,6 +932,11 @@ class ServerSummary:
     Unique ID of the server.
     """
 
+    srn: str
+    """
+    The SRN of the server.
+    """
+
     name: str
     """
     Name of the server.
@@ -937,6 +972,11 @@ class ServerSummary:
     Whether the server is in rescue mode.
     """
 
+    zone: ScwZone
+    """
+    Zone in which the server is located.
+    """
+
     placement_group_id: Optional[str] = None
     """
     ID of the placement group the server belongs to.
@@ -958,6 +998,11 @@ class Snapshot:
     id: str
     """
     Unique ID of the snapshot.
+    """
+
+    srn: str
+    """
+    The SRN of the snapshot.
     """
 
     project_id: str
@@ -1026,6 +1071,11 @@ class TemplateSummary:
     id: str
     """
     Unique ID of the template.
+    """
+
+    srn: str
+    """
+    The SRN of the template.
     """
 
     name: str
@@ -1112,6 +1162,11 @@ class Volume:
     id: str
     """
     Unique ID of the volume.
+    """
+
+    srn: str
+    """
+    The SRN of the volume.
     """
 
     project_id: str
@@ -2533,6 +2588,11 @@ class PrivateNetworkInterface:
     Unique ID of the private network interface.
     """
 
+    srn: str
+    """
+    The SRN of the private network interface.
+    """
+
     private_network_id: str
     """
     ID of the Private Network this interface is attached to.
@@ -2566,6 +2626,11 @@ class PrivateNetworkInterface:
     tags: list[str]
     """
     Tags associated with the private network interface.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which the network interface is located.
     """
 
     created_at: Optional[datetime] = None
@@ -2675,6 +2740,11 @@ class Server:
     id: str
     """
     Unique ID of the server.
+    """
+
+    srn: str
+    """
+    The SRN of the server.
     """
 
     name: str
@@ -2949,6 +3019,11 @@ class Template:
     id: str
     """
     Unique ID of the template.
+    """
+
+    srn: str
+    """
+    The SRN of the template.
     """
 
     name: str

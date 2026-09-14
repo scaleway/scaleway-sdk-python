@@ -105,6 +105,11 @@ class GatewayNetwork:
     ID of the Public Gateway-Private Network connection.
     """
 
+    srn: str
+    """
+    The SRN of the gateway network.
+    """
+
     gateway_id: str
     """
     ID of the connected Public Gateway.
@@ -161,6 +166,11 @@ class IP:
     id: str
     """
     IP address ID.
+    """
+
+    srn: str
+    """
+    The SRN of the ip.
     """
 
     organization_id: str
@@ -232,6 +242,11 @@ class Gateway:
     id: str
     """
     ID of the gateway.
+    """
+
+    srn: str
+    """
+    The SRN of the gateway.
     """
 
     organization_id: str
@@ -335,6 +350,11 @@ class PatRule:
     id: str
     """
     PAT rule ID.
+    """
+
+    srn: str
+    """
+    The SRN of the PAT rule.
     """
 
     gateway_id: str
