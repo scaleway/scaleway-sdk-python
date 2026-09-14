@@ -19,6 +19,16 @@ from ...std.types import (
 )
 
 
+class Action(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
+    CREATE = "create"
+    UPDATE = "update"
+    DELETE = "delete"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class AlertRuleStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     ENABLED = "enabled"
@@ -627,7 +637,7 @@ class Resource:
     updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
     name: Optional[str] = None
-    action: Optional[str] = None
+    action: Optional[Action] = None
     secm_secret_info: Optional[SecretManagerSecretInfo] = None
 
     secm_secret_version_info: Optional[SecretManagerSecretVersionInfo] = None
