@@ -16,6 +16,7 @@ from .types import (
     KeyAlgorithmKeyEncapsulation,
     KeyAlgorithmSymmetricEncryption,
     KeyOrigin,
+    KeyRotationStatus,
     KeyState,
     KeyRotationPolicy,
     KeyUsage,
@@ -25,6 +26,8 @@ from .types import (
     EncryptResponse,
     ListAlgorithmsResponseAlgorithm,
     ListAlgorithmsResponse,
+    KeyRotation,
+    ListKeyRotationsResponse,
     ListKeysResponse,
     PublicKey,
     SignResponse,
@@ -33,6 +36,7 @@ from .types import (
     WrapKeyResponse,
     CreateKeyRequest,
     DecryptRequest,
+    DeleteKeyMaterialRequest,
     EncryptRequest,
     GenerateDataKeyRequest,
     ImportKeyMaterialRequest,
@@ -126,6 +130,12 @@ def unmarshal_Key(data: Any) -> Key:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -149,24 +159,6 @@ def unmarshal_Key(data: Any) -> Key:
         args["rotation_count"] = field
     else:
         args["rotation_count"] = 0
-
-    field = data.get("usage", None)
-    if field is not None:
-        args["usage"] = unmarshal_KeyUsage(field)
-    else:
-        args["usage"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
 
     field = data.get("protected", None)
     if field is not None:
@@ -197,6 +189,24 @@ def unmarshal_Key(data: Any) -> Key:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("usage", None)
+    if field is not None:
+        args["usage"] = unmarshal_KeyUsage(field)
+    else:
+        args["usage"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -372,6 +382,84 @@ def unmarshal_ListAlgorithmsResponse(data: Any) -> ListAlgorithmsResponse:
         args["algorithms"] = []
 
     return ListAlgorithmsResponse(**args)
+
+
+def unmarshal_KeyRotation(data: Any) -> KeyRotation:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'KeyRotation' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
+    field = data.get("index", None)
+    if field is not None:
+        args["index"] = field
+    else:
+        args["index"] = 0
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = KeyRotationStatus.UNKNOWN_STATUS
+
+    field = data.get("manually_rotated", None)
+    if field is not None:
+        args["manually_rotated"] = field
+    else:
+        args["manually_rotated"] = False
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("deleted_at", None)
+    if field is not None:
+        args["deleted_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["deleted_at"] = None
+
+    return KeyRotation(**args)
+
+
+def unmarshal_ListKeyRotationsResponse(data: Any) -> ListKeyRotationsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListKeyRotationsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("rotations", None)
+    if field is not None:
+        args["rotations"] = (
+            [unmarshal_KeyRotation(v) for v in field] if field is not None else None
+        )
+    else:
+        args["rotations"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return ListKeyRotationsResponse(**args)
 
 
 def unmarshal_ListKeysResponse(data: Any) -> ListKeysResponse:
@@ -604,6 +692,18 @@ def marshal_DecryptRequest(
 
     if request.associated_data is not None:
         output["associated_data"] = request.associated_data
+
+    return output
+
+
+def marshal_DeleteKeyMaterialRequest(
+    request: DeleteKeyMaterialRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.key_rotation_index is not None:
+        output["key_rotation_index"] = request.key_rotation_index
 
     return output
 

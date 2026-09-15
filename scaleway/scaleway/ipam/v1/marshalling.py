@@ -139,6 +139,12 @@ def unmarshal_IP(data: Any) -> IP:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
@@ -156,26 +162,6 @@ def unmarshal_IP(data: Any) -> IP:
         args["is_ipv6"] = field
     else:
         args["is_ipv6"] = False
-
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-    else:
-        args["tags"] = []
-
-    field = data.get("reverses", None)
-    if field is not None:
-        args["reverses"] = (
-            [unmarshal_Reverse(v) for v in field] if field is not None else None
-        )
-    else:
-        args["reverses"] = []
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -200,6 +186,26 @@ def unmarshal_IP(data: Any) -> IP:
         args["resource"] = unmarshal_Resource(field)
     else:
         args["resource"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
+    field = data.get("reverses", None)
+    if field is not None:
+        args["reverses"] = (
+            [unmarshal_Reverse(v) for v in field] if field is not None else None
+        )
+    else:
+        args["reverses"] = []
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("zone", None)
     if field is not None:

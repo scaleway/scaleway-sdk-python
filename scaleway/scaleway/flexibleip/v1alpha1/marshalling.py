@@ -145,6 +145,12 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
     else:
         args["zone"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field

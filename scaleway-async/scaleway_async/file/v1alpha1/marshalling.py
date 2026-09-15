@@ -90,6 +90,12 @@ def unmarshal_FileSystem(data: Any) -> FileSystem:
     else:
         args["filesystem_type_id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -142,6 +148,12 @@ def unmarshal_Attachment(data: Any) -> Attachment:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("zone", None)
     if field is not None:
