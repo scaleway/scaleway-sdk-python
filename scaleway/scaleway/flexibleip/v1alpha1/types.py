@@ -148,6 +148,11 @@ class FlexibleIP:
     Availability Zone of the flexible IP.
     """
 
+    srn: str
+    """
+    The SRN of the flexible ip.
+    """
+
     updated_at: Optional[datetime] = None
     """
     Date on which the flexible IP was last updated.
