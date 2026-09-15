@@ -53,6 +53,7 @@ from .types import DeleteTriggerRequest
 from .types import GetContainerRequest
 from .types import GetDomainRequest
 from .types import GetNamespaceRequest
+from .types import GetPrivateEndpointCertificateAuthorityRequest
 from .types import GetTriggerRequest
 from .types import ListContainersRequest
 from .types import ListContainersResponse
@@ -123,6 +124,7 @@ __all__ = [
     "GetContainerRequest",
     "GetDomainRequest",
     "GetNamespaceRequest",
+    "GetPrivateEndpointCertificateAuthorityRequest",
     "GetTriggerRequest",
     "ListContainersRequest",
     "ListContainersResponse",
