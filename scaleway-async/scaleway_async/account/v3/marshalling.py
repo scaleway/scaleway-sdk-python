@@ -400,6 +400,12 @@ def unmarshal_Project(data: Any) -> Project:
     else:
         args["status"] = ProjectStatus.UNKNOWN_STATUS
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field

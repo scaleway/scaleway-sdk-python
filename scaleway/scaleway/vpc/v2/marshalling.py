@@ -57,6 +57,12 @@ def unmarshal_Subnet(data: Any) -> Subnet:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("subnet", None)
     if field is not None:
         args["subnet"] = field
@@ -116,6 +122,12 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -154,18 +166,6 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     else:
         args["subnets"] = []
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
     field = data.get("vpc_id", None)
     if field is not None:
         args["vpc_id"] = field
@@ -190,6 +190,18 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     else:
         args["has_object_storage_private_access"] = False
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     return PrivateNetwork(**args)
 
 
@@ -206,6 +218,12 @@ def unmarshal_Route(data: Any) -> Route:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -231,12 +249,6 @@ def unmarshal_Route(data: Any) -> Route:
     else:
         args["destination"] = None
 
-    field = data.get("nexthop_resource_id", None)
-    if field is not None:
-        args["nexthop_resource_id"] = field
-    else:
-        args["nexthop_resource_id"] = None
-
     field = data.get("is_read_only", None)
     if field is not None:
         args["is_read_only"] = field
@@ -248,6 +260,12 @@ def unmarshal_Route(data: Any) -> Route:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("nexthop_resource_id", None)
+    if field is not None:
+        args["nexthop_resource_id"] = field
+    else:
+        args["nexthop_resource_id"] = None
 
     field = data.get("nexthop_private_network_id", None)
     if field is not None:
@@ -296,6 +314,12 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("vpc_id", None)
     if field is not None:
         args["vpc_id"] = field
@@ -307,6 +331,18 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
         args["is_ipv6"] = field
     else:
         args["is_ipv6"] = False
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("source", None)
     if field is not None:
@@ -325,24 +361,6 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
         args["nexthop_private_network_id"] = field
     else:
         args["nexthop_private_network_id"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-    else:
-        args["description"] = None
 
     field = data.get("tags", None)
     if field is not None:
@@ -367,6 +385,12 @@ def unmarshal_IngressRule(data: Any) -> IngressRule:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
 
     return IngressRule(**args)
 
@@ -413,6 +437,12 @@ def unmarshal_VPCConnector(data: Any) -> VPCConnector:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -496,6 +526,12 @@ def unmarshal_VPC(data: Any) -> VPC:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:

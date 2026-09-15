@@ -78,6 +78,15 @@ class KeyOrigin(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class KeyRotationStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    ENABLED = "enabled"
+    DELETED = "deleted"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class KeyState(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATE = "unknown_state"
     ENABLED = "enabled"
@@ -95,6 +104,14 @@ class ListAlgorithmsRequestUsage(str, Enum, metaclass=StrEnumMeta):
     ASYMMETRIC_ENCRYPTION = "asymmetric_encryption"
     ASYMMETRIC_SIGNING = "asymmetric_signing"
     KEY_ENCAPSULATION = "key_encapsulation"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListKeyRotationsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -162,10 +179,53 @@ class ListAlgorithmsResponseAlgorithm:
 
 
 @dataclass
+class KeyRotation:
+    key_id: str
+    """
+    ID of the associated key.
+    """
+
+    index: int
+    """
+    The rotation index tracks the specific version of the key material.
+    """
+
+    status: KeyRotationStatus
+    """
+    See the `KeyRotation.Status` enum for a description of possible values.
+    """
+
+    manually_rotated: bool
+    """
+    Returns `true` if the key was rotated manually, or `false` if it was rotated automatically by a rotation policy.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Key rotation creation date.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Key rotation last modification date.
+    """
+
+    deleted_at: Optional[datetime] = None
+    """
+    Key rotation deletion date.
+    """
+
+
+@dataclass
 class Key:
     id: str
     """
     ID of the key.
+    """
+
+    srn: str
+    """
+    The SRN of the key.
     """
 
     project_id: str
@@ -378,6 +438,11 @@ class DeleteKeyMaterialRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    key_rotation_index: Optional[int] = 0
+    """
+    Default to latest rotation if not set.
+    """
+
 
 @dataclass
 class DeleteKeyRequest:
@@ -547,6 +612,42 @@ class ListAlgorithmsResponse:
     algorithms: list[ListAlgorithmsResponseAlgorithm]
     """
     Returns a list of algorithms matching the requested criteria.
+    """
+
+
+@dataclass
+class ListKeyRotationsRequest:
+    key_id: str
+    """
+    ID of the key to list rotations for.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListKeyRotationsRequestOrderBy] = (
+        ListKeyRotationsRequestOrderBy.CREATED_AT_ASC
+    )
+    page: Optional[int] = 0
+    page_size: Optional[int] = 0
+    status: Optional[list[KeyRotationStatus]] = field(default_factory=list)
+    """
+    See the `KeyRotation.Status` enum for a description of possible values.
+    """
+
+
+@dataclass
+class ListKeyRotationsResponse:
+    rotations: list[KeyRotation]
+    """
+    Single page of key rotations matching the requested criteria.
+    """
+
+    total_count: int
+    """
+    Total count of key rotations matching the requested criteria.
     """
 
 

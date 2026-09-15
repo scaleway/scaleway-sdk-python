@@ -158,6 +158,11 @@ class SecretVersion:
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
     """
 
+    srn: str
+    """
+    The SRN of the secret version.
+    """
+
     secret_id: str
     """
     ID of the secret.
@@ -218,6 +223,11 @@ class Secret:
     id: str
     """
     ID of the secret.
+    """
+
+    srn: str
+    """
+    The SRN of the secret.
     """
 
     project_id: str
