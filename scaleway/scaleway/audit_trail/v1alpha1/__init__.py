@@ -18,6 +18,8 @@ from .types import ListEventsRequestOrderBy
 from .types import ListExportJobsRequestOrderBy
 from .types import ListSystemEventsRequestOrderBy
 from .types import ResourceType
+from .types import RunStatus
+from .content import RUN_TRANSIENT_STATUSES
 from .types import ServerlessContainersTriggerInfoSourceType
 from .types import ServerlessFunctionsTriggerInfoInputType
 from .types import SystemEventKind
@@ -78,6 +80,8 @@ from .types import VpcIngressRuleInfo
 from .types import VpcPrivateNetworkInfo
 from .types import VpcRouteInfo
 from .types import VpcSubnetInfo
+from .types import WoflWorkflowDefinitionInfo
+from .types import WoflWorkflowRunInfo
 from .types import Resource
 from .types import EventPrincipal
 from .types import AuthenticationEvent
@@ -147,6 +151,8 @@ __all__ = [
     "ListExportJobsRequestOrderBy",
     "ListSystemEventsRequestOrderBy",
     "ResourceType",
+    "RunStatus",
+    "RUN_TRANSIENT_STATUSES",
     "ServerlessContainersTriggerInfoSourceType",
     "ServerlessFunctionsTriggerInfoInputType",
     "SystemEventKind",
@@ -207,6 +213,8 @@ __all__ = [
     "VpcPrivateNetworkInfo",
     "VpcRouteInfo",
     "VpcSubnetInfo",
+    "WoflWorkflowDefinitionInfo",
+    "WoflWorkflowRunInfo",
     "Resource",
     "EventPrincipal",
     "AuthenticationEvent",
