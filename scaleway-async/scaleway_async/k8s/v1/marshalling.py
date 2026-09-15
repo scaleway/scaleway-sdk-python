@@ -107,6 +107,12 @@ def unmarshal_Version(data: Any) -> Version:
     else:
         args["name"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("label", None)
     if field is not None:
         args["label"] = field
@@ -384,6 +390,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
@@ -474,36 +486,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["admission_plugins"] = []
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("autoscaler_config", None)
-    if field is not None:
-        args["autoscaler_config"] = unmarshal_ClusterAutoscalerConfig(field)
-    else:
-        args["autoscaler_config"] = None
-
-    field = data.get("auto_upgrade", None)
-    if field is not None:
-        args["auto_upgrade"] = unmarshal_ClusterAutoUpgrade(field)
-    else:
-        args["auto_upgrade"] = None
-
-    field = data.get("open_id_connect_config", None)
-    if field is not None:
-        args["open_id_connect_config"] = unmarshal_ClusterOpenIDConnectConfig(field)
-    else:
-        args["open_id_connect_config"] = None
-
     field = data.get("apiserver_cert_sans", None)
     if field is not None:
         args["apiserver_cert_sans"] = field
@@ -533,6 +515,36 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["service_dns_ip"] = field
     else:
         args["service_dns_ip"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("autoscaler_config", None)
+    if field is not None:
+        args["autoscaler_config"] = unmarshal_ClusterAutoscalerConfig(field)
+    else:
+        args["autoscaler_config"] = None
+
+    field = data.get("auto_upgrade", None)
+    if field is not None:
+        args["auto_upgrade"] = unmarshal_ClusterAutoUpgrade(field)
+    else:
+        args["auto_upgrade"] = None
+
+    field = data.get("open_id_connect_config", None)
+    if field is not None:
+        args["open_id_connect_config"] = unmarshal_ClusterOpenIDConnectConfig(field)
+    else:
+        args["open_id_connect_config"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
@@ -571,6 +583,12 @@ def unmarshal_Node(data: Any) -> Node:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("pool_id", None)
     if field is not None:
         args["pool_id"] = field
@@ -607,6 +625,12 @@ def unmarshal_Node(data: Any) -> Node:
     else:
         args["conditions"] = {}
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = NodeStatus.UNKNOWN
+
     field = data.get("public_ip_v4", None)
     if field is not None:
         args["public_ip_v4"] = field
@@ -618,12 +642,6 @@ def unmarshal_Node(data: Any) -> Node:
         args["public_ip_v6"] = field
     else:
         args["public_ip_v6"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = NodeStatus.UNKNOWN
 
     field = data.get("error_message", None)
     if field is not None:
@@ -814,6 +832,18 @@ def unmarshal_Pool(data: Any) -> Pool:
     else:
         args["root_volume_type"] = PoolVolumeType.DEFAULT_VOLUME_TYPE
 
+    field = data.get("public_ip_disabled", None)
+    if field is not None:
+        args["public_ip_disabled"] = field
+    else:
+        args["public_ip_disabled"] = False
+
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+    else:
+        args["security_group_id"] = None
+
     field = data.get("placement_group_id", None)
     if field is not None:
         args["placement_group_id"] = field
@@ -831,18 +861,6 @@ def unmarshal_Pool(data: Any) -> Pool:
         args["root_volume_size"] = field
     else:
         args["root_volume_size"] = 0
-
-    field = data.get("public_ip_disabled", None)
-    if field is not None:
-        args["public_ip_disabled"] = field
-    else:
-        args["public_ip_disabled"] = False
-
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
 
     field = data.get("labels", None)
     if field is not None:
@@ -865,6 +883,12 @@ def unmarshal_Pool(data: Any) -> Pool:
         )
     else:
         args["startup_taints"] = []
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("region", None)
     if field is not None:
@@ -906,6 +930,12 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -1014,6 +1044,12 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
         args["name"] = field
     else:
         args["name"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("availability", None)
     if field is not None:
