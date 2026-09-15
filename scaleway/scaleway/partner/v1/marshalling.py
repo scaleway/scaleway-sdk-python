@@ -60,6 +60,12 @@ def unmarshal_Organization(data: Any) -> Organization:
     else:
         args["owner_lastname"] = None
 
+    field = data.get("customer_id", None)
+    if field is not None:
+        args["customer_id"] = field
+    else:
+        args["customer_id"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -71,18 +77,6 @@ def unmarshal_Organization(data: Any) -> Organization:
         args["phone_number"] = field
     else:
         args["phone_number"] = None
-
-    field = data.get("siren_number", None)
-    if field is not None:
-        args["siren_number"] = field
-    else:
-        args["siren_number"] = None
-
-    field = data.get("customer_id", None)
-    if field is not None:
-        args["customer_id"] = field
-    else:
-        args["customer_id"] = None
 
     field = data.get("lock_reason_message", None)
     if field is not None:
@@ -168,9 +162,6 @@ def marshal_CreateOrganizationRequest(
 
     if request.phone_number is not None:
         output["phone_number"] = request.phone_number
-
-    if request.siren_number is not None:
-        output["siren_number"] = request.siren_number
 
     return output
 
