@@ -401,6 +401,11 @@ class ACLRule:
     ID of the ACL rule.
     """
 
+    srn: str
+    """
+    The SRN of the ACL rule.
+    """
+
     description: str
     """
     Description of the ACL.
@@ -671,6 +676,11 @@ class ClusterType:
     Cluster type name.
     """
 
+    srn: str
+    """
+    The SRN of the cluster type.
+    """
+
     availability: ClusterTypeAvailability
     """
     Cluster type availability.
@@ -727,6 +737,11 @@ class Version:
     name: str
     """
     Name of the Kubernetes version.
+    """
+
+    srn: str
+    """
+    The SRN of the version.
     """
 
     label: str
@@ -790,6 +805,11 @@ class Cluster:
     id: str
     """
     Cluster ID.
+    """
+
+    srn: str
+    """
+    The SRN of the cluster.
     """
 
     type_: str
@@ -938,6 +958,11 @@ class Node:
     id: str
     """
     Node ID.
+    """
+
+    srn: str
+    """
+    The SRN of the node.
     """
 
     pool_id: str
@@ -1109,6 +1134,11 @@ class Pool:
     startup_taints: list[CoreV1Taint]
     """
     Kubernetes taints applied at node creation but not reconciled afterwards.
+    """
+
+    srn: str
+    """
+    The SRN of the pool.
     """
 
     region: ScwRegion
