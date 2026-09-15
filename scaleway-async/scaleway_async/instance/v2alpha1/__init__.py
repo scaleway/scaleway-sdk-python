@@ -3,6 +3,7 @@
 from .types import CreateServerRequestBookIPIPType
 from .types import CreateServerRequestServerVolumeVolumeType
 from .types import CreateVolumeRequestVolumeType
+from .types import ListDedicatedPoolsRequestOrderBy
 from .types import ListPlacementGroupsRequestOrderBy
 from .types import ListPrivateNetworkInterfacesRequestOrderBy
 from .types import ListSecurityGroupsRequestOrderBy
@@ -51,6 +52,8 @@ from .types import SecurityGroupRuleConfig
 from .types import SecurityGroup
 from .types import CreateServerRequestPublicNetworkInterface
 from .types import CreateServerRequestServerVolume
+from .types import DedicatedPoolServerType
+from .types import DedicatedPoolSummary
 from .types import PlacementGroup
 from .types import PrivateNetworkInterfaceSummary
 from .types import SecurityGroupSummary
@@ -81,6 +84,7 @@ from .types import CreateSecurityGroupRequest
 from .types import CreateServerFromTemplateRequest
 from .types import CreateServerRequest
 from .types import CreateTemplateRequest
+from .types import DedicatedPool
 from .types import DeletePlacementGroupRequest
 from .types import DeletePrivateNetworkInterfaceRequest
 from .types import DeleteSecurityGroupRequest
@@ -94,6 +98,7 @@ from .types import DetachServerFileSystemRequest
 from .types import DetachServerIPRequest
 from .types import DetachServerPrivateNetworkInterfaceRequest
 from .types import DetachServerVolumeRequest
+from .types import GetDedicatedPoolRequest
 from .types import GetPlacementGroupRequest
 from .types import GetPrivateNetworkInterfaceRequest
 from .types import GetResourceCountsRequest
@@ -104,6 +109,10 @@ from .types import GetTemplateCloudInitRequest
 from .types import GetTemplateRequest
 from .types import GetTemplateUserDataRequest
 from .types import GetUserDataRequest
+from .types import ListDedicatedPoolServerTypesRequest
+from .types import ListDedicatedPoolServerTypesResponse
+from .types import ListDedicatedPoolsRequest
+from .types import ListDedicatedPoolsResponse
 from .types import ListPlacementGroupsRequest
 from .types import ListPlacementGroupsResponse
 from .types import ListPrivateNetworkInterfacesRequest
@@ -138,6 +147,7 @@ from .types import StartServerRequest
 from .types import StopAndDeleteServerRequest
 from .types import StopServerRequest
 from .types import Template
+from .types import UpdateDedicatedPoolRequest
 from .types import UpdatePlacementGroupRequest
 from .types import UpdatePrivateNetworkInterfaceRequest
 from .types import UpdateSecurityGroupRequest
@@ -165,6 +175,7 @@ __all__ = [
     "CreateServerRequestBookIPIPType",
     "CreateServerRequestServerVolumeVolumeType",
     "CreateVolumeRequestVolumeType",
+    "ListDedicatedPoolsRequestOrderBy",
     "ListPlacementGroupsRequestOrderBy",
     "ListPrivateNetworkInterfacesRequestOrderBy",
     "ListSecurityGroupsRequestOrderBy",
@@ -213,6 +224,8 @@ __all__ = [
     "SecurityGroup",
     "CreateServerRequestPublicNetworkInterface",
     "CreateServerRequestServerVolume",
+    "DedicatedPoolServerType",
+    "DedicatedPoolSummary",
     "PlacementGroup",
     "PrivateNetworkInterfaceSummary",
     "SecurityGroupSummary",
@@ -243,6 +256,7 @@ __all__ = [
     "CreateServerFromTemplateRequest",
     "CreateServerRequest",
     "CreateTemplateRequest",
+    "DedicatedPool",
     "DeletePlacementGroupRequest",
     "DeletePrivateNetworkInterfaceRequest",
     "DeleteSecurityGroupRequest",
@@ -256,6 +270,7 @@ __all__ = [
     "DetachServerIPRequest",
     "DetachServerPrivateNetworkInterfaceRequest",
     "DetachServerVolumeRequest",
+    "GetDedicatedPoolRequest",
     "GetPlacementGroupRequest",
     "GetPrivateNetworkInterfaceRequest",
     "GetResourceCountsRequest",
@@ -266,6 +281,10 @@ __all__ = [
     "GetTemplateRequest",
     "GetTemplateUserDataRequest",
     "GetUserDataRequest",
+    "ListDedicatedPoolServerTypesRequest",
+    "ListDedicatedPoolServerTypesResponse",
+    "ListDedicatedPoolsRequest",
+    "ListDedicatedPoolsResponse",
     "ListPlacementGroupsRequest",
     "ListPlacementGroupsResponse",
     "ListPrivateNetworkInterfacesRequest",
@@ -300,6 +319,7 @@ __all__ = [
     "StopAndDeleteServerRequest",
     "StopServerRequest",
     "Template",
+    "UpdateDedicatedPoolRequest",
     "UpdatePlacementGroupRequest",
     "UpdatePrivateNetworkInterfaceRequest",
     "UpdateSecurityGroupRequest",

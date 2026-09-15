@@ -16,6 +16,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     CreateVolumeRequestVolumeType,
+    ListDedicatedPoolsRequestOrderBy,
     ListPlacementGroupsRequestOrderBy,
     ListPrivateNetworkInterfacesRequestOrderBy,
     ListSecurityGroupsRequestOrderBy,
@@ -47,11 +48,14 @@ from .types import (
     CreateTemplateRequest,
     CreateTemplateRequestPrivateNetworkTemplate,
     CreateTemplateRequestVolumeTemplate,
+    DedicatedPool,
     DeleteSecurityGroupRulesRequest,
     DetachServerFileSystemRequest,
     DetachServerIPRequest,
     DetachServerPrivateNetworkInterfaceRequest,
     DetachServerVolumeRequest,
+    ListDedicatedPoolServerTypesResponse,
+    ListDedicatedPoolsResponse,
     ListPlacementGroupsResponse,
     ListPrivateNetworkInterfacesResponse,
     ListSecurityGroupsResponse,
@@ -79,6 +83,7 @@ from .types import (
     Snapshot,
     StopAndDeleteServerRequest,
     Template,
+    UpdateDedicatedPoolRequest,
     UpdatePlacementGroupRequest,
     UpdatePrivateNetworkInterfaceRequest,
     UpdateSecurityGroupRequest,
@@ -109,6 +114,9 @@ from .marshalling import (
     unmarshal_Snapshot,
     unmarshal_Volume,
     unmarshal_AddSecurityGroupRulesResponse,
+    unmarshal_DedicatedPool,
+    unmarshal_ListDedicatedPoolServerTypesResponse,
+    unmarshal_ListDedicatedPoolsResponse,
     unmarshal_ListPlacementGroupsResponse,
     unmarshal_ListPrivateNetworkInterfacesResponse,
     unmarshal_ListSecurityGroupsResponse,
@@ -148,6 +156,7 @@ from .marshalling import (
     marshal_SetTemplateUserDataRequest,
     marshal_SetUserDataRequest,
     marshal_StopAndDeleteServerRequest,
+    marshal_UpdateDedicatedPoolRequest,
     marshal_UpdatePlacementGroupRequest,
     marshal_UpdatePrivateNetworkInterfaceRequest,
     marshal_UpdateSecurityGroupRequest,
@@ -223,6 +232,7 @@ class InstanceV2Alpha1API(API):
         tags: Optional[list[str]] = None,
         security_group_ids: Optional[list[str]] = None,
         placement_group_ids: Optional[list[str]] = None,
+        dedicated_pool_ids: Optional[list[str]] = None,
         private_network_ids: Optional[list[str]] = None,
         mac_addresses: Optional[list[str]] = None,
     ) -> ListServersResponse:
@@ -239,6 +249,7 @@ class InstanceV2Alpha1API(API):
         :param tags: Tags to filter servers.
         :param security_group_ids: Security group IDs to filter servers.
         :param placement_group_ids: Placement group IDs to filter servers.
+        :param dedicated_pool_ids: Filter servers associated with these Dedicated Pools.
         :param private_network_ids: Private Network IDs to filter servers.
         :param mac_addresses: MAC addresses to filter servers.
         :return: :class:`ListServersResponse <ListServersResponse>`
@@ -255,6 +266,7 @@ class InstanceV2Alpha1API(API):
             "GET",
             f"/instance/v2alpha1/zones/{param_zone}/servers",
             params={
+                "dedicated_pool_ids": dedicated_pool_ids,
                 "mac_addresses": mac_addresses,
                 "name": name,
                 "order_by": order_by,
@@ -282,6 +294,7 @@ class InstanceV2Alpha1API(API):
         project_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
         placement_group_id: Optional[str] = None,
+        dedicated_pool_id: Optional[str] = None,
         volumes: Optional[list[CreateServerRequestServerVolume]] = None,
         windows_rdp_ssh_key_id: Optional[str] = None,
         public_network_interface: Optional[
@@ -297,6 +310,7 @@ class InstanceV2Alpha1API(API):
         :param project_id: Project ID for the server.
         :param tags: Tags to associate with the server.
         :param placement_group_id: ID of the placement group the server belongs to.
+        :param dedicated_pool_id: ID of the Dedicated Pool this server belongs to.
         :param volumes: Volumes to attach to the server.
         :param windows_rdp_ssh_key_id: IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use.
         :param public_network_interface: Public network interface configuration.
@@ -324,6 +338,7 @@ class InstanceV2Alpha1API(API):
                     project_id=project_id,
                     tags=tags,
                     placement_group_id=placement_group_id,
+                    dedicated_pool_id=dedicated_pool_id,
                     volumes=volumes,
                     windows_rdp_ssh_key_id=windows_rdp_ssh_key_id,
                     public_network_interface=public_network_interface,
@@ -413,6 +428,7 @@ class InstanceV2Alpha1API(API):
         tags: Optional[list[str]] = None,
         server_type: Optional[str] = None,
         placement_group_id: Optional[str] = None,
+        dedicated_pool_id: Optional[str] = None,
         rescue_mode: Optional[bool] = None,
         boot_volume_id: Optional[str] = None,
         windows_rdp_ssh_key_id: Optional[str] = None,
@@ -430,6 +446,7 @@ class InstanceV2Alpha1API(API):
         :param tags: New tags for the server.
         :param server_type: New server type.
         :param placement_group_id: New placement group ID.
+        :param dedicated_pool_id: New Dedicated Pool ID.
         :param rescue_mode: New rescue mode setting.
         :param boot_volume_id: New boot volume ID.
         :param windows_rdp_ssh_key_id: New IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use.
@@ -459,6 +476,7 @@ class InstanceV2Alpha1API(API):
                     tags=tags,
                     server_type=server_type,
                     placement_group_id=placement_group_id,
+                    dedicated_pool_id=dedicated_pool_id,
                     rescue_mode=rescue_mode,
                     boot_volume_id=boot_volume_id,
                     windows_rdp_ssh_key_id=windows_rdp_ssh_key_id,
@@ -2902,6 +2920,171 @@ class InstanceV2Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
+
+    async def list_dedicated_pools(
+        self,
+        *,
+        zone: Optional[ScwZone] = None,
+        page_token: Optional[str] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListDedicatedPoolsRequestOrderBy] = None,
+        organization_id: Optional[str] = None,
+    ) -> ListDedicatedPoolsResponse:
+        """
+        List Dedicated Pools.
+        List Dedicated Pools for an organization.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param page_token: Token for pagination.
+        :param page_size: Number of Dedicated Pools to return per page.
+        :param order_by: Order in which to return Dedicated Pools.
+        :param organization_id: Organization ID to filter Dedicated Pools by.
+        :return: :class:`ListDedicatedPoolsResponse <ListDedicatedPoolsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_dedicated_pools()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "GET",
+            f"/instance/v2alpha1/zones/{param_zone}/dedicated-pools",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page_size": page_size or self.client.default_page_size,
+                "page_token": page_token,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListDedicatedPoolsResponse(res.json())
+
+    async def get_dedicated_pool(
+        self,
+        *,
+        dedicated_pool_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> DedicatedPool:
+        """
+        Get a Dedicated Pool.
+        Get detailed information about a Dedicated Pool.
+        :param dedicated_pool_id: ID of the Dedicated Pool to retrieve.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`DedicatedPool <DedicatedPool>`
+
+        Usage:
+        ::
+
+            result = await api.get_dedicated_pool(
+                dedicated_pool_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_dedicated_pool_id = validate_path_param(
+            "dedicated_pool_id", dedicated_pool_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/instance/v2alpha1/zones/{param_zone}/dedicated-pools/{param_dedicated_pool_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DedicatedPool(res.json())
+
+    async def update_dedicated_pool(
+        self,
+        *,
+        dedicated_pool_id: str,
+        zone: Optional[ScwZone] = None,
+        name: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+    ) -> DedicatedPool:
+        """
+        Update a Dedicated Pool.
+        Update the name and tags of a Dedicated Pool.
+        :param dedicated_pool_id: ID of the Dedicated Pool to update.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param name: New name for the Dedicated Pool.
+        :param tags: New tags for the Dedicated Pool.
+        :return: :class:`DedicatedPool <DedicatedPool>`
+
+        Usage:
+        ::
+
+            result = await api.update_dedicated_pool(
+                dedicated_pool_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_dedicated_pool_id = validate_path_param(
+            "dedicated_pool_id", dedicated_pool_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/instance/v2alpha1/zones/{param_zone}/dedicated-pools/{param_dedicated_pool_id}",
+            body=marshal_UpdateDedicatedPoolRequest(
+                UpdateDedicatedPoolRequest(
+                    dedicated_pool_id=dedicated_pool_id,
+                    zone=zone,
+                    name=name,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DedicatedPool(res.json())
+
+    async def list_dedicated_pool_server_types(
+        self,
+        *,
+        dedicated_pool_id: str,
+        zone: Optional[ScwZone] = None,
+        page_token: Optional[str] = None,
+        page_size: Optional[int] = None,
+    ) -> ListDedicatedPoolServerTypesResponse:
+        """
+        List Instance types for a Dedicated Pool.
+        List Instance types available in a Dedicated Pool and their technical details.
+        :param dedicated_pool_id: ID of the Dedicated Pool to list Instance types for.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param page_token: Token for pagination.
+        :param page_size: Number of Instance types to return per page.
+        :return: :class:`ListDedicatedPoolServerTypesResponse <ListDedicatedPoolServerTypesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_dedicated_pool_server_types(
+                dedicated_pool_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_dedicated_pool_id = validate_path_param(
+            "dedicated_pool_id", dedicated_pool_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/instance/v2alpha1/zones/{param_zone}/dedicated-pools/{param_dedicated_pool_id}/server-types",
+            params={
+                "page_size": page_size or self.client.default_page_size,
+                "page_token": page_token,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListDedicatedPoolServerTypesResponse(res.json())
 
 
 class InstanceV2Alpha1VolumeAPI(API):

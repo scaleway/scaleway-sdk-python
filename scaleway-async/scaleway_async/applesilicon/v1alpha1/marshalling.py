@@ -42,6 +42,8 @@ from .types import (
     ListServersResponse,
     SetServerPrivateNetworksResponse,
     StartConnectivityDiagnosticResponse,
+    UpdateRunnerConfigurationStatusResponse,
+    UserConfiguration,
     BatchCreateServersRequestBatchInnerCreateServerRequest,
     BatchCreateServersRequest,
     CreateRunnerRequest,
@@ -51,6 +53,7 @@ from .types import (
     PrivateNetworkApiSetServerPrivateNetworksRequest,
     ReinstallServerRequest,
     StartConnectivityDiagnosticRequest,
+    UpdateRunnerConfigurationStatusRequest,
     UpdateRunnerRequest,
     CommitmentTypeValue,
     UpdateServerRequest,
@@ -227,6 +230,30 @@ def unmarshal_RunnerConfiguration(data: Any) -> RunnerConfiguration:
         args["provider"] = field
     else:
         args["provider"] = None
+
+    field = data.get("download_runner", None)
+    if field is not None:
+        args["download_runner"] = field
+    else:
+        args["download_runner"] = None
+
+    field = data.get("action", None)
+    if field is not None:
+        args["action"] = field
+    else:
+        args["action"] = None
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("labels", None)
+    if field is not None:
+        args["labels"] = field
+    else:
+        args["labels"] = None
 
     return RunnerConfiguration(**args)
 
@@ -1086,6 +1113,52 @@ def unmarshal_StartConnectivityDiagnosticResponse(
     return StartConnectivityDiagnosticResponse(**args)
 
 
+def unmarshal_UpdateRunnerConfigurationStatusResponse(
+    data: Any,
+) -> UpdateRunnerConfigurationStatusResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'UpdateRunnerConfigurationStatusResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return UpdateRunnerConfigurationStatusResponse(**args)
+
+
+def unmarshal_UserConfiguration(data: Any) -> UserConfiguration:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'UserConfiguration' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("vnc_password", None)
+    if field is not None:
+        args["vnc_password"] = field
+    else:
+        args["vnc_password"] = None
+
+    field = data.get("ssh_keys", None)
+    if field is not None:
+        args["ssh_keys"] = field
+    else:
+        args["ssh_keys"] = None
+
+    field = data.get("runner_configurations", None)
+    if field is not None:
+        args["runner_configurations"] = (
+            [unmarshal_RunnerConfiguration(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["runner_configurations"] = None
+
+    return UserConfiguration(**args)
+
+
 def marshal_BatchCreateServersRequestBatchInnerCreateServerRequest(
     request: BatchCreateServersRequestBatchInnerCreateServerRequest,
     defaults: ProfileDefaults,
@@ -1251,6 +1324,18 @@ def marshal_RunnerConfiguration(
     if request.provider is not None:
         output["provider"] = request.provider
 
+    if request.download_runner is not None:
+        output["download_runner"] = request.download_runner
+
+    if request.action is not None:
+        output["action"] = request.action
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.labels is not None:
+        output["labels"] = request.labels
+
     return output
 
 
@@ -1351,6 +1436,20 @@ def marshal_StartConnectivityDiagnosticRequest(
 
     if request.server_id is not None:
         output["server_id"] = request.server_id
+
+    return output
+
+
+def marshal_UpdateRunnerConfigurationStatusRequest(
+    request: UpdateRunnerConfigurationStatusRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.runner_errors is not None:
+        output["runner_errors"] = {
+            key: value for key, value in request.runner_errors.items()
+        }
 
     return output
 
