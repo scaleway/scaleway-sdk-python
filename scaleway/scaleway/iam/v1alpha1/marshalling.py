@@ -145,6 +145,12 @@ def unmarshal_JWT(data: Any) -> JWT:
     else:
         args["user_agent"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -192,6 +198,12 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     else:
         args["default_project_id"] = None
 
+    field = data.get("editable", None)
+    if field is not None:
+        args["editable"] = field
+    else:
+        args["editable"] = False
+
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
@@ -203,12 +215,6 @@ def unmarshal_APIKey(data: Any) -> APIKey:
         args["application_id"] = field
     else:
         args["application_id"] = None
-
-    field = data.get("editable", None)
-    if field is not None:
-        args["editable"] = field
-    else:
-        args["editable"] = False
 
     field = data.get("deletable", None)
     if field is not None:
@@ -227,6 +233,12 @@ def unmarshal_APIKey(data: Any) -> APIKey:
         args["creation_ip"] = field
     else:
         args["creation_ip"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("user_id", None)
     if field is not None:
@@ -316,6 +328,12 @@ def unmarshal_Application(data: Any) -> Application:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -424,6 +442,12 @@ def unmarshal_Group(data: Any) -> Group:
     else:
         args["all_applications"] = False
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     return Group(**args)
 
 
@@ -482,6 +506,12 @@ def unmarshal_Log(data: Any) -> Log:
         args["resource_id"] = field
     else:
         args["resource_id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -577,6 +607,12 @@ def unmarshal_Policy(data: Any) -> Policy:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("user_id", None)
     if field is not None:
@@ -692,6 +728,12 @@ def unmarshal_Quotum(data: Any) -> Quotum:
     else:
         args["limits"] = []
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("limit", None)
     if field is not None:
         args["limit"] = field
@@ -757,6 +799,12 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
     else:
         args["disabled"] = False
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -803,6 +851,12 @@ def unmarshal_SamlCertificate(data: Any) -> SamlCertificate:
         args["content"] = field
     else:
         args["content"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
@@ -906,12 +960,6 @@ def unmarshal_User(data: Any) -> User:
     else:
         args["organization_id"] = None
 
-    field = data.get("deletable", None)
-    if field is not None:
-        args["deletable"] = field
-    else:
-        args["deletable"] = False
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -924,13 +972,11 @@ def unmarshal_User(data: Any) -> User:
     else:
         args["updated_at"] = None
 
-    field = data.get("last_login_at", None)
+    field = data.get("deletable", None)
     if field is not None:
-        args["last_login_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
+        args["deletable"] = field
     else:
-        args["last_login_at"] = None
+        args["deletable"] = False
 
     field = data.get("type", None)
     if field is not None:
@@ -961,6 +1007,20 @@ def unmarshal_User(data: Any) -> User:
         args["locked"] = field
     else:
         args["locked"] = False
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("last_login_at", None)
+    if field is not None:
+        args["last_login_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_login_at"] = None
 
     field = data.get("two_factor_enabled", None)
     if field is not None:
@@ -1515,6 +1575,12 @@ def unmarshal_Rule(data: Any) -> Rule:
     else:
         args["condition"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("permission_set_names", None)
     if field is not None:
         args["permission_set_names"] = field
@@ -1884,6 +1950,12 @@ def unmarshal_Saml(data: Any) -> Saml:
         args["single_sign_on_url"] = field
     else:
         args["single_sign_on_url"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("service_provider", None)
     if field is not None:

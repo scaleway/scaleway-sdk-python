@@ -101,11 +101,6 @@ class Organization:
     Organization owner's phone number.
     """
 
-    siren_number: Optional[str] = None
-    """
-    Siren number of the organization.
-    """
-
     locked_at: Optional[datetime] = None
     """
     Date of lock.
@@ -152,11 +147,6 @@ class CreateOrganizationRequest:
     phone_number: Optional[str] = None
     """
     The phone number of the new organization owner.
-    """
-
-    siren_number: Optional[str] = None
-    """
-    A SIREN number for the customer.
     """
 
 

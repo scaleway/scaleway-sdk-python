@@ -284,6 +284,25 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SERVERLESS_FUNCTIONS_DOMAIN = "serverless_functions_domain"
     SERVERLESS_FUNCTIONS_CRON = "serverless_functions_cron"
     SERVERLESS_FUNCTIONS_TRIGGER = "serverless_functions_trigger"
+    WOFL_WORKFLOW_DEFINITION = "wofl_workflow_definition"
+    WOFL_WORKFLOW_RUN = "wofl_workflow_run"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RunStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_RUN_STATUS = "unknown_run_status"
+    INITIALIZED = "initialized"
+    VALIDATED = "validated"
+    QUEUED = "queued"
+    RUNNING = "running"
+    SUCCEEDED = "succeeded"
+    FAILED = "failed"
+    INTERRUPTING = "interrupting"
+    INTERRUPTED = "interrupted"
+    PAUSING = "pausing"
+    PAUSED = "paused"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -640,6 +659,19 @@ class VpcSubnetInfo:
 
 
 @dataclass
+class WoflWorkflowDefinitionInfo:
+    name: str
+    description: Optional[str] = None
+
+
+@dataclass
+class WoflWorkflowRunInfo:
+    workflow_definition_id: str
+    status: RunStatus
+    workflow_definition_name: Optional[str] = None
+
+
+@dataclass
 class Resource:
     id: str
     type_: ResourceType
@@ -773,6 +805,10 @@ class Resource:
     serverless_functions_cron_info: Optional[ServerlessFunctionsCronInfo] = None
 
     serverless_functions_trigger_info: Optional[ServerlessFunctionsTriggerInfo] = None
+
+    wofl_workflow_definition_info: Optional[WoflWorkflowDefinitionInfo] = None
+
+    wofl_workflow_run_info: Optional[WoflWorkflowRunInfo] = None
 
 
 @dataclass
