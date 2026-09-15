@@ -4,6 +4,7 @@
 from .types import (
     AlertRuleStatus,
     CustomAlertRuleStatus,
+    RunStatus,
 )
 
 ALERT_RULE_TRANSIENT_STATUSES: list[AlertRuleStatus] = [
@@ -19,4 +20,11 @@ CUSTOM_ALERT_RULE_TRANSIENT_STATUSES: list[CustomAlertRuleStatus] = [
 ]
 """
 Lists transient statutes of the enum :class:`CustomAlertRuleStatus <CustomAlertRuleStatus>`.
+"""
+RUN_TRANSIENT_STATUSES: list[RunStatus] = [
+    RunStatus.INTERRUPTING,
+    RunStatus.PAUSING,
+]
+"""
+Lists transient statutes of the enum :class:`RunStatus <RunStatus>`.
 """

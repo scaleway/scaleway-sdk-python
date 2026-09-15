@@ -244,6 +244,11 @@ class Snapshot:
     True if the snapshot can be used by anyone to create a volume from.
     """
 
+    srn: str
+    """
+    The SRN of the snapshot.
+    """
+
     parent_volume: Optional[SnapshotParentVolume] = None
     """
     If the parent volume was deleted, value is null.
@@ -275,6 +280,11 @@ class VolumeType:
     zone: ScwZone
     """
     Zone of the volume type.
+    """
+
+    srn: str
+    """
+    The SRN of the volume type.
     """
 
     pricing: Optional[Money] = None
@@ -338,6 +348,11 @@ class Volume:
     zone: ScwZone
     """
     Volume zone.
+    """
+
+    srn: str
+    """
+    The SRN of the volume.
     """
 
     created_at: Optional[datetime] = None
