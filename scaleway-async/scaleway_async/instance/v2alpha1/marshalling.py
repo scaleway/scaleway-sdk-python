@@ -213,6 +213,12 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -322,6 +328,12 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -380,6 +392,12 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("project_id", None)
     if field is not None:
@@ -463,6 +481,12 @@ def unmarshal_Volume(data: Any) -> Volume:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("project_id", None)
     if field is not None:
@@ -607,6 +631,12 @@ def unmarshal_PrivateNetworkInterfaceSummary(
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
@@ -718,6 +748,12 @@ def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -1037,6 +1073,12 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -1219,6 +1261,12 @@ def unmarshal_TemplateSummary(data: Any) -> TemplateSummary:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -1249,18 +1297,6 @@ def unmarshal_TemplateSummary(data: Any) -> TemplateSummary:
     else:
         args["public_ip_v4_count"] = 0
 
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
-    field = data.get("placement_group_id", None)
-    if field is not None:
-        args["placement_group_id"] = field
-    else:
-        args["placement_group_id"] = None
-
     field = data.get("public_ip_v6_count", None)
     if field is not None:
         args["public_ip_v6_count"] = field
@@ -1278,6 +1314,18 @@ def unmarshal_TemplateSummary(data: Any) -> TemplateSummary:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+    else:
+        args["security_group_id"] = None
+
+    field = data.get("placement_group_id", None)
+    if field is not None:
+        args["placement_group_id"] = field
+    else:
+        args["placement_group_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -1458,6 +1506,12 @@ def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
@@ -1655,6 +1709,12 @@ def unmarshal_ServerIP(data: Any) -> ServerIP:
     else:
         args["default"] = None
 
+    field = data.get("provisioned_address", None)
+    if field is not None:
+        args["provisioned_address"] = field
+    else:
+        args["provisioned_address"] = None
+
     return ServerIP(**args)
 
 
@@ -1831,6 +1891,12 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -1869,12 +1935,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["volumes"] = []
 
-    field = data.get("placement_group_id", None)
-    if field is not None:
-        args["placement_group_id"] = field
-    else:
-        args["placement_group_id"] = None
-
     field = data.get("filesystems", None)
     if field is not None:
         args["filesystems"] = (
@@ -1884,6 +1944,12 @@ def unmarshal_Server(data: Any) -> Server:
         )
     else:
         args["filesystems"] = []
+
+    field = data.get("placement_group_id", None)
+    if field is not None:
+        args["placement_group_id"] = field
+    else:
+        args["placement_group_id"] = None
 
     field = data.get("architecture", None)
     if field is not None:
@@ -2048,6 +2114,12 @@ def unmarshal_Template(data: Any) -> Template:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -2072,18 +2144,6 @@ def unmarshal_Template(data: Any) -> Template:
     else:
         args["server_type"] = None
 
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
-    field = data.get("placement_group_id", None)
-    if field is not None:
-        args["placement_group_id"] = field
-    else:
-        args["placement_group_id"] = None
-
     field = data.get("public_ip_v4_count", None)
     if field is not None:
         args["public_ip_v4_count"] = field
@@ -2105,6 +2165,18 @@ def unmarshal_Template(data: Any) -> Template:
         )
     else:
         args["volumes"] = []
+
+    field = data.get("security_group_id", None)
+    if field is not None:
+        args["security_group_id"] = field
+    else:
+        args["security_group_id"] = None
+
+    field = data.get("placement_group_id", None)
+    if field is not None:
+        args["placement_group_id"] = field
+    else:
+        args["placement_group_id"] = None
 
     field = data.get("private_networks", None)
     if field is not None:

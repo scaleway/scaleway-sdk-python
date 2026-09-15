@@ -183,6 +183,11 @@ class DedicatedConnection:
     Unique identifier of the dedicated connection.
     """
 
+    srn: str
+    """
+    The SRN of the dedicated connection.
+    """
+
     project_id: str
     """
     Project ID.
@@ -254,6 +259,11 @@ class Link:
     id: str
     """
     Unique identifier of the link.
+    """
+
+    srn: str
+    """
+    The SRN of the link.
     """
 
     project_id: str
@@ -368,6 +378,11 @@ class Partner:
     Unique identifier of the partner.
     """
 
+    srn: str
+    """
+    The SRN of the partner.
+    """
+
     name: str
     """
     Name of the partner.
@@ -416,6 +431,11 @@ class Pop:
     Unique identifier of the PoP.
     """
 
+    srn: str
+    """
+    The SRN of the pop.
+    """
+
     name: str
     """
     Name of the PoP. It is the common reference of Hosting DC (ex: TH2).
@@ -462,6 +482,11 @@ class RoutingPolicy:
     id: str
     """
     Unique identifier of the routing policy.
+    """
+
+    srn: str
+    """
+    The SRN of the routing policy.
     """
 
     project_id: str

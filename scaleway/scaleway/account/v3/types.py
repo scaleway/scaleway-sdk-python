@@ -312,6 +312,11 @@ class Project:
     Status of the Project.
     """
 
+    srn: str
+    """
+    The SRN of the project.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date of the Project.

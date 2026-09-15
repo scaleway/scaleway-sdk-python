@@ -38,6 +38,7 @@ from .types import ScalewayServerlessContainerBackendConfig
 from .types import ScalewayServerlessFunctionBackendConfig
 from .types import PipelineError
 from .types import TLSSecret
+from .types import WafExclusionRule
 from .types import RuleHttpMatch
 from .types import BackendStage
 from .types import CacheStage
@@ -184,6 +185,7 @@ __all__ = [
     "ScalewayServerlessFunctionBackendConfig",
     "PipelineError",
     "TLSSecret",
+    "WafExclusionRule",
     "RuleHttpMatch",
     "BackendStage",
     "CacheStage",
