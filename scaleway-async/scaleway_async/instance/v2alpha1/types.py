@@ -582,7 +582,7 @@ class SecurityGroupRuleConfig:
 
     position: int
     """
-    Position of the rule in the list.
+    Position of this rule in the rule list, starting at 1.
     """
 
     source_ports: Optional[SecurityGroupRulePortRange] = None
