@@ -582,7 +582,7 @@ class SecurityGroupRuleConfig:
 
     position: int
     """
-    Position of the rule in the list.
+    Position of this rule in the rule list, starting at 1.
     """
 
     source_ports: Optional[SecurityGroupRulePortRange] = None
@@ -2475,6 +2475,25 @@ class ListSecurityGroupsResponse:
     """
     Token for the next page.
     """
+
+
+@dataclass
+class ListServerCompatibleTypesRequest:
+    server_id: str
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page_token: Optional[str] = None
+    page_size: Optional[int] = None
+
+
+@dataclass
+class ListServerCompatibleTypesResponse:
+    server_types: list[ServerType]
+    total_count: int
+    next_page_token: Optional[str] = None
 
 
 @dataclass

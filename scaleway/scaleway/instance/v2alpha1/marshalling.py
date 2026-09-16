@@ -45,6 +45,7 @@ from .types import (
     SecurityGroupSummary,
     ListSecurityGroupsResponse,
     ServerType,
+    ListServerCompatibleTypesResponse,
     ListServerTypesResponse,
     ServerSummary,
     ListServersResponse,
@@ -1279,6 +1280,39 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     return ServerType(**args)
 
 
+def unmarshal_ListServerCompatibleTypesResponse(
+    data: Any,
+) -> ListServerCompatibleTypesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListServerCompatibleTypesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("server_types", None)
+    if field is not None:
+        args["server_types"] = (
+            [unmarshal_ServerType(v) for v in field] if field is not None else None
+        )
+    else:
+        args["server_types"] = None
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = None
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListServerCompatibleTypesResponse(**args)
+
+
 def unmarshal_ListServerTypesResponse(data: Any) -> ListServerTypesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2207,12 +2241,6 @@ def unmarshal_Server(data: Any) -> Server:
         )
     else:
         args["filesystems"] = []
-
-    field = data.get("placement_group_id", None)
-    if field is not None:
-        args["placement_group_id"] = field
-    else:
-        args["placement_group_id"] = None
 
     field = data.get("architecture", None)
     if field is not None:
