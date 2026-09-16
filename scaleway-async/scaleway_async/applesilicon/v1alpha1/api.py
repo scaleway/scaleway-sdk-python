@@ -1060,7 +1060,7 @@ class ApplesiliconV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/apple-silicon-internal/v1alpha1/zones/{param_zone}/user-configuration",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/user-configuration",
         )
 
         self._throw_on_error(res)
@@ -1087,7 +1087,7 @@ class ApplesiliconV1Alpha1API(API):
 
         res = self._request(
             "PATCH",
-            f"/apple-silicon-internal/v1alpha1/zones/{param_zone}/runner-configuration-status",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/runner-configuration-status",
             body=marshal_UpdateRunnerConfigurationStatusRequest(
                 UpdateRunnerConfigurationStatusRequest(
                     zone=zone,
