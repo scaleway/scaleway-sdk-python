@@ -75,6 +75,12 @@ def unmarshal_DedicatedConnection(data: Any) -> DedicatedConnection:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -251,6 +257,12 @@ def unmarshal_Link(data: Any) -> Link:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -311,18 +323,6 @@ def unmarshal_Link(data: Any) -> Link:
     else:
         args["enable_route_propagation"] = False
 
-    field = data.get("vlan", None)
-    if field is not None:
-        args["vlan"] = field
-    else:
-        args["vlan"] = 0
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
     field = data.get("vpc_id", None)
     if field is not None:
         args["vpc_id"] = field
@@ -358,6 +358,18 @@ def unmarshal_Link(data: Any) -> Link:
         args["self_"] = unmarshal_SelfHost(field)
     else:
         args["self_"] = None
+
+    field = data.get("vlan", None)
+    if field is not None:
+        args["vlan"] = field
+    else:
+        args["vlan"] = 0
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("scw_bgp_config", None)
     if field is not None:
@@ -399,6 +411,12 @@ def unmarshal_Partner(data: Any) -> Partner:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -465,6 +483,12 @@ def unmarshal_Pop(data: Any) -> Pop:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -529,6 +553,12 @@ def unmarshal_RoutingPolicy(data: Any) -> RoutingPolicy:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("project_id", None)
     if field is not None:

@@ -3,15 +3,19 @@
 from .types import DataKeyAlgorithmSymmetricEncryption
 from .types import KeyAlgorithmAsymmetricEncryption
 from .types import KeyAlgorithmAsymmetricSigning
+from .types import KeyAlgorithmKeyEncapsulation
 from .types import KeyAlgorithmSymmetricEncryption
 from .types import KeyOrigin
+from .types import KeyRotationStatus
 from .types import KeyState
 from .types import ListAlgorithmsRequestUsage
+from .types import ListKeyRotationsRequestOrderBy
 from .types import ListKeysRequestOrderBy
 from .types import ListKeysRequestUsage
 from .types import KeyRotationPolicy
 from .types import KeyUsage
 from .types import ListAlgorithmsResponseAlgorithm
+from .types import KeyRotation
 from .types import Key
 from .types import CreateKeyRequest
 from .types import DataKey
@@ -29,6 +33,8 @@ from .types import GetPublicKeyRequest
 from .types import ImportKeyMaterialRequest
 from .types import ListAlgorithmsRequest
 from .types import ListAlgorithmsResponse
+from .types import ListKeyRotationsRequest
+from .types import ListKeyRotationsResponse
 from .types import ListKeysRequest
 from .types import ListKeysResponse
 from .types import ProtectKeyRequest
@@ -51,15 +57,19 @@ __all__ = [
     "DataKeyAlgorithmSymmetricEncryption",
     "KeyAlgorithmAsymmetricEncryption",
     "KeyAlgorithmAsymmetricSigning",
+    "KeyAlgorithmKeyEncapsulation",
     "KeyAlgorithmSymmetricEncryption",
     "KeyOrigin",
+    "KeyRotationStatus",
     "KeyState",
     "ListAlgorithmsRequestUsage",
+    "ListKeyRotationsRequestOrderBy",
     "ListKeysRequestOrderBy",
     "ListKeysRequestUsage",
     "KeyRotationPolicy",
     "KeyUsage",
     "ListAlgorithmsResponseAlgorithm",
+    "KeyRotation",
     "Key",
     "CreateKeyRequest",
     "DataKey",
@@ -77,6 +87,8 @@ __all__ = [
     "ImportKeyMaterialRequest",
     "ListAlgorithmsRequest",
     "ListAlgorithmsResponse",
+    "ListKeyRotationsRequest",
+    "ListKeyRotationsResponse",
     "ListKeysRequest",
     "ListKeysResponse",
     "ProtectKeyRequest",
