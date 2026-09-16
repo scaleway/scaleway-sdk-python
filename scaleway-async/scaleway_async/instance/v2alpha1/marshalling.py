@@ -32,13 +32,18 @@ from .types import (
     Snapshot,
     Volume,
     AddSecurityGroupRulesResponse,
+    DedicatedPool,
+    ServerTypeGpuInfo,
+    ServerTypeLimits,
+    DedicatedPoolServerType,
+    ListDedicatedPoolServerTypesResponse,
+    DedicatedPoolSummary,
+    ListDedicatedPoolsResponse,
     ListPlacementGroupsResponse,
     PrivateNetworkInterfaceSummary,
     ListPrivateNetworkInterfacesResponse,
     SecurityGroupSummary,
     ListSecurityGroupsResponse,
-    ServerTypeGpuInfo,
-    ServerTypeLimits,
     ServerType,
     ListServerTypesResponse,
     ServerSummary,
@@ -93,6 +98,7 @@ from .types import (
     SetTemplateUserDataRequest,
     SetUserDataRequest,
     StopAndDeleteServerRequest,
+    UpdateDedicatedPoolRequest,
     UpdatePlacementGroupRequest,
     UpdatePrivateNetworkInterfaceRequest,
     UpdateSecurityGroupRequest,
@@ -584,6 +590,351 @@ def unmarshal_AddSecurityGroupRulesResponse(data: Any) -> AddSecurityGroupRulesR
     return AddSecurityGroupRulesResponse(**args)
 
 
+def unmarshal_DedicatedPool(data: Any) -> DedicatedPool:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DedicatedPool' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return DedicatedPool(**args)
+
+
+def unmarshal_ServerTypeGpuInfo(data: Any) -> ServerTypeGpuInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeGpuInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("manufacturer", None)
+    if field is not None:
+        args["manufacturer"] = field
+    else:
+        args["manufacturer"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("memory", None)
+    if field is not None:
+        args["memory"] = field
+    else:
+        args["memory"] = 0
+
+    return ServerTypeGpuInfo(**args)
+
+
+def unmarshal_ServerTypeLimits(data: Any) -> ServerTypeLimits:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeLimits' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("private_network_count", None)
+    if field is not None:
+        args["private_network_count"] = field
+    else:
+        args["private_network_count"] = 0
+
+    field = data.get("file_system_count", None)
+    if field is not None:
+        args["file_system_count"] = field
+    else:
+        args["file_system_count"] = 0
+
+    field = data.get("private_network_bandwidth", None)
+    if field is not None:
+        args["private_network_bandwidth"] = field
+    else:
+        args["private_network_bandwidth"] = 0
+
+    field = data.get("block_bandwidth", None)
+    if field is not None:
+        args["block_bandwidth"] = field
+    else:
+        args["block_bandwidth"] = 0
+
+    field = data.get("internet_bandwidth", None)
+    if field is not None:
+        args["internet_bandwidth"] = field
+    else:
+        args["internet_bandwidth"] = 0
+
+    field = data.get("l_ssd_size", None)
+    if field is not None:
+        args["l_ssd_size"] = field
+    else:
+        args["l_ssd_size"] = 0
+
+    field = data.get("scratch_size", None)
+    if field is not None:
+        args["scratch_size"] = field
+    else:
+        args["scratch_size"] = 0
+
+    field = data.get("scratch_volumes_count", None)
+    if field is not None:
+        args["scratch_volumes_count"] = field
+    else:
+        args["scratch_volumes_count"] = 0
+
+    field = data.get("ip_count", None)
+    if field is not None:
+        args["ip_count"] = field
+    else:
+        args["ip_count"] = 0
+
+    field = data.get("volume_count", None)
+    if field is not None:
+        args["volume_count"] = field
+    else:
+        args["volume_count"] = 0
+
+    return ServerTypeLimits(**args)
+
+
+def unmarshal_DedicatedPoolServerType(data: Any) -> DedicatedPoolServerType:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DedicatedPoolServerType' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("vcpu_count", None)
+    if field is not None:
+        args["vcpu_count"] = field
+    else:
+        args["vcpu_count"] = 0
+
+    field = data.get("gpu_count", None)
+    if field is not None:
+        args["gpu_count"] = field
+    else:
+        args["gpu_count"] = 0
+
+    field = data.get("memory", None)
+    if field is not None:
+        args["memory"] = field
+    else:
+        args["memory"] = 0
+
+    field = data.get("architecture", None)
+    if field is not None:
+        args["architecture"] = field
+    else:
+        args["architecture"] = ServerTypeArchitecture.UNKNOWN_ARCHITECTURE
+
+    field = data.get("availability", None)
+    if field is not None:
+        args["availability"] = field
+    else:
+        args["availability"] = ServerTypeAvailability.UNKNOWN_AVAILABILITY
+
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+    else:
+        args["end_of_service"] = False
+
+    field = data.get("slots_available", None)
+    if field is not None:
+        args["slots_available"] = field
+    else:
+        args["slots_available"] = 0
+
+    field = data.get("limits", None)
+    if field is not None:
+        args["limits"] = unmarshal_ServerTypeLimits(field)
+    else:
+        args["limits"] = None
+
+    field = data.get("gpu_info", None)
+    if field is not None:
+        args["gpu_info"] = unmarshal_ServerTypeGpuInfo(field)
+    else:
+        args["gpu_info"] = None
+
+    return DedicatedPoolServerType(**args)
+
+
+def unmarshal_ListDedicatedPoolServerTypesResponse(
+    data: Any,
+) -> ListDedicatedPoolServerTypesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListDedicatedPoolServerTypesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("server_types", None)
+    if field is not None:
+        args["server_types"] = (
+            [unmarshal_DedicatedPoolServerType(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["server_types"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListDedicatedPoolServerTypesResponse(**args)
+
+
+def unmarshal_DedicatedPoolSummary(data: Any) -> DedicatedPoolSummary:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DedicatedPoolSummary' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = []
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return DedicatedPoolSummary(**args)
+
+
+def unmarshal_ListDedicatedPoolsResponse(data: Any) -> ListDedicatedPoolsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListDedicatedPoolsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("dedicated_pools", None)
+    if field is not None:
+        args["dedicated_pools"] = (
+            [unmarshal_DedicatedPoolSummary(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["dedicated_pools"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("next_page_token", None)
+    if field is not None:
+        args["next_page_token"] = field
+    else:
+        args["next_page_token"] = None
+
+    return ListDedicatedPoolsResponse(**args)
+
+
 def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -861,106 +1212,6 @@ def unmarshal_ListSecurityGroupsResponse(data: Any) -> ListSecurityGroupsRespons
         args["next_page_token"] = None
 
     return ListSecurityGroupsResponse(**args)
-
-
-def unmarshal_ServerTypeGpuInfo(data: Any) -> ServerTypeGpuInfo:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ServerTypeGpuInfo' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("manufacturer", None)
-    if field is not None:
-        args["manufacturer"] = field
-    else:
-        args["manufacturer"] = None
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-    else:
-        args["name"] = None
-
-    field = data.get("memory", None)
-    if field is not None:
-        args["memory"] = field
-    else:
-        args["memory"] = 0
-
-    return ServerTypeGpuInfo(**args)
-
-
-def unmarshal_ServerTypeLimits(data: Any) -> ServerTypeLimits:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ServerTypeLimits' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("private_network_count", None)
-    if field is not None:
-        args["private_network_count"] = field
-    else:
-        args["private_network_count"] = 0
-
-    field = data.get("file_system_count", None)
-    if field is not None:
-        args["file_system_count"] = field
-    else:
-        args["file_system_count"] = 0
-
-    field = data.get("private_network_bandwidth", None)
-    if field is not None:
-        args["private_network_bandwidth"] = field
-    else:
-        args["private_network_bandwidth"] = 0
-
-    field = data.get("block_bandwidth", None)
-    if field is not None:
-        args["block_bandwidth"] = field
-    else:
-        args["block_bandwidth"] = 0
-
-    field = data.get("internet_bandwidth", None)
-    if field is not None:
-        args["internet_bandwidth"] = field
-    else:
-        args["internet_bandwidth"] = 0
-
-    field = data.get("l_ssd_size", None)
-    if field is not None:
-        args["l_ssd_size"] = field
-    else:
-        args["l_ssd_size"] = 0
-
-    field = data.get("scratch_size", None)
-    if field is not None:
-        args["scratch_size"] = field
-    else:
-        args["scratch_size"] = 0
-
-    field = data.get("scratch_volumes_count", None)
-    if field is not None:
-        args["scratch_volumes_count"] = field
-    else:
-        args["scratch_volumes_count"] = 0
-
-    field = data.get("ip_count", None)
-    if field is not None:
-        args["ip_count"] = field
-    else:
-        args["ip_count"] = 0
-
-    field = data.get("volume_count", None)
-    if field is not None:
-        args["volume_count"] = field
-    else:
-        args["volume_count"] = 0
-
-    return ServerTypeLimits(**args)
 
 
 def unmarshal_ServerType(data: Any) -> ServerType:
@@ -1709,6 +1960,12 @@ def unmarshal_ServerIP(data: Any) -> ServerIP:
     else:
         args["default"] = None
 
+    field = data.get("provisioned_address", None)
+    if field is not None:
+        args["provisioned_address"] = field
+    else:
+        args["provisioned_address"] = None
+
     return ServerIP(**args)
 
 
@@ -1928,6 +2185,18 @@ def unmarshal_Server(data: Any) -> Server:
         )
     else:
         args["volumes"] = []
+
+    field = data.get("placement_group_id", None)
+    if field is not None:
+        args["placement_group_id"] = field
+    else:
+        args["placement_group_id"] = None
+
+    field = data.get("dedicated_pool_id", None)
+    if field is not None:
+        args["dedicated_pool_id"] = field
+    else:
+        args["dedicated_pool_id"] = None
 
     field = data.get("filesystems", None)
     if field is not None:
@@ -2606,6 +2875,9 @@ def marshal_CreateServerRequest(
     if request.placement_group_id is not None:
         output["placement_group_id"] = request.placement_group_id
 
+    if request.dedicated_pool_id is not None:
+        output["dedicated_pool_id"] = request.dedicated_pool_id
+
     if request.volumes is not None:
         output["volumes"] = [
             marshal_CreateServerRequestServerVolume(item, defaults)
@@ -2926,6 +3198,21 @@ def marshal_StopAndDeleteServerRequest(
     return output
 
 
+def marshal_UpdateDedicatedPoolRequest(
+    request: UpdateDedicatedPoolRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
+
+
 def marshal_UpdatePlacementGroupRequest(
     request: UpdatePlacementGroupRequest,
     defaults: ProfileDefaults,
@@ -3055,6 +3342,9 @@ def marshal_UpdateServerRequest(
 
     if request.placement_group_id is not None:
         output["placement_group_id"] = request.placement_group_id
+
+    if request.dedicated_pool_id is not None:
+        output["dedicated_pool_id"] = request.dedicated_pool_id
 
     if request.rescue_mode is not None:
         output["rescue_mode"] = request.rescue_mode

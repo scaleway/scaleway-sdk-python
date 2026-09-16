@@ -43,6 +43,16 @@ class CreateVolumeRequestVolumeType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListDedicatedPoolsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPlacementGroupsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -500,6 +510,7 @@ class ServerIP:
     dynamic: bool
     status: ServerIPStatus
     default: bool
+    provisioned_address: str
 
 
 @dataclass
@@ -691,6 +702,97 @@ class CreateServerRequestServerVolume:
     volume_id: Optional[str] = None
 
     new_volume: Optional[CreateServerRequestCreateVolume] = None
+
+
+@dataclass
+class DedicatedPoolServerType:
+    name: str
+    """
+    Name of the server type.
+    """
+
+    vcpu_count: int
+    """
+    Number of vCPUs.
+    """
+
+    gpu_count: int
+    """
+    Number of GPUs.
+    """
+
+    memory: int
+    """
+    Amount of memory.
+    """
+
+    architecture: ServerTypeArchitecture
+    """
+    Architecture of the server type.
+    """
+
+    availability: ServerTypeAvailability
+    """
+    Availability status of the server type.
+    """
+
+    end_of_service: bool
+    """
+    Whether the server type has reached end of service.
+    """
+
+    slots_available: int
+    """
+    Number of additional Instances of this type that can currently be started in this Dedicated Pool.
+    """
+
+    limits: Optional[ServerTypeLimits] = None
+    """
+    Limits for the server type.
+    """
+
+    gpu_info: Optional[ServerTypeGpuInfo] = None
+    """
+    GPU information for the server type.
+    """
+
+
+@dataclass
+class DedicatedPoolSummary:
+    id: str
+    """
+    Unique ID of the Dedicated Pool.
+    """
+
+    srn: str
+    """
+    SRN of the Dedicated Pool.
+    """
+
+    organization_id: str
+    """
+    Organization ID the Dedicated Pool belongs to.
+    """
+
+    name: str
+    """
+    Name of the Dedicated Pool.
+    """
+
+    tags: list[str]
+    """
+    Tags associated with the Dedicated Pool.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation timestamp of the Dedicated Pool.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Last update timestamp of the Dedicated Pool.
+    """
 
 
 @dataclass
@@ -1596,6 +1698,11 @@ class CreateServerRequest:
     ID of the placement group the server belongs to.
     """
 
+    dedicated_pool_id: Optional[str] = None
+    """
+    ID of the Dedicated Pool this server belongs to.
+    """
+
     volumes: Optional[list[CreateServerRequestServerVolume]] = field(
         default_factory=list
     )
@@ -1688,6 +1795,44 @@ class CreateTemplateRequest:
     windows_rdp_ssh_key_id: Optional[str] = None
     """
     IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use.
+    """
+
+
+@dataclass
+class DedicatedPool:
+    id: str
+    """
+    Unique ID of the Dedicated Pool.
+    """
+
+    srn: str
+    """
+    The SRN of the Dedicated Pool.
+    """
+
+    organization_id: str
+    """
+    Organization ID the Dedicated Pool belongs to.
+    """
+
+    name: str
+    """
+    The name of the Dedicated Pool.
+    """
+
+    tags: list[str]
+    """
+    Tags associated with the Dedicated Pool.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation timestamp of the Dedicated Pool.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Last update timestamp of the Dedicated Pool.
     """
 
 
@@ -1903,6 +2048,19 @@ class DetachServerVolumeRequest:
 
 
 @dataclass
+class GetDedicatedPoolRequest:
+    dedicated_pool_id: str
+    """
+    ID of the Dedicated Pool to retrieve.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class GetPlacementGroupRequest:
     placement_group_id: str
     """
@@ -2038,6 +2196,95 @@ class GetUserDataRequest:
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ListDedicatedPoolServerTypesRequest:
+    dedicated_pool_id: str
+    """
+    ID of the Dedicated Pool to list Instance types for.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page_token: Optional[str] = None
+    """
+    Token for pagination.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of Instance types to return per page.
+    """
+
+
+@dataclass
+class ListDedicatedPoolServerTypesResponse:
+    server_types: list[DedicatedPoolServerType]
+    """
+    List of Instance types.
+    """
+
+    total_count: int
+    """
+    Total number of Instance types.
+    """
+
+    next_page_token: Optional[str] = None
+    """
+    Token for the next page.
+    """
+
+
+@dataclass
+class ListDedicatedPoolsRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page_token: Optional[str] = None
+    """
+    Token for pagination.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of Dedicated Pools to return per page.
+    """
+
+    order_by: Optional[ListDedicatedPoolsRequestOrderBy] = (
+        ListDedicatedPoolsRequestOrderBy.CREATED_AT_DESC
+    )
+    """
+    Order in which to return Dedicated Pools.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    Organization ID to filter Dedicated Pools by.
+    """
+
+
+@dataclass
+class ListDedicatedPoolsResponse:
+    dedicated_pools: list[DedicatedPoolSummary]
+    """
+    List of Dedicated Pools.
+    """
+
+    total_count: int
+    """
+    Total number of Dedicated Pools.
+    """
+
+    next_page_token: Optional[str] = None
+    """
+    Token for the next page.
     """
 
 
@@ -2323,6 +2570,11 @@ class ListServersRequest:
     placement_group_ids: Optional[list[str]] = field(default_factory=list)
     """
     Placement group IDs to filter servers.
+    """
+
+    dedicated_pool_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter servers associated with these Dedicated Pools.
     """
 
     private_network_ids: Optional[list[str]] = field(default_factory=list)
@@ -2812,6 +3064,11 @@ class Server:
     ID of the placement group the server belongs to.
     """
 
+    dedicated_pool_id: Optional[str] = None
+    """
+    ID of the Dedicated Pool the server belongs to.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation timestamp of the server.
@@ -3103,6 +3360,29 @@ class Template:
 
 
 @dataclass
+class UpdateDedicatedPoolRequest:
+    dedicated_pool_id: str
+    """
+    ID of the Dedicated Pool to update.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    New name for the Dedicated Pool.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    New tags for the Dedicated Pool.
+    """
+
+
+@dataclass
 class UpdatePlacementGroupRequest:
     placement_group_id: str
     """
@@ -3294,6 +3574,11 @@ class UpdateServerRequest:
     placement_group_id: Optional[str] = None
     """
     New placement group ID.
+    """
+
+    dedicated_pool_id: Optional[str] = None
+    """
+    New Dedicated Pool ID.
     """
 
     rescue_mode: Optional[bool] = False
