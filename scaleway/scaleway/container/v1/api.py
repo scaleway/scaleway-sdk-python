@@ -423,6 +423,7 @@ class ContainerV1API(API):
         command: Optional[list[str]] = None,
         args: Optional[list[str]] = None,
         enable_private_endpoint: Optional[bool] = None,
+        enable_default_public_endpoint: Optional[bool] = None,
     ) -> Container:
         """
         Create a new container in a namespace.
@@ -463,6 +464,7 @@ class ContainerV1API(API):
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or ENTRYPOINT script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :param enable_private_endpoint: When enabled, the container can receive traffic from other resources in the same Private Network.
+        :param enable_default_public_endpoint: When not enabled (set to false), calling the Container through this endpoint will return a 404. Despite this, creating custom domains is still possible.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -510,6 +512,7 @@ class ContainerV1API(API):
                     command=command,
                     args=args,
                     enable_private_endpoint=enable_private_endpoint,
+                    enable_default_public_endpoint=enable_default_public_endpoint,
                 ),
                 self.client,
             ),
@@ -719,6 +722,7 @@ class ContainerV1API(API):
         command: Optional[list[str]] = None,
         args: Optional[list[str]] = None,
         enable_private_endpoint: Optional[bool] = None,
+        enable_default_public_endpoint: Optional[bool] = None,
     ) -> Container:
         """
         Update the container associated with the specified ID.
@@ -758,6 +762,7 @@ class ContainerV1API(API):
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or ENTRYPOINT script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :param enable_private_endpoint: When enabled, the container can receive traffic from other resources in the same Private Network.
+        :param enable_default_public_endpoint: When not enabled (set to false), calling the Container through this endpoint will return a 404. Despite this, creating custom domains is still possible.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -803,6 +808,7 @@ class ContainerV1API(API):
                     command=command,
                     args=args,
                     enable_private_endpoint=enable_private_endpoint,
+                    enable_default_public_endpoint=enable_default_public_endpoint,
                 ),
                 self.client,
             ),

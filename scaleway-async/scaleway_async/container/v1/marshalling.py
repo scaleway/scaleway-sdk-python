@@ -993,6 +993,11 @@ def marshal_CreateContainerRequest(
     if request.enable_private_endpoint is not None:
         output["enable_private_endpoint"] = request.enable_private_endpoint
 
+    if request.enable_default_public_endpoint is not None:
+        output["enable_default_public_endpoint"] = (
+            request.enable_default_public_endpoint
+        )
+
     return output
 
 
@@ -1309,6 +1314,11 @@ def marshal_UpdateContainerRequest(
 
     if request.enable_private_endpoint is not None:
         output["enable_private_endpoint"] = request.enable_private_endpoint
+
+    if request.enable_default_public_endpoint is not None:
+        output["enable_default_public_endpoint"] = (
+            request.enable_default_public_endpoint
+        )
 
     return output
 

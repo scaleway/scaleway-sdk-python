@@ -980,6 +980,11 @@ Possible check types:
     When enabled, the container can receive traffic from other resources in the same Private Network.
     """
 
+    enable_default_public_endpoint: Optional[bool] = False
+    """
+    When not enabled (set to false), calling the Container through this endpoint will return a 404. Despite this, creating custom domains is still possible.
+    """
+
 
 @dataclass
 class CreateDomainRequest:
@@ -1429,6 +1434,11 @@ Possible check types:
     enable_private_endpoint: Optional[bool] = False
     """
     When enabled, the container can receive traffic from other resources in the same Private Network.
+    """
+
+    enable_default_public_endpoint: Optional[bool] = False
+    """
+    When not enabled (set to false), calling the Container through this endpoint will return a 404. Despite this, creating custom domains is still possible.
     """
 
 
