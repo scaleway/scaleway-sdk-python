@@ -63,6 +63,11 @@ class Version:
     Major number of the PostgreSQL engine.
     """
 
+    srn: str
+    """
+    The SRN of the version.
+    """
+
     region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
@@ -79,6 +84,11 @@ class DatabaseBackup:
     id: str
     """
     UUID that uniquely identifies a Serverless SQL Database backup.
+    """
+
+    srn: str
+    """
+    The SRN of the database backup.
     """
 
     status: DatabaseBackupStatus
@@ -142,6 +152,11 @@ class Database:
     id: str
     """
     UUID that uniquely identifies your Serverless SQL DB Database.
+    """
+
+    srn: str
+    """
+    The SRN of the database.
     """
 
     name: str

@@ -223,6 +223,11 @@ class Key:
     ID of the key.
     """
 
+    srn: str
+    """
+    The SRN of the key.
+    """
+
     project_id: str
     """
     ID of the Project containing the key.

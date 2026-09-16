@@ -130,6 +130,12 @@ def unmarshal_Key(data: Any) -> Key:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -153,24 +159,6 @@ def unmarshal_Key(data: Any) -> Key:
         args["rotation_count"] = field
     else:
         args["rotation_count"] = 0
-
-    field = data.get("usage", None)
-    if field is not None:
-        args["usage"] = unmarshal_KeyUsage(field)
-    else:
-        args["usage"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
 
     field = data.get("protected", None)
     if field is not None:
@@ -201,6 +189,24 @@ def unmarshal_Key(data: Any) -> Key:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("usage", None)
+    if field is not None:
+        args["usage"] = unmarshal_KeyUsage(field)
+    else:
+        args["usage"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("description", None)
     if field is not None:
