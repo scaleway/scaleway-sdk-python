@@ -119,6 +119,8 @@ from .types import ListPrivateNetworkInterfacesRequest
 from .types import ListPrivateNetworkInterfacesResponse
 from .types import ListSecurityGroupsRequest
 from .types import ListSecurityGroupsResponse
+from .types import ListServerCompatibleTypesRequest
+from .types import ListServerCompatibleTypesResponse
 from .types import ListServerTypesRequest
 from .types import ListServerTypesResponse
 from .types import ListServersRequest
@@ -291,6 +293,8 @@ __all__ = [
     "ListPrivateNetworkInterfacesResponse",
     "ListSecurityGroupsRequest",
     "ListSecurityGroupsResponse",
+    "ListServerCompatibleTypesRequest",
+    "ListServerCompatibleTypesResponse",
     "ListServerTypesRequest",
     "ListServerTypesResponse",
     "ListServersRequest",
