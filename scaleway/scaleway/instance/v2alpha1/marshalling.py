@@ -2208,6 +2208,12 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["filesystems"] = []
 
+    field = data.get("placement_group_id", None)
+    if field is not None:
+        args["placement_group_id"] = field
+    else:
+        args["placement_group_id"] = None
+
     field = data.get("architecture", None)
     if field is not None:
         args["architecture"] = field
