@@ -112,25 +112,16 @@ class SearchResourcesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class BrmServerInfo:
     ip: str
-    """
-    IP address of the Baremetal server.
-    """
 
 
 @dataclass
 class ObsDatasourceInfo:
     type_: ObsDatasourceInfoDataType
-    """
-    Type of data handled by the OBS datasource.
-    """
 
 
 @dataclass
 class ObsExporterInfo:
     destination_type: ObsExporterInfoDestinationType
-    """
-    Destination type of the OBS exporter.
-    """
 
 
 @dataclass
@@ -152,9 +143,6 @@ class ServerlessFunctionsFunctionInfo:
 @dataclass
 class ServerlessSqldbBackupInfo:
     database_id: str
-    """
-    ID of the Serverless SQL Database the backup belongs to.
-    """
 
 
 @dataclass
@@ -216,9 +204,9 @@ class Resource:
         ServerlessContainersContainerInfo
     ] = None
 
-    serverless_sqldb_backup_info: Optional[ServerlessSqldbBackupInfo] = None
-
     baremetal_server_info: Optional[BrmServerInfo] = None
+
+    serverless_sqldb_backup_info: Optional[ServerlessSqldbBackupInfo] = None
 
     obs_datasource_info: Optional[ObsDatasourceInfo] = None
 
