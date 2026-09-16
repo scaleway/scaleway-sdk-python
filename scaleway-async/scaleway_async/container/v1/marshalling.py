@@ -295,6 +295,24 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["sandbox"] = ContainerSandbox.UNKNOWN_SANDBOX
 
+    field = data.get("scaling_option", None)
+    if field is not None:
+        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
+    else:
+        args["scaling_option"] = None
+
+    field = data.get("liveness_probe", None)
+    if field is not None:
+        args["liveness_probe"] = unmarshal_ContainerProbe(field)
+    else:
+        args["liveness_probe"] = None
+
+    field = data.get("startup_probe", None)
+    if field is not None:
+        args["startup_probe"] = unmarshal_ContainerProbe(field)
+    else:
+        args["startup_probe"] = None
+
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -306,12 +324,6 @@ def unmarshal_Container(data: Any) -> Container:
         args["command"] = field
     else:
         args["command"] = []
-
-    field = data.get("scaling_option", None)
-    if field is not None:
-        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
-    else:
-        args["scaling_option"] = None
 
     field = data.get("args", None)
     if field is not None:
@@ -325,23 +337,17 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["public_endpoint"] = None
 
+    field = data.get("default_public_endpoint_enabled", None)
+    if field is not None:
+        args["default_public_endpoint_enabled"] = field
+    else:
+        args["default_public_endpoint_enabled"] = False
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
     else:
         args["region"] = None
-
-    field = data.get("liveness_probe", None)
-    if field is not None:
-        args["liveness_probe"] = unmarshal_ContainerProbe(field)
-    else:
-        args["liveness_probe"] = None
-
-    field = data.get("startup_probe", None)
-    if field is not None:
-        args["startup_probe"] = unmarshal_ContainerProbe(field)
-    else:
-        args["startup_probe"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
