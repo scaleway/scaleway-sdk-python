@@ -433,6 +433,11 @@ class DeleteKeyMaterialRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    key_rotation_index: Optional[int] = 0
+    """
+    Default to latest rotation if not set.
+    """
+
 
 @dataclass
 class DeleteKeyRequest:

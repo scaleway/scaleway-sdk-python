@@ -23,6 +23,7 @@ from .types import (
     DataKey,
     DecryptRequest,
     DecryptResponse,
+    DeleteKeyMaterialRequest,
     EncryptRequest,
     EncryptResponse,
     GenerateDataKeyRequest,
@@ -60,6 +61,7 @@ from .marshalling import (
     unmarshal_WrapKeyResponse,
     marshal_CreateKeyRequest,
     marshal_DecryptRequest,
+    marshal_DeleteKeyMaterialRequest,
     marshal_EncryptRequest,
     marshal_GenerateDataKeyRequest,
     marshal_ImportKeyMaterialRequest,
@@ -974,12 +976,14 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         region: Optional[ScwRegion] = None,
+        key_rotation_index: Optional[int] = None,
     ) -> None:
         """
         Delete key material.
         Delete previously imported key material. This renders the associated cryptographic key unusable for any operation. The key's origin must be `external`.
         :param key_id: ID of the key of which to delete the key material.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param key_rotation_index: Default to latest rotation if not set.
 
         Usage:
         ::
@@ -997,7 +1001,14 @@ class KeyManagerV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/delete-key-material",
-            body={},
+            body=marshal_DeleteKeyMaterialRequest(
+                DeleteKeyMaterialRequest(
+                    key_id=key_id,
+                    region=region,
+                    key_rotation_index=key_rotation_index,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

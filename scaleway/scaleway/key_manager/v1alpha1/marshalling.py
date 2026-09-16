@@ -36,6 +36,7 @@ from .types import (
     WrapKeyResponse,
     CreateKeyRequest,
     DecryptRequest,
+    DeleteKeyMaterialRequest,
     EncryptRequest,
     GenerateDataKeyRequest,
     ImportKeyMaterialRequest,
@@ -685,6 +686,18 @@ def marshal_DecryptRequest(
 
     if request.associated_data is not None:
         output["associated_data"] = request.associated_data
+
+    return output
+
+
+def marshal_DeleteKeyMaterialRequest(
+    request: DeleteKeyMaterialRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.key_rotation_index is not None:
+        output["key_rotation_index"] = request.key_rotation_index
 
     return output
 
