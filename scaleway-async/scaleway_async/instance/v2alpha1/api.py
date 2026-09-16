@@ -59,6 +59,7 @@ from .types import (
     ListPlacementGroupsResponse,
     ListPrivateNetworkInterfacesResponse,
     ListSecurityGroupsResponse,
+    ListServerCompatibleTypesResponse,
     ListServerTypesResponse,
     ListServersResponse,
     ListSnapshotsResponse,
@@ -120,6 +121,7 @@ from .marshalling import (
     unmarshal_ListPlacementGroupsResponse,
     unmarshal_ListPrivateNetworkInterfacesResponse,
     unmarshal_ListSecurityGroupsResponse,
+    unmarshal_ListServerCompatibleTypesResponse,
     unmarshal_ListServerTypesResponse,
     unmarshal_ListServersResponse,
     unmarshal_ListSnapshotsResponse,
@@ -561,6 +563,44 @@ class InstanceV2Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def list_server_compatible_types(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[ScwZone] = None,
+        page_token: Optional[str] = None,
+        page_size: Optional[int] = None,
+    ) -> ListServerCompatibleTypesResponse:
+        """
+        :param server_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param page_token:
+        :param page_size:
+        :return: :class:`ListServerCompatibleTypesResponse <ListServerCompatibleTypesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_server_compatible_types(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "GET",
+            f"/instance/v2alpha1/zones/{param_zone}/servers/{param_server_id}/compatible-types",
+            params={
+                "page_size": page_size or self.client.default_page_size,
+                "page_token": page_token,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListServerCompatibleTypesResponse(res.json())
 
     async def list_server_types(
         self,

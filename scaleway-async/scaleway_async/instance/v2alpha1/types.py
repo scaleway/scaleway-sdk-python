@@ -2478,6 +2478,25 @@ class ListSecurityGroupsResponse:
 
 
 @dataclass
+class ListServerCompatibleTypesRequest:
+    server_id: str
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page_token: Optional[str] = None
+    page_size: Optional[int] = None
+
+
+@dataclass
+class ListServerCompatibleTypesResponse:
+    server_types: list[ServerType]
+    total_count: int
+    next_page_token: Optional[str] = None
+
+
+@dataclass
 class ListServerTypesRequest:
     zone: Optional[ScwZone] = None
     """
