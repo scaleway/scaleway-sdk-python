@@ -500,7 +500,6 @@ class ServerIP:
     dynamic: bool
     status: ServerIPStatus
     default: bool
-    provisioned_address: str
 
 
 @dataclass

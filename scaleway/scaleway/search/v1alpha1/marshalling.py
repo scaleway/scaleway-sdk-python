@@ -5,8 +5,6 @@ from typing import Any
 from dateutil import parser
 
 from .types import (
-    ObsDatasourceInfoDataType,
-    ObsExporterInfoDestinationType,
     ResourceType,
     BrmServerInfo,
     ObsDatasourceInfo,
@@ -49,7 +47,7 @@ def unmarshal_ObsDatasourceInfo(data: Any) -> ObsDatasourceInfo:
     if field is not None:
         args["type_"] = field
     else:
-        args["type_"] = ObsDatasourceInfoDataType.UNKNOWN_DATA_TYPE
+        args["type_"] = None
 
     return ObsDatasourceInfo(**args)
 
@@ -66,9 +64,7 @@ def unmarshal_ObsExporterInfo(data: Any) -> ObsExporterInfo:
     if field is not None:
         args["destination_type"] = field
     else:
-        args["destination_type"] = (
-            ObsExporterInfoDestinationType.UNKNOWN_DESTINATION_TYPE
-        )
+        args["destination_type"] = None
 
     return ObsExporterInfo(**args)
 
@@ -223,6 +219,24 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["serverless_containers_container_info"] = None
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("baremetal_server_info", None)
+    if field is not None:
+        args["baremetal_server_info"] = unmarshal_BrmServerInfo(field)
+    else:
+        args["baremetal_server_info"] = None
+
     field = data.get("serverless_sqldb_backup_info", None)
     if field is not None:
         args["serverless_sqldb_backup_info"] = unmarshal_ServerlessSqldbBackupInfo(
@@ -230,12 +244,6 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["serverless_sqldb_backup_info"] = None
-
-    field = data.get("baremetal_server_info", None)
-    if field is not None:
-        args["baremetal_server_info"] = unmarshal_BrmServerInfo(field)
-    else:
-        args["baremetal_server_info"] = None
 
     field = data.get("obs_datasource_info", None)
     if field is not None:
@@ -248,18 +256,6 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["obs_exporter_info"] = unmarshal_ObsExporterInfo(field)
     else:
         args["obs_exporter_info"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
 
     return Resource(**args)
 

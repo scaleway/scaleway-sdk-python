@@ -1709,12 +1709,6 @@ def unmarshal_ServerIP(data: Any) -> ServerIP:
     else:
         args["default"] = None
 
-    field = data.get("provisioned_address", None)
-    if field is not None:
-        args["provisioned_address"] = field
-    else:
-        args["provisioned_address"] = None
-
     return ServerIP(**args)
 
 
