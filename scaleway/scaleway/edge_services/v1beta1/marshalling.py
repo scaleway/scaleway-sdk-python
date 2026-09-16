@@ -34,7 +34,6 @@ from .types import (
     RouteStage,
     TLSSecret,
     TLSStage,
-    WafExclusionRule,
     WafStage,
     PipelineStages,
     PurgeRequest,
@@ -767,23 +766,6 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
     return TLSStage(**args)
 
 
-def unmarshal_WafExclusionRule(data: Any) -> WafExclusionRule:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'WafExclusionRule' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("rule_id", None)
-    if field is not None:
-        args["rule_id"] = field
-    else:
-        args["rule_id"] = None
-
-    return WafExclusionRule(**args)
-
-
 def unmarshal_WafStage(data: Any) -> WafStage:
     if not isinstance(data, dict):
         raise TypeError(
@@ -821,16 +803,6 @@ def unmarshal_WafStage(data: Any) -> WafStage:
         args["status"] = field
     else:
         args["status"] = StageStatus.UNKNOWN_STATUS
-
-    field = data.get("exclusion_rules", None)
-    if field is not None:
-        args["exclusion_rules"] = (
-            [unmarshal_WafExclusionRule(v) for v in field]
-            if field is not None
-            else None
-        )
-    else:
-        args["exclusion_rules"] = []
 
     field = data.get("created_at", None)
     if field is not None:
@@ -2404,18 +2376,6 @@ def marshal_CreateVPCEndpointRequest(
     return output
 
 
-def marshal_WafExclusionRule(
-    request: WafExclusionRule,
-    defaults: ProfileDefaults,
-) -> dict[str, Any]:
-    output: dict[str, Any] = {}
-
-    if request.rule_id is not None:
-        output["rule_id"] = request.rule_id
-
-    return output
-
-
 def marshal_CreateWafStageRequest(
     request: CreateWafStageRequest,
     defaults: ProfileDefaults,
@@ -2438,11 +2398,6 @@ def marshal_CreateWafStageRequest(
 
     if request.mode is not None:
         output["mode"] = request.mode
-
-    if request.exclusion_rules is not None:
-        output["exclusion_rules"] = [
-            marshal_WafExclusionRule(item, defaults) for item in request.exclusion_rules
-        ]
 
     return output
 
@@ -2784,10 +2739,5 @@ def marshal_UpdateWafStageRequest(
 
     if request.paranoia_level is not None:
         output["paranoia_level"] = request.paranoia_level
-
-    if request.exclusion_rules is not None:
-        output["exclusion_rules"] = [
-            marshal_WafExclusionRule(item, defaults) for item in request.exclusion_rules
-        ]
 
     return output
