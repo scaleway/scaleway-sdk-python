@@ -49,6 +49,8 @@ from .types import (
     SetEnabledAlertRulesResponse,
     SetEnabledCustomAlertRulesRequest,
     SetEnabledCustomAlertRulesResponse,
+    TestCustomAlertRuleRequest,
+    TestCustomAlertRuleResponse,
     UpdateCustomAlertRuleRequest,
 )
 from .marshalling import (
@@ -69,6 +71,7 @@ from .marshalling import (
     unmarshal_ListSystemEventsResponse,
     unmarshal_SetEnabledAlertRulesResponse,
     unmarshal_SetEnabledCustomAlertRulesResponse,
+    unmarshal_TestCustomAlertRuleResponse,
     marshal_CreateCustomAlertRuleRequest,
     marshal_CreateExportJobRequest,
     marshal_DisableAlertRulesRequest,
@@ -77,6 +80,7 @@ from .marshalling import (
     marshal_EnableCustomAlertRulesRequest,
     marshal_SetEnabledAlertRulesRequest,
     marshal_SetEnabledCustomAlertRulesRequest,
+    marshal_TestCustomAlertRuleRequest,
     marshal_UpdateCustomAlertRuleRequest,
 )
 
@@ -1107,3 +1111,53 @@ class AuditTrailV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def test_custom_alert_rule(
+        self,
+        *,
+        query: str,
+        occurrences: int,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        evaluation_window: Optional[str] = None,
+    ) -> TestCustomAlertRuleResponse:
+        """
+        Test a custom alert rule.
+        Test whether a custom alert rule's condition is currently satisfied, without needing to create or enable it.
+        :param query: The Common Expression Language (CEL) string defining the logic for the alert rule.
+        :param occurrences: The minimum number of matched occurrences required within the evaluation window to trigger the alert.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization to target.
+        :param evaluation_window: The duration of time over which to evaluate the rule (how far back to look for matching events).
+        :return: :class:`TestCustomAlertRuleResponse <TestCustomAlertRuleResponse>`
+
+        Usage:
+        ::
+
+            result = await api.test_custom_alert_rule(
+                query="example",
+                occurrences=1,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/audit-trail/v1alpha1/regions/{param_region}/test-custom-alert-rule",
+            body=marshal_TestCustomAlertRuleRequest(
+                TestCustomAlertRuleRequest(
+                    query=query,
+                    occurrences=occurrences,
+                    region=region,
+                    organization_id=organization_id,
+                    evaluation_window=evaluation_window,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_TestCustomAlertRuleResponse(res.json())

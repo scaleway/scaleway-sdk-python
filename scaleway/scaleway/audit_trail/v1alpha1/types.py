@@ -1755,6 +1755,42 @@ class SetEnabledCustomAlertRulesResponse:
 
 
 @dataclass
+class TestCustomAlertRuleRequest:
+    query: str
+    """
+    The Common Expression Language (CEL) string defining the logic for the alert rule.
+    """
+
+    occurrences: int
+    """
+    The minimum number of matched occurrences required within the evaluation window to trigger the alert.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization to target.
+    """
+
+    evaluation_window: Optional[str] = None
+    """
+    The duration of time over which to evaluate the rule (how far back to look for matching events).
+    """
+
+
+@dataclass
+class TestCustomAlertRuleResponse:
+    firing: bool
+    """
+    A false return value does not mean the alert rule is incorrect, only that it is not currently firing.
+    """
+
+
+@dataclass
 class UpdateCustomAlertRuleRequest:
     custom_alert_rule_id: str
     """
