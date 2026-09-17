@@ -20,6 +20,7 @@ from scaleway_core.utils import (
 from .types import (
     CNI,
     ClusterStatus,
+    GetClusterKubeConfigRequestEndpoint,
     ListClustersRequestOrderBy,
     ListNodesRequestOrderBy,
     ListPoolsRequestOrderBy,
@@ -681,6 +682,7 @@ class K8SV1API(API):
         cluster_id: str,
         region: Optional[ScwRegion] = None,
         redacted: Optional[bool] = None,
+        endpoint: Optional[GetClusterKubeConfigRequestEndpoint] = None,
     ) -> ScwFile:
         """
         Download the kubeconfig for a Cluster.
@@ -689,6 +691,7 @@ class K8SV1API(API):
         :param cluster_id: Cluster ID for which to download the kubeconfig.
         :param region: Region to target. If none is passed will use default region from the config.
         :param redacted: Hide the legacy token from the kubeconfig.
+        :param endpoint: Which endpoint to use to reach the APIServer (default: public).
         :return: :class:`ScwFile <ScwFile>`
 
         Usage:
@@ -708,6 +711,7 @@ class K8SV1API(API):
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/kubeconfig",
             params={
+                "endpoint": endpoint,
                 "redacted": redacted,
             },
         )

@@ -89,6 +89,15 @@ class CoreV1TaintEffect(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class GetClusterKubeConfigRequestEndpoint(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ENDPOINT = "unknown_endpoint"
+    PUBLIC = "public"
+    VPC = "vpc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListClustersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -1679,6 +1688,13 @@ class GetClusterKubeConfigRequest:
     redacted: Optional[bool] = False
     """
     Hide the legacy token from the kubeconfig.
+    """
+
+    endpoint: Optional[GetClusterKubeConfigRequestEndpoint] = (
+        GetClusterKubeConfigRequestEndpoint.UNKNOWN_ENDPOINT
+    )
+    """
+    Which endpoint to use to reach the APIServer (default: public).
     """
 
 
