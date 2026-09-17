@@ -129,6 +129,8 @@ from .types import SetEnabledAlertRulesRequest
 from .types import SetEnabledAlertRulesResponse
 from .types import SetEnabledCustomAlertRulesRequest
 from .types import SetEnabledCustomAlertRulesResponse
+from .types import TestCustomAlertRuleRequest
+from .types import TestCustomAlertRuleResponse
 from .types import UpdateCustomAlertRuleRequest
 from .api import AuditTrailV1Alpha1API
 
@@ -262,6 +264,8 @@ __all__ = [
     "SetEnabledAlertRulesResponse",
     "SetEnabledCustomAlertRulesRequest",
     "SetEnabledCustomAlertRulesResponse",
+    "TestCustomAlertRuleRequest",
+    "TestCustomAlertRuleResponse",
     "UpdateCustomAlertRuleRequest",
     "AuditTrailV1Alpha1API",
 ]

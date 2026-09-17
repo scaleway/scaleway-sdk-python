@@ -106,6 +106,7 @@ from .types import (
     ListSystemEventsResponse,
     SetEnabledAlertRulesResponse,
     SetEnabledCustomAlertRulesResponse,
+    TestCustomAlertRuleResponse,
     CreateCustomAlertRuleRequest,
     CreateExportJobRequest,
     DisableAlertRulesRequest,
@@ -114,6 +115,7 @@ from .types import (
     EnableCustomAlertRulesRequest,
     SetEnabledAlertRulesRequest,
     SetEnabledCustomAlertRulesRequest,
+    TestCustomAlertRuleRequest,
     UpdateCustomAlertRuleRequest,
 )
 from ...std.types import (
@@ -2730,6 +2732,23 @@ def unmarshal_SetEnabledCustomAlertRulesResponse(
     return SetEnabledCustomAlertRulesResponse(**args)
 
 
+def unmarshal_TestCustomAlertRuleResponse(data: Any) -> TestCustomAlertRuleResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'TestCustomAlertRuleResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("firing", None)
+    if field is not None:
+        args["firing"] = field
+    else:
+        args["firing"] = False
+
+    return TestCustomAlertRuleResponse(**args)
+
+
 def marshal_CreateCustomAlertRuleRequest(
     request: CreateCustomAlertRuleRequest,
     defaults: ProfileDefaults,
@@ -2912,6 +2931,29 @@ def marshal_SetEnabledCustomAlertRulesRequest(
 
     if request.enabled_custom_alert_rule_ids is not None:
         output["enabled_custom_alert_rule_ids"] = request.enabled_custom_alert_rule_ids
+
+    return output
+
+
+def marshal_TestCustomAlertRuleRequest(
+    request: TestCustomAlertRuleRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.query is not None:
+        output["query"] = request.query
+
+    if request.occurrences is not None:
+        output["occurrences"] = request.occurrences
+
+    if request.organization_id is not None:
+        output["organization_id"] = request.organization_id
+    else:
+        output["organization_id"] = defaults.default_organization_id
+
+    if request.evaluation_window is not None:
+        output["evaluation_window"] = request.evaluation_window
 
     return output
 
