@@ -8,6 +8,7 @@ from .content import CLUSTER_TRANSIENT_STATUSES
 from .types import ClusterTypeAvailability
 from .types import ClusterTypeResiliency
 from .types import CoreV1TaintEffect
+from .types import GetClusterKubeConfigRequestEndpoint
 from .types import ListClustersRequestOrderBy
 from .types import ListNodesRequestOrderBy
 from .types import ListPoolsRequestOrderBy
@@ -104,6 +105,7 @@ __all__ = [
     "ClusterTypeAvailability",
     "ClusterTypeResiliency",
     "CoreV1TaintEffect",
+    "GetClusterKubeConfigRequestEndpoint",
     "ListClustersRequestOrderBy",
     "ListNodesRequestOrderBy",
     "ListPoolsRequestOrderBy",
