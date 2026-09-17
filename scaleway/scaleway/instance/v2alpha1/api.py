@@ -573,6 +573,8 @@ class InstanceV2Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListServerCompatibleTypesResponse:
         """
+        List compatible Instance types.
+        List the Instance types that a given instance could be converted to.
         :param server_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page_token:
