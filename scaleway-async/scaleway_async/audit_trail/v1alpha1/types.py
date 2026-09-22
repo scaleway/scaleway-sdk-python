@@ -286,6 +286,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SERVERLESS_FUNCTIONS_TRIGGER = "serverless_functions_trigger"
     WOFL_WORKFLOW_DEFINITION = "wofl_workflow_definition"
     WOFL_WORKFLOW_RUN = "wofl_workflow_run"
+    WOFL_WORKFLOW_VERSION = "wofl_workflow_version"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -672,6 +673,13 @@ class WoflWorkflowRunInfo:
 
 
 @dataclass
+class WoflWorkflowVersionInfo:
+    workflow_definition_id: str
+    name: str
+    workflow_definition_name: Optional[str] = None
+
+
+@dataclass
 class Resource:
     id: str
     type_: ResourceType
@@ -809,6 +817,8 @@ class Resource:
     wofl_workflow_definition_info: Optional[WoflWorkflowDefinitionInfo] = None
 
     wofl_workflow_run_info: Optional[WoflWorkflowRunInfo] = None
+
+    wofl_workflow_version_info: Optional[WoflWorkflowVersionInfo] = None
 
 
 @dataclass

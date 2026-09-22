@@ -87,6 +87,7 @@ from .types import (
     VpcSubnetInfo,
     WoflWorkflowDefinitionInfo,
     WoflWorkflowRunInfo,
+    WoflWorkflowVersionInfo,
     EventPrincipal,
     Resource,
     Event,
@@ -1633,6 +1634,35 @@ def unmarshal_WoflWorkflowRunInfo(data: Any) -> WoflWorkflowRunInfo:
     return WoflWorkflowRunInfo(**args)
 
 
+def unmarshal_WoflWorkflowVersionInfo(data: Any) -> WoflWorkflowVersionInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WoflWorkflowVersionInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("workflow_definition_id", None)
+    if field is not None:
+        args["workflow_definition_id"] = field
+    else:
+        args["workflow_definition_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("workflow_definition_name", None)
+    if field is not None:
+        args["workflow_definition_name"] = field
+    else:
+        args["workflow_definition_name"] = None
+
+    return WoflWorkflowVersionInfo(**args)
+
+
 def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2111,6 +2141,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["wofl_workflow_run_info"] = unmarshal_WoflWorkflowRunInfo(field)
     else:
         args["wofl_workflow_run_info"] = None
+
+    field = data.get("wofl_workflow_version_info", None)
+    if field is not None:
+        args["wofl_workflow_version_info"] = unmarshal_WoflWorkflowVersionInfo(field)
+    else:
+        args["wofl_workflow_version_info"] = None
 
     return Resource(**args)
 

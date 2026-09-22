@@ -11,6 +11,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     ConnectivityDiagnosticActionType,
+    RunnerStatus,
     ServerPrivateNetworkServerStatus,
     ServerPrivateNetworkStatus,
     ServerStatus,
@@ -344,11 +345,11 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["zone"] = None
 
-    field = data.get("delivered", None)
+    field = data.get("srn", None)
     if field is not None:
-        args["delivered"] = field
+        args["srn"] = field
     else:
-        args["delivered"] = False
+        args["srn"] = None
 
     field = data.get("os", None)
     if field is not None:
@@ -375,6 +376,12 @@ def unmarshal_Server(data: Any) -> Server:
         )
     else:
         args["deletable_at"] = None
+
+    field = data.get("delivered", None)
+    if field is not None:
+        args["delivered"] = field
+    else:
+        args["delivered"] = False
 
     field = data.get("vpc_status", None)
     if field is not None:
@@ -526,13 +533,25 @@ def unmarshal_Runner(data: Any) -> Runner:
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = RunnerStatus.UNKNOWN_STATUS
 
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
     else:
         args["error_message"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("configuration", None)
     if field is not None:
@@ -940,6 +959,18 @@ def unmarshal_ConnectivityDiagnostic(data: Any) -> ConnectivityDiagnostic:
         args["error_message"] = field
     else:
         args["error_message"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("health_details", None)
     if field is not None:
