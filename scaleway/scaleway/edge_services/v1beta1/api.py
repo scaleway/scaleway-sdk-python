@@ -98,7 +98,7 @@ from .types import (
     UpdateTLSStageRequest,
     UpdateWafStageRequest,
     VPCEndpoint,
-    WafExclusionRule,
+    WafExclusionRules,
     WafStage,
 )
 from .content import (
@@ -2007,7 +2007,7 @@ class EdgeServicesV1Beta1API(API):
         pipeline_id: str,
         paranoia_level: int,
         mode: Optional[WafStageMode] = None,
-        exclusion_rules: Optional[list[WafExclusionRule]] = None,
+        exclusion_rules: Optional[WafExclusionRules] = None,
         backend_stage_id: Optional[str] = None,
     ) -> WafStage:
         """
@@ -2085,7 +2085,7 @@ class EdgeServicesV1Beta1API(API):
         waf_stage_id: str,
         mode: Optional[WafStageMode] = None,
         paranoia_level: Optional[int] = None,
-        exclusion_rules: Optional[list[WafExclusionRule]] = None,
+        exclusion_rules: Optional[WafExclusionRules] = None,
         backend_stage_id: Optional[str] = None,
     ) -> WafStage:
         """

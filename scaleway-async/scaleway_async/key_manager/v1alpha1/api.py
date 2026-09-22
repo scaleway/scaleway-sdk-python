@@ -14,6 +14,7 @@ from scaleway_core.utils import (
 from .types import (
     DataKeyAlgorithmSymmetricEncryption,
     KeyOrigin,
+    KeyProtectionLevel,
     KeyRotationStatus,
     ListAlgorithmsRequestUsage,
     ListKeyRotationsRequestOrderBy,
@@ -90,6 +91,7 @@ class KeyManagerV1Alpha1API(API):
         tags: Optional[list[str]] = None,
         rotation_policy: Optional[KeyRotationPolicy] = None,
         origin: Optional[KeyOrigin] = None,
+        protection_level: Optional[KeyProtectionLevel] = None,
     ) -> Key:
         """
         Create a key.
@@ -103,6 +105,7 @@ class KeyManagerV1Alpha1API(API):
         :param tags: (Optional) List of the key's tags.
         :param rotation_policy: If not specified, no rotation policy will be applied to the key.
         :param origin: Refer to the `Key.Origin` enum for a description of values.
+        :param protection_level: Refer to the `Key.Protection` enum for a description of values.
         :return: :class:`Key <Key>`
 
         Usage:
@@ -131,6 +134,7 @@ class KeyManagerV1Alpha1API(API):
                     tags=tags,
                     rotation_policy=rotation_policy,
                     origin=origin,
+                    protection_level=protection_level,
                 ),
                 self.client,
             ),
@@ -480,6 +484,7 @@ class KeyManagerV1Alpha1API(API):
         tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         usage: Optional[ListKeysRequestUsage] = None,
+        protection_level: Optional[KeyProtectionLevel] = None,
     ) -> ListKeysResponse:
         """
         List keys.
@@ -497,6 +502,7 @@ class KeyManagerV1Alpha1API(API):
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
         :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
+        :param protection_level: Select from software or hsm.
         :return: :class:`ListKeysResponse <ListKeysResponse>`
 
         Usage:
@@ -522,6 +528,7 @@ class KeyManagerV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "protection_level": protection_level,
                 "scheduled_for_deletion": scheduled_for_deletion,
                 "tags": tags,
                 "usage": usage,
@@ -544,6 +551,7 @@ class KeyManagerV1Alpha1API(API):
         tags: Optional[list[str]] = None,
         name: Optional[str] = None,
         usage: Optional[ListKeysRequestUsage] = None,
+        protection_level: Optional[KeyProtectionLevel] = None,
     ) -> list[Key]:
         """
         List keys.
@@ -561,6 +569,7 @@ class KeyManagerV1Alpha1API(API):
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
         :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
+        :param protection_level: Select from software or hsm.
         :return: :class:`list[Key] <list[Key]>`
 
         Usage:
@@ -586,6 +595,7 @@ class KeyManagerV1Alpha1API(API):
                 "tags": tags,
                 "name": name,
                 "usage": usage,
+                "protection_level": protection_level,
             },
         )
 

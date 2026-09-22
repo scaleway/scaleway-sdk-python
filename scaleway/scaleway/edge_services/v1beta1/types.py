@@ -798,6 +798,11 @@ class CheckPEMChainRequestSecretChain:
 
 
 @dataclass
+class WafExclusionRules:
+    rules: list[WafExclusionRule]
+
+
+@dataclass
 class PlanDetails:
     plan_name: PlanName
     """
@@ -1193,7 +1198,7 @@ class CreateWafStageRequest:
     Mode defining WAF behavior (`disable`/`log_only`/`enable`).
     """
 
-    exclusion_rules: Optional[list[WafExclusionRule]] = field(default_factory=list)
+    exclusion_rules: Optional[WafExclusionRules] = None
     """
     List of OWASP® CRS rule IDs excluded from WAF.
     """
@@ -2168,7 +2173,7 @@ class UpdateWafStageRequest:
     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
     """
 
-    exclusion_rules: Optional[list[WafExclusionRule]] = field(default_factory=list)
+    exclusion_rules: Optional[WafExclusionRules] = None
     """
     List of OWASP® CRS rule IDs excluded from WAF.
     """
