@@ -107,12 +107,12 @@ class CustomAlertRuleFieldFieldType(str, Enum, metaclass=StrEnumMeta):
 
 class CustomAlertRuleFieldIntOperator(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_INT_OPERATOR = "unknown_int_operator"
-    EQUAL = "equal"
-    NOT_EQUAL = "not_equal"
-    LESS_THAN_OR_EQUAL = "less_than_or_equal"
-    LESS_THAN = "less_than"
-    GREATER_THAN_OR_EQUAL = "greater_than_or_equal"
-    GREATER_THAN = "greater_than"
+    INT_EQUAL = "int_equal"
+    INT_NOT_EQUAL = "int_not_equal"
+    INT_LESS_THAN_OR_EQUAL = "int_less_than_or_equal"
+    INT_LESS_THAN = "int_less_than"
+    INT_GREATER_THAN_OR_EQUAL = "int_greater_than_or_equal"
+    INT_GREATER_THAN = "int_greater_than"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -120,10 +120,12 @@ class CustomAlertRuleFieldIntOperator(str, Enum, metaclass=StrEnumMeta):
 
 class CustomAlertRuleFieldStringOperator(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STRING_OPERATOR = "unknown_string_operator"
-    CONTAINS = "contains"
-    MATCHES = "matches"
-    STARTS_WITH = "starts_with"
-    ENDS_WITH = "ends_with"
+    STRING_CONTAINS = "string_contains"
+    STRING_MATCHES = "string_matches"
+    STRING_STARTS_WITH = "string_starts_with"
+    STRING_ENDS_WITH = "string_ends_with"
+    STRING_EQUAL = "string_equal"
+    STRING_NOT_EQUAL = "string_not_equal"
 
     def __str__(self) -> str:
         return str(self.value)
