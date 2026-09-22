@@ -666,7 +666,8 @@ class CreateConnectionRequest:
 
     secret: Optional[CreateConnectionRequestSecret] = None
     """
-    Specifies the pre-shared key used for the IPsec tunnel.
+    If no secret is given, S2S VPN will create one automatically in Secret Manager, reference its secret_id and version in the connection and use the generated PSK.
+Secret version is also optional and maybe used to refer to a previous version. If no version is given, "latest" is used.
     """
 
     bgp_config_ipv4: Optional[CreateConnectionRequestBgpConfig] = None
@@ -1288,7 +1289,7 @@ class RenewConnectionPskRequest:
 
     generate_revision: Optional[bool] = False
     """
-    Generate a new revision or update to the latest existing one.
+    Generate a new version or update to the latest existing one.
     """
 
 
@@ -1359,6 +1360,16 @@ class UpdateConnectionRequest:
     esp_ciphers: Optional[list[ConnectionCipher]] = field(default_factory=list)
     """
     List of ESP ciphers proposed for the IPsec tunnel.
+    """
+
+    secret_id: Optional[str] = None
+    """
+    Secret ID in the client's project containing the PSK.
+    """
+
+    secret_revision: Optional[int] = 0
+    """
+    If not given it will not change. If secret_id is updated, secret_revision should be set accordingly.
     """
 
 
