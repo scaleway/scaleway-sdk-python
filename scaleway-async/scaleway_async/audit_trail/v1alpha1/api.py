@@ -45,6 +45,7 @@ from .types import (
     ListExportJobsResponse,
     ListProductsResponse,
     ListSystemEventsResponse,
+    RetrieveAvailableFieldsForCustomAlertRulesResponse,
     SetEnabledAlertRulesRequest,
     SetEnabledAlertRulesResponse,
     SetEnabledCustomAlertRulesRequest,
@@ -69,6 +70,7 @@ from .marshalling import (
     unmarshal_ListExportJobsResponse,
     unmarshal_ListProductsResponse,
     unmarshal_ListSystemEventsResponse,
+    unmarshal_RetrieveAvailableFieldsForCustomAlertRulesResponse,
     unmarshal_SetEnabledAlertRulesResponse,
     unmarshal_SetEnabledCustomAlertRulesResponse,
     unmarshal_TestCustomAlertRuleResponse,
@@ -1161,3 +1163,38 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_TestCustomAlertRuleResponse(res.json())
+
+    async def retrieve_available_fields_for_custom_alert_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+    ) -> RetrieveAvailableFieldsForCustomAlertRulesResponse:
+        """
+        Retrieve available fields for custom alert rules.
+        Retrieve all available fields that can be used to construct Common Expression Language (CEL) queries for custom alert rules.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Region to target. If none is passed will use default region from the config.
+        :return: :class:`RetrieveAvailableFieldsForCustomAlertRulesResponse <RetrieveAvailableFieldsForCustomAlertRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.retrieve_available_fields_for_custom_alert_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/custom-alert-rule-fields",
+            params={
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_RetrieveAvailableFieldsForCustomAlertRulesResponse(res.json())

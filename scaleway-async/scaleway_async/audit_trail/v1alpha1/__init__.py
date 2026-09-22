@@ -8,6 +8,9 @@ from .types import AuthenticationEventMFAType
 from .types import AuthenticationEventMethod
 from .types import AuthenticationEventOrigin
 from .types import AuthenticationEventResult
+from .types import CustomAlertRuleFieldFieldType
+from .types import CustomAlertRuleFieldIntOperator
+from .types import CustomAlertRuleFieldStringOperator
 from .types import CustomAlertRuleSeverity
 from .types import CustomAlertRuleStatus
 from .content import CUSTOM_ALERT_RULE_TRANSIENT_STATUSES
@@ -91,11 +94,14 @@ from .types import SystemEvent
 from .types import ExportJobS3
 from .types import ExportJobStatus
 from .types import ProductService
+from .types import CustomAlertRuleFieldIntOperators
+from .types import CustomAlertRuleFieldStringOperators
 from .types import AlertRule
 from .types import CustomAlertRule
 from .types import ListCombinedEventsResponseCombinedEvent
 from .types import ExportJob
 from .types import Product
+from .types import CustomAlertRuleField
 from .types import CreateCustomAlertRuleRequest
 from .types import CreateExportJobRequest
 from .types import DeleteCustomAlertRuleRequest
@@ -126,6 +132,8 @@ from .types import ListProductsRequest
 from .types import ListProductsResponse
 from .types import ListSystemEventsRequest
 from .types import ListSystemEventsResponse
+from .types import RetrieveAvailableFieldsForCustomAlertRulesRequest
+from .types import RetrieveAvailableFieldsForCustomAlertRulesResponse
 from .types import SetEnabledAlertRulesRequest
 from .types import SetEnabledAlertRulesResponse
 from .types import SetEnabledCustomAlertRulesRequest
@@ -144,6 +152,9 @@ __all__ = [
     "AuthenticationEventMethod",
     "AuthenticationEventOrigin",
     "AuthenticationEventResult",
+    "CustomAlertRuleFieldFieldType",
+    "CustomAlertRuleFieldIntOperator",
+    "CustomAlertRuleFieldStringOperator",
     "CustomAlertRuleSeverity",
     "CustomAlertRuleStatus",
     "CUSTOM_ALERT_RULE_TRANSIENT_STATUSES",
@@ -227,11 +238,14 @@ __all__ = [
     "ExportJobS3",
     "ExportJobStatus",
     "ProductService",
+    "CustomAlertRuleFieldIntOperators",
+    "CustomAlertRuleFieldStringOperators",
     "AlertRule",
     "CustomAlertRule",
     "ListCombinedEventsResponseCombinedEvent",
     "ExportJob",
     "Product",
+    "CustomAlertRuleField",
     "CreateCustomAlertRuleRequest",
     "CreateExportJobRequest",
     "DeleteCustomAlertRuleRequest",
@@ -262,6 +276,8 @@ __all__ = [
     "ListProductsResponse",
     "ListSystemEventsRequest",
     "ListSystemEventsResponse",
+    "RetrieveAvailableFieldsForCustomAlertRulesRequest",
+    "RetrieveAvailableFieldsForCustomAlertRulesResponse",
     "SetEnabledAlertRulesRequest",
     "SetEnabledAlertRulesResponse",
     "SetEnabledCustomAlertRulesRequest",
