@@ -50,6 +50,7 @@ from .types import WafStage
 from .types import SetRouteRulesRequestRouteRule
 from .types import RouteRule
 from .types import CheckPEMChainRequestSecretChain
+from .types import WafExclusionRules
 from .types import PlanDetails
 from .types import PlanUsageDetails
 from .types import HeadStageResponseHeadStage
@@ -197,6 +198,7 @@ __all__ = [
     "SetRouteRulesRequestRouteRule",
     "RouteRule",
     "CheckPEMChainRequestSecretChain",
+    "WafExclusionRules",
     "PlanDetails",
     "PlanUsageDetails",
     "HeadStageResponseHeadStage",
