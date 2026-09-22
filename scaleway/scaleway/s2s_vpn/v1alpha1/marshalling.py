@@ -1231,6 +1231,12 @@ def marshal_UpdateConnectionRequest(
             marshal_ConnectionCipher(item, defaults) for item in request.esp_ciphers
         ]
 
+    if request.secret_id is not None:
+        output["secret_id"] = request.secret_id
+
+    if request.secret_revision is not None:
+        output["secret_revision"] = request.secret_revision
+
     return output
 
 
