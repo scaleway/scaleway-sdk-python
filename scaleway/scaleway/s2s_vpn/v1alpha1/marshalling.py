@@ -126,6 +126,12 @@ def unmarshal_Connection(data: Any) -> Connection:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -149,6 +155,18 @@ def unmarshal_Connection(data: Any) -> Connection:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -179,18 +197,6 @@ def unmarshal_Connection(data: Any) -> Connection:
         args["secret_revision"] = field
     else:
         args["secret_revision"] = 0
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
 
     field = data.get("ikev2_ciphers", None)
     if field is not None:
@@ -295,6 +301,12 @@ def unmarshal_CustomerGateway(data: Any) -> CustomerGateway:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -377,6 +389,12 @@ def unmarshal_RoutingPolicy(data: Any) -> RoutingPolicy:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("project_id", None)
     if field is not None:
@@ -489,6 +507,12 @@ def unmarshal_VpnGateway(data: Any) -> VpnGateway:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -513,12 +537,6 @@ def unmarshal_VpnGateway(data: Any) -> VpnGateway:
     else:
         args["tags"] = []
 
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = VpnGatewayStatus.UNKNOWN_STATUS
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -530,6 +548,12 @@ def unmarshal_VpnGateway(data: Any) -> VpnGateway:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = VpnGatewayStatus.UNKNOWN_STATUS
 
     field = data.get("gateway_type", None)
     if field is not None:
@@ -1230,6 +1254,12 @@ def marshal_UpdateConnectionRequest(
         output["esp_ciphers"] = [
             marshal_ConnectionCipher(item, defaults) for item in request.esp_ciphers
         ]
+
+    if request.secret_id is not None:
+        output["secret_id"] = request.secret_id
+
+    if request.secret_revision is not None:
+        output["secret_revision"] = request.secret_revision
 
     return output
 
