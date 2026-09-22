@@ -85,6 +85,7 @@ from .types import (
     CreateRouteStageRequest,
     CreateTLSStageRequest,
     CreateVPCEndpointRequest,
+    WafExclusionRules,
     CreateWafStageRequest,
     SelectPlanRequest,
     SetHeadStageRequestAddNewHeadStage,
@@ -2416,6 +2417,20 @@ def marshal_WafExclusionRule(
     return output
 
 
+def marshal_WafExclusionRules(
+    request: WafExclusionRules,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.rules is not None:
+        output["rules"] = [
+            marshal_WafExclusionRule(item, defaults) for item in request.rules
+        ]
+
+    return output
+
+
 def marshal_CreateWafStageRequest(
     request: CreateWafStageRequest,
     defaults: ProfileDefaults,
@@ -2440,9 +2455,9 @@ def marshal_CreateWafStageRequest(
         output["mode"] = request.mode
 
     if request.exclusion_rules is not None:
-        output["exclusion_rules"] = [
-            marshal_WafExclusionRule(item, defaults) for item in request.exclusion_rules
-        ]
+        output["exclusion_rules"] = marshal_WafExclusionRules(
+            request.exclusion_rules, defaults
+        )
 
     return output
 
@@ -2786,8 +2801,8 @@ def marshal_UpdateWafStageRequest(
         output["paranoia_level"] = request.paranoia_level
 
     if request.exclusion_rules is not None:
-        output["exclusion_rules"] = [
-            marshal_WafExclusionRule(item, defaults) for item in request.exclusion_rules
-        ]
+        output["exclusion_rules"] = marshal_WafExclusionRules(
+            request.exclusion_rules, defaults
+        )
 
     return output
