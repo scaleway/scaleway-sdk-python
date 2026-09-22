@@ -372,6 +372,11 @@ class Server:
     Zone of the server.
     """
 
+    srn: str
+    """
+    SRN of the server.
+    """
+
     delivered: bool
     """
     Set to true once the server has completed its provisioning steps and is ready to use. Some OS configurations might require a reinstallation of the server before delivery depending on the available stock. A reinstallation after the initial delivery will not change this flag and can be tracked using the server status.
@@ -451,9 +456,34 @@ class AppliedRunnerConfigurations:
 @dataclass
 class Runner:
     id: str
+    """
+    UUID of the runner.
+    """
+
     status: RunnerStatus
+    """
+    Status of the runner.
+    """
+
     error_message: str
+    """
+    Error message of the runner (if any).
+    """
+
+    zone: ScwZone
+    """
+    Zone of the runner.
+    """
+
+    srn: str
+    """
+    SRN of the runner.
+    """
+
     configuration: Optional[RunnerConfigurationV2] = None
+    """
+    Configuration of the runner.
+    """
 
 
 @dataclass
@@ -627,6 +657,12 @@ class ConnectivityDiagnostic:
     is_healthy: bool
     supported_actions: list[ConnectivityDiagnosticActionType]
     error_message: str
+    zone: ScwZone
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    srn: str
     health_details: Optional[ConnectivityDiagnosticServerHealth] = None
 
 
