@@ -16,6 +16,7 @@ from .types import (
     KeyAlgorithmKeyEncapsulation,
     KeyAlgorithmSymmetricEncryption,
     KeyOrigin,
+    KeyProtectionLevel,
     KeyRotationStatus,
     KeyState,
     KeyRotationPolicy,
@@ -183,6 +184,12 @@ def unmarshal_Key(data: Any) -> Key:
         args["origin"] = field
     else:
         args["origin"] = KeyOrigin.UNKNOWN_ORIGIN
+
+    field = data.get("protection_level", None)
+    if field is not None:
+        args["protection_level"] = field
+    else:
+        args["protection_level"] = KeyProtectionLevel.UNKNOWN_PROTECTION_LEVEL
 
     field = data.get("region", None)
     if field is not None:
@@ -677,6 +684,9 @@ def marshal_CreateKeyRequest(
 
     if request.origin is not None:
         output["origin"] = request.origin
+
+    if request.protection_level is not None:
+        output["protection_level"] = request.protection_level
 
     return output
 

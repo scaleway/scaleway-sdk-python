@@ -6,6 +6,7 @@ from .types import KeyAlgorithmAsymmetricSigning
 from .types import KeyAlgorithmKeyEncapsulation
 from .types import KeyAlgorithmSymmetricEncryption
 from .types import KeyOrigin
+from .types import KeyProtectionLevel
 from .types import KeyRotationStatus
 from .types import KeyState
 from .types import ListAlgorithmsRequestUsage
@@ -60,6 +61,7 @@ __all__ = [
     "KeyAlgorithmKeyEncapsulation",
     "KeyAlgorithmSymmetricEncryption",
     "KeyOrigin",
+    "KeyProtectionLevel",
     "KeyRotationStatus",
     "KeyState",
     "ListAlgorithmsRequestUsage",
