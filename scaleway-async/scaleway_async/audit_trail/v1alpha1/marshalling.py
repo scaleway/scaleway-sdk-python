@@ -16,6 +16,9 @@ from .types import (
     AuthenticationEventMethod,
     AuthenticationEventOrigin,
     AuthenticationEventResult,
+    CustomAlertRuleFieldFieldType,
+    CustomAlertRuleFieldIntOperator,
+    CustomAlertRuleFieldStringOperator,
     CustomAlertRuleSeverity,
     CustomAlertRuleStatus,
     SystemEventKind,
@@ -87,6 +90,7 @@ from .types import (
     VpcSubnetInfo,
     WoflWorkflowDefinitionInfo,
     WoflWorkflowRunInfo,
+    WoflWorkflowVersionInfo,
     EventPrincipal,
     Resource,
     Event,
@@ -104,6 +108,10 @@ from .types import (
     Product,
     ListProductsResponse,
     ListSystemEventsResponse,
+    CustomAlertRuleFieldIntOperators,
+    CustomAlertRuleFieldStringOperators,
+    CustomAlertRuleField,
+    RetrieveAvailableFieldsForCustomAlertRulesResponse,
     SetEnabledAlertRulesResponse,
     SetEnabledCustomAlertRulesResponse,
     TestCustomAlertRuleResponse,
@@ -1633,6 +1641,35 @@ def unmarshal_WoflWorkflowRunInfo(data: Any) -> WoflWorkflowRunInfo:
     return WoflWorkflowRunInfo(**args)
 
 
+def unmarshal_WoflWorkflowVersionInfo(data: Any) -> WoflWorkflowVersionInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WoflWorkflowVersionInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("workflow_definition_id", None)
+    if field is not None:
+        args["workflow_definition_id"] = field
+    else:
+        args["workflow_definition_id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("workflow_definition_name", None)
+    if field is not None:
+        args["workflow_definition_name"] = field
+    else:
+        args["workflow_definition_name"] = None
+
+    return WoflWorkflowVersionInfo(**args)
+
+
 def unmarshal_EventPrincipal(data: Any) -> EventPrincipal:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2111,6 +2148,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["wofl_workflow_run_info"] = unmarshal_WoflWorkflowRunInfo(field)
     else:
         args["wofl_workflow_run_info"] = None
+
+    field = data.get("wofl_workflow_version_info", None)
+    if field is not None:
+        args["wofl_workflow_version_info"] = unmarshal_WoflWorkflowVersionInfo(field)
+    else:
+        args["wofl_workflow_version_info"] = None
 
     return Resource(**args)
 
@@ -2690,6 +2733,116 @@ def unmarshal_ListSystemEventsResponse(data: Any) -> ListSystemEventsResponse:
         args["next_page_token"] = None
 
     return ListSystemEventsResponse(**args)
+
+
+def unmarshal_CustomAlertRuleFieldIntOperators(
+    data: Any,
+) -> CustomAlertRuleFieldIntOperators:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CustomAlertRuleFieldIntOperators' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("operators", None)
+    if field is not None:
+        args["operators"] = (
+            [CustomAlertRuleFieldIntOperator(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["operators"] = None
+
+    return CustomAlertRuleFieldIntOperators(**args)
+
+
+def unmarshal_CustomAlertRuleFieldStringOperators(
+    data: Any,
+) -> CustomAlertRuleFieldStringOperators:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CustomAlertRuleFieldStringOperators' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("operators", None)
+    if field is not None:
+        args["operators"] = (
+            [CustomAlertRuleFieldStringOperator(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["operators"] = None
+
+    return CustomAlertRuleFieldStringOperators(**args)
+
+
+def unmarshal_CustomAlertRuleField(data: Any) -> CustomAlertRuleField:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CustomAlertRuleField' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = CustomAlertRuleFieldFieldType.UNKNOWN_FIELD_TYPE
+
+    field = data.get("string_operators", None)
+    if field is not None:
+        args["string_operators"] = unmarshal_CustomAlertRuleFieldStringOperators(field)
+    else:
+        args["string_operators"] = None
+
+    field = data.get("int_operators", None)
+    if field is not None:
+        args["int_operators"] = unmarshal_CustomAlertRuleFieldIntOperators(field)
+    else:
+        args["int_operators"] = None
+
+    return CustomAlertRuleField(**args)
+
+
+def unmarshal_RetrieveAvailableFieldsForCustomAlertRulesResponse(
+    data: Any,
+) -> RetrieveAvailableFieldsForCustomAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RetrieveAvailableFieldsForCustomAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("fields", None)
+    if field is not None:
+        args["fields"] = (
+            [unmarshal_CustomAlertRuleField(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["fields"] = []
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    return RetrieveAvailableFieldsForCustomAlertRulesResponse(**args)
 
 
 def unmarshal_SetEnabledAlertRulesResponse(data: Any) -> SetEnabledAlertRulesResponse:
