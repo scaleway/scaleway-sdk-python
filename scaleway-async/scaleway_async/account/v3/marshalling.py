@@ -33,6 +33,7 @@ from .types import (
     ContractApiCheckContractSignatureRequest,
     ContractApiCreateContractSignatureRequest,
     ProjectApiCreateProjectRequest,
+    ProjectApiDeleteProjectWithResourcesRequest,
     ProjectApiSetProjectQualificationRequest,
     ProjectApiUpdateProjectRequest,
 )
@@ -588,6 +589,18 @@ def marshal_ProjectApiCreateProjectRequest(
         output["organization_id"] = request.organization_id
     else:
         output["organization_id"] = defaults.default_organization_id
+
+    return output
+
+
+def marshal_ProjectApiDeleteProjectWithResourcesRequest(
+    request: ProjectApiDeleteProjectWithResourcesRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.project_name is not None:
+        output["project_name"] = request.project_name
 
     return output
 

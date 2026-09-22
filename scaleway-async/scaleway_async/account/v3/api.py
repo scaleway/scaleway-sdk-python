@@ -27,6 +27,7 @@ from .types import (
     ListProjectsResponse,
     Project,
     ProjectApiCreateProjectRequest,
+    ProjectApiDeleteProjectWithResourcesRequest,
     ProjectApiSetProjectQualificationRequest,
     ProjectApiUpdateProjectRequest,
     ProjectQualification,
@@ -45,6 +46,7 @@ from .marshalling import (
     marshal_ContractApiCheckContractSignatureRequest,
     marshal_ContractApiCreateContractSignatureRequest,
     marshal_ProjectApiCreateProjectRequest,
+    marshal_ProjectApiDeleteProjectWithResourcesRequest,
     marshal_ProjectApiSetProjectQualificationRequest,
     marshal_ProjectApiUpdateProjectRequest,
 )
@@ -521,9 +523,13 @@ class AccountV3ProjectAPI(API):
         res = self._request(
             "POST",
             f"/account/v3/projects/{param_project_id}/delete-with-resources",
-            params={
-                "project_name": project_name,
-            },
+            body=marshal_ProjectApiDeleteProjectWithResourcesRequest(
+                ProjectApiDeleteProjectWithResourcesRequest(
+                    project_name=project_name,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

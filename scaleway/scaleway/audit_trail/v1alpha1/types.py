@@ -96,6 +96,39 @@ class AuthenticationEventResult(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class CustomAlertRuleFieldFieldType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_FIELD_TYPE = "unknown_field_type"
+    FIELD_TYPE_STRING = "field_type_string"
+    FIELD_TYPE_INT = "field_type_int"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class CustomAlertRuleFieldIntOperator(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_INT_OPERATOR = "unknown_int_operator"
+    EQUAL = "equal"
+    NOT_EQUAL = "not_equal"
+    LESS_THAN_OR_EQUAL = "less_than_or_equal"
+    LESS_THAN = "less_than"
+    GREATER_THAN_OR_EQUAL = "greater_than_or_equal"
+    GREATER_THAN = "greater_than"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class CustomAlertRuleFieldStringOperator(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STRING_OPERATOR = "unknown_string_operator"
+    CONTAINS = "contains"
+    MATCHES = "matches"
+    STARTS_WITH = "starts_with"
+    ENDS_WITH = "ends_with"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class CustomAlertRuleSeverity(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SEVERITY = "unknown_severity"
     INFO = "info"
@@ -1046,6 +1079,16 @@ class ProductService:
 
 
 @dataclass
+class CustomAlertRuleFieldIntOperators:
+    operators: list[CustomAlertRuleFieldIntOperator]
+
+
+@dataclass
+class CustomAlertRuleFieldStringOperators:
+    operators: list[CustomAlertRuleFieldStringOperator]
+
+
+@dataclass
 class AlertRule:
     id: str
     """
@@ -1186,6 +1229,23 @@ class Product:
     """
     Specifies the API versions of the products integrated with Audit Trail. Each version defines the methods logged by Audit Trail.
     """
+
+
+@dataclass
+class CustomAlertRuleField:
+    name: str
+    """
+    The field name to be used in the CEL expression (e.g., `productName`, `status`).
+    """
+
+    type_: CustomAlertRuleFieldFieldType
+    """
+    The expected data type of the field within the CEL environment.
+    """
+
+    string_operators: Optional[CustomAlertRuleFieldStringOperators] = None
+
+    int_operators: Optional[CustomAlertRuleFieldIntOperators] = None
 
 
 @dataclass
@@ -1709,6 +1769,32 @@ class ListSystemEventsResponse:
     next_page_token: Optional[str] = None
     """
     Page token to use in following calls to keep listing.
+    """
+
+
+@dataclass
+class RetrieveAvailableFieldsForCustomAlertRulesRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class RetrieveAvailableFieldsForCustomAlertRulesResponse:
+    fields: list[CustomAlertRuleField]
+    """
+    A list of fields that are authorized to be used in a CEL expression.
+    """
+
+    total_count: int
+    """
+    Number of fields.
     """
 
 
