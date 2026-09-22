@@ -82,6 +82,7 @@ from .types import VpcRouteInfo
 from .types import VpcSubnetInfo
 from .types import WoflWorkflowDefinitionInfo
 from .types import WoflWorkflowRunInfo
+from .types import WoflWorkflowVersionInfo
 from .types import Resource
 from .types import EventPrincipal
 from .types import AuthenticationEvent
@@ -217,6 +218,7 @@ __all__ = [
     "VpcSubnetInfo",
     "WoflWorkflowDefinitionInfo",
     "WoflWorkflowRunInfo",
+    "WoflWorkflowVersionInfo",
     "Resource",
     "EventPrincipal",
     "AuthenticationEvent",
