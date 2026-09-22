@@ -704,7 +704,8 @@ class S2SVpnV1Alpha1API(API):
         :param enable_route_propagation: Defines whether route propagation is enabled or not.
         :param vpn_gateway_id: ID of the VPN gateway to attach to the connection.
         :param customer_gateway_id: ID of the customer gateway to attach to the connection.
-        :param secret: Specifies the pre-shared key used for the IPsec tunnel.
+        :param secret: If no secret is given, S2S VPN will create one automatically in Secret Manager, reference its secret_id and version in the connection and use the generated PSK.
+        Secret version is also optional and maybe used to refer to a previous version. If no version is given, "latest" is used.
         :param bgp_config_ipv4: BGP config of IPv4 session, including interco private IPv4 subnet (first IP assigned to the VPN Gateway, second IP to the Customer Gateway) and attached routing policy.
         :param bgp_config_ipv6: BGP config of IPv6 session, including interco private IPv6 subnet (first IP assigned to the VPN Gateway, second IP to the Customer Gateway) and attached routing policy.
         :return: :class:`CreateConnectionResponse <CreateConnectionResponse>`
@@ -765,6 +766,8 @@ class S2SVpnV1Alpha1API(API):
         initiation_policy: Optional[CreateConnectionRequestInitiationPolicy] = None,
         ikev2_ciphers: Optional[list[ConnectionCipher]] = None,
         esp_ciphers: Optional[list[ConnectionCipher]] = None,
+        secret_id: Optional[str] = None,
+        secret_revision: Optional[int] = None,
     ) -> Connection:
         """
         Update a connection.
@@ -776,6 +779,8 @@ class S2SVpnV1Alpha1API(API):
         :param initiation_policy: Who initiates the IPsec tunnel.
         :param ikev2_ciphers: List of IKE v2 ciphers proposed for the IPsec tunnel.
         :param esp_ciphers: List of ESP ciphers proposed for the IPsec tunnel.
+        :param secret_id: Secret ID in the client's project containing the PSK.
+        :param secret_revision: If not given it will not change. If secret_id is updated, secret_revision should be set accordingly.
         :return: :class:`Connection <Connection>`
 
         Usage:
@@ -803,6 +808,8 @@ class S2SVpnV1Alpha1API(API):
                     initiation_policy=initiation_policy,
                     ikev2_ciphers=ikev2_ciphers,
                     esp_ciphers=esp_ciphers,
+                    secret_id=secret_id,
+                    secret_revision=secret_revision,
                 ),
                 self.client,
             ),
@@ -855,7 +862,7 @@ class S2SVpnV1Alpha1API(API):
         Renew pre-shared key for a given connection.
         :param connection_id: ID of the connection to renew the PSK.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param generate_revision: Generate a new revision or update to the latest existing one.
+        :param generate_revision: Generate a new version or update to the latest existing one.
         :return: :class:`RenewConnectionPskResponse <RenewConnectionPskResponse>`
 
         Usage:

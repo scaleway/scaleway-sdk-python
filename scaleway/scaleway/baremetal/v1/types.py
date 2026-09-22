@@ -1017,6 +1017,11 @@ class Offer:
     Exist only for hourly offers, to migrate to the monthly offer.
     """
 
+    dual_attach: Optional[bool] = False
+    """
+    Describe the network topology of the offer.
+    """
+
 
 @dataclass
 class Option:
