@@ -212,6 +212,11 @@ class Connection:
     Unique identifier of the connection.
     """
 
+    srn: str
+    """
+    The SRN of the connection.
+    """
+
     project_id: str
     """
     Project ID.
@@ -368,6 +373,11 @@ class CustomerGateway:
     Unique identifier of the customer gateway.
     """
 
+    srn: str
+    """
+    The SRN of the customer gateway.
+    """
+
     project_id: str
     """
     Project ID.
@@ -429,6 +439,11 @@ class RoutingPolicy:
     id: str
     """
     Unique identifier of the routing policy.
+    """
+
+    srn: str
+    """
+    The SRN of the routing policy.
     """
 
     project_id: str
@@ -499,6 +514,11 @@ class VpnGateway:
     id: str
     """
     Unique identifier of the VPN gateway.
+    """
+
+    srn: str
+    """
+    The SRN of the VPN gateway.
     """
 
     project_id: str
