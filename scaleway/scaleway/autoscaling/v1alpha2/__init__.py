@@ -34,6 +34,7 @@ from .types import ListLogsRequest
 from .types import ListLogsResponse
 from .types import ListServersRequest
 from .types import ListServersResponse
+from .types import RefreshGroupRequest
 from .types import UpdateGroupRequest
 from .api import AutoscalingV1Alpha2API
 
@@ -72,6 +73,7 @@ __all__ = [
     "ListLogsResponse",
     "ListServersRequest",
     "ListServersResponse",
+    "RefreshGroupRequest",
     "UpdateGroupRequest",
     "AutoscalingV1Alpha2API",
 ]
