@@ -143,6 +143,7 @@ class ListKeysRequestUsage(str, Enum, metaclass=StrEnumMeta):
     SYMMETRIC_ENCRYPTION = "symmetric_encryption"
     ASYMMETRIC_ENCRYPTION = "asymmetric_encryption"
     ASYMMETRIC_SIGNING = "asymmetric_signing"
+    KEY_ENCAPSULATION = "key_encapsulation"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -709,7 +710,7 @@ class ListKeysRequest:
 
     usage: Optional[ListKeysRequestUsage] = ListKeysRequestUsage.UNKNOWN_USAGE
     """
-    Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
+    Select from symmetric encryption, asymmetric encryption, asymmetric signing or key_encapsulation.
     """
 
     protection_level: Optional[KeyProtectionLevel] = (
