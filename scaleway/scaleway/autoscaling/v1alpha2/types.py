@@ -650,6 +650,15 @@ class ListServersResponse:
 
 
 @dataclass
+class RefreshGroupRequest:
+    group_id: str
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class UpdateGroupRequest:
     group_id: str
     """
