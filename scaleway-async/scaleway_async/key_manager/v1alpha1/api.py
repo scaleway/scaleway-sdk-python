@@ -501,7 +501,7 @@ class KeyManagerV1Alpha1API(API):
         :param page_size:
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
-        :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
+        :param usage: Select from symmetric encryption, asymmetric encryption, asymmetric signing or key_encapsulation.
         :param protection_level: Select from software or hsm.
         :return: :class:`ListKeysResponse <ListKeysResponse>`
 
@@ -568,7 +568,7 @@ class KeyManagerV1Alpha1API(API):
         :param page_size:
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
-        :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
+        :param usage: Select from symmetric encryption, asymmetric encryption, asymmetric signing or key_encapsulation.
         :param protection_level: Select from software or hsm.
         :return: :class:`list[Key] <list[Key]>`
 
