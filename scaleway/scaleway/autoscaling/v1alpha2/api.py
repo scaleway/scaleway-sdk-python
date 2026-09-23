@@ -220,6 +220,40 @@ class AutoscalingV1Alpha2API(API):
         self._throw_on_error(res)
         return unmarshal_Group(res.json())
 
+    def refresh_group(
+        self,
+        *,
+        group_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> Group:
+        """
+        Refresh an autoscaling group.
+        This will replace all the instances of the group.
+        Its main use case is applying changes if the instance template has been updated.
+        :param group_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Group <Group>`
+
+        Usage:
+        ::
+
+            result = api.refresh_group(
+                group_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_group_id = validate_path_param("group_id", group_id)
+
+        res = self._request(
+            "POST",
+            f"/autoscaling/v1alpha2/zones/{param_zone}/groups/{param_group_id}/refresh",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Group(res.json())
+
     def update_group(
         self,
         *,
