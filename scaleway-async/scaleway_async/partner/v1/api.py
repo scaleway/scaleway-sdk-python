@@ -87,6 +87,7 @@ class PartnerV1API(API):
         owner_lastname: str,
         customer_id: str,
         phone_number: Optional[str] = None,
+        comment: Optional[str] = None,
     ) -> Organization:
         """
         Create a new organization.
@@ -97,6 +98,7 @@ class PartnerV1API(API):
         :param owner_lastname: The last name of the new organization owner.
         :param customer_id: A custom ID for the customer in your own infrastructure.
         :param phone_number: The phone number of the new organization owner.
+        :param comment: A comment about the organization.
         :return: :class:`Organization <Organization>`
 
         Usage:
@@ -124,6 +126,7 @@ class PartnerV1API(API):
                     owner_lastname=owner_lastname,
                     customer_id=customer_id,
                     phone_number=phone_number,
+                    comment=comment,
                 ),
                 self.client,
             ),
