@@ -186,7 +186,11 @@ class API:
 
     def _throw_on_error(self, res: requests.Response) -> None:
         if res.status_code is not None and res.status_code >= 400:
-            data = res.json()
+            data = None
+            try:
+                data = res.json()
+            except requests.exceptions.JSONDecodeError:
+                pass
 
             if data:
                 if "message" in data:
