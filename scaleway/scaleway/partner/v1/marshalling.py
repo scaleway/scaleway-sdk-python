@@ -163,6 +163,9 @@ def marshal_CreateOrganizationRequest(
     if request.phone_number is not None:
         output["phone_number"] = request.phone_number
 
+    if request.comment is not None:
+        output["comment"] = request.comment
+
     return output
 
 

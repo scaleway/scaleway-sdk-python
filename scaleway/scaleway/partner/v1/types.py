@@ -149,6 +149,11 @@ class CreateOrganizationRequest:
     The phone number of the new organization owner.
     """
 
+    comment: Optional[str] = None
+    """
+    A comment about the organization.
+    """
+
 
 @dataclass
 class GetOrganizationRequest:
