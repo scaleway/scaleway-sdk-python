@@ -151,7 +151,7 @@ class BillingV2API(API):
     ) -> Budget:
         """
         Create a new budget.
-        :param consumption_limit: Cost limit for the budget.
+        :param consumption_limit: Cost limit for the budget expressed in the invoiced currency (no cents allowed).
         :param enabled: Whether the budget is enabled or not.
         :param organization_id: The Organization ID of the budget.
         :return: :class:`Budget <Budget>`
@@ -191,7 +191,7 @@ class BillingV2API(API):
         """
         Update a budget.
         :param budget_id: The ID of the budget to update.
-        :param consumption_limit: Cost limit for the budget.
+        :param consumption_limit: Cost limit for the budget expressed in the invoiced currency (no cents allowed).
         :param enabled: Whether the budget will be enabled or not.
         :return: :class:`Budget <Budget>`
 
