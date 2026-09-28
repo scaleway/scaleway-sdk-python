@@ -112,6 +112,7 @@ from .types import (
 )
 from .marshalling import (
     unmarshal_JWT,
+    unmarshal_ScimToken,
     unmarshal_APIKey,
     unmarshal_Application,
     unmarshal_Group,
@@ -3589,6 +3590,33 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def get_scim_token(
+        self,
+        *,
+        scim_token_id: str,
+    ) -> ScimToken:
+        """
+        :param scim_token_id:
+        :return: :class:`ScimToken <ScimToken>`
+
+        Usage:
+        ::
+
+            result = await api.get_scim_token(
+                scim_token_id="example",
+            )
+        """
+
+        param_scim_token_id = validate_path_param("scim_token_id", scim_token_id)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/scim-tokens/{param_scim_token_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ScimToken(res.json())
 
     async def start_user_web_authn_registration(
         self,
