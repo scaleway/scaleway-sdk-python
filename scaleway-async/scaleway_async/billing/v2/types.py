@@ -123,7 +123,7 @@ class Budget:
 
     consumption_limit: Optional[Money] = None
     """
-    Cost limit for this budget.
+    Cost limit for this budget expressed in the embedded currency code.
     """
 
 
@@ -196,7 +196,7 @@ class CreateBudgetAlertRequest:
 class CreateBudgetRequest:
     consumption_limit: int
     """
-    Cost limit for the budget.
+    Cost limit for the budget expressed in the invoiced currency (no cents allowed).
     """
 
     enabled: bool
@@ -414,7 +414,7 @@ class UpdateBudgetRequest:
 
     consumption_limit: Optional[int] = 0
     """
-    Cost limit for the budget.
+    Cost limit for the budget expressed in the invoiced currency (no cents allowed).
     """
 
     enabled: Optional[bool] = False
