@@ -768,11 +768,6 @@ class Version:
     Supported Container Network Interface (CNI) plugins for this version.
     """
 
-    available_container_runtimes: list[Runtime]
-    """
-    Supported container runtimes for this version.
-    """
-
     available_feature_gates: list[str]
     """
     Supported feature gates for this version.
@@ -904,6 +899,11 @@ class Cluster:
     iam_nodes_group_id: str
     """
     IAM group that nodes are members of (this field might be empty during early stage of cluster creation).
+    """
+
+    iam_control_plane_application_id: str
+    """
+    IAM application ID for the control plane (this field might be empty during early stage of cluster creation).
     """
 
     pod_cidr: str

@@ -267,6 +267,7 @@ class ServerTypeAvailability(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     LOW_STOCK = "low_stock"
     OUT_OF_STOCK = "out_of_stock"
+    UNAVAILABLE = "unavailable"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -502,6 +503,11 @@ class ServerTypeLimits:
     """
     Maximum number of volumes.
     """
+
+
+@dataclass
+class ServerTypeSpotInfo:
+    availability: ServerTypeAvailability
 
 
 @dataclass
@@ -1026,6 +1032,11 @@ class ServerType:
     GPU information for the server type.
     """
 
+    spot_info: Optional[ServerTypeSpotInfo] = None
+    """
+    Availability status of the server type as a spot instance.
+    """
+
 
 @dataclass
 class ServerSummary:
@@ -1356,6 +1367,14 @@ class ServerPublicNetworkInterface:
 class ServerRDPPassword:
     encrypted_password: str
     rdp_ssh_key_id: str
+
+
+@dataclass
+class ServerRuntimeInfo:
+    spot: bool
+    """
+    True if the Instance is running as Spot.
+    """
 
 
 @dataclass
@@ -3113,6 +3132,11 @@ class Server:
     Public network interface of the server.
     """
 
+    runtime_info: Optional[ServerRuntimeInfo] = None
+    """
+    Runtime information of this server, only available only when it is running.
+    """
+
 
 @dataclass
 class SetSecurityGroupRulesRequest:
@@ -3239,6 +3263,19 @@ class StartServerRequest:
     server_id: str
     """
     ID of the server to start.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class StartSpotServerRequest:
+    server_id: str
+    """
+    ID of the server to start as spot instance.
     """
 
     zone: Optional[ScwZone] = None

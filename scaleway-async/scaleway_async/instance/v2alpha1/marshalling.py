@@ -44,6 +44,7 @@ from .types import (
     ListPrivateNetworkInterfacesResponse,
     SecurityGroupSummary,
     ListSecurityGroupsResponse,
+    ServerTypeSpotInfo,
     ServerType,
     ListServerCompatibleTypesResponse,
     ListServerTypesResponse,
@@ -64,6 +65,7 @@ from .types import (
     ServerPrivateNetworkInterface,
     ServerPublicNetworkInterface,
     ServerRDPPassword,
+    ServerRuntimeInfo,
     ServerVolume,
     Server,
     CreateTemplateRequestPrivateNetworkTemplate,
@@ -1215,6 +1217,23 @@ def unmarshal_ListSecurityGroupsResponse(data: Any) -> ListSecurityGroupsRespons
     return ListSecurityGroupsResponse(**args)
 
 
+def unmarshal_ServerTypeSpotInfo(data: Any) -> ServerTypeSpotInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeSpotInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("availability", None)
+    if field is not None:
+        args["availability"] = field
+    else:
+        args["availability"] = None
+
+    return ServerTypeSpotInfo(**args)
+
+
 def unmarshal_ServerType(data: Any) -> ServerType:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1276,6 +1295,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["gpu_info"] = unmarshal_ServerTypeGpuInfo(field)
     else:
         args["gpu_info"] = None
+
+    field = data.get("spot_info", None)
+    if field is not None:
+        args["spot_info"] = unmarshal_ServerTypeSpotInfo(field)
+    else:
+        args["spot_info"] = None
 
     return ServerType(**args)
 
@@ -2139,6 +2164,23 @@ def unmarshal_ServerRDPPassword(data: Any) -> ServerRDPPassword:
     return ServerRDPPassword(**args)
 
 
+def unmarshal_ServerRuntimeInfo(data: Any) -> ServerRuntimeInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerRuntimeInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("spot", None)
+    if field is not None:
+        args["spot"] = field
+    else:
+        args["spot"] = False
+
+    return ServerRuntimeInfo(**args)
+
+
 def unmarshal_ServerVolume(data: Any) -> ServerVolume:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2305,6 +2347,12 @@ def unmarshal_Server(data: Any) -> Server:
         args["public_network_interface"] = unmarshal_ServerPublicNetworkInterface(field)
     else:
         args["public_network_interface"] = None
+
+    field = data.get("runtime_info", None)
+    if field is not None:
+        args["runtime_info"] = unmarshal_ServerRuntimeInfo(field)
+    else:
+        args["runtime_info"] = None
 
     return Server(**args)
 

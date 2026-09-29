@@ -5,6 +5,7 @@ from .types import (
     AliasStatus,
     DomainRecordStatus,
     DomainStatus,
+    ForwardingStatus,
     MailboxStatus,
 )
 
@@ -29,6 +30,14 @@ DOMAIN_TRANSIENT_STATUSES: list[DomainStatus] = [
 ]
 """
 Lists transient statutes of the enum :class:`DomainStatus <DomainStatus>`.
+"""
+FORWARDING_TRANSIENT_STATUSES: list[ForwardingStatus] = [
+    ForwardingStatus.PROVISIONING,
+    ForwardingStatus.UPDATING,
+    ForwardingStatus.DELETING,
+]
+"""
+Lists transient statutes of the enum :class:`ForwardingStatus <ForwardingStatus>`.
 """
 MAILBOX_TRANSIENT_STATUSES: list[MailboxStatus] = [
     MailboxStatus.CREATING,
