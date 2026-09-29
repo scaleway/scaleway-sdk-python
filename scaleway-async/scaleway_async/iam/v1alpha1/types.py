@@ -1628,6 +1628,11 @@ class GetSamlCertificateRequest:
 
 
 @dataclass
+class GetScimTokenRequest:
+    scim_token_id: str
+
+
+@dataclass
 class GetUserConnectionsRequest:
     user_id: str
     """
