@@ -5,7 +5,9 @@ from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -13,8 +15,10 @@ from scaleway_core.utils import (
 from .types import (
     AliasStatus,
     DomainStatus,
+    ForwardingStatus,
     ListAliasesRequestOrderBy,
     ListDomainsRequestOrderBy,
+    ListForwardingsRequestOrderBy,
     ListMailboxesRequestOrderBy,
     MailboxStatus,
     MailboxSubscriptionPeriod,
@@ -24,33 +28,46 @@ from .types import (
     BatchCreateMailboxesResponse,
     CreateAliasRequest,
     CreateDomainRequest,
+    CreateForwardingRequest,
     Domain,
+    Forwarding,
     GetDomainRecordsResponse,
     ListAliasesResponse,
     ListDomainsResponse,
+    ListForwardingsResponse,
     ListMailboxesResponse,
     Mailbox,
+    MailboxForwarding,
     UpdateAliasRequest,
+    UpdateForwardingRequest,
+    UpdateMailboxForwardingRequest,
     UpdateMailboxRequest,
 )
 from .content import (
     ALIAS_TRANSIENT_STATUSES,
     DOMAIN_TRANSIENT_STATUSES,
+    FORWARDING_TRANSIENT_STATUSES,
     MAILBOX_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_Mailbox,
     unmarshal_Alias,
     unmarshal_Domain,
+    unmarshal_Forwarding,
     unmarshal_BatchCreateMailboxesResponse,
     unmarshal_GetDomainRecordsResponse,
     unmarshal_ListAliasesResponse,
     unmarshal_ListDomainsResponse,
+    unmarshal_ListForwardingsResponse,
     unmarshal_ListMailboxesResponse,
+    unmarshal_MailboxForwarding,
     marshal_BatchCreateMailboxesRequest,
     marshal_CreateAliasRequest,
     marshal_CreateDomainRequest,
+    marshal_CreateForwardingRequest,
     marshal_UpdateAliasRequest,
+    marshal_UpdateForwardingRequest,
+    marshal_UpdateMailboxForwardingRequest,
     marshal_UpdateMailboxRequest,
 )
 
@@ -856,3 +873,331 @@ class MailboxV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Alias(res.json())
+
+    def create_forwarding(
+        self,
+        *,
+        mailbox_id: str,
+        email: str,
+    ) -> Forwarding:
+        """
+        Create a forwarding rule for a mailbox.
+        All incoming emails to the mailbox will be redirected to the specified destination email address.
+        A mailbox can have up to 5 forwarding rules. Forwarding to the mailbox's own email address is not allowed.
+        :param mailbox_id: ID of the mailbox for which to create the forwarding rule.
+        :param email: Destination email address to which incoming emails will be forwarded. Must not be the same as the mailbox's own email address.
+        :return: :class:`Forwarding <Forwarding>`
+
+        Usage:
+        ::
+
+            result = api.create_forwarding(
+                mailbox_id="example",
+                email="example",
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/mailbox/v1alpha1/forwardings",
+            body=marshal_CreateForwardingRequest(
+                CreateForwardingRequest(
+                    mailbox_id=mailbox_id,
+                    email=email,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Forwarding(res.json())
+
+    def list_forwardings(
+        self,
+        *,
+        order_by: Optional[ListForwardingsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        mailbox_id: Optional[str] = None,
+        status: Optional[ForwardingStatus] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> ListForwardingsResponse:
+        """
+        List forwarding rules in an organization.
+        The return list can be filtered with request parameters.
+        :param order_by: Order forwardings by specific criteria.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Requested page size. Value must be between 1 and 100.
+        :param mailbox_id: (Optional) ID of the mailbox for which to list forwarding rules.
+        :param status: (Optional) Filter forwarding rules by their status.
+        :param project_id: ID of the Project to filter on.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :param organization_id: ID of the Organization to filter on.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :return: :class:`ListForwardingsResponse <ListForwardingsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_forwardings()
+        """
+
+        res = self._request(
+            "GET",
+            "/mailbox/v1alpha1/forwardings",
+            params={
+                "mailbox_id": mailbox_id,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "status": status,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("organization_id", organization_id),
+                        OneOfPossibility("project_id", project_id),
+                    ]
+                ),
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListForwardingsResponse(res.json())
+
+    def list_forwardings_all(
+        self,
+        *,
+        order_by: Optional[ListForwardingsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        mailbox_id: Optional[str] = None,
+        status: Optional[ForwardingStatus] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> list[Forwarding]:
+        """
+        List forwarding rules in an organization.
+        The return list can be filtered with request parameters.
+        :param order_by: Order forwardings by specific criteria.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Requested page size. Value must be between 1 and 100.
+        :param mailbox_id: (Optional) ID of the mailbox for which to list forwarding rules.
+        :param status: (Optional) Filter forwarding rules by their status.
+        :param project_id: ID of the Project to filter on.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :param organization_id: ID of the Organization to filter on.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :return: :class:`list[Forwarding] <list[Forwarding]>`
+
+        Usage:
+        ::
+
+            result = api.list_forwardings_all()
+        """
+
+        return fetch_all_pages(
+            type=ListForwardingsResponse,
+            key="forwardings",
+            fetcher=self.list_forwardings,
+            args={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "mailbox_id": mailbox_id,
+                "status": status,
+                "project_id": project_id,
+                "organization_id": organization_id,
+            },
+        )
+
+    def get_forwarding(
+        self,
+        *,
+        forwarding_id: str,
+    ) -> Forwarding:
+        """
+        Get a forwarding rule by its ID.
+        :param forwarding_id: ID of the forwarding rule to get.
+        :return: :class:`Forwarding <Forwarding>`
+
+        Usage:
+        ::
+
+            result = api.get_forwarding(
+                forwarding_id="example",
+            )
+        """
+
+        param_forwarding_id = validate_path_param("forwarding_id", forwarding_id)
+
+        res = self._request(
+            "GET",
+            f"/mailbox/v1alpha1/forwardings/{param_forwarding_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Forwarding(res.json())
+
+    def wait_for_forwarding(
+        self,
+        *,
+        forwarding_id: str,
+        options: Optional[WaitForOptions[Forwarding, bool]] = None,
+    ) -> Forwarding:
+        """
+        Get a forwarding rule by its ID.
+        :param forwarding_id: ID of the forwarding rule to get.
+        :return: :class:`Forwarding <Forwarding>`
+
+        Usage:
+        ::
+
+            result = api.get_forwarding(
+                forwarding_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in FORWARDING_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_forwarding,
+            options=options,
+            args={
+                "forwarding_id": forwarding_id,
+            },
+        )
+
+    def update_forwarding(
+        self,
+        *,
+        forwarding_id: str,
+        email: Optional[str] = None,
+    ) -> Forwarding:
+        """
+        Update a forwarding rule's destination email address by its ID.
+        :param forwarding_id: ID of the forwarding rule to update.
+        :param email: (Optional) New destination email address for the forwarding rule. Must not be the same as the mailbox's own email address.
+        :return: :class:`Forwarding <Forwarding>`
+
+        Usage:
+        ::
+
+            result = api.update_forwarding(
+                forwarding_id="example",
+            )
+        """
+
+        param_forwarding_id = validate_path_param("forwarding_id", forwarding_id)
+
+        res = self._request(
+            "PATCH",
+            f"/mailbox/v1alpha1/forwardings/{param_forwarding_id}",
+            body=marshal_UpdateForwardingRequest(
+                UpdateForwardingRequest(
+                    forwarding_id=forwarding_id,
+                    email=email,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Forwarding(res.json())
+
+    def delete_forwarding(
+        self,
+        *,
+        forwarding_id: str,
+    ) -> Forwarding:
+        """
+        Delete a forwarding rule by its ID.
+        :param forwarding_id: ID of the forwarding rule to delete.
+        :return: :class:`Forwarding <Forwarding>`
+
+        Usage:
+        ::
+
+            result = api.delete_forwarding(
+                forwarding_id="example",
+            )
+        """
+
+        param_forwarding_id = validate_path_param("forwarding_id", forwarding_id)
+
+        res = self._request(
+            "DELETE",
+            f"/mailbox/v1alpha1/forwardings/{param_forwarding_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Forwarding(res.json())
+
+    def get_mailbox_forwarding(
+        self,
+        *,
+        mailbox_id: str,
+    ) -> MailboxForwarding:
+        """
+        :param mailbox_id: ID of the mailbox to get the forwarding settings for.
+        :return: :class:`MailboxForwarding <MailboxForwarding>`
+
+        Usage:
+        ::
+
+            result = api.get_mailbox_forwarding(
+                mailbox_id="example",
+            )
+        """
+
+        param_mailbox_id = validate_path_param("mailbox_id", mailbox_id)
+
+        res = self._request(
+            "GET",
+            f"/mailbox/v1alpha1/mailboxes/{param_mailbox_id}/forwarding",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_MailboxForwarding(res.json())
+
+    def update_mailbox_forwarding(
+        self,
+        *,
+        mailbox_id: str,
+        keep_copy: Optional[bool] = None,
+        enabled: Optional[bool] = None,
+    ) -> MailboxForwarding:
+        """
+        :param mailbox_id: ID of the mailbox to update the forwarding settings for.
+        :param keep_copy: (Optional) Whether to keep a copy of forwarded emails in the local mailbox.
+        :param enabled: (Optional) Enable or disable forwarding for the mailbox.
+        :return: :class:`MailboxForwarding <MailboxForwarding>`
+
+        Usage:
+        ::
+
+            result = api.update_mailbox_forwarding(
+                mailbox_id="example",
+            )
+        """
+
+        param_mailbox_id = validate_path_param("mailbox_id", mailbox_id)
+
+        res = self._request(
+            "PATCH",
+            f"/mailbox/v1alpha1/mailboxes/{param_mailbox_id}/forwarding",
+            body=marshal_UpdateMailboxForwardingRequest(
+                UpdateMailboxForwardingRequest(
+                    mailbox_id=mailbox_id,
+                    keep_copy=keep_copy,
+                    enabled=enabled,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_MailboxForwarding(res.json())
