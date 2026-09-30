@@ -131,14 +131,6 @@ def unmarshal_Version(data: Any) -> Version:
     else:
         args["available_cnis"] = []
 
-    field = data.get("available_container_runtimes", None)
-    if field is not None:
-        args["available_container_runtimes"] = (
-            [Runtime(v) for v in field] if field is not None else None
-        )
-    else:
-        args["available_container_runtimes"] = []
-
     field = data.get("available_feature_gates", None)
     if field is not None:
         args["available_feature_gates"] = field
