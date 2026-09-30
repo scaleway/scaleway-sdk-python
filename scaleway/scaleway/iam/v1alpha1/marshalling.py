@@ -23,6 +23,7 @@ from .types import (
     SamlStatus,
     UserType,
     JWT,
+    ScimToken,
     APIKey,
     Application,
     Group,
@@ -34,7 +35,6 @@ from .types import (
     SamlCertificate,
     WebAuthnAuthenticator,
     User,
-    ScimToken,
     CreateScimTokenResponse,
     EncodedJWT,
     FinishUserWebAuthnRegistrationResponse,
@@ -170,6 +170,41 @@ def unmarshal_JWT(data: Any) -> JWT:
         args["expires_at"] = None
 
     return JWT(**args)
+
+
+def unmarshal_ScimToken(data: Any) -> ScimToken:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ScimToken' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("scim_id", None)
+    if field is not None:
+        args["scim_id"] = field
+    else:
+        args["scim_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("expires_at", None)
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
+
+    return ScimToken(**args)
 
 
 def unmarshal_APIKey(data: Any) -> APIKey:
@@ -1035,41 +1070,6 @@ def unmarshal_User(data: Any) -> User:
         args["status"] = None
 
     return User(**args)
-
-
-def unmarshal_ScimToken(data: Any) -> ScimToken:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ScimToken' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-    else:
-        args["id"] = None
-
-    field = data.get("scim_id", None)
-    if field is not None:
-        args["scim_id"] = field
-    else:
-        args["scim_id"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("expires_at", None)
-    if field is not None:
-        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["expires_at"] = None
-
-    return ScimToken(**args)
 
 
 def unmarshal_CreateScimTokenResponse(data: Any) -> CreateScimTokenResponse:

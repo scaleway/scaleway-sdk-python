@@ -68,6 +68,17 @@ class DomainStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ForwardingStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    PROVISIONING = "provisioning"
+    READY = "ready"
+    UPDATING = "updating"
+    DELETING = "deleting"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListAliasesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -89,6 +100,18 @@ class ListDomainsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     MAILBOX_TOTAL_COUNT_DESC = "mailbox_total_count_desc"
     MAILBOX_TOTAL_COUNT_ASC = "mailbox_total_count_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListForwardingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    EMAIL_DESC = "email_desc"
+    EMAIL_ASC = "email_asc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -362,6 +385,39 @@ class Domain:
 
 
 @dataclass
+class Forwarding:
+    id: str
+    """
+    Unique identifier of the forwarding rule.
+    """
+
+    mailbox_id: str
+    """
+    ID of the mailbox to which the forwarding rule belongs.
+    """
+
+    email: str
+    """
+    Destination email address to which incoming emails are forwarded.
+    """
+
+    status: ForwardingStatus
+    """
+    Status of the forwarding rule.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date and time of forwarding rule creation.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date and time when the forwarding rule was last updated.
+    """
+
+
+@dataclass
 class BatchCreateMailboxesRequest:
     domain_id: str
     """
@@ -423,6 +479,19 @@ class CreateDomainRequest:
 
 
 @dataclass
+class CreateForwardingRequest:
+    mailbox_id: str
+    """
+    ID of the mailbox for which to create the forwarding rule.
+    """
+
+    email: str
+    """
+    Destination email address to which incoming emails will be forwarded. Must not be the same as the mailbox's own email address.
+    """
+
+
+@dataclass
 class DeleteAliasRequest:
     alias_id: str
     """
@@ -435,6 +504,14 @@ class DeleteDomainRequest:
     domain_id: str
     """
     ID of the domain to delete.
+    """
+
+
+@dataclass
+class DeleteForwardingRequest:
+    forwarding_id: str
+    """
+    ID of the forwarding rule to delete.
     """
 
 
@@ -534,6 +611,22 @@ class GetDomainRequest:
 
 
 @dataclass
+class GetForwardingRequest:
+    forwarding_id: str
+    """
+    ID of the forwarding rule to get.
+    """
+
+
+@dataclass
+class GetMailboxForwardingRequest:
+    mailbox_id: str
+    """
+    ID of the mailbox to get the forwarding settings for.
+    """
+
+
+@dataclass
 class GetMailboxRequest:
     mailbox_id: str
     """
@@ -613,6 +706,53 @@ class ListDomainsResponse:
 
 
 @dataclass
+class ListForwardingsRequest:
+    order_by: Optional[ListForwardingsRequestOrderBy] = (
+        ListForwardingsRequestOrderBy.CREATED_AT_DESC
+    )
+    """
+    Order forwardings by specific criteria.
+    """
+
+    page: Optional[int] = 0
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Requested page size. Value must be between 1 and 100.
+    """
+
+    mailbox_id: Optional[str] = None
+    """
+    (Optional) ID of the mailbox for which to list forwarding rules.
+    """
+
+    status: Optional[ForwardingStatus] = ForwardingStatus.UNKNOWN_STATUS
+    """
+    (Optional) Filter forwarding rules by their status.
+    """
+
+    project_id: Optional[str] = None
+
+    organization_id: Optional[str] = None
+
+
+@dataclass
+class ListForwardingsResponse:
+    total_count: int
+    """
+    Number of forwarding rules that match the request (without pagination).
+    """
+
+    forwardings: list[Forwarding]
+    """
+    Single page of forwarding rules matching the requested criteria.
+    """
+
+
+@dataclass
 class ListMailboxesRequest:
     order_by: Optional[ListMailboxesRequestOrderBy] = (
         ListMailboxesRequestOrderBy.CREATED_AT_DESC
@@ -666,6 +806,34 @@ class ListMailboxesResponse:
 
 
 @dataclass
+class MailboxForwarding:
+    mailbox_id: str
+    """
+    ID of the mailbox to which the forwarding settings belong.
+    """
+
+    keep_copy: bool
+    """
+    Whether to keep a copy of forwarded emails in the local mailbox.
+    """
+
+    enabled: bool
+    """
+    Whether forwarding is enabled for the mailbox. When disabled, no emails are forwarded.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date and time of the forwarding settings creation.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date and time when the forwarding settings were last updated.
+    """
+
+
+@dataclass
 class RestoreMailboxRequest:
     mailbox_id: str
     """
@@ -683,6 +851,37 @@ class UpdateAliasRequest:
     description: Optional[str] = None
     """
     (Optional) Description of the alias.
+    """
+
+
+@dataclass
+class UpdateForwardingRequest:
+    forwarding_id: str
+    """
+    ID of the forwarding rule to update.
+    """
+
+    email: Optional[str] = None
+    """
+    (Optional) New destination email address for the forwarding rule. Must not be the same as the mailbox's own email address.
+    """
+
+
+@dataclass
+class UpdateMailboxForwardingRequest:
+    mailbox_id: str
+    """
+    ID of the mailbox to update the forwarding settings for.
+    """
+
+    keep_copy: Optional[bool] = False
+    """
+    (Optional) Whether to keep a copy of forwarded emails in the local mailbox.
+    """
+
+    enabled: Optional[bool] = False
+    """
+    (Optional) Enable or disable forwarding for the mailbox.
     """
 
 

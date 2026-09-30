@@ -672,6 +672,40 @@ class InstanceV2Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
 
+    def start_spot_server(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> Server:
+        """
+        Start an Instance as Spot.
+        Spot instances are billed at a discount compared to regular instances. However, they can be interrupted
+        at any time.
+        :param server_id: ID of the server to start as spot instance.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Server <Server>`
+
+        Usage:
+        ::
+
+            result = api.start_spot_server(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/instance/v2alpha1/zones/{param_zone}/servers/{param_server_id}/start-spot",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Server(res.json())
+
     def reboot_server(
         self,
         *,

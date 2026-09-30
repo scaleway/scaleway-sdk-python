@@ -45,6 +45,7 @@ from .types import CreateServerRequestServerIP
 from .types import CreateServerRequestCreateVolume
 from .types import ServerTypeGpuInfo
 from .types import ServerTypeLimits
+from .types import ServerTypeSpotInfo
 from .types import ServerIP
 from .types import CreateTemplateRequestPrivateNetworkTemplate
 from .types import CreateTemplateRequestVolumeTemplate
@@ -67,6 +68,7 @@ from .types import ServerFilesystem
 from .types import ServerPrivateNetworkInterface
 from .types import ServerPublicNetworkInterface
 from .types import ServerRDPPassword
+from .types import ServerRuntimeInfo
 from .types import ServerVolume
 from .types import UpdateServerRequestPublicNetworkInterface
 from .types import UpdateTemplateRequestUpdatePrivateNetworks
@@ -146,6 +148,7 @@ from .types import SetTemplateCloudInitRequest
 from .types import SetTemplateUserDataRequest
 from .types import SetUserDataRequest
 from .types import StartServerRequest
+from .types import StartSpotServerRequest
 from .types import StopAndDeleteServerRequest
 from .types import StopServerRequest
 from .types import Template
@@ -219,6 +222,7 @@ __all__ = [
     "CreateServerRequestCreateVolume",
     "ServerTypeGpuInfo",
     "ServerTypeLimits",
+    "ServerTypeSpotInfo",
     "ServerIP",
     "CreateTemplateRequestPrivateNetworkTemplate",
     "CreateTemplateRequestVolumeTemplate",
@@ -241,6 +245,7 @@ __all__ = [
     "ServerPrivateNetworkInterface",
     "ServerPublicNetworkInterface",
     "ServerRDPPassword",
+    "ServerRuntimeInfo",
     "ServerVolume",
     "UpdateServerRequestPublicNetworkInterface",
     "UpdateTemplateRequestUpdatePrivateNetworks",
@@ -320,6 +325,7 @@ __all__ = [
     "SetTemplateUserDataRequest",
     "SetUserDataRequest",
     "StartServerRequest",
+    "StartSpotServerRequest",
     "StopAndDeleteServerRequest",
     "StopServerRequest",
     "Template",
