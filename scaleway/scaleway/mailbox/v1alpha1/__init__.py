@@ -8,8 +8,11 @@ from .types import DomainRecordStatus
 from .content import DOMAIN_RECORD_TRANSIENT_STATUSES
 from .types import DomainStatus
 from .content import DOMAIN_TRANSIENT_STATUSES
+from .types import ForwardingStatus
+from .content import FORWARDING_TRANSIENT_STATUSES
 from .types import ListAliasesRequestOrderBy
 from .types import ListDomainsRequestOrderBy
+from .types import ListForwardingsRequestOrderBy
 from .types import ListMailboxesRequestOrderBy
 from .types import MailboxStatus
 from .content import MAILBOX_TRANSIENT_STATUSES
@@ -19,26 +22,36 @@ from .types import Mailbox
 from .types import DomainRecord
 from .types import Alias
 from .types import Domain
+from .types import Forwarding
 from .types import BatchCreateMailboxesRequest
 from .types import BatchCreateMailboxesResponse
 from .types import CreateAliasRequest
 from .types import CreateDomainRequest
+from .types import CreateForwardingRequest
 from .types import DeleteAliasRequest
 from .types import DeleteDomainRequest
+from .types import DeleteForwardingRequest
 from .types import DeleteMailboxRequest
 from .types import GetAliasRequest
 from .types import GetDomainRecordsRequest
 from .types import GetDomainRecordsResponse
 from .types import GetDomainRequest
+from .types import GetForwardingRequest
+from .types import GetMailboxForwardingRequest
 from .types import GetMailboxRequest
 from .types import ListAliasesRequest
 from .types import ListAliasesResponse
 from .types import ListDomainsRequest
 from .types import ListDomainsResponse
+from .types import ListForwardingsRequest
+from .types import ListForwardingsResponse
 from .types import ListMailboxesRequest
 from .types import ListMailboxesResponse
+from .types import MailboxForwarding
 from .types import RestoreMailboxRequest
 from .types import UpdateAliasRequest
+from .types import UpdateForwardingRequest
+from .types import UpdateMailboxForwardingRequest
 from .types import UpdateMailboxRequest
 from .types import ValidateDomainRecordsRequest
 from .api import MailboxV1Alpha1API
@@ -52,8 +65,11 @@ __all__ = [
     "DOMAIN_RECORD_TRANSIENT_STATUSES",
     "DomainStatus",
     "DOMAIN_TRANSIENT_STATUSES",
+    "ForwardingStatus",
+    "FORWARDING_TRANSIENT_STATUSES",
     "ListAliasesRequestOrderBy",
     "ListDomainsRequestOrderBy",
+    "ListForwardingsRequestOrderBy",
     "ListMailboxesRequestOrderBy",
     "MailboxStatus",
     "MAILBOX_TRANSIENT_STATUSES",
@@ -63,26 +79,36 @@ __all__ = [
     "DomainRecord",
     "Alias",
     "Domain",
+    "Forwarding",
     "BatchCreateMailboxesRequest",
     "BatchCreateMailboxesResponse",
     "CreateAliasRequest",
     "CreateDomainRequest",
+    "CreateForwardingRequest",
     "DeleteAliasRequest",
     "DeleteDomainRequest",
+    "DeleteForwardingRequest",
     "DeleteMailboxRequest",
     "GetAliasRequest",
     "GetDomainRecordsRequest",
     "GetDomainRecordsResponse",
     "GetDomainRequest",
+    "GetForwardingRequest",
+    "GetMailboxForwardingRequest",
     "GetMailboxRequest",
     "ListAliasesRequest",
     "ListAliasesResponse",
     "ListDomainsRequest",
     "ListDomainsResponse",
+    "ListForwardingsRequest",
+    "ListForwardingsResponse",
     "ListMailboxesRequest",
     "ListMailboxesResponse",
+    "MailboxForwarding",
     "RestoreMailboxRequest",
     "UpdateAliasRequest",
+    "UpdateForwardingRequest",
+    "UpdateMailboxForwardingRequest",
     "UpdateMailboxRequest",
     "ValidateDomainRecordsRequest",
     "MailboxV1Alpha1API",
