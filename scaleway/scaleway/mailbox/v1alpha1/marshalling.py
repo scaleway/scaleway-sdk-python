@@ -11,22 +11,29 @@ from .types import (
     DomainRecordLevel,
     DomainRecordStatus,
     DomainStatus,
+    ForwardingStatus,
     MailboxStatus,
     MailboxSubscriptionPeriod,
     Mailbox,
     Alias,
     Domain,
+    Forwarding,
     BatchCreateMailboxesResponse,
     DomainRecord,
     GetDomainRecordsResponse,
     ListAliasesResponse,
     ListDomainsResponse,
+    ListForwardingsResponse,
     ListMailboxesResponse,
+    MailboxForwarding,
     BatchCreateMailboxesRequestMailboxParameters,
     BatchCreateMailboxesRequest,
     CreateAliasRequest,
     CreateDomainRequest,
+    CreateForwardingRequest,
     UpdateAliasRequest,
+    UpdateForwardingRequest,
+    UpdateMailboxForwardingRequest,
     UpdateMailboxRequest,
 )
 
@@ -266,6 +273,53 @@ def unmarshal_Domain(data: Any) -> Domain:
     return Domain(**args)
 
 
+def unmarshal_Forwarding(data: Any) -> Forwarding:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Forwarding' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("mailbox_id", None)
+    if field is not None:
+        args["mailbox_id"] = field
+    else:
+        args["mailbox_id"] = None
+
+    field = data.get("email", None)
+    if field is not None:
+        args["email"] = field
+    else:
+        args["email"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = ForwardingStatus.UNKNOWN_STATUS
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Forwarding(**args)
+
+
 def unmarshal_BatchCreateMailboxesResponse(data: Any) -> BatchCreateMailboxesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -489,6 +543,31 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
     return ListDomainsResponse(**args)
 
 
+def unmarshal_ListForwardingsResponse(data: Any) -> ListForwardingsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListForwardingsResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("forwardings", None)
+    if field is not None:
+        args["forwardings"] = (
+            [unmarshal_Forwarding(v) for v in field] if field is not None else None
+        )
+    else:
+        args["forwardings"] = []
+
+    return ListForwardingsResponse(**args)
+
+
 def unmarshal_ListMailboxesResponse(data: Any) -> ListMailboxesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -512,6 +591,47 @@ def unmarshal_ListMailboxesResponse(data: Any) -> ListMailboxesResponse:
         args["mailboxes"] = []
 
     return ListMailboxesResponse(**args)
+
+
+def unmarshal_MailboxForwarding(data: Any) -> MailboxForwarding:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'MailboxForwarding' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("mailbox_id", None)
+    if field is not None:
+        args["mailbox_id"] = field
+    else:
+        args["mailbox_id"] = None
+
+    field = data.get("keep_copy", None)
+    if field is not None:
+        args["keep_copy"] = field
+    else:
+        args["keep_copy"] = False
+
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+    else:
+        args["enabled"] = False
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return MailboxForwarding(**args)
 
 
 def marshal_BatchCreateMailboxesRequestMailboxParameters(
@@ -585,6 +705,21 @@ def marshal_CreateDomainRequest(
     return output
 
 
+def marshal_CreateForwardingRequest(
+    request: CreateForwardingRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.mailbox_id is not None:
+        output["mailbox_id"] = request.mailbox_id
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    return output
+
+
 def marshal_UpdateAliasRequest(
     request: UpdateAliasRequest,
     defaults: ProfileDefaults,
@@ -593,6 +728,33 @@ def marshal_UpdateAliasRequest(
 
     if request.description is not None:
         output["description"] = request.description
+
+    return output
+
+
+def marshal_UpdateForwardingRequest(
+    request: UpdateForwardingRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    return output
+
+
+def marshal_UpdateMailboxForwardingRequest(
+    request: UpdateMailboxForwardingRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.keep_copy is not None:
+        output["keep_copy"] = request.keep_copy
+
+    if request.enabled is not None:
+        output["enabled"] = request.enabled
 
     return output
 
