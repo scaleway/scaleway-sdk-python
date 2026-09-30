@@ -145,6 +145,12 @@ def unmarshal_CustomAlertRule(data: Any) -> CustomAlertRule:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -174,6 +180,12 @@ def unmarshal_CustomAlertRule(data: Any) -> CustomAlertRule:
         args["severity"] = field
     else:
         args["severity"] = CustomAlertRuleSeverity.UNKNOWN_SEVERITY
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -274,6 +286,12 @@ def unmarshal_ExportJob(data: Any) -> ExportJob:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
@@ -291,6 +309,12 @@ def unmarshal_ExportJob(data: Any) -> ExportJob:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("s3", None)
     if field is not None:

@@ -131,14 +131,6 @@ def unmarshal_Version(data: Any) -> Version:
     else:
         args["available_cnis"] = []
 
-    field = data.get("available_container_runtimes", None)
-    if field is not None:
-        args["available_container_runtimes"] = (
-            [Runtime(v) for v in field] if field is not None else None
-        )
-    else:
-        args["available_container_runtimes"] = []
-
     field = data.get("available_feature_gates", None)
     if field is not None:
         args["available_feature_gates"] = field
@@ -497,6 +489,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["iam_nodes_group_id"] = field
     else:
         args["iam_nodes_group_id"] = None
+
+    field = data.get("iam_control_plane_application_id", None)
+    if field is not None:
+        args["iam_control_plane_application_id"] = field
+    else:
+        args["iam_control_plane_application_id"] = None
 
     field = data.get("pod_cidr", None)
     if field is not None:
