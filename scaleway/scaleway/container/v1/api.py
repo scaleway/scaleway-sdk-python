@@ -463,7 +463,7 @@ class ContainerV1API(API):
         :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or ENTRYPOINT script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
-        :param enable_private_endpoint: When enabled, the container can receive traffic from other resources in the same Private Network.
+        :param enable_private_endpoint: When enabled, the container can receive traffic from resources connected to any Private Network within the same VPC.
         :param enable_default_public_endpoint: When not enabled (set to false), calling the Container through this endpoint will return a 404. Despite this, creating custom domains is still possible.
         :return: :class:`Container <Container>`
 
@@ -761,7 +761,7 @@ class ContainerV1API(API):
         :param private_network_id: When connected to a Private Network, the container can access other Scaleway resources in this Private Network.
         :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or ENTRYPOINT script to run.
         :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
-        :param enable_private_endpoint: When enabled, the container can receive traffic from other resources in the same Private Network.
+        :param enable_private_endpoint: When enabled, the container can receive traffic from resources connected to any Private Network within the same VPC.
         :param enable_default_public_endpoint: When not enabled (set to false), calling the Container through this endpoint will return a 404. Despite this, creating custom domains is still possible.
         :return: :class:`Container <Container>`
 
