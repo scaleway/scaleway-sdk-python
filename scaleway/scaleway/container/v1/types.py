@@ -570,7 +570,7 @@ Possible check types:
 
     private_endpoint: Optional[str] = None
     """
-    This endpoint is accessible from the Private Network the container is connected to, and can be used to access the container from other resources in the same Private Network.
+    This endpoint is accessible from the Private Network the container is connected to, as well as from other Private Networks within the same VPC.
     """
 
 
@@ -982,7 +982,7 @@ Possible check types:
 
     enable_private_endpoint: Optional[bool] = False
     """
-    When enabled, the container can receive traffic from other resources in the same Private Network.
+    When enabled, the container can receive traffic from resources connected to any Private Network within the same VPC.
     """
 
     enable_default_public_endpoint: Optional[bool] = False
@@ -1438,7 +1438,7 @@ Possible check types:
 
     enable_private_endpoint: Optional[bool] = False
     """
-    When enabled, the container can receive traffic from other resources in the same Private Network.
+    When enabled, the container can receive traffic from resources connected to any Private Network within the same VPC.
     """
 
     enable_default_public_endpoint: Optional[bool] = False
