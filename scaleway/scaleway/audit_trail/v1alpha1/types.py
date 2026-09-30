@@ -1120,6 +1120,11 @@ class CustomAlertRule:
     ID of the alert rule.
     """
 
+    srn: str
+    """
+    The SRN of the alert rule.
+    """
+
     name: str
     """
     Name of the alert rule.
@@ -1143,6 +1148,11 @@ class CustomAlertRule:
     severity: CustomAlertRuleSeverity
     """
     The severity level assigned to the custom alert rule.
+    """
+
+    region: ScwRegion
+    """
+    Region of the alert rule.
     """
 
     description: Optional[str] = None
@@ -1182,6 +1192,11 @@ class ExportJob:
     ID of the export job.
     """
 
+    srn: str
+    """
+    The SRN of the export job.
+    """
+
     organization_id: str
     """
     ID of the targeted Organization.
@@ -1195,6 +1210,11 @@ class ExportJob:
     tags: list[str]
     """
     Tags of the export job.
+    """
+
+    region: ScwRegion
+    """
+    Region of the export job.
     """
 
     created_at: Optional[datetime] = None
