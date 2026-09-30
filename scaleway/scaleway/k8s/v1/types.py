@@ -768,11 +768,6 @@ class Version:
     Supported Container Network Interface (CNI) plugins for this version.
     """
 
-    available_container_runtimes: list[Runtime]
-    """
-    Supported container runtimes for this version.
-    """
-
     available_feature_gates: list[str]
     """
     Supported feature gates for this version.
