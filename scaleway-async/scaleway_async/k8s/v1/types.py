@@ -901,6 +901,11 @@ class Cluster:
     IAM group that nodes are members of (this field might be empty during early stage of cluster creation).
     """
 
+    iam_control_plane_application_id: str
+    """
+    IAM application ID for the control plane (this field might be empty during early stage of cluster creation).
+    """
+
     pod_cidr: str
     """
     Subnet used for the Pod CIDR.

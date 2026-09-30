@@ -490,6 +490,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["iam_nodes_group_id"] = None
 
+    field = data.get("iam_control_plane_application_id", None)
+    if field is not None:
+        args["iam_control_plane_application_id"] = field
+    else:
+        args["iam_control_plane_application_id"] = None
+
     field = data.get("pod_cidr", None)
     if field is not None:
         args["pod_cidr"] = field
