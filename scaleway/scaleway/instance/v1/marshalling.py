@@ -2732,6 +2732,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     else:
         args["end_of_service"] = False
 
+    field = data.get("sku", None)
+    if field is not None:
+        args["sku"] = field
+    else:
+        args["sku"] = None
+
     field = data.get("gpu_info", None)
     if field is not None:
         args["gpu_info"] = unmarshal_ServerTypeGPUInfo(field)
