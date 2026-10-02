@@ -215,6 +215,11 @@ class Contract:
     The version of the contract.
     """
 
+    srn: str
+    """
+    The SRN of the contract.
+    """
+
     created_at: Optional[datetime] = None
     """
     The creation date of the contract.
@@ -314,7 +319,7 @@ class Project:
 
     srn: str
     """
-    The SRN of the project.
+    The SRN of the Project.
     """
 
     created_at: Optional[datetime] = None
