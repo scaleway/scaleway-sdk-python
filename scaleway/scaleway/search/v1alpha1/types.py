@@ -92,6 +92,8 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     KAFK_CLUSTER = "kafk_cluster"
     SEDB_CLUSTER = "sedb_cluster"
     AUTOSCALING_GROUP = "autoscaling_group"
+    WOFL_DEFINITION = "wofl_definition"
+    WOFL_RUN = "wofl_run"
 
     def __str__(self) -> str:
         return str(self.value)
