@@ -13,6 +13,11 @@ class ListAllKeysAndValuesResponseValue:
     ID of the value.
     """
 
+    srn: str
+    """
+    SRN of the value.
+    """
+
     name: str
     """
     Name of the value.
@@ -31,6 +36,11 @@ class BindingKey:
     ID of the key.
     """
 
+    srn: str
+    """
+    SRN of the key.
+    """
+
     name: str
     """
     Name of the key.
@@ -44,6 +54,11 @@ class BindingValue:
     ID of the value.
     """
 
+    srn: str
+    """
+    SRN of the value.
+    """
+
     name: str
     """
     Name of the value.
@@ -55,6 +70,11 @@ class ListAllKeysAndValuesResponseKey:
     id: str
     """
     ID of the key.
+    """
+
+    srn: str
+    """
+    SRN of the key.
     """
 
     name: str
@@ -82,7 +102,12 @@ class Binding:
 
     srn: str
     """
-    Scaleway Resource Name associated to the binding.
+    SRN of the binding.
+    """
+
+    target_srn: str
+    """
+    SRN of the resource the binding is attached to.
     """
 
     key: Optional[BindingKey] = None
@@ -103,6 +128,11 @@ class Key:
     ID of the annotation key.
     """
 
+    srn: str
+    """
+    SRN of the annotation key.
+    """
+
     name: str
     """
     Name of the annotation key.
@@ -119,6 +149,11 @@ class Value:
     id: str
     """
     ID of the value.
+    """
+
+    srn: str
+    """
+    SRN of the annotation value.
     """
 
     key_id: str
@@ -139,9 +174,9 @@ class Value:
 
 @dataclass
 class CreateBindingRequest:
-    srn: str
+    target_srn: str
     """
-    Scaleway Resource Name to associate.
+    SRN of the resource to attach the value to.
     """
 
     value_id: str
@@ -188,9 +223,9 @@ class CreateValueRequest:
 
 @dataclass
 class DeleteAllBindingsMatchingSRNRequest:
-    srn: str
+    target_srn: str
     """
-    Scaleway Resource Name for which all bindings should be deleted.
+    SRN of the resource for which all bindings should be deleted.
     """
 
     organization_id: Optional[str] = None
@@ -312,9 +347,9 @@ class ListBindingsRequest:
     ID of the organization.
     """
 
-    srn: Optional[str] = None
+    target_srn: Optional[str] = None
     """
-    Scaleway Resource Name for which to list all bindings.
+    SRN of the resource for which to list all bindings.
     """
 
     value_id: Optional[str] = None
