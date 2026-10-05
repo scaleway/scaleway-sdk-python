@@ -352,6 +352,11 @@ class Cluster:
     List of engine versions the Database Instance can upgrade to.
     """
 
+    srn: str
+    """
+    Scaleway Resource Name of the Database Instance.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation date (Format ISO 8601).
