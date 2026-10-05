@@ -661,7 +661,7 @@ class CreateClusterRequestPoolConfig:
 
     max_termination_grace_period: Optional[str] = None
     """
-    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
     """
 
 
@@ -1192,7 +1192,7 @@ class Pool:
 
     max_termination_grace_period: Optional[str] = None
     """
-    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
     """
 
 
@@ -1601,7 +1601,7 @@ class CreatePoolRequest:
 
     max_termination_grace_period: Optional[str] = None
     """
-    Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+    Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
     """
 
 
@@ -2377,7 +2377,7 @@ class UpdatePoolRequest:
 
     max_termination_grace_period: Optional[str] = None
     """
-    New maximum amount of time before the API forces the drain and deletion of a `deleting` node.
+    New maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node.
     """
 
 

@@ -41,6 +41,12 @@ def unmarshal_BindingKey(data: Any) -> BindingKey:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -63,6 +69,12 @@ def unmarshal_BindingValue(data: Any) -> BindingValue:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -93,6 +105,12 @@ def unmarshal_Binding(data: Any) -> Binding:
     else:
         args["srn"] = None
 
+    field = data.get("target_srn", None)
+    if field is not None:
+        args["target_srn"] = field
+    else:
+        args["target_srn"] = None
+
     field = data.get("key", None)
     if field is not None:
         args["key"] = unmarshal_BindingKey(field)
@@ -122,6 +140,12 @@ def unmarshal_Key(data: Any) -> Key:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -150,6 +174,12 @@ def unmarshal_Value(data: Any) -> Value:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("key_id", None)
     if field is not None:
@@ -245,6 +275,12 @@ def unmarshal_ListAllKeysAndValuesResponseValue(
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -275,6 +311,12 @@ def unmarshal_ListAllKeysAndValuesResponseKey(
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -401,8 +443,8 @@ def marshal_CreateBindingRequest(
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
-    if request.srn is not None:
-        output["srn"] = request.srn
+    if request.target_srn is not None:
+        output["target_srn"] = request.target_srn
 
     if request.value_id is not None:
         output["value_id"] = request.value_id
