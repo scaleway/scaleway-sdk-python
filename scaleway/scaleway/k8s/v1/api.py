@@ -1106,7 +1106,7 @@ class K8SV1API(API):
         :param startup_taints: Kubernetes taints applied at node creation but not reconciled afterwards.
         :param private_network_id: Private network where the nodes are attached. Should be member of the same VPC as the API Server.
         :param user_data: User data applied and reconciled with the pool.
-        :param max_termination_grace_period: Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+        :param max_termination_grace_period: Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1312,7 +1312,7 @@ class K8SV1API(API):
         :param kubelet_args: New Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: New upgrade policy for the pool.
         :param security_group_id: Security group ID in which all the nodes of the pool will be moved.
-        :param max_termination_grace_period: New maximum amount of time before the API forces the drain and deletion of a `deleting` node.
+        :param max_termination_grace_period: New maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node.
         :return: :class:`Pool <Pool>`
 
         Usage:
