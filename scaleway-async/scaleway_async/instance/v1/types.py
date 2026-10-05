@@ -1339,11 +1339,6 @@ class ServerType:
     True if this Instance type has reached end of service.
     """
 
-    sku: str
-    """
-    The billing SKU for this server type.
-    """
-
     monthly_price: Optional[float] = None
     """
     Estimated monthly price, for a 30 days month, in Euro.
