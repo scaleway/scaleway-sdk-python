@@ -33,6 +33,7 @@ from .types import (
     CreateRouteRequest,
     CreateVPCConnectorRequest,
     CreateVPCRequest,
+    EnableObjectStoragePrivateAccessRequest,
     SetAclRequest,
     SetPrivateNetworksObjectStoragePrivateAccessRequest,
     UpdateIngressRuleRequest,
@@ -1109,6 +1110,18 @@ def marshal_CreateVPCRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    return output
+
+
+def marshal_EnableObjectStoragePrivateAccessRequest(
+    request: EnableObjectStoragePrivateAccessRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.private_network_ids is not None:
+        output["private_network_ids"] = request.private_network_ids
 
     return output
 
