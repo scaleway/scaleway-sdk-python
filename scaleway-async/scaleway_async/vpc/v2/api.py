@@ -29,6 +29,7 @@ from .types import (
     CreateRouteRequest,
     CreateVPCConnectorRequest,
     CreateVPCRequest,
+    EnableObjectStoragePrivateAccessRequest,
     GetAclResponse,
     IngressRule,
     ListIngressRulesResponse,
@@ -75,6 +76,7 @@ from .marshalling import (
     marshal_CreateRouteRequest,
     marshal_CreateVPCConnectorRequest,
     marshal_CreateVPCRequest,
+    marshal_EnableObjectStoragePrivateAccessRequest,
     marshal_SetAclRequest,
     marshal_SetPrivateNetworksObjectStoragePrivateAccessRequest,
     marshal_UpdateIngressRuleRequest,
@@ -1863,9 +1865,14 @@ class VpcV2API(API):
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/object-storage-private-access/{param_vpc_id}/enable",
-            params={
-                "private_network_ids": private_network_ids,
-            },
+            body=marshal_EnableObjectStoragePrivateAccessRequest(
+                EnableObjectStoragePrivateAccessRequest(
+                    vpc_id=vpc_id,
+                    region=region,
+                    private_network_ids=private_network_ids,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)
