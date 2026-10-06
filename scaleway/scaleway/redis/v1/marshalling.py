@@ -308,12 +308,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["upgradable_versions"] = []
 
-    field = data.get("srn", None)
-    if field is not None:
-        args["srn"] = field
-    else:
-        args["srn"] = None
-
     return Cluster(**args)
 
 
