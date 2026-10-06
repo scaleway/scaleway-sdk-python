@@ -510,12 +510,12 @@ class AnnotationsV1API(API):
     def create_binding(
         self,
         *,
-        target_srn: str,
+        srn: str,
         value_id: str,
     ) -> Binding:
         """
         Attach a value to a resource. Fails if the resource already has a value for this key.
-        :param target_srn: SRN of the resource to attach the value to.
+        :param srn: Scaleway Resource Name to associate.
         :param value_id: ID of the value to associate.
         :return: :class:`Binding <Binding>`
 
@@ -523,7 +523,7 @@ class AnnotationsV1API(API):
         ::
 
             result = api.create_binding(
-                target_srn="example",
+                srn="example",
                 value_id="example",
             )
         """
@@ -533,7 +533,7 @@ class AnnotationsV1API(API):
             "/annotations/v1/bindings",
             body=marshal_CreateBindingRequest(
                 CreateBindingRequest(
-                    target_srn=target_srn,
+                    srn=srn,
                     value_id=value_id,
                 ),
                 self.client,
@@ -549,7 +549,7 @@ class AnnotationsV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
-        target_srn: Optional[str] = None,
+        srn: Optional[str] = None,
         value_id: Optional[str] = None,
     ) -> ListBindingsResponse:
         """
@@ -557,7 +557,7 @@ class AnnotationsV1API(API):
         :param page: Page number.
         :param page_size: Maximum number of bindings on the page.
         :param organization_id: ID of the organization.
-        :param target_srn: SRN of the resource for which to list all bindings.
+        :param srn: Scaleway Resource Name for which to list all bindings.
         :param value_id: Value ID for which to list all bindings.
         :return: :class:`ListBindingsResponse <ListBindingsResponse>`
 
@@ -575,7 +575,7 @@ class AnnotationsV1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
-                "target_srn": target_srn,
+                "srn": srn,
                 "value_id": value_id,
             },
         )
@@ -589,7 +589,7 @@ class AnnotationsV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
-        target_srn: Optional[str] = None,
+        srn: Optional[str] = None,
         value_id: Optional[str] = None,
     ) -> list[Binding]:
         """
@@ -597,7 +597,7 @@ class AnnotationsV1API(API):
         :param page: Page number.
         :param page_size: Maximum number of bindings on the page.
         :param organization_id: ID of the organization.
-        :param target_srn: SRN of the resource for which to list all bindings.
+        :param srn: Scaleway Resource Name for which to list all bindings.
         :param value_id: Value ID for which to list all bindings.
         :return: :class:`list[Binding] <list[Binding]>`
 
@@ -615,7 +615,7 @@ class AnnotationsV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "organization_id": organization_id,
-                "target_srn": target_srn,
+                "srn": srn,
                 "value_id": value_id,
             },
         )
@@ -678,12 +678,12 @@ class AnnotationsV1API(API):
     def delete_all_bindings_matching_srn(
         self,
         *,
-        target_srn: str,
+        srn: str,
         organization_id: Optional[str] = None,
     ) -> DeleteAllBindingsMatchingSRNResponse:
         """
         Delete ALL bindings associated with a Scaleway Resource Name.
-        :param target_srn: SRN of the resource for which all bindings should be deleted.
+        :param srn: Scaleway Resource Name for which all bindings should be deleted.
         :param organization_id: ID of the organization.
         :return: :class:`DeleteAllBindingsMatchingSRNResponse <DeleteAllBindingsMatchingSRNResponse>`
 
@@ -691,7 +691,7 @@ class AnnotationsV1API(API):
         ::
 
             result = api.delete_all_bindings_matching_srn(
-                target_srn="example",
+                srn="example",
             )
         """
 
@@ -701,7 +701,7 @@ class AnnotationsV1API(API):
             params={
                 "organization_id": organization_id
                 or self.client.default_organization_id,
-                "target_srn": target_srn,
+                "srn": srn,
             },
         )
 
