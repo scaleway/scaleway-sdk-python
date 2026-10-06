@@ -235,6 +235,11 @@ class OS:
     List of server types which supports the OS configuration. Also gives information about immediate stock availability.
     """
 
+    zone: ScwZone
+    """
+    Zone of OS.
+    """
+
     compatible_server_types: Optional[list[str]] = field(default_factory=list)
     """
     List of compatible server types. Deprecated.
@@ -544,6 +549,11 @@ class ServerType:
     stock: ServerTypeStock
     """
     Current stock.
+    """
+
+    zone: ScwZone
+    """
+    Zone of the server type.
     """
 
     cpu: Optional[ServerTypeCPU] = None

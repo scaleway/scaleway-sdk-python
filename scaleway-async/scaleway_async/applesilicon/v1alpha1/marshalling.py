@@ -168,6 +168,12 @@ def unmarshal_OS(data: Any) -> OS:
     else:
         args["supported_server_types"] = []
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     field = data.get("compatible_server_types", None)
     if field is not None:
         args["compatible_server_types"] = field
@@ -796,6 +802,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["stock"] = field
     else:
         args["stock"] = ServerTypeStock.UNKNOWN_STOCK
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("cpu", None)
     if field is not None:
