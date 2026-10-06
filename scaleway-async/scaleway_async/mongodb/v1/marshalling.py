@@ -216,6 +216,12 @@ def unmarshal_Maintenance(data: Any) -> Maintenance:
     else:
         args["applied_by"] = MaintenanceAppliedBy.UNKNOWN_APPLIED_BY
 
+    field = data.get("reason", None)
+    if field is not None:
+        args["reason"] = field
+    else:
+        args["reason"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -233,24 +239,6 @@ def unmarshal_Maintenance(data: Any) -> Maintenance:
         args["stops_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["stops_at"] = None
-
-    field = data.get("reason", None)
-    if field is not None:
-        args["reason"] = field
-    else:
-        args["reason"] = None
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
-    field = data.get("srn", None)
-    if field is not None:
-        args["srn"] = field
-    else:
-        args["srn"] = None
 
     field = data.get("forced_at", None)
     if field is not None:
@@ -460,12 +448,6 @@ def unmarshal_Instance(data: Any) -> Instance:
     else:
         args["upgradable_versions"] = []
 
-    field = data.get("srn", None)
-    if field is not None:
-        args["srn"] = field
-    else:
-        args["srn"] = None
-
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
@@ -525,6 +507,24 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     else:
         args["instance_name"] = None
 
+    field = data.get("node_type", None)
+    if field is not None:
+        args["node_type"] = field
+    else:
+        args["node_type"] = None
+
+    field = data.get("volume_type", None)
+    if field is not None:
+        args["volume_type"] = field
+    else:
+        args["volume_type"] = VolumeType.UNKNOWN_TYPE
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("instance_id", None)
     if field is not None:
         args["instance_id"] = field
@@ -548,30 +548,6 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("node_type", None)
-    if field is not None:
-        args["node_type"] = field
-    else:
-        args["node_type"] = None
-
-    field = data.get("volume_type", None)
-    if field is not None:
-        args["volume_type"] = field
-    else:
-        args["volume_type"] = VolumeType.UNKNOWN_TYPE
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
-    field = data.get("srn", None)
-    if field is not None:
-        args["srn"] = field
-    else:
-        args["srn"] = None
 
     return Snapshot(**args)
 

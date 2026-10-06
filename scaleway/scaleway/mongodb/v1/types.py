@@ -260,16 +260,6 @@ class Maintenance:
     Reason of the maintenance.
     """
 
-    region: ScwRegion
-    """
-    Region of the maintenance.
-    """
-
-    srn: str
-    """
-    SRN of the maintenance.
-    """
-
     created_at: Optional[datetime] = None
     """
     Creation date of the maintenance.
@@ -438,11 +428,6 @@ class Instance:
     List of MongoDB® versions the Database Instance can be upgraded to.
     """
 
-    srn: str
-    """
-    Scaleway Resource Name of the Database Instance.
-    """
-
     volume: Optional[Volume] = None
     """
     Volumes of the Database Instance.
@@ -547,11 +532,6 @@ class Snapshot:
     region: ScwRegion
     """
     Region of the snapshot.
-    """
-
-    srn: str
-    """
-    Scaleway Resource Name of the snapshot.
     """
 
     instance_id: Optional[str] = None
