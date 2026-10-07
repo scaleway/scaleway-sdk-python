@@ -1022,11 +1022,6 @@ class ServerType:
     Whether the server type has reached end of service.
     """
 
-    sku: str
-    """
-    The billing SKU for this server type.
-    """
-
     limits: Optional[ServerTypeLimits] = None
     """
     Limits for the server type.
