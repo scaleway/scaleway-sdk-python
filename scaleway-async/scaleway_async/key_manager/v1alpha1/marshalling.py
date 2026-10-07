@@ -25,6 +25,7 @@ from .types import (
     DataKey,
     DecryptResponse,
     EncryptResponse,
+    GenerateKeyMaterialImportParametersResponse,
     ListAlgorithmsResponseAlgorithm,
     ListAlgorithmsResponse,
     KeyRotation,
@@ -40,6 +41,7 @@ from .types import (
     DeleteKeyMaterialRequest,
     EncryptRequest,
     GenerateDataKeyRequest,
+    GenerateKeyMaterialImportParametersRequest,
     ImportKeyMaterialRequest,
     SignRequest,
     UnwrapKeyRequest,
@@ -337,6 +339,37 @@ def unmarshal_EncryptResponse(data: Any) -> EncryptResponse:
         args["ciphertext"] = None
 
     return EncryptResponse(**args)
+
+
+def unmarshal_GenerateKeyMaterialImportParametersResponse(
+    data: Any,
+) -> GenerateKeyMaterialImportParametersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GenerateKeyMaterialImportParametersResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
+    field = data.get("public_key", None)
+    if field is not None:
+        args["public_key"] = field
+    else:
+        args["public_key"] = None
+
+    field = data.get("import_token", None)
+    if field is not None:
+        args["import_token"] = field
+    else:
+        args["import_token"] = None
+
+    return GenerateKeyMaterialImportParametersResponse(**args)
 
 
 def unmarshal_ListAlgorithmsResponseAlgorithm(
@@ -744,6 +777,18 @@ def marshal_GenerateDataKeyRequest(
 
     if request.algorithm is not None:
         output["algorithm"] = request.algorithm
+
+    return output
+
+
+def marshal_GenerateKeyMaterialImportParametersRequest(
+    request: GenerateKeyMaterialImportParametersRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.wrapping_algorithm is not None:
+        output["wrapping_algorithm"] = request.wrapping_algorithm
 
     return output
 

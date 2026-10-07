@@ -73,6 +73,12 @@ def unmarshal_Cron(data: Any) -> Cron:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("function_id", None)
     if field is not None:
         args["function_id"] = field
@@ -97,6 +103,12 @@ def unmarshal_Cron(data: Any) -> Cron:
     else:
         args["name"] = None
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("args", None)
     if field is not None:
         args["args"] = field
@@ -119,6 +131,12 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("hostname", None)
     if field is not None:
@@ -143,6 +161,12 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["status"] = field
     else:
         args["status"] = DomainStatus.UNKNOWN
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("error_message", None)
     if field is not None:
@@ -189,6 +213,12 @@ def unmarshal_Function(data: Any) -> Function:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -272,6 +302,18 @@ def unmarshal_Function(data: Any) -> Function:
     else:
         args["secret_environment_variables"] = []
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("http_option", None)
+    if field is not None:
+        args["http_option"] = field
+    else:
+        args["http_option"] = FunctionHttpOption.UNKNOWN_HTTP_OPTION
+
     field = data.get("timeout", None)
     if field is not None:
         args["timeout"] = field
@@ -295,18 +337,6 @@ def unmarshal_Function(data: Any) -> Function:
         args["description"] = field
     else:
         args["description"] = None
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
-    field = data.get("http_option", None)
-    if field is not None:
-        args["http_option"] = field
-    else:
-        args["http_option"] = FunctionHttpOption.UNKNOWN_HTTP_OPTION
 
     field = data.get("runtime_message", None)
     if field is not None:
@@ -367,6 +397,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -403,12 +439,6 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     else:
         args["registry_namespace_id"] = None
 
-    field = data.get("error_message", None)
-    if field is not None:
-        args["error_message"] = field
-    else:
-        args["error_message"] = None
-
     field = data.get("registry_endpoint", None)
     if field is not None:
         args["registry_endpoint"] = field
@@ -425,6 +455,18 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     else:
         args["secret_environment_variables"] = []
 
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+    else:
+        args["error_message"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -436,12 +478,6 @@ def unmarshal_Namespace(data: Any) -> Namespace:
         args["tags"] = field
     else:
         args["tags"] = []
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-    else:
-        args["description"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -648,6 +684,12 @@ def unmarshal_Trigger(data: Any) -> Trigger:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -677,6 +719,12 @@ def unmarshal_Trigger(data: Any) -> Trigger:
         args["status"] = field
     else:
         args["status"] = TriggerStatus.UNKNOWN_STATUS
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("error_message", None)
     if field is not None:
