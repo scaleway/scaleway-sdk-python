@@ -1,7 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import DataKeyAlgorithmSymmetricEncryption
-from .types import GenerateKeyMaterialImportParametersRequestWrappingAlgorithm
 from .types import KeyAlgorithmAsymmetricEncryption
 from .types import KeyAlgorithmAsymmetricSigning
 from .types import KeyAlgorithmKeyEncapsulation
@@ -30,8 +29,6 @@ from .types import EnableKeyRequest
 from .types import EncryptRequest
 from .types import EncryptResponse
 from .types import GenerateDataKeyRequest
-from .types import GenerateKeyMaterialImportParametersRequest
-from .types import GenerateKeyMaterialImportParametersResponse
 from .types import GetKeyRequest
 from .types import GetPublicKeyRequest
 from .types import ImportKeyMaterialRequest
@@ -59,7 +56,6 @@ from .api import KeyManagerV1Alpha1API
 
 __all__ = [
     "DataKeyAlgorithmSymmetricEncryption",
-    "GenerateKeyMaterialImportParametersRequestWrappingAlgorithm",
     "KeyAlgorithmAsymmetricEncryption",
     "KeyAlgorithmAsymmetricSigning",
     "KeyAlgorithmKeyEncapsulation",
@@ -88,8 +84,6 @@ __all__ = [
     "EncryptRequest",
     "EncryptResponse",
     "GenerateDataKeyRequest",
-    "GenerateKeyMaterialImportParametersRequest",
-    "GenerateKeyMaterialImportParametersResponse",
     "GetKeyRequest",
     "GetPublicKeyRequest",
     "ImportKeyMaterialRequest",
