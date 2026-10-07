@@ -305,6 +305,12 @@ def unmarshal_Group(data: Any) -> Group:
 
     args: dict[str, Any] = {}
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
@@ -329,6 +335,12 @@ def unmarshal_Group(data: Any) -> Group:
     else:
         args["tags"] = []
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = GroupGroupStatus.UNKNOWN_GROUP_STATUS
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -340,12 +352,6 @@ def unmarshal_Group(data: Any) -> Group:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = GroupGroupStatus.UNKNOWN_GROUP_STATUS
 
     field = data.get("open_alerts", None)
     if field is not None:
@@ -372,6 +378,12 @@ def unmarshal_Group(data: Any) -> Group:
         args["template_id"] = field
     else:
         args["template_id"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("last_scale_out_at", None)
     if field is not None:
@@ -445,6 +457,12 @@ def unmarshal_GroupSummary(data: Any) -> GroupSummary:
 
     args: dict[str, Any] = {}
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -475,12 +493,6 @@ def unmarshal_GroupSummary(data: Any) -> GroupSummary:
     else:
         args["status"] = GroupGroupStatus.UNKNOWN_GROUP_STATUS
 
-    field = data.get("template_id", None)
-    if field is not None:
-        args["template_id"] = field
-    else:
-        args["template_id"] = None
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -493,11 +505,11 @@ def unmarshal_GroupSummary(data: Any) -> GroupSummary:
     else:
         args["updated_at"] = None
 
-    field = data.get("load_balancer_id", None)
+    field = data.get("template_id", None)
     if field is not None:
-        args["load_balancer_id"] = field
+        args["template_id"] = field
     else:
-        args["load_balancer_id"] = None
+        args["template_id"] = None
 
     field = data.get("current_size", None)
     if field is not None:
@@ -530,6 +542,12 @@ def unmarshal_GroupSummary(data: Any) -> GroupSummary:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("load_balancer_id", None)
+    if field is not None:
+        args["load_balancer_id"] = field
+    else:
+        args["load_balancer_id"] = None
 
     field = data.get("latest_open_alert", None)
     if field is not None:
