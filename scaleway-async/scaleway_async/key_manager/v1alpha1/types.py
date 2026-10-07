@@ -23,6 +23,21 @@ class DataKeyAlgorithmSymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class GenerateKeyMaterialImportParametersRequestWrappingAlgorithm(
+    str, Enum, metaclass=StrEnumMeta
+):
+    UNKNOWN_WRAPPING_ALGORITHM = "unknown_wrapping_algorithm"
+    RSA_OAEP_2048_SHA256 = "rsa_oaep_2048_sha256"
+    RSA_OAEP_3072_SHA256 = "rsa_oaep_3072_sha256"
+    RSA_OAEP_4096_SHA256 = "rsa_oaep_4096_sha256"
+    RSA_AES_KEY_WRAP_2048_SHA256 = "rsa_aes_key_wrap_2048_sha256"
+    RSA_AES_KEY_WRAP_3072_SHA256 = "rsa_aes_key_wrap_3072_sha256"
+    RSA_AES_KEY_WRAP_4096_SHA256 = "rsa_aes_key_wrap_4096_sha256"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class KeyAlgorithmAsymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ASYMMETRIC_ENCRYPTION = "unknown_asymmetric_encryption"
     RSA_OAEP_2048_SHA256 = "rsa_oaep_2048_sha256"
@@ -564,6 +579,45 @@ Set it to `true` if you do not wish the plaintext to be returned in the response
     )
     """
     See the `DataKey.Algorithm.SymmetricEncryption` enum for a description of values.
+    """
+
+
+@dataclass
+class GenerateKeyMaterialImportParametersRequest:
+    key_id: str
+    """
+    ID of the key into which to import the key material.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    wrapping_algorithm: Optional[
+        GenerateKeyMaterialImportParametersRequestWrappingAlgorithm
+    ] = GenerateKeyMaterialImportParametersRequestWrappingAlgorithm.UNKNOWN_WRAPPING_ALGORITHM
+    """
+    Supported values for direct RSA wrapping are: `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256`.
+Supported values for hybrid wrapping (RSA + AES Key Wrap) are: `rsa_aes_key_wrap_2048_sha256`, `rsa_aes_key_wrap_3072_sha256`, `rsa_aes_key_wrap_4096_sha256`.
+    """
+
+
+@dataclass
+class GenerateKeyMaterialImportParametersResponse:
+    key_id: str
+    """
+    ID of the target key.
+    """
+
+    public_key: str
+    """
+    The public key to wrap the key material.
+    """
+
+    import_token: str
+    """
+    The token generated to authorize the import operation.
     """
 
 
