@@ -1284,12 +1284,6 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     else:
         args["end_of_service"] = False
 
-    field = data.get("sku", None)
-    if field is not None:
-        args["sku"] = field
-    else:
-        args["sku"] = None
-
     field = data.get("limits", None)
     if field is not None:
         args["limits"] = unmarshal_ServerTypeLimits(field)

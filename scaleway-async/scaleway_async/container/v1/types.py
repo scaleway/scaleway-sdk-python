@@ -403,11 +403,6 @@ class Container:
     Container unique ID.
     """
 
-    srn: str
-    """
-    Container SRN.
-    """
-
     name: str
     """
     Container name.
@@ -586,11 +581,6 @@ class Domain:
     Domain unique ID.
     """
 
-    srn: str
-    """
-    Domain SRN.
-    """
-
     container_id: str
     """
     Unique ID of the container the domain is assigned to.
@@ -609,11 +599,6 @@ class Domain:
     tags: list[str]
     """
     A list of arbitrary tags associated with the domain.
-    """
-
-    region: ScwRegion
-    """
-    Region in which the domain exists.
     """
 
     error_message: Optional[str] = None
@@ -637,11 +622,6 @@ class Namespace:
     id: str
     """
     Namespace unique ID.
-    """
-
-    srn: str
-    """
-    Namespace SRN.
     """
 
     name: str
@@ -712,11 +692,6 @@ class Trigger:
     Trigger unique ID.
     """
 
-    srn: str
-    """
-    Trigger SRN.
-    """
-
     name: str
     """
     Name of the trigger.
@@ -745,11 +720,6 @@ class Trigger:
     source_type: TriggerSourceType
     """
     Type of source that will trigger the container.
-    """
-
-    region: ScwRegion
-    """
-    Region in which the trigger exists.
     """
 
     error_message: Optional[str] = None
