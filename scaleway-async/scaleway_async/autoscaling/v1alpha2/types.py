@@ -253,6 +253,11 @@ class GroupScalingPolicy:
 
 @dataclass
 class GroupSummary:
+    srn: str
+    """
+    SRN of the Autoscaling Group.
+    """
+
     project_id: str
     """
     Project ID owning this group.
@@ -421,6 +426,11 @@ class GetGroupRequest:
 
 @dataclass
 class Group:
+    srn: str
+    """
+    SRN of the Autoscaling Group.
+    """
+
     id: str
     """
     Unique identifier of the autoscaling group.
@@ -464,6 +474,11 @@ class Group:
     template_id: str
     """
     The Instance template ID used to create instances in this group.
+    """
+
+    zone: ScwZone
+    """
+    Zone of the Autoscaling Group.
     """
 
     created_at: Optional[datetime] = None

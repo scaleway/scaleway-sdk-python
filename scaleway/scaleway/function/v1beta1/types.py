@@ -369,6 +369,11 @@ class Cron:
     UUID of the cron.
     """
 
+    srn: str
+    """
+    SRN of the cron.
+    """
+
     function_id: str
     """
     UUID of the function the cron applies to.
@@ -389,6 +394,11 @@ class Cron:
     Name of the cron.
     """
 
+    region: ScwRegion
+    """
+    Region in which the cron is located.
+    """
+
     args: Optional[dict[str, Any]] = field(default_factory=dict)
     """
     Arguments to pass with the cron.
@@ -400,6 +410,11 @@ class Domain:
     id: str
     """
     UUID of the domain.
+    """
+
+    srn: str
+    """
+    SRN of the domain.
     """
 
     hostname: str
@@ -420,6 +435,11 @@ class Domain:
     status: DomainStatus
     """
     State of the domain.
+    """
+
+    region: ScwRegion
+    """
+    Region in which the domain is located.
     """
 
     error_message: Optional[str] = None
@@ -447,6 +467,11 @@ class Function:
     id: str
     """
     UUID of the function.
+    """
+
+    srn: str
+    """
+    SRN of the function.
     """
 
     name: str
@@ -585,6 +610,11 @@ class Namespace:
     UUID of the namespace.
     """
 
+    srn: str
+    """
+    SRN of the namespace.
+    """
+
     name: str
     """
     Name of the namespace.
@@ -705,6 +735,11 @@ class Trigger:
     ID of the trigger.
     """
 
+    srn: str
+    """
+    SRN of the trigger.
+    """
+
     name: str
     """
     Name of the trigger.
@@ -728,6 +763,11 @@ class Trigger:
     status: TriggerStatus
     """
     Status of the trigger.
+    """
+
+    region: ScwRegion
+    """
+    Region in which the trigger is located.
     """
 
     error_message: Optional[str] = None

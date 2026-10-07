@@ -169,6 +169,12 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -193,6 +199,12 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["status"] = ContainerStatus.UNKNOWN_STATUS
 
+    field = data.get("environment_variables", None)
+    if field is not None:
+        args["environment_variables"] = field
+    else:
+        args["environment_variables"] = {}
+
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
@@ -210,12 +222,6 @@ def unmarshal_Container(data: Any) -> Container:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("environment_variables", None)
-    if field is not None:
-        args["environment_variables"] = field
-    else:
-        args["environment_variables"] = {}
 
     field = data.get("secret_environment_variables", None)
     if field is not None:
@@ -253,12 +259,6 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["local_storage_limit_bytes"] = 0
 
-    field = data.get("timeout", None)
-    if field is not None:
-        args["timeout"] = field
-    else:
-        args["timeout"] = None
-
     field = data.get("privacy", None)
     if field is not None:
         args["privacy"] = field
@@ -294,24 +294,6 @@ def unmarshal_Container(data: Any) -> Container:
         args["sandbox"] = field
     else:
         args["sandbox"] = ContainerSandbox.UNKNOWN_SANDBOX
-
-    field = data.get("scaling_option", None)
-    if field is not None:
-        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
-    else:
-        args["scaling_option"] = None
-
-    field = data.get("liveness_probe", None)
-    if field is not None:
-        args["liveness_probe"] = unmarshal_ContainerProbe(field)
-    else:
-        args["liveness_probe"] = None
-
-    field = data.get("startup_probe", None)
-    if field is not None:
-        args["startup_probe"] = unmarshal_ContainerProbe(field)
-    else:
-        args["startup_probe"] = None
 
     field = data.get("tags", None)
     if field is not None:
@@ -349,6 +331,30 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["region"] = None
 
+    field = data.get("timeout", None)
+    if field is not None:
+        args["timeout"] = field
+    else:
+        args["timeout"] = None
+
+    field = data.get("scaling_option", None)
+    if field is not None:
+        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
+    else:
+        args["scaling_option"] = None
+
+    field = data.get("liveness_probe", None)
+    if field is not None:
+        args["liveness_probe"] = unmarshal_ContainerProbe(field)
+    else:
+        args["liveness_probe"] = None
+
+    field = data.get("startup_probe", None)
+    if field is not None:
+        args["startup_probe"] = unmarshal_ContainerProbe(field)
+    else:
+        args["startup_probe"] = None
+
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
@@ -378,6 +384,12 @@ def unmarshal_Domain(data: Any) -> Domain:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("container_id", None)
     if field is not None:
         args["container_id"] = field
@@ -401,6 +413,12 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("error_message", None)
     if field is not None:
@@ -436,6 +454,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -479,12 +503,6 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     else:
         args["secret_environment_variables"] = {}
 
-    field = data.get("error_message", None)
-    if field is not None:
-        args["error_message"] = field
-    else:
-        args["error_message"] = None
-
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -496,6 +514,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -642,6 +666,12 @@ def unmarshal_Trigger(data: Any) -> Trigger:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -666,12 +696,6 @@ def unmarshal_Trigger(data: Any) -> Trigger:
     else:
         args["status"] = TriggerStatus.UNKNOWN_STATUS
 
-    field = data.get("error_message", None)
-    if field is not None:
-        args["error_message"] = field
-    else:
-        args["error_message"] = None
-
     field = data.get("container_id", None)
     if field is not None:
         args["container_id"] = field
@@ -683,6 +707,18 @@ def unmarshal_Trigger(data: Any) -> Trigger:
         args["source_type"] = field
     else:
         args["source_type"] = TriggerSourceType.UNKNOWN_SOURCE_TYPE
+
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+    else:
+        args["error_message"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("destination_config", None)
     if field is not None:
