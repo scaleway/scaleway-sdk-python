@@ -13,6 +13,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     DataKeyAlgorithmSymmetricEncryption,
+    GenerateKeyMaterialImportParametersRequestWrappingAlgorithm,
     KeyOrigin,
     KeyProtectionLevel,
     KeyRotationStatus,
@@ -28,6 +29,8 @@ from .types import (
     EncryptRequest,
     EncryptResponse,
     GenerateDataKeyRequest,
+    GenerateKeyMaterialImportParametersRequest,
+    GenerateKeyMaterialImportParametersResponse,
     ImportKeyMaterialRequest,
     Key,
     KeyRotation,
@@ -52,6 +55,7 @@ from .marshalling import (
     unmarshal_DataKey,
     unmarshal_DecryptResponse,
     unmarshal_EncryptResponse,
+    unmarshal_GenerateKeyMaterialImportParametersResponse,
     unmarshal_ListAlgorithmsResponse,
     unmarshal_ListKeyRotationsResponse,
     unmarshal_ListKeysResponse,
@@ -65,6 +69,7 @@ from .marshalling import (
     marshal_DeleteKeyMaterialRequest,
     marshal_EncryptRequest,
     marshal_GenerateDataKeyRequest,
+    marshal_GenerateKeyMaterialImportParametersRequest,
     marshal_ImportKeyMaterialRequest,
     marshal_SignRequest,
     marshal_UnwrapKeyRequest,
@@ -1022,6 +1027,53 @@ class KeyManagerV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def generate_key_material_import_parameters(
+        self,
+        *,
+        key_id: str,
+        region: Optional[ScwRegion] = None,
+        wrapping_algorithm: Optional[
+            GenerateKeyMaterialImportParametersRequestWrappingAlgorithm
+        ] = None,
+    ) -> GenerateKeyMaterialImportParametersResponse:
+        """
+        Generate key material import parameters.
+        Retrieve the cryptographic parameters (public key and import token) required to securely import key material into an existing key. The key's origin must be `external`.
+        :param key_id: ID of the key into which to import the key material.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param wrapping_algorithm: Supported values for direct RSA wrapping are: `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256`.
+        Supported values for hybrid wrapping (RSA + AES Key Wrap) are: `rsa_aes_key_wrap_2048_sha256`, `rsa_aes_key_wrap_3072_sha256`, `rsa_aes_key_wrap_4096_sha256`.
+        :return: :class:`GenerateKeyMaterialImportParametersResponse <GenerateKeyMaterialImportParametersResponse>`
+
+        Usage:
+        ::
+
+            result = await api.generate_key_material_import_parameters(
+                key_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/import-parameters",
+            body=marshal_GenerateKeyMaterialImportParametersRequest(
+                GenerateKeyMaterialImportParametersRequest(
+                    key_id=key_id,
+                    region=region,
+                    wrapping_algorithm=wrapping_algorithm,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GenerateKeyMaterialImportParametersResponse(res.json())
 
     async def restore_key(
         self,
