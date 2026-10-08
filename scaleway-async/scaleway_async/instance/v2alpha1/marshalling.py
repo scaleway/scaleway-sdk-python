@@ -802,6 +802,12 @@ def unmarshal_DedicatedPoolServerType(data: Any) -> DedicatedPoolServerType:
     else:
         args["slots_available"] = 0
 
+    field = data.get("sku", None)
+    if field is not None:
+        args["sku"] = field
+    else:
+        args["sku"] = None
+
     field = data.get("limits", None)
     if field is not None:
         args["limits"] = unmarshal_ServerTypeLimits(field)
