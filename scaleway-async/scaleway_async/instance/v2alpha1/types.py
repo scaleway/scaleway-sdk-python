@@ -752,11 +752,6 @@ class DedicatedPoolServerType:
     Number of additional Instances of this type that can currently be started in this Dedicated Pool.
     """
 
-    sku: str
-    """
-    The billing SKU for this server type.
-    """
-
     limits: Optional[ServerTypeLimits] = None
     """
     Limits for the server type.
@@ -1025,11 +1020,6 @@ class ServerType:
     end_of_service: bool
     """
     Whether the server type has reached end of service.
-    """
-
-    sku: str
-    """
-    The billing SKU for this server type.
     """
 
     limits: Optional[ServerTypeLimits] = None
