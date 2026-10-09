@@ -197,6 +197,19 @@ class KeyUsage:
 
 
 @dataclass
+class ImportKeyMaterialRequestEncryptedKeyMaterial:
+    data: str
+    """
+    This material must be encrypted using the public key and the exact wrapping algorithm returned by the `GetKeyMaterialImportParameters` method.
+    """
+
+    import_token: str
+    """
+    The secure import token returned by the `GetKeyMaterialImportParameters` method.
+    """
+
+
+@dataclass
 class ListAlgorithmsResponseAlgorithm:
     usage: str
     name: str
@@ -654,11 +667,6 @@ class ImportKeyMaterialRequest:
     The key's origin must be `external`.
     """
 
-    key_material: str
-    """
-    The key material is a random sequence of bytes used to derive a cryptographic key.
-    """
-
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
@@ -668,6 +676,12 @@ class ImportKeyMaterialRequest:
     """
     A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
     """
+
+    key_material: Optional[str] = None
+
+    encrypted_key_material: Optional[ImportKeyMaterialRequestEncryptedKeyMaterial] = (
+        None
+    )
 
 
 @dataclass
