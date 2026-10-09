@@ -481,11 +481,6 @@ class BrowseSecretsResponse:
 
 @dataclass
 class CreateSecretRequest:
-    name: str
-    """
-    Name of the secret.
-    """
-
     protected: bool
     """
     A protected secret cannot be deleted.
@@ -499,6 +494,11 @@ class CreateSecretRequest:
     project_id: Optional[str] = None
     """
     ID of the Project containing the secret.
+    """
+
+    name: Optional[str] = None
+    """
+    Name of the secret.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)
