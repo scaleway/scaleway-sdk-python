@@ -96,6 +96,7 @@ class MongodbV1API(API):
         include_disabled: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
     ) -> ListNodeTypesResponse:
         """
         List available node types.
@@ -103,6 +104,7 @@ class MongodbV1API(API):
         :param include_disabled: Defines whether or not to include disabled types.
         :param page:
         :param page_size:
+        :param project_id: ID of a project to get a personalized view of the stock.
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
 
         Usage:
@@ -122,6 +124,7 @@ class MongodbV1API(API):
                 "include_disabled": include_disabled,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -135,6 +138,7 @@ class MongodbV1API(API):
         include_disabled: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
     ) -> list[NodeType]:
         """
         List available node types.
@@ -142,6 +146,7 @@ class MongodbV1API(API):
         :param include_disabled: Defines whether or not to include disabled types.
         :param page:
         :param page_size:
+        :param project_id: ID of a project to get a personalized view of the stock.
         :return: :class:`list[NodeType] <list[NodeType]>`
 
         Usage:
@@ -159,6 +164,7 @@ class MongodbV1API(API):
                 "include_disabled": include_disabled,
                 "page": page,
                 "page_size": page_size,
+                "project_id": project_id,
             },
         )
 

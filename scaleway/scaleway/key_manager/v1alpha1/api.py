@@ -32,6 +32,7 @@ from .types import (
     GenerateKeyMaterialImportParametersRequest,
     GenerateKeyMaterialImportParametersResponse,
     ImportKeyMaterialRequest,
+    ImportKeyMaterialRequestEncryptedKeyMaterial,
     Key,
     KeyRotation,
     KeyRotationPolicy,
@@ -942,17 +943,23 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        key_material: str,
         region: Optional[ScwRegion] = None,
+        key_material: Optional[str] = None,
         salt: Optional[str] = None,
+        encrypted_key_material: Optional[
+            ImportKeyMaterialRequestEncryptedKeyMaterial
+        ] = None,
     ) -> Key:
         """
         Import key material.
         Import externally generated key material into Key Manager to derive a new cryptographic key. The key's origin must be `external`.
         :param key_id: The key's origin must be `external`.
-        :param key_material: The key material is a random sequence of bytes used to derive a cryptographic key.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param key_material: Deprecated. Use `encrypted_key_material` instead. The key material is a random sequence of bytes used to derive a cryptographic key.
+        One-Of ('material'): at most one of 'key_material', 'encrypted_key_material' could be set.
         :param salt: A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
+        :param encrypted_key_material: This material must be encrypted using the public key and the exact wrapping algorithm returned by the `GetKeyMaterialImportParameters` method.
+        One-Of ('material'): at most one of 'key_material', 'encrypted_key_material' could be set.
         :return: :class:`Key <Key>`
 
         Usage:
@@ -960,7 +967,6 @@ class KeyManagerV1Alpha1API(API):
 
             result = api.import_key_material(
                 key_id="example",
-                key_material="example",
             )
         """
 
@@ -975,9 +981,10 @@ class KeyManagerV1Alpha1API(API):
             body=marshal_ImportKeyMaterialRequest(
                 ImportKeyMaterialRequest(
                     key_id=key_id,
-                    key_material=key_material,
                     region=region,
                     salt=salt,
+                    key_material=key_material,
+                    encrypted_key_material=encrypted_key_material,
                 ),
                 self.client,
             ),

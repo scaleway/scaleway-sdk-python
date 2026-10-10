@@ -611,9 +611,6 @@ def marshal_CreateSecretRequest(
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
 
-    if request.name is not None:
-        output["name"] = request.name
-
     if request.protected is not None:
         output["protected"] = request.protected
 
@@ -621,6 +618,9 @@ def marshal_CreateSecretRequest(
         output["project_id"] = request.project_id
     else:
         output["project_id"] = defaults.default_project_id
+
+    if request.name is not None:
+        output["name"] = request.name
 
     if request.tags is not None:
         output["tags"] = request.tags
