@@ -8,6 +8,7 @@ from scaleway_core.bridge import (
     Region as ScwRegion,
 )
 from scaleway_core.utils import (
+    random_name,
     validate_path_param,
     fetch_all_pages,
 )
@@ -58,10 +59,10 @@ class SecretV1Beta1API(API):
     def create_secret(
         self,
         *,
-        name: str,
         protected: bool,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
+        name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         description: Optional[str] = None,
         type_: Optional[SecretType] = None,
@@ -72,10 +73,10 @@ class SecretV1Beta1API(API):
         """
         Create a secret.
         Create a secret in a given region specified by the `region` parameter.
-        :param name: Name of the secret.
         :param protected: A protected secret cannot be deleted.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project containing the secret.
+        :param name: Name of the secret.
         :param tags: List of the secret's tags.
         :param description: Description of the secret.
         :param type_: (Optional.) See the `Secret.Type` enum for a description of values. If not specified, the type is `Opaque`.
@@ -88,7 +89,6 @@ class SecretV1Beta1API(API):
         ::
 
             result = api.create_secret(
-                name="example",
                 protected=False,
             )
         """
@@ -102,10 +102,10 @@ class SecretV1Beta1API(API):
             f"/secret-manager/v1beta1/regions/{param_region}/secrets",
             body=marshal_CreateSecretRequest(
                 CreateSecretRequest(
-                    name=name,
                     protected=protected,
                     region=region,
                     project_id=project_id,
+                    name=name or random_name(prefix="secret"),
                     tags=tags,
                     description=description,
                     type_=type_,
