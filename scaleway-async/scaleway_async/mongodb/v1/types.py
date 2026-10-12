@@ -992,6 +992,10 @@ class ListNodeTypesRequest:
 
     page: Optional[int] = 0
     page_size: Optional[int] = 0
+    project_id: Optional[str] = None
+    """
+    ID of a project to get a personalized view of the stock.
+    """
 
 
 @dataclass
