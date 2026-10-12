@@ -16,6 +16,7 @@ from .types import ListKeysRequestOrderBy
 from .types import ListKeysRequestUsage
 from .types import KeyRotationPolicy
 from .types import KeyUsage
+from .types import ImportKeyMaterialRequestEncryptedKeyMaterial
 from .types import ListAlgorithmsResponseAlgorithm
 from .types import KeyRotation
 from .types import Key
@@ -74,6 +75,7 @@ __all__ = [
     "ListKeysRequestUsage",
     "KeyRotationPolicy",
     "KeyUsage",
+    "ImportKeyMaterialRequestEncryptedKeyMaterial",
     "ListAlgorithmsResponseAlgorithm",
     "KeyRotation",
     "Key",
