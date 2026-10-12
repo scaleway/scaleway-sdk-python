@@ -108,6 +108,7 @@ class PublicCatalogProductPropertiesGenerativeApisTask(
     VISION = "vision"
     AUDIO_TRANSCRIPTION = "audio_transcription"
     CODE = "code"
+    OCR = "ocr"
 
     def __str__(self) -> str:
         return str(self.value)
