@@ -458,6 +458,8 @@ class BaremetalV1API(API):
         service_password: Optional[str] = None,
         partitioning_schema: Optional[Schema] = None,
         user_data: Optional[ScwFile] = None,
+        network_boot_url: Optional[str] = None,
+        network_boot_persistent: Optional[bool] = None,
     ) -> Server:
         """
         Install an Elastic Metal server.
@@ -473,6 +475,8 @@ class BaremetalV1API(API):
         :param service_password: Password used for the service to install.
         :param partitioning_schema: Partitioning schema.
         :param user_data: Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
+        :param network_boot_url: URL of the network service to which the server should forward its boot request.
+        :param network_boot_persistent: Defines whether the network boot forwarding should be applied at every reboot or only once.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -505,6 +509,8 @@ class BaremetalV1API(API):
                     service_password=service_password,
                     partitioning_schema=partitioning_schema,
                     user_data=user_data,
+                    network_boot_url=network_boot_url,
+                    network_boot_persistent=network_boot_persistent,
                 ),
                 self.client,
             ),
