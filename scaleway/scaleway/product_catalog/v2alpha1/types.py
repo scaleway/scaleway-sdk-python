@@ -108,6 +108,7 @@ class PublicCatalogProductPropertiesGenerativeApisTask(
     VISION = "vision"
     AUDIO_TRANSCRIPTION = "audio_transcription"
     CODE = "code"
+    OCR = "ocr"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -119,7 +120,6 @@ class PublicCatalogProductPropertiesGenerativeApisTokenType(
     UNKNOWN_TOKEN_TYPE = "unknown_token_type"
     INPUT_TOKEN = "input_token"
     OUTPUT_TOKEN = "output_token"
-    INPUT_DURATION = "input_duration"
     INPUT_CACHED_TOKEN = "input_cached_token"
     INPUT_AUDIO = "input_audio"
 

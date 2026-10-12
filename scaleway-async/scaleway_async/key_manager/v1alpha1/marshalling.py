@@ -42,6 +42,7 @@ from .types import (
     EncryptRequest,
     GenerateDataKeyRequest,
     GenerateKeyMaterialImportParametersRequest,
+    ImportKeyMaterialRequestEncryptedKeyMaterial,
     ImportKeyMaterialRequest,
     SignRequest,
     UnwrapKeyRequest,
@@ -793,14 +794,40 @@ def marshal_GenerateKeyMaterialImportParametersRequest(
     return output
 
 
+def marshal_ImportKeyMaterialRequestEncryptedKeyMaterial(
+    request: ImportKeyMaterialRequestEncryptedKeyMaterial,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    if request.import_token is not None:
+        output["import_token"] = request.import_token
+
+    return output
+
+
 def marshal_ImportKeyMaterialRequest(
     request: ImportKeyMaterialRequest,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
-
-    if request.key_material is not None:
-        output["key_material"] = request.key_material
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="key_material", value=request.key_material, marshal_func=None
+                ),
+                OneOfPossibility(
+                    param="encrypted_key_material",
+                    value=request.encrypted_key_material,
+                    marshal_func=marshal_ImportKeyMaterialRequestEncryptedKeyMaterial,
+                ),
+            ]
+        ),
+    )
 
     if request.salt is not None:
         output["salt"] = request.salt
