@@ -795,6 +795,11 @@ class DedicatedPoolSummary:
     Tags associated with the Dedicated Pool.
     """
 
+    zone: ScwZone
+    """
+    Zone of the Dedicated Pool.
+    """
+
     created_at: Optional[datetime] = None
     """
     Creation timestamp of the Dedicated Pool.
@@ -1852,6 +1857,11 @@ class DedicatedPool:
     tags: list[str]
     """
     Tags associated with the Dedicated Pool.
+    """
+
+    zone: ScwZone
+    """
+    Zone of the Dedicated Pool.
     """
 
     created_at: Optional[datetime] = None

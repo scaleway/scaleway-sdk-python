@@ -478,6 +478,18 @@ def unmarshal_ServerInstall(data: Any) -> ServerInstall:
     else:
         args["service_url"] = None
 
+    field = data.get("network_boot_url", None)
+    if field is not None:
+        args["network_boot_url"] = field
+    else:
+        args["network_boot_url"] = None
+
+    field = data.get("network_boot_persistent", None)
+    if field is not None:
+        args["network_boot_persistent"] = field
+    else:
+        args["network_boot_persistent"] = False
+
     field = data.get("partitioning_schema", None)
     if field is not None:
         args["partitioning_schema"] = unmarshal_Schema(field)
@@ -811,6 +823,12 @@ def unmarshal_OS(data: Any) -> OS:
     else:
         args["cloud_init_supported"] = False
 
+    field = data.get("network_boot_persistent_editable", None)
+    if field is not None:
+        args["network_boot_persistent_editable"] = field
+    else:
+        args["network_boot_persistent_editable"] = False
+
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -852,6 +870,12 @@ def unmarshal_OS(data: Any) -> OS:
         args["cloud_init_version"] = field
     else:
         args["cloud_init_version"] = None
+
+    field = data.get("network_boot", None)
+    if field is not None:
+        args["network_boot"] = unmarshal_OSOSField(field)
+    else:
+        args["network_boot"] = None
 
     return OS(**args)
 
@@ -1934,6 +1958,12 @@ def marshal_CreateServerRequestInstall(
             request.partitioning_schema, defaults
         )
 
+    if request.network_boot_url is not None:
+        output["network_boot_url"] = request.network_boot_url
+
+    if request.network_boot_persistent is not None:
+        output["network_boot_persistent"] = request.network_boot_persistent
+
     return output
 
 
@@ -2074,6 +2104,12 @@ def marshal_InstallServerRequest(
 
     if request.user_data is not None:
         output["user_data"] = marshal_ScwFile(request.user_data, defaults)
+
+    if request.network_boot_url is not None:
+        output["network_boot_url"] = request.network_boot_url
+
+    if request.network_boot_persistent is not None:
+        output["network_boot_persistent"] = request.network_boot_persistent
 
     return output
 
