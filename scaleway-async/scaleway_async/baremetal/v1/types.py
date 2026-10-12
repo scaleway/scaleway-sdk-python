@@ -345,6 +345,16 @@ class CreateServerRequestInstall:
     Partitioning schema.
     """
 
+    network_boot_url: Optional[str] = None
+    """
+    URL of the network service to which the server should forward its boot request.
+    """
+
+    network_boot_persistent: Optional[bool] = False
+    """
+    Defines whether the network boot forwarding should be applied at every reboot or only once.
+    """
+
 
 @dataclass
 class IP:
@@ -414,6 +424,16 @@ class ServerInstall:
     service_url: str
     """
     Address of the installed service.
+    """
+
+    network_boot_url: str
+    """
+    URL of the network service to which the server should forward its boot request.
+    """
+
+    network_boot_persistent: bool
+    """
+    Defines whether the network boot forwarding should be applied at every reboot or only once.
     """
 
     partitioning_schema: Optional[Schema] = None
@@ -849,6 +869,11 @@ class OS:
     Defines if cloud-init is supported by this OS.
     """
 
+    network_boot_persistent_editable: bool
+    """
+    Defines if the network boot can be persisted or not.
+    """
+
     zone: ScwZone
     """
     Zone in which is the OS is available.
@@ -882,6 +907,11 @@ class OS:
     cloud_init_version: Optional[str] = None
     """
     Defines the cloud-init API version used by this OS.
+    """
+
+    network_boot: Optional[OSOSField] = None
+    """
+    Object defining the network boot requirements for booting server.
     """
 
 
@@ -1401,6 +1431,16 @@ class InstallServerRequest:
     user_data: Optional[ScwFile] = None
     """
     Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
+    """
+
+    network_boot_url: Optional[str] = None
+    """
+    URL of the network service to which the server should forward its boot request.
+    """
+
+    network_boot_persistent: Optional[bool] = False
+    """
+    Defines whether the network boot forwarding should be applied at every reboot or only once.
     """
 
 

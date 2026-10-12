@@ -631,6 +631,12 @@ def unmarshal_DedicatedPool(data: Any) -> DedicatedPool:
     else:
         args["tags"] = []
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -895,6 +901,12 @@ def unmarshal_DedicatedPoolSummary(data: Any) -> DedicatedPoolSummary:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     field = data.get("created_at", None)
     if field is not None:
