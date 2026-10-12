@@ -840,9 +840,19 @@ def marshal_SignRequest(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
-
-    if request.digest is not None:
-        output["digest"] = request.digest
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="digest", value=request.digest, marshal_func=None
+                ),
+                OneOfPossibility(param="msg", value=request.msg, marshal_func=None),
+                OneOfPossibility(
+                    param="external_mu", value=request.external_mu, marshal_func=None
+                ),
+            ]
+        ),
+    )
 
     return output
 
@@ -890,9 +900,16 @@ def marshal_VerifyRequest(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
-
-    if request.digest is not None:
-        output["digest"] = request.digest
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="digest", value=request.digest, marshal_func=None
+                ),
+                OneOfPossibility(param="msg", value=request.msg, marshal_func=None),
+            ]
+        ),
+    )
 
     if request.signature is not None:
         output["signature"] = request.signature

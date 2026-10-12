@@ -21,6 +21,7 @@ from .types import (
     EndpointPublicNetworkDetails,
     Endpoint,
     EngineUpgrade,
+    InfrastructureUpdate,
     ServiceUpdate,
     Workflow,
     Maintenance,
@@ -144,6 +145,23 @@ def unmarshal_EngineUpgrade(data: Any) -> EngineUpgrade:
     return EngineUpgrade(**args)
 
 
+def unmarshal_InfrastructureUpdate(data: Any) -> InfrastructureUpdate:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InfrastructureUpdate' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("kubernetes_version_name", None)
+    if field is not None:
+        args["kubernetes_version_name"] = field
+    else:
+        args["kubernetes_version_name"] = None
+
+    return InfrastructureUpdate(**args)
+
+
 def unmarshal_ServiceUpdate(data: Any) -> ServiceUpdate:
     if not isinstance(data, dict):
         raise TypeError(
@@ -180,6 +198,12 @@ def unmarshal_Workflow(data: Any) -> Workflow:
         args["service_update"] = unmarshal_ServiceUpdate(field)
     else:
         args["service_update"] = None
+
+    field = data.get("infrastructure_update", None)
+    if field is not None:
+        args["infrastructure_update"] = unmarshal_InfrastructureUpdate(field)
+    else:
+        args["infrastructure_update"] = None
 
     return Workflow(**args)
 
