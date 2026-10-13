@@ -849,15 +849,16 @@ class SignRequest:
     ID of the key to use for signing.
     """
 
-    digest: str
-    """
-    The digest must be generated using the same algorithm defined in the key’s algorithm settings.
-    """
-
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+    digest: Optional[str] = None
+
+    msg: Optional[str] = None
+
+    external_mu: Optional[str] = None
 
 
 @dataclass
@@ -944,11 +945,6 @@ class VerifyRequest:
     ID of the key to use for signature verification.
     """
 
-    digest: str
-    """
-    Must be generated using the same algorithm specified in the key’s configuration.
-    """
-
     signature: str
     """
     The message signature to verify.
@@ -958,6 +954,10 @@ class VerifyRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+    digest: Optional[str] = None
+
+    msg: Optional[str] = None
 
 
 @dataclass
