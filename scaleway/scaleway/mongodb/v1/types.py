@@ -97,6 +97,7 @@ class MaintenanceStatus(str, Enum, metaclass=StrEnumMeta):
     DONE = "done"
     CANCELLED = "cancelled"
     ONGOING = "ongoing"
+    ERROR = "error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -151,6 +152,11 @@ class EngineUpgrade:
 
 
 @dataclass
+class InfrastructureUpdate:
+    kubernetes_version_name: str
+
+
+@dataclass
 class ServiceUpdate:
     service_name: str
 
@@ -181,6 +187,8 @@ class Workflow:
     engine_upgrade: Optional[EngineUpgrade] = None
 
     service_update: Optional[ServiceUpdate] = None
+
+    infrastructure_update: Optional[InfrastructureUpdate] = None
 
 
 @dataclass

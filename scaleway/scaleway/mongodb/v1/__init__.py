@@ -16,6 +16,7 @@ from .content import SNAPSHOT_TRANSIENT_STATUSES
 from .types import UserRoleRole
 from .types import VolumeType
 from .types import EngineUpgrade
+from .types import InfrastructureUpdate
 from .types import ServiceUpdate
 from .types import EndpointPrivateNetworkDetails
 from .types import EndpointPublicNetworkDetails
@@ -88,6 +89,7 @@ __all__ = [
     "UserRoleRole",
     "VolumeType",
     "EngineUpgrade",
+    "InfrastructureUpdate",
     "ServiceUpdate",
     "EndpointPrivateNetworkDetails",
     "EndpointPublicNetworkDetails",
