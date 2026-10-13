@@ -849,15 +849,24 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        digest: str,
         region: Optional[ScwRegion] = None,
+        digest: Optional[str] = None,
+        msg: Optional[str] = None,
+        external_mu: Optional[str] = None,
     ) -> SignResponse:
         """
         Sign a message digest.
         Use a given key to sign a message digest. The key must have its usage set to `asymmetric_signing`. The digest must be created using the same digest algorithm that is defined in the key's algorithm configuration.
         :param key_id: ID of the key to use for signing.
-        :param digest: The digest must be generated using the same algorithm defined in the key’s algorithm settings.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param digest: For ECDSA and RSA keys, the digest generated using the key's hashing algorithm: 32 bytes (SHA-256) or 48 bytes (SHA-384).
+        The 64-byte bound only exists for the ML-DSA backward-compatibility case below.
+        Also accepted for ML-DSA for backward compatibility only; signatures may not conform to the ML-DSA spec, not recommended for new usage. Prefer `message` or `external_mu` for ML-DSA.
+        One-Of ('payload'): at most one of 'digest', 'msg', 'external_mu' could be set.
+        :param msg: Only supported for ML-DSA keys (`raw` signing): the server computes the μ message representative internally before signing. Between 1 and 4096 bytes.
+        One-Of ('payload'): at most one of 'digest', 'msg', 'external_mu' could be set.
+        :param external_mu: Must equal SHAKE256(tr ‖ 0x00 ‖ 0x00 ‖ message), where `tr` is the SHAKE256 of the key's public key. Signatures produced from other pre-hash computations (e.g. HashML-DSA) cannot be verified through this API.
+        One-Of ('payload'): at most one of 'digest', 'msg', 'external_mu' could be set.
         :return: :class:`SignResponse <SignResponse>`
 
         Usage:
@@ -865,7 +874,6 @@ class KeyManagerV1Alpha1API(API):
 
             result = api.sign(
                 key_id="example",
-                digest="example",
             )
         """
 
@@ -880,8 +888,10 @@ class KeyManagerV1Alpha1API(API):
             body=marshal_SignRequest(
                 SignRequest(
                     key_id=key_id,
-                    digest=digest,
                     region=region,
+                    digest=digest,
+                    msg=msg,
+                    external_mu=external_mu,
                 ),
                 self.client,
             ),
@@ -894,17 +904,21 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        digest: str,
         signature: str,
         region: Optional[ScwRegion] = None,
+        digest: Optional[str] = None,
+        msg: Optional[str] = None,
     ) -> VerifyResponse:
         """
         Verify a message signature.
         Use a given key to verify a message signature against a message digest. The key must have its usage set to `asymmetric_signing`. The message digest must be generated using the same digest algorithm that is defined in the key's algorithm configuration.
         :param key_id: ID of the key to use for signature verification.
-        :param digest: Must be generated using the same algorithm specified in the key’s configuration.
         :param signature: The message signature to verify.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param digest: For ECDSA and RSA keys, the digest of the original message, generated using the key's hashing algorithm.
+        One-Of ('payload'): at most one of 'digest', 'msg' could be set.
+        :param msg: For ML-DSA keys, the full original message. This also verifies signatures made with `raw` or `external_mu`: send the message whose μ was signed, not the μ itself (a μ payload always fails). Messages over 4096 bytes cannot be verified through this endpoint.
+        One-Of ('payload'): at most one of 'digest', 'msg' could be set.
         :return: :class:`VerifyResponse <VerifyResponse>`
 
         Usage:
@@ -912,7 +926,6 @@ class KeyManagerV1Alpha1API(API):
 
             result = api.verify(
                 key_id="example",
-                digest="example",
                 signature="example",
             )
         """
@@ -928,9 +941,10 @@ class KeyManagerV1Alpha1API(API):
             body=marshal_VerifyRequest(
                 VerifyRequest(
                     key_id=key_id,
-                    digest=digest,
                     signature=signature,
                     region=region,
+                    digest=digest,
+                    msg=msg,
                 ),
                 self.client,
             ),

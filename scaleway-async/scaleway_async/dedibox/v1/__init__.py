@@ -77,6 +77,7 @@ from .types import ServiceType
 from .types import OfferAntiDosInfo
 from .types import OfferBackupInfo
 from .types import OfferBandwidthInfo
+from .types import OfferCommitment
 from .types import OfferLicenseInfo
 from .types import OfferRPNInfo
 from .types import OfferSANInfo
@@ -117,6 +118,7 @@ from .types import ServerSummary
 from .types import CPU
 from .types import Disk
 from .types import Memory
+from .types import OfferServerInfoAvailability
 from .types import PersistentMemory
 from .types import RaidController
 from .types import RaidArray
@@ -349,6 +351,7 @@ __all__ = [
     "OfferAntiDosInfo",
     "OfferBackupInfo",
     "OfferBandwidthInfo",
+    "OfferCommitment",
     "OfferLicenseInfo",
     "OfferRPNInfo",
     "OfferSANInfo",
@@ -389,6 +392,7 @@ __all__ = [
     "CPU",
     "Disk",
     "Memory",
+    "OfferServerInfoAvailability",
     "PersistentMemory",
     "RaidController",
     "RaidArray",
