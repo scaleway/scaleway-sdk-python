@@ -31,6 +31,7 @@ class FileSystemStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     CREATING = "creating"
     UPDATING = "updating"
+    SNAPSHOTTING = "snapshotting"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -44,6 +45,43 @@ class ListFileSystemsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+class ListSnapshotsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    AVAILABLE = "available"
+    ERROR = "error"
+    CREATING = "creating"
+    DELETING = "deleting"
+    DELETED = "deleted"
+    LOCKED = "locked"
+    CLONING = "cloning"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+@dataclass
+class SnapshotParentFilesystem:
+    id: str
+    """
+    Parent filesystem UUID (filesystem from which the snapshot originates).
+    """
+
+    name: str
+    """
+    Name of the parent filesystem.
+    """
 
 
 @dataclass
@@ -179,6 +217,73 @@ class FileSystem:
 
 
 @dataclass
+class Snapshot:
+    """
+    Represents a snapshot of a filesystem and its properties.
+    """
+
+    id: str
+    """
+    UUID of the snapshot.
+    """
+
+    name: str
+    """
+    Name of the snapshot.
+    """
+
+    size: int
+    """
+    Snapshot size in bytes.
+    """
+
+    status: SnapshotStatus
+    """
+    Current status of the snapshot (e.g. creating, available, ...).
+    """
+
+    project_id: str
+    """
+    UUID of the project to which the snapshot belongs.
+    """
+
+    organization_id: str
+    """
+    UUID of the organization to which the snapshot belongs.
+    """
+
+    tags: list[str]
+    """
+    List of tags assigned to the snapshot.
+    """
+
+    region: ScwRegion
+    """
+    Region where the snapshot is located.
+    """
+
+    srn: str
+    """
+    The SRN of the snapshot.
+    """
+
+    parent_filesystem: Optional[SnapshotParentFilesystem] = None
+    """
+    If the parent filesystem was deleted, value is null.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation date of the snapshot.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Last update date of the properties of the snapshot.
+    """
+
+
+@dataclass
 class CreateFileSystemRequest:
     """
     Request to create a new filesystem.
@@ -216,6 +321,38 @@ class CreateFileSystemRequest:
 
 
 @dataclass
+class CreateSnapshotRequest:
+    """
+    Request to create a new snapshot of a filesystem.
+    """
+
+    filesystem_id: str
+    """
+    UUID of the filesystem to snapshot.
+    """
+
+    name: str
+    """
+    Name of the snapshot.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    UUID of the project to which the filesystem and the snapshot belong.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    List of tags assigned to the snapshot.
+    """
+
+
+@dataclass
 class DeleteFileSystemRequest:
     """
     Request to delete a specific filesystem.
@@ -233,6 +370,23 @@ class DeleteFileSystemRequest:
 
 
 @dataclass
+class DeleteSnapshotRequest:
+    """
+    Request to delete a specific snapshot.
+    """
+
+    snapshot_id: str
+    """
+    UUID of the snapshot.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetFileSystemRequest:
     """
     Request to retrieve a specific filesystem.
@@ -241,6 +395,23 @@ class GetFileSystemRequest:
     filesystem_id: str
     """
     UUID of the filesystem.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetSnapshotRequest:
+    """
+    Request to retrieve a specific snapshot.
+    """
+
+    snapshot_id: str
+    """
+    UUID of the snapshot.
     """
 
     region: Optional[ScwRegion] = None
@@ -422,6 +593,76 @@ class ListFileSystemsResponse:
 
 
 @dataclass
+class ListSnapshotsRequest:
+    """
+    Request to list snapshots with filtering and pagination options.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListSnapshotsRequestOrderBy] = (
+        ListSnapshotsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Criteria to use when ordering the list.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number (starting at 1).
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of entries per page (default: 20, max: 100).
+    """
+
+    name: Optional[str] = None
+    """
+    Filter the returned snapshots by their names.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter by tags. Only snapshots with one or more matching tags will be returned.
+    """
+
+    filesystem_id: Optional[str] = None
+    """
+    Filter the returned snapshots by the ID of the original filesystem.
+    """
+
+    snapshot_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    Filter by snapshot IDs. Only snapshots with one or more matching IDs will be returned.
+    """
+
+    project_id: Optional[str] = None
+
+    organization_id: Optional[str] = None
+
+
+@dataclass
+class ListSnapshotsResponse:
+    """
+    Response containing a list of snapshots and total count.
+    """
+
+    snapshots: list[Snapshot]
+    """
+    List of snapshots matching the request criteria.
+    """
+
+    total_count: int
+    """
+    Total number of snapshots matching the criteria.
+    """
+
+
+@dataclass
 class UpdateFileSystemRequest:
     """
     Request to update a specific filesystem.
@@ -451,4 +692,31 @@ Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
     tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags assigned to the filesystem.
+    """
+
+
+@dataclass
+class UpdateSnapshotRequest:
+    """
+    Request to update a specific snapshot.
+    """
+
+    snapshot_id: str
+    """
+    UUID of the snapshot.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str] = None
+    """
+    When defined, is the new name of the snapshot.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    List of tags assigned to the snapshot.
     """
