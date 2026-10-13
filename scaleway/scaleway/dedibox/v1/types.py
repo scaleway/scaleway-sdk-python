@@ -677,6 +677,34 @@ class OfferBandwidthInfo:
 
 
 @dataclass
+class OfferCommitment:
+    unit: str
+    """
+    Unit used for discount.
+    """
+
+    value: int
+    """
+    Value of the discount.
+    """
+
+    free_setup_fees: bool
+    """
+    Is it free setup fees.
+    """
+
+    duration: str
+    """
+    Commitment's required duration.
+    """
+
+    discounted_price: Optional[Money] = None
+    """
+    Discounted price of the commitment.
+    """
+
+
+@dataclass
 class OfferLicenseInfo:
     bound_to_ip: bool
 
@@ -778,6 +806,11 @@ class Offer:
     payment_frequency: OfferPaymentFrequency
     """
     Payment frequency of the offer.
+    """
+
+    commitments: list[OfferCommitment]
+    """
+    Commitment info if it is a commitment offer.
     """
 
     pricing: Optional[Money] = None
@@ -923,6 +956,21 @@ class OS:
     hostname_max_length: int
     """
     Hostname max length.
+    """
+
+    beta: str
+    """
+    Is it a beta OS.
+    """
+
+    description: str
+    """
+    Description of the OS.
+    """
+
+    official_website: str
+    """
+    URL to OS official website.
     """
 
     max_partitions: Optional[int] = 0
@@ -2024,6 +2072,11 @@ class CPU:
     Frequency of the CPU.
     """
 
+    bench: int
+    """
+    Bench of the CPU.
+    """
+
 
 @dataclass
 class Disk:
@@ -2059,6 +2112,12 @@ class Memory:
     """
     True if the memory is an error-correcting code memory.
     """
+
+
+@dataclass
+class OfferServerInfoAvailability:
+    stock: OfferServerInfoStock
+    quantity: int
 
 
 @dataclass
@@ -3454,6 +3513,8 @@ class OfferServerInfo:
     available_options: list[Offer]
     connectivity: int
     stock_by_datacenter: dict[str, OfferServerInfoStock]
+    availability_by_datacenter: dict[str, OfferServerInfoAvailability]
+    rpn_speed: int
     rpn_version: Optional[int] = None
     onetime_fees: Optional[Offer] = None
 

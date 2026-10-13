@@ -9,7 +9,9 @@ from scaleway_core.bridge import (
     Zone as ScwZone,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     WaitForOptions,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
     wait_for_resource,
@@ -17,25 +19,35 @@ from scaleway_core.utils import (
 from .types import (
     AttachmentResourceType,
     ListFileSystemsRequestOrderBy,
+    ListSnapshotsRequestOrderBy,
     Attachment,
     CreateFileSystemRequest,
+    CreateSnapshotRequest,
     FileSystem,
     FileSystemType,
     ListAttachmentsResponse,
     ListFileSystemTypesResponse,
     ListFileSystemsResponse,
+    ListSnapshotsResponse,
+    Snapshot,
     UpdateFileSystemRequest,
+    UpdateSnapshotRequest,
 )
 from .content import (
     FILE_SYSTEM_TRANSIENT_STATUSES,
+    SNAPSHOT_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_FileSystem,
+    unmarshal_Snapshot,
     unmarshal_ListAttachmentsResponse,
     unmarshal_ListFileSystemTypesResponse,
     unmarshal_ListFileSystemsResponse,
+    unmarshal_ListSnapshotsResponse,
     marshal_CreateFileSystemRequest,
+    marshal_CreateSnapshotRequest,
     marshal_UpdateFileSystemRequest,
+    marshal_UpdateSnapshotRequest,
 )
 
 
@@ -524,3 +536,325 @@ class FileV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_FileSystem(res.json())
+
+    def get_snapshot(
+        self,
+        *,
+        snapshot_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Snapshot:
+        """
+        Get snapshot details.
+        Retrieve all properties and current status of a specific snapshot identified by its ID.
+        :param snapshot_id: UUID of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.get_snapshot(
+                snapshot_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
+
+        res = self._request(
+            "GET",
+            f"/file/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def wait_for_snapshot(
+        self,
+        *,
+        snapshot_id: str,
+        region: Optional[ScwRegion] = None,
+        options: Optional[WaitForOptions[Snapshot, bool]] = None,
+    ) -> Snapshot:
+        """
+        Get snapshot details.
+        Retrieve all properties and current status of a specific snapshot identified by its ID.
+        :param snapshot_id: UUID of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.get_snapshot(
+                snapshot_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in SNAPSHOT_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_snapshot,
+            options=options,
+            args={
+                "snapshot_id": snapshot_id,
+                "region": region,
+            },
+        )
+
+    def list_snapshots(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListSnapshotsRequestOrderBy] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        name: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+        filesystem_id: Optional[str] = None,
+        snapshot_ids: Optional[list[str]] = None,
+    ) -> ListSnapshotsResponse:
+        """
+        List all snapshots.
+        Retrieve all snapshots in the specified region. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by project ID.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :param organization_id: Filter by organization ID.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :param page: Page number (starting at 1).
+        :param page_size: Number of entries per page (default: 20, max: 100).
+        :param name: Filter the returned snapshots by their names.
+        :param tags: Filter by tags. Only snapshots with one or more matching tags will be returned.
+        :param filesystem_id: Filter the returned snapshots by the ID of the original filesystem.
+        :param snapshot_ids: Filter by snapshot IDs. Only snapshots with one or more matching IDs will be returned.
+        :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_snapshots()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/file/v1alpha1/regions/{param_region}/snapshots",
+            params={
+                "filesystem_id": filesystem_id,
+                "name": name,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "snapshot_ids": snapshot_ids,
+                "tags": tags,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("organization_id", organization_id),
+                        OneOfPossibility("project_id", project_id),
+                    ]
+                ),
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListSnapshotsResponse(res.json())
+
+    def list_snapshots_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListSnapshotsRequestOrderBy] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        name: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+        filesystem_id: Optional[str] = None,
+        snapshot_ids: Optional[list[str]] = None,
+    ) -> list[Snapshot]:
+        """
+        List all snapshots.
+        Retrieve all snapshots in the specified region. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by project ID.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :param organization_id: Filter by organization ID.
+        One-Of ('scope'): at most one of 'project_id', 'organization_id' could be set.
+        :param page: Page number (starting at 1).
+        :param page_size: Number of entries per page (default: 20, max: 100).
+        :param name: Filter the returned snapshots by their names.
+        :param tags: Filter by tags. Only snapshots with one or more matching tags will be returned.
+        :param filesystem_id: Filter the returned snapshots by the ID of the original filesystem.
+        :param snapshot_ids: Filter by snapshot IDs. Only snapshots with one or more matching IDs will be returned.
+        :return: :class:`list[Snapshot] <list[Snapshot]>`
+
+        Usage:
+        ::
+
+            result = api.list_snapshots_all()
+        """
+
+        return fetch_all_pages(
+            type=ListSnapshotsResponse,
+            key="snapshots",
+            fetcher=self.list_snapshots,
+            args={
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "name": name,
+                "tags": tags,
+                "filesystem_id": filesystem_id,
+                "snapshot_ids": snapshot_ids,
+                "project_id": project_id,
+                "organization_id": organization_id,
+            },
+        )
+
+    def create_snapshot(
+        self,
+        *,
+        filesystem_id: str,
+        name: str,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+    ) -> Snapshot:
+        """
+        Create a snapshot of a filesystem.
+        To create a snapshot, the filesystem must be in the `available` status.
+        If your filesystem is in a transient state, you need to wait until the end of the current operation.
+        :param filesystem_id: UUID of the filesystem to snapshot.
+        :param name: Name of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: UUID of the project to which the filesystem and the snapshot belong.
+        :param tags: List of tags assigned to the snapshot.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.create_snapshot(
+                filesystem_id="example",
+                name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/file/v1alpha1/regions/{param_region}/snapshots",
+            body=marshal_CreateSnapshotRequest(
+                CreateSnapshotRequest(
+                    filesystem_id=filesystem_id,
+                    name=name,
+                    region=region,
+                    project_id=project_id,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def delete_snapshot(
+        self,
+        *,
+        snapshot_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Snapshot:
+        """
+        Delete a snapshot.
+        You must specify the `snapshot_id` of the snapshot you want to delete.
+        :param snapshot_id: UUID of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.delete_snapshot(
+                snapshot_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
+
+        res = self._request(
+            "DELETE",
+            f"/file/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def update_snapshot(
+        self,
+        *,
+        snapshot_id: str,
+        region: Optional[ScwRegion] = None,
+        name: Optional[str] = None,
+        tags: Optional[list[str]] = None,
+    ) -> Snapshot:
+        """
+        Update snapshot properties.
+        Update the name or tags of a snapshot.
+        :param snapshot_id: UUID of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: When defined, is the new name of the snapshot.
+        :param tags: List of tags assigned to the snapshot.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.update_snapshot(
+                snapshot_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
+
+        res = self._request(
+            "PATCH",
+            f"/file/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}",
+            body=marshal_UpdateSnapshotRequest(
+                UpdateSnapshotRequest(
+                    snapshot_id=snapshot_id,
+                    region=region,
+                    name=name,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
