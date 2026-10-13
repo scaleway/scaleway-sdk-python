@@ -50,11 +50,13 @@ from .types import (
     CPU,
     Disk,
     Memory,
+    OfferServerInfoAvailability,
     PersistentMemory,
     RaidController,
     OfferAntiDosInfo,
     OfferBackupInfo,
     OfferBandwidthInfo,
+    OfferCommitment,
     OfferFailoverBlockInfo,
     OfferFailoverIpInfo,
     OfferLicenseInfo,
@@ -269,6 +271,12 @@ def unmarshal_CPU(data: Any) -> CPU:
     else:
         args["frequency"] = 0
 
+    field = data.get("bench", None)
+    if field is not None:
+        args["bench"] = field
+    else:
+        args["bench"] = 0
+
     return CPU(**args)
 
 
@@ -328,6 +336,29 @@ def unmarshal_Memory(data: Any) -> Memory:
         args["is_ecc"] = False
 
     return Memory(**args)
+
+
+def unmarshal_OfferServerInfoAvailability(data: Any) -> OfferServerInfoAvailability:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'OfferServerInfoAvailability' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("stock", None)
+    if field is not None:
+        args["stock"] = field
+    else:
+        args["stock"] = None
+
+    field = data.get("quantity", None)
+    if field is not None:
+        args["quantity"] = field
+    else:
+        args["quantity"] = None
+
+    return OfferServerInfoAvailability(**args)
 
 
 def unmarshal_PersistentMemory(data: Any) -> PersistentMemory:
@@ -431,6 +462,47 @@ def unmarshal_OfferBandwidthInfo(data: Any) -> OfferBandwidthInfo:
         args["speed"] = None
 
     return OfferBandwidthInfo(**args)
+
+
+def unmarshal_OfferCommitment(data: Any) -> OfferCommitment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'OfferCommitment' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("unit", None)
+    if field is not None:
+        args["unit"] = field
+    else:
+        args["unit"] = None
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = 0
+
+    field = data.get("free_setup_fees", None)
+    if field is not None:
+        args["free_setup_fees"] = field
+    else:
+        args["free_setup_fees"] = False
+
+    field = data.get("duration", None)
+    if field is not None:
+        args["duration"] = field
+    else:
+        args["duration"] = None
+
+    field = data.get("discounted_price", None)
+    if field is not None:
+        args["discounted_price"] = unmarshal_Money(field)
+    else:
+        args["discounted_price"] = None
+
+    return OfferCommitment(**args)
 
 
 def unmarshal_OfferFailoverBlockInfo(data: Any) -> OfferFailoverBlockInfo:
@@ -620,6 +692,25 @@ def unmarshal_OfferServerInfo(data: Any) -> OfferServerInfo:
     else:
         args["stock_by_datacenter"] = None
 
+    field = data.get("availability_by_datacenter", None)
+    if field is not None:
+        args["availability_by_datacenter"] = (
+            {
+                key: unmarshal_OfferServerInfoAvailability(value)
+                for key, value in field.items()
+            }
+            if field is not None
+            else None
+        )
+    else:
+        args["availability_by_datacenter"] = None
+
+    field = data.get("rpn_speed", None)
+    if field is not None:
+        args["rpn_speed"] = field
+    else:
+        args["rpn_speed"] = None
+
     field = data.get("rpn_version", None)
     if field is not None:
         args["rpn_version"] = field
@@ -793,6 +884,14 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["service_level_info"] = None
 
+    field = data.get("commitments", None)
+    if field is not None:
+        args["commitments"] = (
+            [unmarshal_OfferCommitment(v) for v in field] if field is not None else None
+        )
+    else:
+        args["commitments"] = []
+
     field = data.get("rpn_info", None)
     if field is not None:
         args["rpn_info"] = unmarshal_OfferRPNInfo(field)
@@ -963,6 +1062,24 @@ def unmarshal_OS(data: Any) -> OS:
         args["hostname_max_length"] = field
     else:
         args["hostname_max_length"] = 0
+
+    field = data.get("beta", None)
+    if field is not None:
+        args["beta"] = field
+    else:
+        args["beta"] = None
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    field = data.get("official_website", None)
+    if field is not None:
+        args["official_website"] = field
+    else:
+        args["official_website"] = None
 
     field = data.get("max_partitions", None)
     if field is not None:
