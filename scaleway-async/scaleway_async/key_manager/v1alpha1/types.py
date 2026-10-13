@@ -30,9 +30,6 @@ class GenerateKeyMaterialImportParametersRequestWrappingAlgorithm(
     RSA_OAEP_2048_SHA256 = "rsa_oaep_2048_sha256"
     RSA_OAEP_3072_SHA256 = "rsa_oaep_3072_sha256"
     RSA_OAEP_4096_SHA256 = "rsa_oaep_4096_sha256"
-    RSA_AES_KEY_WRAP_2048_SHA256 = "rsa_aes_key_wrap_2048_sha256"
-    RSA_AES_KEY_WRAP_3072_SHA256 = "rsa_aes_key_wrap_3072_sha256"
-    RSA_AES_KEY_WRAP_4096_SHA256 = "rsa_aes_key_wrap_4096_sha256"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -611,8 +608,7 @@ class GenerateKeyMaterialImportParametersRequest:
         GenerateKeyMaterialImportParametersRequestWrappingAlgorithm
     ] = GenerateKeyMaterialImportParametersRequestWrappingAlgorithm.UNKNOWN_WRAPPING_ALGORITHM
     """
-    Supported values for direct RSA wrapping are: `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256`.
-Supported values for hybrid wrapping (RSA + AES Key Wrap) are: `rsa_aes_key_wrap_2048_sha256`, `rsa_aes_key_wrap_3072_sha256`, `rsa_aes_key_wrap_4096_sha256`.
+    Supported values are: `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256`.
     """
 
 
