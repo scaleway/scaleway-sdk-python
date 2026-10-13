@@ -118,6 +118,18 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     else:
         args["services"] = []
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("dns_record", None)
     if field is not None:
         args["dns_record"] = field
@@ -158,6 +170,12 @@ def unmarshal_Volume(data: Any) -> Volume:
         args["size_bytes"] = field
     else:
         args["size_bytes"] = 0
+
+    field = data.get("deployment_id", None)
+    if field is not None:
+        args["deployment_id"] = field
+    else:
+        args["deployment_id"] = None
 
     return Volume(**args)
 
@@ -244,6 +262,12 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     else:
         args["region"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
@@ -278,6 +302,24 @@ def unmarshal_User(data: Any) -> User:
         args["username"] = field
     else:
         args["username"] = None
+
+    field = data.get("deployment_id", None)
+    if field is not None:
+        args["deployment_id"] = field
+    else:
+        args["deployment_id"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     return User(**args)
 
@@ -414,6 +456,18 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     else:
         args["available_volume_types"] = []
 
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     return NodeType(**args)
 
 
@@ -492,6 +546,18 @@ def unmarshal_Version(data: Any) -> Version:
         args["beta"] = field
     else:
         args["beta"] = False
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("end_of_life", None)
     if field is not None:
@@ -586,6 +652,9 @@ def marshal_Volume(
 
     if request.size_bytes is not None:
         output["size_bytes"] = request.size_bytes
+
+    if request.deployment_id is not None:
+        output["deployment_id"] = request.deployment_id
 
     return output
 

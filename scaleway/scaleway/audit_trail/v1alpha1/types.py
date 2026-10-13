@@ -231,6 +231,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     ACCOUNT_ORGANIZATION = "account_organization"
     ACCOUNT_PROJECT = "account_project"
     ACCOUNT_CONTRACT_SIGNATURE = "account_contract_signature"
+    INSTANCE_DEDICATED_POOL = "instance_dedicated_pool"
     INSTANCE_SERVER = "instance_server"
     INSTANCE_PLACEMENT_GROUP = "instance_placement_group"
     INSTANCE_SECURITY_GROUP = "instance_security_group"

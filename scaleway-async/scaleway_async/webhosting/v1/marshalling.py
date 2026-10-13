@@ -339,6 +339,12 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -1140,6 +1146,12 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
@@ -1157,30 +1169,6 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-    else:
-        args["domain"] = None
-
-    field = data.get("offer", None)
-    if field is not None:
-        args["offer"] = unmarshal_Offer(field)
-    else:
-        args["offer"] = None
-
-    field = data.get("platform", None)
-    if field is not None:
-        args["platform"] = unmarshal_Platform(field)
-    else:
-        args["platform"] = None
 
     field = data.get("tags", None)
     if field is not None:
@@ -1205,6 +1193,30 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+    else:
+        args["domain"] = None
+
+    field = data.get("offer", None)
+    if field is not None:
+        args["offer"] = unmarshal_Offer(field)
+    else:
+        args["offer"] = None
+
+    field = data.get("platform", None)
+    if field is not None:
+        args["platform"] = unmarshal_Platform(field)
+    else:
+        args["platform"] = None
 
     field = data.get("dns_status", None)
     if field is not None:

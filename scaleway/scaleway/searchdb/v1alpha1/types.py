@@ -133,6 +133,16 @@ class Endpoint:
     List of available services, their ports and URLs.
     """
 
+    region: ScwRegion
+    """
+    Region of the Endpoint.
+    """
+
+    srn: str
+    """
+    The SRN of the Endpoint.
+    """
+
     dns_record: Optional[str] = None
     """
     DNS entry to access to the service. Now deprecated. Use the `url` field from `services` field instead.
@@ -157,6 +167,11 @@ class Volume:
     size_bytes: int
     """
     Define the size of the Volume.
+    """
+
+    deployment_id: str
+    """
+    ID of the Deployment.
     """
 
 
@@ -242,6 +257,11 @@ class Deployment:
     Region the Deployment is located.
     """
 
+    srn: str
+    """
+    The SRN of the Deployment.
+    """
+
     volume: Optional[Volume] = None
     """
     Volume type and size.
@@ -309,10 +329,42 @@ class NodeType:
     Available storage options for the Node Type.
     """
 
+    region: ScwRegion
+    """
+    Region of the node type.
+    """
+
+    srn: str
+    """
+    The SRN of the node type.
+    """
+
 
 @dataclass
 class User:
+    """
+    User.
+    """
+
     username: str
+    """
+    Username of the Deployment user.
+    """
+
+    deployment_id: str
+    """
+    ID of the Deployment.
+    """
+
+    region: ScwRegion
+    """
+    Region of the user.
+    """
+
+    srn: str
+    """
+    The SRN of the user.
+    """
 
 
 @dataclass
@@ -334,6 +386,16 @@ class Version:
     beta: bool
     """
     Parameter that tell if the version is in beta.
+    """
+
+    region: ScwRegion
+    """
+    Region of the version.
+    """
+
+    srn: str
+    """
+    The SRN of the version.
     """
 
     end_of_life: Optional[datetime] = None
