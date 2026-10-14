@@ -362,6 +362,11 @@ class Server:
     VNC port to use for remote desktop connection.
     """
 
+    full_os_version: str
+    """
+    Initially installed OS, this does not necessarily reflect the current OS version.
+    """
+
     status: ServerStatus
     """
     Current status of the server.

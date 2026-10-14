@@ -333,6 +333,18 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["vnc_port"] = 0
 
+    field = data.get("full_os_version", None)
+    if field is not None:
+        args["full_os_version"] = field
+    else:
+        args["full_os_version"] = None
+
+    field = data.get("os", None)
+    if field is not None:
+        args["os"] = unmarshal_OS(field)
+    else:
+        args["os"] = None
+
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -356,12 +368,6 @@ def unmarshal_Server(data: Any) -> Server:
         args["srn"] = field
     else:
         args["srn"] = None
-
-    field = data.get("os", None)
-    if field is not None:
-        args["os"] = unmarshal_OS(field)
-    else:
-        args["os"] = None
 
     field = data.get("created_at", None)
     if field is not None:
