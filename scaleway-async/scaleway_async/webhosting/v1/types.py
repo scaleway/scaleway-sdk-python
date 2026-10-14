@@ -897,6 +897,11 @@ class HostingSummary:
     ID of the Web Hosting plan.
     """
 
+    srn: str
+    """
+    SRN of the Web Hosting plan.
+    """
+
     project_id: str
     """
     ID of the Scaleway Project the Web Hosting plan belongs to.
@@ -1788,6 +1793,11 @@ class Hosting:
     id: str
     """
     ID of the Web Hosting plan.
+    """
+
+    srn: str
+    """
+    SRN of the Web Hosting plan.
     """
 
     project_id: str
