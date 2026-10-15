@@ -1398,14 +1398,14 @@ class DomainV2Beta1RegistrarAPI(API):
         List tasks.
         List all operations performed on the account.
         You can filter the list of tasks by domain name.
-        :param page:
-        :param page_size:
-        :param project_id:
-        :param organization_id:
-        :param domain:
-        :param types:
-        :param statuses:
-        :param order_by:
+        :param page: Page number for the returned tasks.
+        :param page_size: Maximum number of tasks per page.
+        :param project_id: Filter tasks by project ID.
+        :param organization_id: Filter tasks by organization ID.
+        :param domain: Filter tasks by domain name.
+        :param types: Filter tasks by type.
+        :param statuses: Filter tasks by status.
+        :param order_by: Sort order of the returned tasks.
         :return: :class:`ListTasksResponse <ListTasksResponse>`
 
         Usage:
@@ -1449,14 +1449,14 @@ class DomainV2Beta1RegistrarAPI(API):
         List tasks.
         List all operations performed on the account.
         You can filter the list of tasks by domain name.
-        :param page:
-        :param page_size:
-        :param project_id:
-        :param organization_id:
-        :param domain:
-        :param types:
-        :param statuses:
-        :param order_by:
+        :param page: Page number for the returned tasks.
+        :param page_size: Maximum number of tasks per page.
+        :param project_id: Filter tasks by project ID.
+        :param organization_id: Filter tasks by organization ID.
+        :param domain: Filter tasks by domain name.
+        :param types: Filter tasks by type.
+        :param statuses: Filter tasks by status.
+        :param order_by: Sort order of the returned tasks.
         :return: :class:`list[Task] <list[Task]>`
 
         Usage:
@@ -1494,11 +1494,11 @@ class DomainV2Beta1RegistrarAPI(API):
         List inbound domain transfers.
         List all inbound transfer operations on the account.
         You can filter the list of inbound transfers by domain name.
-        :param page:
-        :param domain:
-        :param page_size:
-        :param project_id:
-        :param organization_id:
+        :param page: Page number for the returned inbound transfers.
+        :param domain: Filter inbound transfers by domain name.
+        :param page_size: Maximum number of inbound transfers per page.
+        :param project_id: Filter inbound transfers by project ID.
+        :param organization_id: Filter inbound transfers by organization ID.
         :return: :class:`ListInboundTransfersResponse <ListInboundTransfersResponse>`
 
         Usage:
@@ -1539,11 +1539,11 @@ class DomainV2Beta1RegistrarAPI(API):
         List inbound domain transfers.
         List all inbound transfer operations on the account.
         You can filter the list of inbound transfers by domain name.
-        :param page:
-        :param domain:
-        :param page_size:
-        :param project_id:
-        :param organization_id:
+        :param page: Page number for the returned inbound transfers.
+        :param domain: Filter inbound transfers by domain name.
+        :param page_size: Maximum number of inbound transfers per page.
+        :param project_id: Filter inbound transfers by project ID.
+        :param organization_id: Filter inbound transfers by organization ID.
         :return: :class:`list[InboundTransfer] <list[InboundTransfer]>`
 
         Usage:
@@ -1625,21 +1625,21 @@ class DomainV2Beta1RegistrarAPI(API):
         Purchase domains.
         Request the registration of domain names.
         You can provide a domain's already existing contact or a new contact.
-        :param domains:
-        :param duration_in_years:
+        :param domains: List of domains to purchase.
+        :param duration_in_years: Duration in years for the domain registration.
         :param auto_renew: Enable the `auto renew` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.
-        :param project_id:
-        :param owner_contact_id:
+        :param project_id: Project ID to create the domains in.
+        :param owner_contact_id: ID of the existing contact to use as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact:
+        :param owner_contact: New contact to create and use as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id:
+        :param administrative_contact_id: ID of the existing contact to use as the domain's administrative contact.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact:
+        :param administrative_contact: New contact to create and use as the domain's administrative contact.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param technical_contact_id:
+        :param technical_contact_id: ID of the existing contact to use as the domain's technical contact.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact:
+        :param technical_contact: New contact to create and use as the domain's technical contact.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
         :return: :class:`OrderResponse <OrderResponse>`
 
@@ -1686,9 +1686,9 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Renew domains.
         Request the renewal of one or more domain names.
-        :param domains:
-        :param duration_in_years:
-        :param force_late_renewal:
+        :param domains: List of domains to renew.
+        :param duration_in_years: Duration in years for the domain renewal.
+        :param force_late_renewal: Force the renewal to be a late renewal.
         :return: :class:`OrderResponse <OrderResponse>`
 
         Usage:
@@ -1731,19 +1731,19 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Transfer a domain.
         Request the transfer of a domain from another registrar to Scaleway Domains and DNS.
-        :param domains:
-        :param project_id:
-        :param owner_contact_id:
+        :param domains: List of domains to transfer in, each with its auth code.
+        :param project_id: Project ID to transfer the domains into.
+        :param owner_contact_id: ID of the existing contact to use as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact:
+        :param owner_contact: New contact to create and use as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id:
+        :param administrative_contact_id: ID of the existing contact to use as the domain's administrative contact.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact:
+        :param administrative_contact: New contact to create and use as the domain's administrative contact.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param technical_contact_id:
+        :param technical_contact_id: ID of the existing contact to use as the domain's technical contact.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact:
+        :param technical_contact: New contact to create and use as the domain's technical contact.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
         :return: :class:`OrderResponse <OrderResponse>`
 
@@ -1790,11 +1790,11 @@ class DomainV2Beta1RegistrarAPI(API):
         If you specify the `organization_id` of the domain's new owner, the contact will change from the current owner's Scaleway account to the new owner's Scaleway account.<br/>
         If the new owner's current contact information is not available, the first ever contact they have created for previous domains is taken into account to operate the change.<br/>
         If the new owner has never created a contact to register domains before, an error message displays.
-        :param domain:
-        :param project_id:
-        :param new_owner_contact_id:
+        :param domain: The domain name to trade.
+        :param project_id: Project ID to associate with the domain after the trade.
+        :param new_owner_contact_id: ID of the existing contact to use as the domain's new owner.
         One-Of ('new_owner_contact_type'): at most one of 'new_owner_contact_id', 'new_owner_contact' could be set.
-        :param new_owner_contact:
+        :param new_owner_contact: New contact to create and use as the domain's new owner.
         One-Of ('new_owner_contact_type'): at most one of 'new_owner_contact_id', 'new_owner_contact' could be set.
         :return: :class:`OrderResponse <OrderResponse>`
 
@@ -1834,8 +1834,8 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Register an external domain.
         Request the registration of an external domain name.
-        :param domain:
-        :param project_id:
+        :param domain: The external domain name to register.
+        :param project_id: Project ID to register the external domain in.
         :return: :class:`RegisterExternalDomainResponse <RegisterExternalDomainResponse>`
 
         Usage:
@@ -1869,7 +1869,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Delete an external domain.
         Delete an external domain name.
-        :param domain:
+        :param domain: The external domain name to delete.
         :return: :class:`DeleteExternalDomainResponse <DeleteExternalDomainResponse>`
 
         Usage:
@@ -1906,19 +1906,19 @@ class DomainV2Beta1RegistrarAPI(API):
         Check if contacts are compatible with a domain or a TLD.
         Check whether contacts are compatible with a domain or a TLD.
         If contacts are not compatible with either the domain or the TLD, the information that needs to be corrected is returned.
-        :param domains:
-        :param tlds:
-        :param owner_contact_id:
+        :param domains: List of domains to check contacts compatibility against.
+        :param tlds: List of TLDs to check contacts compatibility against.
+        :param owner_contact_id: ID of the existing contact to check as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact:
+        :param owner_contact: New contact to check as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id:
+        :param administrative_contact_id: ID of the existing contact to check as the domain's administrative contact.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact:
+        :param administrative_contact: New contact to check as the domain's administrative contact.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param technical_contact_id:
+        :param technical_contact_id: ID of the existing contact to check as the domain's technical contact.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact:
+        :param technical_contact: New contact to check as the domain's technical contact.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
         :return: :class:`CheckContactsCompatibilityResponse <CheckContactsCompatibilityResponse>`
 
@@ -1964,13 +1964,13 @@ class DomainV2Beta1RegistrarAPI(API):
         List contacts.
         Retrieve the list of contacts and their associated domains and roles.
         You can filter the list by domain name.
-        :param page:
-        :param page_size:
-        :param domain:
-        :param project_id:
-        :param organization_id:
-        :param role:
-        :param email_status:
+        :param page: Page number for the returned contacts.
+        :param page_size: Maximum number of contacts per page.
+        :param domain: Filter contacts by domain name.
+        :param project_id: Filter contacts by project ID.
+        :param organization_id: Filter contacts by organization ID.
+        :param role: Filter contacts by role (owner, administrative, technical).
+        :param email_status: Filter contacts by email validation status.
         :return: :class:`ListContactsResponse <ListContactsResponse>`
 
         Usage:
@@ -2012,13 +2012,13 @@ class DomainV2Beta1RegistrarAPI(API):
         List contacts.
         Retrieve the list of contacts and their associated domains and roles.
         You can filter the list by domain name.
-        :param page:
-        :param page_size:
-        :param domain:
-        :param project_id:
-        :param organization_id:
-        :param role:
-        :param email_status:
+        :param page: Page number for the returned contacts.
+        :param page_size: Maximum number of contacts per page.
+        :param domain: Filter contacts by domain name.
+        :param project_id: Filter contacts by project ID.
+        :param organization_id: Filter contacts by organization ID.
+        :param role: Filter contacts by role (owner, administrative, technical).
+        :param email_status: Filter contacts by email validation status.
         :return: :class:`list[ContactRoles] <list[ContactRoles]>`
 
         Usage:
@@ -2050,7 +2050,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Get a contact.
         Retrieve a contact's details from the registrar using the given contact's ID.
-        :param contact_id:
+        :param contact_id: ID of the contact to retrieve.
         :return: :class:`Contact <Contact>`
 
         Usage:
@@ -2099,26 +2099,26 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Update contact.
         Edit the contact's information.
-        :param contact_id:
-        :param email:
-        :param email_alt:
-        :param phone_number:
-        :param fax_number:
-        :param address_line_1:
-        :param address_line_2:
-        :param zip:
-        :param city:
-        :param country:
-        :param vat_identification_code:
-        :param company_identification_code:
-        :param lang:
-        :param resale:
-        :param extension_fr:
-        :param extension_eu:
-        :param extension_nl:
-        :param extension_it:
-        :param whois_opt_in:
-        :param state:
+        :param contact_id: ID of the contact to update.
+        :param email: Email address of the contact.
+        :param email_alt: Alternative email address of the contact.
+        :param phone_number: Phone number of the contact.
+        :param fax_number: Fax number of the contact.
+        :param address_line_1: First line of the contact's address.
+        :param address_line_2: Second line of the contact's address.
+        :param zip: Postal code of the contact.
+        :param city: City of the contact.
+        :param country: Country code of the contact (ISO 3166-1 alpha-2 format).
+        :param vat_identification_code: VAT identification code of the contact.
+        :param company_identification_code: Company identification code (e.g. SIRET/SIREN) of the contact.
+        :param lang: Preferred language of the contact.
+        :param resale: Indicates whether the contact's information can be resold.
+        :param extension_fr: Additional information required for .fr domains.
+        :param extension_eu: Additional information required for .eu domains.
+        :param extension_nl: Additional information required for .nl domains.
+        :param extension_it: Additional information required for .it domains.
+        :param whois_opt_in: Indicates whether the contact's information is published in the WHOIS database.
+        :param state: State or region of the contact.
         :param questions:
         :return: :class:`Contact <Contact>`
 
@@ -2182,15 +2182,15 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         List domains.
         Retrieve the list of domains you own.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param registrar:
-        :param status:
-        :param project_id:
-        :param organization_id:
-        :param is_external:
-        :param domain:
+        :param page: Page number for the returned domains.
+        :param page_size: Maximum number of domains per page.
+        :param order_by: Sort order of the returned domains.
+        :param registrar: Filter domains by registrar.
+        :param status: Filter domains by status.
+        :param project_id: Filter domains by project ID.
+        :param organization_id: Filter domains by organization ID.
+        :param is_external: Filter domains by external status.
+        :param domain: Filter domains by domain name.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
 
         Usage:
@@ -2235,15 +2235,15 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         List domains.
         Retrieve the list of domains you own.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param registrar:
-        :param status:
-        :param project_id:
-        :param organization_id:
-        :param is_external:
-        :param domain:
+        :param page: Page number for the returned domains.
+        :param page_size: Maximum number of domains per page.
+        :param order_by: Sort order of the returned domains.
+        :param registrar: Filter domains by registrar.
+        :param status: Filter domains by status.
+        :param project_id: Filter domains by project ID.
+        :param organization_id: Filter domains by organization ID.
+        :param is_external: Filter domains by external status.
+        :param domain: Filter domains by domain name.
         :return: :class:`list[DomainSummary] <list[DomainSummary]>`
 
         Usage:
@@ -2281,11 +2281,11 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         List domains that can be renewed.
         Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param project_id:
-        :param organization_id:
+        :param page: Page number for the returned renewable domains.
+        :param page_size: Maximum number of renewable domains per page.
+        :param order_by: Sort order of the returned renewable domains.
+        :param project_id: Filter renewable domains by project ID.
+        :param organization_id: Filter renewable domains by organization ID.
         :return: :class:`ListRenewableDomainsResponse <ListRenewableDomainsResponse>`
 
         Usage:
@@ -2322,11 +2322,11 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         List domains that can be renewed.
         Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param project_id:
-        :param organization_id:
+        :param page: Page number for the returned renewable domains.
+        :param page_size: Maximum number of renewable domains per page.
+        :param order_by: Sort order of the returned renewable domains.
+        :param project_id: Filter renewable domains by project ID.
+        :param organization_id: Filter renewable domains by organization ID.
         :return: :class:`list[RenewableDomain] <list[RenewableDomain]>`
 
         Usage:
@@ -2356,7 +2356,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Get domain.
         Retrieve a specific domain and display the domain's information.
-        :param domain:
+        :param domain: The domain name to retrieve.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2386,7 +2386,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Get domain.
         Retrieve a specific domain and display the domain's information.
-        :param domain:
+        :param domain: The domain name to retrieve.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2426,18 +2426,18 @@ class DomainV2Beta1RegistrarAPI(API):
         Update a domain's contacts.
         Update contacts for a specific domain or create a new contact.<br/>
         If you add the same contact for multiple roles (owner, administrative, technical), only one ID will be created and used for all of the roles.
-        :param domain:
-        :param technical_contact_id:
+        :param domain: The domain name to update.
+        :param technical_contact_id: ID of the existing contact to use as the domain's technical contact.
         One-Of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact:
+        :param technical_contact: New contact to create and use as the domain's technical contact.
         One-Of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param owner_contact_id:
+        :param owner_contact_id: Deprecated. ID of the existing contact to use as the domain's owner.
         One-Of ('owner_contact_info'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact:
+        :param owner_contact: Deprecated. New contact to create and use as the domain's owner.
         One-Of ('owner_contact_info'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id:
+        :param administrative_contact_id: ID of the existing contact to use as the domain's administrative contact.
         One-Of ('administrative_contact_info'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact:
+        :param administrative_contact: New contact to create and use as the domain's administrative contact.
         One-Of ('administrative_contact_info'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
         :return: :class:`Domain <Domain>`
 
@@ -2479,7 +2479,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Lock the transfer of a domain.
         Lock the transfer of a domain. This means that the domain cannot be transferred and the authorization code cannot be requested to your current registrar.
-        :param domain:
+        :param domain: The domain name to lock for transfer.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2509,7 +2509,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Unlock the transfer of a domain.
         Unlock the transfer of a domain. This means that the domain can be transferred and the authorization code can be requested to your current registrar.
-        :param domain:
+        :param domain: The domain name to unlock for transfer.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2539,7 +2539,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Enable auto renew.
         Enable the `auto renew` feature for a domain. This means the domain will be automatically renewed before its expiry date.
-        :param domain:
+        :param domain: The domain name to enable auto renew for.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2569,7 +2569,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Disable auto renew.
         Disable the `auto renew` feature for a domain. This means the domain will not be renewed before its expiry date.
-        :param domain:
+        :param domain: The domain name to disable auto renew for.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2600,7 +2600,7 @@ class DomainV2Beta1RegistrarAPI(API):
         Get a domain's authorization code.
         Retrieve the authorization code to transfer an unlocked domain. The output returns an error if the domain is locked.
         Some TLDs may have a different procedure to retrieve the authorization code. In that case, the information displays in the message field.
-        :param domain:
+        :param domain: The domain name to retrieve the authorization code for.
         :return: :class:`GetDomainAuthCodeResponse <GetDomainAuthCodeResponse>`
 
         Usage:
@@ -2630,8 +2630,8 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Update domain DNSSEC.
         If your domain uses another registrar and has the default Scaleway NS, you have to **update the DS record at your registrar**.
-        :param domain:
-        :param ds_record:
+        :param domain: The domain name to enable DNSSEC for.
+        :param ds_record: The DS record to configure for DNSSEC. If omitted, the DS record will be automatically generated.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2667,7 +2667,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Disable a domain's DNSSEC.
         Disable DNSSEC for a domain.
-        :param domain:
+        :param domain: The domain name to disable DNSSEC for.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2814,9 +2814,9 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Create a hostname for a domain.
         Create a hostname for a domain with glue IPs.
-        :param domain:
-        :param name:
-        :param ips:
+        :param domain: The domain name to create the hostname for.
+        :param name: The hostname to create.
+        :param ips: List of glue IP addresses associated with the hostname.
         :return: :class:`Host <Host>`
 
         Usage:
@@ -2856,9 +2856,9 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         List a domain's hostnames.
         List a domain's hostnames using their glue IPs.
-        :param page:
-        :param page_size:
-        :param domain:
+        :param page: Page number for the returned hostnames.
+        :param page_size: Maximum number of hostnames per page.
+        :param domain: The domain name to list hostnames for.
         :return: :class:`ListDomainHostsResponse <ListDomainHostsResponse>`
 
         Usage:
@@ -2893,9 +2893,9 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         List a domain's hostnames.
         List a domain's hostnames using their glue IPs.
-        :param page:
-        :param page_size:
-        :param domain:
+        :param page: Page number for the returned hostnames.
+        :param page_size: Maximum number of hostnames per page.
+        :param domain: The domain name to list hostnames for.
         :return: :class:`list[Host] <list[Host]>`
 
         Usage:
@@ -2927,9 +2927,9 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Update a domain's hostname.
         Update a domain's hostname with glue IPs.
-        :param domain:
-        :param name:
-        :param ips:
+        :param domain: The domain name of the hostname to update.
+        :param name: The hostname to update.
+        :param ips: New list of glue IP addresses associated with the hostname.
         :return: :class:`Host <Host>`
 
         Usage:
@@ -2968,8 +2968,8 @@ class DomainV2Beta1RegistrarAPI(API):
     ) -> Host:
         """
         Delete a domain's hostname.
-        :param domain:
-        :param name:
+        :param domain: The domain name of the hostname to delete.
+        :param name: The hostname to delete.
         :return: :class:`Host <Host>`
 
         Usage:

@@ -409,6 +409,9 @@ class RecordWeightedConfigWeightedIP:
 @dataclass
 class DSRecordPublicKey:
     key: str
+    """
+    The public key string.
+    """
 
 
 @dataclass
@@ -466,8 +469,19 @@ class ContactExtensionFRTrademarkInfo:
 @dataclass
 class DSRecordDigest:
     type_: DSRecordDigestType
+    """
+    The digest type of the DS record.
+    """
+
     digest: str
+    """
+    The digest string of the DS record.
+    """
+
     public_key: Optional[DSRecordPublicKey] = None
+    """
+    The public key associated with the digest.
+    """
 
 
 @dataclass
@@ -554,14 +568,33 @@ class ContactQuestion:
 @dataclass
 class TldOffer:
     action: str
+    """
+    The action of the offer (create, renew, transfer, etc.).
+    """
+
     operation_path: str
+    """
+    The operation path of the offer.
+    """
+
     price: Optional[Money] = None
+    """
+    The price of the offer.
+    """
 
 
 @dataclass
 class DSRecord:
     key_id: int
+    """
+    The key tag of the DS record.
+    """
+
     algorithm: DSRecordAlgorithm
+    """
+    The cryptographic algorithm used for the DS record.
+    """
+
     digest: Optional[DSRecordDigest] = None
 
     public_key: Optional[DSRecordPublicKey] = None
@@ -602,89 +635,337 @@ class ImportRawDNSZoneRequestTsigKey:
 @dataclass
 class Contact:
     id: str
+    """
+    The unique identifier of the contact.
+    """
+
     legal_form: ContactLegalForm
+    """
+    Legal form of the contact (individual, corporate, association, other).
+    """
+
     firstname: str
+    """
+    First name of the contact.
+    """
+
     lastname: str
+    """
+    Last name of the contact.
+    """
+
     company_name: str
+    """
+    Company name of the contact (required for corporate legal forms).
+    """
+
     email: str
+    """
+    Email address of the contact.
+    """
+
     email_alt: str
+    """
+    Alternative email address of the contact.
+    """
+
     phone_number: str
+    """
+    Phone number of the contact.
+    """
+
     fax_number: str
+    """
+    Fax number of the contact.
+    """
+
     address_line_1: str
+    """
+    First line of the contact's address.
+    """
+
     address_line_2: str
+    """
+    Second line of the contact's address.
+    """
+
     zip: str
+    """
+    Postal code of the contact.
+    """
+
     city: str
+    """
+    City of the contact.
+    """
+
     country: str
+    """
+    Country code of the contact (ISO 3166-1 alpha-2 format).
+    """
+
     vat_identification_code: str
+    """
+    VAT identification code of the contact.
+    """
+
     company_identification_code: str
+    """
+    Company identification code (e.g. SIRET/SIREN) of the contact.
+    """
+
     lang: StdLanguageCode
+    """
+    Preferred language of the contact.
+    """
+
     resale: bool
+    """
+    Indicates whether the contact's information can be resold.
+    """
+
     whois_opt_in: bool
+    """
+    Indicates whether the contact's information is published in the WHOIS database.
+    """
+
     email_status: ContactEmailStatus
+    """
+    Email validation status of the contact.
+    """
+
     state: str
+    """
+    State or region of the contact.
+    """
+
     status: ContactStatus
+    """
+    Status of the contact.
+    """
+
     extension_fr: Optional[ContactExtensionFR] = None
+    """
+    Additional information required for .fr domains.
+    """
+
     extension_eu: Optional[ContactExtensionEU] = None
+    """
+    Additional information required for .eu domains.
+    """
+
     extension_nl: Optional[ContactExtensionNL] = None
+    """
+    Additional information required for .nl domains.
+    """
+
     extension_it: Optional[ContactExtensionIT] = None
+    """
+    Additional information required for .it domains.
+    """
+
     questions: Optional[list[ContactQuestion]] = field(default_factory=list)
 
 
 @dataclass
 class ContactRolesRoles:
     is_owner: bool
+    """
+    Indicates whether the contact is the owner of the domain.
+    """
+
     is_administrative: bool
+    """
+    Indicates whether the contact is the administrative contact of the domain.
+    """
+
     is_technical: bool
+    """
+    Indicates whether the contact is the technical contact of the domain.
+    """
 
 
 @dataclass
 class DomainRegistrationStatusExternalDomain:
     validation_token: str
+    """
+    Validation token for the external domain registration.
+    """
 
 
 @dataclass
 class DomainRegistrationStatusTransfer:
     status: DomainRegistrationStatusTransferStatus
+    """
+    Status of the domain transfer.
+    """
+
     vote_current_owner: bool
+    """
+    Indicates whether the current owner has voted for the transfer.
+    """
+
     vote_new_owner: bool
+    """
+    Indicates whether the new owner has voted for the transfer.
+    """
 
 
 @dataclass
 class Tld:
     name: str
+    """
+    The TLD name.
+    """
+
     dnssec_support: bool
+    """
+    Indicates whether the TLD supports DNSSEC.
+    """
+
     duration_in_years_min: int
+    """
+    Minimum registration duration in years for the TLD.
+    """
+
     duration_in_years_max: int
+    """
+    Maximum registration duration in years for the TLD.
+    """
+
     idn_support: bool
+    """
+    Indicates whether the TLD supports internationalized domain names (IDN).
+    """
+
     offers: dict[str, TldOffer]
+    """
+    Available offers (create, renew, transfer, etc.) for the TLD.
+    """
+
     specifications: dict[str, str]
+    """
+    Additional specifications of the TLD.
+    """
 
 
 @dataclass
 class NewContact:
     legal_form: ContactLegalForm
+    """
+    Legal form of the contact (individual, corporate, association, other).
+    """
+
     firstname: str
+    """
+    First name of the contact.
+    """
+
     lastname: str
+    """
+    Last name of the contact.
+    """
+
     email: str
+    """
+    Email address of the contact.
+    """
+
     phone_number: str
+    """
+    Phone number of the contact.
+    """
+
     address_line_1: str
+    """
+    First line of the contact's address.
+    """
+
     zip: str
+    """
+    Postal code of the contact.
+    """
+
     city: str
+    """
+    City of the contact.
+    """
+
     country: str
+    """
+    Country code of the contact (ISO 3166-1 alpha-2 format).
+    """
+
     lang: StdLanguageCode
+    """
+    Preferred language of the contact.
+    """
+
     resale: bool
+    """
+    Indicates whether the contact's information can be resold.
+    """
+
     whois_opt_in: bool
+    """
+    Indicates whether the contact's information is published in the WHOIS database.
+    """
+
     company_name: Optional[str] = None
+    """
+    Company name of the contact (required for corporate legal forms).
+    """
+
     email_alt: Optional[str] = None
+    """
+    Alternative email address of the contact.
+    """
+
     fax_number: Optional[str] = None
+    """
+    Fax number of the contact.
+    """
+
     address_line_2: Optional[str] = None
+    """
+    Second line of the contact's address.
+    """
+
     vat_identification_code: Optional[str] = None
+    """
+    VAT identification code of the contact.
+    """
+
     company_identification_code: Optional[str] = None
+    """
+    Company identification code (e.g. SIRET/SIREN) of the contact.
+    """
+
     extension_fr: Optional[ContactExtensionFR] = None
+    """
+    Additional information required for .fr domains.
+    """
+
     extension_eu: Optional[ContactExtensionEU] = None
+    """
+    Additional information required for .eu domains.
+    """
+
     state: Optional[str] = None
+    """
+    State or region of the contact.
+    """
+
     extension_nl: Optional[ContactExtensionNL] = None
+    """
+    Additional information required for .nl domains.
+    """
+
     extension_it: Optional[ContactExtensionIT] = None
+    """
+    Additional information required for .it domains.
+    """
+
     questions: Optional[list[ContactQuestion]] = field(default_factory=list)
 
 
@@ -711,7 +992,14 @@ class DNSZone:
 @dataclass
 class DomainDNSSEC:
     status: DomainFeatureStatus
+    """
+    Status of the DNSSEC configuration of the domain.
+    """
+
     ds_records: list[DSRecord]
+    """
+    List of the domain's DS records.
+    """
 
 
 @dataclass
@@ -744,7 +1032,14 @@ class ImportRawDNSZoneRequestBindSource:
 @dataclass
 class ContactRoles:
     roles: dict[str, ContactRolesRoles]
+    """
+    Map of domain names to the contact's roles on each domain.
+    """
+
     contact: Optional[Contact] = None
+    """
+    The contact information.
+    """
 
 
 @dataclass
@@ -762,26 +1057,93 @@ class DNSZoneVersion:
 @dataclass
 class Host:
     domain: str
+    """
+    The domain name associated with the hostname.
+    """
+
     name: str
+    """
+    The hostname.
+    """
+
     ips: list[str]
+    """
+    List of glue IP addresses associated with the hostname.
+    """
+
     status: HostStatus
+    """
+    Status of the hostname.
+    """
 
 
 @dataclass
 class DomainSummary:
     domain: str
+    """
+    The domain name.
+    """
+
     project_id: str
-    auto_renew_status: DomainFeatureStatus
-    dnssec_status: DomainFeatureStatus
-    epp_code: list[str]
-    registrar: str
-    is_external: bool
-    status: DomainStatus
+    """
+    The project ID associated with the domain.
+    """
+
     organization_id: str
+    """
+    The organization ID associated with the domain.
+    """
+
+    auto_renew_status: DomainFeatureStatus
+    """
+    Status of the automatic renewal of the domain.
+    """
+
+    dnssec_status: DomainFeatureStatus
+    """
+    Status of the DNSSEC configuration of the domain.
+    """
+
+    epp_code: list[str]
+    """
+    List of the domain's EPP codes.
+    """
+
+    registrar: str
+    """
+    The registrar managing the domain.
+    """
+
+    is_external: bool
+    """
+    Indicates whether Scaleway is the domain's registrar.
+    """
+
+    status: DomainStatus
+    """
+    Status of the domain.
+    """
+
     pending_trade: bool
+    """
+    Indicates if a trade is ongoing.
+    """
+
     expired_at: Optional[datetime] = None
+    """
+    Date of expiration of the domain.
+    """
+
     updated_at: Optional[datetime] = None
+    """
+    Domain's last modification date.
+    """
+
     created_at: Optional[datetime] = None
+    """
+    Domain's creation date.
+    """
+
     external_domain_registration_status: Optional[
         DomainRegistrationStatusExternalDomain
     ] = None
@@ -835,15 +1197,54 @@ class InboundTransfer:
 @dataclass
 class RenewableDomain:
     domain: str
+    """
+    The domain name.
+    """
+
     project_id: str
+    """
+    The project ID associated with the domain.
+    """
+
     organization_id: str
+    """
+    The organization ID associated with the domain.
+    """
+
     status: RenewableDomainStatus
-    renewable_duration_in_years: Optional[int] = None
+    """
+    The renewal status of the domain.
+    """
+
+    renewable_duration_in_years: Optional[int] = 0
+    """
+    Duration in years for which the domain can be renewed.
+    """
+
     expired_at: Optional[datetime] = None
+    """
+    Date of expiration of the domain.
+    """
+
     limit_renew_at: Optional[datetime] = None
+    """
+    Deadline to renew the domain before it enters the late renewal period.
+    """
+
     limit_redemption_at: Optional[datetime] = None
+    """
+    Deadline to renew the domain before it enters the redemption period.
+    """
+
     estimated_delete_at: Optional[datetime] = None
+    """
+    Estimated date at which the domain will be deleted.
+    """
+
     tld: Optional[Tld] = None
+    """
+    TLD information of the domain.
+    """
 
 
 @dataclass
@@ -925,22 +1326,48 @@ class UpdateContactRequestQuestion:
 @dataclass
 class AvailableDomain:
     domain: str
+    """
+    The domain name.
+    """
+
     available: bool
+    """
+    Indicates whether the domain is available for registration.
+    """
+
     tld: Optional[Tld] = None
+    """
+    TLD information of the domain.
+    """
 
 
 @dataclass
 class CheckContactsCompatibilityResponse:
     compatible: bool
+    """
+    Indicates whether all contacts are compatible with the domains or TLDs.
+    """
+
     owner_check_result: Optional[
         CheckContactsCompatibilityResponseContactCheckResult
     ] = None
+    """
+    Compatibility check result for the owner contact.
+    """
+
     administrative_check_result: Optional[
         CheckContactsCompatibilityResponseContactCheckResult
     ] = None
+    """
+    Compatibility check result for the administrative contact.
+    """
+
     technical_check_result: Optional[
         CheckContactsCompatibilityResponseContactCheckResult
     ] = None
+    """
+    Compatibility check result for the technical contact.
+    """
 
 
 @dataclass
@@ -1044,8 +1471,20 @@ class DeleteSSLCertificateResponse:
 @dataclass
 class Domain:
     domain: str
+    """
+    The domain name.
+    """
+
     organization_id: str
+    """
+    The organization ID associated with the domain.
+    """
+
     project_id: str
+    """
+    The project ID associated with the domain.
+    """
+
     auto_renew_status: DomainFeatureStatus
     """
     Status of the automatic renewal of the domain.
@@ -1057,6 +1496,10 @@ class Domain:
     """
 
     registrar: str
+    """
+    The registrar managing the domain.
+    """
+
     is_external: bool
     """
     Indicates whether Scaleway is the domain's registrar.
@@ -1162,6 +1605,9 @@ class GetDNSZoneVersionDiffResponse:
 @dataclass
 class GetDomainAuthCodeResponse:
     auth_code: str
+    """
+    The authorization code to transfer the domain.
+    """
 
 
 @dataclass
@@ -1203,7 +1649,14 @@ class ImportRawDNSZoneResponse:
 @dataclass
 class ListContactsResponse:
     total_count: int
+    """
+    Total count of contacts matching the request.
+    """
+
     contacts: list[ContactRoles]
+    """
+    List of contacts with their associated roles.
+    """
 
 
 @dataclass
@@ -1414,25 +1867,53 @@ class ListDNSZonesResponse:
 @dataclass
 class ListDomainHostsResponse:
     total_count: int
+    """
+    Total count of hostnames matching the request.
+    """
+
     hosts: list[Host]
+    """
+    List of hostnames matching the request.
+    """
 
 
 @dataclass
 class ListDomainsResponse:
     total_count: int
+    """
+    Total count of domains matching the request.
+    """
+
     domains: list[DomainSummary]
+    """
+    List of domains matching the request.
+    """
 
 
 @dataclass
 class ListInboundTransfersResponse:
     total_count: int
+    """
+    Total count of inbound transfers matching the request.
+    """
+
     inbound_transfers: list[InboundTransfer]
+    """
+    List of inbound transfers matching the request.
+    """
 
 
 @dataclass
 class ListRenewableDomainsResponse:
     total_count: int
+    """
+    Total count of renewable domains matching the request.
+    """
+
     domains: list[RenewableDomain]
+    """
+    List of renewable domains matching the request.
+    """
 
 
 @dataclass
@@ -1452,7 +1933,14 @@ class ListSSLCertificatesResponse:
 @dataclass
 class ListTasksResponse:
     total_count: int
+    """
+    Total count of tasks matching the request.
+    """
+
     tasks: list[Task]
+    """
+    List of tasks matching the request.
+    """
 
 
 @dataclass
@@ -1471,10 +1959,29 @@ class ListTldsResponse:
 @dataclass
 class OrderResponse:
     domains: list[str]
+    """
+    List of domains in the order.
+    """
+
     organization_id: str
+    """
+    The organization ID associated with the order.
+    """
+
     project_id: str
+    """
+    The project ID associated with the order.
+    """
+
     task_id: str
+    """
+    The unique identifier of the task associated with the order.
+    """
+
     created_at: Optional[datetime] = None
+    """
+    The creation date of the order.
+    """
 
 
 @dataclass
@@ -1506,22 +2013,53 @@ class RefreshDNSZoneResponse:
 @dataclass
 class RegisterExternalDomainResponse:
     domain: str
+    """
+    The external domain name registered.
+    """
+
     organization_id: str
-    validation_token: str
+    """
+    The organization ID associated with the external domain.
+    """
+
     project_id: str
+    """
+    The project ID associated with the external domain.
+    """
+
+    validation_token: str
+    """
+    The validation token to use to validate the external domain.
+    """
+
     created_at: Optional[datetime] = None
+    """
+    The creation date of the external domain registration.
+    """
 
 
 @dataclass
 class RegistrarApiBuyDomainsRequest:
     domains: list[str]
+    """
+    List of domains to purchase.
+    """
+
     duration_in_years: int
+    """
+    Duration in years for the domain registration.
+    """
+
     auto_renew: bool
     """
     Enable the `auto renew` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.
     """
 
     project_id: Optional[str] = None
+    """
+    Project ID to create the domains in.
+    """
+
     owner_contact_id: Optional[str] = None
 
     owner_contact: Optional[NewContact] = None
@@ -1538,7 +2076,15 @@ class RegistrarApiBuyDomainsRequest:
 @dataclass
 class RegistrarApiCheckContactsCompatibilityRequest:
     domains: Optional[list[str]] = field(default_factory=list)
+    """
+    List of domains to check contacts compatibility against.
+    """
+
     tlds: Optional[list[str]] = field(default_factory=list)
+    """
+    List of TLDs to check contacts compatibility against.
+    """
+
     owner_contact_id: Optional[str] = None
 
     owner_contact: Optional[NewContact] = None
@@ -1555,116 +2101,306 @@ class RegistrarApiCheckContactsCompatibilityRequest:
 @dataclass
 class RegistrarApiCreateDomainHostRequest:
     domain: str
+    """
+    The domain name to create the hostname for.
+    """
+
     name: str
+    """
+    The hostname to create.
+    """
+
     ips: Optional[list[str]] = field(default_factory=list)
+    """
+    List of glue IP addresses associated with the hostname.
+    """
 
 
 @dataclass
 class RegistrarApiDeleteDomainHostRequest:
     domain: str
+    """
+    The domain name of the hostname to delete.
+    """
+
     name: str
+    """
+    The hostname to delete.
+    """
 
 
 @dataclass
 class RegistrarApiDeleteExternalDomainRequest:
     domain: str
+    """
+    The external domain name to delete.
+    """
 
 
 @dataclass
 class RegistrarApiDisableDomainAutoRenewRequest:
     domain: str
+    """
+    The domain name to disable auto renew for.
+    """
 
 
 @dataclass
 class RegistrarApiDisableDomainDNSSECRequest:
     domain: str
+    """
+    The domain name to disable DNSSEC for.
+    """
 
 
 @dataclass
 class RegistrarApiEnableDomainAutoRenewRequest:
     domain: str
+    """
+    The domain name to enable auto renew for.
+    """
 
 
 @dataclass
 class RegistrarApiEnableDomainDNSSECRequest:
     domain: str
+    """
+    The domain name to enable DNSSEC for.
+    """
+
     ds_record: Optional[DSRecord] = None
+    """
+    The DS record to configure for DNSSEC. If omitted, the DS record will be automatically generated.
+    """
 
 
 @dataclass
 class RegistrarApiGetContactRequest:
     contact_id: str
+    """
+    ID of the contact to retrieve.
+    """
 
 
 @dataclass
 class RegistrarApiGetDomainAuthCodeRequest:
     domain: str
+    """
+    The domain name to retrieve the authorization code for.
+    """
 
 
 @dataclass
 class RegistrarApiGetDomainRequest:
     domain: str
+    """
+    The domain name to retrieve.
+    """
 
 
 @dataclass
 class RegistrarApiListContactsRequest:
-    page: Optional[int] = None
-    page_size: Optional[int] = None
+    page: Optional[int] = 0
+    """
+    Page number for the returned contacts.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of contacts per page.
+    """
+
     domain: Optional[str] = None
+    """
+    Filter contacts by domain name.
+    """
+
     project_id: Optional[str] = None
+    """
+    Filter contacts by project ID.
+    """
+
     organization_id: Optional[str] = None
-    role: Optional[ListContactsRequestRole] = None
-    email_status: Optional[ContactEmailStatus] = None
+    """
+    Filter contacts by organization ID.
+    """
+
+    role: Optional[ListContactsRequestRole] = ListContactsRequestRole.UNKNOWN_ROLE
+    """
+    Filter contacts by role (owner, administrative, technical).
+    """
+
+    email_status: Optional[ContactEmailStatus] = ContactEmailStatus.EMAIL_STATUS_UNKNOWN
+    """
+    Filter contacts by email validation status.
+    """
 
 
 @dataclass
 class RegistrarApiListDomainHostsRequest:
     domain: str
-    page: Optional[int] = None
-    page_size: Optional[int] = None
+    """
+    The domain name to list hostnames for.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number for the returned hostnames.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of hostnames per page.
+    """
 
 
 @dataclass
 class RegistrarApiListDomainsRequest:
-    page: Optional[int] = None
-    page_size: Optional[int] = None
-    order_by: Optional[ListDomainsRequestOrderBy] = None
+    page: Optional[int] = 0
+    """
+    Page number for the returned domains.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of domains per page.
+    """
+
+    order_by: Optional[ListDomainsRequestOrderBy] = ListDomainsRequestOrderBy.DOMAIN_ASC
+    """
+    Sort order of the returned domains.
+    """
+
     registrar: Optional[str] = None
-    status: Optional[DomainStatus] = None
+    """
+    Filter domains by registrar.
+    """
+
+    status: Optional[DomainStatus] = DomainStatus.STATUS_UNKNOWN
+    """
+    Filter domains by status.
+    """
+
     project_id: Optional[str] = None
+    """
+    Filter domains by project ID.
+    """
+
     organization_id: Optional[str] = None
-    is_external: Optional[bool] = None
+    """
+    Filter domains by organization ID.
+    """
+
+    is_external: Optional[bool] = False
+    """
+    Filter domains by external status.
+    """
+
     domain: Optional[str] = None
+    """
+    Filter domains by domain name.
+    """
 
 
 @dataclass
 class RegistrarApiListInboundTransfersRequest:
     page: int
+    """
+    Page number for the returned inbound transfers.
+    """
+
     domain: str
-    page_size: Optional[int] = None
+    """
+    Filter inbound transfers by domain name.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of inbound transfers per page.
+    """
+
     project_id: Optional[str] = None
+    """
+    Filter inbound transfers by project ID.
+    """
+
     organization_id: Optional[str] = None
+    """
+    Filter inbound transfers by organization ID.
+    """
 
 
 @dataclass
 class RegistrarApiListRenewableDomainsRequest:
-    page: Optional[int] = None
-    page_size: Optional[int] = None
-    order_by: Optional[ListRenewableDomainsRequestOrderBy] = None
+    page: Optional[int] = 0
+    """
+    Page number for the returned renewable domains.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of renewable domains per page.
+    """
+
+    order_by: Optional[ListRenewableDomainsRequestOrderBy] = (
+        ListRenewableDomainsRequestOrderBy.DOMAIN_ASC
+    )
+    """
+    Sort order of the returned renewable domains.
+    """
+
     project_id: Optional[str] = None
+    """
+    Filter renewable domains by project ID.
+    """
+
     organization_id: Optional[str] = None
+    """
+    Filter renewable domains by organization ID.
+    """
 
 
 @dataclass
 class RegistrarApiListTasksRequest:
-    page: Optional[int] = None
-    page_size: Optional[int] = None
+    page: Optional[int] = 0
+    """
+    Page number for the returned tasks.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Maximum number of tasks per page.
+    """
+
     project_id: Optional[str] = None
+    """
+    Filter tasks by project ID.
+    """
+
     organization_id: Optional[str] = None
+    """
+    Filter tasks by organization ID.
+    """
+
     domain: Optional[str] = None
+    """
+    Filter tasks by domain name.
+    """
+
     types: Optional[list[TaskType]] = field(default_factory=list)
+    """
+    Filter tasks by type.
+    """
+
     statuses: Optional[list[TaskStatus]] = field(default_factory=list)
-    order_by: Optional[ListTasksRequestOrderBy] = None
+    """
+    Filter tasks by status.
+    """
+
+    order_by: Optional[ListTasksRequestOrderBy] = ListTasksRequestOrderBy.DOMAIN_DESC
+    """
+    Sort order of the returned tasks.
+    """
 
 
 @dataclass
@@ -1693,19 +2429,40 @@ class RegistrarApiListTldsRequest:
 @dataclass
 class RegistrarApiLockDomainTransferRequest:
     domain: str
+    """
+    The domain name to lock for transfer.
+    """
 
 
 @dataclass
 class RegistrarApiRegisterExternalDomainRequest:
     domain: str
+    """
+    The external domain name to register.
+    """
+
     project_id: Optional[str] = None
+    """
+    Project ID to register the external domain in.
+    """
 
 
 @dataclass
 class RegistrarApiRenewDomainsRequest:
     domains: list[str]
+    """
+    List of domains to renew.
+    """
+
     duration_in_years: int
+    """
+    Duration in years for the domain renewal.
+    """
+
     force_late_renewal: Optional[bool] = False
+    """
+    Force the renewal to be a late renewal.
+    """
 
 
 @dataclass
@@ -1752,7 +2509,15 @@ class RegistrarApiSearchAvailableDomainsRequest:
 @dataclass
 class RegistrarApiTradeDomainRequest:
     domain: str
+    """
+    The domain name to trade.
+    """
+
     project_id: Optional[str] = None
+    """
+    Project ID to associate with the domain after the trade.
+    """
+
     new_owner_contact_id: Optional[str] = None
 
     new_owner_contact: Optional[NewContact] = None
@@ -1761,7 +2526,15 @@ class RegistrarApiTradeDomainRequest:
 @dataclass
 class RegistrarApiTransferInDomainRequest:
     domains: list[TransferInDomainRequestTransferRequest]
+    """
+    List of domains to transfer in, each with its auth code.
+    """
+
     project_id: Optional[str] = None
+    """
+    Project ID to transfer the domains into.
+    """
+
     owner_contact_id: Optional[str] = None
 
     owner_contact: Optional[NewContact] = None
@@ -1778,30 +2551,113 @@ class RegistrarApiTransferInDomainRequest:
 @dataclass
 class RegistrarApiUnlockDomainTransferRequest:
     domain: str
+    """
+    The domain name to unlock for transfer.
+    """
 
 
 @dataclass
 class RegistrarApiUpdateContactRequest:
     contact_id: str
+    """
+    ID of the contact to update.
+    """
+
     email: Optional[str] = None
+    """
+    Email address of the contact.
+    """
+
     email_alt: Optional[str] = None
+    """
+    Alternative email address of the contact.
+    """
+
     phone_number: Optional[str] = None
+    """
+    Phone number of the contact.
+    """
+
     fax_number: Optional[str] = None
+    """
+    Fax number of the contact.
+    """
+
     address_line_1: Optional[str] = None
+    """
+    First line of the contact's address.
+    """
+
     address_line_2: Optional[str] = None
+    """
+    Second line of the contact's address.
+    """
+
     zip: Optional[str] = None
+    """
+    Postal code of the contact.
+    """
+
     city: Optional[str] = None
+    """
+    City of the contact.
+    """
+
     country: Optional[str] = None
+    """
+    Country code of the contact (ISO 3166-1 alpha-2 format).
+    """
+
     vat_identification_code: Optional[str] = None
+    """
+    VAT identification code of the contact.
+    """
+
     company_identification_code: Optional[str] = None
+    """
+    Company identification code (e.g. SIRET/SIREN) of the contact.
+    """
+
     lang: Optional[StdLanguageCode] = StdLanguageCode.UNKNOWN_LANGUAGE_CODE
+    """
+    Preferred language of the contact.
+    """
+
     resale: Optional[bool] = False
+    """
+    Indicates whether the contact's information can be resold.
+    """
+
     extension_fr: Optional[ContactExtensionFR] = None
+    """
+    Additional information required for .fr domains.
+    """
+
     extension_eu: Optional[ContactExtensionEU] = None
+    """
+    Additional information required for .eu domains.
+    """
+
     extension_nl: Optional[ContactExtensionNL] = None
+    """
+    Additional information required for .nl domains.
+    """
+
     extension_it: Optional[ContactExtensionIT] = None
+    """
+    Additional information required for .it domains.
+    """
+
     whois_opt_in: Optional[bool] = False
+    """
+    Indicates whether the contact's information is published in the WHOIS database.
+    """
+
     state: Optional[str] = None
+    """
+    State or region of the contact.
+    """
+
     questions: Optional[list[UpdateContactRequestQuestion]] = field(
         default_factory=list
     )
@@ -1810,13 +2666,28 @@ class RegistrarApiUpdateContactRequest:
 @dataclass
 class RegistrarApiUpdateDomainHostRequest:
     domain: str
+    """
+    The domain name of the hostname to update.
+    """
+
     name: str
+    """
+    The hostname to update.
+    """
+
     ips: Optional[list[str]] = field(default_factory=list)
+    """
+    New list of glue IP addresses associated with the hostname.
+    """
 
 
 @dataclass
 class RegistrarApiUpdateDomainRequest:
     domain: str
+    """
+    The domain name to update.
+    """
+
     technical_contact_id: Optional[str] = None
 
     technical_contact: Optional[NewContact] = None
