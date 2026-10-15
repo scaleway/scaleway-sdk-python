@@ -16,10 +16,15 @@ from .types import (
     ContactEmailStatus,
     ContactLegalForm,
     ContactStatus,
+    DSRecordAlgorithm,
+    DSRecordDigestType,
     DomainFeatureStatus,
+    DomainRegistrationStatusTransferStatus,
     DomainStatus,
+    HostStatus,
     InboundTransferStatus,
     LinkedProduct,
+    RenewableDomainStatus,
     TaskStatus,
     TaskType,
     ContactExtensionFRAssociationInfo,
@@ -655,13 +660,13 @@ def unmarshal_Host(data: Any) -> Host:
     if field is not None:
         args["ips"] = field
     else:
-        args["ips"] = None
+        args["ips"] = []
 
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = HostStatus.UNKNOWN_STATUS
 
     return Host(**args)
 
@@ -829,7 +834,7 @@ def unmarshal_CheckContactsCompatibilityResponse(
     if field is not None:
         args["compatible"] = field
     else:
-        args["compatible"] = None
+        args["compatible"] = False
 
     field = data.get("owner_check_result", None)
     if field is not None:
@@ -931,7 +936,7 @@ def unmarshal_DSRecordDigest(data: Any) -> DSRecordDigest:
     if field is not None:
         args["type_"] = field
     else:
-        args["type_"] = None
+        args["type_"] = DSRecordDigestType.SHA_1
 
     field = data.get("digest", None)
     if field is not None:
@@ -960,13 +965,13 @@ def unmarshal_DSRecord(data: Any) -> DSRecord:
     if field is not None:
         args["key_id"] = field
     else:
-        args["key_id"] = None
+        args["key_id"] = 0
 
     field = data.get("algorithm", None)
     if field is not None:
         args["algorithm"] = field
     else:
-        args["algorithm"] = None
+        args["algorithm"] = DSRecordAlgorithm.RSAMD5
 
     field = data.get("digest", None)
     if field is not None:
@@ -1024,7 +1029,7 @@ def unmarshal_DomainDNSSEC(data: Any) -> DomainDNSSEC:
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = DomainFeatureStatus.FEATURE_STATUS_UNKNOWN
 
     field = data.get("ds_records", None)
     if field is not None:
@@ -1032,7 +1037,7 @@ def unmarshal_DomainDNSSEC(data: Any) -> DomainDNSSEC:
             [unmarshal_DSRecord(v) for v in field] if field is not None else None
         )
     else:
-        args["ds_records"] = None
+        args["ds_records"] = []
 
     return DomainDNSSEC(**args)
 
@@ -1070,19 +1075,19 @@ def unmarshal_DomainRegistrationStatusTransfer(
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = DomainRegistrationStatusTransferStatus.STATUS_UNKNOWN
 
     field = data.get("vote_current_owner", None)
     if field is not None:
         args["vote_current_owner"] = field
     else:
-        args["vote_current_owner"] = None
+        args["vote_current_owner"] = False
 
     field = data.get("vote_new_owner", None)
     if field is not None:
         args["vote_new_owner"] = field
     else:
-        args["vote_new_owner"] = None
+        args["vote_new_owner"] = False
 
     return DomainRegistrationStatusTransfer(**args)
 
@@ -1105,25 +1110,25 @@ def unmarshal_Tld(data: Any) -> Tld:
     if field is not None:
         args["dnssec_support"] = field
     else:
-        args["dnssec_support"] = None
+        args["dnssec_support"] = False
 
     field = data.get("duration_in_years_min", None)
     if field is not None:
         args["duration_in_years_min"] = field
     else:
-        args["duration_in_years_min"] = None
+        args["duration_in_years_min"] = 0
 
     field = data.get("duration_in_years_max", None)
     if field is not None:
         args["duration_in_years_max"] = field
     else:
-        args["duration_in_years_max"] = None
+        args["duration_in_years_max"] = 0
 
     field = data.get("idn_support", None)
     if field is not None:
         args["idn_support"] = field
     else:
-        args["idn_support"] = None
+        args["idn_support"] = False
 
     field = data.get("offers", None)
     if field is not None:
@@ -1133,13 +1138,13 @@ def unmarshal_Tld(data: Any) -> Tld:
             else None
         )
     else:
-        args["offers"] = None
+        args["offers"] = {}
 
     field = data.get("specifications", None)
     if field is not None:
         args["specifications"] = field
     else:
-        args["specifications"] = None
+        args["specifications"] = {}
 
     return Tld(**args)
 
@@ -1822,19 +1827,19 @@ def unmarshal_ContactRolesRoles(data: Any) -> ContactRolesRoles:
     if field is not None:
         args["is_owner"] = field
     else:
-        args["is_owner"] = None
+        args["is_owner"] = False
 
     field = data.get("is_administrative", None)
     if field is not None:
         args["is_administrative"] = field
     else:
-        args["is_administrative"] = None
+        args["is_administrative"] = False
 
     field = data.get("is_technical", None)
     if field is not None:
         args["is_technical"] = field
     else:
-        args["is_technical"] = None
+        args["is_technical"] = False
 
     return ContactRolesRoles(**args)
 
@@ -1855,7 +1860,7 @@ def unmarshal_ContactRoles(data: Any) -> ContactRoles:
             else None
         )
     else:
-        args["roles"] = None
+        args["roles"] = {}
 
     field = data.get("contact", None)
     if field is not None:
@@ -1878,7 +1883,7 @@ def unmarshal_ListContactsResponse(data: Any) -> ListContactsResponse:
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("contacts", None)
     if field is not None:
@@ -1886,7 +1891,7 @@ def unmarshal_ListContactsResponse(data: Any) -> ListContactsResponse:
             [unmarshal_ContactRoles(v) for v in field] if field is not None else None
         )
     else:
-        args["contacts"] = None
+        args["contacts"] = []
 
     return ListContactsResponse(**args)
 
@@ -2072,7 +2077,7 @@ def unmarshal_ListDomainHostsResponse(data: Any) -> ListDomainHostsResponse:
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("hosts", None)
     if field is not None:
@@ -2080,7 +2085,7 @@ def unmarshal_ListDomainHostsResponse(data: Any) -> ListDomainHostsResponse:
             [unmarshal_Host(v) for v in field] if field is not None else None
         )
     else:
-        args["hosts"] = None
+        args["hosts"] = []
 
     return ListDomainHostsResponse(**args)
 
@@ -2105,35 +2110,29 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
     else:
         args["project_id"] = None
 
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
     field = data.get("auto_renew_status", None)
     if field is not None:
         args["auto_renew_status"] = field
     else:
-        args["auto_renew_status"] = None
+        args["auto_renew_status"] = DomainFeatureStatus.FEATURE_STATUS_UNKNOWN
 
     field = data.get("dnssec_status", None)
     if field is not None:
         args["dnssec_status"] = field
     else:
-        args["dnssec_status"] = None
+        args["dnssec_status"] = DomainFeatureStatus.FEATURE_STATUS_UNKNOWN
 
     field = data.get("epp_code", None)
     if field is not None:
         args["epp_code"] = field
     else:
-        args["epp_code"] = None
-
-    field = data.get("registrar", None)
-    if field is not None:
-        args["registrar"] = field
-    else:
-        args["registrar"] = None
-
-    field = data.get("is_external", None)
-    if field is not None:
-        args["is_external"] = field
-    else:
-        args["is_external"] = None
+        args["epp_code"] = []
 
     field = data.get("expired_at", None)
     if field is not None:
@@ -2147,23 +2146,35 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
     else:
         args["updated_at"] = None
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("registrar", None)
+    if field is not None:
+        args["registrar"] = field
+    else:
+        args["registrar"] = None
+
+    field = data.get("is_external", None)
+    if field is not None:
+        args["is_external"] = field
+    else:
+        args["is_external"] = False
+
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-    else:
-        args["organization_id"] = None
+        args["status"] = DomainStatus.STATUS_UNKNOWN
 
     field = data.get("pending_trade", None)
     if field is not None:
         args["pending_trade"] = field
     else:
-        args["pending_trade"] = None
+        args["pending_trade"] = False
 
     field = data.get("external_domain_registration_status", None)
     if field is not None:
@@ -2181,12 +2192,6 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
     else:
         args["transfer_registration_status"] = None
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
     return DomainSummary(**args)
 
 
@@ -2202,7 +2207,7 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("domains", None)
     if field is not None:
@@ -2210,7 +2215,7 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
             [unmarshal_DomainSummary(v) for v in field] if field is not None else None
         )
     else:
-        args["domains"] = None
+        args["domains"] = []
 
     return ListDomainsResponse(**args)
 
@@ -2288,7 +2293,7 @@ def unmarshal_ListInboundTransfersResponse(data: Any) -> ListInboundTransfersRes
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("inbound_transfers", None)
     if field is not None:
@@ -2296,7 +2301,7 @@ def unmarshal_ListInboundTransfersResponse(data: Any) -> ListInboundTransfersRes
             [unmarshal_InboundTransfer(v) for v in field] if field is not None else None
         )
     else:
-        args["inbound_transfers"] = None
+        args["inbound_transfers"] = []
 
     return ListInboundTransfersResponse(**args)
 
@@ -2331,13 +2336,13 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
     if field is not None:
         args["status"] = field
     else:
-        args["status"] = None
+        args["status"] = RenewableDomainStatus.UNKNOWN
 
     field = data.get("renewable_duration_in_years", None)
     if field is not None:
         args["renewable_duration_in_years"] = field
     else:
-        args["renewable_duration_in_years"] = None
+        args["renewable_duration_in_years"] = 0
 
     field = data.get("expired_at", None)
     if field is not None:
@@ -2390,7 +2395,7 @@ def unmarshal_ListRenewableDomainsResponse(data: Any) -> ListRenewableDomainsRes
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("domains", None)
     if field is not None:
@@ -2398,7 +2403,7 @@ def unmarshal_ListRenewableDomainsResponse(data: Any) -> ListRenewableDomainsRes
             [unmarshal_RenewableDomain(v) for v in field] if field is not None else None
         )
     else:
-        args["domains"] = None
+        args["domains"] = []
 
     return ListRenewableDomainsResponse(**args)
 
@@ -2440,7 +2445,7 @@ def unmarshal_ListTasksResponse(data: Any) -> ListTasksResponse:
     if field is not None:
         args["total_count"] = field
     else:
-        args["total_count"] = None
+        args["total_count"] = 0
 
     field = data.get("tasks", None)
     if field is not None:
@@ -2448,7 +2453,7 @@ def unmarshal_ListTasksResponse(data: Any) -> ListTasksResponse:
             [unmarshal_Task(v) for v in field] if field is not None else None
         )
     else:
-        args["tasks"] = None
+        args["tasks"] = []
 
     return ListTasksResponse(**args)
 
@@ -2488,7 +2493,7 @@ def unmarshal_OrderResponse(data: Any) -> OrderResponse:
     if field is not None:
         args["domains"] = field
     else:
-        args["domains"] = None
+        args["domains"] = []
 
     field = data.get("organization_id", None)
     if field is not None:
@@ -2558,17 +2563,17 @@ def unmarshal_RegisterExternalDomainResponse(
     else:
         args["organization_id"] = None
 
-    field = data.get("validation_token", None)
-    if field is not None:
-        args["validation_token"] = field
-    else:
-        args["validation_token"] = None
-
     field = data.get("project_id", None)
     if field is not None:
         args["project_id"] = field
     else:
         args["project_id"] = None
+
+    field = data.get("validation_token", None)
+    if field is not None:
+        args["validation_token"] = field
+    else:
+        args["validation_token"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -2619,7 +2624,7 @@ def unmarshal_AvailableDomain(data: Any) -> AvailableDomain:
     if field is not None:
         args["available"] = field
     else:
-        args["available"] = None
+        args["available"] = False
 
     field = data.get("tld", None)
     if field is not None:
