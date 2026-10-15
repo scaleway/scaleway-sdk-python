@@ -147,9 +147,9 @@ from .content import (
     SERVER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    unmarshal_IP,
     unmarshal_Offer,
     unmarshal_OS,
+    unmarshal_IP,
     unmarshal_RpnSan,
     unmarshal_RpnGroup,
     unmarshal_Server,
