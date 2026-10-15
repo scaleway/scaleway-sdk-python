@@ -19,6 +19,7 @@ from .types import HostStatus
 from .content import HOST_TRANSIENT_STATUSES
 from .types import InboundTransferStatus
 from .types import LinkedProduct
+from .types import ListContactsRequestOrderBy
 from .types import ListContactsRequestRole
 from .types import ListDNSZoneRecordsRequestOrderBy
 from .types import ListDNSZonesRequestOrderBy
@@ -200,6 +201,7 @@ __all__ = [
     "HOST_TRANSIENT_STATUSES",
     "InboundTransferStatus",
     "LinkedProduct",
+    "ListContactsRequestOrderBy",
     "ListContactsRequestRole",
     "ListDNSZoneRecordsRequestOrderBy",
     "ListDNSZonesRequestOrderBy",
