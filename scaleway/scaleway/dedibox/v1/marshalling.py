@@ -46,7 +46,6 @@ from .types import (
     ServiceLevelLevel,
     ServiceProvisioningStatus,
     ServiceType,
-    IP,
     CPU,
     Disk,
     Memory,
@@ -67,6 +66,7 @@ from .types import (
     OfferStorageInfo,
     Offer,
     OS,
+    IP,
     RpnSan,
     RpnGroup,
     NetworkInterface,
@@ -172,71 +172,6 @@ from .types import (
     UpdateServerRequest,
     UpdateServerTagsRequest,
 )
-
-
-def unmarshal_IP(data: Any) -> IP:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'IP' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("ip_id", None)
-    if field is not None:
-        args["ip_id"] = field
-    else:
-        args["ip_id"] = 0
-
-    field = data.get("address", None)
-    if field is not None:
-        args["address"] = field
-    else:
-        args["address"] = None
-
-    field = data.get("reverse", None)
-    if field is not None:
-        args["reverse"] = field
-    else:
-        args["reverse"] = None
-
-    field = data.get("version", None)
-    if field is not None:
-        args["version"] = field
-    else:
-        args["version"] = IPVersion.IPV4
-
-    field = data.get("cidr", None)
-    if field is not None:
-        args["cidr"] = field
-    else:
-        args["cidr"] = 0
-
-    field = data.get("netmask", None)
-    if field is not None:
-        args["netmask"] = field
-    else:
-        args["netmask"] = None
-
-    field = data.get("semantic", None)
-    if field is not None:
-        args["semantic"] = field
-    else:
-        args["semantic"] = IPSemantic.UNKNOWN
-
-    field = data.get("gateway", None)
-    if field is not None:
-        args["gateway"] = field
-    else:
-        args["gateway"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = IPStatus.UNKNOWN_STATUS
-
-    return IP(**args)
 
 
 def unmarshal_CPU(data: Any) -> CPU:
@@ -884,14 +819,6 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["service_level_info"] = None
 
-    field = data.get("commitments", None)
-    if field is not None:
-        args["commitments"] = (
-            [unmarshal_OfferCommitment(v) for v in field] if field is not None else None
-        )
-    else:
-        args["commitments"] = []
-
     field = data.get("rpn_info", None)
     if field is not None:
         args["rpn_info"] = unmarshal_OfferRPNInfo(field)
@@ -903,6 +830,22 @@ def unmarshal_Offer(data: Any) -> Offer:
         args["san_info"] = unmarshal_OfferSANInfo(field)
     else:
         args["san_info"] = None
+
+    field = data.get("commitments", None)
+    if field is not None:
+        args["commitments"] = (
+            [unmarshal_OfferCommitment(v) for v in field] if field is not None else None
+        )
+    else:
+        args["commitments"] = []
+
+    field = data.get("available_os", None)
+    if field is not None:
+        args["available_os"] = (
+            [unmarshal_OS(v) for v in field] if field is not None else None
+        )
+    else:
+        args["available_os"] = []
 
     field = data.get("antidos_info", None)
     if field is not None:
@@ -1114,6 +1057,71 @@ def unmarshal_OS(data: Any) -> OS:
         args["released_at"] = None
 
     return OS(**args)
+
+
+def unmarshal_IP(data: Any) -> IP:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'IP' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("ip_id", None)
+    if field is not None:
+        args["ip_id"] = field
+    else:
+        args["ip_id"] = 0
+
+    field = data.get("address", None)
+    if field is not None:
+        args["address"] = field
+    else:
+        args["address"] = None
+
+    field = data.get("reverse", None)
+    if field is not None:
+        args["reverse"] = field
+    else:
+        args["reverse"] = None
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = field
+    else:
+        args["version"] = IPVersion.IPV4
+
+    field = data.get("cidr", None)
+    if field is not None:
+        args["cidr"] = field
+    else:
+        args["cidr"] = 0
+
+    field = data.get("netmask", None)
+    if field is not None:
+        args["netmask"] = field
+    else:
+        args["netmask"] = None
+
+    field = data.get("semantic", None)
+    if field is not None:
+        args["semantic"] = field
+    else:
+        args["semantic"] = IPSemantic.UNKNOWN
+
+    field = data.get("gateway", None)
+    if field is not None:
+        args["gateway"] = field
+    else:
+        args["gateway"] = None
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = IPStatus.UNKNOWN_STATUS
+
+    return IP(**args)
 
 
 def unmarshal_RpnSan(data: Any) -> RpnSan:

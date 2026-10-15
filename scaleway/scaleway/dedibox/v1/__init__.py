@@ -74,6 +74,7 @@ from .types import ServiceLevelLevel
 from .types import ServiceProvisioningStatus
 from .content import SERVICE_PROVISIONING_TRANSIENT_STATUSES
 from .types import ServiceType
+from .types import OS
 from .types import OfferAntiDosInfo
 from .types import OfferBackupInfo
 from .types import OfferBandwidthInfo
@@ -85,7 +86,6 @@ from .types import OfferStorageInfo
 from .types import IP
 from .types import Offer
 from .types import NetworkInterface
-from .types import OS
 from .types import ServerLocation
 from .types import ServerOption
 from .types import ServiceLevel
@@ -348,6 +348,7 @@ __all__ = [
     "ServiceProvisioningStatus",
     "SERVICE_PROVISIONING_TRANSIENT_STATUSES",
     "ServiceType",
+    "OS",
     "OfferAntiDosInfo",
     "OfferBackupInfo",
     "OfferBandwidthInfo",
@@ -359,7 +360,6 @@ __all__ = [
     "IP",
     "Offer",
     "NetworkInterface",
-    "OS",
     "ServerLocation",
     "ServerOption",
     "ServiceLevel",

@@ -662,6 +662,129 @@ class ServiceType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class OS:
+    id: int
+    """
+    ID of the OS.
+    """
+
+    name: str
+    """
+    Name of the OS.
+    """
+
+    type_: OSType
+    """
+    Type of the OS.
+    """
+
+    version: str
+    """
+    Version of the OS.
+    """
+
+    arch: OSArch
+    """
+    Architecture of the OS.
+    """
+
+    allow_custom_partitioning: bool
+    """
+    True if the OS allow custom partitioning.
+    """
+
+    allow_ssh_keys: bool
+    """
+    True if the OS allow SSH Keys.
+    """
+
+    requires_user: bool
+    """
+    True if the OS requires user.
+    """
+
+    requires_admin_password: bool
+    """
+    True if the OS requires admin password.
+    """
+
+    requires_panel_password: bool
+    """
+    True if the OS requires panel password.
+    """
+
+    allowed_filesystems: list[PartitionFileSystem]
+    """
+    True if the OS allow file systems.
+    """
+
+    requires_license: bool
+    """
+    True if the OS requires license.
+    """
+
+    license_offers: list[Offer]
+    """
+    License offers available with the OS.
+    """
+
+    display_name: str
+    """
+    Display name of the OS.
+    """
+
+    password_regex: str
+    """
+    Regex used to validate the installation passwords.
+    """
+
+    hostname_max_length: int
+    """
+    Hostname max length.
+    """
+
+    beta: str
+    """
+    Is it a beta OS.
+    """
+
+    description: str
+    """
+    Description of the OS.
+    """
+
+    official_website: str
+    """
+    URL to OS official website.
+    """
+
+    max_partitions: Optional[int] = 0
+    """
+    Maximum number of partitions which can be created.
+    """
+
+    panel_password_regex: Optional[str] = None
+    """
+    Regex used to validate the panel installation password.
+    """
+
+    requires_valid_hostname: Optional[bool] = False
+    """
+    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
+    """
+
+    hostname_regex: Optional[str] = None
+    """
+    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
+    """
+
+    released_at: Optional[datetime] = None
+    """
+    OS release date.
+    """
+
+
+@dataclass
 class OfferAntiDosInfo:
     type_: OfferAntiDosInfoType
 
@@ -813,6 +936,11 @@ class Offer:
     Commitment info if it is a commitment offer.
     """
 
+    available_os: list[OS]
+    """
+    Available OS info if it is a available OS offer.
+    """
+
     pricing: Optional[Money] = None
     """
     Price of the offer.
@@ -873,129 +1001,6 @@ class NetworkInterface:
     ips: list[IP]
     """
     IPs of the network interface.
-    """
-
-
-@dataclass
-class OS:
-    id: int
-    """
-    ID of the OS.
-    """
-
-    name: str
-    """
-    Name of the OS.
-    """
-
-    type_: OSType
-    """
-    Type of the OS.
-    """
-
-    version: str
-    """
-    Version of the OS.
-    """
-
-    arch: OSArch
-    """
-    Architecture of the OS.
-    """
-
-    allow_custom_partitioning: bool
-    """
-    True if the OS allow custom partitioning.
-    """
-
-    allow_ssh_keys: bool
-    """
-    True if the OS allow SSH Keys.
-    """
-
-    requires_user: bool
-    """
-    True if the OS requires user.
-    """
-
-    requires_admin_password: bool
-    """
-    True if the OS requires admin password.
-    """
-
-    requires_panel_password: bool
-    """
-    True if the OS requires panel password.
-    """
-
-    allowed_filesystems: list[PartitionFileSystem]
-    """
-    True if the OS allow file systems.
-    """
-
-    requires_license: bool
-    """
-    True if the OS requires license.
-    """
-
-    license_offers: list[Offer]
-    """
-    License offers available with the OS.
-    """
-
-    display_name: str
-    """
-    Display name of the OS.
-    """
-
-    password_regex: str
-    """
-    Regex used to validate the installation passwords.
-    """
-
-    hostname_max_length: int
-    """
-    Hostname max length.
-    """
-
-    beta: str
-    """
-    Is it a beta OS.
-    """
-
-    description: str
-    """
-    Description of the OS.
-    """
-
-    official_website: str
-    """
-    URL to OS official website.
-    """
-
-    max_partitions: Optional[int] = 0
-    """
-    Maximum number of partitions which can be created.
-    """
-
-    panel_password_regex: Optional[str] = None
-    """
-    Regex used to validate the panel installation password.
-    """
-
-    requires_valid_hostname: Optional[bool] = False
-    """
-    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
-    """
-
-    hostname_regex: Optional[str] = None
-    """
-    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
-    """
-
-    released_at: Optional[datetime] = None
-    """
-    OS release date.
     """
 
 
