@@ -209,6 +209,16 @@ class LinkedProduct(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListContactsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    EMAIL_ASC = "email_asc"
+    EMAIL_DESC = "email_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListContactsRequestRole(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ROLE = "unknown_role"
     OWNER = "owner"
@@ -2233,6 +2243,33 @@ class RegistrarApiListContactsRequest:
     email_status: Optional[ContactEmailStatus] = ContactEmailStatus.EMAIL_STATUS_UNKNOWN
     """
     Filter contacts by email validation status.
+    """
+
+    order_by: Optional[ListContactsRequestOrderBy] = (
+        ListContactsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Sort order of the returned contacts.
+    """
+
+    status: Optional[ContactStatus] = ContactStatus.STATUS_UNKNOWN
+    """
+    Filter by contact status.
+    """
+
+    legal_form: Optional[ContactLegalForm] = ContactLegalForm.LEGAL_FORM_UNKNOWN
+    """
+    Filter by legal form.
+    """
+
+    email: Optional[str] = None
+    """
+    Filter by email address.
+    """
+
+    search: Optional[str] = None
+    """
+    Fuzzy search in firstname, lastname, email, and company_name.
     """
 
 

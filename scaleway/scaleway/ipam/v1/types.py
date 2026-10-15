@@ -54,6 +54,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     APPLE_SILICON_PRIVATE_NIC = "apple_silicon_private_nic"
     SERVERLESS_CONTAINER = "serverless_container"
     SERVERLESS_FUNCTION = "serverless_function"
+    SERVERLESS_JOB = "serverless_job"
     VPN_GATEWAY = "vpn_gateway"
     DDL_DATALAB = "ddl_datalab"
     KAFKA_CLUSTER = "kafka_cluster"
