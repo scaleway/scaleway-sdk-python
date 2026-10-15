@@ -19,7 +19,10 @@ from scaleway_core.utils import (
 )
 from .types import (
     ContactEmailStatus,
+    ContactLegalForm,
+    ContactStatus,
     DomainStatus,
+    ListContactsRequestOrderBy,
     ListContactsRequestRole,
     ListDNSZoneRecordsRequestOrderBy,
     ListDNSZonesRequestOrderBy,
@@ -1959,6 +1962,11 @@ class DomainV2Beta1RegistrarAPI(API):
         organization_id: Optional[str] = None,
         role: Optional[ListContactsRequestRole] = None,
         email_status: Optional[ContactEmailStatus] = None,
+        order_by: Optional[ListContactsRequestOrderBy] = None,
+        status: Optional[ContactStatus] = None,
+        legal_form: Optional[ContactLegalForm] = None,
+        email: Optional[str] = None,
+        search: Optional[str] = None,
     ) -> ListContactsResponse:
         """
         List contacts.
@@ -1971,6 +1979,11 @@ class DomainV2Beta1RegistrarAPI(API):
         :param organization_id: Filter contacts by organization ID.
         :param role: Filter contacts by role (owner, administrative, technical).
         :param email_status: Filter contacts by email validation status.
+        :param order_by: Sort order of the returned contacts.
+        :param status: Filter by contact status.
+        :param legal_form: Filter by legal form.
+        :param email: Filter by email address.
+        :param search: Fuzzy search in firstname, lastname, email, and company_name.
         :return: :class:`ListContactsResponse <ListContactsResponse>`
 
         Usage:
@@ -1984,13 +1997,18 @@ class DomainV2Beta1RegistrarAPI(API):
             "/domain/v2beta1/contacts",
             params={
                 "domain": domain,
+                "email": email,
                 "email_status": email_status,
+                "legal_form": legal_form,
+                "order_by": order_by,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "role": role,
+                "search": search,
+                "status": status,
             },
         )
 
@@ -2007,6 +2025,11 @@ class DomainV2Beta1RegistrarAPI(API):
         organization_id: Optional[str] = None,
         role: Optional[ListContactsRequestRole] = None,
         email_status: Optional[ContactEmailStatus] = None,
+        order_by: Optional[ListContactsRequestOrderBy] = None,
+        status: Optional[ContactStatus] = None,
+        legal_form: Optional[ContactLegalForm] = None,
+        email: Optional[str] = None,
+        search: Optional[str] = None,
     ) -> list[ContactRoles]:
         """
         List contacts.
@@ -2019,6 +2042,11 @@ class DomainV2Beta1RegistrarAPI(API):
         :param organization_id: Filter contacts by organization ID.
         :param role: Filter contacts by role (owner, administrative, technical).
         :param email_status: Filter contacts by email validation status.
+        :param order_by: Sort order of the returned contacts.
+        :param status: Filter by contact status.
+        :param legal_form: Filter by legal form.
+        :param email: Filter by email address.
+        :param search: Fuzzy search in firstname, lastname, email, and company_name.
         :return: :class:`list[ContactRoles] <list[ContactRoles]>`
 
         Usage:
@@ -2039,6 +2067,11 @@ class DomainV2Beta1RegistrarAPI(API):
                 "organization_id": organization_id,
                 "role": role,
                 "email_status": email_status,
+                "order_by": order_by,
+                "status": status,
+                "legal_form": legal_form,
+                "email": email,
+                "search": search,
             },
         )
 
