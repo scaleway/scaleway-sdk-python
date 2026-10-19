@@ -1631,20 +1631,20 @@ class DomainV2Beta1RegistrarAPI(API):
         Request the registration of domain names.
         You can provide a domain's already existing contact or a new contact.
         :param domains: List of domains to purchase.
-        :param duration_in_years: Duration in years for the domain registration.
+        :param duration_in_years: Duration in years for the domain registration. Subject to TLD-specific minimum and maximum constraints.
         :param auto_renew: Enable the `auto renew` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.
         :param project_id: Project ID to create the domains in.
         :param owner_contact_id: ID of the existing contact to use as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
         :param owner_contact: New contact to create and use as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id: ID of the existing contact to use as the domain's administrative contact.
+        :param administrative_contact_id: ID of the existing contact to use as the domain's administrative contact. Optional; falls back to the owner contact if omitted.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact: New contact to create and use as the domain's administrative contact.
+        :param administrative_contact: New contact to create and use as the domain's administrative contact. Optional; falls back to the owner contact if omitted.
         One-Of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param technical_contact_id: ID of the existing contact to use as the domain's technical contact.
+        :param technical_contact_id: ID of the existing contact to use as the domain's technical contact. Optional; falls back to the owner contact if omitted.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact: New contact to create and use as the domain's technical contact.
+        :param technical_contact: New contact to create and use as the domain's technical contact. Optional; falls back to the owner contact if omitted.
         One-Of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
         :return: :class:`OrderResponse <OrderResponse>`
 
@@ -1692,8 +1692,8 @@ class DomainV2Beta1RegistrarAPI(API):
         Renew domains.
         Request the renewal of one or more domain names.
         :param domains: List of domains to renew.
-        :param duration_in_years: Duration in years for the domain renewal.
-        :param force_late_renewal: Force the renewal to be a late renewal.
+        :param duration_in_years: Duration in years for the domain renewal. Subject to TLD-specific minimum and maximum constraints.
+        :param force_late_renewal: Confirm the late renewal (incurs extra fees).
         :return: :class:`OrderResponse <OrderResponse>`
 
         Usage:
@@ -1736,7 +1736,7 @@ class DomainV2Beta1RegistrarAPI(API):
         """
         Transfer a domain.
         Request the transfer of a domain from another registrar to Scaleway Domains and DNS.
-        :param domains: List of domains to transfer in, each with its auth code.
+        :param domains: List of domains to transfer in, each with its optional auth code.
         :param project_id: Project ID to transfer the domains into.
         :param owner_contact_id: ID of the existing contact to use as the domain's owner.
         One-Of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
@@ -1795,8 +1795,8 @@ class DomainV2Beta1RegistrarAPI(API):
         If you specify the `organization_id` of the domain's new owner, the contact will change from the current owner's Scaleway account to the new owner's Scaleway account.<br/>
         If the new owner's current contact information is not available, the first ever contact they have created for previous domains is taken into account to operate the change.<br/>
         If the new owner has never created a contact to register domains before, an error message displays.
-        :param domain: The domain name to trade.
-        :param project_id: Project ID to associate with the domain after the trade.
+        :param domain: The domain name to trade (change of owner/registrant).
+        :param project_id: Project ID to associate with the domain after the trade. Also used to filter the new owner's contacts.
         :param new_owner_contact_id: ID of the existing contact to use as the domain's new owner.
         One-Of ('new_owner_contact_type'): at most one of 'new_owner_contact_id', 'new_owner_contact' could be set.
         :param new_owner_contact: New contact to create and use as the domain's new owner.
@@ -2137,21 +2137,21 @@ class DomainV2Beta1RegistrarAPI(API):
         :param contact_id: ID of the contact to update.
         :param email: Email address of the contact.
         :param email_alt: Alternative email address of the contact.
-        :param phone_number: Phone number of the contact.
-        :param fax_number: Fax number of the contact.
+        :param phone_number: Phone number of the contact, normalized to +CC.NationalNumber format.
+        :param fax_number: Fax number of the contact, normalized to +CC.NationalNumber format.
         :param address_line_1: First line of the contact's address.
         :param address_line_2: Second line of the contact's address.
         :param zip: Postal code of the contact.
         :param city: City of the contact.
-        :param country: Country code of the contact (ISO 3166-1 alpha-2 format).
+        :param country: Country code of the contact (ISO 3166-1 alpha-2 format). Not updatable; returns an error if changed.
         :param vat_identification_code: VAT identification code of the contact.
-        :param company_identification_code: Company identification code (e.g. SIRET/SIREN) of the contact.
+        :param company_identification_code: Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
         :param lang: Preferred language of the contact.
         :param resale: Indicates whether the contact's information can be resold.
-        :param extension_fr: Additional information required for .fr domains.
-        :param extension_eu: Additional information required for .eu domains.
-        :param extension_nl: Additional information required for .nl domains.
-        :param extension_it: Additional information required for .it domains.
+        :param extension_fr: Additional information required for AFNIC-managed TLDs (.fr, .re, .pm, .yt, .wf, .tf).
+        :param extension_eu: Additional information required for .eu domains. Conditionally required.
+        :param extension_nl: Additional information required for .nl domains. Auto-populated for individuals.
+        :param extension_it: Additional information required for .it domains. Contains a PIN.
         :param whois_opt_in: Indicates whether the contact's information is published in the WHOIS database.
         :param state: State or region of the contact.
         :param questions:
@@ -2224,7 +2224,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param status: Filter domains by status.
         :param project_id: Filter domains by project ID.
         :param organization_id: Filter domains by organization ID.
-        :param is_external: Filter domains by external status.
+        :param is_external: Filter domains by whether they are external (not managed by Scaleway as registrar).
         :param domain: Filter domains by domain name.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
 
@@ -2277,7 +2277,7 @@ class DomainV2Beta1RegistrarAPI(API):
         :param status: Filter domains by status.
         :param project_id: Filter domains by project ID.
         :param organization_id: Filter domains by organization ID.
-        :param is_external: Filter domains by external status.
+        :param is_external: Filter domains by whether they are external (not managed by Scaleway as registrar).
         :param domain: Filter domains by domain name.
         :return: :class:`list[DomainSummary] <list[DomainSummary]>`
 
@@ -2666,7 +2666,7 @@ class DomainV2Beta1RegistrarAPI(API):
         Update domain DNSSEC.
         If your domain uses another registrar and has the default Scaleway NS, you have to **update the DS record at your registrar**.
         :param domain: The domain name to enable DNSSEC for.
-        :param ds_record: The DS record to configure for DNSSEC. If omitted, the DS record will be automatically generated.
+        :param ds_record: The DS record to configure for DNSSEC. Required for domains using non-Scaleway nameservers. For Scaleway nameservers, auto-generated and must be omitted.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -2964,7 +2964,7 @@ class DomainV2Beta1RegistrarAPI(API):
         Update a domain's hostname with glue IPs.
         :param domain: The domain name of the hostname to update.
         :param name: The hostname to update.
-        :param ips: New list of glue IP addresses associated with the hostname.
+        :param ips: New list of glue IP addresses associated with the hostname. Optional.
         :return: :class:`Host <Host>`
 
         Usage:

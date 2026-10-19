@@ -490,7 +490,7 @@ class DSRecordDigest:
 
     public_key: Optional[DSRecordPublicKey] = None
     """
-    The public key associated with the digest.
+    The DNSKEY the digest is derived from. Optional.
     """
 
 
@@ -584,7 +584,7 @@ class TldOffer:
 
     operation_path: str
     """
-    The operation path of the offer.
+    The billing SKU path of the offer (e.g. /network/domain/domains/fr/register).
     """
 
     price: Optional[Money] = None
@@ -602,7 +602,7 @@ class DSRecord:
 
     algorithm: DSRecordAlgorithm
     """
-    The cryptographic algorithm used for the DS record.
+    The cryptographic algorithm of the DNSKEY used for the DS record.
     """
 
     digest: Optional[DSRecordDigest] = None
@@ -681,12 +681,12 @@ class Contact:
 
     phone_number: str
     """
-    Phone number of the contact.
+    Phone number of the contact, normalized to +CC.NationalNumber format.
     """
 
     fax_number: str
     """
-    Fax number of the contact.
+    Fax number of the contact, normalized to +CC.NationalNumber format.
     """
 
     address_line_1: str
@@ -721,7 +721,7 @@ class Contact:
 
     company_identification_code: str
     """
-    Company identification code (e.g. SIRET/SIREN) of the contact.
+    Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
     """
 
     lang: StdLanguageCode
@@ -756,22 +756,22 @@ class Contact:
 
     extension_fr: Optional[ContactExtensionFR] = None
     """
-    Additional information required for .fr domains.
+    Additional information required for AFNIC-managed TLDs (.fr, .re, .pm, .yt, .wf, .tf).
     """
 
     extension_eu: Optional[ContactExtensionEU] = None
     """
-    Additional information required for .eu domains.
+    Additional information required for .eu domains. Conditionally required.
     """
 
     extension_nl: Optional[ContactExtensionNL] = None
     """
-    Additional information required for .nl domains.
+    Additional information required for .nl domains. Auto-populated for individuals.
     """
 
     extension_it: Optional[ContactExtensionIT] = None
     """
-    Additional information required for .it domains.
+    Additional information required for .it domains. Contains a PIN.
     """
 
     questions: Optional[list[ContactQuestion]] = field(default_factory=list)
@@ -850,7 +850,7 @@ class Tld:
 
     offers: dict[str, TldOffer]
     """
-    Available offers (create, renew, transfer, etc.) for the TLD.
+    Map of available offers for the TLD, keyed by action string (create, renew, transfer, etc.).
     """
 
     specifications: dict[str, str]
@@ -883,7 +883,7 @@ class NewContact:
 
     phone_number: str
     """
-    Phone number of the contact.
+    Phone number of the contact, normalized to +CC.NationalNumber format.
     """
 
     address_line_1: str
@@ -933,7 +933,7 @@ class NewContact:
 
     fax_number: Optional[str] = None
     """
-    Fax number of the contact.
+    Fax number of the contact, normalized to +CC.NationalNumber format.
     """
 
     address_line_2: Optional[str] = None
@@ -948,17 +948,17 @@ class NewContact:
 
     company_identification_code: Optional[str] = None
     """
-    Company identification code (e.g. SIRET/SIREN) of the contact.
+    Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
     """
 
     extension_fr: Optional[ContactExtensionFR] = None
     """
-    Additional information required for .fr domains.
+    Additional information required for AFNIC-managed TLDs (.fr, .re, .pm, .yt, .wf, .tf).
     """
 
     extension_eu: Optional[ContactExtensionEU] = None
     """
-    Additional information required for .eu domains.
+    Additional information required for .eu domains. Conditionally required.
     """
 
     state: Optional[str] = None
@@ -968,12 +968,12 @@ class NewContact:
 
     extension_nl: Optional[ContactExtensionNL] = None
     """
-    Additional information required for .nl domains.
+    Additional information required for .nl domains. Auto-populated for individuals.
     """
 
     extension_it: Optional[ContactExtensionIT] = None
     """
-    Additional information required for .it domains.
+    Additional information required for .it domains. Contains a PIN.
     """
 
     questions: Optional[list[ContactQuestion]] = field(default_factory=list)
@@ -1073,7 +1073,7 @@ class Host:
 
     name: str
     """
-    The hostname.
+    The hostname (FQDN, e.g. ns1.example.com).
     """
 
     ips: list[str]
@@ -1106,17 +1106,17 @@ class DomainSummary:
 
     auto_renew_status: DomainFeatureStatus
     """
-    Status of the automatic renewal of the domain.
+    Status of the automatic renewal of the domain (enabling, enabled, disabling, disabled).
     """
 
     dnssec_status: DomainFeatureStatus
     """
-    Status of the DNSSEC configuration of the domain.
+    Status of the DNSSEC configuration of the domain (enabling, enabled, disabling, disabled).
     """
 
     epp_code: list[str]
     """
-    List of the domain's EPP codes.
+    List of the domain's EPP status codes (e.g. clientTransferProhibited, serverHold).
     """
 
     registrar: str
@@ -1126,7 +1126,7 @@ class DomainSummary:
 
     is_external: bool
     """
-    Indicates whether Scaleway is the domain's registrar.
+    Indicates whether the domain is external (not managed by Scaleway as registrar).
     """
 
     status: DomainStatus
@@ -1497,12 +1497,12 @@ class Domain:
 
     auto_renew_status: DomainFeatureStatus
     """
-    Status of the automatic renewal of the domain.
+    Status of the automatic renewal of the domain (enabling, enabled, disabling, disabled).
     """
 
     epp_code: list[str]
     """
-    List of the domain's EPP codes.
+    List of the domain's EPP status codes (e.g. clientTransferProhibited, serverHold).
     """
 
     registrar: str
@@ -1512,7 +1512,7 @@ class Domain:
 
     is_external: bool
     """
-    Indicates whether Scaleway is the domain's registrar.
+    Indicates whether the domain is external (not managed by Scaleway as registrar).
     """
 
     status: DomainStatus
@@ -1527,7 +1527,7 @@ class Domain:
 
     linked_products: list[LinkedProduct]
     """
-    List of Scaleway resources linked to the domain.
+    List of Scaleway product types linked to the domain (e.g. vpc).
     """
 
     pending_trade: bool
@@ -1883,7 +1883,7 @@ class ListDomainHostsResponse:
 
     hosts: list[Host]
     """
-    List of hostnames matching the request.
+    List of host objects matching the request.
     """
 
 
@@ -1896,7 +1896,7 @@ class ListDomainsResponse:
 
     domains: list[DomainSummary]
     """
-    List of domains matching the request.
+    List of domain summaries matching the request.
     """
 
 
@@ -2039,7 +2039,7 @@ class RegisterExternalDomainResponse:
 
     validation_token: str
     """
-    The validation token to use to validate the external domain.
+    The validation token to set as a DNS TXT record at _scaleway-challenge.<domain> to validate the external domain.
     """
 
     created_at: Optional[datetime] = None
@@ -2057,7 +2057,7 @@ class RegistrarApiBuyDomainsRequest:
 
     duration_in_years: int
     """
-    Duration in years for the domain registration.
+    Duration in years for the domain registration. Subject to TLD-specific minimum and maximum constraints.
     """
 
     auto_renew: bool
@@ -2180,7 +2180,7 @@ class RegistrarApiEnableDomainDNSSECRequest:
 
     ds_record: Optional[DSRecord] = None
     """
-    The DS record to configure for DNSSEC. If omitted, the DS record will be automatically generated.
+    The DS record to configure for DNSSEC. Required for domains using non-Scaleway nameservers. For Scaleway nameservers, auto-generated and must be omitted.
     """
 
 
@@ -2330,7 +2330,7 @@ class RegistrarApiListDomainsRequest:
 
     is_external: Optional[bool] = False
     """
-    Filter domains by external status.
+    Filter domains by whether they are external (not managed by Scaleway as registrar).
     """
 
     domain: Optional[str] = None
@@ -2493,12 +2493,12 @@ class RegistrarApiRenewDomainsRequest:
 
     duration_in_years: int
     """
-    Duration in years for the domain renewal.
+    Duration in years for the domain renewal. Subject to TLD-specific minimum and maximum constraints.
     """
 
     force_late_renewal: Optional[bool] = False
     """
-    Force the renewal to be a late renewal.
+    Confirm the late renewal (incurs extra fees).
     """
 
 
@@ -2547,12 +2547,12 @@ class RegistrarApiSearchAvailableDomainsRequest:
 class RegistrarApiTradeDomainRequest:
     domain: str
     """
-    The domain name to trade.
+    The domain name to trade (change of owner/registrant).
     """
 
     project_id: Optional[str] = None
     """
-    Project ID to associate with the domain after the trade.
+    Project ID to associate with the domain after the trade. Also used to filter the new owner's contacts.
     """
 
     new_owner_contact_id: Optional[str] = None
@@ -2564,7 +2564,7 @@ class RegistrarApiTradeDomainRequest:
 class RegistrarApiTransferInDomainRequest:
     domains: list[TransferInDomainRequestTransferRequest]
     """
-    List of domains to transfer in, each with its auth code.
+    List of domains to transfer in, each with its optional auth code.
     """
 
     project_id: Optional[str] = None
@@ -2612,12 +2612,12 @@ class RegistrarApiUpdateContactRequest:
 
     phone_number: Optional[str] = None
     """
-    Phone number of the contact.
+    Phone number of the contact, normalized to +CC.NationalNumber format.
     """
 
     fax_number: Optional[str] = None
     """
-    Fax number of the contact.
+    Fax number of the contact, normalized to +CC.NationalNumber format.
     """
 
     address_line_1: Optional[str] = None
@@ -2642,7 +2642,7 @@ class RegistrarApiUpdateContactRequest:
 
     country: Optional[str] = None
     """
-    Country code of the contact (ISO 3166-1 alpha-2 format).
+    Country code of the contact (ISO 3166-1 alpha-2 format). Not updatable; returns an error if changed.
     """
 
     vat_identification_code: Optional[str] = None
@@ -2652,7 +2652,7 @@ class RegistrarApiUpdateContactRequest:
 
     company_identification_code: Optional[str] = None
     """
-    Company identification code (e.g. SIRET/SIREN) of the contact.
+    Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
     """
 
     lang: Optional[StdLanguageCode] = StdLanguageCode.UNKNOWN_LANGUAGE_CODE
@@ -2667,22 +2667,22 @@ class RegistrarApiUpdateContactRequest:
 
     extension_fr: Optional[ContactExtensionFR] = None
     """
-    Additional information required for .fr domains.
+    Additional information required for AFNIC-managed TLDs (.fr, .re, .pm, .yt, .wf, .tf).
     """
 
     extension_eu: Optional[ContactExtensionEU] = None
     """
-    Additional information required for .eu domains.
+    Additional information required for .eu domains. Conditionally required.
     """
 
     extension_nl: Optional[ContactExtensionNL] = None
     """
-    Additional information required for .nl domains.
+    Additional information required for .nl domains. Auto-populated for individuals.
     """
 
     extension_it: Optional[ContactExtensionIT] = None
     """
-    Additional information required for .it domains.
+    Additional information required for .it domains. Contains a PIN.
     """
 
     whois_opt_in: Optional[bool] = False
@@ -2714,7 +2714,7 @@ class RegistrarApiUpdateDomainHostRequest:
 
     ips: Optional[list[str]] = field(default_factory=list)
     """
-    New list of glue IP addresses associated with the hostname.
+    New list of glue IP addresses associated with the hostname. Optional.
     """
 
 
