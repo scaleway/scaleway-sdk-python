@@ -1563,6 +1563,12 @@ def unmarshal_Rule(data: Any) -> Rule:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("permission_sets_scope_type", None)
     if field is not None:
         args["permission_sets_scope_type"] = field
@@ -1575,11 +1581,11 @@ def unmarshal_Rule(data: Any) -> Rule:
     else:
         args["condition"] = None
 
-    field = data.get("srn", None)
+    field = data.get("deny", None)
     if field is not None:
-        args["srn"] = field
+        args["deny"] = field
     else:
-        args["srn"] = None
+        args["deny"] = False
 
     field = data.get("permission_set_names", None)
     if field is not None:
@@ -2237,6 +2243,9 @@ def marshal_RuleSpecs(
 
     if request.condition is not None:
         output["condition"] = request.condition
+
+    if request.deny is not None:
+        output["deny"] = request.deny
 
     if request.permission_set_names is not None:
         output["permission_set_names"] = request.permission_set_names
