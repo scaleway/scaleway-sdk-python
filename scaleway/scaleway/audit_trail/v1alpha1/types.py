@@ -1477,6 +1477,19 @@ class EventsOverview:
 
 
 @dataclass
+class GetCustomAlertRuleRequest:
+    custom_alert_rule_id: str
+    """
+    ID of the custom alert rule to retrieve.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetLastEventsOverviewRequest:
     region: Optional[ScwRegion] = None
     """
