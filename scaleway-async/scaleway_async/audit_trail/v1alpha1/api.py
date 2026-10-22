@@ -2,15 +2,17 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from datetime import datetime
-from typing import Optional
+from typing import Awaitable, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region as ScwRegion,
 )
 from scaleway_core.utils import (
+    WaitForOptions,
     validate_path_param,
     fetch_all_pages_async,
+    wait_for_resource_async,
 )
 from .types import (
     AlertRuleStatus,
@@ -53,6 +55,9 @@ from .types import (
     TestCustomAlertRuleRequest,
     TestCustomAlertRuleResponse,
     UpdateCustomAlertRuleRequest,
+)
+from .content import (
+    CUSTOM_ALERT_RULE_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_CustomAlertRule,
@@ -722,6 +727,83 @@ class AuditTrailV1Alpha1API(API):
                 "status": status,
                 "page": page,
                 "page_size": page_size,
+            },
+        )
+
+    async def get_custom_alert_rule(
+        self,
+        *,
+        custom_alert_rule_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> CustomAlertRule:
+        """
+        Get custom alert rule metadata.
+        Retrieve metadata for a specified custom alert rule using the `region` and `custom_alert_rule_id` parameters.
+        :param custom_alert_rule_id: ID of the custom alert rule to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`CustomAlertRule <CustomAlertRule>`
+
+        Usage:
+        ::
+
+            result = await api.get_custom_alert_rule(
+                custom_alert_rule_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_custom_alert_rule_id = validate_path_param(
+            "custom_alert_rule_id", custom_alert_rule_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/custom-alert-rules/{param_custom_alert_rule_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CustomAlertRule(res.json())
+
+    async def wait_for_custom_alert_rule(
+        self,
+        *,
+        custom_alert_rule_id: str,
+        region: Optional[ScwRegion] = None,
+        options: Optional[
+            WaitForOptions[CustomAlertRule, Union[bool, Awaitable[bool]]]
+        ] = None,
+    ) -> CustomAlertRule:
+        """
+        Get custom alert rule metadata.
+        Retrieve metadata for a specified custom alert rule using the `region` and `custom_alert_rule_id` parameters.
+        :param custom_alert_rule_id: ID of the custom alert rule to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`CustomAlertRule <CustomAlertRule>`
+
+        Usage:
+        ::
+
+            result = await api.get_custom_alert_rule(
+                custom_alert_rule_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: (
+                res.status not in CUSTOM_ALERT_RULE_TRANSIENT_STATUSES
+            )
+
+        return await wait_for_resource_async(
+            fetcher=self.get_custom_alert_rule,
+            options=options,
+            args={
+                "custom_alert_rule_id": custom_alert_rule_id,
+                "region": region,
             },
         )
 
