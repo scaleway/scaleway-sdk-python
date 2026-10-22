@@ -169,6 +169,18 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     else:
         args["synchronized_with_grafana"] = False
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     field = data.get("retention_days", None)
     if field is not None:
         args["retention_days"] = field
@@ -181,17 +193,11 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     else:
         args["region"] = None
 
-    field = data.get("created_at", None)
+    field = data.get("srn", None)
     if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+        args["srn"] = field
     else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
+        args["srn"] = None
 
     field = data.get("current_month_usage", None)
     if field is not None:
@@ -297,6 +303,12 @@ def unmarshal_Exporter(data: Any) -> Exporter:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("datadog_destination", None)
     if field is not None:
@@ -527,6 +539,12 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
 
     args: dict[str, Any] = {}
 
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
     field = data.get("alert_manager_enabled", None)
     if field is not None:
         args["alert_manager_enabled"] = field
@@ -544,6 +562,12 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("alert_manager_url", None)
     if field is not None:
