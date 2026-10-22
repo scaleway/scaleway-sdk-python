@@ -333,6 +333,11 @@ class RuleSpecs:
     Condition expression to evaluate.
     """
 
+    deny: bool
+    """
+    Select whether the rule should remove the permissions instead of granting them.
+    """
+
     permission_set_names: Optional[list[str]] = field(default_factory=list)
     """
     Names of permission sets bound to the rule.
@@ -849,6 +854,11 @@ class Rule:
     Id of rule.
     """
 
+    srn: str
+    """
+    The SRN of the rule.
+    """
+
     permission_sets_scope_type: PermissionSetScopeType
     """
     Permission_set_names have the same scope_type.
@@ -859,9 +869,9 @@ class Rule:
     Condition expression to evaluate.
     """
 
-    srn: str
+    deny: bool
     """
-    The SRN of the rule.
+    Select whether the rule should remove the permissions instead of granting them.
     """
 
     permission_set_names: Optional[list[str]] = field(default_factory=list)
