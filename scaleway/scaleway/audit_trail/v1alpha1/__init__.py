@@ -115,6 +115,7 @@ from .types import EnableAlertRulesResponse
 from .types import EnableCustomAlertRulesRequest
 from .types import EnableCustomAlertRulesResponse
 from .types import EventsOverview
+from .types import GetCustomAlertRuleRequest
 from .types import GetLastEventsOverviewRequest
 from .types import ListAlertRulesRequest
 from .types import ListAlertRulesResponse
@@ -259,6 +260,7 @@ __all__ = [
     "EnableCustomAlertRulesRequest",
     "EnableCustomAlertRulesResponse",
     "EventsOverview",
+    "GetCustomAlertRuleRequest",
     "GetLastEventsOverviewRequest",
     "ListAlertRulesRequest",
     "ListAlertRulesResponse",
