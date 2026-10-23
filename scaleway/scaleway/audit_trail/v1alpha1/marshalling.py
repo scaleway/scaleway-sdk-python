@@ -359,6 +359,12 @@ def unmarshal_AlertRule(data: Any) -> AlertRule:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -376,6 +382,12 @@ def unmarshal_AlertRule(data: Any) -> AlertRule:
         args["status"] = field
     else:
         args["status"] = AlertRuleStatus.UNKNOWN_STATUS
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return AlertRule(**args)
 

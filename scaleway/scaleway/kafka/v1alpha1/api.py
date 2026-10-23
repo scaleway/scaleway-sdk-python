@@ -464,6 +464,7 @@ class KafkaV1Alpha1API(API):
         name: Optional[str] = None,
         tags: Optional[list[str]] = None,
         version: Optional[str] = None,
+        volume_size_bytes: Optional[int] = None,
     ) -> Cluster:
         """
         Update a Kafka cluster.
@@ -473,6 +474,7 @@ class KafkaV1Alpha1API(API):
         :param name: Name of the Kafka Cluster.
         :param tags: Tags of a Kafka Cluster.
         :param version: Version of Kafka.
+        :param volume_size_bytes: New volume size for each broker, can only increase.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -498,6 +500,7 @@ class KafkaV1Alpha1API(API):
                     name=name,
                     tags=tags,
                     version=version,
+                    volume_size_bytes=volume_size_bytes,
                 ),
                 self.client,
             ),
