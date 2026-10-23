@@ -738,6 +738,11 @@ class UpdateClusterRequest:
     Version of Kafka.
     """
 
+    volume_size_bytes: Optional[int] = 0
+    """
+    New volume size for each broker, can only increase.
+    """
+
 
 @dataclass
 class UpdateUserRequest:

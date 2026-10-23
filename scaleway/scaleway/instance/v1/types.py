@@ -2486,6 +2486,10 @@ class ListIpsRequest:
     Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
     """
 
+    server: Optional[str] = None
+
+    detached: Optional[bool] = None
+
 
 @dataclass
 class ListIpsResponse:

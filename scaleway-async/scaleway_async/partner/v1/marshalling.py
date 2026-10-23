@@ -96,6 +96,12 @@ def unmarshal_Organization(data: Any) -> Organization:
     else:
         args["comment"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("locked_at", None)
     if field is not None:
         args["locked_at"] = parser.isoparse(field) if isinstance(field, str) else field
