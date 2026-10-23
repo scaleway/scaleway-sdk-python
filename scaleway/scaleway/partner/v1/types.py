@@ -91,6 +91,11 @@ class Organization:
     A comment about the organization.
     """
 
+    srn: str
+    """
+    The SRN of the organization.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date of organization creation.

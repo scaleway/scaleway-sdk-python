@@ -929,6 +929,9 @@ def marshal_UpdateClusterRequest(
     if request.version is not None:
         output["version"] = request.version
 
+    if request.volume_size_bytes is not None:
+        output["volume_size_bytes"] = request.volume_size_bytes
+
     return output
 
 

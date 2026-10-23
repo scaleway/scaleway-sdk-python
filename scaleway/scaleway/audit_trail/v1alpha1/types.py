@@ -1098,6 +1098,11 @@ class AlertRule:
     ID of the alert rule.
     """
 
+    srn: str
+    """
+    The SRN of the alert rule.
+    """
+
     name: str
     """
     Name of the alert rule.
@@ -1111,6 +1116,11 @@ class AlertRule:
     status: AlertRuleStatus
     """
     Current status of the alert rule.
+    """
+
+    region: ScwRegion
+    """
+    Region of the alert rule.
     """
 
 
@@ -1474,6 +1484,19 @@ class EnableCustomAlertRulesResponse:
 @dataclass
 class EventsOverview:
     last_events: list[Event]
+
+
+@dataclass
+class GetCustomAlertRuleRequest:
+    custom_alert_rule_id: str
+    """
+    ID of the custom alert rule to retrieve.
+    """
+
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
