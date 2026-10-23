@@ -372,6 +372,11 @@ class DataSource:
     Region of the data source.
     """
 
+    srn: str
+    """
+    The SRN of the data-source.
+    """
+
     created_at: Optional[datetime] = None
     """
     Date the data source was created.
@@ -427,6 +432,11 @@ class Exporter:
     region: ScwRegion
     """
     The region in which the export is located.
+    """
+
+    srn: str
+    """
+    The SRN of the exporter.
     """
 
     created_at: Optional[datetime] = None
@@ -658,6 +668,11 @@ class AlertManager:
     Alert manager information.
     """
 
+    project_id: str
+    """
+    ID of the project.
+    """
+
     alert_manager_enabled: bool
     """
     The Alert manager is enabled.
@@ -671,6 +686,11 @@ class AlertManager:
     region: ScwRegion
     """
     Regions where the Alert manager is enabled.
+    """
+
+    srn: str
+    """
+    The SRN of the alert-manager.
     """
 
     alert_manager_url: Optional[str] = None
@@ -963,6 +983,16 @@ class Grafana:
     grafana_url: str
     """
     URL to access your Cockpit's Grafana.
+    """
+
+    project_id: str
+    """
+    ID of the project.
+    """
+
+    srn: str
+    """
+    The SRN of the grafana.
     """
 
 
