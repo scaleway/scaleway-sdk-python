@@ -451,6 +451,11 @@ class Ip:
     The zone the IP address is in.
     """
 
+    srn: str
+    """
+    The SRN of the IP address.
+    """
+
     lb_id: Optional[str] = None
     """
     Load Balancer ID.
@@ -476,6 +481,16 @@ class Subscriber:
     name: str
     """
     Subscriber name.
+    """
+
+    zone: ScwZone
+    """
+    The zone the subscriber is in.
+    """
+
+    srn: str
+    """
+    The SRN of the subscriber.
     """
 
     email_config: Optional[SubscriberEmailConfig] = None
@@ -612,6 +627,11 @@ class Lb:
     The zone the Load Balancer is in.
     """
 
+    srn: str
+    """
+    The SRN of the Load Balancer.
+    """
+
     subscriber: Optional[Subscriber] = None
     """
     Subscriber information.
@@ -701,6 +721,16 @@ class Backend:
     proxy_protocol: ProxyProtocol
     """
     Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+    """
+
+    zone: ScwZone
+    """
+    The zone the backend is in.
+    """
+
+    srn: str
+    """
+    The SRN of the backend.
     """
 
     health_check: Optional[HealthCheck] = None
@@ -821,6 +851,16 @@ class Certificate:
     Certificate name.
     """
 
+    zone: ScwZone
+    """
+    The zone the certificate is in.
+    """
+
+    srn: str
+    """
+    The SRN of the certificate.
+    """
+
     not_valid_before: Optional[datetime] = None
     """
     Lower validity bound.
@@ -928,6 +968,16 @@ class Frontend:
     enable_access_logs: bool
     """
     Defines whether to enable access logs on the frontend.
+    """
+
+    zone: ScwZone
+    """
+    The zone the frontend is in.
+    """
+
+    srn: str
+    """
+    The SRN of the frontend.
     """
 
     backend: Optional[Backend] = None
@@ -1074,6 +1124,16 @@ class Acl:
     ACL description.
     """
 
+    zone: ScwZone
+    """
+    The zone the ACL is in.
+    """
+
+    srn: str
+    """
+    The SRN of the ACL.
+    """
+
     match: Optional[AclMatch] = None
     """
     ACL match filter object. One of `ip_subnet`, `ips_edge_services` or `http_filter` & `http_filter_value` are required.
@@ -1171,6 +1231,11 @@ class LbType:
     The zone the Load Balancer stock is in.
     """
 
+    srn: str
+    """
+    The SRN of the Load Balancer offer type.
+    """
+
     region: Optional[ScwRegion] = None
     """
     The region the Load Balancer stock is in.
@@ -1192,6 +1257,16 @@ class Route:
     backend_id: str
     """
     ID of the target backend.
+    """
+
+    zone: ScwZone
+    """
+    The zone the route is in.
+    """
+
+    srn: str
+    """
+    The SRN of the route.
     """
 
     match: Optional[RouteMatch] = None
