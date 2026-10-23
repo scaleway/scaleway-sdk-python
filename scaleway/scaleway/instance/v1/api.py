@@ -9,7 +9,9 @@ from scaleway_core.bridge import (
     Zone as ScwZone,
 )
 from scaleway_core.utils import (
+    OneOfPossibility,
     random_name,
+    resolve_one_of,
     validate_path_param,
     fetch_all_pages,
 )
@@ -3571,6 +3573,8 @@ class InstanceV1API(API):
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         type_: Optional[str] = None,
+        server: Optional[str] = None,
+        detached: Optional[bool] = None,
     ) -> ListIpsResponse:
         """
         List all flexible IPs.
@@ -3583,6 +3587,10 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
+        :param server:
+        One-Of ('kind'): at most one of 'server', 'detached' could be set.
+        :param detached:
+        One-Of ('kind'): at most one of 'server', 'detached' could be set.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -3604,6 +3612,12 @@ class InstanceV1API(API):
                 "project": project or self.client.default_project_id,
                 "tags": ",".join(tags) if tags and len(tags) > 0 else None,
                 "type": type_,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility("detached", detached),
+                        OneOfPossibility("server", server),
+                    ]
+                ),
             },
         )
 
@@ -3621,6 +3635,8 @@ class InstanceV1API(API):
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         type_: Optional[str] = None,
+        server: Optional[str] = None,
+        detached: Optional[bool] = None,
     ) -> list[Ip]:
         """
         List all flexible IPs.
@@ -3633,6 +3649,10 @@ class InstanceV1API(API):
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
+        :param server:
+        One-Of ('kind'): at most one of 'server', 'detached' could be set.
+        :param detached:
+        One-Of ('kind'): at most one of 'server', 'detached' could be set.
         :return: :class:`list[Ip] <list[Ip]>`
 
         Usage:
@@ -3654,6 +3674,8 @@ class InstanceV1API(API):
                 "per_page": per_page,
                 "page": page,
                 "type_": type_,
+                "server": server,
+                "detached": detached,
             },
         )
 
