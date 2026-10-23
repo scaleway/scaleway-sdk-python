@@ -173,6 +173,12 @@ def unmarshal_Ip(data: Any) -> Ip:
     else:
         args["zone"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("lb_id", None)
     if field is not None:
         args["lb_id"] = field
@@ -241,6 +247,18 @@ def unmarshal_Subscriber(data: Any) -> Subscriber:
         args["name"] = field
     else:
         args["name"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("email_config", None)
     if field is not None:
@@ -650,6 +668,12 @@ def unmarshal_Lb(data: Any) -> Lb:
     else:
         args["zone"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("subscriber", None)
     if field is not None:
         args["subscriber"] = unmarshal_Subscriber(field)
@@ -733,18 +757,6 @@ def unmarshal_Backend(data: Any) -> Backend:
     else:
         args["pool"] = []
 
-    field = data.get("on_marked_down_action", None)
-    if field is not None:
-        args["on_marked_down_action"] = field
-    else:
-        args["on_marked_down_action"] = OnMarkedDownAction.ON_MARKED_DOWN_ACTION_NONE
-
-    field = data.get("proxy_protocol", None)
-    if field is not None:
-        args["proxy_protocol"] = field
-    else:
-        args["proxy_protocol"] = ProxyProtocol.PROXY_PROTOCOL_UNKNOWN
-
     field = data.get("health_check", None)
     if field is not None:
         args["health_check"] = unmarshal_HealthCheck(field)
@@ -781,6 +793,18 @@ def unmarshal_Backend(data: Any) -> Backend:
     else:
         args["timeout_tunnel"] = None
 
+    field = data.get("on_marked_down_action", None)
+    if field is not None:
+        args["on_marked_down_action"] = field
+    else:
+        args["on_marked_down_action"] = OnMarkedDownAction.ON_MARKED_DOWN_ACTION_NONE
+
+    field = data.get("proxy_protocol", None)
+    if field is not None:
+        args["proxy_protocol"] = field
+    else:
+        args["proxy_protocol"] = ProxyProtocol.PROXY_PROTOCOL_UNKNOWN
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -810,6 +834,18 @@ def unmarshal_Backend(data: Any) -> Backend:
         args["ignore_ssl_server_verify"] = field
     else:
         args["ignore_ssl_server_verify"] = False
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("redispatch_attempt_count", None)
     if field is not None:
@@ -916,6 +952,18 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     else:
         args["name"] = None
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -969,6 +1017,12 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     else:
         args["certificate_ids"] = []
 
+    field = data.get("enable_http3", None)
+    if field is not None:
+        args["enable_http3"] = field
+    else:
+        args["enable_http3"] = False
+
     field = data.get("backend", None)
     if field is not None:
         args["backend"] = unmarshal_Backend(field)
@@ -987,17 +1041,23 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     else:
         args["timeout_client"] = None
 
-    field = data.get("enable_http3", None)
-    if field is not None:
-        args["enable_http3"] = field
-    else:
-        args["enable_http3"] = False
-
     field = data.get("enable_access_logs", None)
     if field is not None:
         args["enable_access_logs"] = field
     else:
         args["enable_access_logs"] = False
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("certificate", None)
     if field is not None:
@@ -1156,6 +1216,18 @@ def unmarshal_Acl(data: Any) -> Acl:
         args["description"] = field
     else:
         args["description"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("match", None)
     if field is not None:
@@ -1360,6 +1432,18 @@ def unmarshal_Route(data: Any) -> Route:
         args["backend_id"] = field
     else:
         args["backend_id"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("match", None)
     if field is not None:
@@ -1668,6 +1752,12 @@ def unmarshal_LbType(data: Any) -> LbType:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("region", None)
     if field is not None:
