@@ -39,6 +39,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     INSTANCE_IP = "instance_ip"
     INSTANCE_PRIVATE_NIC = "instance_private_nic"
     LB_SERVER = "lb_server"
+    LB_IP = "lb_ip"
     FIP_IP = "fip_ip"
     VPC_GATEWAY = "vpc_gateway"
     VPC_GATEWAY_NETWORK = "vpc_gateway_network"
