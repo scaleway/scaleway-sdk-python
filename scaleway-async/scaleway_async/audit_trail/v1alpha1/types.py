@@ -1098,6 +1098,11 @@ class AlertRule:
     ID of the alert rule.
     """
 
+    srn: str
+    """
+    The SRN of the alert rule.
+    """
+
     name: str
     """
     Name of the alert rule.
@@ -1111,6 +1116,11 @@ class AlertRule:
     status: AlertRuleStatus
     """
     Current status of the alert rule.
+    """
+
+    region: ScwRegion
+    """
+    Region of the alert rule.
     """
 
 
