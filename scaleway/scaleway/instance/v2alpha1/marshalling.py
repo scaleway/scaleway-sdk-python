@@ -1027,12 +1027,6 @@ def unmarshal_PrivateNetworkInterfaceSummary(
     else:
         args["server_id"] = None
 
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
@@ -1871,12 +1865,6 @@ def unmarshal_PrivateNetworkInterface(data: Any) -> PrivateNetworkInterface:
     else:
         args["server_id"] = None
 
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
@@ -2409,12 +2397,6 @@ def unmarshal_CreateTemplateRequestPrivateNetworkTemplate(
     else:
         args["private_network_id"] = None
 
-    field = data.get("security_group_id", None)
-    if field is not None:
-        args["security_group_id"] = field
-    else:
-        args["security_group_id"] = None
-
     return CreateTemplateRequestPrivateNetworkTemplate(**args)
 
 
@@ -2795,9 +2777,6 @@ def marshal_CreatePrivateNetworkInterfaceRequest(
     if request.server_id is not None:
         output["server_id"] = request.server_id
 
-    if request.security_group_id is not None:
-        output["security_group_id"] = request.security_group_id
-
     if request.ip_ids is not None:
         output["ip_ids"] = request.ip_ids
 
@@ -3026,9 +3005,6 @@ def marshal_CreateTemplateRequestPrivateNetworkTemplate(
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
-
-    if request.security_group_id is not None:
-        output["security_group_id"] = request.security_group_id
 
     return output
 
@@ -3360,9 +3336,6 @@ def marshal_UpdatePrivateNetworkInterfaceRequest(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
-
-    if request.security_group_id is not None:
-        output["security_group_id"] = request.security_group_id
 
     if request.tags is not None:
         output["tags"] = request.tags

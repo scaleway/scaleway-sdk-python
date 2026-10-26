@@ -526,11 +526,6 @@ class CreateTemplateRequestPrivateNetworkTemplate:
     ID of the private network.
     """
 
-    security_group_id: Optional[str] = None
-    """
-    ID of the security group for the private network.
-    """
-
 
 @dataclass
 class CreateTemplateRequestVolumeTemplate:
@@ -889,11 +884,6 @@ class PrivateNetworkInterfaceSummary:
     server_id: str
     """
     ID of the Instance this interface is attached to.
-    """
-
-    security_group_id: str
-    """
-    ID of the security group associated with this interface.
     """
 
     mac_address: str
@@ -1622,11 +1612,6 @@ class CreatePrivateNetworkInterfaceRequest:
     server_id: Optional[str] = None
     """
     ID of the Instance to attach the interface to.
-    """
-
-    security_group_id: Optional[str] = None
-    """
-    ID of the security group to associate with the interface.
     """
 
     ip_ids: Optional[list[str]] = field(default_factory=list)
@@ -2439,11 +2424,6 @@ class ListPrivateNetworkInterfacesRequest:
     Filter by server IDs.
     """
 
-    security_group_ids: Optional[list[str]] = field(default_factory=list)
-    """
-    Filter by security group IDs.
-    """
-
     private_network_ids: Optional[list[str]] = field(default_factory=list)
     """
     Filter by Private Network IDs.
@@ -2936,11 +2916,6 @@ class PrivateNetworkInterface:
     server_id: str
     """
     ID of the Instance this interface is attached to.
-    """
-
-    security_group_id: str
-    """
-    ID of the security group associated with this interface.
     """
 
     mac_address: str
@@ -3523,11 +3498,6 @@ class UpdatePrivateNetworkInterfaceRequest:
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    security_group_id: Optional[str] = None
-    """
-    New security group ID to associate with the interface.
     """
 
     tags: Optional[list[str]] = field(default_factory=list)

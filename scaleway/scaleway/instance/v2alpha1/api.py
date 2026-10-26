@@ -1272,7 +1272,6 @@ class InstanceV2Alpha1API(API):
         order_by: Optional[ListPrivateNetworkInterfacesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         server_ids: Optional[list[str]] = None,
-        security_group_ids: Optional[list[str]] = None,
         private_network_ids: Optional[list[str]] = None,
         tags: Optional[list[str]] = None,
     ) -> ListPrivateNetworkInterfacesResponse:
@@ -1285,7 +1284,6 @@ class InstanceV2Alpha1API(API):
         :param order_by: Field to order results by.
         :param project_id: Filter by Project ID.
         :param server_ids: Filter by server IDs.
-        :param security_group_ids: Filter by security group IDs.
         :param private_network_ids: Filter by Private Network IDs.
         :param tags: Filter by tags.
         :return: :class:`ListPrivateNetworkInterfacesResponse <ListPrivateNetworkInterfacesResponse>`
@@ -1307,7 +1305,6 @@ class InstanceV2Alpha1API(API):
                 "page_token": page_token,
                 "private_network_ids": private_network_ids,
                 "project_id": project_id or self.client.default_project_id,
-                "security_group_ids": security_group_ids,
                 "server_ids": server_ids,
                 "tags": tags,
             },
@@ -1323,7 +1320,6 @@ class InstanceV2Alpha1API(API):
         zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         server_id: Optional[str] = None,
-        security_group_id: Optional[str] = None,
         ip_ids: Optional[list[str]] = None,
         tags: Optional[list[str]] = None,
     ) -> PrivateNetworkInterface:
@@ -1334,7 +1330,6 @@ class InstanceV2Alpha1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Project ID for the private network interface.
         :param server_id: ID of the Instance to attach the interface to.
-        :param security_group_id: ID of the security group to associate with the interface.
         :param ip_ids: List of IP IDs to attach to the interface.
         :param tags: Tags to assign to the private network interface.
         :return: :class:`PrivateNetworkInterface <PrivateNetworkInterface>`
@@ -1358,7 +1353,6 @@ class InstanceV2Alpha1API(API):
                     zone=zone,
                     project_id=project_id,
                     server_id=server_id,
-                    security_group_id=security_group_id,
                     ip_ids=ip_ids,
                     tags=tags,
                 ),
@@ -1447,7 +1441,6 @@ class InstanceV2Alpha1API(API):
         *,
         private_network_interface_id: str,
         zone: Optional[ScwZone] = None,
-        security_group_id: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> PrivateNetworkInterface:
         """
@@ -1455,7 +1448,6 @@ class InstanceV2Alpha1API(API):
         Update the properties of a specified private network interface.
         :param private_network_interface_id: ID of the private network interface to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param security_group_id: New security group ID to associate with the interface.
         :param tags: New tags to assign to the private network interface.
         :return: :class:`PrivateNetworkInterface <PrivateNetworkInterface>`
 
@@ -1479,7 +1471,6 @@ class InstanceV2Alpha1API(API):
                 UpdatePrivateNetworkInterfaceRequest(
                     private_network_interface_id=private_network_interface_id,
                     zone=zone,
-                    security_group_id=security_group_id,
                     tags=tags,
                 ),
                 self.client,
