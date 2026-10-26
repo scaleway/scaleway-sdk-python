@@ -668,9 +668,9 @@ class AlertManager:
     Alert manager information.
     """
 
-    id: str
+    project_id: str
     """
-    Alert manager id.
+    ID of the project.
     """
 
     alert_manager_enabled: bool
@@ -983,6 +983,16 @@ class Grafana:
     grafana_url: str
     """
     URL to access your Cockpit's Grafana.
+    """
+
+    project_id: str
+    """
+    ID of the project.
+    """
+
+    srn: str
+    """
+    The SRN of the grafana.
     """
 
 

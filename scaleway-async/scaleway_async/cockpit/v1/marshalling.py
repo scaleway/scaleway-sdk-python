@@ -539,11 +539,11 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
 
     args: dict[str, Any] = {}
 
-    field = data.get("id", None)
+    field = data.get("project_id", None)
     if field is not None:
-        args["id"] = field
+        args["project_id"] = field
     else:
-        args["id"] = None
+        args["project_id"] = None
 
     field = data.get("alert_manager_enabled", None)
     if field is not None:
@@ -755,6 +755,18 @@ def unmarshal_Grafana(data: Any) -> Grafana:
         args["grafana_url"] = field
     else:
         args["grafana_url"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     return Grafana(**args)
 
