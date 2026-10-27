@@ -15,6 +15,7 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    CommitmentPeriod,
     IPReverseStatus,
     IPVersion,
     MemoryEccType,
@@ -40,6 +41,7 @@ from .types import (
     PrivateNetworkOption,
     PublicBandwidthOption,
     RemoteAccessOption,
+    ServerCommitment,
     ServerInstall,
     ServerOption,
     ServerRescueServer,
@@ -50,6 +52,7 @@ from .types import (
     Disk,
     GPU,
     Memory,
+    OfferCommitment,
     OfferOptionOffer,
     PersistentMemory,
     RaidController,
@@ -81,8 +84,10 @@ from .types import (
     StartBMCAccessRequest,
     StartServerRequest,
     UpdateIPRequest,
+    UpdateServerCommitmentRequest,
     UpdateServerRequest,
     UpdateSettingRequest,
+    UpgradeServerCommitmentRequest,
     ValidatePartitioningSchemaRequest,
 )
 
@@ -428,6 +433,53 @@ def unmarshal_RemoteAccessOption(data: Any) -> RemoteAccessOption:
     return RemoteAccessOption(**args)
 
 
+def unmarshal_ServerCommitment(data: Any) -> ServerCommitment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerCommitment' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("period", None)
+    if field is not None:
+        args["period"] = field
+    else:
+        args["period"] = CommitmentPeriod.UNKNOWN_PERIOD
+
+    field = data.get("discount_rate_percent", None)
+    if field is not None:
+        args["discount_rate_percent"] = field
+    else:
+        args["discount_rate_percent"] = 0
+
+    field = data.get("auto_renewal", None)
+    if field is not None:
+        args["auto_renewal"] = field
+    else:
+        args["auto_renewal"] = False
+
+    field = data.get("started_at", None)
+    if field is not None:
+        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
+
+    field = data.get("renew_at", None)
+    if field is not None:
+        args["renew_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["renew_at"] = None
+
+    field = data.get("end_at", None)
+    if field is not None:
+        args["end_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["end_at"] = None
+
+    return ServerCommitment(**args)
+
+
 def unmarshal_ServerInstall(data: Any) -> ServerInstall:
     if not isinstance(data, dict):
         raise TypeError(
@@ -649,18 +701,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["offer_name"] = None
 
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -672,6 +712,18 @@ def unmarshal_Server(data: Any) -> Server:
         args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
     else:
         args["ips"] = []
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("domain", None)
     if field is not None:
@@ -711,6 +763,12 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["protected"] = False
 
+    field = data.get("scheduled_deletion", None)
+    if field is not None:
+        args["scheduled_deletion"] = field
+    else:
+        args["scheduled_deletion"] = False
+
     field = data.get("install", None)
     if field is not None:
         args["install"] = unmarshal_ServerInstall(field)
@@ -728,6 +786,20 @@ def unmarshal_Server(data: Any) -> Server:
         args["user_data"] = field
     else:
         args["user_data"] = None
+
+    field = data.get("commitment", None)
+    if field is not None:
+        args["commitment"] = unmarshal_ServerCommitment(field)
+    else:
+        args["commitment"] = None
+
+    field = data.get("scheduled_deletion_at", None)
+    if field is not None:
+        args["scheduled_deletion_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["scheduled_deletion_at"] = None
 
     return Server(**args)
 
@@ -1008,6 +1080,35 @@ def unmarshal_Memory(data: Any) -> Memory:
     return Memory(**args)
 
 
+def unmarshal_OfferCommitment(data: Any) -> OfferCommitment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'OfferCommitment' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("period", None)
+    if field is not None:
+        args["period"] = field
+    else:
+        args["period"] = CommitmentPeriod.UNKNOWN_PERIOD
+
+    field = data.get("discount_rate_percent", None)
+    if field is not None:
+        args["discount_rate_percent"] = field
+    else:
+        args["discount_rate_percent"] = 0
+
+    field = data.get("no_fee", None)
+    if field is not None:
+        args["no_fee"] = field
+    else:
+        args["no_fee"] = False
+
+    return OfferCommitment(**args)
+
+
 def unmarshal_OfferOptionOffer(data: Any) -> OfferOptionOffer:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1203,6 +1304,18 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["enable"] = False
 
+    field = data.get("price_per_hour", None)
+    if field is not None:
+        args["price_per_hour"] = unmarshal_Money(field)
+    else:
+        args["price_per_hour"] = None
+
+    field = data.get("price_per_month", None)
+    if field is not None:
+        args["price_per_month"] = unmarshal_Money(field)
+    else:
+        args["price_per_month"] = None
+
     field = data.get("cpus", None)
     if field is not None:
         args["cpus"] = [unmarshal_CPU(v) for v in field] if field is not None else None
@@ -1216,18 +1329,6 @@ def unmarshal_Offer(data: Any) -> Offer:
         )
     else:
         args["memories"] = []
-
-    field = data.get("price_per_hour", None)
-    if field is not None:
-        args["price_per_hour"] = unmarshal_Money(field)
-    else:
-        args["price_per_hour"] = None
-
-    field = data.get("price_per_month", None)
-    if field is not None:
-        args["price_per_month"] = unmarshal_Money(field)
-    else:
-        args["price_per_month"] = None
 
     field = data.get("quota_name", None)
     if field is not None:
@@ -1273,12 +1374,6 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["operation_path"] = None
 
-    field = data.get("fee", None)
-    if field is not None:
-        args["fee"] = unmarshal_Money(field)
-    else:
-        args["fee"] = None
-
     field = data.get("options", None)
     if field is not None:
         args["options"] = (
@@ -1294,6 +1389,12 @@ def unmarshal_Offer(data: Any) -> Offer:
         args["private_bandwidth"] = field
     else:
         args["private_bandwidth"] = 0
+
+    field = data.get("fee", None)
+    if field is not None:
+        args["fee"] = unmarshal_Money(field)
+    else:
+        args["fee"] = None
 
     field = data.get("shared_bandwidth", None)
     if field is not None:
@@ -1312,6 +1413,14 @@ def unmarshal_Offer(data: Any) -> Offer:
         args["gpus"] = [unmarshal_GPU(v) for v in field] if field is not None else None
     else:
         args["gpus"] = []
+
+    field = data.get("commitments_available", None)
+    if field is not None:
+        args["commitments_available"] = (
+            [unmarshal_OfferCommitment(v) for v in field] if field is not None else None
+        )
+    else:
+        args["commitments_available"] = []
 
     field = data.get("zone", None)
     if field is not None:
@@ -2017,6 +2126,9 @@ def marshal_CreateServerRequest(
     if request.user_data is not None:
         output["user_data"] = request.user_data
 
+    if request.commitment_period is not None:
+        output["commitment_period"] = request.commitment_period
+
     return output
 
 
@@ -2192,6 +2304,18 @@ def marshal_UpdateIPRequest(
     return output
 
 
+def marshal_UpdateServerCommitmentRequest(
+    request: UpdateServerCommitmentRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.auto_renewal is not None:
+        output["auto_renewal"] = request.auto_renewal
+
+    return output
+
+
 def marshal_UpdateServerRequest(
     request: UpdateServerRequest,
     defaults: ProfileDefaults,
@@ -2213,6 +2337,9 @@ def marshal_UpdateServerRequest(
     if request.user_data is not None:
         output["user_data"] = request.user_data
 
+    if request.scheduled_deletion is not None:
+        output["scheduled_deletion"] = request.scheduled_deletion
+
     return output
 
 
@@ -2224,6 +2351,18 @@ def marshal_UpdateSettingRequest(
 
     if request.enabled is not None:
         output["enabled"] = request.enabled
+
+    return output
+
+
+def marshal_UpgradeServerCommitmentRequest(
+    request: UpgradeServerCommitmentRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.period is not None:
+        output["period"] = request.period
 
     return output
 

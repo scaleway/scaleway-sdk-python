@@ -161,11 +161,6 @@ class Volume:
     Size of the Volume.
     """
 
-    deployment_id: str
-    """
-    ID of the deployment.
-    """
-
 
 @dataclass
 class NodeTypeVolumeType:
