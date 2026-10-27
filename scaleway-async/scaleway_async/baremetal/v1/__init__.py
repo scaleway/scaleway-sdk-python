@@ -1,5 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+from .types import CommitmentPeriod
 from .types import IPReverseStatus
 from .types import IPVersion
 from .types import ListServerEventsRequestOrderBy
@@ -37,6 +38,7 @@ from .types import PublicBandwidthOption
 from .types import RemoteAccessOption
 from .types import CreateServerRequestInstall
 from .types import IP
+from .types import ServerCommitment
 from .types import ServerInstall
 from .types import ServerOption
 from .types import ServerRescueServer
@@ -45,6 +47,7 @@ from .types import CPU
 from .types import Disk
 from .types import GPU
 from .types import Memory
+from .types import OfferCommitment
 from .types import OfferOptionOffer
 from .types import PersistentMemory
 from .types import RaidController
@@ -97,13 +100,16 @@ from .types import StartServerRequest
 from .types import StopBMCAccessRequest
 from .types import StopServerRequest
 from .types import UpdateIPRequest
+from .types import UpdateServerCommitmentRequest
 from .types import UpdateServerRequest
 from .types import UpdateSettingRequest
+from .types import UpgradeServerCommitmentRequest
 from .types import ValidatePartitioningSchemaRequest
 from .api import BaremetalV1API
 from .api import BaremetalV1PrivateNetworkAPI
 
 __all__ = [
+    "CommitmentPeriod",
     "IPReverseStatus",
     "IPVersion",
     "ListServerEventsRequestOrderBy",
@@ -141,6 +147,7 @@ __all__ = [
     "RemoteAccessOption",
     "CreateServerRequestInstall",
     "IP",
+    "ServerCommitment",
     "ServerInstall",
     "ServerOption",
     "ServerRescueServer",
@@ -149,6 +156,7 @@ __all__ = [
     "Disk",
     "GPU",
     "Memory",
+    "OfferCommitment",
     "OfferOptionOffer",
     "PersistentMemory",
     "RaidController",
@@ -201,8 +209,10 @@ __all__ = [
     "StopBMCAccessRequest",
     "StopServerRequest",
     "UpdateIPRequest",
+    "UpdateServerCommitmentRequest",
     "UpdateServerRequest",
     "UpdateSettingRequest",
+    "UpgradeServerCommitmentRequest",
     "ValidatePartitioningSchemaRequest",
     "BaremetalV1API",
     "BaremetalV1PrivateNetworkAPI",
