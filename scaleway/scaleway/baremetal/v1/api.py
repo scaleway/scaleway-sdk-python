@@ -16,6 +16,7 @@ from scaleway_core.utils import (
     wait_for_resource,
 )
 from .types import (
+    CommitmentPeriod,
     ListServerEventsRequestOrderBy,
     ListServerPrivateNetworksRequestOrderBy,
     ListServersRequestOrderBy,
@@ -54,8 +55,10 @@ from .types import (
     StartBMCAccessRequest,
     StartServerRequest,
     UpdateIPRequest,
+    UpdateServerCommitmentRequest,
     UpdateServerRequest,
     UpdateSettingRequest,
+    UpgradeServerCommitmentRequest,
     ValidatePartitioningSchemaRequest,
 )
 from .content import (
@@ -91,8 +94,10 @@ from .marshalling import (
     marshal_StartBMCAccessRequest,
     marshal_StartServerRequest,
     marshal_UpdateIPRequest,
+    marshal_UpdateServerCommitmentRequest,
     marshal_UpdateServerRequest,
     marshal_UpdateSettingRequest,
+    marshal_UpgradeServerCommitmentRequest,
     marshal_ValidatePartitioningSchemaRequest,
 )
 
@@ -295,6 +300,7 @@ class BaremetalV1API(API):
         install: Optional[CreateServerRequestInstall] = None,
         option_ids: Optional[list[str]] = None,
         user_data: Optional[str] = None,
+        commitment_period: Optional[CommitmentPeriod] = None,
     ) -> Server:
         """
         Create an Elastic Metal server.
@@ -312,6 +318,7 @@ class BaremetalV1API(API):
         :param install: Object describing the configuration details of the OS installation on the server.
         :param option_ids: IDs of options to enable on server.
         :param user_data: Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
+        :param commitment_period: Commitment period to subscribe.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -341,6 +348,7 @@ class BaremetalV1API(API):
                     install=install,
                     option_ids=option_ids,
                     user_data=user_data,
+                    commitment_period=commitment_period,
                     project_id=project_id,
                     organization_id=organization_id,
                 ),
@@ -400,6 +408,7 @@ class BaremetalV1API(API):
         tags: Optional[list[str]] = None,
         protected: Optional[bool] = None,
         user_data: Optional[str] = None,
+        scheduled_deletion: Optional[bool] = None,
     ) -> Server:
         """
         Update an Elastic Metal server.
@@ -411,6 +420,7 @@ class BaremetalV1API(API):
         :param tags: Tags associated with the server, not updated if null.
         :param protected: If enabled, the server can not be deleted.
         :param user_data: Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
+        :param scheduled_deletion: Set false to cancel the scheduled deletion of the server.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -436,6 +446,7 @@ class BaremetalV1API(API):
                     tags=tags,
                     protected=protected,
                     user_data=user_data,
+                    scheduled_deletion=scheduled_deletion,
                 ),
                 self.client,
             ),
@@ -869,6 +880,91 @@ class BaremetalV1API(API):
         )
 
         self._throw_on_error(res)
+
+    def upgrade_server_commitment(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[ScwZone] = None,
+        period: Optional[CommitmentPeriod] = None,
+    ) -> Server:
+        """
+        Upgrade a commitment.
+        Start a commitment or upgrade an existing commitment on a server.
+        :param server_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param period:
+        :return: :class:`Server <Server>`
+
+        Usage:
+        ::
+
+            result = api.upgrade_server_commitment(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/upgrade-commitment",
+            body=marshal_UpgradeServerCommitmentRequest(
+                UpgradeServerCommitmentRequest(
+                    server_id=server_id,
+                    zone=zone,
+                    period=period,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Server(res.json())
+
+    def update_server_commitment(
+        self,
+        *,
+        server_id: str,
+        auto_renewal: bool,
+        zone: Optional[ScwZone] = None,
+    ) -> Server:
+        """
+        Update a commitment.
+        Update an existing commitment on a server to enable/disable auto-renewal.
+        :param server_id:
+        :param auto_renewal:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Server <Server>`
+
+        Usage:
+        ::
+
+            result = api.update_server_commitment(
+                server_id="example",
+                auto_renewal=False,
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/update-commitment",
+            body=marshal_UpdateServerCommitmentRequest(
+                UpdateServerCommitmentRequest(
+                    server_id=server_id,
+                    auto_renewal=auto_renewal,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Server(res.json())
 
     def start_bmc_access(
         self,

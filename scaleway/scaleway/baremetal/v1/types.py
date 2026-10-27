@@ -18,6 +18,18 @@ from scaleway_core.utils import (
 )
 
 
+class CommitmentPeriod(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PERIOD = "unknown_period"
+    ONE_MONTH = "one_month"
+    SIX_MONTHS = "six_months"
+    ONE_YEAR = "one_year"
+    TWO_YEARS = "two_years"
+    THREE_YEARS = "three_years"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class IPReverseStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     PENDING = "pending"
@@ -390,6 +402,39 @@ class IP:
 
 
 @dataclass
+class ServerCommitment:
+    period: CommitmentPeriod
+    """
+    Commitment period subscribed.
+    """
+
+    discount_rate_percent: int
+    """
+    Discount rate for the commitment period.
+    """
+
+    auto_renewal: bool
+    """
+    Flag for automatic renewal commitment.
+    """
+
+    started_at: Optional[datetime] = None
+    """
+    Start of commitment subscribed.
+    """
+
+    renew_at: Optional[datetime] = None
+    """
+    Next renew of commitment subscribed.
+    """
+
+    end_at: Optional[datetime] = None
+    """
+    End of commitment subscribed.
+    """
+
+
+@dataclass
 class ServerInstall:
     os_id: str
     """
@@ -583,6 +628,24 @@ class Memory:
 
 
 @dataclass
+class OfferCommitment:
+    period: CommitmentPeriod
+    """
+    Commitment period.
+    """
+
+    discount_rate_percent: int
+    """
+    Discount rate for the commitment period.
+    """
+
+    no_fee: bool
+    """
+    Fee not mandatory.
+    """
+
+
+@dataclass
 class OfferOptionOffer:
     id: str
     """
@@ -709,6 +772,11 @@ class CreateServerRequest:
     Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
     """
 
+    commitment_period: Optional[CommitmentPeriod] = CommitmentPeriod.UNKNOWN_PERIOD
+    """
+    Commitment period to subscribe.
+    """
+
     project_id: Optional[str] = None
 
     organization_id: Optional[str] = None
@@ -796,6 +864,11 @@ class Server:
     If enabled, the server can not be deleted.
     """
 
+    scheduled_deletion: bool
+    """
+    True if a deletion is scheduled.
+    """
+
     updated_at: Optional[datetime] = None
     """
     Last modification date of the server.
@@ -819,6 +892,16 @@ class Server:
     user_data: Optional[str] = None
     """
     Optional configuration data passed to cloud-init.
+    """
+
+    commitment: Optional[ServerCommitment] = None
+    """
+    Commitment subscribed for the server.
+    """
+
+    scheduled_deletion_at: Optional[datetime] = None
+    """
+    Date on which the server will be deleted.
     """
 
 
@@ -1020,6 +1103,11 @@ class Offer:
     gpus: list[GPU]
     """
     GPU specifications of the offer.
+    """
+
+    commitments_available: list[OfferCommitment]
+    """
+    List all available commitments on the offer.
     """
 
     zone: ScwZone
@@ -1955,6 +2043,16 @@ class UpdateIPRequest:
 
 
 @dataclass
+class UpdateServerCommitmentRequest:
+    server_id: str
+    auto_renewal: bool
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class UpdateServerRequest:
     server_id: str
     """
@@ -1991,6 +2089,11 @@ class UpdateServerRequest:
     Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script.
     """
 
+    scheduled_deletion: Optional[bool] = False
+    """
+    Set false to cancel the scheduled deletion of the server.
+    """
+
 
 @dataclass
 class UpdateSettingRequest:
@@ -2008,6 +2111,17 @@ class UpdateSettingRequest:
     """
     Defines whether the setting is enabled.
     """
+
+
+@dataclass
+class UpgradeServerCommitmentRequest:
+    server_id: str
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    period: Optional[CommitmentPeriod] = None
 
 
 @dataclass
