@@ -716,6 +716,14 @@ class CreateServerRequestServerVolume:
 
 
 @dataclass
+class DedicatedPoolPhysicalHost:
+    id: str
+    """
+    The unique identifier of this physical host.
+    """
+
+
+@dataclass
 class DedicatedPoolServerType:
     name: str
     """
@@ -1401,6 +1409,11 @@ class ServerRuntimeInfo:
     True if the Instance is running as Spot.
     """
 
+    physical_host_id: str
+    """
+    The unique identifier of the physical server hosting this Instance.
+    """
+
 
 @dataclass
 class ServerVolume:
@@ -1872,6 +1885,11 @@ class DedicatedPool:
     tags: list[str]
     """
     Tags associated with the Dedicated Pool.
+    """
+
+    physical_hosts: list[DedicatedPoolPhysicalHost]
+    """
+    Physical hosts associated with the Dedicated Pool.
     """
 
     zone: ScwZone

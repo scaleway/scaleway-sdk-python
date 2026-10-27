@@ -32,6 +32,7 @@ from .types import (
     Snapshot,
     Volume,
     AddSecurityGroupRulesResponse,
+    DedicatedPoolPhysicalHost,
     DedicatedPool,
     ServerTypeGpuInfo,
     ServerTypeLimits,
@@ -593,6 +594,23 @@ def unmarshal_AddSecurityGroupRulesResponse(data: Any) -> AddSecurityGroupRulesR
     return AddSecurityGroupRulesResponse(**args)
 
 
+def unmarshal_DedicatedPoolPhysicalHost(data: Any) -> DedicatedPoolPhysicalHost:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DedicatedPoolPhysicalHost' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    return DedicatedPoolPhysicalHost(**args)
+
+
 def unmarshal_DedicatedPool(data: Any) -> DedicatedPool:
     if not isinstance(data, dict):
         raise TypeError(
@@ -630,6 +648,16 @@ def unmarshal_DedicatedPool(data: Any) -> DedicatedPool:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("physical_hosts", None)
+    if field is not None:
+        args["physical_hosts"] = (
+            [unmarshal_DedicatedPoolPhysicalHost(v) for v in field]
+            if field is not None
+            else None
+        )
+    else:
+        args["physical_hosts"] = []
 
     field = data.get("zone", None)
     if field is not None:
@@ -2213,6 +2241,12 @@ def unmarshal_ServerRuntimeInfo(data: Any) -> ServerRuntimeInfo:
         args["spot"] = field
     else:
         args["spot"] = False
+
+    field = data.get("physical_host_id", None)
+    if field is not None:
+        args["physical_host_id"] = field
+    else:
+        args["physical_host_id"] = None
 
     return ServerRuntimeInfo(**args)
 
