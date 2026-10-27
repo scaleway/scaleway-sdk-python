@@ -53,6 +53,7 @@ from .types import SecurityGroupRuleConfig
 from .types import SecurityGroup
 from .types import CreateServerRequestPublicNetworkInterface
 from .types import CreateServerRequestServerVolume
+from .types import DedicatedPoolPhysicalHost
 from .types import DedicatedPoolServerType
 from .types import DedicatedPoolSummary
 from .types import PlacementGroup
@@ -230,6 +231,7 @@ __all__ = [
     "SecurityGroup",
     "CreateServerRequestPublicNetworkInterface",
     "CreateServerRequestServerVolume",
+    "DedicatedPoolPhysicalHost",
     "DedicatedPoolServerType",
     "DedicatedPoolSummary",
     "PlacementGroup",

@@ -160,12 +160,6 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     else:
         args["name"] = None
 
-    field = data.get("size", None)
-    if field is not None:
-        args["size"] = field
-    else:
-        args["size"] = 0
-
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -207,6 +201,12 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
         args["parent_filesystem"] = unmarshal_SnapshotParentFilesystem(field)
     else:
         args["parent_filesystem"] = None
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+    else:
+        args["size"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
