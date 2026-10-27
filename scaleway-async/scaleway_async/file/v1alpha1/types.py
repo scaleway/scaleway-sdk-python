@@ -232,11 +232,6 @@ class Snapshot:
     Name of the snapshot.
     """
 
-    size: int
-    """
-    Snapshot size in bytes.
-    """
-
     status: SnapshotStatus
     """
     Current status of the snapshot (e.g. creating, available, ...).
@@ -270,6 +265,11 @@ class Snapshot:
     parent_filesystem: Optional[SnapshotParentFilesystem] = None
     """
     If the parent filesystem was deleted, value is null.
+    """
+
+    size: Optional[int] = 0
+    """
+    Snapshot size in bytes.
     """
 
     created_at: Optional[datetime] = None
