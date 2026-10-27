@@ -171,12 +171,6 @@ def unmarshal_Volume(data: Any) -> Volume:
     else:
         args["size_bytes"] = 0
 
-    field = data.get("deployment_id", None)
-    if field is not None:
-        args["deployment_id"] = field
-    else:
-        args["deployment_id"] = None
-
     return Volume(**args)
 
 
@@ -652,9 +646,6 @@ def marshal_Volume(
 
     if request.size_bytes is not None:
         output["size_bytes"] = request.size_bytes
-
-    if request.deployment_id is not None:
-        output["deployment_id"] = request.deployment_id
 
     return output
 
