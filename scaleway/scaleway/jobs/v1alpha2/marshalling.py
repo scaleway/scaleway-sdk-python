@@ -94,6 +94,12 @@ def unmarshal_Secret(data: Any) -> Secret:
     else:
         args["secret_id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("secret_manager_id", None)
     if field is not None:
         args["secret_manager_id"] = field
@@ -111,6 +117,12 @@ def unmarshal_Secret(data: Any) -> Secret:
         args["job_definition_id"] = field
     else:
         args["job_definition_id"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("file", None)
     if field is not None:
@@ -181,6 +193,12 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -205,6 +223,18 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     else:
         args["memory_limit"] = 0
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     field = data.get("local_storage_capacity", None)
     if field is not None:
         args["local_storage_capacity"] = field
@@ -222,30 +252,6 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
         args["environment_variables"] = field
     else:
         args["environment_variables"] = {}
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    field = data.get("command", None)
-    if field is not None:
-        args["command"] = field
-    else:
-        args["command"] = None
-
-    field = data.get("job_timeout", None)
-    if field is not None:
-        args["job_timeout"] = field
-    else:
-        args["job_timeout"] = None
 
     field = data.get("description", None)
     if field is not None:
@@ -270,6 +276,18 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
         args["region"] = field
     else:
         args["region"] = None
+
+    field = data.get("command", None)
+    if field is not None:
+        args["command"] = field
+    else:
+        args["command"] = None
+
+    field = data.get("job_timeout", None)
+    if field is not None:
+        args["job_timeout"] = field
+    else:
+        args["job_timeout"] = None
 
     field = data.get("cron_schedule", None)
     if field is not None:
@@ -300,6 +318,12 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("job_definition_id", None)
     if field is not None:
         args["job_definition_id"] = field
@@ -311,12 +335,6 @@ def unmarshal_JobRun(data: Any) -> JobRun:
         args["state"] = field
     else:
         args["state"] = JobRunState.UNKNOWN_STATE
-
-    field = data.get("cpu_limit", None)
-    if field is not None:
-        args["cpu_limit"] = field
-    else:
-        args["cpu_limit"] = 0
 
     field = data.get("created_at", None)
     if field is not None:
@@ -335,6 +353,32 @@ def unmarshal_JobRun(data: Any) -> JobRun:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["started_at"] = None
+
+    field = data.get("terminated_at", None)
+    if field is not None:
+        args["terminated_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["terminated_at"] = None
+
+    field = data.get("run_duration", None)
+    if field is not None:
+        args["run_duration"] = field
+    else:
+        args["run_duration"] = None
+
+    field = data.get("reason", None)
+    if field is not None:
+        args["reason"] = field
+    else:
+        args["reason"] = JobRunReason.UNKNOWN_REASON
+
+    field = data.get("cpu_limit", None)
+    if field is not None:
+        args["cpu_limit"] = field
+    else:
+        args["cpu_limit"] = 0
 
     field = data.get("memory_limit", None)
     if field is not None:
@@ -371,26 +415,6 @@ def unmarshal_JobRun(data: Any) -> JobRun:
         args["region"] = field
     else:
         args["region"] = None
-
-    field = data.get("terminated_at", None)
-    if field is not None:
-        args["terminated_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["terminated_at"] = None
-
-    field = data.get("run_duration", None)
-    if field is not None:
-        args["run_duration"] = field
-    else:
-        args["run_duration"] = None
-
-    field = data.get("reason", None)
-    if field is not None:
-        args["reason"] = field
-    else:
-        args["reason"] = JobRunReason.UNKNOWN_REASON
 
     field = data.get("exit_code", None)
     if field is not None:
@@ -468,6 +492,12 @@ def unmarshal_Trigger(data: Any) -> Trigger:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("job_definition_id", None)
     if field is not None:
         args["job_definition_id"] = field
@@ -479,6 +509,12 @@ def unmarshal_Trigger(data: Any) -> Trigger:
         args["name"] = field
     else:
         args["name"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("created_at", None)
     if field is not None:

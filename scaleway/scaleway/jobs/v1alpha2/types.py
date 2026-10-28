@@ -151,6 +151,11 @@ class Secret:
     UUID of the secret reference within the job.
     """
 
+    srn: str
+    """
+    SRN of the secret reference.
+    """
+
     secret_manager_id: str
     """
     UUID of the secret in Secret Manager.
@@ -164,6 +169,11 @@ class Secret:
     job_definition_id: str
     """
     UUID of the job definition.
+    """
+
+    region: ScwRegion
+    """
+    Region in which the secret reference exists.
     """
 
     file: Optional[SecretFile] = None
@@ -199,6 +209,11 @@ class JobDefinition:
     id: str
     """
     UUID of the job definition.
+    """
+
+    srn: str
+    """
+    SRN of the job definition.
     """
 
     name: str
@@ -253,7 +268,7 @@ class JobDefinition:
 
     region: ScwRegion
     """
-    Region to target. If none is passed will use default region from the config.
+    Region in which the job definition exists.
     """
 
     created_at: Optional[datetime] = None
@@ -300,6 +315,11 @@ class JobRun:
     UUID of the job run.
     """
 
+    srn: str
+    """
+    SRN of the job run.
+    """
+
     job_definition_id: str
     """
     UUID of the job definition.
@@ -342,7 +362,7 @@ class JobRun:
 
     region: ScwRegion
     """
-    Region to target. If none is passed will use default region from the config.
+    Region in which the job run exists.
     """
 
     created_at: Optional[datetime] = None
@@ -403,6 +423,11 @@ class Trigger:
     UUID of the trigger.
     """
 
+    srn: str
+    """
+    SRN of the trigger.
+    """
+
     job_definition_id: str
     """
     UUID of the job definition.
@@ -411,6 +436,11 @@ class Trigger:
     name: str
     """
     Human readable name of the trigger.
+    """
+
+    region: ScwRegion
+    """
+    Region in which the trigger exists.
     """
 
     created_at: Optional[datetime] = None
