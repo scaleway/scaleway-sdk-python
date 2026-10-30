@@ -595,9 +595,9 @@ class WebhostingV1DatabaseAPI(API):
         """
         "Create a new database within your hosting plan".
         :param hosting_id: UUID of the hosting plan where the database will be created.
-        :param database_name: Name of the database to be created.
+        :param database_name: Name of the database to be created. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 64 characters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param new_user: (Optional) Username and password to create a user and link to the database.
+        :param new_user: (Optional) Username and password to create a user and link to the database. The username is prefixed the same way as `database_name`.
         One-Of ('user'): at most one of 'new_user', 'existing_username' could be set.
         :param existing_username: (Optional) Username to link an existing user to the database.
         One-Of ('user'): at most one of 'new_user', 'existing_username' could be set.
@@ -803,7 +803,7 @@ class WebhostingV1DatabaseAPI(API):
         """
         "Create a new database user".
         :param hosting_id: UUID of the hosting plan.
-        :param username: Name of the user to create.
+        :param username: Name of the user to create. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 32 characters.
         :param password: Password of the user to create.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DatabaseUser <DatabaseUser>`
