@@ -1279,7 +1279,7 @@ class DatabaseApiCreateDatabaseRequest:
 
     database_name: str
     """
-    Name of the database to be created.
+    Name of the database to be created. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 64 characters.
     """
 
     region: Optional[ScwRegion] = None
@@ -1301,7 +1301,7 @@ class DatabaseApiCreateDatabaseUserRequest:
 
     username: str
     """
-    Name of the user to create.
+    Name of the user to create. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 32 characters.
     """
 
     password: str
