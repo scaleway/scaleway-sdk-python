@@ -118,6 +118,12 @@ def unmarshal_Application(data: Any) -> Application:
     else:
         args["input_template"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     return Application(**args)
 
 
@@ -152,6 +158,12 @@ def unmarshal_Booking(data: Any) -> Booking:
         args["progress_message"] = field
     else:
         args["progress_message"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -214,6 +226,12 @@ def unmarshal_Job(data: Any) -> Job:
     else:
         args["session_id"] = None
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+    else:
+        args["status"] = JobStatus.UNKNOWN_STATUS
+
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -232,11 +250,11 @@ def unmarshal_Job(data: Any) -> Job:
     else:
         args["started_at"] = None
 
-    field = data.get("status", None)
+    field = data.get("srn", None)
     if field is not None:
-        args["status"] = field
+        args["srn"] = field
     else:
-        args["status"] = JobStatus.UNKNOWN_STATUS
+        args["srn"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
@@ -296,6 +314,12 @@ def unmarshal_Model(data: Any) -> Model:
         args["project_id"] = field
     else:
         args["project_id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -510,6 +534,12 @@ def unmarshal_Platform(data: Any) -> Platform:
     else:
         args["is_bookable"] = False
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("price_per_hour", None)
     if field is not None:
         args["price_per_hour"] = unmarshal_Money(field)
@@ -569,12 +599,6 @@ def unmarshal_Process(data: Any) -> Process:
     else:
         args["attached_session_ids"] = []
 
-    field = data.get("application_id", None)
-    if field is not None:
-        args["application_id"] = field
-    else:
-        args["application_id"] = None
-
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -592,6 +616,12 @@ def unmarshal_Process(data: Any) -> Process:
         args["tags"] = field
     else:
         args["tags"] = []
+
+    field = data.get("application_id", None)
+    if field is not None:
+        args["application_id"] = field
+    else:
+        args["application_id"] = None
 
     field = data.get("platform_id", None)
     if field is not None:
@@ -616,6 +646,12 @@ def unmarshal_Process(data: Any) -> Process:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("finished_at", None)
     if field is not None:
@@ -751,6 +787,12 @@ def unmarshal_Session(data: Any) -> Session:
         args["origin_type"] = field
     else:
         args["origin_type"] = SessionOriginType.UNKNOWN_ORIGIN_TYPE
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("origin_id", None)
     if field is not None:

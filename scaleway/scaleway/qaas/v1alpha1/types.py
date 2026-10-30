@@ -353,6 +353,11 @@ class Application:
     JSON format describing the expected input.
     """
 
+    srn: str
+    """
+    SRN of the application.
+    """
+
 
 @dataclass
 class Booking:
@@ -374,6 +379,11 @@ class Booking:
     progress_message: str
     """
     Any progress message of the booking.
+    """
+
+    srn: str
+    """
+    SRN of the booking.
     """
 
     created_at: Optional[datetime] = None
@@ -447,6 +457,11 @@ class Job:
     Job status.
     """
 
+    srn: str
+    """
+    SRN of the job.
+    """
+
     tags: Optional[list[str]] = field(default_factory=list)
     """
     Tags of the job.
@@ -503,6 +518,11 @@ class Model:
     project_id: str
     """
     Project ID in which the model has been created.
+    """
+
+    srn: str
+    """
+    SRN of the model.
     """
 
     created_at: Optional[datetime] = None
@@ -593,6 +613,11 @@ class Platform:
     Specify if the platform is bookable.
     """
 
+    srn: str
+    """
+    SRN of the platform.
+    """
+
     price_per_hour: Optional[Money] = None
     """
     Price to be paid per hour (excluding free tiers).
@@ -667,6 +692,11 @@ class Process:
     tags: list[str]
     """
     Tags of the process.
+    """
+
+    srn: str
+    """
+    SRN of the process.
     """
 
     application_id: Optional[str] = None
@@ -760,6 +790,11 @@ class Session:
     origin_type: SessionOriginType
     """
     Resource type that creates the session.
+    """
+
+    srn: str
+    """
+    SRN of the session.
     """
 
     created_at: Optional[datetime] = None
