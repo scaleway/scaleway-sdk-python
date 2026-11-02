@@ -40,7 +40,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.ruff.lint]
-ignore = ["E501"]
+ignore = ["E501", "ASYNC109"]
 select = [
     "ASYNC", # https://docs.astral.sh/ruff/rules/#flake8-async-async
     "B", # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
