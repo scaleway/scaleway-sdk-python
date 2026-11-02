@@ -94,6 +94,8 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     AUTOSCALING_GROUP = "autoscaling_group"
     WOFL_DEFINITION = "wofl_definition"
     WOFL_RUN = "wofl_run"
+    KVDB_INSTANCE = "kvdb_instance"
+    KVDB_SNAPSHOT = "kvdb_snapshot"
 
     def __str__(self) -> str:
         return str(self.value)
