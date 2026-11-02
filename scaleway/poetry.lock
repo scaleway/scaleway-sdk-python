@@ -981,14 +981,14 @@ zstd = ["backports-zstd (>=1.0.0) ; python_version < \"3.14\""]
 
 [[package]]
 name = "vcrpy"
-version = "8.3.0"
+version = "8.5.0"
 description = "Automatically mock your HTTP interactions to simplify and speed up testing"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "vcrpy-8.3.0-py3-none-any.whl", hash = "sha256:bd66e6143746778157f00e2a922527a8d96b2fdc350be8988a45a29c843815b9"},
-    {file = "vcrpy-8.3.0.tar.gz", hash = "sha256:46d64e77e8d95e5c76c7d9a94ff05d8b38b2ae4e1d4869eb0235024b6fcb5212"},
+    {file = "vcrpy-8.5.0-py3-none-any.whl", hash = "sha256:cebe4bf4f30f89a8f27525e7b7eca6eeb3231fa8427bbd117540f645dbadf951"},
+    {file = "vcrpy-8.5.0.tar.gz", hash = "sha256:93b65a1512d92c3985a3b731c5a9a4bc1447103d76b896c7d031b3b105e312b9"},
 ]
 
 [package.dependencies]
