@@ -754,6 +754,11 @@ class Contact:
     Status of the contact.
     """
 
+    srn: str
+    """
+    The SRN of the contact.
+    """
+
     extension_fr: Optional[ContactExtensionFR] = None
     """
     Additional information required for AFNIC-managed TLDs (.fr, .re, .pm, .yt, .wf, .tf).
@@ -856,6 +861,11 @@ class Tld:
     specifications: dict[str, str]
     """
     Additional specifications of the TLD.
+    """
+
+    srn: str
+    """
+    The SRN of the TLD.
     """
 
 
@@ -995,6 +1005,8 @@ class DNSZone:
     status: DNSZoneStatus
     project_id: str
     linked_products: list[LinkedProduct]
+    srn: str
+    dns_zone: str
     message: Optional[str] = None
     updated_at: Optional[datetime] = None
 
@@ -1139,6 +1151,11 @@ class DomainSummary:
     Indicates if a trade is ongoing.
     """
 
+    srn: str
+    """
+    The SRN of the domain.
+    """
+
     expired_at: Optional[datetime] = None
     """
     Date of expiration of the domain.
@@ -1226,6 +1243,11 @@ class RenewableDomain:
     The renewal status of the domain.
     """
 
+    srn: str
+    """
+    The SRN of the domain.
+    """
+
     renewable_duration_in_years: Optional[int] = 0
     """
     Duration in years for which the domain can be renewed.
@@ -1264,6 +1286,7 @@ class SSLCertificate:
     status: SSLCertificateStatus
     private_key: str
     certificate_chain: str
+    srn: str
     created_at: Optional[datetime] = None
     expired_at: Optional[datetime] = None
 
@@ -1293,6 +1316,11 @@ class Task:
     status: TaskStatus
     """
     The status of the task.
+    """
+
+    srn: str
+    """
+    The SRN of the task.
     """
 
     domain: Optional[str] = None
@@ -1533,6 +1561,11 @@ class Domain:
     pending_trade: bool
     """
     Indicates if a trade is ongoing.
+    """
+
+    srn: str
+    """
+    The SRN of the domain.
     """
 
     dnssec: Optional[DomainDNSSEC] = None

@@ -516,6 +516,12 @@ def unmarshal_Contact(data: Any) -> Contact:
     else:
         args["email_status"] = ContactEmailStatus.EMAIL_STATUS_UNKNOWN
 
+    field = data.get("state", None)
+    if field is not None:
+        args["state"] = field
+    else:
+        args["state"] = None
+
     field = data.get("extension_fr", None)
     if field is not None:
         args["extension_fr"] = unmarshal_ContactExtensionFR(field)
@@ -528,11 +534,11 @@ def unmarshal_Contact(data: Any) -> Contact:
     else:
         args["extension_eu"] = None
 
-    field = data.get("state", None)
+    field = data.get("extension_nl", None)
     if field is not None:
-        args["state"] = field
+        args["extension_nl"] = unmarshal_ContactExtensionNL(field)
     else:
-        args["state"] = None
+        args["extension_nl"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -540,11 +546,11 @@ def unmarshal_Contact(data: Any) -> Contact:
     else:
         args["status"] = ContactStatus.STATUS_UNKNOWN
 
-    field = data.get("extension_nl", None)
+    field = data.get("srn", None)
     if field is not None:
-        args["extension_nl"] = unmarshal_ContactExtensionNL(field)
+        args["srn"] = field
     else:
-        args["extension_nl"] = None
+        args["srn"] = None
 
     field = data.get("extension_it", None)
     if field is not None:
@@ -620,6 +626,18 @@ def unmarshal_DNSZone(data: Any) -> DNSZone:
         )
     else:
         args["linked_products"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("dns_zone", None)
+    if field is not None:
+        args["dns_zone"] = field
+    else:
+        args["dns_zone"] = None
 
     field = data.get("message", None)
     if field is not None:
@@ -709,6 +727,12 @@ def unmarshal_SSLCertificate(data: Any) -> SSLCertificate:
     else:
         args["certificate_chain"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -761,6 +785,12 @@ def unmarshal_Task(data: Any) -> Task:
         args["status"] = field
     else:
         args["status"] = TaskStatus.UNAVAILABLE
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("domain", None)
     if field is not None:
@@ -1146,6 +1176,12 @@ def unmarshal_Tld(data: Any) -> Tld:
     else:
         args["specifications"] = {}
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     return Tld(**args)
 
 
@@ -1244,6 +1280,12 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["pending_trade"] = field
     else:
         args["pending_trade"] = False
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("owner_contact", None)
     if field is not None:
@@ -2146,12 +2188,6 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
     else:
         args["updated_at"] = None
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
     field = data.get("registrar", None)
     if field is not None:
         args["registrar"] = field
@@ -2175,6 +2211,18 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
         args["pending_trade"] = field
     else:
         args["pending_trade"] = False
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("external_domain_registration_status", None)
     if field is not None:
@@ -2337,6 +2385,12 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
         args["status"] = field
     else:
         args["status"] = RenewableDomainStatus.UNKNOWN
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("renewable_duration_in_years", None)
     if field is not None:
