@@ -8,6 +8,8 @@ from .types import ListSnapshotsRequestOrderBy
 from .types import SnapshotStatus
 from .content import SNAPSHOT_TRANSIENT_STATUSES
 from .types import SnapshotParentFilesystem
+from .types import CreateFileSystemRequestFromEmpty
+from .types import CreateFileSystemRequestFromSnapshot
 from .types import Attachment
 from .types import FileSystemType
 from .types import FileSystem
@@ -39,6 +41,8 @@ __all__ = [
     "SnapshotStatus",
     "SNAPSHOT_TRANSIENT_STATUSES",
     "SnapshotParentFilesystem",
+    "CreateFileSystemRequestFromEmpty",
+    "CreateFileSystemRequestFromSnapshot",
     "Attachment",
     "FileSystemType",
     "FileSystem",
