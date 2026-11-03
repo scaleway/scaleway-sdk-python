@@ -85,6 +85,29 @@ class SnapshotParentFilesystem:
 
 
 @dataclass
+class CreateFileSystemRequestFromEmpty:
+    size: int
+    """
+    Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
+    """
+
+
+@dataclass
+class CreateFileSystemRequestFromSnapshot:
+    snapshot_id: str
+    """
+    Source snapshot from which the filesystem will be created.
+    """
+
+    size: Optional[int] = 0
+    """
+    Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
+Size is optional. When not set, the current size of the parent filesystem is used.
+When set, it must be greater than or equal to the snapshot size.
+    """
+
+
+@dataclass
 class Attachment:
     """
     Represents an attachment between a filesystem and a resource.
@@ -296,7 +319,9 @@ class CreateFileSystemRequest:
 
     size: int
     """
-    Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
+    Filesystem size in bytes, with a granularity in GB (10^9 bytes).
+Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
+Must not be set along with `from_empty` or `from_snapshot`.
     """
 
     region: Optional[ScwRegion] = None
@@ -318,6 +343,10 @@ class CreateFileSystemRequest:
     """
     List of tags assigned to the filesystem.
     """
+
+    from_empty: Optional[CreateFileSystemRequestFromEmpty] = None
+
+    from_snapshot: Optional[CreateFileSystemRequestFromSnapshot] = None
 
 
 @dataclass
