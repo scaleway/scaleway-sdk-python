@@ -323,6 +323,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     WOFL_WORKFLOW_DEFINITION = "wofl_workflow_definition"
     WOFL_WORKFLOW_RUN = "wofl_workflow_run"
     WOFL_WORKFLOW_VERSION = "wofl_workflow_version"
+    KAFK_CLUSTER = "kafk_cluster"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -510,6 +511,14 @@ class InstanceServerInfo:
 @dataclass
 class IpamIpInfo:
     address: str
+
+
+@dataclass
+class KafkClusterInfo:
+    version: str
+    tags: list[str]
+    endpoint: str
+    pn_id: str
 
 
 @dataclass
@@ -855,6 +864,8 @@ class Resource:
     wofl_workflow_run_info: Optional[WoflWorkflowRunInfo] = None
 
     wofl_workflow_version_info: Optional[WoflWorkflowVersionInfo] = None
+
+    kafk_cluster_info: Optional[KafkClusterInfo] = None
 
 
 @dataclass
