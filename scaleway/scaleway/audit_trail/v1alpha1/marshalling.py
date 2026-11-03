@@ -56,6 +56,7 @@ from .types import (
     InstancePrivateNetworkInterfaceInfo,
     InstanceServerInfo,
     IpamIpInfo,
+    KafkClusterInfo,
     KeyManagerKeyInfo,
     KubernetesACLInfo,
     KubernetesClusterInfo,
@@ -955,6 +956,41 @@ def unmarshal_IpamIpInfo(data: Any) -> IpamIpInfo:
         args["address"] = None
 
     return IpamIpInfo(**args)
+
+
+def unmarshal_KafkClusterInfo(data: Any) -> KafkClusterInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'KafkClusterInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = field
+    else:
+        args["version"] = None
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+    else:
+        args["tags"] = None
+
+    field = data.get("endpoint", None)
+    if field is not None:
+        args["endpoint"] = field
+    else:
+        args["endpoint"] = None
+
+    field = data.get("pn_id", None)
+    if field is not None:
+        args["pn_id"] = field
+    else:
+        args["pn_id"] = None
+
+    return KafkClusterInfo(**args)
 
 
 def unmarshal_KeyManagerKeyInfo(data: Any) -> KeyManagerKeyInfo:
@@ -2190,6 +2226,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["wofl_workflow_version_info"] = unmarshal_WoflWorkflowVersionInfo(field)
     else:
         args["wofl_workflow_version_info"] = None
+
+    field = data.get("kafk_cluster_info", None)
+    if field is not None:
+        args["kafk_cluster_info"] = unmarshal_KafkClusterInfo(field)
+    else:
+        args["kafk_cluster_info"] = None
 
     return Resource(**args)
 
