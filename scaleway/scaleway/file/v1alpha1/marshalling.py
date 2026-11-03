@@ -8,6 +8,10 @@ from scaleway_core.profile import ProfileDefaults
 from scaleway_core.bridge import (
     unmarshal_Money,
 )
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from .types import (
     AttachmentResourceType,
     FileSystemStatus,
@@ -21,6 +25,8 @@ from .types import (
     ListFileSystemTypesResponse,
     ListFileSystemsResponse,
     ListSnapshotsResponse,
+    CreateFileSystemRequestFromEmpty,
+    CreateFileSystemRequestFromSnapshot,
     CreateFileSystemRequest,
     CreateSnapshotRequest,
     UpdateFileSystemRequest,
@@ -405,11 +411,54 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
     return ListSnapshotsResponse(**args)
 
 
+def marshal_CreateFileSystemRequestFromEmpty(
+    request: CreateFileSystemRequestFromEmpty,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    return output
+
+
+def marshal_CreateFileSystemRequestFromSnapshot(
+    request: CreateFileSystemRequestFromSnapshot,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.snapshot_id is not None:
+        output["snapshot_id"] = request.snapshot_id
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    return output
+
+
 def marshal_CreateFileSystemRequest(
     request: CreateFileSystemRequest,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="from_empty",
+                    value=request.from_empty,
+                    marshal_func=marshal_CreateFileSystemRequestFromEmpty,
+                ),
+                OneOfPossibility(
+                    param="from_snapshot",
+                    value=request.from_snapshot,
+                    marshal_func=marshal_CreateFileSystemRequestFromSnapshot,
+                ),
+            ]
+        ),
+    )
 
     if request.name is not None:
         output["name"] = request.name
