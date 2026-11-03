@@ -22,6 +22,8 @@ from .types import (
     ListSnapshotsRequestOrderBy,
     Attachment,
     CreateFileSystemRequest,
+    CreateFileSystemRequestFromEmpty,
+    CreateFileSystemRequestFromSnapshot,
     CreateSnapshotRequest,
     FileSystem,
     FileSystemType,
@@ -408,16 +410,24 @@ class FileV1Alpha1API(API):
         size: int,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
+        from_empty: Optional[CreateFileSystemRequestFromEmpty] = None,
+        from_snapshot: Optional[CreateFileSystemRequestFromSnapshot] = None,
         type_: Optional[str] = None,
         tags: Optional[list[str]] = None,
     ) -> FileSystem:
         """
         Create a new filesystem.
-        To create a new filesystem, you must specify a name, a size, and a project ID.
+        To create a new filesystem, you must specify a name, a project ID, and either a size (`from_empty`) or a source snapshot (`from_snapshot`).
         :param name: Name of the filesystem.
-        :param size: Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
+        :param size: Filesystem size in bytes, with a granularity in GB (10^9 bytes).
+        Must be compliant with the minimum (25 GB) and maximum (50 TB) allowed size.
+        Must not be set along with `from_empty` or `from_snapshot`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: UUID of the project the filesystem belongs to.
+        :param from_empty: Specify the size of the new filesystem if creating a new one from scratch.
+        One-Of ('from'): at most one of 'from_empty', 'from_snapshot' could be set.
+        :param from_snapshot: Specify the snapshot ID of the original snapshot to create the filesystem from.
+        One-Of ('from'): at most one of 'from_empty', 'from_snapshot' could be set.
         :param type_: Type of the filesystem.
         :param tags: List of tags assigned to the filesystem.
         :return: :class:`FileSystem <FileSystem>`
@@ -446,6 +456,8 @@ class FileV1Alpha1API(API):
                     project_id=project_id,
                     type_=type_,
                     tags=tags,
+                    from_empty=from_empty,
+                    from_snapshot=from_snapshot,
                 ),
                 self.client,
             ),
