@@ -51,7 +51,6 @@ from .types import EdgeServicesWAFStageInfo
 from .types import InstancePrivateNetworkInterfaceInfo
 from .types import InstanceServerInfo
 from .types import IpamIpInfo
-from .types import KafkClusterInfo
 from .types import KeyManagerKeyInfo
 from .types import KubernetesACLInfo
 from .types import KubernetesClusterInfo
@@ -197,7 +196,6 @@ __all__ = [
     "InstancePrivateNetworkInterfaceInfo",
     "InstanceServerInfo",
     "IpamIpInfo",
-    "KafkClusterInfo",
     "KeyManagerKeyInfo",
     "KubernetesACLInfo",
     "KubernetesClusterInfo",
