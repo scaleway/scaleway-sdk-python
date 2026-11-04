@@ -31,6 +31,9 @@ from .types import (
     ContactPoint,
     ContactPointEmail,
     DataSource,
+    DataSourceLogsLimits,
+    DataSourceMetricsLimits,
+    DataSourceTracesLimits,
     DisableAlertRulesResponse,
     EnableAlertRulesResponse,
     Exporter,
@@ -980,6 +983,9 @@ class CockpitV1RegionalAPI(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         retention_days: Optional[int] = None,
+        metrics_limits: Optional[DataSourceMetricsLimits] = None,
+        logs_limits: Optional[DataSourceLogsLimits] = None,
+        traces_limits: Optional[DataSourceTracesLimits] = None,
     ) -> DataSource:
         """
         Create a data source.
@@ -990,6 +996,12 @@ class CockpitV1RegionalAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project the data source belongs to.
         :param retention_days: Default values are 31 days for metrics, 7 days for logs and traces.
+        :param metrics_limits: Limits of the data source. Only allowed for a metrics data source. A limit not set gets its default value (see GetConfig).
+        One-Of ('limits'): at most one of 'metrics_limits', 'logs_limits', 'traces_limits' could be set.
+        :param logs_limits: Limits of the data source. Only allowed for a logs data source. A limit not set gets its default value (see GetConfig).
+        One-Of ('limits'): at most one of 'metrics_limits', 'logs_limits', 'traces_limits' could be set.
+        :param traces_limits: Limits of the data source. Only allowed for a traces data source. A limit not set gets its default value (see GetConfig).
+        One-Of ('limits'): at most one of 'metrics_limits', 'logs_limits', 'traces_limits' could be set.
         :return: :class:`DataSource <DataSource>`
 
         Usage:
@@ -1015,6 +1027,9 @@ class CockpitV1RegionalAPI(API):
                     region=region,
                     project_id=project_id,
                     retention_days=retention_days,
+                    metrics_limits=metrics_limits,
+                    logs_limits=logs_limits,
+                    traces_limits=traces_limits,
                 ),
                 self.client,
             ),
@@ -1189,14 +1204,23 @@ class CockpitV1RegionalAPI(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         retention_days: Optional[int] = None,
+        metrics_limits: Optional[DataSourceMetricsLimits] = None,
+        logs_limits: Optional[DataSourceLogsLimits] = None,
+        traces_limits: Optional[DataSourceTracesLimits] = None,
     ) -> DataSource:
         """
         Update a data source.
-        Update a given data source attributes (name and/or retention_days).
+        Update a given data source attributes (name, retention_days and/or limits).
         :param data_source_id: ID of the data source to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Updated name of the data source.
         :param retention_days: Duration for which the data will be retained in the data source.
+        :param metrics_limits: Updated limits of the data source. Only allowed on a metrics data source. A limit not set keeps its current value.
+        One-Of ('limits'): at most one of 'metrics_limits', 'logs_limits', 'traces_limits' could be set.
+        :param logs_limits: Updated limits of the data source. Only allowed on a logs data source. A limit not set keeps its current value.
+        One-Of ('limits'): at most one of 'metrics_limits', 'logs_limits', 'traces_limits' could be set.
+        :param traces_limits: Updated limits of the data source. Only allowed on a traces data source. A limit not set keeps its current value.
+        One-Of ('limits'): at most one of 'metrics_limits', 'logs_limits', 'traces_limits' could be set.
         :return: :class:`DataSource <DataSource>`
 
         Usage:
@@ -1221,6 +1245,9 @@ class CockpitV1RegionalAPI(API):
                     region=region,
                     name=name,
                     retention_days=retention_days,
+                    metrics_limits=metrics_limits,
+                    logs_limits=logs_limits,
+                    traces_limits=traces_limits,
                 ),
                 self.client,
             ),
