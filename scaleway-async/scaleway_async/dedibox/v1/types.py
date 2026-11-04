@@ -2,138 +2,918 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
+from scaleway_core.bridge import (
+    Money,
+    Zone as ScwZone,
+)
 from scaleway_core.utils import (
     StrEnumMeta,
 )
 
 
-class ManageServerPowerRequestAction(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_ACTION = "unknown_action"
-    POWER_OFF = "power_off"
-    POWER_ON = "power_on"
-    REBOOT = "reboot"
+class AttachFailoverIPToMacAddressRequestMacType(str, Enum, metaclass=StrEnumMeta):
+    MAC_TYPE_UNKNOWN = "mac_type_unknown"
+    VMWARE = "vmware"
+    KVM = "kvm"
+    XEN = "xen"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class ServerStatus(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_STATUS = "unknown_status"
-    ORDERED = "ordered"
-    INSTALLING = "installing"
-    ACTIVE = "active"
-    STOPPED = "stopped"
-    LOCKED = "locked"
-    SUSPENDED = "suspended"
-    STOPPING = "stopping"
-    STARTING = "starting"
+class BMCAccessStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    CREATING = "creating"
+    CREATED = "created"
     DELETING = "deleting"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-@dataclass
-class HardwareSpecs:
-    core_count: int
-    """
-    Number of cores.
-    """
+class BackupStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_BACKUP_STATUS = "unknown_backup_status"
+    UNINITIALIZED = "uninitialized"
+    INACTIVE = "inactive"
+    READY = "ready"
 
-    storage_bytes: int
-    """
-    Storage size.
-    """
-
-    ram_bytes: int
-    """
-    RAM size.
-    """
+    def __str__(self) -> str:
+        return str(self.value)
 
 
-@dataclass
-class NetworkSpecs:
-    bandwidth_max: int
-    """
-    Network bandwidth (GB).
-    """
+class FailoverBlockVersion(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_VERSION = "unknown_version"
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
 
-    bandwidth_speed_gbps: int
-    """
-    Bandwidth speed.
-    """
+    def __str__(self) -> str:
+        return str(self.value)
 
 
-@dataclass
-class Location:
-    id: str
-    """
-    ID.
-    """
+class FailoverIPInterfaceType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    NORMAL = "normal"
+    IPMI = "ipmi"
+    VIRTUAL = "virtual"
 
-    geographic_area: str
-    """
-    Geographic area.
-    """
+    def __str__(self) -> str:
+        return str(self.value)
 
-    country_code: str
-    """
-    Country code.
-    """
 
-    city_name: str
-    """
-    City name.
-    """
+class FailoverIPStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    READY = "ready"
+    BUSY = "busy"
+    LOCKED = "locked"
 
-    available_offer_ids: list[str]
-    """
-    Available offer IDs.
-    """
+    def __str__(self) -> str:
+        return str(self.value)
 
-    srn: str
-    """
-    SRN of the location.
-    """
+
+class FailoverIPVersion(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_VERSION = "unknown_version"
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class GetRpnStatusResponseStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    BUSY = "busy"
+    OPERATIONAL = "operational"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class IPSemantic(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    PROXAD = "proxad"
+    EXT = "ext"
+    PUBLIC = "public"
+    PRIVATE = "private"
+    IPMI = "ipmi"
+    ADM = "adm"
+    REDIRECT = "redirect"
+    MIGRATION = "migration"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class IPStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    READY = "ready"
+    BUSY = "busy"
+    LOCKED = "locked"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class IPVersion(str, Enum, metaclass=StrEnumMeta):
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class IPv6BlockDelegationStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    UPDATING = "updating"
+    DONE = "done"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class InvoicePaymentMethod(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PAYMENT_METHOD = "unknown_payment_method"
+    CREDIT_CARD = "credit_card"
+    AMEX = "amex"
+    PAYPAL = "paypal"
+    TRANSFER = "transfer"
+    DIRECT_DEBIT = "direct_debit"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class InvoiceStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_INVOICE_STATUS = "unknown_invoice_status"
+    UNPAID = "unpaid"
+    PAID = "paid"
+    ERRORED = "errored"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListFailoverIPsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    IP_ASC = "ip_asc"
+    IP_DESC = "ip_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListInvoicesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListOSRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    RELEASED_AT_ASC = "released_at_asc"
+    RELEASED_AT_DESC = "released_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListOffersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+    PRICE_ASC = "price_asc"
+    PRICE_DESC = "price_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRefundsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnCapableSanServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnCapableServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnGroupMembersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnGroupsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnInvitesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnSansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnServerCapabilitiesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnV2CapableResourcesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnV2GroupLogsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnV2GroupsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnV2MembersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListRpnV2MembersRequestType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    RPNV1_GROUP = "rpnv1_group"
+    SERVER = "server"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListServerDisksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListServerEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListServicesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class LogAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_LOG_ACTION = "unknown_log_action"
+    GROUP_CREATED = "group_created"
+    GROUP_DELETED = "group_deleted"
+    MEMBERS_ADDED = "members_added"
+    MEMBERS_DELETED = "members_deleted"
+    DESCRIPTION_UPDATED = "description_updated"
+    RPNV1_MEMBERS_ADDED = "rpnv1_members_added"
+    RPNV1_MEMBERS_DELETED = "rpnv1_members_deleted"
+    VLAN_UPDATED = "vlan_updated"
+    VLAN_UPDATED_ON_ALL_SERVERS = "vlan_updated_on_all_servers"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class LogStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_LOG_STATUS = "unknown_log_status"
+    SUCCESS = "success"
+    IN_PROGRESS = "in_progress"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class MemoryType(str, Enum, metaclass=StrEnumMeta):
+    DDR2 = "ddr2"
+    DDR3 = "ddr3"
+    DDR4 = "ddr4"
+    DDR5 = "ddr5"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class NetworkInterfaceInterfaceType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    NORMAL = "normal"
+    IPMI = "ipmi"
+    VIRTUAL = "virtual"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OSArch(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ARCH = "unknown_arch"
+    AMD64 = "amd64"
+    X86 = "x86"
+    ARM = "arm"
+    ARM64 = "arm64"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OSType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    SERVER = "server"
+    VIRTU = "virtu"
+    PANEL = "panel"
+    DESKTOP = "desktop"
+    CUSTOM = "custom"
+    RESCUE = "rescue"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OfferAntiDosInfoType(str, Enum, metaclass=StrEnumMeta):
+    MINIMAL = "minimal"
+    PREVENTIVE = "preventive"
+    CURATIVE = "curative"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OfferCatalog(str, Enum, metaclass=StrEnumMeta):
+    ALL = "all"
+    DEFAULT = "default"
+    BETA = "beta"
+    RESELLER = "reseller"
+    PREMIUM = "premium"
+    VOLUME = "volume"
+    ADMIN = "admin"
+    INACTIVE = "inactive"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OfferPaymentFrequency(str, Enum, metaclass=StrEnumMeta):
+    MONTHLY = "monthly"
+    ONESHOT = "oneshot"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OfferSANInfoType(str, Enum, metaclass=StrEnumMeta):
+    HDD = "hdd"
+    SSD = "ssd"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OfferServerInfoStock(str, Enum, metaclass=StrEnumMeta):
+    EMPTY = "empty"
+    LOW = "low"
+    AVAILABLE = "available"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PartitionFileSystem(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    EFI = "efi"
+    SWAP = "swap"
+    EXT4 = "ext4"
+    EXT3 = "ext3"
+    EXT2 = "ext2"
+    XFS = "xfs"
+    NTFS = "ntfs"
+    FAT32 = "fat32"
+    UFS = "ufs"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PartitionType(str, Enum, metaclass=StrEnumMeta):
+    PRIMARY = "primary"
+    EXTENDED = "extended"
+    LOGICAL = "logical"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RaidArrayRaidLevel(str, Enum, metaclass=StrEnumMeta):
+    NO_RAID = "no_raid"
+    RAID0 = "raid0"
+    RAID1 = "raid1"
+    RAID5 = "raid5"
+    RAID6 = "raid6"
+    RAID10 = "raid10"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RefundMethod(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_REFUND_METHOD = "unknown_refund_method"
+    CREDIT_CARD = "credit_card"
+    AMEX = "amex"
+    PAYPAL = "paypal"
+    TRANSFER = "transfer"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RefundStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_REFUND_STATUS = "unknown_refund_status"
+    UNPAID = "unpaid"
+    PAID = "paid"
+    ERRORED = "errored"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RescueProtocol(str, Enum, metaclass=StrEnumMeta):
+    VNC = "vnc"
+    SSH = "ssh"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RpnGroupMemberStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_RPN_MEMBER_STATUS = "unknown_rpn_member_status"
+    PENDING_INVITATION = "pending_invitation"
+    ACTIVE = "active"
+    CREATING = "creating"
+    DELETING = "deleting"
+    DELETED = "deleted"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RpnGroupType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    LOCAL = "local"
+    SHARED = "shared"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RpnSanIpType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    SERVER_IP = "server_ip"
+    RPNV2_SUBNET = "rpnv2_subnet"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RpnSanStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    CREATING = "creating"
+    ACTIVE = "active"
+    DELETING = "deleting"
+    MAINTENANCE = "maintenance"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RpnV2GroupStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_GROUP_STATUS = "unknown_group_status"
+    CREATING = "creating"
+    ACTIVE = "active"
+    UPDATING = "updating"
+    DELETING = "deleting"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RpnV2GroupType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    STANDARD = "standard"
+    QINQ = "qinq"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class RpnV2MemberStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_MEMBER_STATUS = "unknown_member_status"
+    CREATING = "creating"
+    ACTIVE = "active"
+    UPDATING = "updating"
+    DELETING = "deleting"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerDiskType(str, Enum, metaclass=StrEnumMeta):
+    SATA = "sata"
+    SSD = "ssd"
+    SAS = "sas"
+    SSHD = "sshd"
+    USB = "usb"
+    NVME = "nvme"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerInstallStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    BOOTING = "booting"
+    SETTING_UP_RAID = "setting_up_raid"
+    PARTITIONING = "partitioning"
+    FORMATTING = "formatting"
+    INSTALLING = "installing"
+    CONFIGURING = "configuring"
+    CONFIGURING_BOOTLOADER = "configuring_bootloader"
+    REBOOTING = "rebooting"
+    INSTALLED = "installed"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    DELIVERING = "delivering"
+    INSTALLING = "installing"
+    READY = "ready"
+    STOPPED = "stopped"
+    ERROR = "error"
+    LOCKED = "locked"
+    RESCUE = "rescue"
+    BUSY = "busy"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServiceLevelLevel(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    BASIC = "basic"
+    BUSINESS = "business"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServiceProvisioningStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    DELIVERING = "delivering"
+    READY = "ready"
+    ERROR = "error"
+    EXPIRING = "expiring"
+    EXPIRED = "expired"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServiceType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    SERVICE = "service"
+    ORDER = "order"
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 @dataclass
 class OS:
-    id: str
+    id: int
     """
-    ID.
+    ID of the OS.
     """
 
     name: str
     """
-    Name.
+    Name of the OS.
     """
 
-    main_os: str
+    type_: OSType
     """
-    OS family.
-    """
-
-    srn: str
-    """
-    SRN of the OS.
+    Type of the OS.
     """
 
-    description: Optional[str] = None
+    version: str
     """
-    Description.
+    Version of the OS.
+    """
+
+    arch: OSArch
+    """
+    Architecture of the OS.
+    """
+
+    allow_custom_partitioning: bool
+    """
+    True if the OS allow custom partitioning.
+    """
+
+    allow_ssh_keys: bool
+    """
+    True if the OS allow SSH Keys.
+    """
+
+    requires_user: bool
+    """
+    True if the OS requires user.
+    """
+
+    requires_admin_password: bool
+    """
+    True if the OS requires admin password.
+    """
+
+    requires_panel_password: bool
+    """
+    True if the OS requires panel password.
+    """
+
+    allowed_filesystems: list[PartitionFileSystem]
+    """
+    True if the OS allow file systems.
+    """
+
+    requires_license: bool
+    """
+    True if the OS requires license.
+    """
+
+    license_offers: list[Offer]
+    """
+    License offers available with the OS.
+    """
+
+    display_name: str
+    """
+    Display name of the OS.
+    """
+
+    password_regex: str
+    """
+    Regex used to validate the installation passwords.
+    """
+
+    hostname_max_length: int
+    """
+    Hostname max length.
+    """
+
+    beta: str
+    """
+    Is it a beta OS.
+    """
+
+    description: str
+    """
+    Description of the OS.
+    """
+
+    official_website: str
+    """
+    URL to OS official website.
+    """
+
+    max_partitions: Optional[int] = 0
+    """
+    Maximum number of partitions which can be created.
+    """
+
+    panel_password_regex: Optional[str] = None
+    """
+    Regex used to validate the panel installation password.
+    """
+
+    requires_valid_hostname: Optional[bool] = False
+    """
+    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
+    """
+
+    hostname_regex: Optional[str] = None
+    """
+    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
+    """
+
+    released_at: Optional[datetime] = None
+    """
+    OS release date.
+    """
+
+
+@dataclass
+class OfferAntiDosInfo:
+    type_: OfferAntiDosInfoType
+
+
+@dataclass
+class OfferBackupInfo:
+    size: int
+
+
+@dataclass
+class OfferBandwidthInfo:
+    speed: int
+
+
+@dataclass
+class OfferCommitment:
+    unit: str
+    """
+    Unit used for discount.
+    """
+
+    value: int
+    """
+    Value of the discount.
+    """
+
+    free_setup_fees: bool
+    """
+    Is it free setup fees.
+    """
+
+    duration: str
+    """
+    Commitment's required duration.
+    """
+
+    discounted_price: Optional[Money] = None
+    """
+    Discounted price of the commitment.
+    """
+
+
+@dataclass
+class OfferLicenseInfo:
+    bound_to_ip: bool
+
+
+@dataclass
+class OfferRPNInfo:
+    speed: int
+
+
+@dataclass
+class OfferSANInfo:
+    size: int
+    """
+    SAN size (in bytes).
+    """
+
+    ha: bool
+    """
+    High availability offer.
+    """
+
+    device_type: OfferSANInfoType
+    """
+    Type of SAN device (hdd / ssd).
+    """
+
+
+@dataclass
+class OfferStorageInfo:
+    max_quota: int
+    size: int
+
+
+@dataclass
+class IP:
+    ip_id: int
+    """
+    ID of the IP.
+    """
+
+    address: str
+    """
+    Address of the IP.
+    """
+
+    reverse: str
+    """
+    Reverse IP value.
+    """
+
+    version: IPVersion
+    """
+    Version of IP (v4 or v6).
+    """
+
+    cidr: int
+    """
+    Classless InterDomain Routing notation of the IP.
+    """
+
+    netmask: str
+    """
+    Network mask of IP.
+    """
+
+    semantic: IPSemantic
+    """
+    Semantic of IP.
+    """
+
+    gateway: str
+    """
+    Gateway of IP.
+    """
+
+    status: IPStatus
+    """
+    Status of the IP.
     """
 
 
 @dataclass
 class Offer:
-    id: str
+    id: int
     """
-    ID of the offer.
+    ID of the offer (aka product.id).
     """
 
     name: str
@@ -141,32 +921,272 @@ class Offer:
     Name of the offer.
     """
 
-    available: bool
+    catalog: OfferCatalog
     """
-    Whether the offer is available.
-    """
-
-    srn: str
-    """
-    SRN of the offer.
+    Catalog of the offer.
     """
 
-    hardware_specs: Optional[HardwareSpecs] = None
+    payment_frequency: OfferPaymentFrequency
     """
-    Hardware specifications.
+    Payment frequency of the offer.
     """
 
-    network_specs: Optional[NetworkSpecs] = None
+    commitments: list[OfferCommitment]
     """
-    Network specifications.
+    Commitment info if it is a commitment offer.
+    """
+
+    available_os: list[OS]
+    """
+    Available OS info if it is a available OS offer.
+    """
+
+    pricing: Optional[Money] = None
+    """
+    Price of the offer.
+    """
+
+    offer_id: Optional[int] = 0
+    """
+    Original Dedibox ID of the offer.
+    """
+
+    server_info: Optional[OfferServerInfo] = None
+
+    service_level_info: Optional[OfferServiceLevelInfo] = None
+
+    rpn_info: Optional[OfferRPNInfo] = None
+
+    san_info: Optional[OfferSANInfo] = None
+
+    antidos_info: Optional[OfferAntiDosInfo] = None
+
+    backup_info: Optional[OfferBackupInfo] = None
+
+    usb_storage_info: Optional[OfferStorageInfo] = None
+
+    storage_info: Optional[OfferStorageInfo] = None
+
+    license_info: Optional[OfferLicenseInfo] = None
+
+    failover_ip_info: Optional[OfferFailoverIpInfo] = None
+
+    failover_block_info: Optional[OfferFailoverBlockInfo] = None
+
+    bandwidth_info: Optional[OfferBandwidthInfo] = None
+
+
+@dataclass
+class NetworkInterface:
+    card_id: int
+    """
+    Card ID of the network interface.
+    """
+
+    device_id: int
+    """
+    Device ID of the network interface.
+    """
+
+    mac: str
+    """
+    MAC address of the network interface.
+    """
+
+    type_: NetworkInterfaceInterfaceType
+    """
+    Network interface type.
+    """
+
+    ips: list[IP]
+    """
+    IPs of the network interface.
     """
 
 
 @dataclass
+class ServerLocation:
+    rack: str
+    room: str
+    datacenter_name: str
+
+
+@dataclass
+class ServerOption:
+    options: list[ServerOption]
+    offer: Optional[Offer] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    expired_at: Optional[datetime] = None
+
+
+@dataclass
+class ServiceLevel:
+    offer_id: int
+    """
+    Offer ID of service level.
+    """
+
+    level: ServiceLevelLevel
+    """
+    Level type of service level.
+    """
+
+
+@dataclass
+class RpnSan:
+    id: int
+    """
+    RPN SAN ID.
+    """
+
+    datacenter_name: str
+    """
+    Datacenter location.
+    """
+
+    organization_id: str
+    """
+    Organization ID.
+    """
+
+    project_id: str
+    """
+    Project ID.
+    """
+
+    server_hostname: str
+    """
+    RPN SAN server hostname.
+    """
+
+    iqn_suffix: str
+    """
+    IQN suffix.
+    """
+
+    offer_id: int
+    """
+    Offer ID.
+    """
+
+    offer_name: str
+    """
+    Offer description.
+    """
+
+    status: RpnSanStatus
+    """
+    Status.
+    """
+
+    storage_size: int
+    """
+    RPN SAN storage size.
+    """
+
+    iqn: str
+    rpnv1_compatible: bool
+    """
+    True if the SAN is compatible with the RPNv1 technology.
+    """
+
+    rpnv1_implicit: bool
+    """
+    True if the offer supports the RPNv1 implicitly, false if it must to be added to a group to support RPNv1.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date of creation of the RPN SAN.
+    """
+
+    offer: Optional[Offer] = None
+    delivered_at: Optional[datetime] = None
+    """
+    RPN SAN delivery date.
+    """
+
+    terminated_at: Optional[datetime] = None
+    """
+    RPN SAN termination date.
+    """
+
+    expires_at: Optional[datetime] = None
+    """
+    RPN SAN expiration date.
+    """
+
+
+@dataclass
+class RpnGroup:
+    id: int
+    """
+    Rpn group member ID.
+    """
+
+    name: str
+    """
+    Rpn group name.
+    """
+
+    type_: RpnGroupType
+    """
+    Rpn group type (local or shared).
+    """
+
+    active: bool
+    """
+    Whether the group is active or not.
+    """
+
+    owner: str
+    """
+    RPN group owner.
+    """
+
+    members_count: int
+    """
+    Total number of members.
+    """
+
+    organization_id: str
+    """
+    Rpn group organization ID.
+    """
+
+    project_id: str
+    """
+    Rpn group project ID.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Rpn group creation date.
+    """
+
+
+@dataclass
+class RpnV2GroupSubnet:
+    address: str
+    cidr: int
+
+
+@dataclass
 class Server:
-    id: str
+    id: int
     """
     ID of the server.
+    """
+
+    organization_id: str
+    """
+    Organization ID the server is attached to.
+    """
+
+    project_id: str
+    """
+    Project ID the server is attached to.
     """
 
     hostname: str
@@ -174,14 +1194,804 @@ class Server:
     Hostname of the server.
     """
 
-    os_id: str
+    status: ServerStatus
     """
-    OS ID installed on server.
+    Status of the server.
     """
 
-    location_id: str
+    abuse_contact: str
     """
-    Location ID of the server.
+    Abuse contact of the server.
+    """
+
+    interfaces: list[NetworkInterface]
+    """
+    Network interfaces of the server.
+    """
+
+    zone: ScwZone
+    """
+    The zone in which is the server.
+    """
+
+    options: list[ServerOption]
+    """
+    Options subscribe on the server.
+    """
+
+    has_bmc: bool
+    """
+    Boolean if the server has a BMC.
+    """
+
+    tags: list[str]
+    """
+    Array of customs tags attached to the server.
+    """
+
+    is_outsourced: bool
+    """
+    Whether the server is outsourced or not.
+    """
+
+    ipv6_slaac: bool
+    """
+    Whether or not you can enable/disable the IPv6.
+    """
+
+    qinq: bool
+    """
+    Whether the server is compatible with QinQ.
+    """
+
+    is_rpnv2_member: bool
+    """
+    Whether or not the server is already part of an rpnv2 group.
+    """
+
+    is_hds: bool
+    """
+    Whether or not the server is HDS.
+    """
+
+    rebooted_at: Optional[datetime] = None
+    """
+    Date of last reboot of the server.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date of creation of the server.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date of last modification of the server.
+    """
+
+    expired_at: Optional[datetime] = None
+    """
+    Date of release of the server.
+    """
+
+    offer: Optional[Offer] = None
+    """
+    Offer of the server.
+    """
+
+    location: Optional[ServerLocation] = None
+    """
+    Location of the server.
+    """
+
+    os: Optional[OS] = None
+    """
+    OS installed on the server.
+    """
+
+    level: Optional[ServiceLevel] = None
+    """
+    Service level of the server.
+    """
+
+    rescue_os: Optional[OS] = None
+    """
+    Rescue OS of the server.
+    """
+
+
+@dataclass
+class FailoverBlock:
+    id: int
+    """
+    ID of the failover block.
+    """
+
+    address: str
+    """
+    IP of the failover block.
+    """
+
+    nameservers: list[str]
+    """
+    Name servers.
+    """
+
+    ip_version: FailoverBlockVersion
+    """
+    IP version of the failover block.
+    """
+
+    cidr: int
+    """
+    Classless InterDomain Routing notation of the failover block.
+    """
+
+    netmask: str
+    """
+    Netmask of the failover block.
+    """
+
+    gateway_ip: str
+    """
+    Gateway IP of the failover block.
+    """
+
+
+@dataclass
+class RpnSanIpRpnV2Group:
+    id: int
+    name: str
+
+
+@dataclass
+class RpnSanIpServer:
+    id: int
+    hostname: str
+    datacenter_name: str
+
+
+@dataclass
+class RpnSanServer:
+    id: int
+    """
+    The RPN SAN server ID.
+    """
+
+    datacenter_name: str
+    """
+    The RPN SAN server datacenter name.
+    """
+
+    hostname: str
+    """
+    The RPN SAN server hostname.
+    """
+
+    sans: list[RpnSan]
+    """
+    RPN SANs linked to the RPN SAN server.
+    """
+
+    zone: ScwZone
+    """
+    The RPN SAN server zone.
+    """
+
+
+@dataclass
+class RpnV2Group:
+    id: int
+    """
+    RPN V2 group ID.
+    """
+
+    name: str
+    """
+    RPN V2 group name.
+    """
+
+    compatible_rpnv1: bool
+    """
+    Whether or not the RPN V1 compatibility was enabled.
+    """
+
+    organization_id: str
+    """
+    Organization ID of the RPN V2 group.
+    """
+
+    project_id: str
+    """
+    Project ID of the RPN V2 group.
+    """
+
+    type_: RpnV2GroupType
+    """
+    RPN V2 group type (qing / standard).
+    """
+
+    status: RpnV2GroupStatus
+    """
+    RPN V2 group status.
+    """
+
+    owner: str
+    """
+    RPN V2 group owner.
+    """
+
+    members_count: int
+    """
+    Total number of members.
+    """
+
+    gateway: str
+    """
+    RPN V2 gateway.
+    """
+
+    subnet: Optional[RpnV2GroupSubnet] = None
+    """
+    RPN V2 subnet.
+    """
+
+    rpnv1_group: Optional[RpnGroup] = None
+    """
+    The RPNv1 group (if the compatibility was enabled).
+    """
+
+
+@dataclass
+class RpnV2Member:
+    id: int
+    """
+    RPN V2 member ID.
+    """
+
+    status: RpnV2MemberStatus
+    """
+    RPN V2 member status.
+    """
+
+    vlan: str
+    """
+    RPN V2 member VLAN.
+    """
+
+    speed: Optional[int] = 0
+    """
+    RPN speed.
+    """
+
+    server: Optional[Server] = None
+
+    rpnv1_group: Optional[RpnGroup] = None
+
+
+@dataclass
+class ServerDisk:
+    id: int
+    connector: str
+    type_: ServerDiskType
+    capacity: int
+    is_addon: bool
+
+
+@dataclass
+class Service:
+    id: int
+    """
+    ID of the service.
+    """
+
+    provisioning_status: ServiceProvisioningStatus
+    """
+    Provisioning status of the service.
+    """
+
+    type_: ServiceType
+    """
+    Service type, either order or service.
+    """
+
+    resource_id: Optional[int] = 0
+    """
+    Resource ID of the service.
+    """
+
+    offer: Optional[Offer] = None
+    """
+    Offer of the service.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation date of the service.
+    """
+
+    delivered_at: Optional[datetime] = None
+    """
+    Delivery date of the service.
+    """
+
+    terminated_at: Optional[datetime] = None
+    """
+    Terminatation date of the service.
+    """
+
+    expires_at: Optional[datetime] = None
+    """
+    Expiration date of the service.
+    """
+
+
+@dataclass
+class GetIPv6BlockQuotasResponseQuota:
+    quota: int
+    cidr: int
+
+
+@dataclass
+class InstallPartition:
+    file_system: PartitionFileSystem
+    """
+    File system of the installation partition.
+    """
+
+    raid_level: RaidArrayRaidLevel
+    """
+    RAID level of the installation partition.
+    """
+
+    capacity: int
+    """
+    Capacity of the installation partition.
+    """
+
+    connectors: list[str]
+    """
+    Connectors of the installation partition.
+    """
+
+    mount_point: Optional[str] = None
+    """
+    Mount point of the installation partition.
+    """
+
+
+@dataclass
+class FailoverIP:
+    id: int
+    """
+    ID of the failover IP.
+    """
+
+    address: str
+    """
+    IP of the failover IP.
+    """
+
+    reverse: str
+    """
+    Reverse IP value.
+    """
+
+    ip_version: FailoverIPVersion
+    """
+    IP version of the failover IP.
+    """
+
+    cidr: int
+    """
+    Classless InterDomain Routing notation of the failover IP.
+    """
+
+    netmask: str
+    """
+    Netmask of the failover IP.
+    """
+
+    gateway_ip: str
+    """
+    Gateway IP of the failover IP.
+    """
+
+    status: FailoverIPStatus
+    """
+    Status of the IP failover.
+    """
+
+    type_: FailoverIPInterfaceType
+    """
+    The interface type.
+    """
+
+    mac: Optional[str] = None
+    """
+    MAC address of the IP failover.
+    """
+
+    server_id: Optional[int] = 0
+    """
+    Server ID linked to the IP failover.
+    """
+
+    block: Optional[FailoverBlock] = None
+    """
+    Block of the IP failover.
+    """
+
+    server_zone: Optional[str] = None
+    """
+    The server zone (if assigned).
+    """
+
+
+@dataclass
+class ListIPv6BlockSubnetsAvailableResponseSubnet:
+    address: str
+    cidr: int
+
+
+@dataclass
+class IPv6Block:
+    id: int
+    """
+    ID of the IPv6.
+    """
+
+    address: str
+    """
+    Address of the IPv6.
+    """
+
+    duid: str
+    """
+    DUID of the IPv6.
+    """
+
+    nameservers: list[str]
+    """
+    DNS linked to the IPv6.
+    """
+
+    cidr: int
+    """
+    Classless InterDomain Routing notation of the IPv6.
+    """
+
+    subnets: list[IPv6Block]
+    """
+    All IPv6 subnets.
+    """
+
+    delegation_status: IPv6BlockDelegationStatus
+    """
+    The nameservers delegation status.
+    """
+
+
+@dataclass
+class InvoiceSummary:
+    id: int
+    status: InvoiceStatus
+    payment_method: InvoicePaymentMethod
+    transaction_id: int
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    paid_at: Optional[datetime] = None
+
+
+@dataclass
+class RpnSanIp:
+    type_: RpnSanIpType
+    """
+    IP type (server | rpnv2_subnet).
+    """
+
+    ip: Optional[IP] = None
+    """
+    An IP object.
+    """
+
+    server: Optional[RpnSanIpServer] = None
+
+    rpnv2_group: Optional[RpnSanIpRpnV2Group] = None
+
+
+@dataclass
+class RefundSummary:
+    id: int
+    status: RefundStatus
+    method: RefundMethod
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    refunded_at: Optional[datetime] = None
+
+
+@dataclass
+class RpnGroupMember:
+    id: int
+    """
+    Rpn group member ID.
+    """
+
+    status: RpnGroupMemberStatus
+    """
+    RPN group member status.
+    """
+
+    group_id: int
+    """
+    RPN group ID.
+    """
+
+    group_name: str
+    """
+    RPN group name.
+    """
+
+    group_owner: str
+    """
+    RPN group owner.
+    """
+
+    owner: str
+    """
+    RPN member owner.
+    """
+
+    san_server: Optional[RpnSanServer] = None
+    """
+    Authorized RPN SAN server.
+    """
+
+    server: Optional[Server] = None
+    """
+    Authorized rpn v1 capable server.
+    """
+
+    speed: Optional[int] = 0
+    """
+    RPN speed.
+    """
+
+
+@dataclass
+class RpnSanSummary:
+    id: int
+    """
+    RPN SAN ID.
+    """
+
+    datacenter_name: str
+    """
+    Datacenter location.
+    """
+
+    organization_id: str
+    """
+    Organization ID.
+    """
+
+    project_id: str
+    """
+    Project ID.
+    """
+
+    server_hostname: str
+    """
+    RPN SAN server hostname.
+    """
+
+    iqn_suffix: str
+    """
+    IQN suffix.
+    """
+
+    offer_id: int
+    """
+    Offer ID.
+    """
+
+    offer_name: str
+    """
+    Offer description.
+    """
+
+    status: RpnSanStatus
+    """
+    Status.
+    """
+
+    storage_size: int
+    """
+    RPN SAN storage size.
+    """
+
+    rpnv1_compatible: bool
+    """
+    True if the SAN is compatible with the RPNv1 technology.
+    """
+
+    rpnv1_implicit: bool
+    """
+    True if the offer supports the RPNv1 implicitly, false if it must to be added to a group to support RPNv1.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date of creation of the RPN SAN.
+    """
+
+    delivered_at: Optional[datetime] = None
+    """
+    RPN SAN delivery date.
+    """
+
+    terminated_at: Optional[datetime] = None
+    """
+    RPN SAN termination date.
+    """
+
+    expires_at: Optional[datetime] = None
+    """
+    RPN SAN expiration date.
+    """
+
+
+@dataclass
+class RpnServerCapability:
+    id: int
+    """
+    Server ID.
+    """
+
+    hostname: str
+    """
+    Server hostname.
+    """
+
+    datacenter_name: str
+    """
+    Server datacenter name.
+    """
+
+    zone: ScwZone
+    """
+    Server zone.
+    """
+
+    compatible_qinq: bool
+    """
+    True if server is compatible with QinQ protocol (rpn v2).
+    """
+
+    can_join_qinq_group: bool
+    """
+    True if server can join a QinQ group.
+    """
+
+    rpnv1_group_count: int
+    """
+    Times server is linked in a rpnv1 group.
+    """
+
+    rpnv2_group_count: int
+    """
+    Times server is linked in a rpnv2 group.
+    """
+
+    can_join_rpnv2_group: bool
+    """
+    True if server can join an rpnv2 group.
+    """
+
+    ip_address: Optional[str] = None
+    """
+    Private IP address (if rpn compatiblle).
+    """
+
+    rpn_version: Optional[int] = 0
+    """
+    Supported rpn version.
+    """
+
+
+@dataclass
+class Log:
+    id: int
+    """
+    RPN V2 log ID.
+    """
+
+    action: LogAction
+    """
+    Which action was performed.
+    """
+
+    status: LogStatus
+    """
+    Action status.
+    """
+
+    group: Optional[RpnV2Group] = None
+    """
+    RPN V2 group.
+    """
+
+    member: Optional[RpnV2Member] = None
+    """
+    RPN V2 member (if applicable).
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Creation date.
+    """
+
+    finished_at: Optional[datetime] = None
+    """
+    Completion date.
+    """
+
+
+@dataclass
+class ServerEvent:
+    event_id: int
+    """
+    ID of the event.
+    """
+
+    description: str
+    """
+    Description of the event.
+    """
+
+    date: Optional[datetime] = None
+    """
+    Date of the event.
+    """
+
+
+@dataclass
+class ServerSummary:
+    id: int
+    """
+    ID of the server.
+    """
+
+    datacenter_name: str
+    """
+    Datacenter of the server.
+    """
+
+    organization_id: str
+    """
+    Organization ID the server is attached to.
+    """
+
+    project_id: str
+    """
+    Project ID the server is attached to.
+    """
+
+    hostname: str
+    """
+    Hostname of the server.
+    """
+
+    offer_id: int
+    """
+    Offer ID of the server.
+    """
+
+    offer_name: str
+    """
+    Offer name of the server.
     """
 
     status: ServerStatus
@@ -189,55 +1999,1124 @@ class Server:
     Status of the server.
     """
 
-    ips: list[str]
+    interfaces: list[NetworkInterface]
     """
-    List of IPs of the server.
-    """
-
-    organization_id: str
-    """
-    Organization ID owning the server.
+    Network interfaces of the server.
     """
 
-    project_id: str
+    zone: ScwZone
     """
-    Project ID of the server.
-    """
-
-    offer_id: str
-    """
-    Offer ID of the server.
+    The zone in which is the server.
     """
 
-    srn: str
+    is_outsourced: bool
     """
-    SRN of the server.
+    Whether the server is outsourced or not.
+    """
+
+    qinq: bool
+    """
+    Whether the server is compatible with QinQ.
+    """
+
+    is_hds: bool
+    """
+    Whether or not the server is HDS.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Date of creation of the server.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Date of last modification of the server.
+    """
+
+    expired_at: Optional[datetime] = None
+    """
+    Date of release of the server.
+    """
+
+    os_id: Optional[int] = 0
+    """
+    OS ID installed on server.
+    """
+
+    level: Optional[ServiceLevel] = None
+    """
+    Service level of the server.
+    """
+
+    rpn_version: Optional[int] = 0
+    """
+    Supported RPN version.
     """
 
 
 @dataclass
-class ListLocationsResponse:
-    total_count: int
+class CPU:
+    name: str
     """
-    Total count.
+    Name of CPU.
     """
 
-    locations: list[Location]
+    core_count: int
     """
-    List of locations available for the given offer.
+    Number of cores of the CPU.
     """
+
+    thread_count: int
+    """
+    Number of threads of the CPU.
+    """
+
+    frequency: int
+    """
+    Frequency of the CPU.
+    """
+
+    bench: int
+    """
+    Bench of the CPU.
+    """
+
+
+@dataclass
+class Disk:
+    capacity: int
+    """
+    Capacity of the disk.
+    """
+
+    type_: ServerDiskType
+    """
+    Type of the disk.
+    """
+
+
+@dataclass
+class Memory:
+    capacity: int
+    """
+    Capacity of the memory.
+    """
+
+    type_: MemoryType
+    """
+    Type of the memory.
+    """
+
+    frequency: int
+    """
+    Frequency of the memory.
+    """
+
+    is_ecc: bool
+    """
+    True if the memory is an error-correcting code memory.
+    """
+
+
+@dataclass
+class OfferServerInfoAvailability:
+    stock: OfferServerInfoStock
+    quantity: int
+
+
+@dataclass
+class PersistentMemory:
+    capacity: int
+    """
+    Capacity of the persistent memory.
+    """
+
+    frequency: int
+    """
+    Frequency of the persistent memory.
+    """
+
+    model: str
+    """
+    Model of the persistent memory.
+    """
+
+
+@dataclass
+class RaidController:
+    model: str
+    """
+    Model of the RAID controller.
+    """
+
+    raid_level: list[str]
+    """
+    RAID level of the RAID controller.
+    """
+
+
+@dataclass
+class RaidArray:
+    raid_level: RaidArrayRaidLevel
+    """
+    The RAID level.
+    """
+
+    disks: list[ServerDisk]
+    """
+    Disks on the RAID controller.
+    """
+
+
+@dataclass
+class Partition:
+    type_: PartitionType
+    """
+    Type of the partition.
+    """
+
+    file_system: PartitionFileSystem
+    """
+    File system of the partition.
+    """
+
+    raid_level: RaidArrayRaidLevel
+    """
+    Raid level of the partition.
+    """
+
+    capacity: int
+    """
+    Capacity of the partition.
+    """
+
+    connectors: list[str]
+    """
+    Connectors of the partition.
+    """
+
+    mount_point: Optional[str] = None
+    """
+    Mount point of the partition.
+    """
+
+
+@dataclass
+class UpdatableRaidArray:
+    raid_level: RaidArrayRaidLevel
+    """
+    The RAID level.
+    """
+
+    disk_ids: list[int]
+    """
+    The list of Disk ID of the updatable RAID.
+    """
+
+
+@dataclass
+class AttachFailoverIPToMacAddressRequest:
+    ip_id: int
+    """
+    ID of the failover IP.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    type_: Optional[AttachFailoverIPToMacAddressRequestMacType] = (
+        AttachFailoverIPToMacAddressRequestMacType.MAC_TYPE_UNKNOWN
+    )
+    """
+    A mac type.
+    """
+
+    mac: Optional[str] = None
+    """
+    A valid mac address (existing or not).
+    """
+
+
+@dataclass
+class AttachFailoverIPsRequest:
+    server_id: int
+    """
+    ID of the server.
+    """
+
+    fips_ids: list[int]
+    """
+    List of ID of failovers IP to attach.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class BMCAccess:
+    url: str
+    """
+    URL to access to the server console.
+    """
+
+    login: str
+    """
+    The login to use for the BMC (Baseboard Management Controller) access authentication.
+    """
+
+    password: str
+    """
+    The password to use for the BMC (Baseboard Management Controller) access authentication.
+    """
+
+    status: BMCAccessStatus
+    """
+    Status of the connection.
+    """
+
+    expires_at: Optional[datetime] = None
+    """
+    The date after which the BMC (Baseboard Management Controller) access will be closed.
+    """
+
+
+@dataclass
+class Backup:
+    id: int
+    """
+    ID of the backup.
+    """
+
+    login: str
+    """
+    Login of the backup.
+    """
+
+    server: str
+    """
+    Server of the backup.
+    """
+
+    status: BackupStatus
+    """
+    Status of the backup.
+    """
+
+    acl_enabled: bool
+    """
+    ACL enable boolean of the backup.
+    """
+
+    autologin: bool
+    """
+    Autologin boolean of the backup.
+    """
+
+    quota_space: int
+    """
+    Total quota space of the backup.
+    """
+
+    quota_space_used: int
+    """
+    Quota space used of the backup.
+    """
+
+    quota_files: int
+    """
+    Total quota files of the backup.
+    """
+
+    quota_files_used: int
+    """
+    Quota files used of the backup.
+    """
+
+
+@dataclass
+class BillingApiCanOrderRequest:
+    project_id: Optional[str] = None
+
+
+@dataclass
+class BillingApiDownloadInvoiceRequest:
+    invoice_id: int
+
+
+@dataclass
+class BillingApiDownloadRefundRequest:
+    refund_id: int
+
+
+@dataclass
+class BillingApiGetInvoiceRequest:
+    invoice_id: int
+
+
+@dataclass
+class BillingApiGetRefundRequest:
+    refund_id: int
+
+
+@dataclass
+class BillingApiListInvoicesRequest:
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListInvoicesRequestOrderBy] = None
+    project_id: Optional[str] = None
+
+
+@dataclass
+class BillingApiListRefundsRequest:
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListRefundsRequestOrderBy] = None
+    project_id: Optional[str] = None
+
+
+@dataclass
+class CanOrderResponse:
+    can_order: bool
+    quota_ok: bool
+    phone_confirmed: bool
+    email_confirmed: bool
+    user_confirmed: bool
+    payment_mode: bool
+    billing_ok: bool
+    message: Optional[str] = None
+
+
+@dataclass
+class CancelServerInstallRequest:
+    server_id: int
+    """
+    Server ID of the server to cancel install.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class CreateFailoverIPsRequest:
+    offer_id: int
+    """
+    Failover IP offer ID.
+    """
+
+    quantity: int
+    """
+    Quantity.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID.
+    """
+
+
+@dataclass
+class CreateFailoverIPsResponse:
+    total_count: int
+    services: list[Service]
+
+
+@dataclass
+class CreateServerRequest:
+    offer_id: int
+    """
+    Offer ID of the new server.
+    """
+
+    server_option_ids: list[int]
+    """
+    Server option IDs of the new server.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID of the new server.
+    """
+
+    datacenter_name: Optional[str] = None
+    """
+    Datacenter name of the new server.
+    """
+
+
+@dataclass
+class DeleteFailoverIPRequest:
+    ip_id: int
+    """
+    ID of the failover IP to delete.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteServerRequest:
+    server_id: int
+    """
+    Server ID to delete.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteServiceRequest:
+    service_id: int
+    """
+    ID of the service.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DetachFailoverIPFromMacAddressRequest:
+    ip_id: int
+    """
+    ID of the failover IP.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DetachFailoverIPsRequest:
+    fips_ids: list[int]
+    """
+    List of IDs of failovers IP to detach.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetBMCAccessRequest:
+    server_id: int
+    """
+    ID of the server to get BMC access.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetFailoverIPRequest:
+    ip_id: int
+    """
+    ID of the failover IP.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetIPv6BlockQuotasResponse:
+    quotas: list[GetIPv6BlockQuotasResponseQuota]
+    """
+    Quota for each CIDR of IPv6 block.
+    """
+
+    total_count: int
+    """
+    Total count of quotas.
+    """
+
+
+@dataclass
+class GetOSRequest:
+    os_id: int
+    """
+    ID of the OS.
+    """
+
+    server_id: int
+    """
+    ID of the server.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID.
+    """
+
+
+@dataclass
+class GetOfferRequest:
+    offer_id: int
+    """
+    ID of offer.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID.
+    """
+
+
+@dataclass
+class GetOrderedServiceRequest:
+    ordered_service_id: int
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetRaidRequest:
+    server_id: int
+    """
+    ID of the server.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetRemainingQuotaRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID.
+    """
+
+
+@dataclass
+class GetRemainingQuotaResponse:
+    failover_ip_quota: int
+    """
+    Current failover IP quota.
+    """
+
+    failover_ip_remaining_quota: int
+    """
+    Remaining failover IP quota.
+    """
+
+    failover_block_quota: int
+    """
+    Current failover block quota.
+    """
+
+    failover_block_remaining_quota: int
+    """
+    Remaining failover block quota.
+    """
+
+
+@dataclass
+class GetRescueRequest:
+    server_id: int
+    """
+    ID of the server to get rescue.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetRpnStatusResponse:
+    status: GetRpnStatusResponseStatus
+    """
+    If status = 'operational', you can perform rpn actions in write.
+    """
+
+    operations_left: Optional[int] = 0
+    """
+    Number of operations left to perform before being operational.
+    """
+
+
+@dataclass
+class GetServerBackupRequest:
+    server_id: int
+    """
+    Server ID of the backup.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetServerDefaultPartitioningRequest:
+    server_id: int
+    """
+    ID of the server.
+    """
+
+    os_id: int
+    """
+    OS ID of the default partitioning.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetServerInstallRequest:
+    server_id: int
+    """
+    Server ID of the server to install.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetServerRequest:
+    server_id: int
+    """
+    ID of the server.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetServiceRequest:
+    service_id: int
+    """
+    ID of the service.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class IPv6BlockApiCreateIPv6BlockRequest:
+    project_id: Optional[str] = None
+    """
+    ID of the project.
+    """
+
+
+@dataclass
+class IPv6BlockApiCreateIPv6BlockSubnetRequest:
+    block_id: int
+    """
+    ID of the IPv6 block.
+    """
+
+    address: str
+    """
+    Address of the IPv6.
+    """
+
+    cidr: int
+    """
+    Classless InterDomain Routing notation of the IPv6.
+    """
+
+
+@dataclass
+class IPv6BlockApiDeleteIPv6BlockRequest:
+    block_id: int
+    """
+    ID of the IPv6 block to delete.
+    """
+
+
+@dataclass
+class IPv6BlockApiGetIPv6BlockQuotasRequest:
+    project_id: Optional[str] = None
+    """
+    ID of the project.
+    """
+
+
+@dataclass
+class IPv6BlockApiGetIPv6BlockRequest:
+    project_id: Optional[str] = None
+    """
+    ID of the project.
+    """
+
+
+@dataclass
+class IPv6BlockApiListIPv6BlockSubnetsAvailableRequest:
+    block_id: int
+    """
+    ID of the IPv6 block.
+    """
+
+
+@dataclass
+class IPv6BlockApiListIPv6BlocksRequest:
+    project_id: Optional[str] = None
+
+
+@dataclass
+class IPv6BlockApiUpdateIPv6BlockRequest:
+    block_id: int
+    """
+    ID of the IPv6 block.
+    """
+
+    nameservers: Optional[list[str]] = field(default_factory=list)
+    """
+    DNS to link to the IPv6.
+    """
+
+
+@dataclass
+class InstallServerRequest:
+    server_id: int
+    """
+    Server ID to install.
+    """
+
+    os_id: int
+    """
+    OS ID to install on the server.
+    """
+
+    hostname: str
+    """
+    Hostname of the server.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    user_login: Optional[str] = None
+    """
+    User to install on the server.
+    """
+
+    user_password: Optional[str] = None
+    """
+    User password to install on the server.
+    """
+
+    panel_password: Optional[str] = None
+    """
+    Panel password to install on the server.
+    """
+
+    root_password: Optional[str] = None
+    """
+    Root password to install on the server.
+    """
+
+    partitions: Optional[list[InstallPartition]] = field(default_factory=list)
+    """
+    Partitions to install on the server.
+    """
+
+    ssh_key_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    SSH key IDs authorized on the server.
+    """
+
+    license_offer_id: Optional[int] = 0
+    """
+    Offer ID of license to install on server.
+    """
+
+    ip_id: Optional[int] = 0
+    """
+    IP to link at the license to install on server.
+    """
+
+
+@dataclass
+class Invoice:
+    id: int
+    status: InvoiceStatus
+    payment_method: InvoicePaymentMethod
+    content: str
+    transaction_id: int
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    paid_at: Optional[datetime] = None
+
+
+@dataclass
+class ListFailoverIPsRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of failovers IP per page.
+    """
+
+    order_by: Optional[ListFailoverIPsRequestOrderBy] = (
+        ListFailoverIPsRequestOrderBy.IP_ASC
+    )
+    """
+    Order of the failovers IP.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter failovers IP by project ID.
+    """
+
+    search: Optional[str] = None
+    """
+    Filter failovers IP which matching with this field.
+    """
+
+    only_available: Optional[bool] = False
+    """
+    True: return all failovers IP not attached on server
+false: return all failovers IP attached on server.
+    """
+
+
+@dataclass
+class ListFailoverIPsResponse:
+    total_count: int
+    """
+    Total count of matching failovers IP.
+    """
+
+    failover_ips: list[FailoverIP]
+    """
+    List of failover IPs that match filters.
+    """
+
+
+@dataclass
+class ListIPv6BlockSubnetsAvailableResponse:
+    subnet_availables: list[ListIPv6BlockSubnetsAvailableResponseSubnet]
+    """
+    All available address and CIDR available in subnet.
+    """
+
+    total_count: int
+    """
+    Total count of available subnets.
+    """
+
+
+@dataclass
+class ListIPv6BlocksResponse:
+    total_count: int
+    ipv6_blocks: list[IPv6Block]
+
+
+@dataclass
+class ListInvoicesResponse:
+    total_count: int
+    invoices: list[InvoiceSummary]
+
+
+@dataclass
+class ListIpsResponse:
+    total_count: int
+    """
+    Total count of authorized IPs.
+    """
+
+    ips: list[RpnSanIp]
+    """
+    List of authorized IPs.
+    """
+
+
+@dataclass
+class ListOSRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of OS per page.
+    """
+
+    order_by: Optional[ListOSRequestOrderBy] = ListOSRequestOrderBy.CREATED_AT_ASC
+    """
+    Order of the OS.
+    """
+
+    type_: Optional[OSType] = OSType.UNKNOWN_TYPE
+    """
+    Type of the OS.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID.
+    """
+
+    server_id: Optional[int] = 0
+
+    offer_id: Optional[int] = 0
 
 
 @dataclass
 class ListOSResponse:
     total_count: int
     """
-    Total count.
+    Total count of matching OS.
     """
 
     os: list[OS]
     """
-    List of OS.
+    OS that match filters.
+    """
+
+
+@dataclass
+class ListOffersRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of offer per page.
+    """
+
+    order_by: Optional[ListOffersRequestOrderBy] = (
+        ListOffersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the offers.
+    """
+
+    commercial_range: Optional[str] = None
+    """
+    Filter on commercial range.
+    """
+
+    catalog: Optional[OfferCatalog] = OfferCatalog.ALL
+    """
+    Filter on catalog.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID.
+    """
+
+    is_failover_ip: Optional[bool] = False
+    """
+    Get the current failover IP offer.
+    """
+
+    is_failover_block: Optional[bool] = False
+    """
+    Get the current failover IP block offer.
+    """
+
+    sold_in: Optional[list[str]] = None
+    """
+    Filter offers depending on their datacenter.
+    """
+
+    available_only: Optional[bool] = False
+    """
+    Set this filter to true to only return available offers.
+    """
+
+    is_rpn_san: Optional[bool] = False
+    """
+    Get the RPN SAN offers.
     """
 
 
@@ -250,7 +3129,277 @@ class ListOffersResponse:
 
     offers: list[Offer]
     """
-    List of offers.
+    Offers that match filters.
+    """
+
+
+@dataclass
+class ListRefundsResponse:
+    total_count: int
+    refunds: list[RefundSummary]
+
+
+@dataclass
+class ListRpnCapableSanServersResponse:
+    total_count: int
+    """
+    Total count of rpn capable san servers.
+    """
+
+    san_servers: list[RpnSanServer]
+    """
+    List of san servers.
+    """
+
+
+@dataclass
+class ListRpnCapableServersResponse:
+    total_count: int
+    """
+    Total count of rpn capable servers.
+    """
+
+    servers: list[Server]
+    """
+    List of servers.
+    """
+
+
+@dataclass
+class ListRpnGroupMembersResponse:
+    total_count: int
+    """
+    Total count of rpn v1 group members.
+    """
+
+    members: list[RpnGroupMember]
+    """
+    List of rpn v1 group members.
+    """
+
+
+@dataclass
+class ListRpnGroupsResponse:
+    total_count: int
+    """
+    Total count of rpn groups.
+    """
+
+    rpn_groups: list[RpnGroup]
+    """
+    List of rpn v1 groups.
+    """
+
+
+@dataclass
+class ListRpnInvitesResponse:
+    total_count: int
+    """
+    Total count of invites.
+    """
+
+    members: list[RpnGroupMember]
+    """
+    List of invites.
+    """
+
+
+@dataclass
+class ListRpnSansResponse:
+    total_count: int
+    """
+    Total count of matching RPN SANs.
+    """
+
+    rpn_sans: list[RpnSanSummary]
+    """
+    List of RPN SANs that match filters.
+    """
+
+
+@dataclass
+class ListRpnServerCapabilitiesResponse:
+    total_count: int
+    """
+    Total count of servers.
+    """
+
+    servers: list[RpnServerCapability]
+    """
+    List of servers and their RPN capabilities.
+    """
+
+
+@dataclass
+class ListRpnV2CapableResourcesResponse:
+    total_count: int
+    """
+    Total count of matching rpn v2 capable resources.
+    """
+
+    servers: list[Server]
+    """
+    List of rpn v2 capable resources that match filters.
+    """
+
+
+@dataclass
+class ListRpnV2GroupLogsResponse:
+    total_count: int
+    """
+    Total count of matching rpn v2 logs.
+    """
+
+    logs: list[Log]
+    """
+    List of rpn v2 logs that match filters.
+    """
+
+
+@dataclass
+class ListRpnV2GroupsResponse:
+    total_count: int
+    """
+    Total count of matching rpn v2 groups.
+    """
+
+    rpn_groups: list[RpnV2Group]
+    """
+    List of rpn v2 groups that match filters.
+    """
+
+
+@dataclass
+class ListRpnV2MembersResponse:
+    total_count: int
+    """
+    Total count of matching rpn v2 group members.
+    """
+
+    members: list[RpnV2Member]
+    """
+    List of rpn v2 group members that match filters.
+    """
+
+
+@dataclass
+class ListServerDisksRequest:
+    server_id: int
+    """
+    Server ID of the server disks.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of server disk per page.
+    """
+
+    order_by: Optional[ListServerDisksRequestOrderBy] = (
+        ListServerDisksRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the server disks.
+    """
+
+
+@dataclass
+class ListServerDisksResponse:
+    total_count: int
+    """
+    Total count of matching server disks.
+    """
+
+    disks: list[ServerDisk]
+    """
+    Server disks that match filters.
+    """
+
+
+@dataclass
+class ListServerEventsRequest:
+    server_id: int
+    """
+    Server ID of the server events.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of server event per page.
+    """
+
+    order_by: Optional[ListServerEventsRequestOrderBy] = (
+        ListServerEventsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the server events.
+    """
+
+
+@dataclass
+class ListServerEventsResponse:
+    total_count: int
+    """
+    Total count of matching server events.
+    """
+
+    events: list[ServerEvent]
+    """
+    Server events that match filters.
+    """
+
+
+@dataclass
+class ListServersRequest:
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of server per page.
+    """
+
+    order_by: Optional[ListServersRequestOrderBy] = (
+        ListServersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the servers.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter servers by project ID.
+    """
+
+    search: Optional[str] = None
+    """
+    Filter servers by hostname.
     """
 
 
@@ -261,58 +3410,34 @@ class ListServersResponse:
     Total count of matching servers.
     """
 
-    servers: list[Server]
+    servers: list[ServerSummary]
     """
     Servers that match filters.
     """
 
 
 @dataclass
-class VpsApiChangeServerHostnameRequest:
-    server_id: str
+class ListServicesRequest:
+    zone: Optional[ScwZone] = None
     """
-    ID of the server.
-    """
-
-    hostname: str
-    """
-    New hostname of the server.
+    Zone to target. If none is passed will use default zone from the config.
     """
 
-
-@dataclass
-class VpsApiChangeServerPasswordRequest:
-    server_id: str
+    page: Optional[int] = 0
     """
-    ID of the server.
+    Page number.
     """
 
-    password: str
+    page_size: Optional[int] = 0
     """
-    New root password of the server.
-    """
-
-
-@dataclass
-class VpsApiCreateServerRequest:
-    offer_id: str
-    """
-    Offer ID of the server.
+    Number of service per page.
     """
 
-    os_id: str
+    order_by: Optional[ListServicesRequestOrderBy] = (
+        ListServicesRequestOrderBy.CREATED_AT_ASC
+    )
     """
-    OS ID to install on the server.
-    """
-
-    location_id: str
-    """
-    Location ID of the server.
-    """
-
-    hostname: str
-    """
-    Hostname of the server.
+    Order of the services.
     """
 
     project_id: Optional[str] = None
@@ -320,38 +3445,32 @@ class VpsApiCreateServerRequest:
     Project ID.
     """
 
-    ssh_key_id: Optional[str] = None
+
+@dataclass
+class ListServicesResponse:
+    total_count: int
     """
-    SSH key to install on the server.
+    Total count of matching services.
+    """
+
+    services: list[Service]
+    """
+    Services that match filters.
     """
 
 
 @dataclass
-class VpsApiDeleteServerRequest:
-    server_id: str
+class ListSubscribableServerOptionsRequest:
+    server_id: int
     """
-    ID of the server to delete.
-    """
-
-
-@dataclass
-class VpsApiGetOfferRequest:
-    offer_id: str
-    """
-    ID of the offer.
+    Server ID of the subscribable server options.
     """
 
-
-@dataclass
-class VpsApiGetServerRequest:
-    server_id: str
+    zone: Optional[ScwZone] = None
     """
-    ID of the server.
+    Zone to target. If none is passed will use default zone from the config.
     """
 
-
-@dataclass
-class VpsApiListLocationsRequest:
     page: Optional[int] = 0
     """
     Page number.
@@ -359,38 +3478,143 @@ class VpsApiListLocationsRequest:
 
     page_size: Optional[int] = 0
     """
-    Number of locations per page.
+    Number of subscribable server option per page.
     """
 
 
 @dataclass
-class VpsApiListOSRequest:
-    page: Optional[int] = 0
+class ListSubscribableServerOptionsResponse:
+    total_count: int
     """
-    Page number.
-    """
-
-    page_size: Optional[int] = 0
-    """
-    Number of OS per page.
+    Total count of matching subscribable server options.
     """
 
-
-@dataclass
-class VpsApiListOffersRequest:
-    page: Optional[int] = 0
+    server_options: list[Offer]
     """
-    Page number.
-    """
-
-    page_size: Optional[int] = 0
-    """
-    Number of offers per page.
+    Server options that match filters.
     """
 
 
 @dataclass
-class VpsApiListServersRequest:
+class OfferFailoverBlockInfo:
+    onetime_fees: Optional[Offer] = None
+
+
+@dataclass
+class OfferFailoverIpInfo:
+    onetime_fees: Optional[Offer] = None
+
+
+@dataclass
+class OfferServerInfo:
+    bandwidth: int
+    stock: OfferServerInfoStock
+    commercial_range: str
+    disks: list[Disk]
+    cpus: list[CPU]
+    memories: list[Memory]
+    persistent_memories: list[PersistentMemory]
+    raid_controllers: list[RaidController]
+    available_options: list[Offer]
+    connectivity: int
+    stock_by_datacenter: dict[str, OfferServerInfoStock]
+    availability_by_datacenter: dict[str, OfferServerInfoAvailability]
+    rpn_speed: int
+    rpn_version: Optional[int] = None
+    onetime_fees: Optional[Offer] = None
+
+
+@dataclass
+class OfferServiceLevelInfo:
+    support_ticket: bool
+    support_phone: bool
+    sales_support: bool
+    git: str
+    sla: float
+    priority_support: bool
+    high_rpn_bandwidth: bool
+    customization: bool
+    antidos: bool
+    extra_failover_quota: int
+    available_options: list[Offer]
+
+
+@dataclass
+class Raid:
+    raid_arrays: list[RaidArray]
+    """
+    Details about the RAID controller.
+    """
+
+
+@dataclass
+class RebootServerRequest:
+    server_id: int
+    """
+    Server ID to reboot.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class Refund:
+    id: int
+    status: RefundStatus
+    method: RefundMethod
+    content: str
+    total_with_taxes: Optional[Money] = None
+    total_without_taxes: Optional[Money] = None
+    created_at: Optional[datetime] = None
+    refunded_at: Optional[datetime] = None
+
+
+@dataclass
+class Rescue:
+    os_id: int
+    """
+    OS ID of the rescue.
+    """
+
+    login: str
+    """
+    Login of the rescue.
+    """
+
+    password: str
+    """
+    Password of the rescue.
+    """
+
+    protocol: RescueProtocol
+    """
+    Protocol of the rescue.
+    """
+
+
+@dataclass
+class RpnApiGetRpnStatusRequest:
+    project_id: Optional[str] = None
+    """
+    A project ID.
+    """
+
+    rpnv1_group_id: Optional[int] = 0
+    """
+    An RPN v1 group ID.
+    """
+
+    rpnv2_group_id: Optional[int] = 0
+    """
+    An RPN v2 group ID.
+    """
+
+
+@dataclass
+class RpnApiListRpnServerCapabilitiesRequest:
     page: Optional[int] = 0
     """
     Page number.
@@ -401,37 +3625,861 @@ class VpsApiListServersRequest:
     Number of servers per page.
     """
 
-    organization_id: Optional[str] = None
+    order_by: Optional[ListRpnServerCapabilitiesRequestOrderBy] = (
+        ListRpnServerCapabilitiesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the servers.
+    """
 
     project_id: Optional[str] = None
-
-
-@dataclass
-class VpsApiManageServerPowerRequest:
-    server_id: str
     """
-    ID of the server.
-    """
-
-    action: ManageServerPowerRequestAction
-    """
-    Action to perform (power_off, power_on, reboot).
+    Filter servers by project ID.
     """
 
 
 @dataclass
-class VpsApiReinstallServerRequest:
-    server_id: str
+class RpnSanApiAddIpRequest:
+    rpn_san_id: int
+    """
+    RPN SAN ID.
+    """
+
+    ip_ids: list[int]
+    """
+    An array of IP ID.
+    """
+
+
+@dataclass
+class RpnSanApiCreateRpnSanRequest:
+    offer_id: int
+    """
+    Offer ID.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Your project ID.
+    """
+
+
+@dataclass
+class RpnSanApiDeleteRpnSanRequest:
+    rpn_san_id: int
+    """
+    RPN SAN ID.
+    """
+
+
+@dataclass
+class RpnSanApiGetRpnSanRequest:
+    rpn_san_id: int
+    """
+    RPN SAN ID.
+    """
+
+
+@dataclass
+class RpnSanApiListAvailableIpsRequest:
+    rpn_san_id: int
+    """
+    RPN SAN ID.
+    """
+
+    type_: Optional[RpnSanIpType] = RpnSanIpType.UNKNOWN
+    """
+    Filter by IP type (server | rpnv2_subnet).
+    """
+
+
+@dataclass
+class RpnSanApiListIpsRequest:
+    rpn_san_id: int
+    """
+    RPN SAN ID.
+    """
+
+    type_: Optional[RpnSanIpType] = RpnSanIpType.UNKNOWN
+    """
+    Filter by IP type (server | rpnv2_subnet).
+    """
+
+
+@dataclass
+class RpnSanApiListRpnSansRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of RPN SANs per page.
+    """
+
+    order_by: Optional[ListRpnSansRequestOrderBy] = (
+        ListRpnSansRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the RPN SANs.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter RPN SANs by project ID.
+    """
+
+
+@dataclass
+class RpnSanApiRemoveIpRequest:
+    rpn_san_id: int
+    """
+    RPN SAN ID.
+    """
+
+    ip_ids: list[int]
+    """
+    An array of IP ID.
+    """
+
+
+@dataclass
+class RpnV1ApiAcceptRpnInviteRequest:
+    member_id: int
+    """
+    The member ID.
+    """
+
+
+@dataclass
+class RpnV1ApiAddRpnGroupMembersRequest:
+    group_id: int
+    """
+    The rpn v1 group ID.
+    """
+
+    server_ids: Optional[list[int]] = field(default_factory=list)
+    """
+    A collection of rpn v1 capable server IDs.
+    """
+
+    san_server_ids: Optional[list[int]] = field(default_factory=list)
+    """
+    A collection of rpn v1 capable RPN SAN server IDs.
+    """
+
+
+@dataclass
+class RpnV1ApiCreateRpnGroupRequest:
+    name: str
+    """
+    Rpn v1 group name.
+    """
+
+    server_ids: Optional[list[int]] = field(default_factory=list)
+    """
+    A collection of rpn v1 capable servers.
+    """
+
+    san_server_ids: Optional[list[int]] = field(default_factory=list)
+    """
+    A collection of rpn v1 capable rpn sans servers.
+    """
+
+    project_id: Optional[str] = None
+    """
+    A project ID.
+    """
+
+
+@dataclass
+class RpnV1ApiDeleteRpnGroupMembersRequest:
+    group_id: int
+    """
+    The rpn v1 group ID.
+    """
+
+    member_ids: list[int]
+    """
+    A collection of rpn v1 group members IDs.
+    """
+
+
+@dataclass
+class RpnV1ApiDeleteRpnGroupRequest:
+    group_id: int
+    """
+    Rpn v1 group ID.
+    """
+
+
+@dataclass
+class RpnV1ApiGetRpnGroupRequest:
+    group_id: int
+    """
+    Rpn v1 group ID.
+    """
+
+
+@dataclass
+class RpnV1ApiLeaveRpnGroupRequest:
+    group_id: int
+    """
+    The RPN V1 group ID.
+    """
+
+    member_ids: list[int]
+    """
+    A collection of rpn v1 group members IDs.
+    """
+
+
+@dataclass
+class RpnV1ApiListRpnCapableSanServersRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn capable resources per page.
+    """
+
+    order_by: Optional[ListRpnCapableSanServersRequestOrderBy] = (
+        ListRpnCapableSanServersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn capable resources.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter rpn capable resources by project ID.
+    """
+
+
+@dataclass
+class RpnV1ApiListRpnCapableServersRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn capable resources per page.
+    """
+
+    order_by: Optional[ListRpnCapableServersRequestOrderBy] = (
+        ListRpnCapableServersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn capable resources.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter rpn capable resources by project ID.
+    """
+
+
+@dataclass
+class RpnV1ApiListRpnGroupMembersRequest:
+    group_id: int
+    """
+    Filter rpn v1 group members by group ID.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v1 group members per page.
+    """
+
+    order_by: Optional[ListRpnGroupMembersRequestOrderBy] = (
+        ListRpnGroupMembersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v1 group members.
+    """
+
+    project_id: Optional[str] = None
+    """
+    A project ID.
+    """
+
+
+@dataclass
+class RpnV1ApiListRpnGroupsRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v1 groups per page.
+    """
+
+    order_by: Optional[ListRpnGroupsRequestOrderBy] = (
+        ListRpnGroupsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v1 groups.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter rpn v1 groups by project ID.
+    """
+
+
+@dataclass
+class RpnV1ApiListRpnInvitesRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn capable resources per page.
+    """
+
+    order_by: Optional[ListRpnInvitesRequestOrderBy] = (
+        ListRpnInvitesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn capable resources.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter rpn capable resources by project ID.
+    """
+
+
+@dataclass
+class RpnV1ApiRefuseRpnInviteRequest:
+    member_id: int
+    """
+    The member ID.
+    """
+
+
+@dataclass
+class RpnV1ApiRpnGroupInviteRequest:
+    group_id: int
+    """
+    The RPN V1 group ID.
+    """
+
+    server_ids: list[int]
+    """
+    A collection of external server IDs.
+    """
+
+    project_id: Optional[str] = None
+    """
+    A project ID.
+    """
+
+
+@dataclass
+class RpnV1ApiUpdateRpnGroupNameRequest:
+    group_id: int
+    """
+    Rpn v1 group ID.
+    """
+
+    name: Optional[str] = None
+    """
+    New rpn v1 group name.
+    """
+
+
+@dataclass
+class RpnV2ApiAddRpnV2MembersRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+    servers: list[int]
+    """
+    A collection of server IDs.
+    """
+
+
+@dataclass
+class RpnV2ApiCreateRpnV2GroupRequest:
+    name: str
+    """
+    RPN V2 group name.
+    """
+
+    servers: list[int]
+    """
+    A collection of server IDs.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID of the RPN V2 group.
+    """
+
+    type_: Optional[RpnV2GroupType] = RpnV2GroupType.UNKNOWN_TYPE
+    """
+    RPN V2 group type (qing / standard).
+    """
+
+
+@dataclass
+class RpnV2ApiDeleteRpnV2GroupRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+
+@dataclass
+class RpnV2ApiDeleteRpnV2MembersRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+    member_ids: list[int]
+    """
+    A collection of member IDs.
+    """
+
+
+@dataclass
+class RpnV2ApiDisableRpnV2GroupCompatibilityRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+
+@dataclass
+class RpnV2ApiEnableRpnV2GroupCompatibilityRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+    rpnv1_group_id: int
+    """
+    RPN V1 group ID.
+    """
+
+
+@dataclass
+class RpnV2ApiGetRpnV2GroupRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+
+@dataclass
+class RpnV2ApiListRpnV2CapableResourcesRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v2 capable resources per page.
+    """
+
+    order_by: Optional[ListRpnV2CapableResourcesRequestOrderBy] = (
+        ListRpnV2CapableResourcesRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v2 capable resources.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter rpn v2 capable resources by project ID.
+    """
+
+
+@dataclass
+class RpnV2ApiListRpnV2GroupLogsRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v2 group logs per page.
+    """
+
+    order_by: Optional[ListRpnV2GroupLogsRequestOrderBy] = (
+        ListRpnV2GroupLogsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v2 group logs.
+    """
+
+
+@dataclass
+class RpnV2ApiListRpnV2GroupsRequest:
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v2 groups per page.
+    """
+
+    order_by: Optional[ListRpnV2GroupsRequestOrderBy] = (
+        ListRpnV2GroupsRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v2 groups.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Filter rpn v2 groups by project ID.
+    """
+
+
+@dataclass
+class RpnV2ApiListRpnV2MembersRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+    page: Optional[int] = 0
+    """
+    Page number.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of rpn v2 group members per page.
+    """
+
+    order_by: Optional[ListRpnV2MembersRequestOrderBy] = (
+        ListRpnV2MembersRequestOrderBy.CREATED_AT_ASC
+    )
+    """
+    Order of the rpn v2 group members.
+    """
+
+    type_: Optional[ListRpnV2MembersRequestType] = (
+        ListRpnV2MembersRequestType.UNKNOWN_TYPE
+    )
+    """
+    Filter members by type.
+    """
+
+
+@dataclass
+class RpnV2ApiUpdateRpnV2GroupNameRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+    name: Optional[str] = None
+    """
+    RPN V2 group name.
+    """
+
+
+@dataclass
+class RpnV2ApiUpdateRpnV2VlanForMembersRequest:
+    group_id: int
+    """
+    RPN V2 group ID.
+    """
+
+    member_ids: list[int]
+    """
+    RPN V2 member IDs.
+    """
+
+    vlan: Optional[int] = 0
+    """
+    Min: 0.
+Max: 3967.
+    """
+
+
+@dataclass
+class ServerDefaultPartitioning:
+    partitions: list[Partition]
+    """
+    Default partitions.
+    """
+
+
+@dataclass
+class ServerInstall:
+    os_id: int
+    hostname: str
+    partitions: list[Partition]
+    ssh_key_ids: list[str]
+    status: ServerInstallStatus
+    user_login: Optional[str] = None
+    panel_url: Optional[str] = None
+
+
+@dataclass
+class StartBMCAccessRequest:
+    server_id: int
+    """
+    ID of the server to start the BMC access.
+    """
+
+    ip: str
+    """
+    The IP authorized to connect to the given server.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class StartRescueRequest:
+    server_id: int
+    """
+    ID of the server to start rescue.
+    """
+
+    os_id: int
+    """
+    OS ID to use to start rescue.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class StartServerRequest:
+    server_id: int
+    """
+    Server ID to start.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class StopBMCAccessRequest:
+    server_id: int
+    """
+    ID of the server to stop BMC access.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class StopRescueRequest:
+    server_id: int
+    """
+    ID of the server to stop rescue.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class StopServerRequest:
+    server_id: int
+    """
+    Server ID to stop.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class SubscribeServerOptionRequest:
+    server_id: int
+    """
+    Server ID to subscribe server option.
+    """
+
+    option_id: int
+    """
+    Option ID to subscribe.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class SubscribeStorageOptionsRequest:
+    server_id: int
+    """
+    Server ID of the storage options to subscribe.
+    """
+
+    options_ids: list[int]
+    """
+    Option IDs of the storage options to subscribe.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class SubscribeStorageOptionsResponse:
+    services: list[Service]
+    """
+    Services subscribe storage options.
+    """
+
+
+@dataclass
+class UpdateRaidRequest:
+    server_id: int
     """
     ID of the server.
     """
 
-    os_id: str
+    raid_arrays: list[UpdatableRaidArray]
     """
-    OS ID to reinstall on the server.
+    RAIDs to update.
     """
 
-    ssh_key_id: Optional[str] = None
+    zone: Optional[ScwZone] = None
     """
-    SSH key to install on the server.
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class UpdateReverseRequest:
+    ip_id: int
+    """
+    ID of the IP.
+    """
+
+    reverse: str
+    """
+    Reverse to apply on the IP.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class UpdateServerBackupRequest:
+    server_id: int
+    """
+    Server ID to update backup.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    password: Optional[str] = None
+    """
+    Password of the server backup.
+    """
+
+    autologin: Optional[bool] = False
+    """
+    Autologin of the server backup.
+    """
+
+    acl_enabled: Optional[bool] = False
+    """
+    Boolean to enable or disable ACL.
+    """
+
+
+@dataclass
+class UpdateServerRequest:
+    server_id: int
+    """
+    Server ID to update.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    hostname: Optional[str] = None
+    """
+    Hostname of the server to update.
+    """
+
+    enable_ipv6: Optional[bool] = False
+    """
+    Flag to enable or not the IPv6 of server.
+    """
+
+
+@dataclass
+class UpdateServerTagsRequest:
+    server_id: int
+    """
+    Server ID to update the tags.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    tags: Optional[list[str]] = field(default_factory=list)
+    """
+    Tags of server to update.
     """

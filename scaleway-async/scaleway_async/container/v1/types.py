@@ -470,7 +470,7 @@ class Container:
 
     image: str
     """
-    Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").
+    Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").
     """
 
     protocol: ContainerProtocol
@@ -887,7 +887,7 @@ class CreateContainerRequest:
 
     image: str
     """
-    Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").
+    Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").
     """
 
     region: Optional[ScwRegion] = None
@@ -1393,7 +1393,7 @@ class UpdateContainerRequest:
 
     image: Optional[str] = None
     """
-    Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").
+    Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").
     """
 
     protocol: Optional[ContainerProtocol] = ContainerProtocol.UNKNOWN_PROTOCOL
