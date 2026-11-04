@@ -440,7 +440,7 @@ class ContainerV1API(API):
         :param timeout: Processing time limit for the container.
         :param privacy: Privacy policy of the container.
         :param description: Container description.
-        :param image: Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").
+        :param image: Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").
         :param protocol: Protocol the container uses.
         :param port: Port the container listens on.
         :param https_connections_only: If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).
@@ -738,7 +738,7 @@ class ContainerV1API(API):
         :param timeout: Processing time limit for the container.
         :param privacy: Privacy policy of the container.
         :param description: Container description.
-        :param image: Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").
+        :param image: Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").
         :param protocol: Protocol the container uses.
         :param port: Port the container listens on.
         :param https_connection_only: If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).
