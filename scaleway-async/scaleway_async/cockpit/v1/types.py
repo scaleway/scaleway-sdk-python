@@ -209,6 +209,47 @@ class ContactPointEmail:
 
 
 @dataclass
+class DataSourceLogsLimits:
+    """
+    Limits of a logs data source.
+    """
+
+    ingestion_rate_limit_bytes_per_second: Optional[int] = 0
+    """
+    Maximum number of bytes ingested per second.
+    """
+
+
+@dataclass
+class DataSourceMetricsLimits:
+    """
+    Limits of a metrics data source.
+    """
+
+    ingestion_rate_limit_samples_per_second: Optional[int] = 0
+    """
+    Maximum number of samples ingested per second.
+    """
+
+    max_series: Optional[int] = 0
+    """
+    Maximum number of active series.
+    """
+
+
+@dataclass
+class DataSourceTracesLimits:
+    """
+    Limits of a traces data source.
+    """
+
+    ingestion_rate_limit_bytes_per_second: Optional[int] = 0
+    """
+    Maximum number of bytes ingested per second.
+    """
+
+
+@dataclass
 class ExporterDatadogDestination:
     api_key: Optional[str] = None
     endpoint: Optional[str] = None
@@ -218,6 +259,28 @@ class ExporterDatadogDestination:
 class ExporterOTLPDestination:
     endpoint: str
     headers: dict[str, str]
+
+
+@dataclass
+class GetConfigResponseBounds:
+    """
+    Allowed range and default value of a data source limit.
+    """
+
+    min_value: int
+    """
+    Minimum allowed value.
+    """
+
+    max_value: int
+    """
+    Maximum allowed value.
+    """
+
+    default_value: int
+    """
+    Value applied to a data source that does not set the limit.
+    """
 
 
 @dataclass
@@ -391,6 +454,12 @@ class DataSource:
     """
     Usage of the month in bytes.
     """
+
+    metrics_limits: Optional[DataSourceMetricsLimits] = None
+
+    logs_limits: Optional[DataSourceLogsLimits] = None
+
+    traces_limits: Optional[DataSourceTracesLimits] = None
 
 
 @dataclass
@@ -752,6 +821,32 @@ class GetConfigResponse:
     product_logs_retention: Optional[GetConfigResponseRetention] = None
     """
     Scaleway logs retention configuration.
+    """
+
+    custom_metrics_ingestion_rate_limit_samples_per_second: Optional[
+        GetConfigResponseBounds
+    ] = None
+    """
+    Bounds of the custom metrics ingestion rate limit, in samples per second.
+    """
+
+    custom_metrics_max_series: Optional[GetConfigResponseBounds] = None
+    """
+    Bounds of the custom metrics maximum number of active series.
+    """
+
+    custom_logs_ingestion_rate_limit_bytes_per_second: Optional[
+        GetConfigResponseBounds
+    ] = None
+    """
+    Bounds of the custom logs ingestion rate limit, in bytes per second.
+    """
+
+    custom_traces_ingestion_rate_limit_bytes_per_second: Optional[
+        GetConfigResponseBounds
+    ] = None
+    """
+    Bounds of the custom traces ingestion rate limit, in bytes per second.
     """
 
 
@@ -1202,6 +1297,12 @@ class RegionalApiCreateDataSourceRequest:
     """
     Default values are 31 days for metrics, 7 days for logs and traces.
     """
+
+    metrics_limits: Optional[DataSourceMetricsLimits] = None
+
+    logs_limits: Optional[DataSourceLogsLimits] = None
+
+    traces_limits: Optional[DataSourceTracesLimits] = None
 
 
 @dataclass
@@ -1827,6 +1928,12 @@ class RegionalApiUpdateDataSourceRequest:
     """
     Duration for which the data will be retained in the data source.
     """
+
+    metrics_limits: Optional[DataSourceMetricsLimits] = None
+
+    logs_limits: Optional[DataSourceLogsLimits] = None
+
+    traces_limits: Optional[DataSourceTracesLimits] = None
 
 
 @dataclass

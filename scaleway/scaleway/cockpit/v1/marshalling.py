@@ -21,6 +21,9 @@ from .types import (
     UsageUnit,
     ContactPointEmail,
     ContactPoint,
+    DataSourceLogsLimits,
+    DataSourceMetricsLimits,
+    DataSourceTracesLimits,
     DataSource,
     ExporterDatadogDestination,
     ExporterOTLPDestination,
@@ -32,6 +35,7 @@ from .types import (
     AlertManager,
     DisableAlertRulesResponse,
     EnableAlertRulesResponse,
+    GetConfigResponseBounds,
     GetConfigResponseRetention,
     GetConfigResponse,
     RulesCount,
@@ -119,6 +123,63 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     return ContactPoint(**args)
 
 
+def unmarshal_DataSourceLogsLimits(data: Any) -> DataSourceLogsLimits:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DataSourceLogsLimits' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("ingestion_rate_limit_bytes_per_second", None)
+    if field is not None:
+        args["ingestion_rate_limit_bytes_per_second"] = field
+    else:
+        args["ingestion_rate_limit_bytes_per_second"] = 0
+
+    return DataSourceLogsLimits(**args)
+
+
+def unmarshal_DataSourceMetricsLimits(data: Any) -> DataSourceMetricsLimits:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DataSourceMetricsLimits' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("ingestion_rate_limit_samples_per_second", None)
+    if field is not None:
+        args["ingestion_rate_limit_samples_per_second"] = field
+    else:
+        args["ingestion_rate_limit_samples_per_second"] = 0
+
+    field = data.get("max_series", None)
+    if field is not None:
+        args["max_series"] = field
+    else:
+        args["max_series"] = 0
+
+    return DataSourceMetricsLimits(**args)
+
+
+def unmarshal_DataSourceTracesLimits(data: Any) -> DataSourceTracesLimits:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DataSourceTracesLimits' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("ingestion_rate_limit_bytes_per_second", None)
+    if field is not None:
+        args["ingestion_rate_limit_bytes_per_second"] = field
+    else:
+        args["ingestion_rate_limit_bytes_per_second"] = 0
+
+    return DataSourceTracesLimits(**args)
+
+
 def unmarshal_DataSource(data: Any) -> DataSource:
     if not isinstance(data, dict):
         raise TypeError(
@@ -163,12 +224,6 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     else:
         args["origin"] = DataSourceOrigin.UNKNOWN_ORIGIN
 
-    field = data.get("synchronized_with_grafana", None)
-    if field is not None:
-        args["synchronized_with_grafana"] = field
-    else:
-        args["synchronized_with_grafana"] = False
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -180,6 +235,12 @@ def unmarshal_DataSource(data: Any) -> DataSource:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("synchronized_with_grafana", None)
+    if field is not None:
+        args["synchronized_with_grafana"] = field
+    else:
+        args["synchronized_with_grafana"] = False
 
     field = data.get("retention_days", None)
     if field is not None:
@@ -204,6 +265,24 @@ def unmarshal_DataSource(data: Any) -> DataSource:
         args["current_month_usage"] = field
     else:
         args["current_month_usage"] = 0
+
+    field = data.get("metrics_limits", None)
+    if field is not None:
+        args["metrics_limits"] = unmarshal_DataSourceMetricsLimits(field)
+    else:
+        args["metrics_limits"] = None
+
+    field = data.get("logs_limits", None)
+    if field is not None:
+        args["logs_limits"] = unmarshal_DataSourceLogsLimits(field)
+    else:
+        args["logs_limits"] = None
+
+    field = data.get("traces_limits", None)
+    if field is not None:
+        args["traces_limits"] = unmarshal_DataSourceTracesLimits(field)
+    else:
+        args["traces_limits"] = None
 
     return DataSource(**args)
 
@@ -612,6 +691,35 @@ def unmarshal_EnableAlertRulesResponse(data: Any) -> EnableAlertRulesResponse:
     return EnableAlertRulesResponse(**args)
 
 
+def unmarshal_GetConfigResponseBounds(data: Any) -> GetConfigResponseBounds:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetConfigResponseBounds' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("min_value", None)
+    if field is not None:
+        args["min_value"] = field
+    else:
+        args["min_value"] = 0
+
+    field = data.get("max_value", None)
+    if field is not None:
+        args["max_value"] = field
+    else:
+        args["max_value"] = 0
+
+    field = data.get("default_value", None)
+    if field is not None:
+        args["default_value"] = field
+    else:
+        args["default_value"] = 0
+
+    return GetConfigResponseBounds(**args)
+
+
 def unmarshal_GetConfigResponseRetention(data: Any) -> GetConfigResponseRetention:
     if not isinstance(data, dict):
         raise TypeError(
@@ -678,6 +786,36 @@ def unmarshal_GetConfigResponse(data: Any) -> GetConfigResponse:
         args["product_logs_retention"] = unmarshal_GetConfigResponseRetention(field)
     else:
         args["product_logs_retention"] = None
+
+    field = data.get("custom_metrics_ingestion_rate_limit_samples_per_second", None)
+    if field is not None:
+        args["custom_metrics_ingestion_rate_limit_samples_per_second"] = (
+            unmarshal_GetConfigResponseBounds(field)
+        )
+    else:
+        args["custom_metrics_ingestion_rate_limit_samples_per_second"] = None
+
+    field = data.get("custom_metrics_max_series", None)
+    if field is not None:
+        args["custom_metrics_max_series"] = unmarshal_GetConfigResponseBounds(field)
+    else:
+        args["custom_metrics_max_series"] = None
+
+    field = data.get("custom_logs_ingestion_rate_limit_bytes_per_second", None)
+    if field is not None:
+        args["custom_logs_ingestion_rate_limit_bytes_per_second"] = (
+            unmarshal_GetConfigResponseBounds(field)
+        )
+    else:
+        args["custom_logs_ingestion_rate_limit_bytes_per_second"] = None
+
+    field = data.get("custom_traces_ingestion_rate_limit_bytes_per_second", None)
+    if field is not None:
+        args["custom_traces_ingestion_rate_limit_bytes_per_second"] = (
+            unmarshal_GetConfigResponseBounds(field)
+        )
+    else:
+        args["custom_traces_ingestion_rate_limit_bytes_per_second"] = None
 
     return GetConfigResponse(**args)
 
@@ -1364,11 +1502,77 @@ def marshal_RegionalApiCreateContactPointRequest(
     return output
 
 
+def marshal_DataSourceLogsLimits(
+    request: DataSourceLogsLimits,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ingestion_rate_limit_bytes_per_second is not None:
+        output["ingestion_rate_limit_bytes_per_second"] = (
+            request.ingestion_rate_limit_bytes_per_second
+        )
+
+    return output
+
+
+def marshal_DataSourceMetricsLimits(
+    request: DataSourceMetricsLimits,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ingestion_rate_limit_samples_per_second is not None:
+        output["ingestion_rate_limit_samples_per_second"] = (
+            request.ingestion_rate_limit_samples_per_second
+        )
+
+    if request.max_series is not None:
+        output["max_series"] = request.max_series
+
+    return output
+
+
+def marshal_DataSourceTracesLimits(
+    request: DataSourceTracesLimits,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ingestion_rate_limit_bytes_per_second is not None:
+        output["ingestion_rate_limit_bytes_per_second"] = (
+            request.ingestion_rate_limit_bytes_per_second
+        )
+
+    return output
+
+
 def marshal_RegionalApiCreateDataSourceRequest(
     request: RegionalApiCreateDataSourceRequest,
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="metrics_limits",
+                    value=request.metrics_limits,
+                    marshal_func=marshal_DataSourceMetricsLimits,
+                ),
+                OneOfPossibility(
+                    param="logs_limits",
+                    value=request.logs_limits,
+                    marshal_func=marshal_DataSourceLogsLimits,
+                ),
+                OneOfPossibility(
+                    param="traces_limits",
+                    value=request.traces_limits,
+                    marshal_func=marshal_DataSourceTracesLimits,
+                ),
+            ]
+        ),
+    )
 
     if request.name is not None:
         output["name"] = request.name
@@ -1636,6 +1840,27 @@ def marshal_RegionalApiUpdateDataSourceRequest(
     defaults: ProfileDefaults,
 ) -> dict[str, Any]:
     output: dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    param="metrics_limits",
+                    value=request.metrics_limits,
+                    marshal_func=marshal_DataSourceMetricsLimits,
+                ),
+                OneOfPossibility(
+                    param="logs_limits",
+                    value=request.logs_limits,
+                    marshal_func=marshal_DataSourceLogsLimits,
+                ),
+                OneOfPossibility(
+                    param="traces_limits",
+                    value=request.traces_limits,
+                    marshal_func=marshal_DataSourceTracesLimits,
+                ),
+            ]
+        ),
+    )
 
     if request.name is not None:
         output["name"] = request.name
