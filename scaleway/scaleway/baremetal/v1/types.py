@@ -869,6 +869,11 @@ class Server:
     True if a deletion is scheduled.
     """
 
+    srn: str
+    """
+    The SRN of the server.
+    """
+
     updated_at: Optional[datetime] = None
     """
     Last modification date of the server.
@@ -960,6 +965,11 @@ class OS:
     zone: ScwZone
     """
     Zone in which is the OS is available.
+    """
+
+    srn: str
+    """
+    The SRN of the OS.
     """
 
     ssh: Optional[OSOSField] = None
@@ -1115,6 +1125,11 @@ class Offer:
     Zone in which is the offer is available.
     """
 
+    srn: str
+    """
+    The SRN of the offer.
+    """
+
     price_per_hour: Optional[Money] = None
     """
     Price of the offer for the next 60 minutes (a server order at 11h32 will be paid until 12h32).
@@ -1156,6 +1171,16 @@ class Option:
     manageable: bool
     """
     Defines whether the option is manageable (could be added or removed).
+    """
+
+    zone: ScwZone
+    """
+    Zone in which is the option is available.
+    """
+
+    srn: str
+    """
+    The SRN of the option.
     """
 
     license: Optional[LicenseOption] = None
@@ -1257,6 +1282,16 @@ class Setting:
     Defines whether the setting is enabled.
     """
 
+    zone: ScwZone
+    """
+    Zone in which is the setting is located.
+    """
+
+    srn: str
+    """
+    The SRN of the setting.
+    """
+
 
 @dataclass
 class AddOptionServerRequest:
@@ -1296,6 +1331,21 @@ class BMCAccess:
     password: str
     """
     The password to use for the BMC (Baseboard Management Controller) access authentication.
+    """
+
+    server_id: str
+    """
+    ID of the server.
+    """
+
+    zone: ScwZone
+    """
+    Zone in which the server is located.
+    """
+
+    srn: str
+    """
+    The SRN of the BMC access.
     """
 
     expires_at: Optional[datetime] = None
