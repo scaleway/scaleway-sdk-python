@@ -769,6 +769,12 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["scheduled_deletion"] = False
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("install", None)
     if field is not None:
         args["install"] = unmarshal_ServerInstall(field)
@@ -906,6 +912,12 @@ def unmarshal_OS(data: Any) -> OS:
         args["zone"] = field
     else:
         args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("ssh", None)
     if field is not None:
@@ -1428,6 +1440,12 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["zone"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("monthly_offer_id", None)
     if field is not None:
         args["monthly_offer_id"] = field
@@ -1468,6 +1486,18 @@ def unmarshal_Option(data: Any) -> Option:
         args["manageable"] = field
     else:
         args["manageable"] = False
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("license", None)
     if field is not None:
@@ -1593,6 +1623,18 @@ def unmarshal_Setting(data: Any) -> Setting:
     else:
         args["enabled"] = False
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     return Setting(**args)
 
 
@@ -1621,6 +1663,24 @@ def unmarshal_BMCAccess(data: Any) -> BMCAccess:
         args["password"] = field
     else:
         args["password"] = None
+
+    field = data.get("server_id", None)
+    if field is not None:
+        args["server_id"] = field
+    else:
+        args["server_id"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
