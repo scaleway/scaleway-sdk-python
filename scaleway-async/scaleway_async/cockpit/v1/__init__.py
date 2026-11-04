@@ -18,12 +18,8 @@ from .types import TokenScope
 from .types import UsageUnit
 from .types import PreconfiguredAlertData
 from .types import ContactPointEmail
-from .types import DataSourceLogsLimits
-from .types import DataSourceMetricsLimits
-from .types import DataSourceTracesLimits
 from .types import ExporterDatadogDestination
 from .types import ExporterOTLPDestination
-from .types import GetConfigResponseBounds
 from .types import GetConfigResponseRetention
 from .types import RulesCount
 from .types import Alert
@@ -116,12 +112,8 @@ __all__ = [
     "UsageUnit",
     "PreconfiguredAlertData",
     "ContactPointEmail",
-    "DataSourceLogsLimits",
-    "DataSourceMetricsLimits",
-    "DataSourceTracesLimits",
     "ExporterDatadogDestination",
     "ExporterOTLPDestination",
-    "GetConfigResponseBounds",
     "GetConfigResponseRetention",
     "RulesCount",
     "Alert",
