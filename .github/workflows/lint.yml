@@ -44,4 +44,4 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check workflow files
-        uses: reviewdog/action-actionlint@1f3610e92fa221aa2b7c1756bccf5437efd416a4 # v1.70.0
+        uses: reviewdog/action-actionlint@e58ee9d111489c31395fbe4857b0be6e7635dbda # v1.70.0
