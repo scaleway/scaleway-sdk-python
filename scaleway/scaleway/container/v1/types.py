@@ -550,7 +550,7 @@ class Container:
 
     liveness_probe: Optional[ContainerProbe] = None
     """
-    If the liveness probe fails, the container will be restarted.
+    If the liveness probe fails, the container will be marked as unhealthy, and won't receive traffic anymore.
 It is performed periodically during the container's lifetime. The liveness probe is not executed until the startup probe (if defined) is successful.
 
 Possible check types:
@@ -972,7 +972,7 @@ class CreateContainerRequest:
 
     liveness_probe: Optional[ContainerProbe] = None
     """
-    If the liveness probe fails, the container will be restarted.
+    If the liveness probe fails, the container will be marked as unhealthy, and won't receive traffic anymore.
 It is performed periodically during the container's lifetime. The liveness probe is not executed until the startup probe (if defined) is successful.
 
 Possible check types:
@@ -1428,7 +1428,7 @@ class UpdateContainerRequest:
 
     liveness_probe: Optional[ContainerProbe] = None
     """
-    If the liveness probe fails, the container will be restarted.
+    If the liveness probe fails, the container will be marked as unhealthy, and won't receive traffic anymore.
 It is performed periodically during the container's lifetime. The liveness probe is not executed until the startup probe (if defined) is successful.
 
 Possible check types:

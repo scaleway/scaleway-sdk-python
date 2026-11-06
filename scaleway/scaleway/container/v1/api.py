@@ -447,7 +447,7 @@ class ContainerV1API(API):
         :param sandbox: Execution environment of the container.
         :param local_storage_limit_bytes: Local storage limit of the container (in bytes).
         :param scaling_option: Parameter used to decide when to scale up or down.
-        :param liveness_probe: If the liveness probe fails, the container will be restarted.
+        :param liveness_probe: If the liveness probe fails, the container will be marked as unhealthy, and won't receive traffic anymore.
         It is performed periodically during the container's lifetime. The liveness probe is not executed until the startup probe (if defined) is successful.
 
         Possible check types:
@@ -745,7 +745,7 @@ class ContainerV1API(API):
         :param sandbox: Execution environment of the container.
         :param local_storage_limit_bytes: Local storage limit of the container (in bytes).
         :param scaling_option: Parameter used to decide when to scale up or down.
-        :param liveness_probe: If the liveness probe fails, the container will be restarted.
+        :param liveness_probe: If the liveness probe fails, the container will be marked as unhealthy, and won't receive traffic anymore.
         It is performed periodically during the container's lifetime. The liveness probe is not executed until the startup probe (if defined) is successful.
 
         Possible check types:
