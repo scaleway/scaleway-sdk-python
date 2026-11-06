@@ -461,9 +461,27 @@ class Ip:
     Load Balancer ID.
     """
 
+    ipam_ip_id: Optional[str] = None
+    """
+    ID of the IPAM IP address associated with the flexible IP.
+    """
+
     region: Optional[ScwRegion] = None
     """
     The region the IP address is in.
+    """
+
+
+@dataclass
+class IpamIP:
+    id: str
+    """
+    IPAM IP ID.
+    """
+
+    ip_address: str
+    """
+    Actual IP address.
     """
 
 
@@ -585,6 +603,11 @@ class Lb:
     ip: list[Ip]
     """
     List of IP addresses attached to the Load Balancer.
+    """
+
+    ipam_ips: list[IpamIP]
+    """
+    List of public IPAM IP addresses attached to the Load Balancer.
     """
 
     tags: list[str]
@@ -1676,6 +1699,11 @@ class CreateLbRequest:
     List of IP IDs to attach to the Load Balancer.
     """
 
+    ipam_ip_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    List of IPAM IP IDs to attach to the Load Balancer.
+    """
+
     tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
@@ -1808,6 +1836,11 @@ class DeleteLbRequest:
     region: Optional[ScwRegion] = None
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+    migrate_flexip_to_ipam: Optional[bool] = False
+    """
+    If true and one or several ips of the LB are legacy flexible IP, they will be migrated to IPAM, free to use in other Scaleway products.
     """
 
 
@@ -2260,6 +2293,11 @@ class ListIPsRequest:
     tags: Optional[list[str]] = field(default_factory=list)
     """
     Tag to filter for, only IPs with one or more matching tags will be returned.
+    """
+
+    attached: Optional[bool] = False
+    """
+    Defines whether to filter only for Flexible IPs which are attached to a Load Balancer.
     """
 
 
@@ -3031,6 +3069,24 @@ class ZonedApiAddBackendServersRequest:
 
 
 @dataclass
+class ZonedApiAttachIpamIPRequest:
+    lb_id: str
+    """
+    Load Balancer ID.
+    """
+
+    ipam_ip_ids: list[str]
+    """
+    ID of an IPAM IP address to attach to the Load Balancer.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class ZonedApiAttachPrivateNetworkRequest:
     lb_id: str
     """
@@ -3375,6 +3431,11 @@ class ZonedApiCreateLbRequest:
     List of IP IDs to attach to the Load Balancer.
     """
 
+    ipam_ip_ids: Optional[list[str]] = field(default_factory=list)
+    """
+    List of IPAM IP IDs to attach to the Load Balancer.
+    """
+
     tags: Optional[list[str]] = field(default_factory=list)
     """
     List of tags for the Load Balancer.
@@ -3507,6 +3568,11 @@ class ZonedApiDeleteLbRequest:
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+    migrate_flexip_to_ipam: Optional[bool] = False
+    """
+    If true and one or several ips of the LB are legacy flexible IP, they will be migrated to IPAM, free to use in other Scaleway products.
     """
 
 
@@ -3888,6 +3954,11 @@ class ZonedApiListIPsRequest:
     Tag to filter for, only IPs with one or more matching tags will be returned.
     """
 
+    attached: Optional[bool] = False
+    """
+    Defines whether to filter only for Flexible IPs which are attached to a Load Balancer.
+    """
+
 
 @dataclass
 class ZonedApiListLbPrivateNetworksRequest:
@@ -4150,6 +4221,19 @@ class ZonedApiSubscribeToLbRequest:
     subscriber_id: str
     """
     Subscriber ID.
+    """
+
+    zone: Optional[ScwZone] = None
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ZonedApiTransferToIpamRequest:
+    ip_id: str
+    """
+    ID of the LB Flexible IP to transfer to IPAM.
     """
 
     zone: Optional[ScwZone] = None
