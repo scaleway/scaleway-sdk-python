@@ -60,6 +60,7 @@ from .types import (
     HealthCheckRedisConfig,
     HealthCheckTcpConfig,
     Ip,
+    IpamIP,
     Lb,
     LbStats,
     LbType,
@@ -98,6 +99,7 @@ from .types import (
     UpdateRouteRequest,
     UpdateSubscriberRequest,
     ZonedApiAddBackendServersRequest,
+    ZonedApiAttachIpamIPRequest,
     ZonedApiAttachPrivateNetworkRequest,
     ZonedApiCreateAclRequest,
     ZonedApiCreateBackendRequest,
@@ -129,6 +131,7 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_Ip,
+    unmarshal_IpamIP,
     unmarshal_Subscriber,
     unmarshal_HealthCheck,
     unmarshal_Lb,
@@ -175,6 +178,7 @@ from .marshalling import (
     marshal_UpdateRouteRequest,
     marshal_UpdateSubscriberRequest,
     marshal_ZonedApiAddBackendServersRequest,
+    marshal_ZonedApiAttachIpamIPRequest,
     marshal_ZonedApiAttachPrivateNetworkRequest,
     marshal_ZonedApiCreateAclRequest,
     marshal_ZonedApiCreateBackendRequest,
@@ -314,34 +318,36 @@ class LbV1ZonedAPI(API):
     def create_lb(
         self,
         *,
-        description: str,
-        type_: str,
         zone: Optional[ScwZone] = None,
+        description: str,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         ip_id: Optional[str] = None,
+        type_: str,
         assign_flexible_ip: Optional[bool] = None,
         assign_flexible_ipv6: Optional[bool] = None,
         ip_ids: Optional[list[str]] = None,
+        ipam_ip_ids: Optional[list[str]] = None,
         tags: Optional[list[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
         """
         Create a Load Balancer.
         Create a new Load Balancer. Note that the Load Balancer will be created without frontends or backends; these must be created separately via the dedicated endpoints.
-        :param description: Description for the Load Balancer.
-        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param description: Description for the Load Balancer.
         :param organization_id: Scaleway Organization to create the Load Balancer in.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param project_id: Scaleway Project to create the Load Balancer in.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param name: Name for the Load Balancer.
         :param ip_id: ID of an existing flexible IP address to attach to the Load Balancer.
+        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
         :param assign_flexible_ipv6: Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
         :param ip_ids: List of IP IDs to attach to the Load Balancer.
+        :param ipam_ip_ids: List of IPAM IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
         :return: :class:`Lb <Lb>`
@@ -370,6 +376,7 @@ class LbV1ZonedAPI(API):
                     assign_flexible_ip=assign_flexible_ip,
                     assign_flexible_ipv6=assign_flexible_ipv6,
                     ip_ids=ip_ids,
+                    ipam_ip_ids=ipam_ip_ids,
                     tags=tags,
                     ssl_compatibility_level=ssl_compatibility_level,
                     project_id=project_id,
@@ -510,6 +517,7 @@ class LbV1ZonedAPI(API):
         lb_id: str,
         release_ip: bool,
         zone: Optional[ScwZone] = None,
+        migrate_flexip_to_ipam: Optional[bool] = None,
     ) -> None:
         """
         Delete a Load Balancer.
@@ -517,6 +525,7 @@ class LbV1ZonedAPI(API):
         :param lb_id: ID of the Load Balancer to delete.
         :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param migrate_flexip_to_ipam: If true and one or several ips of the LB are legacy flexible IP, they will be migrated to IPAM, free to use in other Scaleway products.
 
         Usage:
         ::
@@ -534,6 +543,7 @@ class LbV1ZonedAPI(API):
             "DELETE",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}",
             params={
+                "migrate_flexip_to_ipam": migrate_flexip_to_ipam,
                 "release_ip": release_ip,
             },
         )
@@ -583,6 +593,49 @@ class LbV1ZonedAPI(API):
         self._throw_on_error(res)
         return unmarshal_Lb(res.json())
 
+    def attach_ipam_ip(
+        self,
+        *,
+        lb_id: str,
+        ipam_ip_ids: list[str],
+        zone: Optional[ScwZone] = None,
+    ) -> Lb:
+        """
+        Attach a public IPAM IP address to a Load Balancer.
+        Attach one or several public IPAM IP addresses to a given Load Balancer, specified by its Load Balancer ID. The attached IPAM IP addresses are used for the public traffic of the Load Balancer.
+        :param lb_id: Load Balancer ID.
+        :param ipam_ip_ids: ID of an IPAM IP address to attach to the Load Balancer.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Lb <Lb>`
+
+        Usage:
+        ::
+
+            result = api.attach_ipam_ip(
+                lb_id="example",
+                ipam_ip_ids=[],
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_lb_id = validate_path_param("lb_id", lb_id)
+
+        res = self._request(
+            "POST",
+            f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/attach-ipam-ip",
+            body=marshal_ZonedApiAttachIpamIPRequest(
+                ZonedApiAttachIpamIPRequest(
+                    lb_id=lb_id,
+                    ipam_ip_ids=ipam_ip_ids,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Lb(res.json())
+
     def list_i_ps(
         self,
         *,
@@ -594,6 +647,7 @@ class LbV1ZonedAPI(API):
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
         tags: Optional[list[str]] = None,
+        attached: Optional[bool] = None,
     ) -> ListIpsResponse:
         """
         List IP addresses.
@@ -606,6 +660,7 @@ class LbV1ZonedAPI(API):
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
+        :param attached: Defines whether to filter only for Flexible IPs which are attached to a Load Balancer.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -620,6 +675,7 @@ class LbV1ZonedAPI(API):
             "GET",
             f"/lb/v1/zones/{param_zone}/ips",
             params={
+                "attached": attached,
                 "ip_address": ip_address,
                 "ip_type": ip_type,
                 "organization_id": organization_id
@@ -645,6 +701,7 @@ class LbV1ZonedAPI(API):
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
         tags: Optional[list[str]] = None,
+        attached: Optional[bool] = None,
     ) -> list[Ip]:
         """
         List IP addresses.
@@ -657,6 +714,7 @@ class LbV1ZonedAPI(API):
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
+        :param attached: Defines whether to filter only for Flexible IPs which are attached to a Load Balancer.
         :return: :class:`list[Ip] <list[Ip]>`
 
         Usage:
@@ -678,6 +736,7 @@ class LbV1ZonedAPI(API):
                 "project_id": project_id,
                 "ip_type": ip_type,
                 "tags": tags,
+                "attached": attached,
             },
         )
 
@@ -842,6 +901,39 @@ class LbV1ZonedAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Ip(res.json())
+
+    def transfer_to_ipam(
+        self,
+        *,
+        ip_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> IpamIP:
+        """
+        Transfer a LB Flexible IP to IPAM. Cannot be undone.
+        Transfer a legacy Load Balancer flexible IP address to an IPAM-managed IP address, so it can be used in other Scaleway products. Returns the resulting IPAM IP. This action cannot be undone.
+        :param ip_id: ID of the LB Flexible IP to transfer to IPAM.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`IpamIP <IpamIP>`
+
+        Usage:
+        ::
+
+            result = api.transfer_to_ipam(
+                ip_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_ip_id = validate_path_param("ip_id", ip_id)
+
+        res = self._request(
+            "POST",
+            f"/lb/v1/zones/{param_zone}/ips/{param_ip_id}/transfer-to-ipam",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_IpamIP(res.json())
 
     def list_backends(
         self,
@@ -3356,33 +3448,35 @@ class LbV1API(API):
     def create_lb(
         self,
         *,
-        description: str,
-        type_: str,
         region: Optional[ScwRegion] = None,
+        description: str,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         ip_id: Optional[str] = None,
+        type_: str,
         assign_flexible_ip: Optional[bool] = None,
         assign_flexible_ipv6: Optional[bool] = None,
         ip_ids: Optional[list[str]] = None,
+        ipam_ip_ids: Optional[list[str]] = None,
         tags: Optional[list[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
         """
         Create a load balancer.
-        :param description: Description for the Load Balancer.
-        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param description: Description for the Load Balancer.
         :param organization_id: Scaleway Organization to create the Load Balancer in.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param project_id: Scaleway Project to create the Load Balancer in.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param name: Name for the Load Balancer.
         :param ip_id: ID of an existing flexible IP address to attach to the Load Balancer.
+        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
         :param assign_flexible_ipv6: Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
         :param ip_ids: List of IP IDs to attach to the Load Balancer.
+        :param ipam_ip_ids: List of IPAM IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0).
         :return: :class:`Lb <Lb>`
@@ -3413,6 +3507,7 @@ class LbV1API(API):
                     assign_flexible_ip=assign_flexible_ip,
                     assign_flexible_ipv6=assign_flexible_ipv6,
                     ip_ids=ip_ids,
+                    ipam_ip_ids=ipam_ip_ids,
                     tags=tags,
                     ssl_compatibility_level=ssl_compatibility_level,
                     project_id=project_id,
@@ -3554,12 +3649,14 @@ class LbV1API(API):
         lb_id: str,
         release_ip: bool,
         region: Optional[ScwRegion] = None,
+        migrate_flexip_to_ipam: Optional[bool] = None,
     ) -> None:
         """
         Delete a load balancer.
         :param lb_id: ID of the Load Balancer to delete.
         :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param migrate_flexip_to_ipam: If true and one or several ips of the LB are legacy flexible IP, they will be migrated to IPAM, free to use in other Scaleway products.
 
         Usage:
         ::
@@ -3579,6 +3676,7 @@ class LbV1API(API):
             "DELETE",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}",
             params={
+                "migrate_flexip_to_ipam": migrate_flexip_to_ipam,
                 "release_ip": release_ip,
             },
         )
@@ -3640,6 +3738,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
         tags: Optional[list[str]] = None,
+        attached: Optional[bool] = None,
     ) -> ListIpsResponse:
         """
         List IPs.
@@ -3651,6 +3750,7 @@ class LbV1API(API):
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
+        :param attached: Defines whether to filter only for Flexible IPs which are attached to a Load Balancer.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -3667,6 +3767,7 @@ class LbV1API(API):
             "GET",
             f"/lb/v1/regions/{param_region}/ips",
             params={
+                "attached": attached,
                 "ip_address": ip_address,
                 "ip_type": ip_type,
                 "organization_id": organization_id
@@ -3692,6 +3793,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
         tags: Optional[list[str]] = None,
+        attached: Optional[bool] = None,
     ) -> list[Ip]:
         """
         List IPs.
@@ -3703,6 +3805,7 @@ class LbV1API(API):
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
         :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
+        :param attached: Defines whether to filter only for Flexible IPs which are attached to a Load Balancer.
         :return: :class:`list[Ip] <list[Ip]>`
 
         Usage:
@@ -3724,6 +3827,7 @@ class LbV1API(API):
                 "project_id": project_id,
                 "ip_type": ip_type,
                 "tags": tags,
+                "attached": attached,
             },
         )
 
