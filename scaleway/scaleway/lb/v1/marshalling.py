@@ -28,6 +28,7 @@ from .types import (
     SSLCompatibilityLevel,
     StickySessionsType,
     Ip,
+    IpamIP,
     SubscriberEmailConfig,
     SubscriberWebhookConfig,
     Subscriber,
@@ -95,6 +96,7 @@ from .types import (
     UpdateRouteRequest,
     UpdateSubscriberRequest,
     ZonedApiAddBackendServersRequest,
+    ZonedApiAttachIpamIPRequest,
     ZonedApiAttachPrivateNetworkRequest,
     ZonedApiCreateAclRequest,
     ZonedApiCreateBackendRequest,
@@ -185,6 +187,12 @@ def unmarshal_Ip(data: Any) -> Ip:
     else:
         args["lb_id"] = None
 
+    field = data.get("ipam_ip_id", None)
+    if field is not None:
+        args["ipam_ip_id"] = field
+    else:
+        args["ipam_ip_id"] = None
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -192,6 +200,29 @@ def unmarshal_Ip(data: Any) -> Ip:
         args["region"] = None
 
     return Ip(**args)
+
+
+def unmarshal_IpamIP(data: Any) -> IpamIP:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'IpamIP' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("ip_address", None)
+    if field is not None:
+        args["ip_address"] = field
+    else:
+        args["ip_address"] = None
+
+    return IpamIP(**args)
 
 
 def unmarshal_SubscriberEmailConfig(data: Any) -> SubscriberEmailConfig:
@@ -617,6 +648,14 @@ def unmarshal_Lb(data: Any) -> Lb:
         args["ip"] = [unmarshal_Ip(v) for v in field] if field is not None else None
     else:
         args["ip"] = []
+
+    field = data.get("ipam_ips", None)
+    if field is not None:
+        args["ipam_ips"] = (
+            [unmarshal_IpamIP(v) for v in field] if field is not None else None
+        )
+    else:
+        args["ipam_ips"] = []
 
     field = data.get("tags", None)
     if field is not None:
@@ -2462,6 +2501,9 @@ def marshal_CreateLbRequest(
     if request.ip_ids is not None:
         output["ip_ids"] = request.ip_ids
 
+    if request.ipam_ip_ids is not None:
+        output["ipam_ip_ids"] = request.ipam_ip_ids
+
     if request.tags is not None:
         output["tags"] = request.tags
 
@@ -2935,6 +2977,18 @@ def marshal_ZonedApiAddBackendServersRequest(
     return output
 
 
+def marshal_ZonedApiAttachIpamIPRequest(
+    request: ZonedApiAttachIpamIPRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.ipam_ip_ids is not None:
+        output["ipam_ip_ids"] = request.ipam_ip_ids
+
+    return output
+
+
 def marshal_ZonedApiAttachPrivateNetworkRequest(
     request: ZonedApiAttachPrivateNetworkRequest,
     defaults: ProfileDefaults,
@@ -3214,6 +3268,9 @@ def marshal_ZonedApiCreateLbRequest(
 
     if request.ip_ids is not None:
         output["ip_ids"] = request.ip_ids
+
+    if request.ipam_ip_ids is not None:
+        output["ipam_ip_ids"] = request.ipam_ip_ids
 
     if request.tags is not None:
         output["tags"] = request.tags

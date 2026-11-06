@@ -41,6 +41,7 @@ from .types import HealthCheckRedisConfig
 from .types import HealthCheckTcpConfig
 from .types import Instance
 from .types import Ip
+from .types import IpamIP
 from .types import Subscriber
 from .types import HealthCheck
 from .types import Lb
@@ -129,6 +130,7 @@ from .types import UpdateLbRequest
 from .types import UpdateRouteRequest
 from .types import UpdateSubscriberRequest
 from .types import ZonedApiAddBackendServersRequest
+from .types import ZonedApiAttachIpamIPRequest
 from .types import ZonedApiAttachPrivateNetworkRequest
 from .types import ZonedApiCreateAclRequest
 from .types import ZonedApiCreateBackendRequest
@@ -172,6 +174,7 @@ from .types import ZonedApiRemoveBackendServersRequest
 from .types import ZonedApiSetAclsRequest
 from .types import ZonedApiSetBackendServersRequest
 from .types import ZonedApiSubscribeToLbRequest
+from .types import ZonedApiTransferToIpamRequest
 from .types import ZonedApiUnsubscribeFromLbRequest
 from .types import ZonedApiUpdateAclRequest
 from .types import ZonedApiUpdateBackendRequest
@@ -227,6 +230,7 @@ __all__ = [
     "HealthCheckTcpConfig",
     "Instance",
     "Ip",
+    "IpamIP",
     "Subscriber",
     "HealthCheck",
     "Lb",
@@ -315,6 +319,7 @@ __all__ = [
     "UpdateRouteRequest",
     "UpdateSubscriberRequest",
     "ZonedApiAddBackendServersRequest",
+    "ZonedApiAttachIpamIPRequest",
     "ZonedApiAttachPrivateNetworkRequest",
     "ZonedApiCreateAclRequest",
     "ZonedApiCreateBackendRequest",
@@ -358,6 +363,7 @@ __all__ = [
     "ZonedApiSetAclsRequest",
     "ZonedApiSetBackendServersRequest",
     "ZonedApiSubscribeToLbRequest",
+    "ZonedApiTransferToIpamRequest",
     "ZonedApiUnsubscribeFromLbRequest",
     "ZonedApiUpdateAclRequest",
     "ZonedApiUpdateBackendRequest",
