@@ -43,6 +43,7 @@ class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMe
     INSTANCE_LOCAL_SSD_STORAGE = "instance_local_ssd_storage"
     FILE_STORAGE = "file_storage"
     SERVERLESS_SQL_DATABASE = "serverless_sql_database"
+    COCKPIT = "cockpit"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -708,6 +709,11 @@ class PublicCatalogProductPropertiesBlockStorage:
 
 
 @dataclass
+class PublicCatalogProductPropertiesCockpit:
+    pass
+
+
+@dataclass
 class PublicCatalogProductPropertiesDedibox:
     range: str
     """
@@ -1053,6 +1059,8 @@ class PublicCatalogProductProperties:
     ] = None
 
     file_storage: Optional[PublicCatalogProductPropertiesFileStorage] = None
+
+    cockpit: Optional[PublicCatalogProductPropertiesCockpit] = None
 
 
 @dataclass

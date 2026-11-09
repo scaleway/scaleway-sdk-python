@@ -65,6 +65,7 @@ from .types import PublicCatalogProductPropertiesServerlessJobsMemoryType
 from .types import PublicCatalogProductPropertiesApacheKafka
 from .types import PublicCatalogProductPropertiesAppleSilicon
 from .types import PublicCatalogProductPropertiesBlockStorage
+from .types import PublicCatalogProductPropertiesCockpit
 from .types import PublicCatalogProductPropertiesDedibox
 from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesFileStorage
@@ -155,6 +156,7 @@ __all__ = [
     "PublicCatalogProductPropertiesApacheKafka",
     "PublicCatalogProductPropertiesAppleSilicon",
     "PublicCatalogProductPropertiesBlockStorage",
+    "PublicCatalogProductPropertiesCockpit",
     "PublicCatalogProductPropertiesDedibox",
     "PublicCatalogProductPropertiesElasticMetal",
     "PublicCatalogProductPropertiesFileStorage",
