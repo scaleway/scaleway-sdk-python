@@ -60,6 +60,7 @@ from .types import (
     PublicCatalogProductPropertiesApacheKafka,
     PublicCatalogProductPropertiesAppleSilicon,
     PublicCatalogProductPropertiesBlockStorage,
+    PublicCatalogProductPropertiesCockpit,
     PublicCatalogProductPropertiesDedibox,
     PublicCatalogProductPropertiesElasticMetal,
     PublicCatalogProductPropertiesFileStorage,
@@ -1013,6 +1014,19 @@ def unmarshal_PublicCatalogProductPropertiesBlockStorage(
         args["volume"] = None
 
     return PublicCatalogProductPropertiesBlockStorage(**args)
+
+
+def unmarshal_PublicCatalogProductPropertiesCockpit(
+    data: Any,
+) -> PublicCatalogProductPropertiesCockpit:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductPropertiesCockpit' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    return PublicCatalogProductPropertiesCockpit(**args)
 
 
 def unmarshal_PublicCatalogProductPropertiesDedibox(
@@ -1970,6 +1984,12 @@ def unmarshal_PublicCatalogProductProperties(
         )
     else:
         args["file_storage"] = None
+
+    field = data.get("cockpit", None)
+    if field is not None:
+        args["cockpit"] = unmarshal_PublicCatalogProductPropertiesCockpit(field)
+    else:
+        args["cockpit"] = None
 
     return PublicCatalogProductProperties(**args)
 
