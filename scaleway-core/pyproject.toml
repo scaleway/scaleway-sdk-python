@@ -23,10 +23,10 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.10"
+python = ">=3.11"
 requests = "^2.28.1"
 PyYAML = "^6.0"
-python-dateutil = ">=2.8.2,<4.0.0"
+python-dateutil = ">=4.0.0,<4.1.0"
 
 [tool.poetry.group.dev.dependencies]
 types-python-dateutil = "^2.8.19"
