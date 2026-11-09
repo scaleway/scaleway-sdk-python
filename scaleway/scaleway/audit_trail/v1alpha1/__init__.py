@@ -31,6 +31,8 @@ from .types import AccountContractSignatureInfo
 from .types import AccountOrganizationInfo
 from .types import AccountProjectInfo
 from .types import AccountUserInfo
+from .types import AnnotationsBindingInfo
+from .types import AnnotationsValueInfo
 from .types import AppleSiliconRunnerInfo
 from .types import AppleSiliconServerInfo
 from .types import AuditTrailAlertRuleInfo
@@ -177,6 +179,8 @@ __all__ = [
     "AccountOrganizationInfo",
     "AccountProjectInfo",
     "AccountUserInfo",
+    "AnnotationsBindingInfo",
+    "AnnotationsValueInfo",
     "AppleSiliconRunnerInfo",
     "AppleSiliconServerInfo",
     "AuditTrailAlertRuleInfo",

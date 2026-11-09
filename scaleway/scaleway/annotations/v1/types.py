@@ -189,12 +189,12 @@ class CreateBindingRequest:
 class CreateKeyRequest:
     name: str
     """
-    Name of the annotation key.
+    Name of the annotation key. Never use a secret as a name, as it is shown in the audit trail.
     """
 
     description: str
     """
-    Description of the annotation key.
+    Description of the annotation key. Never put a secret in the description, as it is shown in the audit trail.
     """
 
     organization_id: Optional[str] = None
@@ -212,12 +212,12 @@ class CreateValueRequest:
 
     name: str
     """
-    Name of the value.
+    Name of the value. Never use a secret as a name, as it is shown in the audit trail.
     """
 
     description: str
     """
-    Description of the value.
+    Description of the value. Never put a secret in the description, as it is shown in the audit trail.
     """
 
 
@@ -447,12 +447,12 @@ class UpdateKeyRequest:
 
     name: Optional[str] = None
     """
-    New name of the key.
+    New name of the key. Never use a secret as a name, as it is shown in the audit trail.
     """
 
     description: Optional[str] = None
     """
-    New description of the key.
+    New description of the key. Never put a secret in the description, as it is shown in the audit trail.
     """
 
 
@@ -465,10 +465,10 @@ class UpdateValueRequest:
 
     name: Optional[str] = None
     """
-    New name of the value.
+    New name of the value. Never use a secret as a name, as it is shown in the audit trail.
     """
 
     description: Optional[str] = None
     """
-    New description of the value.
+    New description of the value. Never put a secret in the description, as it is shown in the audit trail.
     """
