@@ -20,6 +20,8 @@ from .types import (
     ListNodeTypesRequestOrderBy,
     ListUsersRequestOrderBy,
     ListVersionsRequestOrderBy,
+    Certificate,
+    CreateCertificateRequest,
     CreateDeploymentRequest,
     CreateEndpointRequest,
     CreateUserRequest,
@@ -45,10 +47,12 @@ from .marshalling import (
     unmarshal_Endpoint,
     unmarshal_Deployment,
     unmarshal_User,
+    unmarshal_Certificate,
     unmarshal_ListDeploymentsResponse,
     unmarshal_ListNodeTypesResponse,
     unmarshal_ListUsersResponse,
     unmarshal_ListVersionsResponse,
+    marshal_CreateCertificateRequest,
     marshal_CreateDeploymentRequest,
     marshal_CreateEndpointRequest,
     marshal_CreateUserRequest,
@@ -902,3 +906,50 @@ class DatavizV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ScwFile(res.json())
+
+    def create_certificate(
+        self,
+        *,
+        deployment_id: str,
+        name: str,
+        content: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Certificate:
+        """
+        :param deployment_id:
+        :param name:
+        :param content:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Certificate <Certificate>`
+
+        Usage:
+        ::
+
+            result = api.create_certificate(
+                deployment_id="example",
+                name="example",
+                content="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_deployment_id = validate_path_param("deployment_id", deployment_id)
+
+        res = self._request(
+            "POST",
+            f"/dataviz/v1alpha1/regions/{param_region}/deployments/{param_deployment_id}/certificates",
+            body=marshal_CreateCertificateRequest(
+                CreateCertificateRequest(
+                    deployment_id=deployment_id,
+                    name=name,
+                    content=content,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Certificate(res.json())

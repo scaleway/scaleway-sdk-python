@@ -366,6 +366,32 @@ class Version:
 
 
 @dataclass
+class Certificate:
+    id: str
+    name: str
+    deployment_id: str
+    content: str
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    srn: str
+    created_at: Optional[datetime] = None
+
+
+@dataclass
+class CreateCertificateRequest:
+    deployment_id: str
+    name: str
+    content: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class CreateDeploymentRequest:
     """
     Request to create a new deployment.
