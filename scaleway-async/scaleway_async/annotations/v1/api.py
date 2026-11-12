@@ -56,8 +56,8 @@ class AnnotationsV1API(API):
     ) -> Key:
         """
         Create an annotation key.
-        :param name: Name of the annotation key.
-        :param description: Description of the annotation key.
+        :param name: Name of the annotation key. Never use a secret as a name, as it is shown in the audit trail.
+        :param description: Description of the annotation key. Never put a secret in the description, as it is shown in the audit trail.
         :param organization_id: ID of the organization.
         :return: :class:`Key <Key>`
 
@@ -189,8 +189,8 @@ class AnnotationsV1API(API):
         """
         Update name or description. All associated resources will immediately display the new name.
         :param key_id: ID of the key to update.
-        :param name: New name of the key.
-        :param description: New description of the key.
+        :param name: New name of the key. Never use a secret as a name, as it is shown in the audit trail.
+        :param description: New description of the key. Never put a secret in the description, as it is shown in the audit trail.
         :return: :class:`Key <Key>`
 
         Usage:
@@ -255,8 +255,8 @@ class AnnotationsV1API(API):
         """
         Add a value definition to a key.
         :param key_id: ID of the key the value will be bound to.
-        :param name: Name of the value.
-        :param description: Description of the value.
+        :param name: Name of the value. Never use a secret as a name, as it is shown in the audit trail.
+        :param description: Description of the value. Never put a secret in the description, as it is shown in the audit trail.
         :return: :class:`Value <Value>`
 
         Usage:
@@ -394,8 +394,8 @@ class AnnotationsV1API(API):
         """
         Update name or description.
         :param value_id: ID of the value to update.
-        :param name: New name of the value.
-        :param description: New description of the value.
+        :param name: New name of the value. Never use a secret as a name, as it is shown in the audit trail.
+        :param description: New description of the value. Never put a secret in the description, as it is shown in the audit trail.
         :return: :class:`Value <Value>`
 
         Usage:

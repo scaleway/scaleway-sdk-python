@@ -36,6 +36,8 @@ from .types import (
     AccountOrganizationInfo,
     AccountProjectInfo,
     AccountUserInfo,
+    AnnotationsBindingInfo,
+    AnnotationsValueInfo,
     AppleSiliconRunnerInfo,
     AppleSiliconServerInfo,
     AuditTrailAlertRuleInfo,
@@ -608,6 +610,70 @@ def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
         args["phone_number"] = None
 
     return AccountUserInfo(**args)
+
+
+def unmarshal_AnnotationsBindingInfo(data: Any) -> AnnotationsBindingInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AnnotationsBindingInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("target_srn", None)
+    if field is not None:
+        args["target_srn"] = field
+    else:
+        args["target_srn"] = None
+
+    field = data.get("value_id", None)
+    if field is not None:
+        args["value_id"] = field
+    else:
+        args["value_id"] = None
+
+    field = data.get("value_name", None)
+    if field is not None:
+        args["value_name"] = field
+    else:
+        args["value_name"] = None
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
+    field = data.get("key_name", None)
+    if field is not None:
+        args["key_name"] = field
+    else:
+        args["key_name"] = None
+
+    return AnnotationsBindingInfo(**args)
+
+
+def unmarshal_AnnotationsValueInfo(data: Any) -> AnnotationsValueInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AnnotationsValueInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
+    field = data.get("key_name", None)
+    if field is not None:
+        args["key_name"] = field
+    else:
+        args["key_name"] = None
+
+    return AnnotationsValueInfo(**args)
 
 
 def unmarshal_AppleSiliconRunnerInfo(data: Any) -> AppleSiliconRunnerInfo:
@@ -2206,6 +2272,18 @@ def unmarshal_Resource(data: Any) -> Resource:
         )
     else:
         args["serverless_functions_trigger_info"] = None
+
+    field = data.get("annotations_value_info", None)
+    if field is not None:
+        args["annotations_value_info"] = unmarshal_AnnotationsValueInfo(field)
+    else:
+        args["annotations_value_info"] = None
+
+    field = data.get("annotations_binding_info", None)
+    if field is not None:
+        args["annotations_binding_info"] = unmarshal_AnnotationsBindingInfo(field)
+    else:
+        args["annotations_binding_info"] = None
 
     field = data.get("wofl_workflow_definition_info", None)
     if field is not None:

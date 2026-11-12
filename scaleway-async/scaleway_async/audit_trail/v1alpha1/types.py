@@ -324,6 +324,9 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     WOFL_WORKFLOW_RUN = "wofl_workflow_run"
     WOFL_WORKFLOW_VERSION = "wofl_workflow_version"
     KAFK_CLUSTER = "kafk_cluster"
+    ANNOTATIONS_KEY = "annotations_key"
+    ANNOTATIONS_VALUE = "annotations_value"
+    ANNOTATIONS_BINDING = "annotations_binding"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -406,6 +409,21 @@ class AccountProjectInfo:
 class AccountUserInfo:
     email: str
     phone_number: Optional[str] = None
+
+
+@dataclass
+class AnnotationsBindingInfo:
+    target_srn: str
+    value_id: str
+    value_name: str
+    key_id: str
+    key_name: str
+
+
+@dataclass
+class AnnotationsValueInfo:
+    key_id: str
+    key_name: str
 
 
 @dataclass
@@ -858,6 +876,10 @@ class Resource:
     serverless_functions_cron_info: Optional[ServerlessFunctionsCronInfo] = None
 
     serverless_functions_trigger_info: Optional[ServerlessFunctionsTriggerInfo] = None
+
+    annotations_value_info: Optional[AnnotationsValueInfo] = None
+
+    annotations_binding_info: Optional[AnnotationsBindingInfo] = None
 
     wofl_workflow_definition_info: Optional[WoflWorkflowDefinitionInfo] = None
 
