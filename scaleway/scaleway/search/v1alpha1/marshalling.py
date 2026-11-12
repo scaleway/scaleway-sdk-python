@@ -15,6 +15,8 @@ from .types import (
     ServerlessFunctionsFunctionInfo,
     ServerlessSqldbBackupInfo,
     VpcPrivateNetworkInfo,
+    WoflDefinitionInfo,
+    WoflRunInfo,
     Resource,
     SearchResourcesResponse,
 )
@@ -145,6 +147,40 @@ def unmarshal_VpcPrivateNetworkInfo(data: Any) -> VpcPrivateNetworkInfo:
     return VpcPrivateNetworkInfo(**args)
 
 
+def unmarshal_WoflDefinitionInfo(data: Any) -> WoflDefinitionInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WoflDefinitionInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("workflow_id", None)
+    if field is not None:
+        args["workflow_id"] = field
+    else:
+        args["workflow_id"] = None
+
+    return WoflDefinitionInfo(**args)
+
+
+def unmarshal_WoflRunInfo(data: Any) -> WoflRunInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WoflRunInfo' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("workflow_id", None)
+    if field is not None:
+        args["workflow_id"] = field
+    else:
+        args["workflow_id"] = None
+
+    return WoflRunInfo(**args)
+
+
 def unmarshal_Resource(data: Any) -> Resource:
     if not isinstance(data, dict):
         raise TypeError(
@@ -260,6 +296,18 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("wofl_definition_info", None)
+    if field is not None:
+        args["wofl_definition_info"] = unmarshal_WoflDefinitionInfo(field)
+    else:
+        args["wofl_definition_info"] = None
+
+    field = data.get("wofl_run_info", None)
+    if field is not None:
+        args["wofl_run_info"] = unmarshal_WoflRunInfo(field)
+    else:
+        args["wofl_run_info"] = None
 
     return Resource(**args)
 
