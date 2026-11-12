@@ -173,6 +173,16 @@ class VpcPrivateNetworkInfo:
 
 
 @dataclass
+class WoflDefinitionInfo:
+    workflow_id: str
+
+
+@dataclass
+class WoflRunInfo:
+    workflow_id: str
+
+
+@dataclass
 class Resource:
     id: str
     """
@@ -230,6 +240,10 @@ class Resource:
     obs_datasource_info: Optional[ObsDatasourceInfo] = None
 
     obs_exporter_info: Optional[ObsExporterInfo] = None
+
+    wofl_definition_info: Optional[WoflDefinitionInfo] = None
+
+    wofl_run_info: Optional[WoflRunInfo] = None
 
 
 @dataclass

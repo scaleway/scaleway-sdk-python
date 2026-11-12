@@ -11,6 +11,8 @@ from .types import ServerlessContainersContainerInfo
 from .types import ServerlessFunctionsFunctionInfo
 from .types import ServerlessSqldbBackupInfo
 from .types import VpcPrivateNetworkInfo
+from .types import WoflDefinitionInfo
+from .types import WoflRunInfo
 from .types import Resource
 from .types import SearchResourcesRequest
 from .types import SearchResourcesResponse
@@ -28,6 +30,8 @@ __all__ = [
     "ServerlessFunctionsFunctionInfo",
     "ServerlessSqldbBackupInfo",
     "VpcPrivateNetworkInfo",
+    "WoflDefinitionInfo",
+    "WoflRunInfo",
     "Resource",
     "SearchResourcesRequest",
     "SearchResourcesResponse",
