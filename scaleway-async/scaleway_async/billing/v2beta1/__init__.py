@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import DiscountDiscountMode
 from .types import DiscountFilterType
+from .types import DiscountLineOrigin
 from .types import DownloadInvoiceRequestFileType
 from .types import ExportInvoicesRequestFileType
 from .types import ExportInvoicesRequestOrderBy
@@ -15,7 +16,9 @@ from .types import DiscountCoupon
 from .types import DiscountFilter
 from .types import Charge
 from .types import ListConsumptionsResponseConsumption
+from .types import DiscountLine
 from .types import Discount
+from .types import InvoiceLine
 from .types import Invoice
 from .types import ListTaxesResponseTax
 from .types import DownloadInvoiceRequest
@@ -25,8 +28,12 @@ from .types import GetInvoiceRequest
 from .types import ListChargesResponse
 from .types import ListConsumptionsRequest
 from .types import ListConsumptionsResponse
+from .types import ListDiscountLinesRequest
+from .types import ListDiscountLinesResponse
 from .types import ListDiscountsRequest
 from .types import ListDiscountsResponse
+from .types import ListInvoiceLinesRequest
+from .types import ListInvoiceLinesResponse
 from .types import ListInvoicesRequest
 from .types import ListInvoicesResponse
 from .types import ListTaxesRequest
@@ -38,6 +45,7 @@ from .api import BillingV2Beta1FinOpsAPI
 __all__ = [
     "DiscountDiscountMode",
     "DiscountFilterType",
+    "DiscountLineOrigin",
     "DownloadInvoiceRequestFileType",
     "ExportInvoicesRequestFileType",
     "ExportInvoicesRequestOrderBy",
@@ -51,7 +59,9 @@ __all__ = [
     "DiscountFilter",
     "Charge",
     "ListConsumptionsResponseConsumption",
+    "DiscountLine",
     "Discount",
+    "InvoiceLine",
     "Invoice",
     "ListTaxesResponseTax",
     "DownloadInvoiceRequest",
@@ -61,8 +71,12 @@ __all__ = [
     "ListChargesResponse",
     "ListConsumptionsRequest",
     "ListConsumptionsResponse",
+    "ListDiscountLinesRequest",
+    "ListDiscountLinesResponse",
     "ListDiscountsRequest",
     "ListDiscountsResponse",
+    "ListInvoiceLinesRequest",
+    "ListInvoiceLinesResponse",
     "ListInvoicesRequest",
     "ListInvoicesResponse",
     "ListTaxesRequest",

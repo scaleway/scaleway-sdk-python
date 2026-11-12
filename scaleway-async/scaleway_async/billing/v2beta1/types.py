@@ -38,6 +38,19 @@ class DiscountFilterType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class DiscountLineOrigin(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ORIGIN = "unknown_origin"
+    DISCOUNT = "discount"
+    CONTRACTUAL_COMMITMENT_RANGE = "contractual_commitment_range"
+    SAVINGS_PLAN_ACTIVATION = "savings_plan_activation"
+    CREDIT_NOTE_REBATE = "credit_note_rebate"
+    RESERVED_RESOURCE_ACTIVATION = "reserved_resource_activation"
+    OFFER_INCLUDED = "offer_included"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DownloadInvoiceRequestFileType(str, Enum, metaclass=StrEnumMeta):
     PDF = "pdf"
 
@@ -290,6 +303,29 @@ class ListConsumptionsResponseConsumption:
 
 
 @dataclass
+class DiscountLine:
+    id: str
+    """
+    Discount line ID.
+    """
+
+    invoice_line_id: str
+    """
+    ID of the invoice line the discount applies to.
+    """
+
+    origin: DiscountLineOrigin
+    """
+    The origin of the discount line.
+    """
+
+    value: Optional[Money] = None
+    """
+    The value of the discount.
+    """
+
+
+@dataclass
 class Discount:
     id: str
     """
@@ -349,6 +385,99 @@ class Discount:
     coupon: Optional[DiscountCoupon] = None
     """
     The description of the coupon.
+    """
+
+
+@dataclass
+class InvoiceLine:
+    id: str
+    """
+    Invoice line ID.
+    """
+
+    invoice_id: str
+    """
+    ID of the invoice the line belongs to.
+    """
+
+    organization_id: str
+    """
+    Organization ID of the consumer for this line.
+    """
+
+    organization_name: str
+    """
+    Organization name of the consumer for this line.
+    """
+
+    project_id: str
+    """
+    Project ID of the line.
+    """
+
+    project_name: str
+    """
+    Project name of the line.
+    """
+
+    sku: str
+    """
+    Unique identifier of the product.
+    """
+
+    category_name: str
+    """
+    Name of consumption category.
+    """
+
+    product_name: str
+    """
+    The product name.
+    """
+
+    resource_name: str
+    """
+    Identifies the reference based on the category.
+    """
+
+    unit: str
+    """
+    Unit of consumed quantity.
+    """
+
+    unit_quantity: str
+    """
+    Quantity per unit.
+    """
+
+    billed_quantity: str
+    """
+    Billed quantity.
+    """
+
+    resource_count: int
+    """
+    Number of unique resources billed on this line.
+    """
+
+    start_date: Optional[datetime] = None
+    """
+    Start date of the line.
+    """
+
+    stop_date: Optional[datetime] = None
+    """
+    Stop date of the line.
+    """
+
+    unit_price: Optional[Money] = None
+    """
+    Unit price of the reference.
+    """
+
+    untaxed_value: Optional[Money] = None
+    """
+    Untaxed value of the line.
     """
 
 
@@ -657,6 +786,37 @@ class ListConsumptionsResponse:
 
 
 @dataclass
+class ListDiscountLinesRequest:
+    invoice_id: str
+    """
+    Invoice ID.
+    """
+
+    page: Optional[int] = 0
+    """
+    Positive integer to choose the page to return.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Positive integer lower or equal to 1000 to select the number of items to return.
+    """
+
+
+@dataclass
+class ListDiscountLinesResponse:
+    total_count: int
+    """
+    Total number of discount lines.
+    """
+
+    discount_lines: list[DiscountLine]
+    """
+    Paginated returned discount lines.
+    """
+
+
+@dataclass
 class ListDiscountsRequest:
     order_by: Optional[ListDiscountsRequestOrderBy] = (
         ListDiscountsRequestOrderBy.CREATION_DATE_DESC
@@ -691,6 +851,37 @@ class ListDiscountsResponse:
     discounts: list[Discount]
     """
     Paginated returned discounts.
+    """
+
+
+@dataclass
+class ListInvoiceLinesRequest:
+    invoice_id: str
+    """
+    Invoice ID.
+    """
+
+    page: Optional[int] = 0
+    """
+    Positive integer to choose the page to return.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Positive integer lower or equal to 1000 to select the number of items to return.
+    """
+
+
+@dataclass
+class ListInvoiceLinesResponse:
+    total_count: int
+    """
+    Total number of invoice lines.
+    """
+
+    invoice_lines: list[InvoiceLine]
+    """
+    Paginated returned invoice lines.
     """
 
 

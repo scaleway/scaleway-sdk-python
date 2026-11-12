@@ -10,6 +10,7 @@ from scaleway_core.bridge import (
 from .types import (
     DiscountDiscountMode,
     DiscountFilterType,
+    DiscountLineOrigin,
     InvoiceType,
     DiscountCoupon,
     DiscountFilter,
@@ -19,7 +20,11 @@ from .types import (
     ListChargesResponse,
     ListConsumptionsResponseConsumption,
     ListConsumptionsResponse,
+    DiscountLine,
+    ListDiscountLinesResponse,
     ListDiscountsResponse,
+    InvoiceLine,
+    ListInvoiceLinesResponse,
     ListInvoicesResponse,
     ListTaxesResponseTax,
     ListTaxesResponse,
@@ -502,6 +507,66 @@ def unmarshal_ListConsumptionsResponse(data: Any) -> ListConsumptionsResponse:
     return ListConsumptionsResponse(**args)
 
 
+def unmarshal_DiscountLine(data: Any) -> DiscountLine:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DiscountLine' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("invoice_line_id", None)
+    if field is not None:
+        args["invoice_line_id"] = field
+    else:
+        args["invoice_line_id"] = None
+
+    field = data.get("origin", None)
+    if field is not None:
+        args["origin"] = field
+    else:
+        args["origin"] = DiscountLineOrigin.UNKNOWN_ORIGIN
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = unmarshal_Money(field)
+    else:
+        args["value"] = None
+
+    return DiscountLine(**args)
+
+
+def unmarshal_ListDiscountLinesResponse(data: Any) -> ListDiscountLinesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListDiscountLinesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("discount_lines", None)
+    if field is not None:
+        args["discount_lines"] = (
+            [unmarshal_DiscountLine(v) for v in field] if field is not None else None
+        )
+    else:
+        args["discount_lines"] = []
+
+    return ListDiscountLinesResponse(**args)
+
+
 def unmarshal_ListDiscountsResponse(data: Any) -> ListDiscountsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -525,6 +590,150 @@ def unmarshal_ListDiscountsResponse(data: Any) -> ListDiscountsResponse:
         args["discounts"] = []
 
     return ListDiscountsResponse(**args)
+
+
+def unmarshal_InvoiceLine(data: Any) -> InvoiceLine:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'InvoiceLine' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("invoice_id", None)
+    if field is not None:
+        args["invoice_id"] = field
+    else:
+        args["invoice_id"] = None
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("organization_name", None)
+    if field is not None:
+        args["organization_name"] = field
+    else:
+        args["organization_name"] = None
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+    else:
+        args["project_id"] = None
+
+    field = data.get("project_name", None)
+    if field is not None:
+        args["project_name"] = field
+    else:
+        args["project_name"] = None
+
+    field = data.get("sku", None)
+    if field is not None:
+        args["sku"] = field
+    else:
+        args["sku"] = None
+
+    field = data.get("category_name", None)
+    if field is not None:
+        args["category_name"] = field
+    else:
+        args["category_name"] = None
+
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+    else:
+        args["product_name"] = None
+
+    field = data.get("resource_name", None)
+    if field is not None:
+        args["resource_name"] = field
+    else:
+        args["resource_name"] = None
+
+    field = data.get("unit", None)
+    if field is not None:
+        args["unit"] = field
+    else:
+        args["unit"] = None
+
+    field = data.get("unit_quantity", None)
+    if field is not None:
+        args["unit_quantity"] = field
+    else:
+        args["unit_quantity"] = None
+
+    field = data.get("billed_quantity", None)
+    if field is not None:
+        args["billed_quantity"] = field
+    else:
+        args["billed_quantity"] = None
+
+    field = data.get("resource_count", None)
+    if field is not None:
+        args["resource_count"] = field
+    else:
+        args["resource_count"] = 0
+
+    field = data.get("start_date", None)
+    if field is not None:
+        args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
+
+    field = data.get("stop_date", None)
+    if field is not None:
+        args["stop_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stop_date"] = None
+
+    field = data.get("unit_price", None)
+    if field is not None:
+        args["unit_price"] = unmarshal_Money(field)
+    else:
+        args["unit_price"] = None
+
+    field = data.get("untaxed_value", None)
+    if field is not None:
+        args["untaxed_value"] = unmarshal_Money(field)
+    else:
+        args["untaxed_value"] = None
+
+    return InvoiceLine(**args)
+
+
+def unmarshal_ListInvoiceLinesResponse(data: Any) -> ListInvoiceLinesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListInvoiceLinesResponse' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+    else:
+        args["total_count"] = 0
+
+    field = data.get("invoice_lines", None)
+    if field is not None:
+        args["invoice_lines"] = (
+            [unmarshal_InvoiceLine(v) for v in field] if field is not None else None
+        )
+    else:
+        args["invoice_lines"] = []
+
+    return ListInvoiceLinesResponse(**args)
 
 
 def unmarshal_ListInvoicesResponse(data: Any) -> ListInvoicesResponse:
