@@ -510,6 +510,7 @@ class BackupSchedule:
 @dataclass
 class EncryptionAtRest:
     enabled: bool
+    kms_key_id: Optional[str] = None
 
 
 @dataclass
