@@ -26,11 +26,15 @@ from .types import (
     ListInvoicesRequestOrderBy,
     ListTaxesRequestOrderBy,
     Discount,
+    DiscountLine,
     Invoice,
+    InvoiceLine,
     ListChargesResponse,
     ListConsumptionsResponse,
     ListConsumptionsResponseConsumption,
+    ListDiscountLinesResponse,
     ListDiscountsResponse,
+    ListInvoiceLinesResponse,
     ListInvoicesResponse,
     ListTaxesResponse,
     ListTaxesResponseTax,
@@ -40,7 +44,9 @@ from .marshalling import (
     unmarshal_Invoice,
     unmarshal_ListChargesResponse,
     unmarshal_ListConsumptionsResponse,
+    unmarshal_ListDiscountLinesResponse,
     unmarshal_ListDiscountsResponse,
+    unmarshal_ListInvoiceLinesResponse,
     unmarshal_ListInvoicesResponse,
     unmarshal_ListTaxesResponse,
 )
@@ -544,6 +550,148 @@ class BillingV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Discount(res.json())
+
+    async def list_invoice_lines(
+        self,
+        *,
+        invoice_id: str,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListInvoiceLinesResponse:
+        """
+        List invoice lines.
+        List all lines of a given invoice, specified by its ID.
+        :param invoice_id: Invoice ID.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 1000 to select the number of items to return.
+        :return: :class:`ListInvoiceLinesResponse <ListInvoiceLinesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_invoice_lines(
+                invoice_id="example",
+            )
+        """
+
+        param_invoice_id = validate_path_param("invoice_id", invoice_id)
+
+        res = self._request(
+            "GET",
+            f"/billing/v2beta1/invoices/{param_invoice_id}/lines",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListInvoiceLinesResponse(res.json())
+
+    async def list_invoice_lines_all(
+        self,
+        *,
+        invoice_id: str,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[InvoiceLine]:
+        """
+        List invoice lines.
+        List all lines of a given invoice, specified by its ID.
+        :param invoice_id: Invoice ID.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 1000 to select the number of items to return.
+        :return: :class:`list[InvoiceLine] <list[InvoiceLine]>`
+
+        Usage:
+        ::
+
+            result = await api.list_invoice_lines_all(
+                invoice_id="example",
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListInvoiceLinesResponse,
+            key="invoice_lines",
+            fetcher=self.list_invoice_lines,
+            args={
+                "invoice_id": invoice_id,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
+    async def list_discount_lines(
+        self,
+        *,
+        invoice_id: str,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListDiscountLinesResponse:
+        """
+        List discount lines.
+        List all discount lines of a given invoice, specified by its ID.
+        :param invoice_id: Invoice ID.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 1000 to select the number of items to return.
+        :return: :class:`ListDiscountLinesResponse <ListDiscountLinesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_discount_lines(
+                invoice_id="example",
+            )
+        """
+
+        param_invoice_id = validate_path_param("invoice_id", invoice_id)
+
+        res = self._request(
+            "GET",
+            f"/billing/v2beta1/invoices/{param_invoice_id}/discount-lines",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListDiscountLinesResponse(res.json())
+
+    async def list_discount_lines_all(
+        self,
+        *,
+        invoice_id: str,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> list[DiscountLine]:
+        """
+        List discount lines.
+        List all discount lines of a given invoice, specified by its ID.
+        :param invoice_id: Invoice ID.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 1000 to select the number of items to return.
+        :return: :class:`list[DiscountLine] <list[DiscountLine]>`
+
+        Usage:
+        ::
+
+            result = await api.list_discount_lines_all(
+                invoice_id="example",
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListDiscountLinesResponse,
+            key="discount_lines",
+            fetcher=self.list_discount_lines,
+            args={
+                "invoice_id": invoice_id,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
 
 
 class BillingV2Beta1FinOpsAPI(API):
