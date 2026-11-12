@@ -210,6 +210,18 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     else:
         args["region"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
@@ -380,18 +392,6 @@ def unmarshal_Model(data: Any) -> Model:
     else:
         args["nodes_support"] = []
 
-    field = data.get("parameter_size_bits", None)
-    if field is not None:
-        args["parameter_size_bits"] = field
-    else:
-        args["parameter_size_bits"] = 0
-
-    field = data.get("size_bytes", None)
-    if field is not None:
-        args["size_bytes"] = field
-    else:
-        args["size_bytes"] = 0
-
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
@@ -409,6 +409,30 @@ def unmarshal_Model(data: Any) -> Model:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("parameter_size_bits", None)
+    if field is not None:
+        args["parameter_size_bits"] = field
+    else:
+        args["parameter_size_bits"] = 0
+
+    field = data.get("size_bytes", None)
+    if field is not None:
+        args["size_bytes"] = field
+    else:
+        args["size_bytes"] = 0
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
 
     return Model(**args)
 
