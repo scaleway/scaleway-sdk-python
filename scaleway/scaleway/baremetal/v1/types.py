@@ -110,6 +110,18 @@ class OfferSubscriptionPeriod(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class OptionType(str, Enum, metaclass=StrEnumMeta):
+    OPTION_TYPE_UNKNOWN = "option_type_unknown"
+    PRIVATE_NETWORK = "private_network"
+    LICENSE = "license"
+    REMOTE_ACCESS = "remote_access"
+    PUBLIC_BANDWIDTH = "public_bandwidth"
+    CERTIFICATION = "certification"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class SchemaFilesystemFormat(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_FORMAT = "unknown_format"
     FAT32 = "fat32"
@@ -509,6 +521,11 @@ class ServerOption:
     Defines whether the option can be managed (added or removed).
     """
 
+    type_: OptionType
+    """
+    Type of the option on this server.
+    """
+
     expires_at: Optional[datetime] = None
     """
     Auto expiration date for compatible options.
@@ -671,6 +688,11 @@ If false the option is available for the offer but not included by default.
     manageable: bool
     """
     Boolean to know if option could be managed.
+    """
+
+    type_: OptionType
+    """
+    Type of the option offered.
     """
 
     price: Optional[Money] = None
@@ -1171,6 +1193,11 @@ class Option:
     manageable: bool
     """
     Defines whether the option is manageable (could be added or removed).
+    """
+
+    type_: OptionType
+    """
+    Type of the option.
     """
 
     zone: ScwZone

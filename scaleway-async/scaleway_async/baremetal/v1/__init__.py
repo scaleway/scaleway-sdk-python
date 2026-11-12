@@ -10,6 +10,7 @@ from .types import ListSettingsRequestOrderBy
 from .types import MemoryEccType
 from .types import OfferStock
 from .types import OfferSubscriptionPeriod
+from .types import OptionType
 from .types import SchemaFilesystemFormat
 from .types import SchemaPartitionLabel
 from .types import SchemaPoolType
@@ -119,6 +120,7 @@ __all__ = [
     "MemoryEccType",
     "OfferStock",
     "OfferSubscriptionPeriod",
+    "OptionType",
     "SchemaFilesystemFormat",
     "SchemaPartitionLabel",
     "SchemaPoolType",

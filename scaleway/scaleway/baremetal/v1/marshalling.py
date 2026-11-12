@@ -21,6 +21,7 @@ from .types import (
     MemoryEccType,
     OfferStock,
     OfferSubscriptionPeriod,
+    OptionType,
     ServerBootType,
     ServerInstallStatus,
     ServerOptionOptionStatus,
@@ -582,6 +583,12 @@ def unmarshal_ServerOption(data: Any) -> ServerOption:
         args["manageable"] = field
     else:
         args["manageable"] = False
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = OptionType.OPTION_TYPE_UNKNOWN
 
     field = data.get("expires_at", None)
     if field is not None:
@@ -1167,6 +1174,12 @@ def unmarshal_OfferOptionOffer(data: Any) -> OfferOptionOffer:
     else:
         args["price"] = None
 
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = OptionType.OPTION_TYPE_UNKNOWN
+
     field = data.get("os_id", None)
     if field is not None:
         args["os_id"] = field
@@ -1486,6 +1499,12 @@ def unmarshal_Option(data: Any) -> Option:
         args["manageable"] = field
     else:
         args["manageable"] = False
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+    else:
+        args["type_"] = OptionType.OPTION_TYPE_UNKNOWN
 
     field = data.get("zone", None)
     if field is not None:
