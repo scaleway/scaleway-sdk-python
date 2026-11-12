@@ -459,6 +459,7 @@ class AnnotationsV1API(API):
         Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
         :param key_id: ID of the key for which to delete all values.
         :return: :class:`DeleteAllValuesMatchingKeyResponse <DeleteAllValuesMatchingKeyResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -655,6 +656,7 @@ class AnnotationsV1API(API):
         Delete ALL bindings associated with a value.
         :param value_id: ID of the value for which all bindings should be deleted.
         :return: :class:`DeleteAllBindingsMatchingValueResponse <DeleteAllBindingsMatchingValueResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -686,6 +688,7 @@ class AnnotationsV1API(API):
         :param target_srn: SRN of the resource for which all bindings should be deleted.
         :param organization_id: ID of the organization.
         :return: :class:`DeleteAllBindingsMatchingSRNResponse <DeleteAllBindingsMatchingSRNResponse>`
+        :deprecated
 
         Usage:
         ::
