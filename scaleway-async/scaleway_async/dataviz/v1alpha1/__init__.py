@@ -21,6 +21,8 @@ from .types import Deployment
 from .types import NodeType
 from .types import User
 from .types import Version
+from .types import Certificate
+from .types import CreateCertificateRequest
 from .types import CreateDeploymentRequest
 from .types import CreateEndpointRequest
 from .types import CreateUserRequest
@@ -64,6 +66,8 @@ __all__ = [
     "NodeType",
     "User",
     "Version",
+    "Certificate",
+    "CreateCertificateRequest",
     "CreateDeploymentRequest",
     "CreateEndpointRequest",
     "CreateUserRequest",
