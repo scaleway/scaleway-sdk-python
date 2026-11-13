@@ -30,7 +30,7 @@ scaleway-core = "*"
 scaleway-core = { path = "../scaleway-core", develop = true }
 ruff = ">=0.17.4,<0.18.0"
 mypy = ">=1.5.1,<3.0.0"
-ty = ">=0.0.101,<0.0.102"
+ty = ">=0.0.102,<0.0.103"
 pytest = ">=8.4.1,<10.0.0"
 pyrefly = ">=0.36.1,<1.5.0"
 pytest-cov = ">=6.3,<8.0"
@@ -75,7 +75,7 @@ select = [
 [tool.ty.rules]
 missing-argument = "ignore"
 invalid-argument-type = "ignore"
-invalid-return-type = "ignore"
+invalid-explicit-return = "ignore"
 
 [tool.pyrefly.errors]
 missing-import = false
