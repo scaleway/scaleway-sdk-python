@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from typing import Any
+from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
@@ -123,6 +124,18 @@ def unmarshal_Binding(data: Any) -> Binding:
     else:
         args["value"] = None
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
     return Binding(**args)
 
 
@@ -157,6 +170,18 @@ def unmarshal_Key(data: Any) -> Key:
         args["description"] = field
     else:
         args["description"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Key(**args)
 
@@ -198,6 +223,18 @@ def unmarshal_Value(data: Any) -> Value:
         args["description"] = field
     else:
         args["description"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Value(**args)
 
