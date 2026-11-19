@@ -31,6 +31,7 @@ from .types import DeleteDeploymentRequest
 from .types import DeleteEndpointRequest
 from .types import DeleteUserRequest
 from .types import DownloadDeploymentCertificateAuthorityRequest
+from .types import GetCertificateRequest
 from .types import GetDeploymentRequest
 from .types import ListCertificatesRequest
 from .types import ListCertificatesResponse
@@ -79,6 +80,7 @@ __all__ = [
     "DeleteEndpointRequest",
     "DeleteUserRequest",
     "DownloadDeploymentCertificateAuthorityRequest",
+    "GetCertificateRequest",
     "GetDeploymentRequest",
     "ListCertificatesRequest",
     "ListCertificatesResponse",
