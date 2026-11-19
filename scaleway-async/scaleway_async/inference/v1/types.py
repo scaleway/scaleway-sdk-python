@@ -9,7 +9,6 @@ from typing import Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
-    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -245,11 +244,6 @@ class Deployment:
     SRN of the deployment.
     """
 
-    zone: ScwZone
-    """
-    Zone of the deployment.
-    """
-
     error_message: Optional[str] = None
     """
     Displays information if your deployment is in error state.
@@ -331,11 +325,6 @@ class Model:
     srn: str
     """
     SRN of the model.
-    """
-
-    zone: ScwZone
-    """
-    Zone of the model.
     """
 
     error_message: Optional[str] = None
