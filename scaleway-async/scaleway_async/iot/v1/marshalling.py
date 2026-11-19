@@ -129,6 +129,12 @@ def unmarshal_Device(data: Any) -> Device:
     else:
         args["id"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
@@ -153,14 +159,6 @@ def unmarshal_Device(data: Any) -> Device:
     else:
         args["hub_id"] = None
 
-    field = data.get("last_activity_at", None)
-    if field is not None:
-        args["last_activity_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["last_activity_at"] = None
-
     field = data.get("is_connected", None)
     if field is not None:
         args["is_connected"] = field
@@ -172,6 +170,14 @@ def unmarshal_Device(data: Any) -> Device:
         args["allow_insecure"] = field
     else:
         args["allow_insecure"] = False
+
+    field = data.get("last_activity_at", None)
+    if field is not None:
+        args["last_activity_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_activity_at"] = None
 
     field = data.get("allow_multiple_connections", None)
     if field is not None:
@@ -225,6 +231,12 @@ def unmarshal_Network(data: Any) -> Network:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -301,6 +313,12 @@ def unmarshal_Hub(data: Any) -> Hub:
         args["id"] = field
     else:
         args["id"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -930,6 +948,12 @@ def unmarshal_Route(data: Any) -> Route:
         args["type_"] = field
     else:
         args["type_"] = RouteRouteType.UNKNOWN
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("region", None)
     if field is not None:

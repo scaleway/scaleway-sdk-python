@@ -211,6 +211,11 @@ class Device:
     Device ID, also used as MQTT Client ID or username.
     """
 
+    srn: str
+    """
+    Device SRN.
+    """
+
     name: str
     """
     Device name.
@@ -284,6 +289,11 @@ class Network:
     Network ID.
     """
 
+    srn: str
+    """
+    Network SRN.
+    """
+
     name: str
     """
     Network name.
@@ -351,6 +361,11 @@ class Hub:
     id: str
     """
     Hub ID.
+    """
+
+    srn: str
+    """
+    Hub SRN.
     """
 
     name: str
@@ -1387,6 +1402,11 @@ class Route:
     type_: RouteRouteType
     """
     Route type.
+    """
+
+    srn: str
+    """
+    Route SRN.
     """
 
     region: ScwRegion
