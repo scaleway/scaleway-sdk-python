@@ -53,7 +53,7 @@ from .marshalling import (
 
 class DataorchestratorV1Alpha2API(API):
     """
-    This API is a boilerplate for products.
+    This API allows you to manage your Data Orchestrator.
     """
 
     def create_workflow_definition(
