@@ -52,6 +52,17 @@ class ListWorkflowRunsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ObjectStorageTaskReason(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_DEFAULT_RUN_REASON = "unknown_default_run_reason"
+    TIMEOUT = "timeout"
+    CANCELLATION = "cancellation"
+    TECHNICAL_ERROR = "technical_error"
+    FUNCTIONAL_ERROR = "functional_error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class RunServerlessContainersTaskAction(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ACTION = "unknown_action"
     DEPLOY = "deploy"
@@ -101,17 +112,6 @@ class RunStatus(str, Enum, metaclass=StrEnumMeta):
     INTERRUPTED = "interrupted"
     PAUSING = "pausing"
     PAUSED = "paused"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class S3TaskReason(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_DEFAULT_RUN_REASON = "unknown_default_run_reason"
-    TIMEOUT = "timeout"
-    CANCELLATION = "cancellation"
-    TECHNICAL_ERROR = "technical_error"
-    FUNCTIONAL_ERROR = "functional_error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -184,6 +184,13 @@ class DefaultTask:
 
 
 @dataclass
+class ObjectStorageTask:
+    action: str
+    reason: Optional[ObjectStorageTaskReason] = None
+    error_message: Optional[str] = None
+
+
+@dataclass
 class RunServerlessContainersTask:
     container_id: str
     """
@@ -216,13 +223,6 @@ class RunServerlessContainersTask:
     """
     Error message of the task run.
     """
-
-
-@dataclass
-class S3Task:
-    action: str
-    reason: Optional[S3TaskReason] = None
-    error_message: Optional[str] = None
 
 
 @dataclass
@@ -399,7 +399,7 @@ class TaskRun:
 
     call_serverless_container_task_run_details: Optional[DefaultTask] = None
 
-    s3_task_run_details: Optional[S3Task] = None
+    object_storage_task_run_details: Optional[ObjectStorageTask] = None
 
     generative_api_task_run_details: Optional[DefaultTask] = None
 

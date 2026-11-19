@@ -19,8 +19,8 @@ from .types import (
     WorkflowRunInfo,
     WorkflowDefinition,
     DefaultTask,
+    ObjectStorageTask,
     RunServerlessContainersTask,
-    S3Task,
     ServerlessJobsTask,
     TaskRun,
     WorkflowRun,
@@ -267,6 +267,35 @@ def unmarshal_DefaultTask(data: Any) -> DefaultTask:
     return DefaultTask(**args)
 
 
+def unmarshal_ObjectStorageTask(data: Any) -> ObjectStorageTask:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ObjectStorageTask' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("action", None)
+    if field is not None:
+        args["action"] = field
+    else:
+        args["action"] = None
+
+    field = data.get("reason", None)
+    if field is not None:
+        args["reason"] = field
+    else:
+        args["reason"] = None
+
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+    else:
+        args["error_message"] = None
+
+    return ObjectStorageTask(**args)
+
+
 def unmarshal_RunServerlessContainersTask(data: Any) -> RunServerlessContainersTask:
     if not isinstance(data, dict):
         raise TypeError(
@@ -312,35 +341,6 @@ def unmarshal_RunServerlessContainersTask(data: Any) -> RunServerlessContainersT
         args["error_message"] = None
 
     return RunServerlessContainersTask(**args)
-
-
-def unmarshal_S3Task(data: Any) -> S3Task:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'S3Task' failed as data isn't a dictionary."
-        )
-
-    args: dict[str, Any] = {}
-
-    field = data.get("action", None)
-    if field is not None:
-        args["action"] = field
-    else:
-        args["action"] = None
-
-    field = data.get("reason", None)
-    if field is not None:
-        args["reason"] = field
-    else:
-        args["reason"] = None
-
-    field = data.get("error_message", None)
-    if field is not None:
-        args["error_message"] = field
-    else:
-        args["error_message"] = None
-
-    return S3Task(**args)
 
 
 def unmarshal_ServerlessJobsTask(data: Any) -> ServerlessJobsTask:
@@ -496,11 +496,11 @@ def unmarshal_TaskRun(data: Any) -> TaskRun:
     else:
         args["call_serverless_container_task_run_details"] = None
 
-    field = data.get("s3_task_run_details", None)
+    field = data.get("object_storage_task_run_details", None)
     if field is not None:
-        args["s3_task_run_details"] = unmarshal_S3Task(field)
+        args["object_storage_task_run_details"] = unmarshal_ObjectStorageTask(field)
     else:
-        args["s3_task_run_details"] = None
+        args["object_storage_task_run_details"] = None
 
     field = data.get("generative_api_task_run_details", None)
     if field is not None:
