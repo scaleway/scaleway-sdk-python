@@ -216,12 +216,6 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     else:
         args["srn"] = None
 
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-    else:
-        args["zone"] = None
-
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
@@ -392,24 +386,6 @@ def unmarshal_Model(data: Any) -> Model:
     else:
         args["nodes_support"] = []
 
-    field = data.get("error_message", None)
-    if field is not None:
-        args["error_message"] = field
-    else:
-        args["error_message"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
     field = data.get("parameter_size_bits", None)
     if field is not None:
         args["parameter_size_bits"] = field
@@ -428,11 +404,23 @@ def unmarshal_Model(data: Any) -> Model:
     else:
         args["srn"] = None
 
-    field = data.get("zone", None)
+    field = data.get("error_message", None)
     if field is not None:
-        args["zone"] = field
+        args["error_message"] = field
     else:
-        args["zone"] = None
+        args["error_message"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Model(**args)
 
