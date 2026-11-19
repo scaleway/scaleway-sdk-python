@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import DeploymentStatus
 from .content import DEPLOYMENT_TRANSIENT_STATUSES
+from .types import ListCertificatesRequestOrderBy
 from .types import ListDeploymentsRequestOrderBy
 from .types import ListNodeTypesRequestOrderBy
 from .types import ListUsersRequestOrderBy
@@ -17,11 +18,11 @@ from .types import Endpoint
 from .types import Volume
 from .types import NodeTypeVolumeType
 from .types import EndpointSpec
+from .types import Certificate
 from .types import Deployment
 from .types import NodeType
 from .types import User
 from .types import Version
-from .types import Certificate
 from .types import CreateCertificateRequest
 from .types import CreateDeploymentRequest
 from .types import CreateEndpointRequest
@@ -31,6 +32,8 @@ from .types import DeleteEndpointRequest
 from .types import DeleteUserRequest
 from .types import DownloadDeploymentCertificateAuthorityRequest
 from .types import GetDeploymentRequest
+from .types import ListCertificatesRequest
+from .types import ListCertificatesResponse
 from .types import ListDeploymentsRequest
 from .types import ListDeploymentsResponse
 from .types import ListNodeTypesRequest
@@ -47,6 +50,7 @@ from .api import DatavizV1Alpha1API
 __all__ = [
     "DeploymentStatus",
     "DEPLOYMENT_TRANSIENT_STATUSES",
+    "ListCertificatesRequestOrderBy",
     "ListDeploymentsRequestOrderBy",
     "ListNodeTypesRequestOrderBy",
     "ListUsersRequestOrderBy",
@@ -62,11 +66,11 @@ __all__ = [
     "Volume",
     "NodeTypeVolumeType",
     "EndpointSpec",
+    "Certificate",
     "Deployment",
     "NodeType",
     "User",
     "Version",
-    "Certificate",
     "CreateCertificateRequest",
     "CreateDeploymentRequest",
     "CreateEndpointRequest",
@@ -76,6 +80,8 @@ __all__ = [
     "DeleteUserRequest",
     "DownloadDeploymentCertificateAuthorityRequest",
     "GetDeploymentRequest",
+    "ListCertificatesRequest",
+    "ListCertificatesResponse",
     "ListDeploymentsRequest",
     "ListDeploymentsResponse",
     "ListNodeTypesRequest",

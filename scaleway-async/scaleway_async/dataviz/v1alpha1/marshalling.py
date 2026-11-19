@@ -17,10 +17,11 @@ from .types import (
     EndpointPublicDetails,
     EndpointService,
     Endpoint,
+    Certificate,
     Volume,
     Deployment,
     User,
-    Certificate,
+    ListCertificatesResponse,
     ListDeploymentsResponse,
     NodeTypeVolumeType,
     NodeType,
@@ -145,6 +146,59 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
         args["private_network"] = None
 
     return Endpoint(**args)
+
+
+def unmarshal_Certificate(data: Any) -> Certificate:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Certificate' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+    else:
+        args["id"] = None
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+    else:
+        args["name"] = None
+
+    field = data.get("deployment_id", None)
+    if field is not None:
+        args["deployment_id"] = field
+    else:
+        args["deployment_id"] = None
+
+    field = data.get("content", None)
+    if field is not None:
+        args["content"] = field
+    else:
+        args["content"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    return Certificate(**args)
 
 
 def unmarshal_Volume(data: Any) -> Volume:
@@ -308,57 +362,29 @@ def unmarshal_User(data: Any) -> User:
     return User(**args)
 
 
-def unmarshal_Certificate(data: Any) -> Certificate:
+def unmarshal_ListCertificatesResponse(data: Any) -> ListCertificatesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'Certificate' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListCertificatesResponse' failed as data isn't a dictionary."
         )
 
     args: dict[str, Any] = {}
 
-    field = data.get("id", None)
+    field = data.get("certificates", None)
     if field is not None:
-        args["id"] = field
+        args["certificates"] = (
+            [unmarshal_Certificate(v) for v in field] if field is not None else None
+        )
     else:
-        args["id"] = None
+        args["certificates"] = None
 
-    field = data.get("name", None)
+    field = data.get("total_count", None)
     if field is not None:
-        args["name"] = field
+        args["total_count"] = field
     else:
-        args["name"] = None
+        args["total_count"] = None
 
-    field = data.get("deployment_id", None)
-    if field is not None:
-        args["deployment_id"] = field
-    else:
-        args["deployment_id"] = None
-
-    field = data.get("content", None)
-    if field is not None:
-        args["content"] = field
-    else:
-        args["content"] = None
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-    else:
-        args["region"] = None
-
-    field = data.get("srn", None)
-    if field is not None:
-        args["srn"] = field
-    else:
-        args["srn"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    return Certificate(**args)
+    return ListCertificatesResponse(**args)
 
 
 def unmarshal_ListDeploymentsResponse(data: Any) -> ListDeploymentsResponse:
