@@ -52,6 +52,7 @@ class AuthenticationEventFailureReason(str, Enum, metaclass=StrEnumMeta):
     EXPIRED_SESSION = "expired_session"
     AUTHENTICATION_CODE_REQUIRED = "authentication_code_required"
     MFA_REQUIRED = "mfa_required"
+    INVALID_MAGIC_LINK = "invalid_magic_link"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -73,6 +74,7 @@ class AuthenticationEventMethod(str, Enum, metaclass=StrEnumMeta):
     OAUTH2 = "oauth2"
     SAML = "saml"
     PASSKEY = "passkey"
+    MAGIC_LINK = "magic_link"
 
     def __str__(self) -> str:
         return str(self.value)
