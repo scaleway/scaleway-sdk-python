@@ -1304,11 +1304,6 @@ class GetServerTypesAvailabilityResponseAvailability:
 
 @dataclass
 class ServerType:
-    hourly_price: float
-    """
-    Hourly price in Euro.
-    """
-
     alt_names: list[str]
     """
     Alternative Instance name, if any.
@@ -1347,6 +1342,11 @@ class ServerType:
     monthly_price: Optional[float] = None
     """
     Estimated monthly price, for a 30 days month, in Euro.
+    """
+
+    hourly_price: Optional[float] = None
+    """
+    Hourly price in Euro.
     """
 
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType] = None
