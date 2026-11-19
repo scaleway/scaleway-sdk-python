@@ -348,6 +348,12 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     else:
         args["srn"] = None
 
+    field = data.get("kms_key_id", None)
+    if field is not None:
+        args["kms_key_id"] = field
+    else:
+        args["kms_key_id"] = None
+
     return Deployment(**args)
 
 
@@ -698,6 +704,9 @@ def marshal_CreateDeploymentRequest(
 
     if request.move_factor is not None:
         output["move_factor"] = request.move_factor
+
+    if request.kms_key_id is not None:
+        output["kms_key_id"] = request.kms_key_id
 
     return output
 

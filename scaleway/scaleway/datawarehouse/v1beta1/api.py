@@ -392,6 +392,7 @@ class DatawarehouseV1Beta1API(API):
         shard_count: Optional[int] = None,
         endpoints: Optional[list[EndpointSpec]] = None,
         move_factor: Optional[float] = None,
+        kms_key_id: Optional[str] = None,
     ) -> Deployment:
         """
         Create a deployment.
@@ -409,6 +410,7 @@ class DatawarehouseV1Beta1API(API):
         :param shard_count: Number of shard for the deployment.
         :param endpoints: Endpoints to associate with the deployment.
         :param move_factor: For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full).
+        :param kms_key_id: ID of a Key Manager key of the Project, used to encrypt the deployment data at rest. The key must be enabled, with a symmetric encryption usage. Encryption can only be chosen at creation, it cannot be enabled, disabled or changed afterwards.
         :return: :class:`Deployment <Deployment>`
 
         Usage:
@@ -447,6 +449,7 @@ class DatawarehouseV1Beta1API(API):
                     shard_count=shard_count,
                     endpoints=endpoints,
                     move_factor=move_factor,
+                    kms_key_id=kms_key_id,
                 ),
                 self.client,
             ),
