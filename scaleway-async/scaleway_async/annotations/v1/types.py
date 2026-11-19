@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 
 
@@ -120,6 +121,16 @@ class Binding:
     Value associated to the binding.
     """
 
+    created_at: Optional[datetime] = None
+    """
+    Timestamp of creation of the binding.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Timestamp of the last update of the binding.
+    """
+
 
 @dataclass
 class Key:
@@ -141,6 +152,16 @@ class Key:
     description: str
     """
     Description of the annotation key.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Timestamp of creation of the annotation key.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Timestamp of the last update of the annotation key.
     """
 
 
@@ -169,6 +190,16 @@ class Value:
     description: str
     """
     Description of the value.
+    """
+
+    created_at: Optional[datetime] = None
+    """
+    Timestamp of creation of the value.
+    """
+
+    updated_at: Optional[datetime] = None
+    """
+    Timestamp of the last update of the value.
     """
 
 
