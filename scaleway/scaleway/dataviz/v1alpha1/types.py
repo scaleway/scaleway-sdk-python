@@ -31,6 +31,16 @@ class DeploymentStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListCertificatesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListDeploymentsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -171,6 +181,21 @@ class EndpointSpec:
     public: Optional[EndpointSpecPublicDetails] = None
 
     private_network: Optional[EndpointSpecPrivateNetworkDetails] = None
+
+
+@dataclass
+class Certificate:
+    id: str
+    name: str
+    deployment_id: str
+    content: str
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    srn: str
+    created_at: Optional[datetime] = None
 
 
 @dataclass
@@ -363,21 +388,6 @@ class Version:
     """
     Date the version support ends.
     """
-
-
-@dataclass
-class Certificate:
-    id: str
-    name: str
-    deployment_id: str
-    content: str
-    region: ScwRegion
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    srn: str
-    created_at: Optional[datetime] = None
 
 
 @dataclass
@@ -582,6 +592,26 @@ class GetDeploymentRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+
+@dataclass
+class ListCertificatesRequest:
+    deployment_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int] = None
+    page_size: Optional[int] = None
+    order_by: Optional[ListCertificatesRequestOrderBy] = None
+    name: Optional[str] = None
+
+
+@dataclass
+class ListCertificatesResponse:
+    certificates: list[Certificate]
+    total_count: int
 
 
 @dataclass

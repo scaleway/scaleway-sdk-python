@@ -16,6 +16,7 @@ from scaleway_core.utils import (
     wait_for_resource,
 )
 from .types import (
+    ListCertificatesRequestOrderBy,
     ListDeploymentsRequestOrderBy,
     ListNodeTypesRequestOrderBy,
     ListUsersRequestOrderBy,
@@ -28,6 +29,7 @@ from .types import (
     Deployment,
     Endpoint,
     EndpointSpec,
+    ListCertificatesResponse,
     ListDeploymentsResponse,
     ListNodeTypesResponse,
     ListUsersResponse,
@@ -45,9 +47,10 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_Endpoint,
+    unmarshal_Certificate,
     unmarshal_Deployment,
     unmarshal_User,
-    unmarshal_Certificate,
+    unmarshal_ListCertificatesResponse,
     unmarshal_ListDeploymentsResponse,
     unmarshal_ListNodeTypesResponse,
     unmarshal_ListUsersResponse,
@@ -953,3 +956,90 @@ class DatavizV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
+
+    def list_certificates(
+        self,
+        *,
+        deployment_id: str,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListCertificatesRequestOrderBy] = None,
+        name: Optional[str] = None,
+    ) -> ListCertificatesResponse:
+        """
+        :param deployment_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param name:
+        :return: :class:`ListCertificatesResponse <ListCertificatesResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_certificates(
+                deployment_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_deployment_id = validate_path_param("deployment_id", deployment_id)
+
+        res = self._request(
+            "GET",
+            f"/dataviz/v1alpha1/regions/{param_region}/deployments/{param_deployment_id}/certificates",
+            params={
+                "name": name,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListCertificatesResponse(res.json())
+
+    def list_certificates_all(
+        self,
+        *,
+        deployment_id: str,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListCertificatesRequestOrderBy] = None,
+        name: Optional[str] = None,
+    ) -> list[Certificate]:
+        """
+        :param deployment_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param name:
+        :return: :class:`list[Certificate] <list[Certificate]>`
+
+        Usage:
+        ::
+
+            result = api.list_certificates_all(
+                deployment_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListCertificatesResponse,
+            key="certificates",
+            fetcher=self.list_certificates,
+            args={
+                "deployment_id": deployment_id,
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "name": name,
+            },
+        )
