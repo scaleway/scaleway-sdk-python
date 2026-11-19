@@ -2670,12 +2670,6 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     else:
         args["monthly_price"] = None
 
-    field = data.get("hourly_price", None)
-    if field is not None:
-        args["hourly_price"] = field
-    else:
-        args["hourly_price"] = 0.0
-
     field = data.get("alt_names", None)
     if field is not None:
         args["alt_names"] = field
@@ -2699,6 +2693,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["arch"] = field
     else:
         args["arch"] = Arch.UNKNOWN_ARCH
+
+    field = data.get("hourly_price", None)
+    if field is not None:
+        args["hourly_price"] = field
+    else:
+        args["hourly_price"] = None
 
     field = data.get("per_volume_constraint", None)
     if field is not None:
