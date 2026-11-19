@@ -3,20 +3,20 @@
 from .types import DefaultTaskDefaultRunReason
 from .types import ListWorkflowDefinitionsRequestOrderBy
 from .types import ListWorkflowRunsRequestOrderBy
+from .types import ObjectStorageTaskReason
 from .types import RunServerlessContainersTaskAction
 from .types import RunServerlessContainersTaskReason
 from .types import RunServerlessContainersTaskStatus
 from .content import RUN_SERVERLESS_CONTAINERS_TASK_TRANSIENT_STATUSES
 from .types import RunStatus
 from .content import RUN_TRANSIENT_STATUSES
-from .types import S3TaskReason
 from .types import ScheduleOverlapPolicy
 from .types import ServerlessJobsTaskServerlessJobRunReason
 from .types import TriggerType
 from .types import WorkflowRunReason
 from .types import DefaultTask
+from .types import ObjectStorageTask
 from .types import RunServerlessContainersTask
-from .types import S3Task
 from .types import ServerlessJobsTask
 from .types import CronSchedule
 from .types import WorkflowRunInfo
@@ -48,20 +48,20 @@ __all__ = [
     "DefaultTaskDefaultRunReason",
     "ListWorkflowDefinitionsRequestOrderBy",
     "ListWorkflowRunsRequestOrderBy",
+    "ObjectStorageTaskReason",
     "RunServerlessContainersTaskAction",
     "RunServerlessContainersTaskReason",
     "RunServerlessContainersTaskStatus",
     "RUN_SERVERLESS_CONTAINERS_TASK_TRANSIENT_STATUSES",
     "RunStatus",
     "RUN_TRANSIENT_STATUSES",
-    "S3TaskReason",
     "ScheduleOverlapPolicy",
     "ServerlessJobsTaskServerlessJobRunReason",
     "TriggerType",
     "WorkflowRunReason",
     "DefaultTask",
+    "ObjectStorageTask",
     "RunServerlessContainersTask",
-    "S3Task",
     "ServerlessJobsTask",
     "CronSchedule",
     "WorkflowRunInfo",
