@@ -105,6 +105,7 @@ from .types import ListCombinedEventsResponseCombinedEvent
 from .types import ExportJob
 from .types import Product
 from .types import CustomAlertRuleField
+from .types import TrailCockpit
 from .types import CreateCustomAlertRuleRequest
 from .types import CreateExportJobRequest
 from .types import DeleteCustomAlertRuleRequest
@@ -120,6 +121,7 @@ from .types import EnableCustomAlertRulesResponse
 from .types import EventsOverview
 from .types import GetCustomAlertRuleRequest
 from .types import GetLastEventsOverviewRequest
+from .types import GetTrailRequest
 from .types import ListAlertRulesRequest
 from .types import ListAlertRulesResponse
 from .types import ListAuthenticationEventsRequest
@@ -144,7 +146,9 @@ from .types import SetEnabledCustomAlertRulesRequest
 from .types import SetEnabledCustomAlertRulesResponse
 from .types import TestCustomAlertRuleRequest
 from .types import TestCustomAlertRuleResponse
+from .types import Trail
 from .types import UpdateCustomAlertRuleRequest
+from .types import UpdateTrailRequest
 from .api import AuditTrailV1Alpha1API
 
 __all__ = [
@@ -253,6 +257,7 @@ __all__ = [
     "ExportJob",
     "Product",
     "CustomAlertRuleField",
+    "TrailCockpit",
     "CreateCustomAlertRuleRequest",
     "CreateExportJobRequest",
     "DeleteCustomAlertRuleRequest",
@@ -268,6 +273,7 @@ __all__ = [
     "EventsOverview",
     "GetCustomAlertRuleRequest",
     "GetLastEventsOverviewRequest",
+    "GetTrailRequest",
     "ListAlertRulesRequest",
     "ListAlertRulesResponse",
     "ListAuthenticationEventsRequest",
@@ -292,6 +298,8 @@ __all__ = [
     "SetEnabledCustomAlertRulesResponse",
     "TestCustomAlertRuleRequest",
     "TestCustomAlertRuleResponse",
+    "Trail",
     "UpdateCustomAlertRuleRequest",
+    "UpdateTrailRequest",
     "AuditTrailV1Alpha1API",
 ]
