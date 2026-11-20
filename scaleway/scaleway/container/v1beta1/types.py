@@ -221,7 +221,7 @@ class ContainerHealthCheckSpecTCPProbe:
 class ContainerHealthCheckSpec:
     failure_threshold: int
     """
-    During a deployment, if a newly created container fails to pass the health check, the deployment is aborted. 
+    During a deployment, if a newly created container fails to pass the health check, the deployment is aborted.
 As a result, lowering this value can help to reduce the time it takes to detect a failed deployment.
     """
 
