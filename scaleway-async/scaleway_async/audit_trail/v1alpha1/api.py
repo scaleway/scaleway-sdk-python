@@ -54,7 +54,10 @@ from .types import (
     SetEnabledCustomAlertRulesResponse,
     TestCustomAlertRuleRequest,
     TestCustomAlertRuleResponse,
+    Trail,
+    TrailCockpit,
     UpdateCustomAlertRuleRequest,
+    UpdateTrailRequest,
 )
 from .content import (
     CUSTOM_ALERT_RULE_TRANSIENT_STATUSES,
@@ -79,6 +82,7 @@ from .marshalling import (
     unmarshal_SetEnabledAlertRulesResponse,
     unmarshal_SetEnabledCustomAlertRulesResponse,
     unmarshal_TestCustomAlertRuleResponse,
+    unmarshal_Trail,
     marshal_CreateCustomAlertRuleRequest,
     marshal_CreateExportJobRequest,
     marshal_DisableAlertRulesRequest,
@@ -89,6 +93,7 @@ from .marshalling import (
     marshal_SetEnabledCustomAlertRulesRequest,
     marshal_TestCustomAlertRuleRequest,
     marshal_UpdateCustomAlertRuleRequest,
+    marshal_UpdateTrailRequest,
 )
 
 
@@ -1280,3 +1285,81 @@ class AuditTrailV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_RetrieveAvailableFieldsForCustomAlertRulesResponse(res.json())
+
+    async def get_trail(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+    ) -> Trail:
+        """
+        Get a trail.
+        Retrieve the trail of a specified Organization, including Cockpit's target Project ID to which Audit Trail events are pushed. You must specify the `organization_id`.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization whose trail is to be retrieved.
+        :return: :class:`Trail <Trail>`
+
+        Usage:
+        ::
+
+            result = await api.get_trail()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/audit-trail/v1alpha1/regions/{param_region}/trails/{param_organization_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trail(res.json())
+
+    async def update_trail(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
+        cockpit: Optional[TrailCockpit] = None,
+    ) -> Trail:
+        """
+        Update a trail.
+        Update the destination of the trail of a specified Organization. Set the `cockpit` destination to change the `target_project_id` to which Audit Trail events are pushed. An omitted or `null` `cockpit` clears the destination and disables forwarding.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization whose trail is to be updated.
+        :param cockpit: An omitted or `null` `cockpit` clears the destination and disables forwarding.
+        :return: :class:`Trail <Trail>`
+
+        Usage:
+        ::
+
+            result = await api.update_trail()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/audit-trail/v1alpha1/regions/{param_region}/trails/{param_organization_id}",
+            body=marshal_UpdateTrailRequest(
+                UpdateTrailRequest(
+                    region=region,
+                    organization_id=organization_id,
+                    cockpit=cockpit,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trail(res.json())
