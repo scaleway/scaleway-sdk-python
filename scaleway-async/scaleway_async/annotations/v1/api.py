@@ -456,7 +456,7 @@ class AnnotationsV1API(API):
         key_id: str,
     ) -> DeleteAllValuesMatchingKeyResponse:
         """
-        Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
+        (Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
         :param key_id: ID of the key for which to delete all values.
         :return: :class:`DeleteAllValuesMatchingKeyResponse <DeleteAllValuesMatchingKeyResponse>`
         :deprecated
@@ -653,7 +653,7 @@ class AnnotationsV1API(API):
         value_id: str,
     ) -> DeleteAllBindingsMatchingValueResponse:
         """
-        Delete ALL bindings associated with a value.
+        (Deprecated) Delete ALL bindings associated with a value.
         :param value_id: ID of the value for which all bindings should be deleted.
         :return: :class:`DeleteAllBindingsMatchingValueResponse <DeleteAllBindingsMatchingValueResponse>`
         :deprecated
@@ -684,7 +684,7 @@ class AnnotationsV1API(API):
         organization_id: Optional[str] = None,
     ) -> DeleteAllBindingsMatchingSRNResponse:
         """
-        Delete ALL bindings associated with a Scaleway Resource Name.
+        (Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.
         :param target_srn: SRN of the resource for which all bindings should be deleted.
         :param organization_id: ID of the organization.
         :return: :class:`DeleteAllBindingsMatchingSRNResponse <DeleteAllBindingsMatchingSRNResponse>`
