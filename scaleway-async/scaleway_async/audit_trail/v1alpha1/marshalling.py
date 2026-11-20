@@ -118,6 +118,8 @@ from .types import (
     SetEnabledAlertRulesResponse,
     SetEnabledCustomAlertRulesResponse,
     TestCustomAlertRuleResponse,
+    TrailCockpit,
+    Trail,
     CreateCustomAlertRuleRequest,
     CreateExportJobRequest,
     DisableAlertRulesRequest,
@@ -128,6 +130,7 @@ from .types import (
     SetEnabledCustomAlertRulesRequest,
     TestCustomAlertRuleRequest,
     UpdateCustomAlertRuleRequest,
+    UpdateTrailRequest,
 )
 from ...std.types import (
     CountryCode as StdCountryCode,
@@ -3058,6 +3061,46 @@ def unmarshal_TestCustomAlertRuleResponse(data: Any) -> TestCustomAlertRuleRespo
     return TestCustomAlertRuleResponse(**args)
 
 
+def unmarshal_TrailCockpit(data: Any) -> TrailCockpit:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'TrailCockpit' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("target_project_id", None)
+    if field is not None:
+        args["target_project_id"] = field
+    else:
+        args["target_project_id"] = None
+
+    return TrailCockpit(**args)
+
+
+def unmarshal_Trail(data: Any) -> Trail:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Trail' failed as data isn't a dictionary."
+        )
+
+    args: dict[str, Any] = {}
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+    else:
+        args["organization_id"] = None
+
+    field = data.get("cockpit", None)
+    if field is not None:
+        args["cockpit"] = unmarshal_TrailCockpit(field)
+    else:
+        args["cockpit"] = None
+
+    return Trail(**args)
+
+
 def marshal_CreateCustomAlertRuleRequest(
     request: CreateCustomAlertRuleRequest,
     defaults: ProfileDefaults,
@@ -3278,5 +3321,29 @@ def marshal_UpdateCustomAlertRuleRequest(
 
     if request.description is not None:
         output["description"] = request.description
+
+    return output
+
+
+def marshal_TrailCockpit(
+    request: TrailCockpit,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.target_project_id is not None:
+        output["target_project_id"] = request.target_project_id
+
+    return output
+
+
+def marshal_UpdateTrailRequest(
+    request: UpdateTrailRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.cockpit is not None:
+        output["cockpit"] = marshal_TrailCockpit(request.cockpit, defaults)
 
     return output
