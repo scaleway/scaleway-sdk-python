@@ -1317,6 +1317,14 @@ class CustomAlertRuleField:
 
 
 @dataclass
+class TrailCockpit:
+    target_project_id: str
+    """
+    ID of the Project under which the Organization's Audit Trail events are pushed to Cockpit.
+    """
+
+
+@dataclass
 class CreateCustomAlertRuleRequest:
     name: str
     """
@@ -1543,6 +1551,19 @@ class GetLastEventsOverviewRequest:
 
     organization_id: Optional[str] = None
     project_id: Optional[str] = None
+
+
+@dataclass
+class GetTrailRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization whose trail is to be retrieved.
+    """
 
 
 @dataclass
@@ -1968,6 +1989,19 @@ class TestCustomAlertRuleResponse:
 
 
 @dataclass
+class Trail:
+    organization_id: str
+    """
+    ID of the Organization the trail belongs to.
+    """
+
+    cockpit: Optional[TrailCockpit] = None
+    """
+    The Cockpit destination of the trail. When set, Audit Trail events are pushed to the targeted Cockpit project. When null, forwarding is disabled.
+    """
+
+
+@dataclass
 class UpdateCustomAlertRuleRequest:
     custom_alert_rule_id: str
     """
@@ -1987,4 +2021,22 @@ class UpdateCustomAlertRuleRequest:
     description: Optional[str] = None
     """
     (Optional) New description for the custom alert rule.
+    """
+
+
+@dataclass
+class UpdateTrailRequest:
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str] = None
+    """
+    ID of the Organization whose trail is to be updated.
+    """
+
+    cockpit: Optional[TrailCockpit] = None
+    """
+    An omitted or `null` `cockpit` clears the destination and disables forwarding.
     """
