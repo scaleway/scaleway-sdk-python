@@ -96,9 +96,9 @@ We are using the standard Python logging library. You can configure it as you wi
    :maxdepth: 2
    :caption: Contents:
 
-   scaleway
-   scaleway-async
-   scaleway-core
+   source/scaleway
+   source/scaleway_async
+   source/scaleway_core
 
 
 
