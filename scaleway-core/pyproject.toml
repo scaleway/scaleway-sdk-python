@@ -58,6 +58,7 @@ ignore = [
     "INP", # flake8-no-pep420
     "N", # pep8-naming
     "PERF", # Perflint
+    "PGH004", # allow file-wide nolint (for generated code)
     "PL", # Pylint
     "PT", # flake8-pytest-style
     "S", # flake8-bandit
