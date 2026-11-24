@@ -99,6 +99,18 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     else:
         args["port"] = 0
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("private_network", None)
     if field is not None:
         args["private_network"] = unmarshal_EndpointPrivateNetworkDetails(field)
@@ -290,6 +302,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["region"] = None
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
@@ -336,6 +354,24 @@ def unmarshal_User(data: Any) -> User:
         args["username"] = field
     else:
         args["username"] = None
+
+    field = data.get("cluster_id", None)
+    if field is not None:
+        args["cluster_id"] = field
+    else:
+        args["cluster_id"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     return User(**args)
 
@@ -471,6 +507,18 @@ def unmarshal_NodeType(data: Any) -> NodeType:
         args["cluster_range"] = field
     else:
         args["cluster_range"] = None
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     return NodeType(**args)
 
@@ -719,6 +767,18 @@ def unmarshal_Version(data: Any) -> Version:
         )
     else:
         args["available_settings"] = []
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("end_of_life_at", None)
     if field is not None:
