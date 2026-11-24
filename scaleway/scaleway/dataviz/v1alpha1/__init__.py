@@ -27,6 +27,7 @@ from .types import CreateCertificateRequest
 from .types import CreateDeploymentRequest
 from .types import CreateEndpointRequest
 from .types import CreateUserRequest
+from .types import DeleteCertificateRequest
 from .types import DeleteDeploymentRequest
 from .types import DeleteEndpointRequest
 from .types import DeleteUserRequest
@@ -76,6 +77,7 @@ __all__ = [
     "CreateDeploymentRequest",
     "CreateEndpointRequest",
     "CreateUserRequest",
+    "DeleteCertificateRequest",
     "DeleteDeploymentRequest",
     "DeleteEndpointRequest",
     "DeleteUserRequest",

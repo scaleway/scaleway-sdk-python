@@ -1081,3 +1081,37 @@ class DatavizV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Certificate(res.json())
+
+    async def delete_certificate(
+        self,
+        *,
+        deployment_id: str,
+        certificate_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        :param deployment_id:
+        :param certificate_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_certificate(
+                deployment_id="example",
+                certificate_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_deployment_id = validate_path_param("deployment_id", deployment_id)
+        param_certificate_id = validate_path_param("certificate_id", certificate_id)
+
+        res = self._request(
+            "DELETE",
+            f"/dataviz/v1alpha1/regions/{param_region}/deployments/{param_deployment_id}/certificates/{param_certificate_id}",
+        )
+
+        self._throw_on_error(res)

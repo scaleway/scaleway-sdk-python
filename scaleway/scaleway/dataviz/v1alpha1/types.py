@@ -513,6 +513,16 @@ class CreateUserRequest:
 
 
 @dataclass
+class DeleteCertificateRequest:
+    deployment_id: str
+    certificate_id: str
+    region: Optional[ScwRegion] = None
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class DeleteDeploymentRequest:
     """
     Delete a deployment specified by the ID.
