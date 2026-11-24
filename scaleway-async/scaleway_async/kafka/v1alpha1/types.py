@@ -185,6 +185,16 @@ class Endpoint:
     TCP port of the endpoint.
     """
 
+    srn: str
+    """
+    SRN of the endpoint.
+    """
+
+    region: ScwRegion
+    """
+    Region of the endpoint.
+    """
+
     private_network: Optional[EndpointPrivateNetworkDetails] = None
 
     public_network: Optional[EndpointPublicDetails] = None
@@ -339,6 +349,11 @@ class Cluster:
     Region the Kafka cluster is in.
     """
 
+    srn: str
+    """
+    SRN of the cluster.
+    """
+
     volume: Optional[Volume] = None
     """
     Volumes of the Kafka cluster.
@@ -406,10 +421,38 @@ class NodeType:
     Cluster range associated with the node type offer.
     """
 
+    srn: str
+    """
+    SRN of the node type.
+    """
+
+    region: ScwRegion
+    """
+    Region on which the node type is available.
+    """
+
 
 @dataclass
 class User:
     username: str
+    """
+    Name of the user.
+    """
+
+    cluster_id: str
+    """
+    ID of the user's cluster.
+    """
+
+    region: ScwRegion
+    """
+    Region of the cluster associated with the user.
+    """
+
+    srn: str
+    """
+    SRN of the user.
+    """
 
 
 @dataclass
@@ -422,6 +465,16 @@ class Version:
     available_settings: list[VersionAvailableSetting]
     """
     Cluster configuration settings you are able to change for clusters running this version. Each item in `available_settings` describes one configurable cluster setting.
+    """
+
+    srn: str
+    """
+    SRN of the version.
+    """
+
+    region: ScwRegion
+    """
+    Region of the version.
     """
 
     end_of_life_at: Optional[datetime] = None
