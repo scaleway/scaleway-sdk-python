@@ -1515,7 +1515,7 @@ class AttachServerIPRequest:
 
     move_allowed: bool
     """
-    Whether moving the IP is allowed.
+    When enabled, allows attaching the IP even if it is already attached to another server.
     """
 
     zone: Optional[ScwZone] = None
