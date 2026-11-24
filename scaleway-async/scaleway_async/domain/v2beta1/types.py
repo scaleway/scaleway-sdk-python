@@ -2142,6 +2142,129 @@ class RegistrarApiCheckContactsCompatibilityRequest:
 
 
 @dataclass
+class RegistrarApiCreateContactRequest:
+    firstname: str
+    """
+    First name of the contact.
+    """
+
+    lastname: str
+    """
+    Last name of the contact.
+    """
+
+    email: str
+    """
+    Email address of the contact.
+    """
+
+    phone_number: str
+    """
+    Phone number of the contact, normalized to +CC.NationalNumber format.
+    """
+
+    address_line_1: str
+    """
+    First line of the contact's address.
+    """
+
+    zip: str
+    """
+    Postal code of the contact.
+    """
+
+    city: str
+    """
+    City of the contact.
+    """
+
+    country: str
+    """
+    Country code of the contact (ISO 3166-1 alpha-2 format).
+    """
+
+    resale: bool
+    """
+    Indicates whether the contact's information can be resold.
+    """
+
+    whois_opt_in: bool
+    """
+    Indicates whether the contact's information is published in the WHOIS database.
+    """
+
+    project_id: Optional[str] = None
+    """
+    Project ID to create the contact in.
+    """
+
+    legal_form: Optional[ContactLegalForm] = ContactLegalForm.LEGAL_FORM_UNKNOWN
+    """
+    Legal form of the contact (individual, corporate, association, other).
+    """
+
+    company_name: Optional[str] = None
+    """
+    Company name of the contact (required for corporate legal forms).
+    """
+
+    email_alt: Optional[str] = None
+    """
+    Alternative email address of the contact.
+    """
+
+    fax_number: Optional[str] = None
+    """
+    Fax number of the contact, normalized to +CC.NationalNumber format.
+    """
+
+    address_line_2: Optional[str] = None
+    """
+    Second line of the contact's address.
+    """
+
+    state: Optional[str] = None
+    """
+    State or region of the contact.
+    """
+
+    vat_identification_code: Optional[str] = None
+    """
+    VAT identification code of the contact.
+    """
+
+    company_identification_code: Optional[str] = None
+    """
+    Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
+    """
+
+    lang: Optional[StdLanguageCode] = StdLanguageCode.UNKNOWN_LANGUAGE_CODE
+    """
+    Preferred language of the contact.
+    """
+
+    extension_fr: Optional[ContactExtensionFR] = None
+    """
+    Additional information required for AFNIC-managed TLDs (.fr, .re, .pm, .yt, .wf, .tf).
+    """
+
+    extension_eu: Optional[ContactExtensionEU] = None
+    """
+    Additional information required for .eu domains. Conditionally required.
+    """
+
+    extension_nl: Optional[ContactExtensionNL] = None
+    """
+    Additional information required for .nl domains. Auto-populated for individuals.
+    """
+
+    extension_it: Optional[ContactExtensionIT] = None
+    """
+    Additional information required for .it domains. Contains a PIN.
+    """
+
+
+@dataclass
 class RegistrarApiCreateDomainHostRequest:
     domain: str
     """

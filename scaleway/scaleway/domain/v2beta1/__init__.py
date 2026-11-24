@@ -138,6 +138,7 @@ from .types import RefreshDNSZoneResponse
 from .types import RegisterExternalDomainResponse
 from .types import RegistrarApiBuyDomainsRequest
 from .types import RegistrarApiCheckContactsCompatibilityRequest
+from .types import RegistrarApiCreateContactRequest
 from .types import RegistrarApiCreateDomainHostRequest
 from .types import RegistrarApiDeleteDomainHostRequest
 from .types import RegistrarApiDeleteExternalDomainRequest
@@ -320,6 +321,7 @@ __all__ = [
     "RegisterExternalDomainResponse",
     "RegistrarApiBuyDomainsRequest",
     "RegistrarApiCheckContactsCompatibilityRequest",
+    "RegistrarApiCreateContactRequest",
     "RegistrarApiCreateDomainHostRequest",
     "RegistrarApiDeleteDomainHostRequest",
     "RegistrarApiDeleteExternalDomainRequest",

@@ -88,6 +88,7 @@ from .types import (
     RegisterExternalDomainResponse,
     RegistrarApiBuyDomainsRequest,
     RegistrarApiCheckContactsCompatibilityRequest,
+    RegistrarApiCreateContactRequest,
     RegistrarApiCreateDomainHostRequest,
     RegistrarApiEnableDomainDNSSECRequest,
     RegistrarApiRegisterExternalDomainRequest,
@@ -164,6 +165,7 @@ from .marshalling import (
     marshal_RefreshDNSZoneRequest,
     marshal_RegistrarApiBuyDomainsRequest,
     marshal_RegistrarApiCheckContactsCompatibilityRequest,
+    marshal_RegistrarApiCreateContactRequest,
     marshal_RegistrarApiCreateDomainHostRequest,
     marshal_RegistrarApiEnableDomainDNSSECRequest,
     marshal_RegistrarApiRegisterExternalDomainRequest,
@@ -2193,6 +2195,117 @@ class DomainV2Beta1RegistrarAPI(API):
                     whois_opt_in=whois_opt_in,
                     state=state,
                     questions=questions,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Contact(res.json())
+
+    async def create_contact(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        firstname: str,
+        lastname: str,
+        email: str,
+        phone_number: str,
+        address_line_1: str,
+        legal_form: Optional[ContactLegalForm] = None,
+        zip: str,
+        city: str,
+        country: str,
+        company_name: Optional[str] = None,
+        email_alt: Optional[str] = None,
+        fax_number: Optional[str] = None,
+        address_line_2: Optional[str] = None,
+        state: Optional[str] = None,
+        vat_identification_code: Optional[str] = None,
+        company_identification_code: Optional[str] = None,
+        lang: Optional[StdLanguageCode] = None,
+        resale: bool,
+        whois_opt_in: bool,
+        extension_fr: Optional[ContactExtensionFR] = None,
+        extension_eu: Optional[ContactExtensionEU] = None,
+        extension_nl: Optional[ContactExtensionNL] = None,
+        extension_it: Optional[ContactExtensionIT] = None,
+    ) -> Contact:
+        """
+        Create contact.
+        Create a new contact with the provided information.
+        :param project_id: Project ID to create the contact in.
+        :param firstname: First name of the contact.
+        :param lastname: Last name of the contact.
+        :param email: Email address of the contact.
+        :param phone_number: Phone number of the contact, normalized to +CC.NationalNumber format.
+        :param address_line_1: First line of the contact's address.
+        :param legal_form: Legal form of the contact (individual, corporate, association, other).
+        :param zip: Postal code of the contact.
+        :param city: City of the contact.
+        :param country: Country code of the contact (ISO 3166-1 alpha-2 format).
+        :param company_name: Company name of the contact (required for corporate legal forms).
+        :param email_alt: Alternative email address of the contact.
+        :param fax_number: Fax number of the contact, normalized to +CC.NationalNumber format.
+        :param address_line_2: Second line of the contact's address.
+        :param state: State or region of the contact.
+        :param vat_identification_code: VAT identification code of the contact.
+        :param company_identification_code: Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
+        :param lang: Preferred language of the contact.
+        :param resale: Indicates whether the contact's information can be resold.
+        :param whois_opt_in: Indicates whether the contact's information is published in the WHOIS database.
+        :param extension_fr: Additional information required for AFNIC-managed TLDs (.fr, .re, .pm, .yt, .wf, .tf).
+        :param extension_eu: Additional information required for .eu domains. Conditionally required.
+        :param extension_nl: Additional information required for .nl domains. Auto-populated for individuals.
+        :param extension_it: Additional information required for .it domains. Contains a PIN.
+        :return: :class:`Contact <Contact>`
+
+        Usage:
+        ::
+
+            result = await api.create_contact(
+                firstname="example",
+                lastname="example",
+                email="example",
+                phone_number="example",
+                address_line_1="example",
+                zip="example",
+                city="example",
+                country="example",
+                resale=False,
+                whois_opt_in=False,
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/domain/v2beta1/contacts",
+            body=marshal_RegistrarApiCreateContactRequest(
+                RegistrarApiCreateContactRequest(
+                    project_id=project_id,
+                    firstname=firstname,
+                    lastname=lastname,
+                    email=email,
+                    phone_number=phone_number,
+                    address_line_1=address_line_1,
+                    legal_form=legal_form,
+                    zip=zip,
+                    city=city,
+                    country=country,
+                    company_name=company_name,
+                    email_alt=email_alt,
+                    fax_number=fax_number,
+                    address_line_2=address_line_2,
+                    state=state,
+                    vat_identification_code=vat_identification_code,
+                    company_identification_code=company_identification_code,
+                    lang=lang,
+                    resale=resale,
+                    whois_opt_in=whois_opt_in,
+                    extension_fr=extension_fr,
+                    extension_eu=extension_eu,
+                    extension_nl=extension_nl,
+                    extension_it=extension_it,
                 ),
                 self.client,
             ),
