@@ -1058,7 +1058,7 @@ class InstanceV2Alpha1API(API):
         :param server_id: ID of the server to attach the IP to.
         :param ip_id: ID of the IP to attach.
         :param default: Whether the IP should be the default IP.
-        :param move_allowed: Whether moving the IP is allowed.
+        :param move_allowed: When enabled, allows attaching the IP even if it is already attached to another server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
