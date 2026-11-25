@@ -119,6 +119,7 @@ from .types import (
     NewContact,
     RegistrarApiBuyDomainsRequest,
     RegistrarApiCheckContactsCompatibilityRequest,
+    RegistrarApiCreateContactRequest,
     RegistrarApiCreateDomainHostRequest,
     RegistrarApiEnableDomainDNSSECRequest,
     RegistrarApiRegisterExternalDomainRequest,
@@ -3358,6 +3359,97 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
 
     if request.tlds is not None:
         output["tlds"] = request.tlds
+
+    return output
+
+
+def marshal_RegistrarApiCreateContactRequest(
+    request: RegistrarApiCreateContactRequest,
+    defaults: ProfileDefaults,
+) -> dict[str, Any]:
+    output: dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id
+    else:
+        output["project_id"] = defaults.default_project_id
+
+    if request.firstname is not None:
+        output["firstname"] = request.firstname
+
+    if request.lastname is not None:
+        output["lastname"] = request.lastname
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.phone_number is not None:
+        output["phone_number"] = request.phone_number
+
+    if request.address_line_1 is not None:
+        output["address_line_1"] = request.address_line_1
+
+    if request.legal_form is not None:
+        output["legal_form"] = request.legal_form
+
+    if request.zip is not None:
+        output["zip"] = request.zip
+
+    if request.city is not None:
+        output["city"] = request.city
+
+    if request.country is not None:
+        output["country"] = request.country
+
+    if request.company_name is not None:
+        output["company_name"] = request.company_name
+
+    if request.email_alt is not None:
+        output["email_alt"] = request.email_alt
+
+    if request.fax_number is not None:
+        output["fax_number"] = request.fax_number
+
+    if request.address_line_2 is not None:
+        output["address_line_2"] = request.address_line_2
+
+    if request.state is not None:
+        output["state"] = request.state
+
+    if request.vat_identification_code is not None:
+        output["vat_identification_code"] = request.vat_identification_code
+
+    if request.company_identification_code is not None:
+        output["company_identification_code"] = request.company_identification_code
+
+    if request.lang is not None:
+        output["lang"] = request.lang
+
+    if request.resale is not None:
+        output["resale"] = request.resale
+
+    if request.whois_opt_in is not None:
+        output["whois_opt_in"] = request.whois_opt_in
+
+    if request.extension_fr is not None:
+        output["extension_fr"] = marshal_ContactExtensionFR(
+            request.extension_fr, defaults
+        )
+
+    if request.extension_eu is not None:
+        output["extension_eu"] = marshal_ContactExtensionEU(
+            request.extension_eu, defaults
+        )
+
+    if request.extension_nl is not None:
+        output["extension_nl"] = marshal_ContactExtensionNL(
+            request.extension_nl, defaults
+        )
+
+    if request.extension_it is not None:
+        output["extension_it"] = marshal_ContactExtensionIT(
+            request.extension_it, defaults
+        )
 
     return output
 
