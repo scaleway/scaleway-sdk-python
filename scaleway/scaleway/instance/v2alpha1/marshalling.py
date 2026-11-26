@@ -362,6 +362,12 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
     else:
         args["policy_type"] = PlacementGroupPolicyType.UNKNOWN_POLICY_TYPE
 
+    field = data.get("policy_respected", None)
+    if field is not None:
+        args["policy_respected"] = field
+    else:
+        args["policy_respected"] = False
+
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
