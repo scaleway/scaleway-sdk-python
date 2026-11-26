@@ -1,5 +1,6 @@
 import unittest
 import uuid
+from unittest import mock
 
 from requests.models import Response
 
@@ -48,3 +49,14 @@ class TestThrowOnError(unittest.TestCase):
             _api()._throw_on_error(response)
 
         self.assertEqual(context.exception.errors, {"name": "required"})
+
+
+class TestRequest(unittest.TestCase):
+    def test_total_count_header_is_injected_as_int(self):
+        response = _response(200, b'{"servers": []}')
+        response.headers["X-Total-Count"] = "3"
+
+        with mock.patch("scaleway_core.api.requests.request", return_value=response):
+            res = _api()._request("GET", "/instance/v1/zones/fr-par-1/servers")
+
+        self.assertEqual(res.json(), {"servers": [], "total_count": 3})

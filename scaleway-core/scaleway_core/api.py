@@ -174,7 +174,7 @@ class API:
 
         if response.headers.get("x-total-count"):
             b = response.json()
-            b["total_count"] = response.headers.get("x-total-count")
+            b["total_count"] = int(response.headers["x-total-count"])
             b = json.dumps(b)
             response._content = bytes(b, "utf-8")
 
