@@ -182,7 +182,7 @@ class Profile(ProfileDefaults, ProfileConfig):
     def from_config_file_and_env(
         cls: Type[ProfileSelf],
         filepath: Optional[str] = None,
-        profile_name: Optional[str] = os.environ.get(ENV_KEY_SCW_PROFILE, "default"),
+        profile_name: Optional[str] = None,
     ) -> ProfileSelf:
         """
         Loads profile from a config file and environment variables.
@@ -191,6 +191,9 @@ class Profile(ProfileDefaults, ProfileConfig):
           - If config file is not found, the profile is still loaded from environment variables.
           - If you want it to throw an error in case of missing or invalid config file, use `Profile.from_config_file` and `Profile.from_env` instead.
         """
+
+        if profile_name is None:
+            profile_name = os.environ.get(ENV_KEY_SCW_PROFILE, "default")
 
         has_config_profile = False
         config_profile = None

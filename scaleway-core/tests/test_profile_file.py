@@ -75,3 +75,8 @@ profiles:\n\
         ):
             profile = Profile.from_config_file_and_env(filepath=self.profile_file_name)
             self.assertEqual(profile.secret_key, "11111111-1111-1111-1111-111111111111")
+
+    def test_load_profile_from_config_file_and_env_with_scw_profile(self) -> None:
+        with mock.patch.dict(os.environ, {"SCW_PROFILE": "demo"}, clear=True):
+            profile = Profile.from_config_file_and_env(filepath=self.profile_file_name)
+            self.assertEqual(profile.access_key, self.demo_profile_config.access_key)
