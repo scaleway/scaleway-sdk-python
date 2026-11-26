@@ -34,6 +34,18 @@ def unmarshal_Image(data: Any) -> Image:
 
     args: dict[str, Any] = {}
 
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
@@ -104,6 +116,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
         )
 
     args: dict[str, Any] = {}
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
 
     field = data.get("id", None)
     if field is not None:
@@ -199,6 +217,18 @@ def unmarshal_Tag(data: Any) -> Tag:
         )
 
     args: dict[str, Any] = {}
+
+    field = data.get("srn", None)
+    if field is not None:
+        args["srn"] = field
+    else:
+        args["srn"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
 
     field = data.get("id", None)
     if field is not None:
