@@ -92,6 +92,16 @@ class TagStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class Image:
+    srn: str
+    """
+    SRN of the image.
+    """
+
+    region: ScwRegion
+    """
+    Region where the image is located.
+    """
+
     id: str
     """
     UUID of the image.
@@ -145,6 +155,11 @@ class Image:
 
 @dataclass
 class Namespace:
+    srn: str
+    """
+    SRN of the namespace.
+    """
+
     id: str
     """
     UUID of the namespace.
@@ -218,6 +233,16 @@ class Namespace:
 
 @dataclass
 class Tag:
+    srn: str
+    """
+    SRN of the tag.
+    """
+
+    region: ScwRegion
+    """
+    Region where the tag is located.
+    """
+
     id: str
     """
     UUID of the tag.
