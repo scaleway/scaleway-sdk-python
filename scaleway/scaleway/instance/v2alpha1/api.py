@@ -575,10 +575,10 @@ class InstanceV2Alpha1API(API):
         """
         List compatible Instance types.
         List the Instance types that a given instance could be converted to.
-        :param server_id:
+        :param server_id: ID of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page_token:
-        :param page_size:
+        :param page_token: Token for pagination.
+        :param page_size: Number of server types to return per page.
         :return: :class:`ListServerCompatibleTypesResponse <ListServerCompatibleTypesResponse>`
 
         Usage:

@@ -2572,13 +2572,24 @@ class ListSecurityGroupsResponse:
 @dataclass
 class ListServerCompatibleTypesRequest:
     server_id: str
+    """
+    ID of the server.
+    """
+
     zone: Optional[ScwZone] = None
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
     page_token: Optional[str] = None
-    page_size: Optional[int] = None
+    """
+    Token for pagination.
+    """
+
+    page_size: Optional[int] = 0
+    """
+    Number of server types to return per page.
+    """
 
 
 @dataclass
